@@ -82,6 +82,10 @@ ignore = [
     "suspicious-non-cryptographic-random-usage",    # Regular RNG is fine in tests.
     "import-private-name", # Tests can import private members.
 ]
+".claude/skills/**/*.py" = [
+    "print",  # Skill scripts are command line tools; printing is how they report.
+    "implicit-namespace-package",  # Standalone scripts, not a package.
+]
 
 
 [tool.ruff.lint.flake8-pytest-style]

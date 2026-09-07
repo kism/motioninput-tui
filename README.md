@@ -59,7 +59,7 @@ the buffer rule back off. Naming a different `--game` on its own clears the
 remembered character, since it belonged to another roster. If the file is
 missing or damaged the defaults are used and a fresh one is written.
 
-Key release support is *not* remembered: it is probed per terminal on every
+Key release support is _not_ remembered: it is probed per terminal on every
 launch, so a saved value would disable exact tracking after switching terminal.
 
 ## Controls
@@ -161,3 +161,8 @@ not work on macOS; Quartz event taps on macOS need Input Monitoring permission
 and read every keystroke system-wide, including ones meant for other
 applications. The kitty protocol gets the same information with no permissions,
 no elevated privileges, and it keeps working over SSH.
+
+## Special Thanks
+
+Kao Megura / Chris MacDonald
+https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/
