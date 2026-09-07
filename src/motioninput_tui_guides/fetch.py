@@ -5,8 +5,9 @@ redistributed, which is why they are not committed and each user fetches their
 own copy of pages they could equally read in a browser. Anything already
 present is left alone, so a full run normally makes no requests at all.
 
-The dependencies here are deliberately not part of the trainer. Install them
-with ``uv sync --extra guides``.
+This module sits outside the ``motioninput_tui`` package so it is not shipped
+in the wheel, and its dependencies live in a separate extra. Install them with
+``uv sync --extra guides``.
 """
 
 from __future__ import annotations

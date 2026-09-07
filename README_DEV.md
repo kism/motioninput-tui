@@ -12,10 +12,11 @@ src/motioninput_tui/
   controls/      Control layouts and input sources. Keyboards today, gamepads later.
   games/         Game metadata, rulesets, move models and the packaged rosters.
   datagen/       Parsers that turn the reference FAQs into games/data/*.json.
-  guides/        Fetches those FAQs from GameFAQs. Optional deps, not imported
-                 by the trainer.
   terminal/      Terminal identification, latency warnings, kitty keyboard protocol.
   tui/           Textual screens, widgets, and the release-aware input driver.
+
+src/motioninput_tui_guides/   Fetches the FAQs from GameFAQs. A sibling package,
+                              not a subpackage, so it is not shipped in the wheel.
 ```
 
 Dependencies point one way: `engine` <- `controls` <- `games` <- `tui`. The
@@ -61,19 +62,29 @@ impossible.
 
 `references/*.txt` are move list guides written by their authors and are **not
 redistributable**, so they are gitignored and each user fetches their own copy
-of pages they could equally read in a browser. `guides/sources.json` records the
-exact GameFAQs page behind each one.
+of pages they could equally read in a browser.
+`motioninput_tui_guides/sources.json` records the exact GameFAQs page behind
+each one.
 
 ```bash
-uv sync --extra guides       # curl-cffi and beautifulsoup4
-motioninput-tui-guides       # fetch anything missing
-motioninput-tui-guides --list
-motioninput-tui-guides --game sfa3 --force
+uv sync --extra guides                          # curl-cffi and beautifulsoup4
+python -m motioninput_tui_guides                # fetch anything missing
+python -m motioninput_tui_guides --list
+python -m motioninput_tui_guides --game sfa3 --force
 ```
 
-The `guides` extra exists so the trainer never depends on an HTTP stack;
-nothing under `guides/` is imported by the app. GameFAQs sits behind Cloudflare,
-which is why curl-cffi (browser-like TLS) is preferred over plain requests.
+The scraper is a **sibling package under `src/`, not a subpackage of
+`motioninput_tui`**. `uv_build` packages only the module named after the
+project, so the scraper is absent from both the wheel and the sdist while
+staying importable in a development checkout, where the editable install puts
+all of `src/` on the path. That is also why it has no console script: an entry
+point would resolve to a module that a published wheel does not contain.
+
+Its dependencies live in the `guides` extra so the trainer never depends on an
+HTTP stack. GameFAQs sits behind Cloudflare, which is why curl-cffi
+(browser-like TLS) is preferred over plain requests. The scraper imports
+`motioninput_tui.utils.logger`; that one-way dependency is fine for a repo tool
+but means it is not independently installable.
 
 Guides already on disk are never re-fetched, so a normal run makes no requests.
 A response under 1KB, or one that looks like an anti-bot page, is treated as a

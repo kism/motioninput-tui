@@ -36,7 +36,6 @@ build-backend = "uv_build"
 [project.scripts]
 motioninput-tui = "motioninput_tui.__main__:main"
 motioninput-tui-datagen = "motioninput_tui.datagen.__main__:main"
-motioninput-tui-guides = "motioninput_tui.guides.__main__:main"
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"

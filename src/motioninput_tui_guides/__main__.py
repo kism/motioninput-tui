@@ -1,7 +1,10 @@
 """Fetch the reference guides the parsers read.
 
-Run ``motioninput-tui-guides`` from the repository root to fetch anything
-missing, or with ``--list`` to see the catalogue and what is already present.
+Run ``python -m motioninput_tui_guides`` from the repository root to fetch
+anything missing, or with ``--list`` to see the catalogue and what is present.
+
+This lives outside the ``motioninput_tui`` package on purpose, so it is not
+shipped in the wheel. It is a development tool for regenerating roster data.
 """
 
 from __future__ import annotations
@@ -19,7 +22,7 @@ logger = get_logger(__name__)
 
 
 def _get_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="motioninput-tui-guides", description=__doc__)
+    parser = argparse.ArgumentParser(prog="python -m motioninput_tui_guides", description=__doc__)
     parser.add_argument("--game", action="append", help="Fetch only this guide. Repeatable.")
     parser.add_argument("--dest", type=Path, default=DEFAULT_DEST, help=f"Where to write (default: {DEFAULT_DEST}).")
     parser.add_argument("--force", action="store_true", help="Re-fetch guides that are already present.")

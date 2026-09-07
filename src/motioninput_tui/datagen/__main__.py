@@ -39,7 +39,7 @@ def main() -> int:
     for key, spec in GAME_SPECS.items():
         source = args.references / Path(spec.reference).name
         if not source.is_file():
-            logger.error("Missing reference file: %s. Fetch it with: motioninput-tui-guides", source)
+            logger.error("Missing reference file: %s. Fetch it with: python -m motioninput_tui_guides", source)
             exit_code = 1
             continue
 
