@@ -145,6 +145,9 @@ class HoldTiming:
       ``repeat_gap_ms``, so it is never mistaken for auto-repeat. This matters:
       it is exactly the input that separates a 3rd Strike dragon punch from a
       fireball.
+
+    None of this applies once the terminal reports real key releases, at which
+    point only ``lost_release_ms`` is used, purely as a safety net.
     """
 
     tap_ms: int = 250
@@ -154,6 +157,7 @@ class HoldTiming:
     bridge_ms: int = 1200
     adapt: bool = True
     max_tap_ms: int = 700
+    lost_release_ms: int = 5000
 
 
 DEFAULT_TIMING = HoldTiming()
@@ -214,18 +218,40 @@ class HeldAxes:
     lapses. That delay is a user setting, so it is measured as the player types
     and the window is widened to match. Until then, holding a direction can
     briefly read as a tap.
+
+    All of that is guesswork, and it is switched off the moment a real key
+    release arrives. Terminals speaking the kitty keyboard protocol report
+    releases, and from the first one onwards this tracks holds exactly.
     """
 
     timing: HoldTiming = DEFAULT_TIMING
     holds: dict[Axis, AxisHold] = field(default_factory=dict)
     tap_ms: int = 0
     observed_repeat_delay_ms: int = 0
+    exact: bool = False
+    """True once the terminal has reported a key release, so holds are known
+    rather than inferred."""
     _expired: dict[Axis, AxisHold] = field(default_factory=dict)
     _samples: list[int] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """Start from the configured tap window."""
         self.tap_ms = self.tap_ms or self.timing.tap_ms
+
+    def note_release_support(self) -> None:
+        """Record that the terminal reports key releases.
+
+        One release anywhere proves it, so hold inference can be switched off
+        even if the released key was not a movement key.
+        """
+        self.exact = True
+
+    def release(self, axis: Axis, at_ms: int) -> bool:
+        """Handle a real key release. Returns True if the axis was held."""
+        del at_ms  # A release is exact; there is no timing to learn from it.
+        self.note_release_support()
+        self._expired.pop(axis, None)
+        return self.holds.pop(axis, None) is not None
 
     def press(self, axis: Axis, at_ms: int) -> PressResult:
         """Register a press or auto-repeat of a movement key."""
@@ -272,7 +298,11 @@ class HeldAxes:
         return PressResult()
 
     def expire(self, at_ms: int) -> bool:
-        """Drop axes that have stopped repeating. Returns True if any changed."""
+        """Drop axes that have stopped repeating. Returns True if any changed.
+
+        Once releases are being reported this only acts as a safety net, in
+        case one is lost while the terminal is not focused.
+        """
         stale = [axis for axis, hold in self.holds.items() if at_ms - hold.last_ms > self._window(hold)]
         for axis in stale:
             self._expired[axis] = self.holds.pop(axis)
@@ -303,4 +333,6 @@ class HeldAxes:
         self._expired.clear()
 
     def _window(self, hold: AxisHold) -> int:
+        if self.exact:
+            return self.timing.lost_release_ms
         return self.timing.hold_ms if hold.confirmed else self.tap_ms

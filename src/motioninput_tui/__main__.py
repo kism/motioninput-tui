@@ -11,7 +11,7 @@ from .constants import PROGRAM_NAME, PROGRAM_NAME_WITH_FULL_VERSION, PROGRAM_NAM
 from .controls.layouts import DEFAULT_LAYOUT, available_layouts
 from .games.loader import GameDataMissingError, available_games, load_game
 from .games.rulesets import GAME_SPECS
-from .terminal import detect
+from .terminal import detect, query_support
 from .utils.logger import get_logger, setup_logger_cli
 
 traceback.install(extra_lines=2)
@@ -28,6 +28,11 @@ def _get_args() -> argparse.Namespace:
         default=DEFAULT_LAYOUT,
         help=f"Control layout (default: {DEFAULT_LAYOUT}).",
     )
+    parser.add_argument(
+        "--no-key-release",
+        action="store_true",
+        help="Do not ask the terminal for key release reporting; infer holds from auto-repeat instead.",
+    )
     parser.add_argument("--list", action="store_true", help="List games and characters, then exit.")
     parser.add_argument("--check-terminal", action="store_true", help="Report terminal suitability, then exit.")
     parser.add_argument("--version", action="version", version=PROGRAM_NAME_WITH_FULL_VERSION)
@@ -42,6 +47,18 @@ def _print_terminal() -> int:
         logger.warning("%s", info.warning())
     else:
         logger.info("Should be fast enough for accurate input timing.")
+
+    releases = query_support()
+    if releases is None:
+        logger.info("Key releases: could not ask, no terminal attached.")
+    elif releases:
+        logger.info("Key releases: supported. Holds will be tracked exactly.")
+    else:
+        logger.warning(
+            "Key releases: not supported. Holds will be inferred from auto-repeat, "
+            "so charge moves depend on your keyboard repeat delay. "
+            "Terminals that do support this: kitty, Ghostty, foot, WezTerm, Alacritty, Contour, Rio."
+        )
     return 0
 
 
@@ -81,9 +98,22 @@ def main() -> int:
     if info.should_warn:
         logger.warning("%s", info.warning())
 
+    # Ask before the interface takes over the terminal, so holds are tracked
+    # exactly from the very first keystroke rather than from the first release.
+    key_release = False if args.no_key_release else bool(query_support())
+    if key_release:
+        logger.debug("Terminal reports key releases; holds will be tracked exactly")
+    else:
+        logger.info("Terminal does not report key releases; holds will be inferred from auto-repeat")
+
     from .tui import MotionInputApp  # ruff: ignore[import-outside-top-level] - importing textual is slow, only do it when running the app
 
-    MotionInputApp(game=args.game, character=args.character, layout=args.layout).run()
+    MotionInputApp(
+        game=args.game,
+        character=args.character,
+        layout=args.layout,
+        key_release=key_release,
+    ).run()
     return 0
 
 

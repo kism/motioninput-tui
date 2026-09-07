@@ -39,7 +39,8 @@ uv sync --all-extras # Omit --all-extras for prod
 python -m motioninput_tui                              # pick everything in the TUI
 python -m motioninput_tui --game sfiii3 --character ryu --layout hitbox
 python -m motioninput_tui --list                       # games and characters
-python -m motioninput_tui --check-terminal             # terminal suitability
+python -m motioninput_tui --check-terminal             # terminal speed and key release support
+python -m motioninput_tui --no-key-release             # force the auto-repeat fallback
 ```
 
 ## Controls
@@ -68,18 +69,44 @@ Expect trouble: Terminal.app, the VS Code integrated terminal, Hyper, Tabby.
 Running under tmux or screen, or over SSH, adds latency on top of whatever
 terminal you are using.
 
-## Keyboard repeat delay
+## Key releases
 
-This is the one real compromise. Terminals report key presses and auto-repeats
-but **never key releases**, so a held direction has to be inferred from the
-repeat stream. A press counts as held for a short window; auto-repeat keeps it
-alive beyond that. If your operating system waits a long time before it starts
-repeating, that gap is invisible and holds read as taps, which mostly hurts
-charge moves.
+A plain terminal only ever tells you a key went *down*. That is a problem for a
+motion input trainer, because knowing when the player let go of down is the
+difference between a fireball and a dragon punch.
 
-The trainer measures your repeat delay as you play, widens its window to match
-and tells you in the status line if it is worth changing. To fix it at the
-source:
+The trainer handles this two ways, and picks the better one available.
+
+### Exact tracking (preferred)
+
+The **kitty keyboard protocol** adds an event type to each key report, so the
+terminal reports releases as well as presses. Where it is available, holds are
+tracked exactly, motions are judged against the games' real timing windows, and
+your keyboard repeat settings stop mattering entirely. The status line says
+`exact key tracking` when this is active.
+
+Supported by kitty, Ghostty, foot, WezTerm, Alacritty, Contour and Rio. Check
+yours with:
+
+```bash
+python -m motioninput_tui --check-terminal
+```
+
+Textual asks for the protocol but not for event types, and its parser raises on
+the reply, so [`tui/keyboard_driver.py`](src/motioninput_tui/tui/keyboard_driver.py)
+supplies a driver that asks for event types and understands them. Pass
+`--no-key-release` to turn it off.
+
+### Inferred holds (fallback)
+
+Without release reporting, a held direction has to be deduced from the
+auto-repeat stream. A press counts as held for a short window and auto-repeat
+keeps it alive beyond that. If your operating system waits a long time before it
+starts repeating, that quiet gap is invisible and holds read as taps, which
+mostly hurts charge moves.
+
+The trainer measures your repeat delay as you play, widens its window to match,
+and says so in the status line. To fix it at the source:
 
 ```bash
 # macOS, then log out and back in
@@ -93,6 +120,14 @@ xset r rate 200 40
 On Wayland this is a compositor setting (`repeat_delay` in Sway/Hyprland,
 Settings → Keyboard in GNOME/KDE).
 
+### What about reading the keyboard device directly?
+
+Possible, but worse. `evdev` on Linux needs root or the `input` group and does
+not work on macOS; Quartz event taps on macOS need Input Monitoring permission
+and read every keystroke system-wide, including ones meant for other
+applications. The kitty protocol gets the same information with no permissions,
+no elevated privileges, and it keeps working over SSH.
+
 ## Layout
 
 ```text
@@ -102,8 +137,8 @@ src/motioninput_tui/
   controls/      Control layouts and input sources. Keyboards today, gamepads later.
   games/         Game metadata, rulesets, move models and the packaged rosters.
   datagen/       Parsers that turn the reference FAQs into games/data/*.json.
-  terminal/      Terminal identification and latency warnings.
-  tui/           Textual screens and widgets.
+  terminal/      Terminal identification, latency warnings, kitty keyboard protocol.
+  tui/           Textual screens, widgets, and the release-aware input driver.
 ```
 
 The engine never touches the clock or the terminal; callers pass timestamps in,

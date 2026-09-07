@@ -45,10 +45,10 @@ class TrainingScreen(Screen):
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     """
 
-    def __init__(self, game: Game, character: Character, layout: ControlLayout) -> None:
+    def __init__(self, game: Game, character: Character, layout: ControlLayout, *, exact_input: bool = False) -> None:
         """Start a session for this game, character and layout."""
         super().__init__()
-        self.session = TrainingSession(game, character, layout)
+        self.session = TrainingSession(game, character, layout, exact_input=exact_input)
         self.terminal = detect()
 
     def compose(self) -> ComposeResult:
@@ -100,6 +100,20 @@ class TrainingScreen(Screen):
             if self.session.press(event.key):
                 self._refresh()
 
+    def handle_release(self, key: str) -> None:
+        """Called by the app when the terminal reports a key going back up."""
+        if key in self.session.layout.bindings and self.session.release(key):
+            self._refresh()
+
+    def on_app_blur(self) -> None:
+        """Drop every hold when the terminal loses focus.
+
+        Releases that happen while unfocused never arrive, so anything still
+        held would otherwise stick.
+        """
+        self.session.source.reset()
+        self._refresh()
+
     def _refresh(self) -> None:
         session = self.session
         self.query_one(InputStrip).show(session.entries, session.direction)
@@ -108,7 +122,10 @@ class TrainingScreen(Screen):
         status = Text()
         plural = "" if session.total_activations == 1 else "s"
         status.append(f"{session.total_activations} move{plural} from {session.total_inputs} inputs")
-        status.append(f"   hold window {session.hold_window_ms}ms", style="dim")
+        if session.exact_input:
+            status.append("   exact key tracking", style="dim green")
+        else:
+            status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
         advice = session.keyboard_advice
         if advice:
             status.append(f"\n⚠ {advice}", style="yellow")

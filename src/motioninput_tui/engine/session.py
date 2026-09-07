@@ -50,13 +50,18 @@ class TrainingSession:
     is read-only state for the interface to render.
     """
 
-    def __init__(self, game: Game, character: Character, layout: ControlLayout) -> None:
-        """Set up the buffer, source and recogniser for this pairing."""
+    def __init__(self, game: Game, character: Character, layout: ControlLayout, *, exact_input: bool = False) -> None:
+        """Set up the buffer, source and recogniser for this pairing.
+
+        ``exact_input`` says the terminal reports key releases, so holds are
+        tracked exactly from the first keystroke rather than after the first
+        release has proved it.
+        """
         self.game = game
         self.character = character
         self.layout = layout
         self.buffer = InputBuffer()
-        self.source = KeyboardSource(layout)
+        self.source = KeyboardSource(layout, exact=exact_input)
         self.recognizer = Recognizer(character.moves, game.ruleset)
         self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
@@ -76,6 +81,11 @@ class TrainingSession:
         return self.source.direction
 
     @property
+    def exact_input(self) -> bool:
+        """Whether the terminal reports key releases, so holds are not guessed."""
+        return self.source.exact_holds
+
+    @property
     def hold_window_ms(self) -> int:
         """How long a single key press counts as a held direction."""
         return self.source.tap_ms
@@ -83,6 +93,8 @@ class TrainingSession:
     @property
     def keyboard_advice(self) -> str:
         """Advice if the keyboard's repeat delay is hurting input timing."""
+        if self.source.exact_holds:
+            return ""  # Releases are reported, so the repeat delay is irrelevant.
         return repeat_delay_advice(self.source.repeat_delay_ms)
 
     def press(self, key: str, at_ms: int | None = None) -> bool:
@@ -103,13 +115,23 @@ class TrainingSession:
         self.buffer.press_button(update.button, now)
         self._record_button(update.button, update.direction, now)
         pressed = self.buffer.simultaneous_buttons(now)
-        self.recognizer.decay_ms = self.source.tap_ms
+        self.recognizer.decay_ms = self.source.decay_ms
         activation = self.recognizer.evaluate(self.buffer, now, pressed)
         if activation is not None:
             self.activations.appendleft(activation)
             self.total_activations += 1
             if self.entries:
                 self.entries[-1].activated = activation.name
+        return True
+
+    def release(self, key: str, at_ms: int | None = None) -> bool:
+        """Feed a key release in. Returns True when the display should redraw."""
+        now = monotonic_ms() if at_ms is None else at_ms
+        update = self.source.release(key, now)
+        if update is None or not update.direction_changed:
+            return False
+        self.buffer.set_direction(update.direction, now)
+        self._append_entry(update.direction, now)
         return True
 
     def tick(self, at_ms: int | None = None) -> bool:
