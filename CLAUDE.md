@@ -140,6 +140,13 @@ parser, rerun `python -m motioninput_tui.datagen` and commit the JSON. Roughly 8
 listed moves become trainable; the rest are follow-ups and conditional moves
 that still appear in the move list, struck through.
 
+The guides disagree about character names, so `datagen/names.py` maps the key a
+guide produced to the name to use instead, per game (`ken-masters` → `Ken`).
+Keys are rebuilt from the new name, so an override renames the character
+everywhere, including `--character` and anyone's saved config — which is why
+`__main__` forgets a remembered character that is no longer in the roster
+instead of refusing to start.
+
 ## Fragile coupling
 
 `tui/keyboard_driver.py` reaches into Textual internals in two places: the
@@ -150,7 +157,7 @@ is pinned; check this file after a Textual upgrade.
 ## Testing
 
 `tests/engine/test_motions/` is one directory per game and one file per
-character (`sfiii3/test_ken_masters.py`), because that is how the behaviour is
+character (`sfiii3/test_chun_li.py`), because that is how the behaviour is
 validated: against the real game, a character at a time. The directory is the
 game key and the file name is the character key with underscores for hyphens.
 The `play` fixture in its `conftest.py` reads both out of the path, so tests

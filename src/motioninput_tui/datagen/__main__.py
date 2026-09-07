@@ -16,6 +16,7 @@ from motioninput_tui.games.rulesets import GAME_SPECS
 from motioninput_tui.utils.logger import get_logger, setup_logger_cli
 
 from . import hsf2, sfa3, sfiii3
+from .names import apply_overrides
 
 logger = get_logger(__name__)
 
@@ -49,7 +50,7 @@ def main() -> int:
             exit_code = 1
             continue
 
-        path = write_game(key, characters)
+        path = write_game(key, apply_overrides(key, characters))
         logger.info("%-9s %s -> %s", spec.short_name, report.summary(), path.name)
         if args.show_skipped:
             for skipped in report.skipped:

@@ -95,7 +95,7 @@ def target_from_path(path_parts: tuple[str, ...]) -> tuple[str, str]:
 
     The directory is the game key and the file name is the character key, with
     underscores standing in for the hyphens the rosters use, since a module
-    cannot be called ``test_ken-masters``.
+    cannot be called ``test_chun-li``.
     """
     directory, file_name = path_parts[-2], path_parts[-1]
     character = file_name.removeprefix("test_").removesuffix(".py").replace("_", "-")

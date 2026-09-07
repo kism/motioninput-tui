@@ -103,13 +103,7 @@ def main() -> int:
     config = Config.load(args.config)
     _apply_overrides(config, args)
 
-    try:
-        if config.game:
-            game = load_game(config.game)
-            if config.character:
-                config.character = game.character(config.character).key
-    except (GameDataMissingError, KeyError) as exc:
-        logger.error("%s", exc)  # ruff: ignore[error-instead-of-exception] - a traceback helps nobody here
+    if not _resolve_selection(config, from_cli=bool(args.character)):
         return 1
 
     info = detect()
@@ -132,6 +126,35 @@ def main() -> int:
         skip_setup=bool(args.game and args.character),
     ).run()
     return 0
+
+
+def _resolve_selection(config: Config, *, from_cli: bool) -> bool:
+    """Check the selection against the rosters. False means do not start.
+
+    A remembered character can simply be gone: rosters are regenerated, and a
+    name override in ``datagen/names.py`` renames the key with the character.
+    That is no reason to refuse to start, so the selection is dropped and the
+    picker opens on it instead. A character named on the command line is
+    different, and still gets an error.
+    """
+    if not config.game:
+        return True
+    try:
+        game = load_game(config.game)
+    except GameDataMissingError as exc:
+        logger.error("%s", exc)  # ruff: ignore[error-instead-of-exception] - a traceback helps nobody here
+        return False
+    if not config.character:
+        return True
+    try:
+        config.character = game.character(config.character).key
+    except KeyError as exc:
+        if from_cli:
+            logger.error("%s", exc)  # ruff: ignore[error-instead-of-exception] - a traceback helps nobody here
+            return False
+        logger.info("Forgetting the saved character, it is not in the roster any more: %s", exc)
+        config.character = None
+    return True
 
 
 def _apply_overrides(config: Config, args: argparse.Namespace) -> None:

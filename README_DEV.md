@@ -110,6 +110,25 @@ Around 80-90% of listed moves become trainable. The rest are follow-ups, stances
 and conditional moves ("press P during Ducking") that the trainer has no model
 of; they still appear in the move list, struck through.
 
+### Character names
+
+The guides disagree about what characters are called, so
+[`datagen/names.py`](src/motioninput_tui/datagen/names.py) holds the names to
+use instead, per game:
+
+```python
+OVERRIDES: dict[str, dict[str, str]] = {
+    "sfa3": {"ken-masters": "Ken"},
+    "sfiii3": {"ken-masters": "Ken"},
+}
+```
+
+The left hand side is the key the guide produced and the right hand side is the
+name to display. Keys are rebuilt from the new name, so this renames
+`ken-masters` to `ken` everywhere, including `--character` and the saved config.
+An entry that matches nobody logs a warning rather than passing silently.
+Rerun the generator afterwards and commit the JSON.
+
 ## Check/Test
 
 ```bash
@@ -157,8 +176,8 @@ tests/engine/test_motions/
 ```
 
 The directory is the game key and the file name is the character key, with
-underscores for the hyphens in the rosters (`test_ken_masters.py` is
-`ken-masters`). The `play` fixture reads both out of the path, so a test never
+underscores for the hyphens in the rosters (`test_chun_li.py` is
+`chun-li`). The `play` fixture reads both out of the path, so a test never
 names them and cannot be run against the wrong character. `test_hierarchy.py`
 fails if a directory is not a game or a file is not one of its characters.
 
