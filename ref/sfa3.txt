@@ -1,0 +1,3921 @@
+Move List and Guide (ARC) by Kao_Megura
+
+Version: 2.2 |
+
+STREET FIGHTER ALPHA 3 FAQ v2.2
+for the Arcade
+by Chris MacDonald
+
+ Unpublished work Copyright 1998-2001 Chris MacDonald
+
+ This document is protected by US Copyright Law, and the Berne Copyright
+ Convention of 1976.  It is for private and personal use only--it cannot
+ be reprinted in part or in whole, or reproduced in any way or in any
+ form (written or otherwise).  It is a free document that cannot be used
+ in any sort of commercial transaction, including selling it or giving
+ it away as a gift.  This FAQ cannot be referenced, altered, or used by
+ anybody (including webmasters, publishers, and magazine staff) without
+ my express written permission.  This FAQ was created and is owned by
+ me, Chris MacDonald <kmegura (at) yahoo (dot) com>.  It can be found
+ exclusively at (www.GameFAQs.com).  All copyrights and trademarks are
+ acknowledged and respected that are not specifically mentioned herein.
+
+ I expressly forbid the following publishers/publications from using this
+ FAQ, namely: Ziff-Davis Video Game Group (publishers of Expert Gamer),
+ Future Publishing, Ltd. (publishers of PlayStation Power, Official UK
+ PlayStation Magazine, etc.), IDG Media, Game 13th Magazine, Brady Games,
+ and Prima Games.  Remember, plagiarism is a crime and is punishable by
+ law.
+
+The Street Fighter game series and the Final Fight series are (c)
+Capcom of Japan and (c) Capcom of America.
+
+
+ =================
+ TABLE OF CONTENTS
+ =================
+
+ 1.  HOW TO PLAY
+       - Basic Commands
+       - Basic Abilities
+       - ISM Comparison List
+       - Mode Explanations
+ 2.  CHARACTER MOVES LIST
+       - Adon
+       - Akuma
+       - Birdie
+       - Blanka
+       - Cammy
+       - Charlie
+       - Chun-Li
+       - Cody
+       - Dan Hibiki
+       - Dhalsim
+       - Edmond Honda
+       - Gen
+       - Guy
+       - Karin Kanzuki
+       - Ken Masters
+       - M. Bison
+       - Rainbow Mika (Mika Nanakawa)
+       - Rolento Schugerg
+       - Rose
+       - Ryu
+       - Sagat
+       - Sakura Kasugano
+       - Sodom
+       - Vega
+       - Zangief
+ 3.  HIDDEN CHARACTER MOVES LIST
+       - Balrog
+       - Juli
+       - Juni
+ 4.  SECRETS AND CODES
+ 5.  MISCELLANEOUS
+       - ISM Information
+       - Ability Information
+       - Charts A Plenty
+       - Boss Battle Chart
+       - Pre-Fight Animations
+       - Translations
+       - Endings
+       - Victory Symbols
+ 7.  AUTHOR'S NOTE
+       - Revision History
+       - Special Thanks
+
+There is a companion file to this FAQ, the SFZ3 PlayStation FAQ, which
+can also be found at the sites listed above.  That FAQ is for the
+Japanese PSX version of SFA3, but even if you have the US version, it's
+probably the one you're gonna want to read instead of this one, since
+this FAQ focuses on the arcade version of SFA3.
+
+Please note that there are both beta and final versions of SFA3 that
+have been distributed.  If you don't know what your machine is, check
+to see if it has character introductions, endings, or boss encounters.
+The beta version doesn't have any of these features.
+
+
+=========================================================================
+  1.  HOW TO PLAY
+=========================================================================
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+BASIC COMMANDS
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ This section outlines the basic controls for all characters:
+
+ (controller directions and results)
+
+  ub  u  uf      Jump Up-Back            Jump Up         Jump Up-Forward
+    \ | /
+ b -- n -- f     Walk Back / Block       Neutral         Walk Forward
+    / | \
+  db  d  df      Crouch / Low Block      Crouch          Offensive Crouch
+
+
+ (button layout and effect)
+
+ LP  MP  HP      Light Punch         Medium Punch        Hard Punch
+
+ LK  MK  HK      Light Kick          Medium Kick         Hard Kick
+
+
+ (FAQ abbreviations)
+
+  qcf / qcb  -  Press (d,df,f) or (d,db,b) on the control pad.
+  hcf / hcb  -  Press (b,db,d,df,f) or (f,df,d,db,b) on the control pad.
+  Rotate 360 -  Rotate the control pad in a complete circle.  You can
+                start and end the circle at any point (i.e. start at uf
+                and end at uf, or b to b, etc.)  The shorthand motion for
+                this is f,df,d,db,b,ub or the reverse.
+  Rotate 720 -  Perform the 360 motion twice (two full rotations).
+  PP / PPP   -  Press any two / all three Punch buttons.
+  KK / KKK   -  Press any two / all three Kick buttons.
+  (air)      -  The move can be performed while on the ground, or while
+                in the air (during a jump or after an air recovery).
+  x~x        -  All possible ranges are allowed (for example, ub through
+                uf, or MK through HP).
+  xav / XAV  -  You can cancel the move into a special in the listed
+                ISM (lowercase), or into a Super Combo (uppercase).
+  xav1       -  The attack is only interruptable on the first hit.
+  xavB       -  The attack is interruptable on both hits.
+  AC         -  Alpha Counter
+  OC            Original Combo
+  SC         -  Super Combo
+
+  I had deleted this in a previous version of the FAQ, but any move
+  that can be done in air can be performed off the ground.  For
+  instance, qcb,ub + K makes Dan do backwards Dankuu Kyakus (they'll
+  rise up if you wait a moment before pressing K).  Charging b,uf + K
+  for Chun-Li makes her do the Spinning Bird Kick up into the air.
+  And so on.
+
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+BASIC ABILITIES
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ This section explains the basic moves of each character.  Remember
+ that the ISM (and mode, if one is used), affects which basic abilities
+ a person will be able to use.
+
+ ------------------------------------------------------------------------
+ BASIC ABILITIES LIST
+ ------------------------------------------------------------------------
+
+ Standing Block                 Hold b when attacked
+ Crouching Block                Hold db when attacked
+ Mid-Air Block                  Hold b / db when attacked while in air
+ GP Protection Block            Block an attack just before it hits
+ Semi-automatic Block           (Unsure of how this works)
+ Alpha Counter                  Block, f + same P + K  (not in X-ISM)
+ Air Recoveries                 ...(see below)
+ ...Neutral Breakfall           Press PP when knocked into the air
+ ...Front Breakfall             Press f + PP when knocked into the air
+ ...Back Breakfall              Press b + PP when knocked into the air
+ Ground Recovery                Press KK when knocked to the floor
+ Roll Behind Recovery           Hold f during Ground Recovery
+ Original Combo                 Press same strength P + K in V-ISM
+ Taunt                          Press (b / f) + Start
+ Tech. Hit (Throw Escape)       Perform a throw as you are thrown  (air)
+ Counter Hit                    Hit someone while they make an attack
+ Guard Crush                    Make your foe block attacks repeatedly
+ Dizzy                          Hit your opponent repeatedly
+ Dizzy Recovery                 Tap P / K and wiggle pad when dizzy
+ Hold Damage Increase           As above, but use when you perform a hold
+ Hold Damage Decrease           As above, but use when you're in a hold
+ Damage Reduction               Press in any dir. + P / K when you are
+ ...(cont'd)                    damaged (repeat during multi-hit moves)
+
+ - The Ground Recovery and Roll Behind Recovery can also be used after
+   an air block.  And despite popular belief, you can still Tech. Hit in
+   X-ISM.
+ - For best results when using the Damage Reduction, Dizzy Recovery, Hold
+   Damage Increase, or Hold Damage Decrease mash the buttons and wiggle
+   the controller around as quickly as possible.  The faster you do this,
+   the more effective these become.  However (for example), if your
+   opponent was Mika and was doing her Headbutt hold while mashing the
+   pad and buttons for more hits, you'd have a harder time getting out of
+   that hold unless you were doing the same thing.  You'll know if your
+   efforts are paying off because your character will flash white (or in
+   the case of Damage Reduction, flash red).
+
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ISM COMPARISON LIST
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ To see which of the abilities mentioned in the 'Basic Abilities List'
+ is available in each ISM, refer to the chart below.  Detailed
+ information on the basic abilites can be found in the 'Miscellaneous'
+ section.
+
+ ------------------------------------------------------------------------
+ ABILITIES              X-ISM           A-ISM           V-ISM
+ ------------------------------------------------------------------------
+
+ Air Blocking           No              Yes             Yes
+ Air Recovery           Yes             Yes             Yes
+ Ground Recovery        No              Yes             Yes
+ Taunts                 Only Dan        Yes             Yes
+ Guard Power Rating     High            Varies          Varies
+ SC/OC Gauge Speed      Slow            Normal          Fast
+ Levels Available       1               3               2  (50% / 100%)
+ Alpha Counter Cost     n/a             1 SC + 1 GP     50% OC + 1 GP
+ Damage Rating          x1.2*           x1.0            x0.8
+ Defense Rating         x0.8            x1.0            x1.0
+
+  * This is excluding Super Combos.  An X-ISM Super Combo does the same
+    damage as a Level 3 A-ISM Super Combo (if they are the same SC; so
+    obviously Dhalsim and Cody are excluded).  However, using a hidden
+    Mode (see below) will affect all damage inflicted, including SC
+    damage).  Why SCs would not get a damage increase makes no sense
+    to me, but that's Capcom for ya.
+
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+MODE EXPLANATIONS
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ Here's a chart showing the hidden mode differences.  Refer to the
+ "Secrets and Codes" section for info on how to use these modes.
+
+ ------------------------------------------------------------------------
+ CLASSICAL MODE
+ ------------------------------------------------------------------------
+
+ This functions exactly like X-ISM except for the following changes:
+
+   - No air blocking.                 - No SC or OC gauge!
+   - No air recovery.                 - No Alpha Counters.
+   - No ground recovery.              - No Guard Power Gauge.
+   - No taunts (except for Dan).      - No "missed throw" animation.
+
+ In addition, you character cannot be juggled around as much (which is
+ why you have no air recovery, since it's not needed).  Having no GP
+ gauge is a huge plus since you cannot get Guard Crushed.  Note that
+ the "no missed throw animation" only applies to command throws, not
+ special throws like the Arakuma Inashi or Bull Revenger.
+
+
+ ------------------------------------------------------------------------
+ MAZI MODE  (Serious Mode)
+ ------------------------------------------------------------------------
+
+ In addition to the normal restrictions / benefits of whatever ISM you
+ choose, picking Mazi Mode results in the following changes:
+
+  - Your attacks inflicted much greater damage (using X-ISM or V-ISM
+    will further raise or lower your damage capability, too).
+  - However, you take around double damage from your opponent.
+  - You only need to lose one round to lose the match, although you
+    must win two rounds to proceed (so your enemy has a big advantage).
+
+
+ ------------------------------------------------------------------------
+ SAIKYOU MODE  (Strongest Mode)
+ ------------------------------------------------------------------------
+
+ In addition to the normal restrictions / benefits of whatever ISM you
+ choose, picking Saikyou Mode results in the following changes:
+
+  - Your attacks inflict slightly less damage than normal (using X-ISM
+    or V-ISM will further raise or lower your damage capability, too).
+  - Your Guard Power Gauge is extremely short, making it easier for you
+    to be Guard Crushed (this is also affected by ISM-related GC Gauge
+    changes...a V-ISM Saikyou user has a really small GC Gauge!)
+  - You cannot interrupt normal moves into special moves or Super Combos
+    (so no two-in-ones or combos!).
+  - It's twice as easy for you to get dizzied.
+
+ The arcade version of Saikyou mode has lots of glitches in it.  The
+ best known glitch is that some of the damage moves inflict is greatly
+ reduced (Darklancer says that Akuma's Shun Goku Satsu does almost no
+ damage).  However, a few characters can inflict upwards of 90% damage
+ with a single attack. Such moves include Karin's Yashiro Kuzushi or
+ Abise Yashiro Kuzushi, Balrog's Head Bomber and Kuuchuu Head Bomber,
+ Vega's Rolling Izuna Drop, and Guy's Bushin Musourenge.
+
+ And in case you didn't get it yet, 'Saikyo' is the name of Dan Hibiki's
+ fighting style--so even though it's called 'Strongest', it's actually
+ pretty weak ;)
+
+
+=========================================================================
+  2.  CHARACTER MOVES LIST
+=========================================================================
+
+ Characters are listed in alphabetical order.  Each move list is divided
+ into three sections: ground and air throws, special moves and command
+ attacks, and then Super Combos and Level 3 Super Combos.  If I don't
+ have the offical Capcom name for a move, the name is written in
+ lowercase, in parenthesis.
+
+ To the far left of the move list, you may see the letters X, A, or V.
+ These letters indicate that the move is available only when using
+ X-ISM, A-ISM, or V-ISM.
+
+ Afterwards is information on each character's Alpha Counters and a list
+ of cancellable attacks (so you know what moves can be used in combos,
+ etc.)
+
+-------------------------------------------------------------------------
+ADON
+-------------------------------------------------------------------------
+
+XAV  Jaguar Carry                    b / f + PP
+XAV  Jaguar Slam                     b / f + KK
+XAV  Jaguar Stab                     Any direction but u / d + PP  (air)
+XAV  Jaguar Throw                    Any direction but u / d + KK  (air)
+
+XAV  Rising Jaguar                   f,d,df + K
+ AV  Jaguar Kick                     b,d,db + K
+X    Jaguar Kick                     In air, press K
+XAV  Jaguar Tooth                    hcb + K
+XAV  Jaguar Crunch                   f + MP
+
+ A   Jaguar Revolver                 qcf,qcf + K
+XA   Jaguar Varied Assault           qcf,d,df + P
+XA   Jaguar Thousand                 Tap P during Jaguar Varied Assault
+XA   Jaguar Assassin                 Tap K during Jaguar Varied Assault
+
+ Alpha Counter (A-ISM):    HK Rising Jaguar
+ Alpha Counter (V-ISM):    Jaguar Assassin
+ V-ISM Variable Attacks:   b + HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   n/a   n/a   n/a   n/a
+  - standing (far)        xav   xav         xav   xav
+  - crouching             xav   xav         xav
+
+ - In X-ISM, Adon's Jaguar Kicks are performed just like a normal jump
+   kick.  Not only does the button used determine the strength and
+   angle of the Jaguar Kick, but whether you're jumping back, forward,
+   or straight up also affects the range of this move.
+ - The Jaguar Crunch is an overhead attack.
+ - In A-ISM, you can only use the Jaguar Thousand or Jaguar Assassin
+   if you perform the Jaguar Varied Assault at Level 3.
+
+
+-------------------------------------------------------------------------
+AKUMA
+-------------------------------------------------------------------------
+
+XAV  Seoi Nage                       b / f + PP
+XAV  Tomoe Nage                      b / f + KK
+XAV  Jigoku-guruma                   Any direction but u / d + KK  (air)
+
+XAV  Gou Hadou Ken                   qcf + P
+XAV  Zankuu Hadou Ken                In air, qcf + P
+XAV  Shakunetsu Hadou Ken            hcb + P
+XAV  Gou Shouryuu Ken                f,d,df + P
+XAV  Tatsumaki Zankuu Kyaku          qcb + K  (air)
+ AV  Zenpou Tenshin                  qcb + P
+XAV  Ashura Senkuu                   f,d,df / b,d,db + PPP / KKK
+ AV  Hyakki Shuu                     qcf,uf + P
+ AV  Hyakki Gou Zan                  qcf,uf + P, then do nothing
+ AV  Hyakki Gou Shou                 qcf,uf + P, then press P
+ AV  Hyakki Gou Sen                  qcf,uf + P, then press K
+ AV  Hyakki Gou Sai                  Any dir. but d / u + P when close
+ AV  Hyakki Gou Tsui                 Perform Gou Sai with K w/ foe in air
+XAV  Tenma Kuujin Kyaku              Jump forward, d + MK at apex
+XAV  Zugai Hasatsu                   f + MP
+XAV  Senpuu Kyaku                    f + MK
+
+ A   Messatsu Gou Hadou              hcb,hcb + P
+ A   Messatsu Gou Shouryuu           qcf,d,df + P
+ A   Tenma Gou Zankuu                In air, qcf,d,df + P
+XA   Shun Goku Satsu                 LP,LP,f,LK,HP
+
+ Alpha Counter (A-ISM):    HP Gou Shouryuuken
+ Alpha Counter (V-ISM):    Crouching HK
+ V-ISM Variable Attacks:   b + MP / MK / HP / HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav   xav   n/a   xav
+  - standing (far)        xav               xav
+  - crouching             xav   xav   xav   xav   xav
+
+ - You cannot use the Gou Sai or Gou Tsui if your opponent is in the
+   corner of the screen.  The Gou Sai works on standing and jumping
+   opponents only.  The Gou Tsui works on mid-air opponents only.
+ - The Zugai Hasatsu, Gou Shou, and Gou Sen are overhead attacks.
+ - In A-ISM, you can only use the Shun Goku Satsu at Level 3.
+
+
+-------------------------------------------------------------------------
+BIRDIE
+-------------------------------------------------------------------------
+
+XAV  Bull Spike                      b / f + PP
+XAV  Bad Throw                       b / f + KK
+XAV  Bad Scrap                       Any direction but u / d + PP  (air)
+
+XAV  Bull Head                       Charge b,f + P
+XAV  Bull Horn                       Hold and release PP / KK
+XAV  Murderer Chain                  Rotate 360 + P
+XAV  Bandit Chain                    Rotate 360 + K
+XAV  Body Slam                       Jump, d + HP
+XAV  Bull Drop                       f + HK
+X    Bad Hammer                      Get 2 hits w/ close stand HP, hold u
+
+XA   The Birdie                      Charge b,f,b,f + P
+ A   Bull Revenger                   qcf,d,df + P / K
+
+ Alpha Counter (A-ISM):    LP Bull Head
+ Alpha Counter (V-ISM):    Standing Heel Kick
+ V-ISM Variable Attacks:   b + HP
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   n/a         n/a   n/a   n/a
+  - standing (far)        xav   xav         xav
+  - crouching             xav   xav   xav*  xav
+
+  * This move can be cancelled into specials on the first hit only
+    (or either hit, for V-ISM).  However, in X- or A-ISM, the
+    second hit can also be cancelled into a Super Combo.
+
+ - The buttons you hold down for the Bull Horn determines the distance
+   travelled.  LP + MP gives you a short-range Bull Horn, LP + HP gives
+   you a medium-range Bull Horn, and MP + HP gives you a full-screen Bull
+   Head (the same applies to using the Kick buttons).  This only affects
+   the range--damage is still the same.  If you're charging a Bull Head
+   with, say, LP + HP, you can still use MP to attack, and so on.  If you
+   set a button to PP / KK, then you get the short-range style Bull Horn
+   (you can still use HP / HK to attack your enemies).  Setting a button
+   to PPP / KKK always gets you the long-range style Bull Horn (and no
+   punch or kick buttons are usable until you release that button).
+ - While Birdie is turning around for the Bull Horn, he is invicible.
+   You can use the Bull Horn to pass through fireballs, normal attacks,
+   or anything else you want, as long as you get the timing right (the
+   attack / fireball / etc. usually has to be right next to Birdie before
+   you start the Bull Horn).  The speed of the attack is also important
+   (it's harder to pass through, say, slow fireballs, compared to fast
+   ones).  The one case where you don't need to worry about timing is if
+   you're close to your opponent and they use a Super Combo.  As soon as
+   you see the screen darken, just just release the buttons, and you'll
+   always pass through the attack (assuming it's not something that lasts
+   for a long time, like Ryu's Shinkuu Tatsumaki Senpuu Kyaku).
+ - The longer you charge the Bull Horn, the more damage it does, as
+   shown below:
+
+   Time that move is charged            Result
+
+     0 - 2 seconds                      Level 1
+     3 seconds                          Level 2
+     4 - 6 seconds                      Level 3
+     7 - 12 seconds                     Level 4
+     13+ seconds                        Final
+
+   The times are listed in real-life seconds, not game timer ticks.  No
+   matter what speed setting you use, you still have to hold down PP for
+   the number of seconds listed.  While charging this move results in
+   more hits (1 at Level 1, up to 5 at Final).  Obviously, this means
+   more damage as well.  You can charge the Bull Horn before the round
+   begins--you can charge it all the way up to Final if you do so during
+   a mid-boss conversation.  The Bull Horn does great damage at higher
+   levels; it's useful to always keep a Final Bull Horn charged since
+   you can use it when your opponent attacks, or as anti-air (this is
+   great since you usually get all the hits), and do lots of damage.
+ - When charging, you don't have to release both PP and KK; you can still
+   hold down one while releasing the other.  There's no real point to
+   this normally, although you can then start another Bull Horn charge by
+   pressing and holding another button of the same type (Punch or Kick).
+   However, there is a trick you can do with this.  If you hold down five
+   buttons (PP + KKK, or whatever you like), you can release them one at
+   a time for three Bull Horn attacks (releasing the remaining two
+   buttons has no effect).  You can get four Bull Horns by holding down
+   all six buttons, then releasing them one at a time (again, the last
+   two buttons held have no effect if released).
+ - You can even press the other buttons later on (such as holding PP,
+   then later adding PKK for the triple Bull Horn charge), to add more
+   variety to the Bull Heads (as they grow in power over time).  Just keep
+   in mind that those two unused buttons have to be a Punch and a Kick
+   button (i.e., if you were holding PPPKKK and released P, then P, then
+   K, then P, you'd get a Bull Horn on the first three releases, but not
+   the last).
+ - The Bull Drop is _not_ an overhead attack.
+ - When you perform the Bull Revenger, using P makes Birdie hop a short
+   distance, while using K makes him leap across the screen.
+
+
+-------------------------------------------------------------------------
+BLANKA
+-------------------------------------------------------------------------
+
+XAV  Wild Fang                       b / f + PP
+XAV  Jungle Slam                     Any direction but u / d + PP  (air)
+XAV  Wild Shoot                      Any direction but u / d + KK  (air)
+
+XAV  Electric Thunder                Tap P rapidly
+XAV  Rolling Attack                  Charge b,f + P
+XAV  Backstep Rolling                Charge b,f + K
+XAV  Vertical Rolling                Charge d,u + K
+XAV  Surprise Forward                KKK / f + KKK  (u~f~d + KKK)
+XAV  Surprise Back                   b + KKK  (ub~db + KKK)
+XA   Rock Crush                      When close, b / f + MP
+  V  Rock Crush                      b + MP
+XAV  Amazon River Run                df + HP
+
+XA   Ground Shave Rolling            Charge b,f,b,f + P
+ A   Tropical Hazard                 Charge db,df,db,uf + K, tap P / K
+
+ Alpha Counter (A-ISM):    HK Vertical Rolling
+ Alpha Counter (V-ISM):    Crouching HK
+ V-ISM Variable Attacks:   b + LP / LK / MK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      xav   n/a   n/a               n/a
+  - standing (far)        xav   xav
+  - crouching             xav               xav   xav
+  - rock crush (xav)
+
+ - If you keep holding down the button you used to perform the Ground
+   Shave Rolling, Blanka will spin in place.  Should you release the
+   button, or after few seconds have passed, he'll perform the rest of
+   the move.  If someone touches him after the initial jump (while he's
+   moving in place), he'll attack them with the rest of the move.
+ - During the Tropical Hazard, an opponent can be hit: while fruit is
+   falling, when Blanka dives at his opponent, or when any fruit is
+   knocked around by an attack.  If you tap P or K while Blanka is on
+   the ceiling, more fruit will fall to the ground.  Even after this
+   move ends, any watermelons that drop will remain on the floor, and
+   either character can hit a watermelon with an attack to send it
+   flying forward.  Anyone who is hit takes minor damage.  And yes, you
+   can attack a watermelon more than once, for precision aiming ;)
+
+
+-------------------------------------------------------------------------
+CAMMY
+-------------------------------------------------------------------------
+
+XAV  Hooligan Suplex                 b / f + PP
+XAV  Frankensteiner                  b / f + KK
+XAV  Flying Neck Hunt                Any direction but u / d + PP  (air)
+XAV  Air Frankensteiner              Any direction but u / d + KK  (air)
+
+XAV  Spiral Arrow                    qcf + K
+XAV  Cannon Spike                    f,d,df + K
+  V  Cannon Strike                   Jump forward, qcb + K
+  V  Cannon Revenge                  qcb + P
+XA   Axle Spin Knuckle               hcb + P
+XAV  Hooligan Combination            hcf,uf + P  (press K to cancel)
+XAV  Razor Edge Slicer               Do nothing after after H.C.
+XAV  Fatal Leg Twister               b / f + K when close after H.C.
+XAV  Cross Scissor Pressure          Do F.L.T. when low to the ground
+
+XA   Spin Drive Smasher              qcf,d,df + K
+ A   Reverse Shaft Breaker           qcb,d,db + K, tap P / K rapidly
+ A   Killer Bee Assault              Charge db,df,db,uf + K at Level 3
+
+ Alpha Counter (A-ISM):    Standing Far HP
+ Alpha Counter (V-ISM):    HK Cannon Spike
+ V-ISM Variable Attacks:   b + P / K
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      xav   xav   xav   xav   xav
+  - standing (far)        xav   xav         xav
+  - crouching             xav   xav   xav   xav
+
+ - After you begin the Hooligan Combination, doing nothing will result
+   in the Razor Edge Slicer.  If you press b / f + K when Cammy is
+   higher than her opponent's midsection or if they are crouching,
+   she'll perform the Fatal Leg Twister.  If you press b / f + K when
+   Cammy is lower than her opponent's midsection, or if her enemy is
+   in the air, she'll use the Cross Scissor Pressure.  Alternately,
+   you can press K while in the air to cancel the Hooligan Combination
+   and land on your feet.
+ - The Cannon Revenge is a counterattack that is similar to Sodom's
+   Shiraha Catch--it works against jump-in attacks and overheads.
+   Cammy will use a Cannon Spike (if LK is used), a close HP, then a
+   far HP (if MP is used), or a crouching HK, then a close HK  (if
+   HP is used).  This move is not very easy to connect with (especially
+   the HP version, which I've pulled off only twice!) so remember that
+   it's not a very reliable defense.
+ - When you perform the Killer Bee Assault, the direction you finish
+   with (charge db,df,db,ub~uf + K), depends where Cammy leaps.  If
+   you finish with ub, Cammy leaps up and backwards.  Finishing with
+   u makes her go straigt up, and finishing with uf makes her jump
+   up-forward before attacking.  This move is unblockable in air, so
+   if your opponent jumps, go for this Super Combo.
+
+
+-------------------------------------------------------------------------
+CHARLIE
+-------------------------------------------------------------------------
+
+XAV  Dragon Suplex                   b / f + PP
+XAV  Knee Gatling                    b / f + KK
+XAV  Flying Buster Drop              Any direction but u / d + PP  (air)
+XAV  Airjack                         Any direction but u / d + KK  (air)
+
+XAV  Sonic Boom                      Charge b,f + P
+XAV  Somersault Shell                Charge d,u + K
+ AV  Dash                            Tap f,f  (or tap uf~df,uf~df)
+ AV  Knee Bazooka                    Press K during Dash
+X    Knee Bazooka                    b / f + LK
+XAV  Jump Sobat                      b / f + MK
+XAV  Step Kick                       b / f + HK
+XAV  Spin Back Knuckle               Press HP
+
+XA   Somersault Justice              Charge db,df,db,uf + K
+ A   Sonic Break                     Charge b,f,b,f + P, tap P,(P),(P)
+ A   Crossfire Blitz                 Charge b,f,b,f + K
+
+ Alpha Counter (A-ISM):    Spin Back Knuckle
+ Alpha Counter (V-ISM):    Crouching HK
+ V-ISM Variable Attacks:   b + MP / HP
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav   xav   n/a   n/a   n/a
+  - standing (far)        xav               xav
+  - crouching             xav   xav         xav
+
+  - The Jump Sobat is no longer an overhead.
+  - You can throw an extra Sonic Boom per level during the Sonic Break.
+    So you can tap P once at Level 1, twice at Level 2, or thrice at
+    Level 3 (for four Sonic Booms in all).  You don't have to throw
+    them all at once, but once a Sonic Boom leaves the screen, the move
+    is over, so don't delay for too long.
+
+
+-------------------------------------------------------------------------
+CHUN-LI
+-------------------------------------------------------------------------
+
+XAV  Koshuu Tou                      b / f + PP
+XAV  Ryuusei Raku                    Any direction but u / d + PP  (air)
+
+ AV  Kikou Ken                       hcf + P
+ AV  Sen'en Shuu                     hcb + K
+XAV  Hyakuretsu Kyaku                Tap K rapidly
+ AV  Tenshou Kyaku                   Charge d,u + K
+X    Tenshou Kyaku                   Charge d,u + K  (reversal only)
+X    Sou Hakkei                      Charge b,f + P
+X    Spinning Bird Kick              Charge b,f + K  (air)
+XAV  Kouhou Kaiten Kyaku             df + MK
+XAV  Kaku Kyaku Raku                 df + HK
+XAV  Yousou Kyaku                    In air, d + MK
+XAV  Sankaku Tobi                    Jump against a wall, press f
+
+ A   Kikou Shou                      qcf,qcf + P
+XA   Senretsu Kyaku                  Charge b,f,b,f + K
+ A   Hazan Tenshou Kyaku             Charge db,df,db,uf + K
+
+ Alpha Counter (A-ISM):    HP Sou Hakkei
+ Alpha Counter (V-ISM):    Crouching MK
+ V-ISM Variable Attacks:   b + MK / HK / HP
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   n/a   xav   n/a   xav
+  - standing (far)        xav   xav         xav
+  - crouching             xav   xav         xav
+
+ - In X-ISM, Chun-Li appears in her SF2 outfit.
+ - The Sen'en Shuu and Kaku Kyaku Raku are overhead attacks.
+ - You can use the Yousou Kyaku multiple times while airborne.
+
+
+-------------------------------------------------------------------------
+CODY
+-------------------------------------------------------------------------
+
+XAV  Prisoner Throw                  b / f + PP
+XAV  Bad Stamp                       b / f + KK
+XAV  Guilty Stamp                    Any direction but u / d + KK  (air)
+
+XAV  Bad Stone                       qcf + P  (hold P to delay)
+ AV  Fake Throw                      qcf + Start  (hold Start to delay)
+XAV  Ruffian Kick                    qcf + K
+XAV  Criminal Upper                  qcb + P
+XAV  Bad Spray                       b,db,d + P  (reversal only)
+XAV  Tokushu Koudou: Knife Hiroi     d + PP when near a knife
+XAV  Tokushu Koudou: Knife Kougeki   When armed, press P  (air)
+XAV  Tokushu Koudou: Knife Nage      When armed, qcf + P
+XAV  Stomach Blow                    f + MP
+XAV  Crack Kick                      f + HK
+  V  Yoke                            Hold b / db when attacked
+
+XA   Final Destruction               qcf,qcf + P
+ A   Dead End Irony                  qcf,qcf + K
+
+ Alpha Counter (A-ISM):  Shoulder Throw
+ Alpha Counter (V-ISM):  Crouching HK
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    n/a   n/a   n/a   n/a
+  - standing (far)      xa    xa    xa    xa
+  - crouching           xa    xa    xa    xa
+  - armed with knife    xav   xav*
+
+  * When armed with the knife, all of Cody's punches cancel except
+    for HP, whether he is standing or crouching.
+
+ - An enemy hit by the Bad Stone is momentarily stunned.  Up close,
+   you can follow up with an LP or LK, but from a distance, Cody
+   will finish the move while his opponent is being stunned, and
+   you can then perform moves like the Ruffian Kick, A-ISM Final
+   Destruction, or Dead End Irony, and that move will combo.  Note
+   that you _can_ deflect this move with a well-timed punch or kick,
+   but due to the trajectory of the flying stones, it's pretty difficult.
+ - The Bad Spray doesn't do much damage, but an opponent hit by it will
+   end up rolling all the way across the screen.
+ - When you pick up a knife using the Knife Hiroi, there's a momentary
+   delay.  You can cancel the delay by pressing P though, which makes
+   Cody attack with the knife (useful against opponents who try to hit
+   you when you grab the knife).
+ - When Cody is armed with a knife:
+    * Any Punch attack does more damage and even does block damage.
+      It also does more guard crush damage to a blocking opponent.
+    * His Bad Stone attack is replaced by the Knife Nage, and the
+      Fake Throw move is done using his knife (you can't delay this
+      move when you have the knife).  He's unable to use the Stomach
+      Blow, either.
+    * Just like the Bad Stone, you can deflect a thrown knife with a well
+      placed attack (just like with Rolento's Stinger).  On the plus side,
+      the knife is thrown high enough to go over most projectiles, so you
+      can hit someone with it even if a fireball is heading your way.
+      Then again, you'll still have to do something about that fireball
+      before it hits you ;)
+    * Cody will lose his knife if he is hit, if he taunts, performs a
+      throw, uses his A-ISM Alpha Counter, or uses the Final Destruction.
+ - Cody's V-ISM move, the Yoke, is a sort of "auto-dodge" technique.
+   Instead of blocking, Cody shifts to the side and the attack passes
+   harmlessly through him.  This sort of defense doesn't work against
+   all attacks, including jump-ins, extremely high or low attacks,
+   and certain special moves, and it can't be used in the air.
+ - During the X-ISM Final Destruction, you can move around freely and
+   tap P or K when close for an auto-combo.  In the air, pressing any
+   button results in a jump kick.  Crouching, Cody performs a single
+   punch attack.  Just like in the original Final Fight, you can throw
+   someone while auto-comboing them: in this game, just press d + P / K
+   after Cody does the 3rd hit of the auto-combo (the Stomach Blow).
+   This SC ends after a certain amount of time, or if you are hit.
+ - The best way I've found so far to get the most hit out of the X-ISM
+   Final Destruction is to get your opponent in a corner, start the SC,
+   juggle them with a jumping attack, then keep tapping any button until
+   Cody does the Stomach Blow.  When he does, do a crouching punch,
+   stand, and repeat.  The only really tricky part is making sure you
+   do a crouch punch after the Stomach Blow, since it'll come out
+   after the 2nd hit sometimes, instead of coming out on the 3rd hit.
+ - Another good thing about the X-ISM Final Destruction is his jumping
+   Crack Kick--the range is great, and it's even possible to juggle
+   your opponent with it three times across the screen, then juggle them
+   in the corner with the punches.  Ow!
+ - In the PSX version, Cody's handcuff taunt didn't make him invincible,
+   but his "Whew!" taunt did.  I don't know which, if any of Cody's
+   taunts make him invincible in the arcade version.
+
+
+-------------------------------------------------------------------------
+DAN HIBIKI
+-------------------------------------------------------------------------
+
+XAV  Seoi Nage                       b / f + PP
+XAV  Otoko Nage                      Any direction but u / d + PP  (air)
+
+XAV  Gadou Ken                       qcf + P
+XAV  Kouryuu Ken                     f,d,df + P
+XAV  Dankuu Kyaku                    qcb + K
+ AV  Kuuchuu Dankuu Kyaku            In air, qcb + K
+XAV  Zenten Chouhatsu                qcf + Start
+XAV  Kouten Chouhatsu                qcb + Start
+  V  Saikyou-ryuu Bougyo             Block b / db, then f + PPP  (air)
+XAV  Shagami Chouhatsu               Press Start while crouching
+XAV  Kuuchuu Chouhatsu               Press Start while in air
+
+ A   Shin Kuu Gadou Ken              qcf,qcf + P
+XA   Hisshou Burai Ken               qcb,qcb + K
+ A   Kouryuu Rekka                   qcf,d,df + K
+ A   Chouhatsu Densetsu              qcf,qcf + Start
+ A   Chouhatsu Shinwa                qcb,qcb + Start at Level 3
+ A   Zenten / Kouten Chouhatsu       db / df + P / K during C. Shinwa
+
+ Alpha Counter (A-ISM):  Chouhatsu (standing taunt)
+ Alpha Counter (V-ISM):  Crouching HK
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    n/a   n/a   n/a   n/a   n/a   n/a
+  - standing (far)      xav   xav         xav
+  - crouching           xav   xav   xav   xav   xav
+
+ - Every so often, when you use the Kouryuu Ken, Dan will flash and
+   will be totally invincible while flashing.  However, it's not a
+   random occurance.  At the start of each round, Dan's 23rd action,
+   if it is a Koryuu Ken, will flash.  Afterwards, every fifteenth
+   action is a potential flashing Kouryuu Ken.  "Actions" do not
+   include using the air recovery, initiating Original Combos, using
+   Dan's Saikyou-ryuu Bougyo, or using his Chouhatsu Shinwa (and any
+   move or taunt you do during the Chouhatsu Shinwa).  It doesn't
+   include any type of movement (walking, jumping, getting hit), nor
+   does it include blocking attacks or getting hit by attacks.
+   Everything else is an "action", including punches or kicks that hit,
+   miss, or are blocked, attacking during a V-ISM combo, using taunts
+   or the Chouhatsu Densetsu, Alpha Counters, Super Combos, and throws
+   (missed or not).  Two-in-ones done off a single button press (like
+   d + HP, qcf + release HP, which does a crouching HP into a HP Gadou
+   Ken), count as two actions.  Note that multi-hit moves count as one
+   action.  So, for example, I could throw 22 standing LPs with
+   Dan, and if I then did a Kouryuu Ken, it would flash.  If my next
+   14 moves were a combination of taunts, attacks, special moves, and
+   Super Combos, then did a Kouryuu Ken for my 15th action, it would
+   flash.   A big thanks to Paul Williams for this info.
+ - Using the Saikyou-ryuu Bougyo will push an enemy across the screen.
+   You can combine this move with a Guard Protected block if someone
+   comes at you with an attack and you block it just as it reaches you.
+ - Dan gains a small amount of energy from his standing, crouching,
+   and rolling taunts.
+ - In X-ISM, Dan's taunts gain the ability to hit an opponent for
+   minor damage, depending on the situation:
+     * His standing taunt hits someone in the air, and will hit if
+       your opponent is attacking (it becomes a Counter Hit).  It
+       will also hit exceptionally tall characters, like Zangief.
+     * His crouching taunt will hit someone who is standing or
+       crouching.  If they are jumping and are low to the ground,
+       it will also hit.
+     * Dan's jumping taunt seems to work best if Dan jumps up
+       underneath his opponent (who must also be in the air).  Size is
+       also a factor (it's easy to hit Zangief, but much harder to hit
+       Chun-Li consistently).
+     * His rolling taunts will hit someone in the air, or a standing
+       opponent if you cross them up (i.e., Dan rolls underneath them,
+       stands up on the other side, and taunts).
+ - During the Chouhatsu Shinwa, you can move around freely.  Pressing
+   any button makes Dan taunt, while pressing the Start button makes
+   him do a special taunt.  You can also perform the jumping, crouching
+   or rolling taunts (using db / df + a button) during this move, but
+   you must do them with P or K and you won't gain energy from Dan
+   taunting.  Furthermore, all of Dan's taunts can be cancelled into
+   anything (i.e. you can jump during a roll taunt, cancel a standing
+   taunt into a crouching one, etc.)  This move ends after a certain
+   period of time or when Dan is hit.
+
+
+-------------------------------------------------------------------------
+DHALSIM
+-------------------------------------------------------------------------
+
+XAV  Yoga Smash                      b / f + PP
+XAV  Yoga Throw                      b / f + KK
+XAV  Yoga Trip                       Any direction but u / d + PP  (air)
+
+XAV  Yoga Fire                       qcf + P
+XAV  Yoga Flame                      hcb + P  (hcf + P in X-ISM)
+XAV  Yoga Blast                      hcb + K  (hcf + K in X-ISM)
+ AV  Yoga Escape                     b,db,d + K  (reversal only)
+X    Yoga Teleport                   f,d,df / b,d,db + PPP / KKK
+ AV  Yoga Teleport                   f,d,df / b,d,db + PPP / KKK  (air)
+ A   Yoga Shock                      b + LP, hold LP until you attack
+ AV  Yoga Palm                       f + LP
+XAV  Drill Zutsuki                   In air, d + HP
+XAV  Drill Kick                      In air, d + K
+ AV  Kuuchuu Chouhatsu               In air, press Start
+
+X    Yoga Tempest                    hcf,hcf + P
+ A   Yoga Inferno                    qcf,d,df + P
+ A   Yoga Strike                     qcf,d,df + K
+ A   Yoga Stream                     qcb,qcb + P
+
+ Alpha Counter (A-ISM):  Close Standing MP
+ Alpha Counter (V-ISM):  Far Crouching HK
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - standing close      x     x     x1    x     x     x
+  - standing far        x
+  - crouching close     x     x     x     x     x
+  - crouching far                         x
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - standing neutral     av    av    av1
+  - stand b + P / K      av
+  - crouching neutral    av    av
+  - crouch db + P / K                      av
+
+ - Normally, Dhalsim's limbs stretch out quite far.  However, you
+   can make them shorter by holding b or db when pressing Punch or
+   Kick.  This even works while airborne.  In X-ISM, you can't
+   control his limbs, however, they'll automatically become shorter
+   when you attack from up close.
+ - The Yoga Shock is an overhead attack, but only if you wait until
+   Dhalsim attacks.
+ - The Yoga Stream hits low and must be crouch-blocked.
+ - If you play a Dhalsim vs. Dhalsim match, both wives will appear in
+   the background.  Freaky!
+
+
+-------------------------------------------------------------------------
+EDMOND HONDA
+-------------------------------------------------------------------------
+
+XAV  Tawara Nage                     b / f + PP
+XAV  Saba Ori                        b / f + KK
+XAV  Tsuriyane Nage                  Any direction but u / d + PP  (air)
+
+XAV  Hyakuretsu Harite               Tap P rapidly
+XAV  Super Zutsuki                   Charge b,f + P
+XAV  Super Hyakkan Otoshi            Charge d,u + K
+XAV  Ooichou Nage                    Rotate 360 + P
+XAV  Flying Sumo Press               Jump, press MK  (d + MK in X-ISM)
+XAV  Hiza-geri                       f + MK  (b / f + MK in X-ISM)
+XAV  Harai-geri                      f + HK  (b / f + HK in X-ISM)
+
+XA   Oni Musou                       Charge b,f,b,f + P
+ A   Fuji Oroshi                     Charge b,f,b,f + K
+ A   Orochi Kudaki                   Rotate 720 + P at Level 3
+
+ Alpha Counter (A-ISM):  Standing HP
+ Alpha Counter (V-ISM):  Crouching HK
+
+ Cancellable Attacks:
+        - Only his crouching LK is cancellable (in any ISM).
+
+ - Honda won't continue the rest of the Fuji Oroshi if the initial
+   headbutt-and-toss part is blocked.  If it isn't, he finishes the
+   move with a multi-hit Super Hyakkan Otoshi.
+
+
+-------------------------------------------------------------------------
+GEN
+-------------------------------------------------------------------------
+
+ AV  Ansatsu Ken: Sou-ryuu           Press PPP at any time  (air)
+XAV    Juraku                        b / f + PP
+XAV    Houzen                        b / f + KK
+XAV    Shuuga                        Any direction but u / d + KK  (air)
+XAV    Hyakurenkou                   Tap P rapidly
+XAV    Gekirou                       f,d,df + K, tap K  (see notes)
+XA     Zan'ei                        qcf,qcf + P
+ A     Shitenshuu                    qcb,qcb + P
+
+ AV  Ansatsu Ken: Ki-ryuu            Press KKK at any time  (air)
+XAV    Juraku                        b / f + PP
+XAV    Houzen                        b / f + KK
+XAV    Shuuga                        Any direction but u / d + KK  (air)
+XAV    Jasen                         Charge b,f + P
+ AV    Ouga                          Charge d,ub~uf + K
+XAV    Kyoutetsu                     Press MP
+XAV    Onkyou                        Press HP
+ AV    Kirou                         d + HP
+ AV    Satsu Jin                     d + LK
+XAV    Saizu                         Jump over someone, press MK
+ AV    Uken -> Shakudan              In air, quickly press HK twice
+ A     Kouga                         In air, qcb,qcb + K
+ A     Jakouha                       qcf,d,df + K
+
+ Alpha Counter (A-ISM):  Sou-ryuu:  HK Gekirou
+ Alpha Counter (A-ISM):  Sou-ryuu:  Advancing Shakudan
+ Alpha Counter (V-ISM):  Ki-ryuu:   Palm Thrust
+ Alpha Counter (V-ISM):  Ki-ryuu:   Sou-ryuu Standing HP
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close: X-ISM        x     x     x1    X     n/a
+  - far: X-ISM          x                       x
+  - crouching: X-ISM    x     x           x     x*
+  - standing Sou-ryuu    av    av    av1   av    av
+  - standing Ki-ryuu     av                Av    Av
+  - crouching Sou-ryuu   av    av          av    av
+  - crouching Ki-ryuu    av    av          av    Av
+
+  * This move must hit if you want to cancel it into the Zan'ei.
+    However, if you want to cancel it into a special move, you must
+    do so _before_ it hits.
+
+ - Gen has two different "styles" of play he can use by pressing PPP
+   or KKK.  Once you've changed into a certain style, you can only
+   use the moves in that style (for example, in Sou-ryuu style, you
+   could use the Shitenshuu but not the Ouga).  Gen normally starts
+   in his PPP style, but if you switch to his KKK style, he'll
+   remain in it for the rest of the game.  You can switch Gen's
+   styles at any time, while jumping, blocking, attacking, when
+   knocked down, while dizzy, and so on.
+ - In X-ISM Gen cannot change styles.  He instead uses a mishmash
+   of moves taken from both style instead.  He cannot chain combo
+   and has his fast Ki-ryuu style jump.  Also, his normal attacks
+   change depending on whether he is close or far from his opponent,
+   unlike in A-ISM or V-ISM.
+ - In his Sou-ryuu style, Gen can chain together his normal attacks.
+   The sequence is pretty loose--the only real restriction is that
+   you can't chain a stronger attack into a weaker one (like HP into
+   LK).  Otherwise, just about anything is possible.
+ - During the Geki Rou, you need to tap the Kick button as your
+   opponent goes higher and higher into the air if you want to get the
+   full hits (you'll know if you did this correctly because he'll
+   finish with a kick that knocks your foe away).
+ - If hit by a Shitenshuu, a timer will appear over the head of Gen's
+   opponent and count down.  When it reaches zero, Gen's foe falls to
+   the ground and is dizzied.  You can increase the timer speed by
+   hitting your foe with multiple Shitenshuus, but your opponent can
+   stop the timer by hitting you with an attack.  Note that your
+   opponent is damaged during the intitial hits, each time the counter
+   goes down by one, and when it hits zero and he / she is dizzied.
+   The higher level you use, the more damage the Shitenshuu does during
+   the intial hits and for each timer countdown.
+ - During the Ouga, you can:
+      * Direct your initial leap left or right by charging d,ub / uf
+        instead of charging d,u (which always takes you to the wall
+        behind you).
+      * Do nothing when you touch a wall for a jump kick
+      * Press b when you touch a wall to abort the move
+      * Press f when you touch a wall for a long kick toward your foe
+      * Press u when you touch a wall to move to the ceiling
+         + Do nothing when you touch the ceiling to do a head stomp
+         + Press ub~uf when on the ceiling to abort the move and drop
+           in either direction
+         + Press b / f when on the ceiling to use a dive kick in either
+           direction
+ - The Kyoutetsu is an overhead attack.
+ - The Onkyou hits low and must be crouch-blocked.
+ - The Kirou causes huge amounts of damage if it hits someone who is in
+   the middle of an attack (3.5-4.0 times more damage).  However, if you
+   are hit out of it, you may take lots of damage yourself.  The move
+   also has a considerable delay.
+ - The Satsu Jin will knock an opponent up into the air.  You can
+   follow it with a Jakouha or jump after them with the attack of
+   your choice.  If you use the Uken, they can't flip out afterwards.
+ - Gen's jumping Ki-ryuu MK (the Saizu), works best as a cross-up
+   attack.
+ - During the Kouga you can:
+      * Press LK for a jump kick off the left wall,
+         + Then, press MK or do nothing instead for a long kick towards
+           your enemy.
+         + Or, press HK instead for a higher, faster long kick.
+
+      * Press MK for a head stomp off the ceiling,
+         + Then press LK instead to dive left.
+         + Or, press HK instead to dive right.
+      * Press HK for a jump kick off the right wall,
+         + Then, press MK or do nothing instead for a long kick towards
+           your enemy.
+         + Or, press LK for a higher, faster long kick.
+   If you do nothing, Gen will just keep jumping off opposite walls
+   and kicking.  Gen can perform one extra attack per level.
+ - It's easy to accidentally tap a button too much so that if you "do
+   nothing" after using LK or HK to go to a wall, you'll end up doing
+   the following LK or HK move instead.  To prevent this, pressing MK
+   has the same effect as "doing nothing".
+
+
+-------------------------------------------------------------------------
+GUY
+-------------------------------------------------------------------------
+
+XAV  Seoi Nage                       b / f + PP
+XAV  Tsukami Nage                    b / f + KK
+XAV  Izuna Otoshi                    Any direction but u / d + PP  (air)
+
+XAV  Bushin Izuna Otoshi             qcf + P,P when close
+XAV  Izuna no Hiji Otoshi            qcf + P,P when far
+XAV  Houzantou                       qcb + P
+XAV  Bushin Senpuu Kyaku             qcb + K
+XAV  Hayagake                        qcf + K
+XAV  Hayagake: Kyuuteishi            qcf + LK,K
+XAV  Hayagake: Kage Sukui            qcf + MK,K
+XAV  Hayagake: Kubikari              qcf + HK,K
+XAV  Hiji Otoshi                     In air, d + MP
+XAV  Kubi Kudaki                     f + MP
+XAV  Kamaitachi                      df + HK
+XAV  Bushin Gokusa Ken               When close, tap LP,MP,HP,HK
+X    Bushin-ryuu Seoi Nage           When close, tap LP,MP,HP, d + HK
+XAV  Bushin-ryuu Seoi Nage           f + MP / HP during Tsukami Nage
+XAV  Sankaku Tobi                    Jump against a wall, press f
+
+ A   Bushin Hassou Ken               qcf,d,df + P
+ A   Bushin Gourai Kyaku             qcf,d,df + K
+XA   Bushin Musou Renge              hcb,hcb + P
+
+ Alpha Counter (A-ISM):    Crouching HP
+ Alpha Counter (V-ISM):    Crouching MK
+ V-ISM Variable Attacks:   b + MP / HP / MK / HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav   xav   xav   xav
+  - standing (far)        xav   xav         xav
+  - crouching             xav   xav         xav
+
+ - The Kubi Kudaki and Hayagake: Kubikari are overhead attacks.
+ - The Hayagake: Kage Sukui hits low and must be crouch-blocked.
+ - In A-ISM, you can only use the Bushin Musou Renge at Level 3.
+
+
+-------------------------------------------------------------------------
+KARIN KANZUKI
+-------------------------------------------------------------------------
+
+XAV  Yashiro Kuzushi                 b / f + PP
+XAV  Homura-geri                     b / f + KK
+XAV  Abise Yashiro Kuzushi (front)   Any direction but u / d + PP  (air)
+XAV  Abise Yashiro Kuzushi (back)    Any direction but u / d + KK  (air)
+
+XAV  Guren Ken                       qcf + P,P
+XAV  Hou Shou                        f,d,df + P
+XAV  Mujin Kyaku                     f,d,df + K
+XAV  Ressen Chou                     b,d,db + P
+XAV  Ressen Chuu                     Press P during Ressen Chou
+XAV  Ressen Ha                       qcf,uf + K
+XAV  Yasha Gaeshi (Joudan)           qcb + P
+XAV  Yasha Gaeshi (Gedan)            qcb + K
+XAV  Arakuma Inashi                  Rotate 360 + K
+XAV  Tsumuji-gari                    f + MK
+
+XA   Kanzuki-ryuu Shinpikaibyaku     qcf,qcf + P
+ A   Kanzuki-ryuu Kou'ou Ken         qcf,qcf + K
+
+ Alpha Counter (A-ISM):   Standing HP
+ Alpha Counter (V-ISM):   Crouching HK
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    n/a   n/a   n/a   n/a   n/a   n/a
+  - standing (far)      xav   xav         xav   xav*
+  - crouching           xav   xav   xav   xav
+
+  * Either part of this attack can be cancelled from.
+
+ - The Tsumuji-gari and Ressen Ha are overhead attacks.
+ - You can interrupt or follow the Guren Ken with another attack, as
+   shown below:
+
+    Guren Hou Shou                   f + P after 1st punch
+    Guren Hou Shou                   P after 2nd punch
+    Guren Mujin Kyaku                K after 1st or 2nd punch
+    Guren Chouchuu                   df + P,P after 1st or 2nd punch
+    Guren Yasha (Joudan)             b + P after 1st or 2nd punch
+    Guren Yasha (Gedan)              b + K after 1st or 2nd punch
+    Guren Ressen Ha                  u + K after 1st or 2nd punch
+    Guren Kusabi                     d + K after 1st or 2nd punch
+
+ - For example, to perform the Guren Hou Shou, you'd input (qcf + P,P,P)
+   or (qcf + P, f + P).  To use the Guren Kusabi, you'd input
+   (qcf + P, d + K) or (qcf + P,P, d + K).  Note that the Guren Kusabi
+   hits low and must be crouch-blocked.
+ - The Yasha Gaeshi moves are used to reverse attacks.  The Joudan
+   version works against high attacks and jumping attacks, while the
+   Gedan version works against low attacks and sweeps.  While there
+   is some start-up lag to either version, you can attack someone
+   while they are getting hit by the counter, with a little timing.
+
+
+-------------------------------------------------------------------------
+KEN MASTERS
+-------------------------------------------------------------------------
+
+XAV  Jigoku-guruma                   b / f + PP
+XAV  Tsukami Nage                    b / f + KK
+XAV  Jigoku Fuusha                   Any direction but u / d + PP  (air)
+
+XAV  Hadou Ken                       qcf + P
+XAV  Shouryuu Ken                    f,d,df + P
+XAV  Tatsumaki Senpuu Kyaku          qcb + K  (air)
+ AV  Zenpou Tenshin                  qcb + P
+ AV  Zentou                          qcf + Start
+XAV  Inazuma Kakato Wari             f + MK
+XAV  Ushiro Mawashi-geri             f + HK
+
+XA   Shouryuu Reppa                  qcf,d,df + P
+ A   Shinryuu Ken                    qcf,d,df + K, tap P / K rapidly
+ A   Shippuujinrai Kyaku             qcb,qcb + K at Level 3
+
+ Alpha Counter (A-ISM):    HP Shouryuuken
+ Alpha Counter (V-ISM):    Standing HK
+ V-ISM Variable Attacks:   b + MP / MK / HP / HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xa    xa    xa    xav*  xav
+  - standing (far)        xa
+  - crouching             xa    xa    xa    xa    xa
+
+  * In V-ISM, this move cancels on either hit.  In X- or A-ISM, you
+    can only cancel into special moves on the first hit; however,
+    you can cancel into a Super Combo on the first _or_ second hit.
+
+ - The Inazuma Kakato Wari is an overhead attack.
+
+
+-------------------------------------------------------------------------
+M. BISON
+-------------------------------------------------------------------------
+
+XAV  Deadly Throw                    b / f + PP
+XAV  Psycho Fall                     Any direction but u / d + PP  (air)
+
+X    Psycho Crusher Attack           Charge b,f + P
+ AV  Psycho Shot                     Charge b,f + P
+XAV  Double Knee Press               Charge b,f + K
+XAV  Head Press                      Charge d,u + K
+XAV  Somersault Skull Diver          b / f + P after Head Press
+XAV  Somersault Skull Diver          Charge d,u + P, b / f + P
+ AV  Bison Warp                      f,d,df / b,d,db + PPP / KKK
+
+XA   Psycho Crusher                  Charge b,f,b,f + P
+ A   Knee Press Nightmare            Charge b,f,b,f + K
+
+ Alpha Counter (A-ISM):    Bison Warp (behind opponent)
+ Alpha Counter (V-ISM):    Standing Palm Thrust
+ V-ISM Variable Attacks:   b + MP / HP / MK / HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav         n/a
+  - standing (far)        xav   XA          xav         xav1
+  - crouching             xav   xav         xav   xav
+
+ - When you use the Head Press or Somersault Skull Diver, ending them
+   with with ub makes Bison fly backwards.  Using uf makes him fly
+   forward, and using u makes him simply fly over his opponent.
+
+
+-------------------------------------------------------------------------
+RAINBOW MIKA  (Mika Nanakawa)
+-------------------------------------------------------------------------
+
+XAV  German Suplex                   b / f + PP
+XAV  Brain Buster                    b / f + KK
+XAV  Headbutt                        db / df + PP
+XAV  Hip Buster                      Any direction but u / d + PP  (air)
+XAV  Neck Breaker                    Any direction but u / d + KK  (air)
+
+XAV  Flying Peach                    qcb + P
+XAV  Shooting Peach                  qcb + K
+XAV  Paradise Hold                   Rotate 360 + P
+XAV  Daydream Headlock               Rotate 360 + K, tap P / K rapidly
+XAV  Wingless Airplane               In air, hcb + K
+XAV  Flying Body Press               Jump b / f, d + HP
+XAV  Knee Drop                       Jump b / f, d + LK
+XAV  Rainbow Sobat                   f + MK  (b / f + MK in X-ISM)
+XAV  Sliding                         d + HK
+
+ A   Heavenly Dyanamite              Rotate 720 + P, tap P / K rapidly
+ A   Rainbow Hip Rush                qcf,d,df + P
+XA   Sardine's Beach Special         qcf,d,df + K
+XA   Hashiru                         Move b / f after S.B.S.
+XA   Dageki: J. Ocean Drop Kick      Press LP during Hashiru
+XA   Dageki: Mika Sliding            Press MP during Hashiru
+XA   Dageki: Mika Lariat             Press HP during Hashiru
+XA   Tobikoshi                       Press K during Hashiru
+XA   Tobikoshi                       Run into your enemy during Hashiru
+XA   Haigotori                       Tap P / K during Tobikoshi, then...
+XA   Moonsault Press                 Press P or do nothing after Dageki
+XA   Missile Kick                    Press K after Dageki
+XA   Paradise Hold                   Press b / f + P after Dageki
+XA   Paradise Hold                   Hold b / f after Dageki
+XA   Wingless Airplane               Press b / f + K after Dageki
+XA   Enzui Lariat                    Press P after Haigotori
+XA   Enzui Drop Kick                 Press K after Haigotori
+XA   Rainbow Suplex                  Press b / f + P after Haigotori
+XA   Daydream Headlock               Press b / f + K after Haigotori
+
+ Alpha Counter (A-ISM):  Crouching HP
+ Alpha Counter (V-ISM):  Crouching MK
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    xav   XAv         xav
+  - standing (far)
+  - crouching           xav         xav   xav
+
+ - Mika's crouching HP knocks her opponent really high into the air.
+   For that reason, you can follow it with just about anything, and
+   in the corner, _everything_ (short of a 360 / 720 throw).  Of
+   course, this only works if your opponent doesn't flip out, though.
+ - Regarding the "hit area" on the Paradise Hold, it will only
+   connect when Mika's legs are up in the air (this occurs shortly
+   after the move begins).  Anything preceeding / following that
+   won't connect.
+ - The Flying Peach has lag at the beginning, while the Shooting
+   Peach has lag at the end.  You'll have to mix them up in order
+   to use them successfully against a smart opponent.
+ - If you're caught in the Heavenly Dynamite, you can mash the buttons
+   and the d-pad to try and escape.  However, if your opponent is
+   rapping on his / her buttons to increase the hits, it'll also make
+   it harder for you to break free.
+ - Using the Sardine's Beach Special is a little confusing, but it gets
+   easier with practice.  Below is a step-by-step guide for using this
+   Super Combo:
+
+      1.   Perform the Super Combo by inputting qcf,d,df + K.
+
+      2.   Move back or forth by hold b / f.
+
+      3.   While moving, press P for an attack (Dageki), or K for a
+           head spring jump (Tobikoshi).  You can also perform the
+           Tobikoshi automatically simply by running into your enemy.
+
+      4a.  If you hit your opponent with a Dageki Attack, Mika will jump
+           atop a wrestling ring post.  From there, perform one of the
+           available finishers:
+
+             - Do nothing or press P while on the ring post.
+             - Press K while on the ring post.
+             - Press b / f (or b / f + P) while on the ring post.
+             - Press b / f + K while on the ring post.
+
+      4b.  If you managed to connect with the Tobikoshi, tap P or K
+           when Mika starts to leap, otherwise she'll go too high up.
+
+      5.   After she lands behind her opponent, perform one of the
+           available finishers:
+
+             - Press P while behind your opponent.
+             - Press K while behind your opponent.
+             - Press b / f + P while behind your opponent.
+             - Press b / f + K while behind your opponent.
+
+ - Regarding the Dageki finishers, note that if your opponent is in
+   the corner, Mika will always do the Moonsault Press.  Also, most
+   of the Dageki moves will not combo unless you do them off the HP
+   Dageki (the Mika Lariat).  This means that in some cases, a
+   finisher will not hit, or your opponent may even be able to recover
+   in time to avoid the attack or hit you out of it!
+ - Regarding the Tobikoshi; it's possible to flip back to your
+   opponent's front (so you are still facing them), and do one of the
+   four finishers anyway.
+
+
+-------------------------------------------------------------------------
+ROLENTO SCHUGERG
+-------------------------------------------------------------------------
+
+XAV  Colonel Carrier                 b / f + PP
+XAV  Deadly Package                  b / f + KK
+XAV  Fatality Package                Any direction but u / d + PP  (air)
+
+XAV  Patriot Circle                  qcf + P  (perform 3 times)
+XAV  Stinger                         f,d,df + K, then press P / K
+XAV  Mekong Delta Air Raid           qcb + P, then press P
+XAV  Mekong Delta Escape             qcb + K, then move b / f + P / K
+XAV  Mekong Delta Attack             Press PPP, then P when you land
+XAV  Trick Landing                   Just before you land, (b / f) + KKK
+ AV  High Jump                       Tap db~df,ub~uf
+XAV  Spike Rod                       In air, d + MK  (can repeat)
+XAV  Fake Rod                        f + MK
+
+XAV  Take No Prisoner                qcf,qcf + P
+ A   Steel Rain                      qcf,qcf + K
+ A   Mine Sweeper                    qcb,qcb + P
+
+ Alpha Counter (A-ISM):    Patriot Circle (final input)
+ Alpha Counter (V-ISM):    Forward Leap (does no damage)
+ V-ISM Variable Attacks:   b + MK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   n/a   xav   n/a   xav   n/a
+  - standing (far)        xav           v   xav
+  - crouching             xav               xav   xav
+
+ - Rolento's Stinger knives can be destroyed if they are hit with
+   an attack (any attack will work, whether it's a standing LK or
+   a fireball, etc.)  You have to time it right, though, or else
+   you'll take the hit.
+ - The Spike Rod can be used repeatedly to keep Rolento bouncing.
+   It can be used during a jump or High Jump, but not during the
+   Mekong Delta Escape.  Much like the Trick Landing, you can control
+   the direction in which you bounce by holding b~db or f~df right
+   after you input the command for the move (or if you use db / df,
+   during it).  If you're doing this move repeatedly, then you can
+   even hop back and forth ;)
+ - In X-ISM, Rolento won't bounce after the Spike Rod, but he can
+   use it during the Mekong Delta Escape as well as during jumps.
+   Speaking of which, his normal b / f jumps become High Jumps.
+ - Like Sodom's Yagura Reverse, the Fake Rod can be used very
+   effectively as a reversal.  Just do it as you're getting up and
+   your would-be attacker is very likely to get Counter Hit.
+
+
+-------------------------------------------------------------------------
+ROSE
+-------------------------------------------------------------------------
+
+XAV  Soul Drain                      b / f + PP
+XAV  Soul Fade                       Any direction but u / d + PP  (air)
+
+XAV  Soul Spark                      hcf + P
+XAV  Soul Throw                      f,d,df + P
+XAV  Soul Reflect                    qcb + P
+XAV  Soul Spiral                     qcf + K
+XAV  Sliding                         df + MK
+ AV  Soul-piette                     f + HK
+
+ A   Aura Soul Spark                 qcb,qcb + P
+XA   Aura Soul Throw                 qcf,d,df + P
+ A   Soul Illusion                   qcf,d,df + K
+
+ Alpha Counter (A-ISM):    Soul Collect (hop to other side)
+ Alpha Counter (V-ISM):    Crouching HK
+ V-ISM Variable Attacks:   b + MP / MK / HP / HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav   xav   n/a
+  - standing (far)        xav   xav         xav
+  - crouching             xav   xav   xav   xav   xav
+
+ - If you absorb a projectile using the Soul Reflect (see below), then
+   the next Soul Spark you perform will do slightly higher damage if
+   it hits.  This only works for one Soul Spark, though.
+ - In addition to causing damage, the Soul Reflect can also be used
+   against projectiles.  The LP version absorbs a projectile, giving
+   Rose a small amount of SC power.  The MP version reflects a
+   projectile directly forward.  And the HP version reflects a
+   projectile at an up-forward angle.  If Rolento's Stinger knives are
+   reflected, they go straight even if HP is used.  Rose cannot absorb
+   or reflect Cody's Bad Stone and Bad Throw; instead, the rocks (or
+   knife) simply hit the scarf and bounce off it and onto the floor.
+   While Rose cannot use the Soul Reflect against an SC projectile,
+   Dan's Shin Kuu Gadou Ken is an exception to this rule.
+ - Rose can reflect any SC projectile during the Level 3 Aura Soul
+   Spark.
+ - During the Soul Illusion, Rose is trailed by illusions who add to
+   the number of hits that any of her attacks inflict.  This move only
+   ends once a certain amount of time has passed; Rose can be hit
+   without having this SC end.
+
+
+-------------------------------------------------------------------------
+RYU
+-------------------------------------------------------------------------
+
+XAV  Seoi Nage                       b / f + PP
+XAV  Tomoe Nage                      b / f + KK
+XAV  Kuuchuu Seoi Nage               Any direction but u / d + PP  (air)
+
+XAV  Hadou Ken                       qcf + P
+ AV  Hadou no Kamae                  qcf + Start
+XAV  Shakunetsu Hadou Ken            hcf + P
+XAV  Shouryuu Ken                    f,d,df + P
+XAV  Tatsumaki Senpuu Kyaku          qcb + K  (air)
+X V  Seichuu Nidan Tsuki             f + HP
+XAV  Sakotsu Wari                    f + MP
+ AV  Senpuu Kyaku                    f + MK
+XA   Shinkuu Hadou Ken               qcf,qcf + P
+ A   Shinkuu Tatsumaki Senpuu Kyaku  qcb,qcb + K
+ A   Metsu Shouryuu Ken              qcf,d,df + K at Level 3
+ A   Shin Shouryuu Ken               Perform the M.S. from a distance
+
+ Alpha Counter (A-ISM):    HP Shouryuu Ken
+ Alpha Counter (V-ISM):    Crouching HK
+ V-ISM Variable Attacks:   b + P / b + HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      xav   xav   xav   n/a   n/a   xB
+  - standing (far)        xav         x
+  - crouching             xav   xav   xav   xav   xav
+
+ - The Sakotsu Wari is an overhead attack.
+ - To change the Metsu Shouryuu Ken into the Shin Shouryuu Ken, you have
+   to perform it from a bit ouside of Ryu's sweep range.  If you got
+   the right distance, Ryu will hit with the very tip of his elbow and
+   do four hits total (and inflict a lot more damage, as well).  Be
+   warned, though, it's really hard to do!
+
+
+-------------------------------------------------------------------------
+SAGAT
+-------------------------------------------------------------------------
+
+XAV  Tiger Carry                     b / f + PP
+XAV  Tiger Rage                      b / f + KK
+XAV  Kuuchuu Tiger Carry             Any direction but u / d + PP  (air)
+
+XAV  Tiger Shot                      qcf + P
+XAV  Ground Tiger Shot               qcf + K
+X    Tiger Uppercut                  f,d,df + P
+ AV  Tiger Blow                      f,d,df + P
+ AV  Tiger Crush                     f,d,df + K  (qcf,uf + K in X-ISM)
+ AV  Fake Kick                       Quickly press MK twice
+
+ A   Tiger Cannon                    qcf,qcf + P
+ A   Tiger Raid                      qcb,qcb + K
+XA   Tiger Genocide                  qcf,d,df + K
+ A   Angry Charge                    qcf + Start
+
+ Alpha Counter (A-ISM):    Standing Heel Kick
+ Alpha Counter (V-ISM):    HP Tiger Blow
+ V-ISM Variable Attacks:   b + MP / HP
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav   xav   n/a   n/a   n/a
+  - standing (far)        xav               xav1        xav1
+  - crouching             xav   xav         xav   x v
+
+ - After using the Angry Charge, the next Tiger Blow that you perform
+   will do increased damage if it hits.  This only lasts for one use
+   of the Tiger Blow, though.
+
+
+-------------------------------------------------------------------------
+SAKURA KASUGANO
+-------------------------------------------------------------------------
+
+XAV  Sakura-jime                     b / f + PP
+XAV  Sailor Shoot                    b / f + KK
+XAV  Sailor Fly                      Any direction but u / d + KK  (air)
+
+XAV  Hadou Ken                       qcf + P,P,P
+XAV  Shou'ou Ken                     f,d,df + P
+ AV  Sakura Otoshi                   f,d,df + K, tap P,P,P
+XAV  Shunpuu Kyaku                   qcb + K  (air)
+XAV  Flower Kick                     f + MK
+
+ A   Shinkuu Hadou Ken               qcf,qcf + P
+ A   Haru Ichiban                    qcb,qcb + K
+XA   Midare-zakura                   qcf,d,df + K
+
+ Alpha Counter (A-ISM):    MP Shou'ou Ken
+ Alpha Counter (V-ISM):    Crouching HK
+ V-ISM Variable Attacks:   b + MP / HP / HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav   xav   n/a   n/a
+  - standing (far)        xav   xav         xav
+  - crouching             xav   xav   xav   xav
+
+ - During Sakura's Hadou Ken, tapping P makes her delay the throwing of
+   the fireball and it shortens the overall range, but it does make the
+   fireball larger.  (qcf + P) gets you a small, long-range fireball;
+   (qcf + P,P) makes Sakura throw a larger fireball that goes about half-
+   screen, and (qcf + P,P,P) is for a large fireball that dissapates
+   almost as soon as it is thrown.
+ - The Flower Kick is an overhead attack.
+ - After the initial hit of the Sakura Otoshi, you can add more hits
+   by tapping any Punch button (this requires a bit of timing, though).
+   Not only is the Sakura Otoshi invincible on the way up, but if
+   you're about to land on a projectile and press P, it's possible to
+   hit it and bounce off of it, even SC projectiles!  You can still
+   press P (or P,P, depending) afterwards to hit your opponent.
+ - The Haru Ichiban hits low and must be crouch-blocked.
+
+
+-------------------------------------------------------------------------
+SODOM
+-------------------------------------------------------------------------
+
+XAV  Shogun Throw (long toss)        b / f + PP
+XAV  Shogun Throw (short toss)       b / f + KK
+XAV  Daimyo Throw                    Any direction but u / d + PP  (air)
+
+XAV  Jigoku Scrape                   qcf + P
+XAV  Butsumetsu Buster               Rotate 360 + P
+XAV  Daikyou Burning                 Rotate 360 + K
+XAV  Shiraha Catch                   f,d,df + K
+XAV  Yagura Reverse                  b,d,db + K
+XAV  Kouten Okiagari                 f,df,d + P  (reversal only)
+XAV  Tengu Walking                   b,db,d + K  (reversal only)
+XAV  Tengu Walking                   While getting up, qcf + K
+XAV  Sliding                         d + HK
+
+XA   Meido no Miyage                 qcf,qcf + P
+ A   Ten Chuu Satsu                  Rotate 720 + P
+
+ Alpha Counter (A-ISM):    MP Jigoku Scrape
+ Alpha Counter (V-ISM):    Sliding
+ V-ISM Variable Attacks:   b + MP / HP
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   xav         n/a   n/a   n/a
+  - standing (far)        xav     v         xav   xav
+  - crouching             xav         xav   xav   XA
+
+ - In X-ISM, Sodom's jitte are replaced by katana, giving his attacks
+   a slightly longer range.
+ - When the Daikyou Burning is performed, Sodom rushes forward with his
+   jitte out.  If his opponent is on the ground, he'll grab them and
+   ram them into the wall (if he's closer to the wall than the distance
+   he could cover during this move, he'll turn and do it instead).
+   However, if his opponent is airborne, and in other circumstances,
+   Sodom's foe will simply bounce off the jitte and take less damage.
+ - The Shiraha Catch is a counterattack move that can be used against
+   overhead attacks or against jumping attacks.  If Sodom connects,
+   he'll perform a throw.  However, this can be Tech. Hit out of.
+ - The Yagura Reverse is a fake Tengu Walking.  Used out of the blue,
+   it doesn't have much use since it can't hit non-attacking characters
+   (there are a few exceptions, such as Honda).  However, it can be
+   used as a reversal, and can hit characters who are attacking you,
+   in most cases counting as a Counter Hit should it connect).  This
+   is probably it's best use, for snubbing attacks, because you can
+   then juggle someone afterwards.  It can also hit someone if Sodom
+   blocked a move from up close (such as against a blocked Shou'ou Ken).
+   It's cool and insulting to counter someone with it, just like hitting
+   someone with Dan's taunts ;)
+ - You can follow the short Shogun Throw with an attack, like the Jigoku
+   Scrape, Daikyou Burning, or Meido no Miyage.  You can also use normal
+   attacks (jumping HP looks wicked), and even Sodom's air throw.
+
+
+-------------------------------------------------------------------------
+VEGA
+-------------------------------------------------------------------------
+
+XAV  Rainbow Suplex                  b / f + PP
+XAV  Stardust Drop                   Any direction but u / d + PP  (air)
+XAV  Crescent Line                   Any direction but u / d + KK  (air)
+
+XAV  Rolling Crystal Flash           Charge b,f + P
+  V  Scarlet Terror                  Charge db,f + K
+XAV  Sky High Claw                   Charge d,ub~uf + P
+XAV  Flying Barcelona Attack...      Charge d,ub~uf + K, then...
+XAV    ...(cont'd.)                  Move b / f, press P
+XAV  Izuna Drop...                   Charge d,ub~uf + K, then...
+       ...(cont'd.)                  Move b / f, any dir. + P when close
+XAV  Kabe Hari Tsuki                 Charge d,ub~uf + KKK
+XAV  Backslash                       Press PPP
+XAV  Short Backslash                 Press KKK
+XAV  Cosmic Smart                    f + HK
+XAV  Sankaku Tobi                    Jump against a wall, press f
+
+XA   Rolling...                      Charge db,df,db,ub~uf + K, then...
+XA     ...Barcelona Attack           Move b / f, press P when close
+XA     ...Izuna Drop                 Move b / f, any dir. + P when close
+XA   Hari Tsuki Rolling...           Charge db,df,db,ub~uf + KKK, then...
+XA     ...Barcelona Attack           Move b / f, press P when close
+XA     ...Izuna Drop                 Move b / f, any dir. + P when close
+ A   Scarlet Mirage                  Charge b,f,b,f + K
+ A   Red Impact                      Charge b,f,b,f + P at Level 3
+
+ Alpha Counter (A-ISM):  Standing Claw Swipe
+ Alpha Counter (V-ISM):  Crouching HK
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    n/a   n/a*  n/a   n/a   n/a   n/a
+  - standing (far)      xav               xav   xav
+  - crouching           xav               xav   xav
+
+ * In X-ISM, this is a close attack (it still isn't cancellable,
+   though).
+
+ - Either Backslash move can be used to avoid projectiles or physical
+   attacks.
+ - When playing on Vega's stage (the one with the fence in the
+   background), you can cling to the fence instead of the walls by
+   performing the Kabe Hari Tsuki.  After grabbing the fence, Vega
+   will automatically position himself before jumping, at which point
+   you can use either the Flying Barcelona Attack or Izuna Drop.  The
+   same can be done using the Kabe Hari Tsuki Rolling SC, which you can
+   follow with either of his 'Rolling...' SC attacks.
+ - Vega will lose his claw or his mask if he blocks or gets hit by
+   too many attacks.  You can re-equip either item by walking over it.
+   You must have your claw in order to perform the Red Impact, otherwise
+   nothing will happen when you input the command.  Otherwise, losing
+   either item does not affect your offense or defense.  Interestingly
+   enough, even if you have both the mask and claw equipped, Vega's OC
+   and SC shadows will still be unmasked and unarmed.
+ - When you use any of Vega's vertical charge moves, ending them with
+   ub makes him go to the wall behind him, while uf makes him go to the
+   wall in front of him.  Just using charge d,u makes him go to whatever
+   wall is closest.
+
+
+-------------------------------------------------------------------------
+ZANGIEF
+-------------------------------------------------------------------------
+
+XAV  Back Drop                       b / f + PP
+XAV  Kamitsuki                       b / f + KK
+XAV  Stomach Claw                    db / df + PP
+XAV  Piledriver                      db / df + KK
+XAV  Flying Piledriver               Any direction but u / d + PP  (air)
+
+XAV  Double Lariat                   Press PPP, move b / f
+XAV  Quick Double Lariat             Press KKK, move b / f
+XAV  Screw Piledriver                Rotate 360 + P
+XAV  Flying Powerbomb                Rotate 360 + K
+XAV  Atomic Suplex                   Rotate 360 + K when close
+XAV  Banishing Flat                  f,d,df + P  (f,df,d + P in X-ISM)
+XAV  Body Press                      Jump b / f, d + HP
+XAV  Double Knee Drop                Jump b / f, d + LK / MK
+XAV  Kuuchuu Headbutt                Jump up, u + MP / HP
+XAV  Headbutt                        f + HP  (f + MP in V-ISM)
+XAV  Dynamite Kick                   db + MK
+XAV  Russian Kick                    db + HK
+
+XA   Final Atomic Buster             Rotate 720 + P
+ A   Aerial Russian Slam             qcf,d,df + K
+
+ Alpha Counter (A-ISM):  Standing MK
+ Alpha Counter (V-ISM):  Standing HP
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    n/a   n/a   n/a   n/a   n/a   n/a
+  - standing (far)      xa                xa
+  - crouching           xa                xa
+  - dynamite kick (xav)
+
+ - Either Double Lariat move can be used to avoid projectiles.  The
+   KKK version has a shorter duration but also offers limited
+   invincibility against low attacks.
+ - The Banishing Flat can negate non-SC projectiles.  You can actually
+   combo this move from a Dynamite Kick, but it's hard to do.
+
+
+=========================================================================
+  3.  HIDDEN CHARACTER MOVES LIST
+=========================================================================
+
+ To select these characters, please refer to the "Secrets and Codes"
+ section.
+
+-------------------------------------------------------------------------
+BALROG
+-------------------------------------------------------------------------
+
+XAV  Head Bomber                     b / f + PP
+XAV  Kuuchuu Head Bomber             Any direction but u / d + PP  (air)
+
+XAV  Dash Straight                   Charge b,f + P
+XAV  Dash Upper                      Charge b,f + K
+ AV  Dash Ground Straight            Charge b,df + P
+ AV  Dash Ground Upper               Charge b,df + K
+ AV  Buffalo Head                    Charge d,u + P  (reversal only)
+XAV  Turn Punch                      Hold and release PPP / KKK
+
+XA   Crazy Buffalo                   Charge b,f,b,f + P / K
+ A   Crazy Buffalo                   Charge b,f,b,f + P
+ A   Gigaton Blow                    Charge b,f,b,f + K at Level 3
+
+ Alpha Counter (A-ISM):    LP Buffalo Head
+ Alpha Counter (V-ISM):    Crouching HK
+ V-ISM Variable Attacks:   b + MP / HP / MK / HK
+
+ Cancellable Attacks:     LP    MP    HP    LK    MK    HK
+  - close / variable      n/a   n/a   n/a   n/a   n/a   n/a
+  - standing (far)        xav   xav         xav   xav
+  - crouching             xav   xav     v   xav   xav
+
+ - The longer you charge the Turn Punch, the more damage it does, as
+   shown below:
+
+   Time that move is charged            Result
+
+     0 - 2 seconds                      Level 1
+     3 seconds                          Level 2
+     4 - 6 seconds                      Level 3
+     7 - 12 seconds                     Level 4
+     13 - 18 seconds                    Level 5
+     19 - 24 seconds                    Level 6
+     25 - 30 seconds                    Level 7
+     31 - 36 seconds                    Level 8
+     37 - 42 seconds                    Level 9
+     43+ seconds                        Final
+
+   The times are listed in real-life seconds, not game timer ticks.  No
+   matter what speed setting you use, you still have to hold down PPP
+   for the number of seconds listed.  Charging this move results in more
+   damage (we're talking 60% at Final, here) and increased range on the
+   Turn Punch (at Final, it goes full-screen).  If the move is blocked,
+   the amount of Guard Meter damage it does is also increased.
+ - You can charge the Turn Punch before the round begins--you can charge
+   it even more if you do so during a mid-boss conversation.
+ - During the Crazy Buffalo, you can press and hold Kick to make
+   Balrog perform multiple Dash Uppers, or hold Punch to switch him
+   back to Dash Straights.
+
+
+-------------------------------------------------------------------------
+JULI
+-------------------------------------------------------------------------
+
+XAV  Hooligan Suplex                 b / f + PP
+XAV  Frankensteiner                  b / f + KK
+XAV  Flying Neck Hunt                Any direction but u / d + PP  (air)
+XAV  Air Frankensteiner              Any direction but u / d + KK  (air)
+
+XAV  Sniping Arrow                   qcf + K
+XAV  Cannon Spike                    f,d,df + K
+XAV  Axle Spin Knuckle               hcb + P
+XAV  Falling Arc                     f + MK
+
+XA   Reverse Shaft Breaker           qcb,d,db + K, tap P / K rapidly
+ A   Spin Drive Smasher              qcf,d,df + K
+
+     The following moves only work in Dramatic Battle Mode:
+
+XAV  Psycho Charge Beta              Press KKK
+XAV  Psycho Charge Gamma             CPU Juli only
+ A   Psycho Rolling                  qcf,qcf + P
+ A   Death Cross Dancing             LP,LP,f,LK,HP at Level 3
+
+ Alpha Counter (A-ISM):  HK Mach Slide
+ Alpha Counter (V-ISM):  HK Cannon Spike
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    n/a   n/a   n/a   n/a   n/a   n/a
+  - standing (far)      xav   xav   xav   xav   xav
+  - crouching           xav   xav         xav
+
+ - The Falling Arc is an overhead attack.
+ - The Psycho Charge Beta will restore lost life.
+ - The Psycho Charge Gamma can only be used by CPU Juli.  She'll
+   summon Juni to help heal her if Juni isn't attacking.
+ - Both characters are required in order to use the Psycho Rolling
+   or Death Cross Dancing.
+
+
+-------------------------------------------------------------------------
+JUNI
+-------------------------------------------------------------------------
+
+XAV  Hooligan Suplex                 b / f + PP
+XAV  Frankensteiner                  b / f + KK
+XAV  Flying Neck Hunt                Any direction but u / d + PP  (air)
+XAV  Air Frankensteiner              Any direction but u / d + KK  (air)
+
+XAV  Spiral Arrow                    Charge b,f + K  (air)
+XAV  Cannon Spike                    Charge d,u + K
+XAV  Mach Slide                      qcf + K
+XAV  Cannon Strike                   Jump forward, qcf + K
+X    Psycho Shield                   Block b / db, then f + PPP
+ AV  Psycho Shield                   Block b / db, then f + PPP  (air)
+XAV  Hooligan Combination            hcf,uf + P  (press K to cancel)
+XAV  Razor Edge Slicer               Do nothing after after H.C.
+XAV  Fatal Leg Twister               b / f + K when close after H.C.
+XAV  Cross Scissor Pressure          Do F.L.T. when low to the ground
+XAV  Earth Direct                    Rotate 360 + P
+XAV  Falling Arc                     f + MK
+
+XA   Psycho Streak                   Charge b,f,b,f + P
+ A   Spin Drive Smasher              Charge db,df,db,uf + K
+
+     The following moves only work in Dramatic Battle Mode:
+
+XAV  Psycho Charge Alpha             Press PPP
+ A   Psycho Rolling                  qcf,qcf + P
+ A   Death Cross Dancing             LP,LP,f,LK,HP at Level 3
+
+ Alpha Counter (A-ISM):  HK Mach Slide
+ Alpha Counter (V-ISM):  HK Cannon Spike
+
+ Cancellable Attacks:   LP    MP    HP    LK    MK    HK
+  - close / variable    n/a   n/a   n/a   n/a   n/a   n/a
+  - standing (far)      xav   xav   xav   xav   xav
+  - crouching           xav   xav         xav
+
+ - The Falling Arc is an overhead attack.
+ - Using the Psycho Shield will push an enemy across the screen.  You
+   can combine this move with a Guard Protected block if someone comes
+   at you with an attack and you block it just as it reaches you.
+ - After you begin the Hooligan Combination, doing nothing will result
+   in the Razor Edge Slicer.  If you press b / f + K when Juli is
+   higher than her opponent's midsection or if they are crouching,
+   she'll perform the Fatal Leg Twister.  If you press b / f + K when
+   Juli is lower than her opponent's midsection, or if her enemy is
+   in the air, she'll use the Cross Scissor Pressure.  Alternately,
+   you can press K while in the air to cancel the Hooligan Combination
+   and land on your feet.
+ - The Psycho Charge Alpha will restore lost SC / OC power.
+ - Both characters are required in order to use the Psycho Rolling
+   or Death Cross Dancing.
+
+
+=========================================================================
+  4.  SECRETS AND CODES
+=========================================================================
+
+ ---------------------------------------------------------------------
+ TITLE COLOR CHART
+ ---------------------------------------------------------------------
+
+ The color of the title screen denotes what secrets are currently
+ available.  After a few weeks of play, the title screen will change
+ color, so in a few months after your SFA3 machine has been installed,
+ it should reach the final color (light blue).  The explanation of
+ the colors is shown below:
+
+   Screen Color         Secret made usable
+   -------------------------------------------------------------
+   Cream                None  (default color)
+   Green                Classical Mode
+   Red                  Balrog, Juni, and Juli become playable
+   Dark Blue            Mazi Mode
+   Purple               Saikyou Mode
+   Light Blue*          Can select one of the three Battle Modes
+
+  Note that the beta arcade machines always have a cream-colored title
+  screen, irregardless of how long they've been activated.
+
+  * The SFA3 machine that I usually play has been activated for
+    months, and I can use all the modes and hidden character, but I
+    can't get the Battle modes to work.  Go figure.
+
+
+ ---------------------------------------------------------------------
+ RANDOM SELECT
+ ---------------------------------------------------------------------
+
+ The Random Select squares are normally invisible.  There are two for
+ the first player and two for the second.  The 1P squares are located
+ in the upper-right corner of the diamond and the lower-right.  The 2P
+ squares are in the upper-left corner and the lower-left corners
+ (shown here as 1R for the first player and 2R for the second):
+
+                               Bison
+             1R       Charlie  Chun-Li  Sagat   2R
+             Dan      Guy      Mika     Birdie  Akuma
+        Ryu  Honda    Cody     Karin    Vega    Blanka   Ken
+             Dhalsim  Sodom    Cammy    Adon    Zangief
+             2R       Rolento  Sakura   Gen     1R
+                               Rose
+
+ When you've highlighed a Random Select square, it will show each
+ character's portrait quickly, and when you press the button, you'll
+ get whatever character was shown at the time.  When selecting a
+ normally-playable character via Random Select, the button you press
+ determines the ISM chosen (thanks to Nicholas Cheung and Onaje
+ Everett for this info.):
+
+                - Pressing LP or LK selects X-ism.
+                - Pressing MP or MK selects A-ism.
+                - Pressing HP or HK selects V-ism.
+
+ If you've used the Random Select square to pick a hidden character,
+ then you still get to select their ISM manually from the menu.  This
+ doesn't apply (for either normal or hidden characters) if you've
+ previously selected Classical Mode.  Note that there are two colors
+ for your character's clothing in either ISM (depending on whether
+ you use Punch or Kick to choose your character).
+
+
+ ---------------------------------------------------------------------
+ HIDDEN CHARACTERS
+ ---------------------------------------------------------------------
+
+ The three hidden charactes are Balrog, the boxer, and Juni and Juli,
+ two prototype "dolls" created by Bison's Shadowloo organization.
+ Once the game's title screen has become red-colored, their score
+ listing will show up in the High Score listing and they become
+ playable:
+
+   To choose Balrog, pause on Karin for five seconds, then move to any
+   Random Select square, hold the Start button, and press any button.
+
+   To use Juli, pause on Karin for five seconds, then move to any
+   Random Select square.  If the square is on the left side of the
+   screen, choose her by holding Left and pressing any button.  If
+   the square is on the right side, then hold Right and press any
+   button instead.
+
+   To use Juni, pause on Karin for five seconds, then move to any
+   Random Select square.  If the square is on the top of the screen,
+   choose her by holding Up and pressing any button.  If the square
+   is on the bottom, then hold Down and press any button instead.
+
+
+ ---------------------------------------------------------------------
+ HIDDEN MODES OF PLAY
+ ---------------------------------------------------------------------
+
+ There are three secret modes that affect basic gameplay.  Once the
+ game's title screen has become the proper color (see "Title Color
+ Chart", above), you can select a hidden mode to use.
+
+   To use Classical Mode, insert your money, hold down HP + HK, and
+   press Start.  You can release HP + HK once you're at the Player
+   Select Screen.  Then, pick your character.
+
+   To use Mazi Mode, insert your money, hold down MP + MK, and press
+   Start.  You can release HP + HK once you're at the Player Select
+   Screen.  Then, pick your character.
+
+   To use Saikyou Mode, insert your money, hold down LP + LK, and press
+   Start.  You can release HP + HK once you're at the Player Select
+   Screen.  Then, pick your character.
+
+
+ ---------------------------------------------------------------------
+ HIDDEN BATTLE MODES
+ ---------------------------------------------------------------------
+
+ Thanks to Ura no Ura for this information, and to Madman's Cafe for
+ some additional info.  I can't get any of the codes to work myself,
+ (the machine hasn't turned the proper color, still!) so try at your
+ own risk:
+
+  FINAL BATTLE MODE
+  After picking your ISM, hold Start + LP + MK + HP.  You'll fight
+  Final Bison for one battle only.  It's just like the last battle;
+  win and you get your ending, lose, and you get the bad ending.
+  I guess if Final Bison isn't your last boss, then you fight whoever
+  it would normally be.
+
+  DRAMATIC BATTLE MODE
+  Hold LK + MK + HK, then press Start.  Keep holding those buttons at
+  Player Select Screen for a moment.  You'll fight a 2 on 1 battle for
+  6 rounds, in which you face two CPU-controlled opponents.  I assume
+  that if a second person joins in, then it's you and him/her against
+  one CPU-controlled opponent.
+
+  SURVIVAL MODE
+  Hold LP + MP + HP, then press Start.  Keep holding those buttons at
+  Player Select Screen.  You'll get to fight all 27 characters in
+  continuous one-round battles.  Furthermore, you carry over any life,
+  SC, or CC energy to each new battle, instead of getting it
+  replenished after the battle (although you can earn life back by
+  how well you fight, just like in the King of Fighters series).  If
+  you lose, then the game ends without you being able to continue.
+
+  Professor H. of Madman's Cafe states that all of the codes can be
+  done by holding Start and simply pressing the buttons until you're
+  in the Player Select screen.  Like I've already said, I have no
+  way to verify this, though.  He also says that if the title screen
+  hasn't changed to light blue yet, you can do this manually by
+  pressing and holding Start when you start your game (After you
+  win or lose your game, the screen color will change, I suppose).
+  Haven't been able to get that to work, either.
+
+
+ ---------------------------------------------------------------------
+ SECRET MESSAGES
+ ---------------------------------------------------------------------
+
+ This trick only works on Japanese SFZ3 machines.  After winning a
+ battle, press and hold Start as well as any other button.  Between
+ battles, a message will appear on the screen, depending on the button
+ you're holding.
+
+
+=========================================================================
+  5.  MISCELLANEOUS
+=========================================================================
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ISM INFORMATION
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ One of SFA3's new features is the ISM select.  After you pick your
+ character, you pick a particular ISM to use.  Each ISM has different
+ properties and changes the way your character plays, from giving them
+ new moves and abilities to disabling Alpha Counters and air-blocking.
+ Each ISM has its' own strengths and weakness; it's up to you to discover
+ which one works best with your favorite characters.  An explanation of
+ each ISM is listed below:
+
+ ------------------------------------------------------------------------
+ X-ISM  (Simple Mode)
+ ------------------------------------------------------------------------
+
+  The name "X-ISM" comes from SSFIIX, the Japanese name of our SSF2T
+  game.
+
+  MODE BENEFITS
+   Like in other modes, your Guard Power Gauge length depends on the
+   character.  However, all GPGs are longer in X-ISM than in other
+   modes, making it harder for an X-ISM character to get Guard Crushed.
+   Also, your attacks (punches, kicks, special moves, etc.) do more
+   damage in this mode, excluding SCs, which do the same damage as in
+   A-ISM (why, I have absolutely no idea).
+
+  MODE LOSSES
+   You cannot air block, use the ground recovery roll, or Alpha Counter.
+   You cannot taunt either (excluding Dan, as usual).  X-ISM characters
+   have only one, predetermined Super Combo.  They also take slightly
+   more damage from attacks (blocked or not) than in other ISMs.
+
+
+ ------------------------------------------------------------------------
+ A-ISM  (Standard Mode)
+ ------------------------------------------------------------------------
+
+  The name "A-ISM" comes from the title of the SFZ series (the SFA
+  series in the States).
+
+  MODE BENEFITS
+   A-ISM characters have just about everything available to them that
+   other modes lack: air blocking, both ground and air recoveries,
+   Alpha Counters (these cost 1 level of SC power and 1 notch of your
+   Guard Power Gauge), and taunting (once per round only, excluding
+   Dan).  Plus, their SC gauge charges up at a decent pace, compared
+   to X-ISM's slow-filling Super Combo gauge.  They also have access
+   to all of their Super Combos (excluding Dhalsim).
+
+  MODE LOSSES
+   Characters in this mode do an average amount of damage per hit, but
+   this is less than in X-ISM.  Each character's Guard Power Gauge
+   varies depending on who you're using, which means that it's easy
+   for certain characters to get Guard Crushed.
+
+
+ ------------------------------------------------------------------------
+ V-ISM  (Variation Mode)
+ ------------------------------------------------------------------------
+
+  The name "V-ISM" comes from the Original / Variable combos used in
+  this ISM.
+
+  MODE BENEFITS
+   Like A-ISM characters, they have full access to special abilities
+   such as air blocking, ground and air recoveries, Alpha Counters
+   (these cost 50% of a full OC gauge and drain 1 notch from your
+   Guard Power Gauge), and taunting (again, once per round only,
+   excluding Dan).  Also, you can determine which range of attacks
+   you'll use (far or close), by leaving the controller neutral or
+   holding it back when you press a Punch or Kick button (this doesn't
+   apply to all characters).  The OC gauge also charges very quickly
+   in this mode, giving you more frequent access to Original Combos.
+   Most obvious is that you can use Original Combos, although this
+   works in place of Super Combos.
+
+  MODE LOSSES
+   All characters in this mode do less damage per hit than in any other
+   mode, making this the worst mode damage-wise.  Plus, it costs half
+   an OC gauge to use an Alpha Counter, which is still worse than
+   A-ISM's requirements, even though the OC gauge fills quickly.
+
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ABILITY INFORMATION
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ This section explains abilities and features available to each
+ character.  Some of them may not be available to a character depending
+ on who he / she is and what ISMs they're using.  More information on
+ the ISMs can be found in the next section.
+
+  ---------------------------------------------------------------------
+
+  BLOCK                        (air blocking is not available in X-ISM)
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   Hold b to block most standing attacks, jumping attacks, and
+   overheads.  Hold db to block most standing and low attacks.  Note
+   that you won't block unless the attack your opponent is using is
+   relatively close to you.  You can also block in air by performing
+   the block command while jumping or after an air recovery.
+
+  NOTES:
+   When you block, you take no damage from normal moves, and reduced
+   damage from special moves and Super Combos.
+
+
+  ---------------------------------------------------------------------
+  GROUND RECOVERY                      (this is not available in X-ISM)
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   When you're knocked down, or if you've just air-blocked an attack,
+   press any two Kick buttons as you're falling.  To do the roll behind
+   Ground Recovery, do f + KK instead.  Then keep holding f and you'll
+   roll all the way behind your opponent, even if they're in the corner.
+
+  NOTES:
+   By using the ground recovery, you can pass through your opponent or
+   simply move closer towards them.  It's useful for escaping from
+   corners and so that your foe can't attack you as you get up.
+
+
+  ---------------------------------------------------------------------
+  AIR RECOVERY
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   When you're knocked up into the air, press any two Punch buttons to
+   flip upright and land a short distance away.  After some
+   experimentation, I've noticed that b + PP makes you move further
+   back upon flipping, while f + PP makes you stay in your same
+   tragectory when you flip.  I've noticed that the PP flip cannot be
+   done normally (?) unless you get hit while in the air.  I'm really
+   not sure about this, but that's what my efforts resulted in, so
+   perhaps someone can clear this up for me.
+
+  NOTES:
+   Normally, you can be juggled by another of your enemy's attacks
+   when you're knocked into the air.  However, once you've flipped, you
+   can air block (in certain modes), or perform an attack to prevent
+   this from happening.  It's also a useful way to land on your feet
+   rather than your back.
+
+
+  ---------------------------------------------------------------------
+  TAUNT                                (this is not available in X-ISM)
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   Press Start while standing or crouching.  Birdie, Cody, Akuma,
+   Shin Akuma, Ken, Charlie, and Ryu all have a second taunt which is
+   done by pressing f + Start.  Birdie has a third taunt which is done
+   by pressing b + Start.
+
+  NOTES:
+   Realistically, taunts have no practical use since they leave you
+   open to attack and can't be cancelled.  Rose has a random,
+   alternate saying for her taunt, and the following characters have
+   damaging taunts: Birdie, Chun-Li, Dan (only in X-ISM), Akuma, Shin
+   Akuma, Rolento, Sakura, and Sodom.  These cause minor damage, but
+   they can kill someone.  Dan and Dhalsim have an air taunt which can
+   be done by pressing Start while in the air.  Dan can also taunt
+   when he's crouching.  You can taunt once per round (Dan can taunt
+   infinitely in each round).  You can also cancel a normal move into
+   your taunt animation, if that move is normally cancelable.  Dan
+   earns small amounts of SC energy from his crouching and standing
+   taunts, as well.
+
+
+  ---------------------------------------------------------------------
+  THROW
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   Press b / f + any two Punch buttons (some characters can also use
+   any two Kick buttons).  This can be done in air.  Some characters
+   have 'holding' ground throws, in which you can rap on the buttons
+   to increase the number of times your enemy is squeezed / choked /
+   bitten / etc.  You'll know if tapping the buttons is paying off
+   as your character will shine white when an extra hit has been
+   added.
+
+  NOTES:
+   If you're not close enough to your opponent, you'll go into a
+   "missed throw" animation that leaves you vulnerable to attacks.
+   Your opponent can reduce the damage he or she takes from a throw by
+   doing a Tech. Hit (f + PP / KK when thrown), which also makes them
+   land on their feet.  If you miss a throw, you'll still earn SC
+   power, or if you're using V-ISM, you'll earn quite a bit of OC
+   power (since your gauge charges the fastest in V-ISM).
+
+
+  ---------------------------------------------------------------------
+  REVERSAL-ONLY MOVES
+  ---------------------------------------------------------------------
+
+  Several characters have reversal-only moves.  However, these moves
+  can be used in many different situations, not just when you're
+  getting up after being knocked down:
+
+   Chun-Li and Balrog can use their reversal-only moves (the Buffalo
+   Head and X-ISM Tenshou Kyaku) in the following situations:
+
+    - When knocked down.
+    - When coming out of hitstun (after being damaged).
+    - When coming out of blockstun (after blocking an attack).
+
+   Cody and Dhalsim can use their reversal-only moves (the Bad Spray
+   and Yoga Escape) under the following conditions:
+
+    - When knocked back into the air (i.e. getting hit by Sakura's
+      HK Shunpuu Kyaku would work, but getting sweeped by her d + HK
+      kick would not).  The general rule with this is that if you
+      can air recover (PP flip) out of a move, you can probably use
+      the Bad Spray or Yoga Escape, instead.
+    - After an air block (it doesn't matter how close or far you are
+      from the floor, you'll only do it once you hit the ground).
+
+   Sodom (the King of Reversals), can use his b,db,d + K Tengu Walking
+   and Kouten Okiagari under these conditions:
+
+    - When knocked down.
+    - When coming out of hitstun (after being damaged).
+    - When coming out of blockstun (after blocking an attack).
+    - When knocked back into the air (i.e. getting hit by Sakura's
+      HK Shunpuu Kyaku).  Again, if you can air recover (PP flip)
+      out of a move, you can probably use the Tengu Walking instead.
+    - After an air block (it doesn't matter how close or far you are
+      from the floor, you'll only do it once you hit the ground).
+
+   He can use his qcf + K Tengu Walking while getting up off the floor
+   (like a normal reversal).
+
+
+  ---------------------------------------------------------------------
+  ALPHA COUNTER                        (this is not available in X-ISM)
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   While you're blocking an attack on the ground, press f + the same
+   Punch and Kick buttons.  You need to have at least 1 level of your
+   SC gauge filled (in A-ISM), or 50% or higher of your OC gauge filled
+   (in V-ISM), in order to do this.  You also need at least one spare
+   notch in your Guard Power Gauge.  When you use an AC, the animation
+   will pause briefly and you'll stop blocking and perform a preset
+   attack.  The attack you use changes depending on what "-ISM" you're
+   using.
+
+  NOTES:
+   ACs are handy if your opponent is aggressive or is trying to kill
+   you via block damage and you want to get away from them.  ACs do
+   little damage but can kill someone.  However, because they shorten
+   the length of your GPG, they're best saved for do-or-die situations,
+   as a small Guard Power gauge is not a good thing to have.
+
+
+  ---------------------------------------------------------------------
+  SUPER COMBO                          (this is not available in V-ISM)
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   The command for a SC changes depending on the character.  Usually
+   it's a double motion (like qcf,qcf), plus a Punch or Kick button.
+   The button used has no purpose in X-ISM; in A-ISM, it affects the
+   level of power used (LP / LK for Level 1, MP / MK for Level 2, HP
+   / HK for Level 3).  Some A-ISM characters have SCs that can only be
+   used at Level 3--in that case, the button used is unimportant.  If
+   you have one level of power and use a Medium or Hard attack, you'll
+   still do a Level 1 SC; the same applies to using HP or HK if you
+   have only 2 levels.
+
+  NOTES:
+   Super Combos share many traits: they are generally faster and have
+   more priority than normal moves; they can juggle an opponent, and
+   they hit multiple times and usually do lots of damage.  In A-ISM,
+   these traits improve depending on the level of SC energy expended
+   (so a Level 3 SC costs more but does more damage, etc. than a Level
+   1 SC).  X-ISM SCs do the same amount of damage as a Level 3 SC in
+   A-ISM.
+
+
+  ---------------------------------------------------------------------
+  ORIGINAL COMBO                      (this is only available in V-ISM)
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   Press the same strength Punch + Kick buttons together.  You need to
+   have at least 50% of your OC energy built up in order to use this.
+   When you activate an OC, you are trailed by shadows that mimic your
+   every action, but only the last one (it's colored differently) can
+   actually hit an opponent.  What strength P + K you use determines
+   the amount of space between each shadow; use LP + LK for them to be
+   close together, MP + MK to space them further apart, and HP + HK
+   for a wide gap between each shadow.  Basically, the closer your
+   last shadow is to you, the sooner it attacks after you perform an
+   attack.
+
+  NOTES:
+   OCs are very different from the way they were in SFA2.  You can't
+   block during an OC, and you can taunt infinitely and use charge
+   moves without charging (i.e. simply tap b,f + P for Birdie's
+   Bull Head).  You can still juggle an opponent easily with your
+   attacks, and can cancel normal attacks (not special moves, although
+   there's still no delay time after performing one so you can go into
+   another move faster than you could normally).  Unlike a SFA2 CC,
+   you can walk wherever you want to or jump without always moving
+   forward.  Also, you can throw / air throw during a OC as well.  If
+   you're hit while your OC is activated, it ends, and you lose all
+   remaining OC power above 50%  (more if you were closer to reaching
+   50%).  If you started with 50%, then you lose it all if you're hit.
+
+
+  ---------------------------------------------------------------------
+  GUARD POWER GAUGE
+  ---------------------------------------------------------------------
+
+  NOTES:
+   When you block or air block an attack, this gauge decreases
+   slightly.  If you keep blocking attacks, it will keep decreasing
+   until it empties.  If this happens, your character gets Guard
+   Crushed and will become dizzy (and open to an attack) for a moment
+   before it recharges.  However, when it recharges, it's overall
+   length is reduced by a notch, making it easier for you to be Guard
+   Crushed.  When not blocking, the GPG refills slowly, but only to the
+   current length of the GPG and not any further if you've lost a notch
+   or more.  Another way to lose GPG notches is to use a Alpha Counter.
+   If your opponent can block in the air, you can Guard Crush them in
+   the air, although they'll fall to the ground after getting GC'd.
+
+
+  ---------------------------------------------------------------------
+  COUNTER HIT
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   Hit your opponent with an attack while they're in the midst of
+   performing their own attack.
+
+  NOTES:
+   When you perform a Counter Hit, the hit sound is much louder and the
+   action pauses for a brief moment.  A move that becomes a Counter Hit
+   does more damage than it normally would, and you can juggle them
+   easily after the hit.
+
+
+  ---------------------------------------------------------------------
+  DAMAGE REDUCTION
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   When getting hit by an attack, press in any direction plus any
+   button.  Sometimes it's possible to do this with just a joystick
+   press, I don't know why.
+
+  NOTES:
+   Doing this slightly reduces the amount of damage you take from an
+   attack.  You'll know if it worked because you'll flash red while in
+   your 'damaged' pose.  This can be done repeatedly against multi-hit
+   attacks in order to conserve more life.
+
+   Furthermore, if you're in the midst of an attack and are hit, you
+   can perform the Damage Reduction and your character will continue
+   the attack, instead of going into hitstun.  Think of it like the
+   Super Armor found in the VS. games.  Thanks to gdawson@angelfire
+   for this bit of info.
+
+   LBDanGC@aol.com also suggests that doing the Damage Reduction
+   command can result in your attacker taking added damage (sort of
+   like a Counter Hit).  I haven't been able to confirm this, but
+   it's entirely possible.
+
+
+  ---------------------------------------------------------------------
+  GUARD CRUSH PROTECTION
+  ---------------------------------------------------------------------
+
+  COMMAND:
+   Try to block an attack as it comes out instead of blocking it in
+   advance (like parrying in reverse).  This works against high and
+   low attacks, and can be done in the air as well, if your character
+   can air block.
+
+  NOTES:
+   Doing this reduces the amount of Guard Power you lose from your
+   Guard Power Gauge.  Your character will flash blue if you've done
+   this properly.
+
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+CHARTS A PLENTY
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ This section contains a bunch of short charts showing the abilities
+ of different characters.
+
+ This chart illustrates who takes the most damage from attacks:
+
+ ------------------------------------------------------------------------
+ DAMAGE RANKING         WHO FALLS UNDER WHICH RANKING
+ ------------------------------------------------------------------------
+
+ Least Damage        :  Zangief
+
+ Less Damage         :  Birdie, Dan, E. Honda, Gen, Ken, R. Mika,
+                        Ryu, and Sodom
+
+ Average Damage      :  Everyone else, mainly:  Adon, Blanka, Cammy,
+                        Cody, Chun-Li, Dhalsim, Akuma, Guy, Karin,
+                        Charlie, Rolento, Rose, Sagat, Sakura, Balrog,
+                        and M. Bison.
+
+ More Damage         :  Vega, Juli, and Juni
+
+
+ This one shows how large each character's Guard Crush gauge is (all
+ the information is according to Jack Lin):
+
+ ------------------------------------------------------------------------
+ PERSON                                      GAUGE SIZE (IN POINTS)
+ ------------------------------------------------------------------------
+
+ Birdie, Zangief                              :  80  (8 points is approx.
+ Karin, Sakura, Vega                          :  76  half a Guard Meter
+ Adon, Cody, Honda, Gen, Mika, Sodom, Bison   :  72  section, so 16 is
+ Vega, Cammy, Chun-Li, Charlie, Juni, Juli    :  64  one full "block" of
+ Everyone else                                :  68  guard power).
+
+ What's written is for the Guard Meters in A-ISM.  If you're playing
+ with an X-ISM character, add 8 points to the numbers shown.  If
+ you're using V-ISM, subtract 8.  The lone exception is V-ISM Cody,
+ his V-ISM ranking is 48 points (this is because he has the dodge and
+ so it's harder to get him to block).  So, Zangief and Birdie have
+ the largest guard meter, and V-ISM Cody has the smallest.
+
+ Personally, it seems to me that people in V-ISM have the same size
+ Guard Crush meter, but I think this info. was for the Arcade version,
+ which might explain why.
+
+ The last of the charts shows who gets dizzied the easiest:
+
+ ------------------------------------------------------------------------
+ PERSON            NEEDED TO DIZZY (IN POINTS)
+ ------------------------------------------------------------------------
+
+ Akuma            :    34
+ Blanka           :    43
+ E. Honda         :    44       I'm not sure if the points are damage
+ Sodom            :    46       points or what, but what it basically
+ Birdie           :    48       means is that Akuma is easy to dizzy,
+ Zangief          :    50       and Zangief is not.
+ Everyone else    :    40
+
+ Thanks to Jack Lin for this info (guard size and dizzy info.), and to
+ Dan GC for reposting it for me.
+
+ ------------------------------------------------------------------------
+ Doujioshi SP  (Simultaneous Press Special)
+ ------------------------------------------------------------------------
+
+ This is an ability limited to certain characters (though I'm sure there
+ are more undiscovered combinations).  What it basically allows you to
+ do is link two attacks together, by pressing LP / LK, then pressing that
+ button plus HP / HK as the light attack ends.  This only works for
+ X-ISM characters.  If a character has a long range / close range
+ attack, you can use either one.  If the finishing HP is comboable, you
+ can cancel it into a special move or Super Combo.
+
+ Below is a listing of the various types of Doujioshi SP attacks and
+ who can use them:
+
+ d + LK, LK + HP:       Ryu, Ken, Akuma, Gen, Karin, Sakura, Cammy,
+                        Juni, Juli
+ d + LK, d + LK + HP:   Ryu, Ken, Akuma, Gen, Karin, Sakura, Cammy,
+                        Juni, Juli
+ LK, LK + HP:           Guy, Cammy, Juni, Juli
+ LK, d + LK + HP:       Guy, Cammy, Juni, Juli
+ LP, LP + HP:           Balrog
+ LP, d + LP + HP:       Balrog
+ LP, LK + HP:           Adon, Chun-Li
+
+ There are more than just these--I was in the process of writing them
+ all down and I lost the paper I had put my notes on :)  It sucked too,
+ since that paper had a list of KoF '98 cancellable attacks I had been
+ compiling on the other side ;(  Now I gotta do it all over again, argh.
+ So, look for a more complete listing in the next update, eheheh.
+
+
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+BOSS BATTLE CHART
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+
+ SFA3's game progression has been changed significantly from SFA2.  It
+ works like this:
+
+  - After picking a character, you'll get to see a little intro
+    explaining who they are and what they're up to.
+  - Your 5th battle is against your mid-boss.  There are no special
+    requirements to fight him / her, it's automatic.  The only thing
+    notable about a mid-boss battle is that you will exchange some
+    words with your opponent before the fight begins and sometimes,
+    after it ends.
+  - Your 9th battle is against your second mid-boss.  Nothing too
+    special about this, either.
+  - Your 10th battle is usually against Final Bison, a really powerful
+    version of M. Bison.  Some characters will fight someone else for
+    their 10th battle, in which case they will then proceed to an
+    extra 11th match against Final Bison.
+  - If you beat your 10th/11th match, you beat the game and get to
+    see your character's ending.  Lose to any character and the game
+    ends, but lose to Final Bison and you get to watch a bad ending
+    while the credits scroll ;)
+
+ Below is a listing of each character's mid-bosses and final boss:
+
+ Name           5th Battle     9th Battle     10th Battle    11th Battle
+ -----------------------------------------------------------------------
+ Adon           Ken            Rose           Final Bison
+ Akuma          Adon           Guy            Final Bison
+ Birdie         E. Honda       Blanka         Balrog         Final Bison
+ Blanka         Dan            Zangief        Balrog         Final Bison
+ Cammy          Dhalsim        Vega           Juli & Juni    Final Bison
+ Charlie        Cammy          Rolento        Final Bison
+ Chun-Li        Birdie         Cammy          Juli & Juni    Final Bison
+ Cody           Birdie         Guy            Final Bison
+ Dan            Chun-Li        Sagat          Balrog         Final Bison
+ Dhalsim        Rose           Birdie         Juni & Juli    Final Bison
+ E. Honda       Ryu            Sodom          Final Bison
+ Gen            Ryu            Akuma          Final Bison
+ Guy            Karin          Gen            Final Bison
+ Karin          Blanka         Sakura         Juni & Juli    Final Bison
+ Ken            Karin          Sakura         Final Bison
+ M. Bison       Akuma          Sagat          Ryu
+ R. Mika        Karin          Zangief        Balrog         Final Bison
+ Rolento        Sodom          Cody           Balrog         Final Bison
+ Rose           Guy            Vega           Juni & Juli    Final Bison
+ Ryu            Rose           Ken            Final Bison
+ Sagat          Dan            Ryu            Final Bison
+ Sakura         E. Honda       Ryu            Final Bison
+ Sodom          Rolento        Chun-Li        Final Bison
+ Vega           Zangief        Cammy          Final Bison
+ Zangief        Rolento        Chun-Li        Final Bison
+
+ (Hidden characters) ----------------------------------------------------
+
+ Juli           Akuma          Sagat          Ryu
+ Juni           Akuma          Sagat          Ryu
+ M. Bison       Akuma          Sagat          Ryu
+
+
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+WIN POSE LIST
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+
+ Below is a listing of each character's win pose.  Some win poses can
+ be gotten by using more than one button, but because it can be random
+ in some cases (like using MK with Ryu), use with caution.  For some
+ characters, you can only get all poses if you're in a same player
+ vs. same player match.  Thanks to NRX for correcting the Japanese
+ listed here and providing me with quotes and their meanings.
+
+
+ -----------------------------------------------------------------------
+ ADON
+ -----------------------------------------------------------------------
+
+ LP  Adon laughs and gives his opponent a thumbs down.
+ MP  Adon flips back, takes off his tong, and says "Yeah!"
+ HP  Adon crosses his arms and laughs.
+ LK  Adon turns away, holds out his arms, and looks over his shoulder,
+     his teeth gleaming.
+ MK  Adon rocks back and forth, then prostrates himself on one knee.
+ HK  Like in MK, but he keeps rocking back and forth.
+
+
+ -----------------------------------------------------------------------
+ AKUMA
+ -----------------------------------------------------------------------
+
+ LP, MK  Akuma gets into the horse stance and begins shaking.
+ MP, HK  Akuma gets into the horse stance and the screen shakes.
+ HP, LK  Akuma turns away and the kanji 'Ten' (heaven) appears on his
+         back.  He says "Shoushi!" (Pathetic!)
+
+
+ -----------------------------------------------------------------------
+ BALROG
+ -----------------------------------------------------------------------
+
+ P, LK, MK  While chuckling, Balrog turns towards the screen and flexes
+            his arms.
+ HK         As with LK, but Balrog rips off his shirt and flexes once.
+
+
+ -----------------------------------------------------------------------
+ BIRDIE
+ -----------------------------------------------------------------------
+
+ LP      Birdie takes out his knife and flips it open.
+ MP, HK  Birdie gives a thumbs up, then sticks out his tongue and gives
+         a thumbs down as his mohawk gets messed up.
+ HP      Birdie licks his chain and says "I'm number one."
+ LK      Birdie holds up two fingers and says "...to heaven."
+ MK      Birdie holds up three fingers and says "I'm number one."
+
+
+ -----------------------------------------------------------------------
+ BLANKA
+ -----------------------------------------------------------------------
+
+ LP      While grinning, Blanka jumps and rolls in place.
+ MP      Blanka howls while thrusting his arms into the air.
+ HP      Blanka uses his electric powers to start up a blender, then
+         drinks the fruit juice inside.
+ LK, MK  Blanka does the MP pose repeatedly, without howling.
+ HK      Blanka eats a piece of fruit then throws the rind/skin/core
+         (depending) onto his opponent's body.  He keeps doing this so
+         that soon there's a little pile of stuff lying atop his foe ;)
+
+
+ -----------------------------------------------------------------------
+ CAMMY
+ -----------------------------------------------------------------------
+
+ LP, HK  Cammy poses and then looks towards the screen.
+ MP      Cammy salutes Bison, who appears in the air, and says "Yes,
+         sir!"
+ HP      As with MP, but she simply stands at attention and says
+         nothing.
+ LK      Cammy turns her back to the screen, gives a thumbs up, and
+         looks behind her.
+ MK      As with LK, but she turns around and smiles while giving a
+         thumbs up at the end.
+
+
+ -----------------------------------------------------------------------
+ CHARLIE
+ -----------------------------------------------------------------------
+
+ P       Charlie puts on his glasses and says "Hmph!"
+ LK, MK  Charlie turns away, runs a hand through his hair, and says,
+         "Too easy!"
+ HK      Charlie adjusts his jacket, squints, and says "Hmph!"
+
+
+ -----------------------------------------------------------------------
+ CHUN-LI
+ -----------------------------------------------------------------------
+
+ LP, LK  Chun-Li crosses her arms and bows her head.
+ MP, MK  While laughing, Chun-Li jumps up and down.  She stops, shakes
+         her head, and flashes a peace sign while saying "Yatta!"
+         (I did it!)
+ HP, HK  Chun-Li performs several swift kicks, then draws her leg back
+         while shouting.
+ *       Chun-Li does her taunt and says "Gomen ne!" (Sorry!"
+
+ *       You'll always get this pose if you get a Perfect Victory.
+
+
+ -----------------------------------------------------------------------
+ CODY
+ -----------------------------------------------------------------------
+
+ Any  Cody holds his arms out in an "I dunno" gesture and says "Whew!"
+ *    Cody looks behind him and runs off screen.  Edi. E runs onscreen,
+      shouts, and fires his gun before chasing after Cody.  Cody then
+      runs back, Crack Kicks Edi. E offscreen, and does his LP pose.
+ *    Same as above, but Edi. E just chases Cody offscreen, and that's
+      it.
+
+ *  Usually, you can get this by holding any button (except LP) after
+    winning the final round.  But which pose you get is random, and
+    you may just get his "Whew!" gesture anyway.
+
+
+ -----------------------------------------------------------------------
+ DAN HIBIKI
+ -----------------------------------------------------------------------
+
+ LP, HK  Dan flexes an arm and shakes it while saying "Yoshaa!"
+         (Alright!)
+ MP      Dan frees his arm from his gi, taunts, and says "Rakushou!"
+         (Easy win!)
+ HP      Dan stands with his legs close together and with one hand by
+         his side.  He gives a thumbs up with his other shaking hand
+         and says "Yoyuussu!"  (Piece of cake!) - I guess?
+ LK      Same as the LP pose, but Dan is crying and says "Yattaze,
+         oyaji!" (I did it, father!)
+ MK      Same as the LP pose, but Dan says "Hyaah!"
+
+
+ -----------------------------------------------------------------------
+ DHALSIM
+ -----------------------------------------------------------------------
+
+ LP      Dhalsim floats in air while mumbling.
+ MP      Dhalsim bows his head and clasps his hands while saying "Yoga!"
+ HP      Dhalsim floats in his taunt pose while mumbling quickly.
+ LK      Same as LP, but Dhalsim says "Samadhi...."  (It's a state of
+         enlightment)
+ MK, HK  Same as MP, but Dhalsim has the same quote as in LK.
+
+
+ -----------------------------------------------------------------------
+ E. HONDA
+ -----------------------------------------------------------------------
+
+ LP, MK, HK  Honda stands up, lifts his arms up, and laughs.
+ MP          Honda sticks out an arm and rotates his neck, and says
+             "Dosukoi!"  (No real meaning,  it's a traditional sumo
+             kiai.)  According to Wanderer, a 'kiai' is something said
+             while you attack in martial arts.  The principle is that
+             you exert more force when you do something while shouting.
+ HP          Honda stands up and holds his arms in a thinking pose,
+             with one hand on his chin.  He says, "Sekai wa hiroi nou!"
+             (The world is large! - referring to the great number of
+             worth opponents)
+ LK          Honda gives a thumbs up and says "Donna mon jai!"
+             (Anything! - referring to his believe that he can outdo
+             anything thrown at him.)
+
+
+ -----------------------------------------------------------------------
+ GEN
+ -----------------------------------------------------------------------
+
+ LP, MK, HP  Gen folds his arms and says, "You are a big fool."
+ MP, LK, HK  Gen folds his arms and laughs.
+
+
+ -----------------------------------------------------------------------
+ GUY
+ -----------------------------------------------------------------------
+
+ LP, LK  Guy crosses his arms.
+ MP, MK  Guy turns away, holds an arm up, then lets it fall.  He says
+         "Waruku omou na."  (Don't think badly of me)
+ HP, HK  Guy holds his other arm by the wrist, with his fingers pointed
+         up.  He says "Korezo, Bushin-ryuu!"  (This is Bushin style!)
+
+
+ -----------------------------------------------------------------------
+ JUNI / JULI
+ -----------------------------------------------------------------------
+
+ LP, MK  Either one does a salute and M. Bison appears in mid-air.
+ MP, HK  Either one stands at attention and M. Bison appears in mid-air.
+ HP, LK  Either one stands in a slightly-turned pose to reveal her back.
+
+
+ -----------------------------------------------------------------------
+ KARIN KANZUKI
+ -----------------------------------------------------------------------
+
+ LP  Karin covers her mouth while laughing.
+ MP  Karin rests her cheek on her hand with her eyes closed.  She
+     says, "Kono Karin ni kateru to omotte?"  (Did you think you
+     could beat me?)
+ HP  Karin poses, and her servant runs up and kneels, offering her a
+     drink.
+ LK  Karin poses, and her servant runs up with a first aid kit and
+     begins looking worriedly over Karin's opponent.
+ MK  Karin poses and her servant runs by with a dish, a poodle
+     following him.
+ HK  Karin poses as in her HP win pose.
+
+
+ -----------------------------------------------------------------------
+ KEN
+ -----------------------------------------------------------------------
+
+ LP, LK  Ken lifts an arm into the air.
+ MP, MK  Ken runs a hand through his hair, gives a peace sign, and
+         says "Yattaze!" (I did it!)
+ HP, HK  Ken holds out his arm and gives a peace sign while saying
+         "Yattaze!"
+
+
+ -----------------------------------------------------------------------
+ M. BISON
+ -----------------------------------------------------------------------
+
+ LP, LK  Bison looks towards the screen and drags a thumb across his
+         throat.
+ MP, MK  Bison crosses his arms and says "Hmph, nurui wa!"  (You suck!)
+ HP, HK  Bison teleports into the air and floats there while laughing.
+
+
+ -----------------------------------------------------------------------
+ RAINBOW MIKA
+ -----------------------------------------------------------------------
+
+ LP          Mika jumps up and down with her arms out while saying
+             "Katta!"  (I win!)
+ MP, MK, HK  Same as LP, but Mika stops afterwards while her trainer
+             drives by in a little cart, holding a wooden sword.
+ HP          Same as LP, but her trainer drives up and nods.
+ LK          Same as LP, but her trainer leaves behind a tire which
+             Mika ties to herself before running off-screen.
+
+
+ -----------------------------------------------------------------------
+ ROLENTO
+ -----------------------------------------------------------------------
+
+ LP  Rolento turns around, snaps his fingers, and says "Mission
+     complete!"  While this is happening, a row of El Gatos descend and
+     stab their knives downwards.
+ MP  Rolento tosses a grenade at his foe and laughs when they're hit.
+ HP  As in the LP win, but one of the El Gatos stabs out of sync.
+ LK  As in the HP win, but the same El Gato instead drops down with the
+     Take No Prisoner hook, then pops offscreen.
+ MK  As in the LP win, but the El Gatos come down repeatedly in a wave
+     formation.
+ HK  Rolento turns around, snaps his fingers, and says "Mission
+     complete!"
+
+
+ -----------------------------------------------------------------------
+ ROSE
+ -----------------------------------------------------------------------
+
+ LP  Rose waves a finger while wind ruffles her scarf and says "Mada
+     mada ne."  (You're too slow.)
+ MP  Rose lets her scarf drape to the ground and an orb of Soul Energy
+     runs along it.  She then says, "Yaru janai."  (Not bad.)
+ HP  Rose creates a double and both perform her LP pose with a
+     different quote, "Soreja, dame."  (That won't do.)
+ LK  Rose creates a double and they lean against each other.  Rose
+     opens her eyes while the double's remain closed.  Rose then
+     says, "Daijobu?"  (Are you all right?)
+ MK  Rose erects a large tarot card in front of her.  It flips around
+     and vanishes, momentarily obscuring her.  When it's gone, she's
+     wearing a ballgown and is holding several tarot cards.  She then
+     says "Ciao!"  (Goodbye!)
+ HK  While the wind blows her hair and scarf, Rose takes out a tarot
+     card, examines it, and lets it fall from her hand.  Rose remarks,
+     "Nattenaiwa...."  (I'm not sure....)
+
+
+ -----------------------------------------------------------------------
+ RYU
+ -----------------------------------------------------------------------
+
+ LP, LK  Ryu raises one arm into the air.
+ MP, MK  Ryu crosses his arms and wind ruffles his hair.
+ HP, HK  Same as MP, but he notices a leaf blowing by his feet.
+ *       Ryu turns his back to the screen.
+
+ *  Only happens if you kill someone with the Metsu Shouryuu Ken or
+    Shin Shouryuu Ken (I thought you got a different pose for each?)
+
+
+ -----------------------------------------------------------------------
+ SAGAT
+ -----------------------------------------------------------------------
+
+ LP, LK  Sagat gets into a thinking pose, grins, and laughs.
+ MP, MP  Sagat looks towards the screen, crosses his arms and laughs.
+ HP, HK  Sagat crosses his arms, then looks away and laughs.
+
+
+ -----------------------------------------------------------------------
+ SAKURA
+ -----------------------------------------------------------------------
+
+ LP  Sakura lifts an arm up while laughing, the wind blowing her
+     clothes.
+ MP  Sakura sways back and forth, doing a little dance.
+ HP  Sakura throws several kicks while yelling, and her shoe flies off
+     and hits her in the head.
+ LK  Same as her HP pose, but her shoe stays on.
+ MK  Sakura rubs her nose and then waves her hand while saying
+     "Konna toko da ne!"  (That's how it's done!)
+ HK  Sakura crosses her arms and looks away ala Ryu, the wind blowing
+     her skirt up.
+
+
+ -----------------------------------------------------------------------
+ SODOM
+ -----------------------------------------------------------------------
+
+ LP, HK  Sodom bows to his opponent.
+ MP      Sodom takes out a fan and waves it, making a font of water
+         emerge.  He says "Appare!"  (Bravo!)
+ HP      Sodom takes out a fan and waves it, making some butterflies
+         appear.  He says "Bureiko!"  (According to Nick Des Barres,
+         he has no idea why Sodom says this.  The term means
+         "dispensing with formalities," and is used to describe the
+         attitude at special company parties, etc. in Japan, when
+         bosses and underlings can party together, forgetting about
+         rank entirely for one day).
+ LK *    Sodom crouches and spins his weapons around.
+ MK *    Same as in LK, but the weapons come out of his hands and he
+         looks around.
+
+ *  X-ISM Sodom has his LK and MK poses replaced with his MP and HP
+    poses, respectively.
+
+
+ -----------------------------------------------------------------------
+ VEGA
+ -----------------------------------------------------------------------
+
+ LP, MK, HK    Vega stands up, giggles, and sweeps outward with either
+               hand.
+ MP, HP        Vega stands up and removes his mask.
+ LK            Vega jumps up, then crouches and giggles.
+ MP (no mask)  Vega stands up and puts a rose in his mouth and says
+               "Adios."  (Goodbye.)
+ HP (no mask)  Vega stands up and hangs his braided tail over his
+               chest and says "Adios."
+
+
+ -----------------------------------------------------------------------
+ ZANGIEF
+ -----------------------------------------------------------------------
+
+ LP  Zangief throws his arms up and grunts.
+ MP  As with LP, but he has a quote.
+ HP  Zangief flexes his chest muscles, then poses and grins while
+     saying "Bolishoi paveida!"  (Big victory!) - I think! ;)
+ LK  As with HP, but he laughs instead.
+ MK  Zangief takes a flask of vodka from his belt, drinks it, and
+     breathes out a blast of fire.  While he's breathing, Blanka drops
+     down and holds out a fish so that Zangief ends up cooking it.
+     Blanka goes off-screen with a grin, and Zangief looks back at the
+     screen, grinning, his face covered in ash.
+ HK  As with MK, but Blanka stays hanging from the ceiling along with
+     the fish, both of them charred.
+
+
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+PRE-FIGHT ANIMATIONS
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+
+ Rather than attempt to list every situation under which you can see
+ these pre-fight animations, I'm just going to list what works.
+ Furthermore, it doesn't matter who is first or second player (i.e.
+ Gen vs. Akuma or Akuma vs. Gen will both work, if the conditions are
+ right).
+
+
+  ----------------------------------------------------------------------
+  ANYBODY vs. CPU BALROG
+  ----------------------------------------------------------------------
+
+  Description:  There is a punching bag hanging from the ceiling; Balrog
+                comes running in with a Dash Straight and destroys it.
+                He then punches his hands together ala his taunt, and
+                throws a quick series of punches at his opponent.
+
+
+  ----------------------------------------------------------------------
+  GEN vs. AKUMA
+  ----------------------------------------------------------------------
+
+  Conditions:   One character must be computer controlled.
+  Description:  Akuma tries to surprise Gen with a Shun Goku Satsu,
+                but Gen counters it and then tries his Zan'ei, which
+                Akuma similarily blocks.  Although the characters start
+                off on the wrong sides of the screen, they end up in
+                their proper positions once they've finished attacking
+                each other.
+
+
+  ----------------------------------------------------------------------
+  RYU vs. KEN
+  ----------------------------------------------------------------------
+
+  Conditions:   Won't work during Ryu's boss fight with Ken (it will if
+                you lose and continue, though).
+  Description:  Ken is giving Ryu a noogie; Ryu responds by throwing
+                Ken aside, who lands on his feet on the other side of
+                the screen.  While nooging Ryu, Ken says, "Tataki
+                tsubushite yaruze!" which means "I'll beat you
+                senseless!"
+
+
+  ----------------------------------------------------------------------
+  GUY vs. CODY
+  ----------------------------------------------------------------------
+
+  Conditions:   One character must be computer controlled.
+  Description:  On Cody's side of the screen, there are a pyramid of
+                oil drums.  He walks on screen, destroying the drums as
+                he goes with his Final Destruction combo (including the
+                F.D. throw).  While this is going on, Guy is standing on
+                the other side of the screen in his MP win pose.  A
+                bunch of oil drums fall down on top of him, draining
+                some of his life.  He then performs a Bushin Senpuu Kyaku
+                (Final Fight-style) to destroy them all.  Left behind on
+                the ground is a piece of food (gum, beef, etc.), which
+                Guy then walks over, thereby restoring his missing life
+                back to full.  Just like in Final Fight, a picture of the
+                food item taken and it's name will appear beneath Guy's
+                life gauge.
+
+
+  ----------------------------------------------------------------------
+  ADON vs. SAGAT
+  ----------------------------------------------------------------------
+
+  Conditions:   One character must be computer controlled.
+  Description:  Adon and Sagat are close to each other, throwing kicks
+                which they both counter.  Their final attacks cancel
+                out as if they had been Alpha Countered.  Sagat does his
+                LP pose, while Adon stands triumphantly and yells, his
+                teeth gleaming while he gives a thumbs up.
+
+
+  ----------------------------------------------------------------------
+  RYU vs. SAGAT
+  ----------------------------------------------------------------------
+
+  Conditions:   Sagat must be computer controlled.  The version of Ryu
+                used and ISM of Sagat affects this animation.
+  Description:  (Ryu vs. X-ISM Sagat)
+                Sagat is standing nearby holding Dan in his PP throw.
+                There is a flash of light and the screen turns black as
+                Sagat performs a LP Tiger Uppercut on his opponent.  He
+                then leaps back, rubs his scar (which glows), and laughs.
+
+                (Ryu vs. A-ISM Sagat)
+                Sagat is standing nearby.  He leaps back, rubs his scar,
+                (which glows), and laughs.
+
+                (Ryu vs. V-ISM Sagat)
+                Sagat is standing nearby, and Dan is lying on the ground,
+                his head held by Sagat.  Sagat tosses Dan aside and his
+                geta fall off and bounce against the floor.  Sagat then
+                leaps back, rubs his scar (which glows), and laughs.
+
+
+  ----------------------------------------------------------------------
+  DAN vs. SAGAT
+  ----------------------------------------------------------------------
+
+  Description:  While Sagat is doing his LP win pose, Dan rolls up and
+                performs his MK win pose.
+
+
+  ----------------------------------------------------------------------
+  DAN vs. BLANKA
+  ----------------------------------------------------------------------
+
+  Conditions:   (Still unknown)
+  Description:  The truck that Blanka comes out of is onscreen, but
+                instead Dan bursts out of it, rolls to a stop, and
+                taunts.  Blanka then hops out of the back of the truck
+                and bounces atop Dan's head dizzying him, before
+                landing on the other side of the screen.
+
+
+  ----------------------------------------------------------------------
+  DAN vs. SAKURA
+  ----------------------------------------------------------------------
+
+  Conditions:   One character must be computer controlled.
+  Description:  Dan does his normal introduction, but Sakura stands
+                there and scratches her forehead, looking uneasy.
+
+
+  ----------------------------------------------------------------------
+  SODOM vs. HONDA
+  ----------------------------------------------------------------------
+
+  Conditions:   (Still unknown, may not even exist)
+  Description:  I haven't ever seen this one.  Supposedly Honda and
+                Sodom do traditional Sumo poses prior to the round
+                beginning (remember that in Sodom's SFA2 ending, he
+                appeared to fight Honda [aka Fujinoyama]).
+
+
+  ----------------------------------------------------------------------
+  SAKURA vs. KARIN
+  ----------------------------------------------------------------------
+
+  Conditions:   One character must be computer controlled.
+  Description:  Karin hops out of a helicopter and waits for it to
+                leave.  Sakura stands there and scratches her forehead,
+                looking uneasy.
+
+
+  ----------------------------------------------------------------------
+  GUY vs. KARIN
+  ----------------------------------------------------------------------
+
+  Conditions:   (Still unknown, may have been cut out)
+  Description:  Guy does nothing, Karin leaps out of a helicopter.
+
+
+  ----------------------------------------------------------------------
+  MIKA vs. ZANGIEF
+  ----------------------------------------------------------------------
+
+  Conditions:   (Still unknown)
+  Description:  Mika and Zangief do their normal intros, but there is
+                a spotlight shining down on both of them.
+
+
+  ----------------------------------------------------------------------
+  ROSE vs. FINAL BISON
+  ----------------------------------------------------------------------
+
+  Description:  While Bison is descending from the air, Rose gets pushed
+                back by his Psycho Power.  She repsonds by throwing a
+                tarot card at him, which he deflects.
+
+
+  ----------------------------------------------------------------------
+  CAMMY vs. FINAL BISON
+  ----------------------------------------------------------------------
+
+  Description:  Bison is standing on the ground with his cape
+                surrounding him.  He gestures at Cammy with a glowing
+                hand, then gets into his normal stance.
+
+
+  ----------------------------------------------------------------------
+  CHARLIE vs. FINAL BISON
+  ----------------------------------------------------------------------
+
+  Description:  Charlie's Harrier jet flies overhead and he drops down
+                from it, tugs on his jacket, then turns to face Bison.
+
+
+  ----------------------------------------------------------------------
+  CHUN-LI vs. FINAL BISON
+  ----------------------------------------------------------------------
+
+  Description:  Chun-Li threatens Bison with a pistol, then tosses it
+                aside.
+
+ Nicholas Cheung adds:  "Some of the special intros will not happen
+ the first time you face the CPU form of the character if it is one of
+ your mid-bosses.  If you lose to that character, then if you continue,
+ you will get to see the special intro when you face that character
+ again.  (Example is Ryu vs. CPU Ken on Stage 9)"
+
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+TRANSLATIONS
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ These were done mostly by me and so may not be correct.  Some move
+ names are omitted if they've appeared previously in the list or if I
+ don't have the kanji and so can't make a proper translation.
+
+ AKUMA
+
+ Tomoe Nage                     Comma Throw
+ Jigoku-guruma                  Hell Wheel
+ Gou Hadou Ken                  Great Surge Fist
+ Zankuu Hadou Ken               Air Slashing Surge Fist
+ Shakunetsu Hadou Ken           Scorching Heat Surge Fist
+ Gou Shouryuu Ken               Great Rising Dragon Fist
+ Tatsumaki Zankuu Kyaku         Air Slashing Tornado Kick
+ Zenpou Tenshin                 Forward Roll
+ Ashura Senkuu                  (evil demonic spirit) Air Flash
+ Hyakki Shuu                    Hundred Demon Raid
+ Hyakki Gou Zan                 Hundred Demon Great Slash
+ Hyakki Gou Shou                Hundred Demon Great Raid
+ Hyakki Gou Sen                 Hundred Demon Great Edge
+ Hyakki Gou Sai                 Hundred Demon Great Smash
+ Hyakki Gou Tsui                Hundred Demon Great Crash
+ Tenma Kuujin Kyaku             Demon Air Blade Leg
+ Zugai Hasatsu                  Skull Destroyer
+ Senpuu Kyaku                   Whirlwind Kick
+ Messatsu Gou Hadou             Great Surge Deadly Attack
+ Messatsu Gou Shouryuu          Great Rising Dragon Deadly Attack
+ Tenma Gou Zankuu               Great Demon Sky Killing
+ Shun Goku Satsu                Imprisoning Death Flash
+
+ BALROG
+
+ Kuuchuu Head Bomber            Mid-Air Head Bomber
+
+ CHUN-LI
+
+ Koshuu Tou                     Attacking Tiger Overthrow
+ Ryuusei Raku                   Shooting Star Drop
+ Kikou Ken                      Chi Fist
+ Sen'en Shuu                    Spinning Circle Kick
+ Hyakuretsu Kyaku               Hundred Rending Kicks
+ Tenshou Kyaku                  Heavenly Ascention Kick
+ Sou Hakkei                     Dual Internal Energy Release
+ Kouhou Kaiten Kyaku            Backward Spinning Leg
+ Kaku Kyaku Raku                Crane Leg Drop
+ Yousou Kyaku                   Eagle Talon Kick
+ Kikou Shou                     Chi Palm
+ Senretsu Kyaku                 Thousand Rending Kicks
+
+ Hazan Tenshou Kyaku            Supreme Mountain Heavenly Ascention Kick
+
+  - 'Chi' is a person's internal energy.
+
+ CODY
+
+ Tokushu Koudou: Knife Hiroi    Special Ability: Knife Pick-Up
+ Tokushu Koudou: Knife Kougeki  Special Ability: Knife Attack
+ Tokushu Koudou: Knife Nage     Special Ability: Knife Throw
+ Yoke                           Evading
+
+ DAN HIBIKI
+
+ Seoi Nage                      Shoulder Throw
+ Otoko Nage                     Masculine Throw
+ Gadou Ken                      Self-Taught Fist
+ Kouryuu Ken                    Shiny Dragon Fist
+ Dankuu Kyaku                   Sky Cutting Kick
+ Kuuchuu Dankuu Kyaku           Mid-Air Sky Cutting Kick
+ Zenten Chouhatsu               Forward Rolling Taunt
+ Kouten Chouhatsu               Backward Rolling Taunt
+ Saikyou-ryuu Bougyo            Strongest Style Defense
+ Shagami Chouhatsu              Crouching Taunt
+ Kuuchuu Chouhatsu              Mid-Air Taunt
+ Shin Kuu Gadou Ken             Quaking Sky Self-Taught Fist
+ Hisshou Burai Ken              Certain Victory Trustless Fist
+ Kouryuu Rekka                  Shiny Dragon Conflageration
+ Chouhatsu Densetsu             Legendary Taunt
+ Chouhatsu Shinwa               Mythical Taunt
+
+  - 'Saikyou-ryuu' is also the name of Dan's self-made fighting style.
+
+ DHALSIM
+
+ Drill Zutsuki                  Drill Headbutt
+
+ EDMOND HONDA
+
+ Tawara Nage                    Straw Bag Throw
+ Saba Ori                       Mackerel Snapping
+ Tsuriyane Nage                 Hanging Roof Throw
+ Hyakuretsu Harite              One Hundred Rending Stretched Hands
+ Super Zutsuki                  Super Headbutt
+ Super Hyakkan Otoshi           Super Hundredweight Drop
+ Ooichou Nage                   Gingko Tree Throw
+ Flying Sumo Press              Flying (Japanese wrestling) Press
+ Hiza-geri                      Knee Kick
+ Harai-geri                     Sweep Kick
+ Oni Musou                      Unrivaled Demon
+ Fuji Oroshi                    Wind from Mt. Fuji
+ Orochi Kudaki                  Great Serpent Smasher
+
+ GEN
+
+ Ansatsu Ken: Sou-ryuu          Assassin Fist: Mourning Style
+ Juraku                         Arresting Graze
+ Houzen                         Sealing Front
+ Shuuga                         Neck Bender
+ Hyakurenkou                    Hundred Rapid Capture
+ Gekirou                        Reverse Cascade
+ Zan'ei                         Cruel Phantom
+ Shitenshuu                     Death Point Curse
+ Ansatsu Ken: Ki-ryuu           Assassin Fist: Mourning Style
+ Jasen                          Serpent Drill
+ Ouga                           Wandering Fang
+ Kyoutetsu                      Cursed Chew
+ Onkyou                         Dark Shout
+ Kirou                          Dangerous Play
+ Satsu Jin                      Quick Kill
+ Saizu                          Head Smash
+ Uken -> Shakudan               Evil Blade -> Stature Cutter
+ Kouga                          Wandering Fang
+ Jakouha                        Snake Bite Opening
+
+
+ GUY
+
+ Tsukami Nage                   Holding Throw
+ Izuna Otoshi                   Izuna Drop
+ Bushin Izuna Otoshi            Bushin Izuna Drop
+ Houzantou                      Mountain Demolishing Dipper
+ Bushin Senpuu Kyaku            Bushin Whirlwind Kick
+ Hayagake                       Rapid Running
+ Hayagake: Kyuuteishi           Rapid Running: Quick Stop
+ Hayagake: Kage Sukui           Rapid Running: Shadow Scoop
+ Hayagake: Kubikari             Rapid Running: Neck Cutter
+ Hiji Otoshi                    Elbow Drop
+ Kubi Kudaki                    Neck Breaker
+ Kamaitachi                     (a type of weapon)
+ Bushin Gokusa Ken              Bushin Imprisoning Fist Chain
+ Bushin-ryuu Seoi Nage          Bushin-style Shoulder Throw
+ Bushin Hassou Ken              Bushin Eight Paired Fist
+ Bushin Gourai Kyaku            Bushin Strong Lightning Kick
+ Bushin Musou Renge             Bushin Unparallelled Rapid Reap
+
+ - 'Bushin' translates as 'God of the Military Arts'.
+ - In the SFZ3:PP manual, Guy's Level 3 SC is spelled 'Musou Renka'.
+   In the SF Collection manual, it's 'Musou Renge'.  Since I've seen
+   'Musou Renge' elsewhere, I'll keep the spelling as it is, unless
+   someone can correct me.  After all, the SFZ3:PP manual also lists
+   Vega's Scarlet Terror move as "Charge db,f"! ;-)
+
+ KARIN KANZUKI
+
+ Yashiro Kuzushi                Shrine Demolisher
+ Homura-geri                    Fire Kick
+ Abise Yashiro Kuzushi          Deluged Shrine Demolisher
+ Guren Ken                      Crimson Lotus Fist
+ Hou Shou                       Demolishing Palm
+ Mujin Kyaku                    Infinity Kick
+ Ressen Chou                    Violent Sharp Receival
+ Ressen Chouchuu                Violent Sharp Summit Receival
+ Ressen Ha                      Violent Massacre Destroyer
+ Yasha Gaeshi (Joudan)          Demoness Return (Upper Level)
+ Yasha Gaeshi (Gedan)           Demoness Return (Lower Level)
+ Arakuma Inashi                 Wild Bear (inashi?)
+ Tsumuji-gari                   Reaping Whirlwind
+ Kanzuki-ryuu Kou'ou Ken        Moon God Style Emperor Fist
+ Kanzuki-ryuu Shinpikaibyaku    Moon God Style Creation of God's Door
+ Guren Chouchuu                 Red Lotus Summit Receival
+ Guren Kusabi                   Red Lotus Wedge
+
+ - 'Kanzuki-ryuu' is also the name of Karin's fighting style.
+
+ KEN MASTERS
+
+ Jigoku Fuusha                  Hell Windmill
+ Hadou Ken                      Surge Fist
+ Shouryuu Ken                   Rising Dragon Fist
+ Tatsumaki Senpuu Kyaku         Tornado Whirlwind Kick
+ Zentou                         Front Collapse
+ Inazuma Kakato Wari            Lighting Flash Heel Split
+ Ushiro Mawashi-geri            Backward Spinning Kick
+ Shouryuu Reppa                 Rising Dragon Render
+ Shinryuu Ken                   Divine Dragon Fist
+ Shippuujinrai Kyaku            Swift as Lightning Kick
+
+ RAINBOW MIKA
+
+ Hashiru                        Running
+ Dageki                         Strike
+ J. Ocean Drop Kick             Japanese Ocean Drop Kick
+ Tobikoshi                      Hop Over
+ Haigotori                      Grab From Behind
+ Enzui Lariat                   Afterbrain Lariat
+
+ ROLENTO SCHUGERG
+
+ - The 'Mekong Delta' is a real place in Vietnam.
+
+ RYU
+
+ Kuuchuu Seoi Nage              Mid-Air Shoulder Throw
+ Hadou no Kamae                 Pretend Surge
+ Seichuu Nidan Tsuki            Mid-Level Two-Part Thrust
+ Sakotsu Wari                   Collarbone Splitter
+ Shinkuu Hadou Ken              Vacuum Surge Fist
+ Shinkuu Tatsumaki Senpuu Kyaku Vacuum Tornado Whirlwind Kick
+ Metsu Shouryuu Ken             Rising Dragon Fist of Destruction
+ Shin Shouryuuken               True Rising Dragon Fist
+
+ SAGAT
+
+ Kuuchuu Tiger Carry            Mid-Air Tiger Carry
+
+ SAKURA KASUGANO
+
+ Sakura-jime                    Sakura's Strangle
+ Shou'ou Ken                    Cherry Blossom Fist
+ Sakura Otoshi                  Sakura's Drop
+ Shunpuu Kyaku                  Spring Breeze Kick
+ Midare-zakura                  Cherry Trees Blossoming in Profusion
+ Haru Ichiban                   First Storm of Spring
+
+  - 'Sakura' means 'cherry tree' or 'cherry blossom'.
+
+ SODOM
+
+ Shogun Throw                   (emperor's follower) Throw
+ Daimyo Throw                   (feudal lord) Throw
+ Jigoku Scrape                  Hell Scrape
+ Butsumetsu Buster              Unlucky Day Buster
+ Daikyou Burning                Worst Luck Burning
+ Shiraha Catch                  White Blade Catch
+ Yagura Reverse                 Oar Reverse
+ Kouten Okiagari                Roll Backwards and Get Up
+ Tengu Walking                  (type of demon) Walking
+ Meido no Miyage                Present from Hades
+ Ten Chuu Satsu                 Death in the Midst of Heaven?
+
+  - I always assumed 'Ten Chuu Satsu' meant 'Destruction of the Pillars
+    of Heaven'.  However, in Sodom's stage, the kanji is shown, and the
+    'chuu' kanji represents 'middle' instead of 'pillar'.  Then again,
+    this could be an intentional misspelling, just like the kanji on
+    Sodom's outfit (which is probably supposed to be the kanji for
+    'death', but was apparently mispelled by Sodom).
+
+ VEGA
+
+ Kabe Hari Tsuki                Attach and Cling to Wall
+ Sankaku Tobi                   Triangle Hop
+ Hari Tsuki Rolling...          Attach and Cling Rolling
+
+ ZANGIEF
+
+ Kamitsuki                      Biting
+ Kuuchuu Headbutt               Mid-Air Headbutt
+
+
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+ENDINGS
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+
+ Just a note; I don't bother watching intros / endings for characters,
+ and usually don't get a chance to since I don't care for fighting the
+ CPU.  So, all the endings listed here are sent in by various people,
+ thanks guys!
+
+ ADON
+  Bison's on the floor and Adon gloats over him.  Bison then asks why
+  Adon would like to know why he wanted to know the Shun Goku Satsu.
+  While Adon is shocked by the fact that Bison knew this, he
+  demonstrated the strength of his Psycho Power by hitting Adon with a
+  Psycho Crusher.  As Bison stood over Adon, a mysterious figure came up
+  behind Bison and did the Raging Demon on him (gee I wonder who that
+  could be).  Anyway, Bison blows up as usual, and Adon gets up and
+  whines at the fact that he missed the chance to observe the technique
+  in action.  The "camera" then leaves Adon and shows the "mysterious
+  figure" perched on a cliff.
+
+ AKUMA
+  Great ending.  Akuma performs the Raging Demon upon Bison's sorry butt,
+  destroying him (cue face-burning portrait.)  He then describes how the
+  Raging Demon works; the more pain one has inflicted on others, the
+  more pain one feels when his is attacked by the Raging Demon.  Gen then
+  appears, and the pair decide to finish their feud once and for all,
+  both performing their supers simultaneously (and in slow motion.)
+  Picture fades to white before the moment of impact.  However, we also
+  get the victory portrait of Akuma at the very end.
+
+ BIRDIE
+  Birdie can't find the Psycho Drive, so he decides to check out the
+  strange underground base.  When he reaches the Psycho Drive, he goes
+  inside it to gain Bison's power, but the machine drains him instead,
+  to the point where he can't move.  Cut to Charlie, who says that the
+  source of the energy has changed.  He decides to check it out, and
+  Chun Li heads in on foot.  When they reach the Psycho Drive, they
+  find a captive (Birdie) and free him.  (This scene is strange, Birdie
+  never moves).  Birdie wonders aloud why the machine drained him
+  instead of making him like Bison.  Charlie and Chun Li immediately
+  chase him, noting that he knows about Bison, and Birdie claims that
+  he hasn't done anything.
+
+ BISON / BALROG / JULI / JUNI
+  All of these characters get you the bad ending if you win (you see
+  Ryu get put into the Psycho Drive).
+
+ BLANKA
+  He finds Dan and Sakura who want to destroy Bison's base.  Dan often
+  refers to Sakura as his best pupil throughout this ending, and Sakura
+  is often surprised because she doesn't consider herself his student.
+  Dan seems rather dim as he doesn't know how to destroy something as
+  big as Bison HQ, but Sakura suggests that they could blow up the
+  power source or something.  They find the Psycho Drive eventually, and
+  Dan gets this stroke of genius.  He asks Blanka to jump in the Drive
+  and do his Electricity move as to overcharge it, causing the Drive to
+  explode.  Big mushroom cloud, etc, THE END.
+
+ CAMMY
+  After Cammy wins, the picture of Bison's face melting is shown.
+  He is in disbelief that Cammy defeated him and asks "How can the
+  original be beaten by a copy?"  Cammy suddenly realizes she has one
+  more task to do.  Cammy goes into Psycho Drive headquarters where
+  she meets Chun Li.  Chun asks who she is.  Cammy replies that she
+  must save "them" and runs off, leaving Chun confused.  In the main
+  room, Cammy says "We're not just dolls..." and transports Juli,
+  Juni, and all the other clones out of the lair as it is exploding.
+  Meanwhile, Chun reports info to Charlie as Bison's headquarters
+  explodes.  INTERPOL (I think) reports that an investigation took
+  place, but no one every found the mysterious girl Chun Li swore she
+  saw....
+
+ CHARLIE
+  Bison flies away taunting Charlie that his efforts were in vain.
+  Charlie gets to his harrier jet and pursues Bison back to Shadaloo
+  HQ. Bison descends into the Psycho Drive to recharge. Just as the
+  security doors are closing, Charlie releases several bombs into the
+  base. The Psycho Drive chamber blows up as does the entire base.
+  Charlie then notices Bison emerging from the flames. Bison laughs
+  proclaiming his "immortality". Charlie responds by firing the guns of
+  his jet. After getting riddled with bullets, Bison explodes. Charlie
+  flies away, vowing he will carry on the fight against evil.
+
+ CHUN-LI
+  After Chun defeats Bison, he scoffs and says she can't stop him.
+  He flies off into the sky using his Psycho Crusher.  Charlie radios
+  Chun Li asking her to inform him of the situation.  Chun decides to
+  sneak into Bison's lair and Charlie tries to talk her out of doing
+  something foolish. She reconfigures the Psycho Drive to shoot the
+  beam at Bison (still Psycho Crushing in the air) instead of the
+  satellite.  Slow motion of Bison and the beam connect.  Bison
+  screams, then there's a picture of Bison's face melting.
+  Afterwards, Chun Li returns to a dizzying Cammy and asks if she's
+  okay.  Charlie then says "Good job" or something along those lines.
+
+ CODY
+  After the fight, Bison retreats to the Psycho Drive to recharge his
+  power. At that moment, Guy joins Cody and suggests they stop Bison.
+  Cody declines, stating that "the excitement is gone," and that he no
+  longer cares about Bison. Angered, Guy dashes toward the base,
+  leaving Cody behind. Bison descends into the Psycho Drive tube and
+  gloats as he begins to regain his lost strength. In the corridor, Guy
+  is surrounded by two Junis and a Juli. Suddenly, the dolls collapse
+  and Cody reappears (think back to Final Fight when your character
+  dies then returns). Guy is pleased to see that Cody changed his mind,
+  and they both head toward the Psycho Drive chamber.  Once in the
+  chamber, Cody and Guy come upon a shocked and helpless Bison. Cody
+  destroys the Psycho Drive with his Final Fight Punch Super (Bison
+  explodes). Guy notes that the base is about to explode, and they
+  both run through the corridor (Guy dashes, Cody runs like he does in
+  his "cop" win pose). The Shadaloo base explodes.  Outside (daytime),
+  Guy asks Cody where he is going next, noting "some guys would like to
+  get a piece of (him)." Cody calmly says he will "get away for a
+  while." Guy bids him farewell, knowing they will one day meet again.
+
+ DAN HIBIKI
+  Bison can't believe he lost to a kid (referring to Dan), then Dan
+  rolls towards Bison and then does his Hisshou Burai Ken SC on Bison
+  and then we see the standard half normal, half flame face of Bison,
+  and Bison explodes, and then there are a few things that Dan says
+  (such as: "I'm going to use your base for the Thailand extension of
+  my Dojo!").  He also talks about his Saikyo-Ryuu style of fighting.
+  He then appears at the Psycho Drive along with Blanka, who he calls
+  Jimmy, and then teaches him how to roll the right way, and then they
+  both roll (Jimmy doesn't get the hang of it at first, once he does,
+  Dan says that he's a true student of Saikyo-ryuu).  Cut to Charlie
+  and his airplanes outside Shadaloo HQ, and then Charlie says that
+  this will be the last day of Shadaloo and prepares to blow up the HQ,
+  except that Chun Li tells Charlie not to, as there are signs of life
+  inside the base (ie Blanka and Dan) while Blanka and Dan keep rolling
+  around. (and yelling "Whooohooo!").  Dan claims that Saikyo-ryuu will
+  live forever.
+
+ E. HONDA
+  Honda doesn't recognize him and bison tells him he is impressed by
+  his sumo power and wants to use it to give energy to his psycho drive.
+  Honda says it makes bison sound like a bad guy in the end bison says
+  he is invincible with the psycho drive still in place and Honda
+  is trying to stop him.  Bison does a psycho crusher and Honda does a
+  shadow headbutt saying that Bison's psycho crusher is outclassed. The
+  face burning portrait shows and then another one shows where M. Bison
+  blows up.  Juni and Juli show up out of thier "trance" they don't know
+  who they are but Honda tells them they can come and train with him as
+  long as they want.  There are a bunch of Juni and Julis doing low
+  strongs and Honda is in the front of them showing them how to do a
+  palm slap he says they will become the best he has ever taught.
+
+ KEN
+  When you beat Bison, he is shown lying on the ground and talking to
+  himself.  Ken says, "Now's my chance to use Ryu's move." and then
+  Bison tries a massive Psycho Crusher on him but he uppercuts it away.
+  Bison's face is shown; half of it is normal and the other half is
+  covered in flame.  Then it shows Charlie in a plane and he says "What
+  the....!?  We've lost track of Bison's Psycho Energy!?  ...Could he
+  be!?!"  Finally, Ken is shown standing on a cliff saying that he's
+  not strong enough to fight Ryu yet.
+
+ M. BISON
+  Bison takes Ryu into his laboratory and puts him into some sort of
+  tube.  A statue of Buddha is seen next, and the head of the Buddha
+  becomes skull-like before a beam made out of Ryu's power shoots
+  forth from it.  The beam flies into a Shadowloo satellite and the
+  satellite sends rays all across the Earth's surface, killing (or
+  hypnotizing) people.  Bison says that "The world will be mine / The
+  world will be under Shadowloo".
+
+ ROLENTO
+  Rolento breaks into the Secret Shadaloo HQ in search of the Psycho
+  Drive.  He was prepared for a battle, but was disappointed when the
+  security in the HQ was non-existent.  He then finds the Psycho Drive
+  and says that is no way to lead a nation/country by brain-washing its
+  people.  He then tinkers with the Psycho Drive, then leaves when dawn
+  comes up.  Sodom then appears and gives Rolento a ride out.  Then the
+  Psycho Drive (and the HQ also) explodes in flames, and then Rolento
+  says "My comrade Sodom!"  Sodom says "Follow Me!"
+
+ ROSE
+  Rose does a Soul Spiral on Bison's chest, then Rose says it wasn't
+  supposed to end this way, but she said that Bison was her master and
+  now she has to destroy him with her own hands.  Bison says
+  "Impressive", but grabs her hand and says "Ha!", then tells Rose to
+  look at her future on the ground and asks if she sees it, and asks her
+  if she knows who will stand victorious over the doom, then Rose says
+  Bison will...and then says she will...then Bison asks if she knows who
+  granted the powers to them.  Bison then says that two different bodies
+  share the same soul and says that they will go back to where they
+  belong, as their wish was.  All of a sudden, Bison's face is now half-
+  normal, half-flame.  Then Guy carries Rose, and says he was wise to
+  hurry to this place, and says that Rose's wound does not seem fatal,
+  but she needs to be taken care of immediately, and then he says that
+  Bison is no longer a danger to this world, but then we see a black and
+  white flash of Bison and Guy then asks himself if that was in his
+  mind, and asks what is this sudden chill.  Presumably Rose does not
+  die as we see her victory pose superimposed over her stage (her home
+  in Italy).
+
+ RYU
+  After defeating Bison, Bison believes he has found the heir to his
+  over-abundant Psycho Energy.  When he tries to place it into Ryu
+  (there's a scene with the Bison sprite doing his fireball move into
+  Ryu's chest) Ryu fights it visibly, making his eyes go red and growling
+  like a beast.  Ryu recalls all his friends (in their victory portraits)
+  and rejects Bison's "gift," which somehow destroys him (it's the
+  portrait where half his face burns away in blue flames.)  Chun Li and
+  Charlie believe Bison finally dead.  Ken thanks Ryu (on Ryu's stage)
+  for saving him from Bison's influence (when Ryu beat 7 types of crap
+  out of him earlier.)  Ryu's cool about it, and the pair do some male
+  bonding.
+
+ SAGAT
+  After Sagat beats Bison, Bison says that Ryu's power is the ultimate
+  form of the Psycho Power.  He then forces his energy into Ryu (in the
+  form of numerous Psycho Shot sprites) and tells Sagat that he's next.
+  Sagat tells Ryu to fight back and Ryu is shown with red eyes.  Ryu
+  manages to overcome Bison's power and he sends the energy back to
+  Bison who is promptly destroyed (the same old burning face shot.)
+  Afterwards, Sagat and Ryu are standing together in Ryu's stage. Sagat
+  tells Ryu that he is not a true master yet since Bison's power almost
+  killed him.  Ryu tells Sagat to wait for him to grow stronger and
+  Sagat says Ryu is the only one worthy of fighting him.
+
+ SAKURA
+  Bison gets up and heads toward the unconscious Ryu, giving his usual
+  speech about Ryu's body.  Sakura blocks him, claiming that Bison will
+  have to go through her first.  Bison goes through her first, knocking
+  her to the side.  Ryu gets angry at this, and Shoryukens Bison (cut
+  to Shoryuken scene, cut to face burn scene, etc.)  Sakura is talking
+  to Ryu, upset that she didn't get a real fight with Ryu.  Ryu says
+  that they shall fight the next time they meet.
+
+ SODOM
+  In Sodom's ending, Chun Li and Charlie are talking about how Bison
+  is invincible as long as the Psycho Drive remains.  Sodom then
+  drives his semi from his Alpha 2 background into the Psycho Drive.
+  He shouts about how he will finally get to use the Kamikaze
+  technique.  It shows the same mushroom cloud as the other endings.
+  Charlie and Chun Li talk about how brave he is then Rolento is shown
+  and he says that Sodom couldn't have died in the blast.
+
+ VEGA
+  Bison says that his body has outgrown his use and goes inside Cammy
+  (shows the face burning part).  Vega does a low fierce claw swipe to
+  the psycho drive and she is free.  Vega puts his mask on her saying
+  she is beautiful and takes her away.  Outside, Charlie in his jet
+  getting ready to bomb the "secret" base but it explodes before he
+  can do so.  Chun-Li tells him good job but Charlie doesn't know what
+  happened.  Then it shows Vega with an unconcious Cammy.
+
+ ZANGIEF
+  After defeating M. Bison, E. Honda showed up and told Zangief stuff
+  about Psycho Drive.  Zangief decided to destroy Psycho Drive in order
+  to show his loyalty to mother-Russia...Then E. Honda guided him to
+  Psycho Drive.  However, Psycho Drive is operating when they reach
+  there.  Bison is on progress of recovering.  Then the crazy thing
+  happens.....Zangief says "Are you ready my friend?"  "Anytime",
+  responded by E. Honda.  'Gief grabbed E. Honda and did SPD over and
+  over to break down Psycho Drive, then Bison dies....(I think it makes
+  sense because E. Honda has that headbutt move)  'Gief and Honda
+  hugged like buddies and caption says something like....every one in
+  Russia will remember what their hero does...and his sidekick from
+  Japan.
+
+
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+VICTORY SYMBOLS
+-+----+----+----+----+----+----+----+----+----+----+----+----+----+----+-
+
+ Nicholas Cheung asked for a seperate section for this info., so here ya
+ go, Nick!  What's listed here are the various victory symbols you get
+ after winning a round and what they signify:
+
+ Blue square with a 'V' in it:
+  - Indicates that you won using an Original Combo.
+
+ Red square with a 'V' in it:
+  - Indicates that you won using a punch or kick, command attack, or a
+    PP or KK throw.
+
+ Orange square with a 'S' in it:
+  - Shows that you won by killing someone with a special move (includes
+    damaging taunts and command throws, but excluding throw-based SCs).
+
+ Orange 'C' in lower-left corner of a square:
+  - Indicates that you won via block damage (cheap victory).  This
+    obviously doesn't apply to wins using non-special moves or winning
+    by time out.
+
+ Red 'P' in upper-left corner of a square:
+  - Indicates that you got a Perfect Victory (no life lost).
+
+ Purple square with a 'T' in it:
+  - Indicates that you won via time out.
+
+ Blue square with a lightning bolt and 1, 2, or 3 stars:
+  - Indicates you won via a Level 1, 2, or 3 SC in A-ISM.
+
+ Blue square with a 'V' and a lightning bolt:
+  - Indicates that you won using a Original Combo.
+
+ Blue square with a 'X' and a lightning bolt:
+  - Shows that you won using a Super Combo in X-ISM.
+
+
+=========================================================================
+  7.  AUTHOR'S NOTE
+=========================================================================
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+REVISION HISTORY
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+ Version 2.2  (July 14, 1999)
+   - Okay, the FAQ has been completely redone, based mainly off of my
+     SFZ3:PP FAQ v0.7.  Anyway, enjoy!
+
+ Version 2.1  (May 5, 1999)
+   - "A few more days", eh? :)  Actually (hopefully!) you've been reading
+     my SFZ3:PP FAQ instead of this one (it can be gotten at all the same
+     sites).  Like it says in the note at the top, this is just a quickie
+     update, the big (maybe final?) revision will happen sometime in the
+     future now that my SFZ3:PP FAQ is pretty much done.
+
+ Version 2.0  (December 19, 1998)
+   - Battle Mode stuff added, more corrections and additions
+     otherwise.  The next update will be in a few days as I'll be
+     adding in PSX-related information.
+
+ Version 1.9  (December 9, 1998)
+   - More corrections, Shin Shouryuuken stuff corrected at last.
+
+ Version 1.8  (November 24, 1998)
+   - Some minor updates and additions.
+
+ Version 1.7  (November 20, 1998)
+   - Further additions and corrections.  Special thanks to Jack Yu-Hon
+     Lin for lots of information straight from Gamest.
+
+ Version 1.6  (October 15, 1998)
+   - More general corrections.
+
+ Version 1.5  (October 4, 1998)
+   - Information for the Classical and Maji Modes (formerly N-ism and
+     M-ism), have been confirmed from Capcom's FAX section.  Special
+     thanks goes to Ultima for discovering the properties of Gen's
+     crouching HP.
+
+ Version 1.4  (September 28, 1998)
+   - More updates, nothing special.
+
+ Version 1.3  (September 13, 1998)
+   - More of the ususal fixes and corrections, etc.  I'd like to
+     thank Ignacio de Lucas for setting me straight on using Gen's
+     Kouga, too. ^^;
+
+ Version 1.2  (September 9, 1998)
+   - More additions and corrections.  N-ism info. has been removed
+     because it's exactly like X-ism in terms of moves.  The information
+     on it and the two other hidden "-isms" is now in it's own section
+     along with the other secrets and codes.
+
+ Version 1.1  (September 2, 1998)
+   - All information for Juni, Juli, and Balrog has been confirmed from
+     Capcom's FAX section (www.capcom.co.jp).
+
+ Version 1.0  (August 31, 1998)
+   - The majority of the FAQ has been rewritten, more corrections, etc.
+     Quite a bit of unconfirmed info. has been incorporated into the
+     rewrite; I'll try to get this stuff confirmed in the next few
+     updates.  Throw names have been temporarily removed as I don't
+     have any names for the new characters and this only creates a lot
+     of confusion.  Many of the character notes have been removed--I
+     plan to re-add them in a seperate section later, for clarity.
+
+ Version 0.9  (August 26th, 1998)
+   - A whole slew of minor corrections!  Whew!
+
+ Version 0.8  (August 24th, 1998)
+   - Just more of the usual (updates, fixes, etc.)  I was going to add
+     a "quotes" section for the boss battles, but there's way too many
+     of them! ^^;  Perhaps I'll add them in later or something.  This
+     FAQ's getting too cluttered for my tastes so look for a rewrite in
+     a while.
+
+ Version 0.7  (August 15th, 1998)
+   - The codes to use Balrog, Juni, and Juli have been added, as well
+     as more misc. corrections and additions.
+
+ Version 0.6  (August 6th, 1998)
+  - Some corrections from Capcom of Japan's SFZ3 page, not to mention
+    the usual correction, additions, etc.  This update started off very
+    cool as I confirmed a lot of stuff, but then I got lots of new
+    untested info. so I had to go try it out....
+
+ Version 0.5  (August 1st, 1998)
+  - More general info. added, all of it gleaned from Capcom's fax files
+    (found at www.capcom.or.jp).  The "-ism" section has been rewritten
+    for clarity, and the usual general corrections / additions have
+    been made.
+
+ Version 0.4  (July 27th, 1998)
+  - More info on Blanka, Cammy, Dan, Karin, and Rolento added, not to
+    mention some other misc. stuff.
+
+ Version 0.3  (July 21st, 1998)
+  - A couple more corrections and additions.  Hopefully we'll get the
+    final version soon.
+
+ Version 0.2  (July 5th, 1998)
+  - More corrections and additions.
+
+ Version 0.1 created July 1st, 1998
+
+ This FAQ was based on my 'Street Fighter Zero 3: Perfect Package' FAQ,
+ from version 0.1 (December 30, 1998) to version 0.7 (June 10, 1999).
+ Of course, that, in turn, was based on information from this FAQ, from
+ Version 0.1 (July 1, 1998), to Version 2.0 (December 19, 1998).
+
+
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+SPECIAL THANKS
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+  I'd like to thank everyone who contributed to the SFZ3:PP FAQ for all
+  their help and information.  I'd also like to thank:
+
+ Erik Struiksma                                   <estruiks@cc.cc.ca.us>
+ Long Ba Le                            <lbl2f@server3.mail.virginia.edu>
+ Edgard Aedo                                     <ead9989@pom.devry.edu>
+ Miguel Raya                               <foreignermiguel@hotmail.com>
+ J Chen                                               <alecson@ucla.edu>
+ 1JJC0814                                       <1JJC0814@ibm.mtsac.edu>
+ Lee E.                                             <tinostar11@aol.com>
+ Ed Derus                                           <geki91@hotmail.com>
+ John Lange                                 <falconpain@my-dejanews.com>
+ Capt. Faust                                  <capt_faust@geocities.com>
+ Michael Park                           <macgamer@hercules.panworld.net>
+ Space Coyote                                 <space_coyote@sprynet.com>
+ Toebe                                                 <toebe33@aol.com>
+ King Kung                                      <kingkung@earthlink.net>
+ Elusive                                         <eluMinate@hotmail.com>
+ Hsien Chang                                   <hsien-i@mail.utexas.edu>
+ Onaje Everett                                    <teverett@pacbell.net>
+ John Halili                                           <jhalili@usa.net>
+ Viscant                                               <viscant@aol.com>
+ Ignacio de Lucas                                   <de_lucas@yahoo.com>
+ Jack Yu-Hon Lin                             <jacklin@students.uiuc.edu>
+ Jon                                           <jonwnklr@concentric.net>
+ Chap                                            <chap@arcademaster.com>
+ KJ Sampson                                <c721329@showme.missouri.edu>
+ pnt                                           <drward@richmon.infi.net>
+ Carlos Alexandre                                 <c_alex@geocities.com>
+ Nicholas Cheung                              <ncheung@lynx.dac.neu.edu>
+ Ziggy                                              <JDBerg1031@aol.com>
+ Deathbed                                    <pgerrard@pacificcoast.net>
+ Shinnosuke                                     <chrisbry@ix.netcom.com>
+ RockMan X                                        <rdswear@pipeline.com>
+ David Spence                                <bj890@freenet.carleton.ca>
+ Zany Wizard                                    <zanywrzd@rogerswave.ca>
+ Ryan Hilman                                    <rhilman@oasis.quay.com>
+ Chojin                                               <chojin19@aol.com>
+ Tom Cannon                                           <webguy@inked.com>
+ Ultima                                         <ultima1@concentric.net>
+ Darklancer                                     <gamer@technologist.com>
+ RpM                                             <rpm39788@bayou.uh.edu>
+ Michael Nash                                   <michael@express.net.au>
+ John Denny, Jr.                                 <greylaugh@hotmail.com>
+ Ura no Ura                                    (www2.airnet.ne.jp/~tac/)
+ Bakasama                                             <bakasama@aol.com>
+ LordBBH                                               <lordbbh@aol.com>
+ John Choi                                               <jchoi@jps.net>
+ Team Red Herring                                     <hammad@jaring.my>
+ Shaandre Stinson                               <drestinson@hotmail.com>
+ joecho                                              <joecho@deshaw.com>
+ Harris Bias                                       <hbias@earthlink.net>
+ ShinJN                                                 <shinjn@aol.com>
+ Zvi                                       <zbarkoc@midway.uchicago.edu>
+ Hiro                                    (www.alles.or.jp/~hiros/zero3/)
+
+ Unpublished work Copyright 1998-2001 Chris MacDonald
