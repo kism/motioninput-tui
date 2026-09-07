@@ -97,7 +97,7 @@ class MotionInputApp(App[None]):
             setattr(self.config, field, value)
         self.config.save()
 
-    def _open_setup(self) -> None:
+    def _open_setup(self, *, focus_characters: bool = False) -> None:
         def on_done(result: tuple[str, str, str] | None) -> None:
             if result is None:
                 self.exit()
@@ -105,7 +105,7 @@ class MotionInputApp(App[None]):
             self._start(*result)
 
         initial = (self.config.game, self.config.character, self.config.layout)
-        self.push_screen(SetupScreen(initial), on_done)
+        self.push_screen(SetupScreen(initial, focus_characters=focus_characters), on_done)
 
     def _start(self, game_key: str, character_key: str, layout_key: str) -> None:
         game = load_game(game_key)
@@ -114,7 +114,8 @@ class MotionInputApp(App[None]):
         self._remember(game=game.key, character=character.key, layout=layout.key)
 
         def on_done(_result: None) -> None:
-            self._open_setup()
+            # Leaving the trainer is nearly always about picking someone else.
+            self._open_setup(focus_characters=True)
 
         policy: BufferPolicy = self.config.buffer_policy
         self.push_screen(

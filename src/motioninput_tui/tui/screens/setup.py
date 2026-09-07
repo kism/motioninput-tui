@@ -40,17 +40,26 @@ class SetupScreen(Screen):
     #detail { height: 5; padding: 0 2; color: $text-muted; }
     """
 
-    def __init__(self, initial: tuple[str | None, str | None, str | None] = (None, None, None)) -> None:
+    def __init__(
+        self,
+        initial: tuple[str | None, str | None, str | None] = (None, None, None),
+        *,
+        focus_characters: bool = False,
+    ) -> None:
         """Load the rosters and detect the terminal up front.
 
         ``initial`` is the (game, character, layout) used last time, so the
         pickers open on it rather than always on the first entry.
+        ``focus_characters`` starts on the character list instead of the layout
+        one, for coming back from the trainer, where changing character is
+        almost always the reason for leaving.
         """
         super().__init__()
         self.games = available_games()
         self.layouts = available_layouts()
         self.terminal = detect()
         self._initial = initial
+        self._focus_characters = focus_characters
         self._loaded_game: int | None = None
 
     def compose(self) -> ComposeResult:
@@ -90,9 +99,9 @@ class SetupScreen(Screen):
             return
         # An OptionList highlights its first entry when options are added and
         # posts an event for it, so the last used selection has to wait until
-        # those have been dealt with or it gets overwritten.
+        # those have been dealt with or it gets overwritten. Focus waits with
+        # it, since the character list is empty until then.
         self.call_after_refresh(self._apply_initial)
-        self.query_one("#layouts", OptionList).focus()
 
     def _apply_initial(self) -> None:
         """Open the pickers on whatever was used last time."""
@@ -103,6 +112,15 @@ class SetupScreen(Screen):
         game_index = _index_of([game.key for game in self.games], game_key)
         self.query_one("#games", OptionList).highlighted = game_index
         self._load_characters(game_index, character_key)
+        self._focus_picker()
+
+    def _focus_picker(self) -> None:
+        """Start on the character list when asked, or the layout list otherwise."""
+        characters = self.query_one("#characters", OptionList)
+        if self._focus_characters and characters.option_count:
+            characters.focus()
+            return
+        self.query_one("#layouts", OptionList).focus()
 
     def _load_characters(self, game_index: int, character_key: str | None = None) -> None:
         self._loaded_game = game_index

@@ -73,7 +73,8 @@ than touching anything else.
 | Hitbox   | `a` `s` `d` `space`        | `u i o`  | `j k l`  |
 | Southpaw | `j` `k` `l` `space`        | `q w e`  | `a s d`  |
 
-In the trainer: `esc` goes back to the picker, `ctrl+r` clears the buffer,
+In the trainer: `esc` goes back to the picker with the character list focused,
+ready to pick someone else. `ctrl+r` clears the buffer,
 `ctrl+l` toggles the move list, `ctrl+b` toggles the buffer rule, and `ctrl+q` or
 two presses of `ctrl+c` quit.
 

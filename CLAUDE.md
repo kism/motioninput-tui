@@ -64,7 +64,8 @@ each launch.
 Setting `OptionList.highlighted` queues a highlight event, and an OptionList
 also posts one for index 0 when options are added. `SetupScreen` therefore
 applies the remembered selection from `call_after_refresh`, not `on_mount`, or
-the queued events overwrite it.
+the queued events overwrite it. Focus is set there too, since the character
+list has no options until then.
 
 ## Architecture
 
