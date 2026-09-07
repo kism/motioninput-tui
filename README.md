@@ -11,6 +11,9 @@ does different things in different games: hold down and double tap forward in
 3rd Strike and you get a dragon punch, do it in Super Turbo or Alpha 3 and you
 get nothing.
 
+For architecture, the data pipeline and the test/lint setup, see
+[README_DEV.md](README_DEV.md).
+
 ## Games
 
 | Key      | Game                           | Character source        |
@@ -62,18 +65,13 @@ In the trainer: `esc` goes back to the picker, `ctrl+r` clears the buffer,
 
 When a special comes out, the games clear the command buffer so the inputs that
 produced it cannot go on to feed another move. Without that, two fireballs in a
-row read as the double quarter circle of a super.
+row would read as the double quarter circle of a super. Normals and throws do
+not clear it, matching the games.
 
-Two things enforce this, and both matter:
-
-- **The buffer is flushed on activation.** Normals and throws do not flush it,
-  matching the games, so a quarter circle survives an intervening command
-  normal.
-- **Steps of a motion must be close together.** A total time limit is not
-  enough on its own: a forward left over from a fireball is still in the buffer
-  afterwards, and without a per-step limit a later down, down-forward would turn
-  it into a dragon punch. `step_gap_ms` bounds the pause between one step of a
-  motion and the next.
+Steps of a motion also have to be close together, not merely finish inside a
+time limit. The forward you are still holding after a fireball is genuinely
+still held, so without a per-step limit a later down, down-forward would turn it
+into a dragon punch.
 
 `--loose-buffer`, or `ctrl+b` in the trainer, turns both off. Inputs are then
 reused freely and one motion can light up several moves at once. No game behaves
@@ -114,10 +112,7 @@ yours with:
 motioninput-tui --check-terminal
 ```
 
-Textual asks for the protocol but not for event types, and its parser raises on
-the reply, so [`tui/keyboard_driver.py`](src/motioninput_tui/tui/keyboard_driver.py)
-supplies a driver that asks for event types and understands them. Pass
-`--no-key-release` to turn it off.
+Pass `--no-key-release` to turn it off and use the fallback instead.
 
 ### Inferred holds (fallback)
 
@@ -149,75 +144,3 @@ not work on macOS; Quartz event taps on macOS need Input Monitoring permission
 and read every keystroke system-wide, including ones meant for other
 applications. The kitty protocol gets the same information with no permissions,
 no elevated privileges, and it keeps working over SSH.
-
-## Layout
-
-```text
-src/motioninput_tui/
-  engine/        Device independent: notation, input buffer, motion matchers,
-                 rulesets, the recogniser and a training session.
-  controls/      Control layouts and input sources. Keyboards today, gamepads later.
-  games/         Game metadata, rulesets, move models and the packaged rosters.
-  datagen/       Parsers that turn the reference FAQs into games/data/*.json.
-  terminal/      Terminal identification, latency warnings, kitty keyboard protocol.
-  tui/           Textual screens, widgets, and the release-aware input driver.
-```
-
-The engine never touches the clock or the terminal; callers pass timestamps in,
-which keeps the matchers straightforward to reason about and to test.
-
-### Regenerating character data
-
-The rosters in `src/motioninput_tui/games/data/` are generated from the FAQs in
-`references/` and committed. To rebuild them:
-
-```bash
-motioninput-tui.datagen                # rewrite the JSON
-motioninput-tui.datagen --show-skipped # list moves that were not understood
-```
-
-Around 80-90% of listed moves become trainable. The rest are follow-ups, stances
-and conditional moves ("press P during Ducking") that the trainer has no model
-of; they still appear in the move list, struck through.
-
-## Check/Test
-
-### Checking
-
-Run `ruff check` or get the vscode ruff extension, the rules are defined in pyproject.toml.
-
-### Type Checking
-
-Run `ty`
-
-### Testing
-
-Run `pytest`, It will get its config from pyproject.toml
-
-There are no tests for the engine yet. The interesting behaviour is timing
-dependent, so tests would want to drive `TrainingSession.press` with explicit
-timestamps and a simulated auto-repeat stream rather than a real clock.
-
-### Workflows
-
-The '.github' folder has both a Check and Test workflow.
-
-To get the workflow passing badges on your repo, have a look at <https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge>
-
-Or if you are not using GitHub you can check out workflow badges from your Git hosting service, or use <https://shields.io/> which pretty much covers everything.
-
-### Test Coverage
-
-#### Locally
-
-To get code coverage locally, the config is set in 'pyproject.toml', or run with `pytest`
-
-```bash
-python -m http.server -b 127.0.0.1 8000 -d htmlcov
-```
-
-Open the link in your browser and browse into the 'htmlcov' directory.
-
-#### Codecov
-
-The template repo uses codecov to get a badge on the README.md, look at their guides on config that up since it's stripped out of this repo.

@@ -1,0 +1,131 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+A Textual TUI for practising fighting game motion inputs. You pick a game and a
+character, press inputs, and it shows which move the game would have given you.
+The whole point is that the same input differs per game: in 3rd Strike holding
+down and double tapping forward gives a dragon punch, in Alpha 3 and Super
+Turbo it gives nothing.
+
+See `README.md` for using the trainer and `README_DEV.md` for the developer
+setup; this file covers what is hard to discover from the code alone.
+
+## Commands
+
+```bash
+uv sync --all-extras            # dev setup; omit --all-extras for prod
+
+.venv/bin/ruff format .         # format
+.venv/bin/ruff check --fix .    # lint
+.venv/bin/ty check .            # type check
+.venv/bin/pytest -q             # tests
+./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
+./scripts/run-coverage.sh       # coverage run + html + report
+
+.venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
+.venv/bin/pytest -k logger                                 # by name
+
+python -m motioninput_tui                                  # run it
+python -m motioninput_tui --game sfiii3 --character ryu    # skip the pickers
+python -m motioninput_tui --check-terminal                 # speed + key release support
+python -m motioninput_tui --list                           # rosters
+python -m motioninput_tui.datagen --show-skipped           # rebuild packaged rosters
+```
+
+Ruff runs with `select = ["ALL"]` and `preview = true`, so lint is strict.
+Suppressions in this repo use `# ruff: ignore[rule-name] - why` and
+`# ty: ignore[rule-name]`, not `# noqa`; the preview `noqa-comments` rule
+enforces that.
+
+## Architecture
+
+Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`.
+
+**`engine/` is device and terminal agnostic and never reads a clock.** Callers
+pass `at_ms` timestamps in. `engine/recognizer.py` takes moves through a
+`RecognisableMove` Protocol rather than importing `games`, which is what keeps
+that direction clean. Preserve this: it is why the matchers can be driven
+deterministically.
+
+Reading order for the interesting parts: `engine/notation.py` (numpad
+directions, player on the left, so 6 is forward) → `engine/buffer.py` →
+`engine/motions.py` → `engine/ruleset.py` → `engine/recognizer.py` →
+`engine/session.py`.
+
+### Two input models
+
+Terminals report key presses and auto-repeats but **not releases**. The trainer
+handles this two ways and the distinction runs through several files:
+
+* **Exact.** Terminals speaking the kitty keyboard protocol do report releases.
+  `terminal/kitty.py` holds the protocol; `tui/keyboard_driver.py` supplies a
+  Textual driver that asks for event types and emits `KeyRelease`. `__main__`
+  probes with `query_support()` *before* Textual takes the terminal, so holds
+  are exact from the first keystroke.
+* **Inferred.** Otherwise `controls/layouts.py` deduces holds from auto-repeat.
+  `HoldTiming` documents the reasoning. A press counts as held for `tap_ms`; a
+  burst of fast repeats proves a genuine hold; the OS repeat delay is measured
+  as you play and `tap_ms` widens to match.
+
+`decay_ms` is the bridge between them: how long the device takes to reveal a
+release. Zero when exact, `tap_ms` when inferred. It is threaded
+session → recogniser → `MatchContext` → matchers, where it widens motion
+windows and step gaps. Without it, inferred holds would make every motion look
+too slow to land.
+
+### Two kinds of tuning constant, easily confused
+
+* `engine/ruleset.py` / `games/rulesets.py` — **game** behaviour. Motion
+  windows, whether diagonals can be skipped, charge times, `dp_double_tap`
+  (the headline SF3 difference). Per game.
+* `controls/layouts.py` `HoldTiming` — **device** behaviour. Nothing to do with
+  which game is selected.
+
+### Spending inputs
+
+Games flush the command buffer when a special activates. Two mechanisms
+enforce this together, and both are needed:
+
+* `InputBuffer.consume()` on activation (normals and throws do not flush,
+  matching the games).
+* `Ruleset.step_gap_ms` bounds the pause between consecutive steps of a motion.
+  A total-span limit is not enough on its own: the forward you are still
+  holding after a fireball survives the flush, and without a per-step limit a
+  later `d, df` would turn it into a dragon punch.
+
+`BufferPolicy.LOOSE` (`--loose-buffer`, `ctrl+b`) disables both.
+
+### SOCD is last-input priority, deliberately
+
+`direction_from_axes` resolves simultaneous left+right by newest-wins rather
+than neutral. This is a correctness requirement, not a style choice: the
+terminal cannot see you release back as you press forward, so both are held at
+once during ordinary motions. Neutral SOCD makes charge moves impossible.
+
+### Rosters are generated and committed
+
+`games/data/*.json` is produced from the FAQs in `references/` by `datagen/`.
+After changing `datagen/normalise.py` or a parser, rerun
+`python -m motioninput_tui.datagen` and commit the JSON. Roughly 80-90% of
+listed moves become trainable; the rest are follow-ups and conditional moves
+that still appear in the move list, struck through.
+
+## Fragile coupling
+
+`tui/keyboard_driver.py` reaches into Textual internals in two places: the
+escape sequence in `start_application_mode`, and swapping the parser class the
+input thread builds. Both are guarded and fall back to inferred holds. Textual
+is pinned; check this file after a Textual upgrade.
+
+## Testing
+
+There are no tests for the engine yet, only versioning and logger tests. The
+interesting behaviour is timing dependent, so verification is done by driving
+`TrainingSession.press` / `.release` / `.tick` with explicit timestamps rather
+than a real clock. For the inferred path a test must also simulate the OS
+auto-repeat stream (first repeat after the initial delay, then ~33ms apart) —
+using bare presses without repeats does not reproduce how a real terminal
+behaves and will give misleading results.
