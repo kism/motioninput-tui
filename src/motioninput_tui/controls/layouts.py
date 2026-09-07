@@ -111,10 +111,21 @@ def _gamepad_supported() -> bool:
     return importlib.util.find_spec("pygame") is not None
 
 
-# The d-pad and the left stick both feed the movement axes. Attack buttons use
-# SDL's standard numbering for an Xbox-style pad; this is the default, and
-# `gamepad_layout` applies the player's rebinds (`b` on the setup screen) on top.
-_PAD_BUTTON_LABELS = {"pad:0": "A", "pad:1": "B", "pad:2": "X", "pad:3": "Y", "pad:4": "LB", "pad:5": "RB"}
+# The d-pad and the left stick both feed the movement axes. Attack codes map to
+# an Xbox-style pad through SDL's controller database (see controls/gamepad.py),
+# so the face names below hold on any recognised pad. `pad:0`-`pad:5` are the
+# face and shoulder buttons; `pad:6`/`pad:7` are the triggers. This is the
+# default; `gamepad_layout` applies the player's rebinds (`b` on setup) on top.
+_PAD_BUTTON_LABELS = {
+    "pad:0": "A",
+    "pad:1": "B",
+    "pad:2": "X",
+    "pad:3": "Y",
+    "pad:4": "LB",
+    "pad:5": "RB",
+    "pad:6": "LT",
+    "pad:7": "RT",
+}
 
 GAMEPAD = ControlLayout(
     key="gamepad",

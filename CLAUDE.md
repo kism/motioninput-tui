@@ -112,13 +112,22 @@ separate source. pygame is the optional `gamepad` extra; everything degrades to
 sees pads under the real Cocoa video driver, so `_load_pygame` skips the `dummy`
 driver there and sets `SDL_MAC_BACKGROUND_APP` instead.
 
-The six attack buttons are keyed by `pad:*` codes with a fixed Xbox-style
-default (`GAMEPAD_DEFAULT_BINDINGS` in `controls/layouts.py`). `b` on the setup
-screen's gamepad row opens `tui/screens/gamepad_bind.py` to remap them;
-`SetupScreen` also renames that row after the connected pad. The map is stored
-in `config.json` as `gamepad_bindings` (`{button name: pad code}`) and applied
-by `gamepad_layout()`, which falls back to the default whole rather than leave
-an attack unreachable. Movement (d-pad + left stick) is not rebindable.
+**Read the pad through SDL's game-controller API, not raw joystick buttons.**
+`_first_controller` opens a `pygame._sdl2.controller.Controller`, so
+`codes_from_pad` reads `CONTROLLER_BUTTON_A`/`X`/… and SDL's controller
+database maps each pad's real (often bizarre) button numbering onto the
+Xbox-style layout. Reading `joystick.get_button(0..5)` is what made most of the
+buttons dead. Tests drive `codes_from_pad` with a `FakePad`; a root autouse
+fixture stubs `_first_controller` so a plugged-in pad never leaks in.
+
+The eight attack codes (`pad:0`-`pad:5` face/shoulder, `pad:6`/`pad:7`
+triggers) start on a fixed Xbox-style default (`GAMEPAD_DEFAULT_BINDINGS` in
+`controls/layouts.py`, six of the eight). `b` on the setup screen's gamepad row
+opens `tui/screens/gamepad_bind.py` to remap them; `SetupScreen` also renames
+that row after the connected pad. The map is stored in `config.json` as
+`gamepad_bindings` (`{button name: pad code}`) and applied by `gamepad_layout()`,
+which falls back to the default whole rather than leave an attack unreachable.
+Movement (d-pad + left stick) is not rebindable.
 
 `decay_ms` is the bridge between them: how long the device takes to reveal a
 release. Zero when exact, `tap_ms` when inferred. It is threaded

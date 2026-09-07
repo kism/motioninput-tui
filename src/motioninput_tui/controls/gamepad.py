@@ -4,6 +4,12 @@ pygame is an optional dependency (the ``gamepad`` extra). Everything here
 degrades to "no gamepad" when it is missing or nothing is plugged in, so the
 rest of the trainer never has to care.
 
+The pad is read through SDL's *game controller* API, not the raw joystick one,
+so buttons mean the same thing on every pad: SDL's controller database maps
+each device's real button numbering onto the Xbox-style A/B/X/Y/LB/RB/triggers
+layout. (Reading raw joystick buttons breaks on pads whose firmware numbers
+them oddly, which is most of them.)
+
 Unlike a terminal, a gamepad reports releases, so holds are exact and there is
 nothing to infer. The training tick polls :class:`GamepadReader`, which diffs
 the pad's state and returns press and release events keyed by the same binding
@@ -27,24 +33,45 @@ logger = get_logger(__name__)
 AXIS_DEADZONE = 0.5
 """How far the stick must move off centre before it counts as a direction."""
 
-_MAX_BUTTONS = 6
-"""Only the first six buttons are bound; the rest are start/select/sticks."""
+TRIGGER_THRESHOLD = 0.5
+"""How far a trigger must be pulled before it counts as a button press."""
 
-_LEFT_STICK_AXES = 2
-"""Axes 0 and 1 are the left stick; a pad with fewer has no analogue stick."""
+# SDL2 ``SDL_GameControllerButton`` / ``...Axis`` enum values. These are part of
+# SDL's stable ABI; pygame also exposes them as ``pygame.CONTROLLER_BUTTON_*``.
+# Naming them here keeps :func:`codes_from_pad` a plain function the tests can
+# drive without pygame.
+_BUTTON_A, _BUTTON_B, _BUTTON_X, _BUTTON_Y = 0, 1, 2, 3
+_BUTTON_LEFTSHOULDER, _BUTTON_RIGHTSHOULDER = 9, 10
+_BUTTON_DPAD_UP, _BUTTON_DPAD_DOWN, _BUTTON_DPAD_LEFT, _BUTTON_DPAD_RIGHT = 11, 12, 13, 14
+_AXIS_LEFTX, _AXIS_LEFTY = 0, 1
+_AXIS_TRIGGERLEFT, _AXIS_TRIGGERRIGHT = 4, 5
+
+# Which pad control each ``pad:*`` attack code comes from. ``pad:0``..``pad:5``
+# are the face and shoulder buttons; ``pad:6``/``pad:7`` are the triggers.
+_ATTACK_BUTTONS: dict[int, str] = {
+    _BUTTON_A: "pad:0",
+    _BUTTON_B: "pad:1",
+    _BUTTON_X: "pad:2",
+    _BUTTON_Y: "pad:3",
+    _BUTTON_LEFTSHOULDER: "pad:4",
+    _BUTTON_RIGHTSHOULDER: "pad:5",
+}
+_ATTACK_TRIGGERS: dict[int, str] = {_AXIS_TRIGGERLEFT: "pad:6", _AXIS_TRIGGERRIGHT: "pad:7"}
+_DPAD_DIRECTIONS: dict[int, str] = {
+    _BUTTON_DPAD_LEFT: "pad:left",
+    _BUTTON_DPAD_RIGHT: "pad:right",
+    _BUTTON_DPAD_UP: "pad:up",
+    _BUTTON_DPAD_DOWN: "pad:down",
+}
 
 
-class Joystick(Protocol):
-    """The slice of ``pygame.joystick.Joystick`` this module uses."""
+class Pad(Protocol):
+    """The slice of ``pygame._sdl2.controller.Controller`` this module uses."""
 
-    def init(self) -> None: ...
-    def get_name(self) -> str: ...
-    def get_numbuttons(self) -> int: ...
-    def get_button(self, index: int) -> bool: ...
-    def get_numaxes(self) -> int: ...
-    def get_axis(self, index: int) -> float: ...
-    def get_numhats(self) -> int: ...
-    def get_hat(self, index: int) -> tuple[int, int]: ...
+    @property
+    def name(self) -> str: ...
+    def get_button(self, button: int) -> int: ...
+    def get_axis(self, axis: int) -> float: ...
 
 
 def _load_pygame() -> ModuleType | None:
@@ -63,43 +90,53 @@ def _load_pygame() -> ModuleType | None:
     os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
     try:
         import pygame  # ruff: ignore[import-outside-top-level] - optional dependency, only when a gamepad is used
+        from pygame._sdl2 import controller  # ruff: ignore[import-outside-top-level,import-private-name] - the only game-controller API pygame exposes
     except ImportError:
         logger.info("pygame is not installed; the gamepad layout is unavailable")
         return None
     try:
         pygame.display.init()
         pygame.joystick.init()
+        controller.init()
     except pygame.error:
         logger.warning("Could not initialise pygame for gamepad input", exc_info=True)
         return None
     return pygame
 
 
-def codes_from_joystick(joystick: Joystick, deadzone: float = AXIS_DEADZONE) -> frozenset[str]:
-    """The binding codes a joystick's current state maps to.
+def _first_controller(pygame: ModuleType) -> Pad | None:
+    """Open the first plugged-in device SDL recognises as a game controller."""
+    from pygame._sdl2 import controller  # ruff: ignore[import-outside-top-level,import-private-name] - see _load_pygame
 
-    The d-pad (hat 0) and the left stick (axes 0 and 1) both drive movement.
-    SDL reports stick-down as +y and hat-up as +y, hence the sign flip.
+    for index in range(controller.get_count()):
+        if not controller.is_controller(index):
+            continue
+        try:
+            return controller.Controller(index)
+        except pygame.error:
+            logger.warning("Could not open the gamepad", exc_info=True)
+            return None
+    return None
+
+
+def codes_from_pad(pad: Pad, deadzone: float = AXIS_DEADZONE) -> frozenset[str]:
+    """The binding codes a pad's current state maps to.
+
+    The d-pad and the left stick both drive movement. SDL reports stick-down as
+    +y, so the down/up test is on the sign of ``y`` directly.
     """
-    codes: set[str] = set()
-    for index in range(min(joystick.get_numbuttons(), _MAX_BUTTONS)):
-        if joystick.get_button(index):
-            codes.add(f"pad:{index}")
+    codes: set[str] = {code for button, code in _ATTACK_BUTTONS.items() if pad.get_button(button)}
+    codes.update(code for axis, code in _ATTACK_TRIGGERS.items() if pad.get_axis(axis) >= TRIGGER_THRESHOLD)
+    codes.update(code for button, code in _DPAD_DIRECTIONS.items() if pad.get_button(button))
 
-    x = y = 0.0
-    if joystick.get_numaxes() >= _LEFT_STICK_AXES:
-        x, y = joystick.get_axis(0), joystick.get_axis(1)
-    hat_x = hat_y = 0
-    if joystick.get_numhats() >= 1:
-        hat_x, hat_y = joystick.get_hat(0)
-
-    if x <= -deadzone or hat_x < 0:
+    x, y = pad.get_axis(_AXIS_LEFTX), pad.get_axis(_AXIS_LEFTY)
+    if x <= -deadzone:
         codes.add("pad:left")
-    if x >= deadzone or hat_x > 0:
+    if x >= deadzone:
         codes.add("pad:right")
-    if y >= deadzone or hat_y < 0:
+    if y >= deadzone:
         codes.add("pad:down")
-    if y <= -deadzone or hat_y > 0:
+    if y <= -deadzone:
         codes.add("pad:up")
     return frozenset(codes)
 
@@ -127,7 +164,7 @@ class GamepadReader:
         """Set up polling; does not open a pad yet."""
         self.deadzone = deadzone
         self._pygame = _load_pygame()
-        self._joystick: Joystick | None = None
+        self._pad: Pad | None = None
         self._held: frozenset[str] = frozenset()
 
     @property
@@ -138,20 +175,20 @@ class GamepadReader:
     @property
     def connected(self) -> bool:
         """Whether a pad is currently open."""
-        return self._joystick is not None
+        return self._pad is not None
 
     @property
     def name(self) -> str | None:
-        """The open pad's name as the driver reports it, or None if none is open.
+        """The open pad's name as SDL reports it, or None if none is open.
 
         SDL often reports a generic name (just "Controller" on macOS); the
         caller decides what to show when this is empty.
         """
         pygame = self._pygame
-        if self._joystick is None or pygame is None:
+        if self._pad is None or pygame is None:
             return None
         try:
-            return self._joystick.get_name() or None
+            return self._pad.name or None
         except pygame.error:
             logger.warning("Could not read the gamepad name", exc_info=True)
             return None
@@ -163,16 +200,16 @@ class GamepadReader:
         if pygame is None:
             return []
         pygame.event.pump()
-        if self._joystick is None:
-            self._open(pygame)
+        if self._pad is None:
+            self._open()
 
         current: frozenset[str] = frozenset()
-        if self._joystick is not None:
+        if self._pad is not None:
             try:
-                current = codes_from_joystick(self._joystick, self.deadzone)
+                current = codes_from_pad(self._pad, self.deadzone)
             except pygame.error:
                 logger.warning("Lost the gamepad", exc_info=True)
-                self._joystick = None
+                self._pad = None
 
         events = diff_codes(self._held, current)
         self._held = current
@@ -182,17 +219,12 @@ class GamepadReader:
         """Forget which inputs are held, so any still down re-press next poll."""
         self._held = frozenset()
 
-    def _open(self, pygame: ModuleType) -> None:
-        if pygame.joystick.get_count() == 0:
+    def _open(self) -> None:
+        if self._pygame is None:
             return
-        try:
-            joystick = pygame.joystick.Joystick(0)
-            joystick.init()
-        except pygame.error:
-            logger.warning("Could not open the gamepad", exc_info=True)
-            return
-        self._joystick = joystick
-        logger.info("Gamepad connected: %s", joystick.get_name())
+        self._pad = _first_controller(self._pygame)
+        if self._pad is not None:
+            logger.info("Gamepad connected: %s", self._pad.name)
 
     def __rich_repr__(self) -> Iterable[tuple[str, object]]:  # ruff: ignore[bad-dunder-method-name] - Rich's repr protocol
         """Debug representation."""

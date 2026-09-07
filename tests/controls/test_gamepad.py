@@ -5,75 +5,60 @@ from __future__ import annotations
 import pytest
 
 from motioninput_tui.controls import gamepad
-from motioninput_tui.controls.gamepad import GamepadReader, codes_from_joystick, diff_codes
+from motioninput_tui.controls.gamepad import GamepadReader, codes_from_pad, diff_codes
 from motioninput_tui.controls.layouts import GAMEPAD, gamepad_layout, resolve_gamepad_bindings
 from motioninput_tui.engine.notation import Button
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.games.loader import load_game
 
 
-class FakeJoystick:
-    """A pad frozen in one state, enough of pygame's Joystick for the reader."""
+class FakePad:
+    """A game controller frozen in one state, read via SDL's semantic API."""
 
-    def __init__(
-        self,
-        *,
-        buttons: tuple[bool, ...] = (),
-        axes: tuple[float, ...] = (0.0, 0.0),
-        hat: tuple[int, int] = (0, 0),
-    ) -> None:
-        self._buttons = buttons
-        self._axes = axes
-        self._hat = hat
+    name = "Fake Pad"
 
-    def init(self) -> None: ...
-    def get_name(self) -> str:
-        return "Fake Pad"
+    def __init__(self, *, buttons: tuple[int, ...] = (), axes: dict[int, float] | None = None) -> None:
+        self._buttons = set(buttons)
+        self._axes = axes or {}
 
-    def get_numbuttons(self) -> int:
-        return len(self._buttons)
+    def get_button(self, button: int) -> int:
+        return int(button in self._buttons)
 
-    def get_button(self, index: int) -> bool:
-        return self._buttons[index]
-
-    def get_numaxes(self) -> int:
-        return len(self._axes)
-
-    def get_axis(self, index: int) -> float:
-        return self._axes[index]
-
-    def get_numhats(self) -> int:
-        return 1
-
-    def get_hat(self, index: int) -> tuple[int, int]:
-        return self._hat
+    def get_axis(self, axis: int) -> float:
+        return self._axes.get(axis, 0.0)
 
 
 def test_a_centred_pad_holds_nothing() -> None:
-    assert codes_from_joystick(FakeJoystick()) == frozenset()
+    assert codes_from_pad(FakePad()) == frozenset()
 
 
 def test_the_left_stick_reads_as_a_direction() -> None:
-    assert codes_from_joystick(FakeJoystick(axes=(-1.0, 0.0))) == {"pad:left"}
-    assert codes_from_joystick(FakeJoystick(axes=(0.0, 1.0))) == {"pad:down"}
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTX: -1.0})) == {"pad:left"}
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTY: 1.0})) == {"pad:down"}
 
 
 def test_a_stick_inside_the_deadzone_is_still_neutral() -> None:
-    assert codes_from_joystick(FakeJoystick(axes=(0.3, -0.3))) == frozenset()
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTX: 0.3, gamepad._AXIS_LEFTY: -0.3})) == frozenset()
 
 
 def test_the_dpad_reads_as_a_direction() -> None:
-    assert codes_from_joystick(FakeJoystick(hat=(0, 1))) == {"pad:up"}
-    assert codes_from_joystick(FakeJoystick(hat=(-1, 0))) == {"pad:left"}
+    assert codes_from_pad(FakePad(buttons=(gamepad._BUTTON_DPAD_UP,))) == {"pad:up"}
+    assert codes_from_pad(FakePad(buttons=(gamepad._BUTTON_DPAD_LEFT,))) == {"pad:left"}
 
 
 def test_stick_and_dpad_diagonals_combine() -> None:
-    assert codes_from_joystick(FakeJoystick(axes=(0.0, 1.0), hat=(-1, 0))) == {"pad:down", "pad:left"}
+    pad = FakePad(buttons=(gamepad._BUTTON_DPAD_LEFT,), axes={gamepad._AXIS_LEFTY: 1.0})
+    assert codes_from_pad(pad) == {"pad:down", "pad:left"}
 
 
-def test_only_the_first_six_buttons_are_bound() -> None:
-    held = (False, False, True, False, False, False, True, True)
-    assert codes_from_joystick(FakeJoystick(buttons=held)) == {"pad:2"}
+def test_face_and_shoulder_buttons_map_to_their_codes() -> None:
+    assert codes_from_pad(FakePad(buttons=(gamepad._BUTTON_X,))) == {"pad:2"}
+    assert codes_from_pad(FakePad(buttons=(gamepad._BUTTON_RIGHTSHOULDER,))) == {"pad:5"}
+
+
+def test_a_pulled_trigger_counts_as_a_button() -> None:
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_TRIGGERRIGHT: 1.0})) == {"pad:7"}
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_TRIGGERLEFT: 0.1})) == frozenset()  # barely touched
 
 
 def test_diff_reports_releases_before_presses() -> None:
@@ -92,7 +77,9 @@ def test_reader_without_pygame_reports_no_events(monkeypatch: pytest.MonkeyPatch
 
 
 def test_reader_reports_the_open_pad_name(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(gamepad, "_load_pygame", lambda: FakePygame(FakeJoystick()))
+    pad = FakePad()
+    monkeypatch.setattr(gamepad, "_load_pygame", FakePygame)
+    monkeypatch.setattr(gamepad, "_first_controller", lambda _pygame: pad)
     reader = GamepadReader()
     assert reader.name is None  # nothing opened yet
     reader.poll(0)
@@ -124,35 +111,28 @@ def test_gamepad_layout_ignores_junk_and_collisions() -> None:
 
 
 class FakePygame:
-    """Just the pygame surface the reader touches."""
+    """Just the pygame surface the reader touches: ``event.pump()`` and ``error``."""
 
     error = RuntimeError
 
-    def __init__(self, joystick: FakeJoystick | None) -> None:
-        self._joystick = joystick
+    def __init__(self) -> None:
         self.event = self  # pump() lives here
-        self.joystick = self
 
     def pump(self) -> None: ...
-    def get_count(self) -> int:
-        return 1 if self._joystick is not None else 0
-
-    def Joystick(self, index: int) -> FakeJoystick:  # ruff: ignore[invalid-function-name] - mirrors pygame's class name
-        assert self._joystick is not None
-        return self._joystick
 
 
 def test_reader_opens_a_pad_and_diffs_its_state(monkeypatch: pytest.MonkeyPatch) -> None:
-    pad = FakeJoystick()
-    monkeypatch.setattr(gamepad, "_load_pygame", lambda: FakePygame(pad))
+    pad = FakePad()
+    monkeypatch.setattr(gamepad, "_load_pygame", FakePygame)
+    monkeypatch.setattr(gamepad, "_first_controller", lambda _pygame: pad)
     reader = GamepadReader()
 
     assert reader.poll(0) == []
     assert reader.connected
 
-    pad._buttons = (False, False, True)
+    pad._buttons = {gamepad._BUTTON_X}
     assert reader.poll(10) == [("pad:2", True)]
-    pad._buttons = (False, False, False)
+    pad._buttons = set()
     assert reader.poll(20) == [("pad:2", False)]
 
 

@@ -73,11 +73,13 @@ installed (`uv sync --extra gamepad`, or `--all-extras`).
 | Southpaw | `j` `k` `l` `space`        | `q w e`   | `a s d`   |
 | Gamepad  | D-pad or left stick        | `X Y RB`  | `A B LB`  |
 
-The gamepad attack buttons start on the Xbox-style default above. Highlight the
-gamepad row in the picker (it names your connected pad) and press `b` to remap
-them; the map is remembered in the config. Movement stays on the d-pad and left
-stick. A pad reports button releases, so holds are always exact with one
-plugged in.
+The gamepad attack buttons start on the Xbox-style default above; the triggers
+(`LT` `RT`) are free to bind to as well. Highlight the gamepad row in the picker
+(it names your connected pad) and press `b` to remap them; the map is remembered
+in the config. Movement stays on the d-pad and left stick. Buttons are read
+through SDL's controller database, so any recognised pad works regardless of how
+its firmware numbers them. A pad reports button releases, so holds are always
+exact with one plugged in.
 
 In the trainer: `esc` goes back to the picker with the character list focused,
 ready to pick someone else. `ctrl+r` clears the buffer,
