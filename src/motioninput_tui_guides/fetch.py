@@ -39,6 +39,8 @@ DEFAULT_DELAY_S = 3.0
 
 DEFAULT_TIMEOUT_S = 30
 
+_CHECKSUM_MISMATCH = "its SHA-256 does not match the sha256 recorded in sources.json"
+
 _BLOCK_MARKERS = (
     "just a moment",
     "checking your browser",
@@ -142,6 +144,16 @@ def extract_guide_text(html: str) -> str:
     return ""
 
 
+def _checked(guide: Guide, dest_dir: Path, ok_status: Status, detail: str, hint: str) -> Result:
+    """Turn ``detail`` into a Result, failing it if the guide's SHA-256 is wrong.
+
+    ``hint`` is appended to the failure message to say how to recover.
+    """
+    if guide.checksum_ok(dest_dir) is False:
+        return Result(guide, Status.FAILED, guide.path(dest_dir), f"{detail}, but {_CHECKSUM_MISMATCH}; {hint}")
+    return Result(guide, ok_status, guide.path(dest_dir), detail)
+
+
 def fetch_guide(
     guide: Guide,
     dest_dir: Path = DEFAULT_DEST,
@@ -153,10 +165,15 @@ def fetch_guide(
 
     A guide that comes back under :data:`MIN_BYTES` is treated as a failure and
     nothing is written, so a block page never masquerades as a reference file.
+
+    When the catalogue records a ``sha256`` for the guide, the copy on disk (or
+    the one just fetched) is checked against it, so a changed upstream page or a
+    corrupt file is caught before the parsers run.
     """
     path = guide.path(dest_dir)
     if path.exists() and not force:
-        return Result(guide, Status.SKIPPED, path, f"already present ({path.stat().st_size:,} bytes)")
+        detail = f"already present ({path.stat().st_size:,} bytes)"
+        return _checked(guide, dest_dir, Status.SKIPPED, detail, "re-fetch with --force")
 
     try:
         html = _http_get(guide.url, timeout)
@@ -174,7 +191,8 @@ def fetch_guide(
 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text + "\n", encoding="utf-8")
-    return Result(guide, Status.FETCHED, path, f"{path.stat().st_size:,} bytes")
+    size = f"{path.stat().st_size:,} bytes"
+    return _checked(guide, dest_dir, Status.FETCHED, size, "the guide may have changed upstream")
 
 
 def fetch_all(

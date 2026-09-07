@@ -7,38 +7,47 @@
     "key      short name, also the filename stem under references/",
     "name     full game name",
     "url      GameFAQs page for the specific guide the parsers expect",
-    "credit   which guide it is, so the right one is fetched if a page changes"
+    "credit   which guide it is, so the right one is fetched if a page changes",
+    "sha256   hex SHA-256 of the non-condensed references/<key>.txt. The fetcher",
+    "         checks a downloaded or already-present guide against this, so a",
+    "         changed upstream page or a corrupt copy is caught before the",
+    "         parsers run. Refresh it with: uv run python -m motioninput_tui_guides --checksums"
   ],
   "guides": [
     {
       "key": "hsf2",
       "name": "Hyper Street Fighter II: The Anniversary Edition",
       "url": "https://gamefaqs.gamespot.com/ps2/918998-hyper-street-fighter-ii-the-anniversary-edition/faqs/54259",
-      "credit": "Move List and Guide by x_MJ_x"
+      "credit": "Move List and Guide by x_MJ_x",
+      "sha256": "07f1e8b83d07b17cba324343de759528fc6c3f5913b6e2bbd0dcc5a26b214ffa"
     },
     {
       "key": "sfa3",
       "name": "Street Fighter Alpha 3",
       "url": "https://gamefaqs.gamespot.com/arcade/564869-street-fighter-alpha-3/faqs/295",
-      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
+      "sha256": "17fda91659fbca98a2910cd81579dfe86e97c3f1204d08e58d082bc7008912d1"
     },
     {
       "key": "sfiii3",
       "name": "Street Fighter III: 3rd Strike",
       "url": "https://gamefaqs.gamespot.com/arcade/575310-street-fighter-iii-3rd-strike-fight-for-the-future/faqs/451",
-      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
+      "sha256": "81c7d4bc85128c3085bed4309ec66d4455297694bdfd98d93334c1539241103e"
     },
     {
       "key": "kof98",
       "name": "The King of Fighters '98: The Slugfest",
       "url": "https://gamefaqs.gamespot.com/arcade/562642-the-king-of-fighters-98-the-slugfest/faqs/185",
-      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
+      "sha256": "fbe41271da196a01f01e67dbf307cfc6747f7e83582b9c938b8a64f46873c402"
     },
     {
       "key": "kof2001",
       "name": "The King of Fighters 2001",
       "url": "https://gamefaqs.gamespot.com/arcade/562729-the-king-of-fighters-2001/faqs/17713",
-      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
+      "sha256": "568d18ff02629a35596ce53a9b8c3c6139eae5576cbffa3b8048ddccca23c602"
     }
   ]
 }

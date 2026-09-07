@@ -67,14 +67,21 @@ impossible.
 redistributable**, so they are gitignored and each user fetches their own copy
 of pages they could equally read in a browser.
 `motioninput_tui_guides/sources.json` records the exact GameFAQs page behind
-each one.
+each one, and the SHA-256 of the guide the parsers were written against.
 
 ```bash
 uv sync --extra guides                          # curl-cffi and beautifulsoup4
 uv run -m motioninput_tui_guides                # fetch anything missing
-uv run -m motioninput_tui_guides --list
+uv run -m motioninput_tui_guides --list         # catalogue, sizes, checksum state
+uv run -m motioninput_tui_guides --checksums    # SHA-256 of each guide on disk
 uv run -m motioninput_tui_guides --game sfa3 --force
 ```
+
+The fetcher checks every guide, freshly downloaded or already on disk, against
+the `sha256` in `sources.json`: a mismatch is a failure, so a changed upstream
+page or a corrupt copy is caught before the parsers run. When a guide really has
+changed and the new text is correct, update the checksum from
+`--checksums` output and commit `sources.json`.
 
 The scraper is a **sibling package under `src/`, not a subpackage of
 `motioninput_tui`**. `uv_build` packages only the module named after the

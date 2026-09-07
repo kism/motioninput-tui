@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import dataclass
 from functools import cache
@@ -9,6 +10,11 @@ from pathlib import Path
 
 SOURCES_PATH = Path(__file__).parent / "sources.json"
 DEFAULT_DEST = Path("references")
+
+
+def sha256_file(path: Path) -> str:
+    """Hex SHA-256 of a file's contents, the form stored in sources.json."""
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 @dataclass(frozen=True, slots=True)
@@ -20,10 +26,22 @@ class Guide:
     url: str
     credit: str = ""
     filename: str = ""
+    sha256: str = ""
 
     def path(self, dest_dir: Path = DEFAULT_DEST) -> Path:
         """Where this guide is stored locally."""
         return dest_dir / (self.filename or f"{self.key}.txt")
+
+    def checksum_ok(self, dest_dir: Path = DEFAULT_DEST) -> bool | None:
+        """Whether the local copy matches the recorded ``sha256``.
+
+        ``None`` when there is nothing to check: no checksum is recorded, or the
+        guide is not on disk yet.
+        """
+        path = self.path(dest_dir)
+        if not self.sha256 or not path.is_file():
+            return None
+        return sha256_file(path) == self.sha256
 
 
 class CatalogError(ValueError):
@@ -49,6 +67,7 @@ def load_guides(path: Path = SOURCES_PATH) -> tuple[Guide, ...]:
                 url=str(entry["url"]),
                 credit=str(entry.get("credit", "")),
                 filename=str(entry.get("filename", "")),
+                sha256=str(entry.get("sha256", "")).lower(),
             )
         )
 

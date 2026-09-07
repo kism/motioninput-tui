@@ -13,8 +13,11 @@ uv run -m motioninput_tui_guides --list
 ```
 
 Nothing is downloaded if the file is already here; use `--force` to refresh one.
+Each guide is checked against a recorded SHA-256, so a changed page or a corrupt
+copy fails the fetch instead of quietly feeding the parsers.
 
-The catalogue of guides, with the exact GameFAQs page each one comes from, is
+The catalogue of guides, with the exact GameFAQs page each one comes from and
+its checksum, is
 [`src/motioninput_tui_guides/sources.json`](../src/motioninput_tui_guides/sources.json).
 
 You do not need these files to run the trainer. The parsed rosters in
