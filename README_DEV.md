@@ -68,9 +68,9 @@ each one.
 
 ```bash
 uv sync --extra guides                          # curl-cffi and beautifulsoup4
-python -m motioninput_tui_guides                # fetch anything missing
-python -m motioninput_tui_guides --list
-python -m motioninput_tui_guides --game sfa3 --force
+uv run -m motioninput_tui_guides                # fetch anything missing
+uv run -m motioninput_tui_guides --list
+uv run -m motioninput_tui_guides --game sfa3 --force
 ```
 
 The scraper is a **sibling package under `src/`, not a subpackage of

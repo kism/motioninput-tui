@@ -8,8 +8,8 @@ each user fetches their own copy of pages they could equally read in a browser.
 
 ```bash
 uv sync --extra guides    # curl-cffi and beautifulsoup4, not needed by the trainer
-python -m motioninput_tui_guides          # fetch anything missing
-python -m motioninput_tui_guides --list
+uv run -m motioninput_tui_guides          # fetch anything missing
+uv run -m motioninput_tui_guides --list
 ```
 
 Nothing is downloaded if the file is already here; use `--force` to refresh one.
