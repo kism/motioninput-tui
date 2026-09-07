@@ -141,12 +141,19 @@ def _reverse_dragon_punch(ruleset: Ruleset) -> list[Step]:
 
 
 def _dragon_punch_double_tap() -> list[Step]:
-    """Third Strike's 'hold down, double tap forward' dragon punch."""
-    return [(_DOWNISH_BACK, False), (_FWD_OR_DF, False), (_DOWNISH_BACK, False), (_FWD_OR_DF, False)]
+    """Third Strike's 'hold down, double tap forward' dragon punch.
+
+    The leading down may be skipped, which is not leniency for its own sake:
+    down is *held* for the whole shortcut rather than being a step of the
+    motion, so timing the sequence from it charges the player for holding it.
+    What has to be quick is the two taps and the down between them, and that is
+    what the remaining steps measure.
+    """
+    return [(_DOWNISH_BACK, True), (_FWD_OR_DF, False), (_DOWNISH_BACK, False), (_FWD_OR_DF, False)]
 
 
 def _reverse_dragon_punch_double_tap() -> list[Step]:
-    return [(_DOWNISH_FWD, False), (_BACK_OR_DB, False), (_DOWNISH_FWD, False), (_BACK_OR_DB, False)]
+    return [(_DOWNISH_FWD, True), (_BACK_OR_DB, False), (_DOWNISH_FWD, False), (_BACK_OR_DB, False)]
 
 
 def _dragon_punch_options(ruleset: Ruleset) -> list[list[Step]]:
