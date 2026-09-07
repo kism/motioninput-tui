@@ -214,3 +214,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Reference guides fetched from GameFAQs.
+# Copyright their authors and not redistributable, so never commit them.
+# Fetch your own copy with: motioninput-tui-guides
+references/*.txt

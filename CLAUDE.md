@@ -33,7 +33,13 @@ python -m motioninput_tui --game sfiii3 --character ryu    # skip the pickers
 python -m motioninput_tui --check-terminal                 # speed + key release support
 python -m motioninput_tui --list                           # rosters
 python -m motioninput_tui.datagen --show-skipped           # rebuild packaged rosters
+python -m motioninput_tui.guides --list                    # reference guide catalogue
 ```
+
+`guides/` fetches `references/*.txt` from GameFAQs. Its dependencies live in the
+`guides` extra (`uv sync --extra guides`) and nothing in the trainer imports it.
+Those files are copyrighted, gitignored and must never be committed or quoted
+back into the repo; only the parsed rosters under `games/data/` are.
 
 Ruff runs with `select = ["ALL"]` and `preview = true`, so lint is strict.
 Suppressions in this repo use `# ruff: ignore[rule-name] - why` and
@@ -107,9 +113,10 @@ once during ordinary motions. Neutral SOCD makes charge moves impossible.
 
 ### Rosters are generated and committed
 
-`games/data/*.json` is produced from the FAQs in `references/` by `datagen/`.
-After changing `datagen/normalise.py` or a parser, rerun
-`python -m motioninput_tui.datagen` and commit the JSON. Roughly 80-90% of
+`games/data/*.json` is produced from the guides in `references/` by `datagen/`.
+Those guides are gitignored, so a fresh clone has to run
+`motioninput-tui-guides` first. After changing `datagen/normalise.py` or a
+parser, rerun `python -m motioninput_tui.datagen` and commit the JSON. Roughly 80-90% of
 listed moves become trainable; the rest are follow-ups and conditional moves
 that still appear in the move list, struck through.
 

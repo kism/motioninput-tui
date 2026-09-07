@@ -1,0 +1,44 @@
+{
+  "_comment": [
+    "Where each reference guide came from. The guides themselves are copyrighted",
+    "by their authors and may not be redistributed, so references/*.txt is",
+    "gitignored and every user fetches their own copy.",
+    "",
+    "key      short name, also the filename stem under references/",
+    "name     full game name",
+    "url      GameFAQs page for the specific guide the parsers expect",
+    "credit   which guide it is, so the right one is fetched if a page changes"
+  ],
+  "guides": [
+    {
+      "key": "hsf2",
+      "name": "Hyper Street Fighter II: The Anniversary Edition",
+      "url": "https://gamefaqs.gamespot.com/ps2/918998-hyper-street-fighter-ii-the-anniversary-edition/faqs/54259",
+      "credit": "Move List and Guide by x_MJ_x"
+    },
+    {
+      "key": "sfa3",
+      "name": "Street Fighter Alpha 3",
+      "url": "https://gamefaqs.gamespot.com/arcade/564869-street-fighter-alpha-3/faqs/295",
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+    },
+    {
+      "key": "sfiii3",
+      "name": "Street Fighter III: 3rd Strike",
+      "url": "https://gamefaqs.gamespot.com/arcade/575310-street-fighter-iii-3rd-strike-fight-for-the-future/faqs/451",
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+    },
+    {
+      "key": "kof98",
+      "name": "The King of Fighters '98: The Slugfest",
+      "url": "https://gamefaqs.gamespot.com/arcade/562642-the-king-of-fighters-98-the-slugfest/faqs/185",
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+    },
+    {
+      "key": "kof2001",
+      "name": "The King of Fighters 2001",
+      "url": "https://gamefaqs.gamespot.com/arcade/562729-the-king-of-fighters-2001/faqs/17713",
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+    }
+  ]
+}

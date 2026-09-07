@@ -12,6 +12,8 @@ src/motioninput_tui/
   controls/      Control layouts and input sources. Keyboards today, gamepads later.
   games/         Game metadata, rulesets, move models and the packaged rosters.
   datagen/       Parsers that turn the reference FAQs into games/data/*.json.
+  guides/        Fetches those FAQs from GameFAQs. Optional deps, not imported
+                 by the trainer.
   terminal/      Terminal identification, latency warnings, kitty keyboard protocol.
   tui/           Textual screens, widgets, and the release-aware input driver.
 ```
@@ -55,9 +57,35 @@ terminal cannot see the player release back as they press forward, so both are
 held at once during ordinary motions, and neutral SOCD makes charge moves
 impossible.
 
+## Reference guides
+
+`references/*.txt` are move list guides written by their authors and are **not
+redistributable**, so they are gitignored and each user fetches their own copy
+of pages they could equally read in a browser. `guides/sources.json` records the
+exact GameFAQs page behind each one.
+
+```bash
+uv sync --extra guides       # curl-cffi and beautifulsoup4
+motioninput-tui-guides       # fetch anything missing
+motioninput-tui-guides --list
+motioninput-tui-guides --game sfa3 --force
+```
+
+The `guides` extra exists so the trainer never depends on an HTTP stack;
+nothing under `guides/` is imported by the app. GameFAQs sits behind Cloudflare,
+which is why curl-cffi (browser-like TLS) is preferred over plain requests.
+
+Guides already on disk are never re-fetched, so a normal run makes no requests.
+A response under 1KB, or one that looks like an anti-bot page, is treated as a
+failure and nothing is written, so a block page can never masquerade as a
+reference file.
+
+You do not need the guides to run or develop the trainer; the parsed rosters are
+committed. They are only needed to regenerate that data.
+
 ## Regenerating character data
 
-The rosters in `src/motioninput_tui/games/data/` are generated from the FAQs in
+The rosters in `src/motioninput_tui/games/data/` are generated from the guides in
 `references/` and committed. After changing `datagen/normalise.py` or one of the
 parsers, rebuild and commit the JSON:
 
