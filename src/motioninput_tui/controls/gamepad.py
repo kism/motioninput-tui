@@ -13,6 +13,7 @@ codes the :data:`~.layouts.GAMEPAD` layout uses (``pad:left``, ``pad:0`` ...).
 from __future__ import annotations
 
 import os
+import sys
 from typing import TYPE_CHECKING, Protocol
 
 from motioninput_tui.utils.logger import get_logger
@@ -47,8 +48,18 @@ class Joystick(Protocol):
 
 
 def _load_pygame() -> ModuleType | None:
-    """Import pygame headlessly, or return None if the extra is not installed."""
-    os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
+    """Import pygame headlessly, or return None if the extra is not installed.
+
+    On macOS the SDL joystick subsystem only sees gamepads when the real Cocoa
+    video driver is initialised (the ``dummy`` driver reports none); the
+    background-app hint keeps that from stealing focus or a Dock icon from the
+    TUI. Everywhere else the dummy driver is enough and avoids needing a
+    display at all.
+    """
+    if sys.platform == "darwin":
+        os.environ.setdefault("SDL_MAC_BACKGROUND_APP", "1")
+    else:
+        os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
     os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
     try:
         import pygame  # ruff: ignore[import-outside-top-level] - optional dependency, only when a gamepad is used
