@@ -11,6 +11,8 @@ function print_heading() {
     echo "$1 >>>"
 }
 
+uv run -m motioninput_tui_guides
+
 SKILL=".claude/skills/concise-guides"
 
 source .venv/bin/activate
