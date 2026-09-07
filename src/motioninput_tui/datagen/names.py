@@ -27,8 +27,22 @@ if TYPE_CHECKING:
 logger = get_logger(__name__)
 
 OVERRIDES: dict[str, dict[str, str]] = {
-    "sfa3": {"ken-masters": "Ken"},
-    "sfiii3": {"ken-masters": "Ken"},
+    "sfa3": {
+        "dan-hibiki": "Dan",
+        "edmond-honda": "E. Honda",
+        "karin-kanzuki": "Karin",
+        "ken-masters": "Ken",
+        "rainbow-mika": "R. Mika",
+        "rolento-schugerg": "Rolento",
+        "sakura-kasugano": "Sakura",
+    },
+    "sfiii3": {
+        # The 3rd Strike guide uses the Japanese name; the Super Turbo one does
+        # not, and a roster that calls the same character two things is worse
+        # than either choice on its own.
+        "gouki": "Akuma",
+        "ken-masters": "Ken",
+    },
 }
 """Game key -> {key the guide produced: name to use instead}."""
 
@@ -53,4 +67,14 @@ def apply_overrides(game_key: str, characters: list[Character]) -> list[Characte
     for key in sorted(unused):
         # Silently doing nothing would hide a typo, or a guide that has changed.
         logger.warning("No character %r in %s to rename to %r", key, game_key, table[key])
+    _warn_on_collisions(game_key, renamed)
     return renamed
+
+
+def _warn_on_collisions(game_key: str, characters: list[Character]) -> None:
+    """A rename landing on another character's key would hide one of them."""
+    seen: set[str] = set()
+    for character in characters:
+        if character.key in seen:
+            logger.warning("Two characters share the key %r in %s after renaming", character.key, game_key)
+        seen.add(character.key)

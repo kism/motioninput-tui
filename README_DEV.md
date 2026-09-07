@@ -118,16 +118,20 @@ use instead, per game:
 
 ```python
 OVERRIDES: dict[str, dict[str, str]] = {
-    "sfa3": {"ken-masters": "Ken"},
-    "sfiii3": {"ken-masters": "Ken"},
+    "sfa3": {"ken-masters": "Ken", "edmond-honda": "E. Honda", ...},
+    "sfiii3": {"gouki": "Akuma", ...},
 }
 ```
 
 The left hand side is the key the guide produced and the right hand side is the
 name to display. Keys are rebuilt from the new name, so this renames
 `ken-masters` to `ken` everywhere, including `--character` and the saved config.
-An entry that matches nobody logs a warning rather than passing silently.
-Rerun the generator afterwards and commit the JSON.
+Two guides naming the same character differently is the main reason to reach for
+this: 3rd Strike's says Gouki where Super Turbo's says Akuma.
+
+An entry that matches nobody logs a warning rather than passing silently, and so
+does a rename that collides with another character's key. Rerun the generator
+afterwards and commit the JSON.
 
 ## Check/Test
 
