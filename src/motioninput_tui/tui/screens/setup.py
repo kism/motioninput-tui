@@ -7,16 +7,20 @@ from typing import TYPE_CHECKING, ClassVar
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
+from textual.message import Message
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
-from motioninput_tui.controls.layouts import available_layouts
+from motioninput_tui.controls.layouts import LayoutKind, available_layouts, gamepad_layout
 from motioninput_tui.games.loader import available_games
 from motioninput_tui.terminal import detect
+
+from .gamepad_bind import GamepadBindScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
 
+    from motioninput_tui.controls.gamepad import GamepadReader
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.games.models import Game
 
@@ -26,8 +30,17 @@ class SetupScreen(Screen):
 
     BINDINGS: ClassVar = [
         Binding("enter", "start", "Start training", priority=True),
+        Binding("b", "bind_gamepad", "Rebind pad"),
         Binding("ctrl+q", "quit", "Quit"),
     ]
+
+    class GamepadBindingsChanged(Message):
+        """Posted when the player rebinds the pad, so the app can save it."""
+
+        def __init__(self, bindings: dict[str, str]) -> None:
+            """Carry the new ``{button name: pad code}`` map."""
+            super().__init__()
+            self.bindings = bindings
 
     DEFAULT_CSS = """
     SetupScreen { layout: vertical; }
@@ -45,6 +58,7 @@ class SetupScreen(Screen):
         initial: tuple[str | None, str | None, str | None] = (None, None, None),
         *,
         focus_characters: bool = False,
+        gamepad_bindings: dict[str, str] | None = None,
     ) -> None:
         """Load the rosters and detect the terminal up front.
 
@@ -52,15 +66,33 @@ class SetupScreen(Screen):
         pickers open on it rather than always on the first entry.
         ``focus_characters`` starts on the character list instead of the layout
         one, for coming back from the trainer, where changing character is
-        almost always the reason for leaving.
+        almost always the reason for leaving. ``gamepad_bindings`` is the saved
+        attack rebind map, applied to the gamepad row and editable with ``b``.
         """
         super().__init__()
         self.games = available_games()
-        self.layouts = available_layouts()
+        self._gamepad_bindings = dict(gamepad_bindings or {})
+        self.layouts = self._build_layouts()
         self.terminal = detect()
         self._initial = initial
         self._focus_characters = focus_characters
         self._loaded_game: int | None = None
+        self._reader: GamepadReader | None = None
+        self._pad_name: str | None = None
+
+    def _build_layouts(self) -> list[ControlLayout]:
+        """Available layouts, with the player's rebinds on the gamepad entry."""
+        return [
+            gamepad_layout(self._gamepad_bindings) if layout.kind is LayoutKind.GAMEPAD else layout
+            for layout in available_layouts()
+        ]
+
+    def _gamepad_index(self) -> int | None:
+        """Row of the gamepad layout in the picker, or None if it is unavailable."""
+        for index, layout in enumerate(self.layouts):
+            if layout.kind is LayoutKind.GAMEPAD:
+                return index
+        return None
 
     def compose(self) -> ComposeResult:
         """Build the three pickers."""
@@ -102,6 +134,8 @@ class SetupScreen(Screen):
         # those have been dealt with or it gets overwritten. Focus waits with
         # it, since the character list is empty until then.
         self.call_after_refresh(self._apply_initial)
+        if self._gamepad_index() is not None:
+            self.set_interval(0.25, self._poll_pad)
 
     def _apply_initial(self) -> None:
         """Open the pickers on whatever was used last time."""
@@ -141,7 +175,66 @@ class SetupScreen(Screen):
         """
         if event.option_list.id == "games" and event.option_index != self._loaded_game:
             self._load_characters(event.option_index)
+        if event.option_list.id == "layouts":
+            if event.option_index == self._gamepad_index():
+                self._ensure_reader()
+            self.refresh_bindings()
         self._describe()
+
+    def _ensure_reader(self) -> None:
+        """Open a gamepad reader the first time the gamepad row is looked at.
+
+        pygame is a heavy import, so it is put off until someone actually
+        highlights the gamepad layout rather than paid on every launch.
+        """
+        if self._reader is not None:
+            return
+        from motioninput_tui.controls.gamepad import (  # ruff: ignore[import-outside-top-level] - optional dependency, gamepad row only
+            GamepadReader,
+        )
+
+        self._reader = GamepadReader()
+
+    def _poll_pad(self) -> None:
+        """Track the connected pad's name and show it on the gamepad row."""
+        reader = self._reader
+        # A pushed modal (the rebind screen) polls the same reader; stay out of
+        # its way so it, not this, sees the button presses.
+        if reader is None or self.app.screen is not self:
+            return
+        reader.poll(0)
+        name = reader.name if reader.connected else None
+        if name == self._pad_name:
+            return
+        self._pad_name = name
+        index = self._gamepad_index()
+        if index is not None:
+            self.query_one("#layouts", OptionList).replace_option_prompt_at_index(index, name or "Gamepad")
+            self._describe()
+
+    def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
+        """Only offer the rebind hotkey while the gamepad row is highlighted."""
+        del parameters
+        if action != "bind_gamepad":
+            return True
+        layouts = self.query_one("#layouts", OptionList)
+        if layouts.has_focus and layouts.highlighted == self._gamepad_index():
+            return True
+        return None
+
+    def action_bind_gamepad(self) -> None:
+        """Open the attack-button rebind modal for the gamepad layout."""
+        self._ensure_reader()
+        self.app.push_screen(GamepadBindScreen(self._gamepad_bindings, self._reader), self._on_rebind)
+
+    def _on_rebind(self, bindings: dict[str, str] | None) -> None:
+        """Apply and remember a map that came back from the rebind modal."""
+        if bindings is None:
+            return
+        self._gamepad_bindings = bindings
+        self.layouts = self._build_layouts()
+        self._describe()
+        self.post_message(self.GamepadBindingsChanged(bindings))
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
         """Enter on any list starts training."""

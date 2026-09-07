@@ -11,8 +11,9 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from .controls.layouts import DEFAULT_LAYOUT, LAYOUTS
@@ -50,6 +51,10 @@ class Config:
     character: str | None = None
     layout: str = DEFAULT_LAYOUT
     buffer_policy: BufferPolicy = BufferPolicy.CONSUME
+    gamepad_bindings: dict[str, str] = field(default_factory=dict)
+    """The player's gamepad attack rebinds, ``{button name: pad code}``. Empty
+    means the built-in default. :func:`~.controls.layouts.gamepad_layout` has
+    the final say on which entries are usable."""
     path: Path | None = None
     """Where this was loaded from, and where :meth:`save` writes back to."""
 
@@ -74,6 +79,7 @@ class Config:
             character=_optional_str(raw.get("character")),
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
+            gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
             path=target,
         )
 
@@ -85,6 +91,7 @@ class Config:
             "character": self.character,
             "layout": self.layout,
             "buffer_policy": str(self.buffer_policy),
+            "gamepad_bindings": self.gamepad_bindings,
         }
         try:
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -132,3 +139,18 @@ def _valid_policy(value: object) -> BufferPolicy:
         return BufferPolicy(value)
     except ValueError:
         return BufferPolicy.CONSUME
+
+
+_PAD_CODE = re.compile(r"^pad:\d+$")
+
+
+def _valid_gamepad_bindings(value: object) -> dict[str, str]:
+    # Best-effort, like the rest of the loader: keep the entries that look sane
+    # and drop the rest. gamepad_layout does the authoritative check.
+    if not isinstance(value, dict):
+        return {}
+    return {
+        key: code
+        for key, code in value.items()
+        if isinstance(key, str) and isinstance(code, str) and _PAD_CODE.match(code)
+    }

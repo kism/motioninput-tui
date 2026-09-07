@@ -108,8 +108,17 @@ A gamepad is always exact. `controls/gamepad.py` polls pygame from the training
 tick, diffs the pad's state, and feeds presses and releases through the same
 `KeyboardSource` (in `exact=True` mode) that the keyboard uses — there is no
 separate source. pygame is the optional `gamepad` extra; everything degrades to
-"no gamepad" when it is missing or nothing is plugged in. The button map is a
-fixed Xbox-style default keyed by `pad:*` codes; a bind menu is still to come.
+"no gamepad" when it is missing or nothing is plugged in. On macOS pygame only
+sees pads under the real Cocoa video driver, so `_load_pygame` skips the `dummy`
+driver there and sets `SDL_MAC_BACKGROUND_APP` instead.
+
+The six attack buttons are keyed by `pad:*` codes with a fixed Xbox-style
+default (`GAMEPAD_DEFAULT_BINDINGS` in `controls/layouts.py`). `b` on the setup
+screen's gamepad row opens `tui/screens/gamepad_bind.py` to remap them;
+`SetupScreen` also renames that row after the connected pad. The map is stored
+in `config.json` as `gamepad_bindings` (`{button name: pad code}`) and applied
+by `gamepad_layout()`, which falls back to the default whole rather than leave
+an attack unreachable. Movement (d-pad + left stick) is not rebindable.
 
 `decay_ms` is the bridge between them: how long the device takes to reveal a
 release. Zero when exact, `tap_ms` when inferred. It is threaded

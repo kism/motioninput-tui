@@ -6,7 +6,8 @@ import pytest
 
 from motioninput_tui.controls import gamepad
 from motioninput_tui.controls.gamepad import GamepadReader, codes_from_joystick, diff_codes
-from motioninput_tui.controls.layouts import GAMEPAD
+from motioninput_tui.controls.layouts import GAMEPAD, gamepad_layout, resolve_gamepad_bindings
+from motioninput_tui.engine.notation import Button
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.games.loader import load_game
 
@@ -87,6 +88,39 @@ def test_reader_without_pygame_reports_no_events(monkeypatch: pytest.MonkeyPatch
     assert not reader.available
     assert not reader.connected
     assert reader.poll(0) == []
+    assert reader.name is None
+
+
+def test_reader_reports_the_open_pad_name(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(gamepad, "_load_pygame", lambda: FakePygame(FakeJoystick()))
+    reader = GamepadReader()
+    assert reader.name is None  # nothing opened yet
+    reader.poll(0)
+    assert reader.name == "Fake Pad"
+
+
+def test_default_gamepad_layout_is_the_shared_instance() -> None:
+    default_lp = next(code for code, button in GAMEPAD.attacks.items() if button is Button.LP)
+    assert gamepad_layout() is GAMEPAD
+    assert gamepad_layout({}) is GAMEPAD
+    assert gamepad_layout({"LP": default_lp}) is GAMEPAD  # a no-op rebind
+
+
+def test_gamepad_layout_applies_a_rebind() -> None:
+    # HP and MK trade pad buttons, as the bind screen's swap would produce.
+    layout = gamepad_layout({"HP": "pad:1", "MK": "pad:5"})
+    assert layout is not GAMEPAD
+    assert layout.attacks["pad:1"] is Button.HP
+    assert layout.attacks["pad:5"] is Button.MK
+    assert len(layout.attacks) == len(GAMEPAD.attacks)  # nothing stranded
+    assert layout.movement == GAMEPAD.movement  # movement untouched
+
+
+def test_gamepad_layout_ignores_junk_and_collisions() -> None:
+    assert gamepad_layout({"NOPE": "pad:0", "LP": "keyboard"}) is GAMEPAD
+    # Two attacks pointed at one pad button would strand a third: fall back whole.
+    collision = {"LP": "pad:0", "LK": "pad:0"}
+    assert resolve_gamepad_bindings(collision) == resolve_gamepad_bindings(None)
 
 
 class FakePygame:

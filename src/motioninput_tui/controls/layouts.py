@@ -8,10 +8,14 @@ literal key names; the gamepad layout binds ``pad:*`` codes that
 from __future__ import annotations
 
 import importlib.util
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from enum import StrEnum
+from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.notation import Button
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 class Axis(StrEnum):
@@ -108,14 +112,14 @@ def _gamepad_supported() -> bool:
 
 
 # The d-pad and the left stick both feed the movement axes. Attack buttons use
-# SDL's standard numbering for an Xbox-style pad; a bind menu will make this
-# configurable, until then it is a reasonable Street Fighter default.
+# SDL's standard numbering for an Xbox-style pad; this is the default, and
+# `gamepad_layout` applies the player's rebinds (`b` on the setup screen) on top.
 _PAD_BUTTON_LABELS = {"pad:0": "A", "pad:1": "B", "pad:2": "X", "pad:3": "Y", "pad:4": "LB", "pad:5": "RB"}
 
 GAMEPAD = ControlLayout(
     key="gamepad",
     name="Gamepad",
-    description="D-pad or left stick to move. Attacks LP=X MP=Y HP=RB / LK=A MK=B HK=LB. Rebindable later.",
+    description="D-pad or left stick to move. Press b on this row to rebind the attack buttons.",
     movement={"pad:left": Axis.LEFT, "pad:down": Axis.DOWN, "pad:right": Axis.RIGHT, "pad:up": Axis.UP},
     attacks={
         "pad:2": Button.LP,
@@ -129,6 +133,40 @@ GAMEPAD = ControlLayout(
     available=_gamepad_supported(),
     key_labels=_PAD_BUTTON_LABELS,
 )
+
+GAMEPAD_DEFAULT_BINDINGS: dict[Button, str] = {button: code for code, button in GAMEPAD.attacks.items()}
+"""The attack-button map a fresh install uses: ``{Button: pad code}``."""
+
+
+PAD_ATTACK_CODES: tuple[str, ...] = tuple(_PAD_BUTTON_LABELS)
+"""The pad buttons an attack can be bound to, ``pad:0``..``pad:5``."""
+
+
+def resolve_gamepad_bindings(bindings: Mapping[str, str] | None = None) -> dict[Button, str]:
+    """A full ``{Button: pad code}`` attack map from a stored, partial one.
+
+    ``bindings`` is the ``{Button name: pad code}`` map as it sits in the
+    config. Unknown button names and codes outside ``pad:0``..``pad:5`` are
+    ignored; anything left unset keeps its default. If the result is not a
+    one-to-one map (a hand-edited config putting two attacks on one button) the
+    default is returned whole, so an attack is never left unreachable.
+    """
+    resolved = dict(GAMEPAD_DEFAULT_BINDINGS)
+    for name, code in (bindings or {}).items():
+        if name in Button.__members__ and code in _PAD_BUTTON_LABELS:
+            resolved[Button[name]] = code
+    if len(set(resolved.values())) != len(resolved):
+        return dict(GAMEPAD_DEFAULT_BINDINGS)
+    return resolved
+
+
+def gamepad_layout(bindings: Mapping[str, str] | None = None) -> ControlLayout:
+    """The gamepad layout with the player's attack-button rebinds applied."""
+    resolved = resolve_gamepad_bindings(bindings)
+    if resolved == GAMEPAD_DEFAULT_BINDINGS:
+        return GAMEPAD
+    return replace(GAMEPAD, attacks={code: button for button, code in resolved.items()})
+
 
 LAYOUTS: dict[str, ControlLayout] = {layout.key: layout for layout in (HITBOX, SOUTHPAW, GAMEPAD)}
 DEFAULT_LAYOUT = HITBOX.key

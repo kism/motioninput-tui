@@ -9,7 +9,7 @@ from textual.app import App
 
 from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
-from motioninput_tui.controls.layouts import get_layout
+from motioninput_tui.controls.layouts import LayoutKind, gamepad_layout, get_layout
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.utils.logger import get_logger
 
@@ -81,6 +81,10 @@ class MotionInputApp(App[None]):
         """Remember the buffer rule the player just toggled to."""
         self._remember(buffer_policy=event.policy)
 
+    def on_setup_screen_gamepad_bindings_changed(self, event: SetupScreen.GamepadBindingsChanged) -> None:
+        """Remember the gamepad attack rebinds the player just made."""
+        self._remember(gamepad_bindings=event.bindings)
+
     def on_key_release(self, event: KeyRelease) -> None:
         """Route a key release to the trainer.
 
@@ -105,12 +109,21 @@ class MotionInputApp(App[None]):
             self._start(*result)
 
         initial = (self.config.game, self.config.character, self.config.layout)
-        self.push_screen(SetupScreen(initial, focus_characters=focus_characters), on_done)
+        self.push_screen(
+            SetupScreen(
+                initial,
+                focus_characters=focus_characters,
+                gamepad_bindings=self.config.gamepad_bindings,
+            ),
+            on_done,
+        )
 
     def _start(self, game_key: str, character_key: str, layout_key: str) -> None:
         game = load_game(game_key)
         character = game.character(character_key)
         layout = get_layout(layout_key)
+        if layout.kind is LayoutKind.GAMEPAD:
+            layout = gamepad_layout(self.config.gamepad_bindings or None)
         self._remember(game=game.key, character=character.key, layout=layout.key)
 
         def on_done(_result: None) -> None:

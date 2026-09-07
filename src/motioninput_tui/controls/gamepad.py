@@ -140,6 +140,22 @@ class GamepadReader:
         """Whether a pad is currently open."""
         return self._joystick is not None
 
+    @property
+    def name(self) -> str | None:
+        """The open pad's name as the driver reports it, or None if none is open.
+
+        SDL often reports a generic name (just "Controller" on macOS); the
+        caller decides what to show when this is empty.
+        """
+        pygame = self._pygame
+        if self._joystick is None or pygame is None:
+            return None
+        try:
+            return self._joystick.get_name() or None
+        except pygame.error:
+            logger.warning("Could not read the gamepad name", exc_info=True)
+            return None
+
     def poll(self, at_ms: int) -> list[tuple[str, bool]]:
         """Advance pygame and return press/release events since the last poll."""
         del at_ms  # A gamepad event is exact; there is no timing to learn.
