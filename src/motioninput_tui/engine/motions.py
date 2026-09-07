@@ -124,12 +124,12 @@ def _quarter_back(ruleset: Ruleset) -> list[Step]:
 
 def _half_forward(ruleset: Ruleset) -> list[Step]:
     lenient = ruleset.lenient_diagonals
-    return [(_ONLY_B, False), (_ONLY_DB, lenient), (_ONLY_DOWN, False), (_ONLY_DF, lenient), (_ONLY_F, False)]
+    return [(_ONLY_B, False), (_ONLY_DB, lenient), (DOWN_DIRECTIONS, False), (_ONLY_DF, lenient), (_ONLY_F, False)]
 
 
 def _half_back(ruleset: Ruleset) -> list[Step]:
     lenient = ruleset.lenient_diagonals
-    return [(_ONLY_F, False), (_ONLY_DF, lenient), (_ONLY_DOWN, False), (_ONLY_DB, lenient), (_ONLY_B, False)]
+    return [(_ONLY_F, False), (_ONLY_DF, lenient), (DOWN_DIRECTIONS, False), (_ONLY_DB, lenient), (_ONLY_B, False)]
 
 
 def _dragon_punch(ruleset: Ruleset) -> list[Step]:

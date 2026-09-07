@@ -35,7 +35,7 @@ class TrainingScreen(Screen):
         Binding("ctrl+r", "reset", "Reset buffer"),
         Binding("ctrl+l", "toggle_movelist", "Move list"),
         Binding("ctrl+b", "toggle_policy", "Buffer rule"),
-        Binding("ctrl+c", "quit", "Quit"),
+        Binding("ctrl+q", "quit", "Quit"),
     ]
 
     class PolicyChanged(Message):

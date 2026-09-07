@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from time import monotonic
 from typing import TYPE_CHECKING
 
 from textual.app import App
@@ -20,6 +21,9 @@ if TYPE_CHECKING:
     from motioninput_tui.engine.recognizer import BufferPolicy
 
 logger = get_logger(__name__)
+
+QUIT_CONFIRM_WINDOW_S = 2.0
+"""How long a first ctrl+c counts for, before a second one quits."""
 
 
 class MotionInputApp(App[None]):
@@ -47,6 +51,7 @@ class MotionInputApp(App[None]):
         self.config = config if config is not None else Config()
         self._key_release = key_release
         self._skip_setup = skip_setup
+        self._quit_requested_at: float | None = None
 
     def on_mount(self) -> None:
         """Open the trainer directly if the command line gave a full selection."""
@@ -55,6 +60,22 @@ class MotionInputApp(App[None]):
             self._start(self.config.game or "", self.config.character or "", self.config.layout)
             return
         self._open_setup()
+
+    def action_help_quit(self) -> None:
+        """Quit on a second ctrl+c.
+
+        Textual unbinds ctrl+c from quit because it means copy when an input is
+        focused, and only shows a hint instead. Nothing here takes text input,
+        and ctrl+c is what people press to leave a terminal program, so a second
+        press within a couple of seconds really does quit.
+        """
+        now = monotonic()
+        previous = self._quit_requested_at
+        if previous is not None and now - previous <= QUIT_CONFIRM_WINDOW_S:
+            self.exit()
+            return
+        self._quit_requested_at = now
+        self.notify("Press ctrl+c again to quit.", title="Quit?", timeout=QUIT_CONFIRM_WINDOW_S)
 
     def on_training_screen_policy_changed(self, event: TrainingScreen.PolicyChanged) -> None:
         """Remember the buffer rule the player just toggled to."""

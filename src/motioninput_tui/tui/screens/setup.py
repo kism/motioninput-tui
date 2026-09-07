@@ -26,7 +26,7 @@ class SetupScreen(Screen):
 
     BINDINGS: ClassVar = [
         Binding("enter", "start", "Start training", priority=True),
-        Binding("ctrl+c", "quit", "Quit"),
+        Binding("ctrl+q", "quit", "Quit"),
     ]
 
     DEFAULT_CSS = """

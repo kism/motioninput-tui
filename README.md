@@ -74,7 +74,8 @@ than touching anything else.
 | Southpaw | `j` `k` `l` `space`        | `q w e`  | `a s d`  |
 
 In the trainer: `esc` goes back to the picker, `ctrl+r` clears the buffer,
-`ctrl+l` toggles the move list, `ctrl+b` toggles the buffer rule, `ctrl+c` quits.
+`ctrl+l` toggles the move list, `ctrl+b` toggles the buffer rule, and `ctrl+q` or
+two presses of `ctrl+c` quit.
 
 ## Spending inputs
 

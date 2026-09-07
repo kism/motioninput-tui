@@ -148,10 +148,11 @@ is pinned; check this file after a Textual upgrade.
 
 ## Testing
 
-There are no tests for the engine yet, only versioning and logger tests. The
-interesting behaviour is timing dependent, so verification is done by driving
-`TrainingSession.press` / `.release` / `.tick` with explicit timestamps rather
-than a real clock. For the inferred path a test must also simulate the OS
-auto-repeat stream (first repeat after the initial delay, then ~33ms apart) —
-using bare presses without repeats does not reproduce how a real terminal
-behaves and will give misleading results.
+`tests/engine/test_motions.py` drives `TrainingSession.press` / `.release` /
+`.tick` with explicit timestamps rather than a real clock, at the key level so
+SOCD cleaning is covered too. Follow its `play()` helper.
+
+Those tests use `exact_input=True`. For the inferred path a test must also
+simulate the OS auto-repeat stream (first repeat after the initial delay, then
+~33ms apart) — bare presses without repeats do not reproduce how a real
+terminal behaves and will give misleading results.

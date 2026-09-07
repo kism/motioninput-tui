@@ -139,13 +139,17 @@ pytest tests/test__meta.py::test_repo_url   # a single test
 pytest -k logger                            # by name
 ```
 
-There are no tests for the engine yet. The interesting behaviour is timing
-dependent, so tests would want to drive `TrainingSession.press`, `.release` and
-`.tick` with explicit timestamps rather than a real clock. Tests for the
-inferred path also have to simulate the operating system's auto-repeat stream
-(first repeat after the initial delay, then roughly every 33ms); bare presses
-without repeats do not reproduce what a real terminal sends and give misleading
-results.
+`tests/engine/test_motions.py` drives `TrainingSession.press`, `.release` and
+`.tick` with explicit timestamps rather than a real clock, at the key level so
+SOCD cleaning and the resulting direction states are covered too. Its `play()`
+helper and the arrow-string assertions from `directions()` are the pattern to
+follow.
+
+Those tests use `exact_input=True`, which is the terminal reporting key
+releases. A test for the inferred path has to simulate the operating system's
+auto-repeat stream instead (first repeat after the initial delay, then roughly
+every 33ms); bare presses without repeats do not reproduce what a real terminal
+sends and give misleading results.
 
 ### Workflows
 
