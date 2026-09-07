@@ -1,0 +1,1902 @@
+{
+ "key": "hsf2",
+ "name": "Hyper Street Fighter II: The Anniversary Edition",
+ "source": "references/hsf2.txt",
+ "characters": [
+  {
+   "key": "ryu",
+   "name": "Ryu",
+   "title": "",
+   "moves": [
+    {
+     "name": "Fireball",
+     "command": "D, DF, F + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F + any Punch"
+     }
+    },
+    {
+     "name": "Hurricane",
+     "command": "D, DB, B + any Kick (can be done in air in SF2 Turbo and up)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D, DB, B + any Kick (can be done in air in SF2 Turbo and up)"
+     }
+    },
+    {
+     "name": "Dragon Punch",
+     "command": "F, D, DF + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, D, DF + any Punch"
+     }
+    },
+    {
+     "name": "Red Fireball",
+     "command": "B, DB, D, DF, F + any Punch (SSF2 / ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B, DB, D, DF, F + any Punch (SSF2 / ST only)"
+     }
+    },
+    {
+     "name": "Overhead",
+     "command": "F + MP (2 hits) (ST only)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 6,
+      "notation": "F + MP (2 hits) (ST only)"
+     }
+    },
+    {
+     "name": "Rush Punch",
+     "command": "F + HP (2 hits) (ST only)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "F + HP (2 hits) (ST only)"
+     }
+    },
+    {
+     "name": "Super Fireball",
+     "command": "D, DF, F x 2 + any Punch (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F x 2 + any Punch (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ken",
+   "name": "Ken",
+   "title": "",
+   "moves": [
+    {
+     "name": "Fireball",
+     "command": "D, DF, F + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F + any Punch"
+     }
+    },
+    {
+     "name": "Hurricane",
+     "command": "D, DB, B + any Kick (can be done in air in SF2T and up)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D, DB, B + any Kick (can be done in air in SF2T and up)"
+     }
+    },
+    {
+     "name": "Dragon Punch",
+     "command": "F, D, DF + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, D, DF + any Punch"
+     }
+    },
+    {
+     "name": "Slap Kick",
+     "command": "F + HK (ST only)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "F + HK (ST only)"
+     }
+    },
+    {
+     "name": "Combo Kick",
+     "command": "D, DF, F + any Kick (hold Kick for an overhead) (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D, DF, F + any Kick (hold Kick for an overhead) (ST only)"
+     }
+    },
+    {
+     "name": "Super Dragon Punch",
+     "command": "D, DF, F x 2 + any Punch (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F x 2 + any Punch (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "e-honda",
+   "name": "E.Honda",
+   "title": "",
+   "moves": [
+    {
+     "name": "Headbutt",
+     "command": "Charge Back for 2 secs, Forward + Any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward + Any Punch"
+     }
+    },
+    {
+     "name": "Hand Slap",
+     "command": "press any Punch rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "press any Punch rapidly"
+     }
+    },
+    {
+     "name": "Butt Slam",
+     "command": "Charge Down for 2 secs, Up + any K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Down for 2 secs, Up + any K"
+     }
+    },
+    {
+     "name": "Sweep",
+     "command": "Back or Forward + HK (ST only)",
+     "category": "other"
+    },
+    {
+     "name": "Ohicho Throw",
+     "command": "F, DF, D, DB, B + any Punch (ST only)",
+     "category": "throw",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, DF, D, DB, B + any Punch (ST only)"
+     }
+    },
+    {
+     "name": "Double Headbutt",
+     "command": "Charge Back for 2 secs, Forward, Back, Forward + any Punch",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward, Back, Forward + any Punch"
+     }
+    }
+   ]
+  },
+  {
+   "key": "chun-li",
+   "name": "Chun-Li",
+   "title": "",
+   "moves": [
+    {
+     "name": "Lightning Kick",
+     "command": "press any Kick rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "press any Kick rapidly"
+     }
+    },
+    {
+     "name": "Spinning Bird Kick",
+     "command": "charge Down for 2 secs, Up + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "charge Down for 2 secs, Up + any Kick"
+     }
+    },
+    {
+     "name": "Fireball",
+     "command": "B, DB, D, DF, F + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B, DB, D, DF, F + any Punch"
+     }
+    },
+    {
+     "name": "Upward Kick",
+     "command": "charge Down for 2 secs, Up + any Kick (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "charge Down for 2 secs, Up + any Kick (ST only)"
+     }
+    },
+    {
+     "name": "Spinning Bird Kick",
+     "command": "Back for 2 secs, Forward + any Kick (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Back for 2 secs, Forward + any Kick (ST only)"
+     }
+    },
+    {
+     "name": "Fireball",
+     "command": "Back for 2 secs, Forward + any Punch (SSF2 / ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Back for 2 secs, Forward + any Punch (SSF2 / ST only)"
+     }
+    },
+    {
+     "name": "Super Lightning Kick",
+     "command": "Charge Back for 2 secs, Forward, Back, Forward + any Kick",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward, Back, Forward + any Kick"
+     }
+    }
+   ]
+  },
+  {
+   "key": "blanka",
+   "name": "Blanka",
+   "title": "",
+   "moves": [
+    {
+     "name": "Electricity",
+     "command": "press any Punch rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "press any Punch rapidly"
+     }
+    },
+    {
+     "name": "Ball",
+     "command": "Charge Back for 2 secs, Forward + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Punch"
+     }
+    },
+    {
+     "name": "Headbutt",
+     "command": "F + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 6,
+      "notation": "F + MP"
+     }
+    },
+    {
+     "name": "Upward Ball",
+     "command": "Charge Down for 2 secs, Up + any Kick (SF2T and up)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Kick (SF2T and up)"
+     }
+    },
+    {
+     "name": "Backstep Ball",
+     "command": "Charge Back for 2 secs, Forward + any Kick (SSF2 / ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Kick (SSF2 / ST only)"
+     }
+    },
+    {
+     "name": "Slide",
+     "command": "DF + HP (ST only)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 3,
+      "notation": "DF + HP (ST only)"
+     }
+    },
+    {
+     "name": "Hop",
+     "command": "Back or Forward + press all Kicks (ST only)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "notation": "Back or Forward + press all Kicks (ST only)"
+     }
+    },
+    {
+     "name": "Ground Roll",
+     "command": "Charge Back for 2 secs, Forward, Back, Forward + any Punch",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward, Back, Forward + any Punch"
+     }
+    }
+   ]
+  },
+  {
+   "key": "zangief",
+   "name": "Zangief",
+   "title": "",
+   "moves": [
+    {
+     "name": "Lariat",
+     "command": "press all Punches",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "press all Punches"
+     }
+    },
+    {
+     "name": "Kick Lariat",
+     "command": "press all Kicks (SF2T only)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "notation": "press all Kicks (SF2T only)"
+     }
+    },
+    {
+     "name": "Spinning Pile Driver",
+     "command": "360 + P",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "360 + P"
+     }
+    },
+    {
+     "name": "Body Splash",
+     "command": "Jump, D + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "Jump, D + HP"
+     }
+    },
+    {
+     "name": "Headbutt",
+     "command": "Up + MP or HP on the way up",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP/HP"
+      },
+      "hold": 8,
+      "notation": "Up + MP or HP on the way up"
+     }
+    },
+    {
+     "name": "Knee Press",
+     "command": "Jump D + LK (SF2T and up)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 2,
+      "notation": "Jump D + LK (SF2T and up)"
+     }
+    },
+    {
+     "name": "German Suplex",
+     "command": "360 + K (SSF2 / ST)",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "360 + K (SSF2 / ST)"
+     }
+    },
+    {
+     "name": "Flying Powerbomb",
+     "command": "from distance, 360 + K (SSF2 / ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "from distance, 360 + K (SSF2 / ST only)"
+     }
+    },
+    {
+     "name": "Glow Hand",
+     "command": "F, DF, D + any Punch (ST only)",
+     "category": "other"
+    },
+    {
+     "name": "Final Atomic Buster",
+     "command": "720 + any Punch (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "rotate_720",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "720 + any Punch (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "guile",
+   "name": "Guile",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sonic Boom",
+     "command": "Charge Back for 2 secs, Forward + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Punch"
+     }
+    },
+    {
+     "name": "Flash Kick",
+     "command": "Charge Down for 2 secs, Up + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Kick"
+     }
+    },
+    {
+     "name": "Knee",
+     "command": "Back or Forward + MK (SF2 to SSF2)",
+     "category": "other"
+    },
+    {
+     "name": "Downward Spin Kick",
+     "command": "close, Back or Forward + HK",
+     "category": "other"
+    },
+    {
+     "name": "Knee",
+     "command": "Back or Forward + LK (ST only)",
+     "category": "other"
+    },
+    {
+     "name": "Spin Kick",
+     "command": "Back or Forward + MK (ST only)",
+     "category": "other"
+    },
+    {
+     "name": "Double Flash Kick",
+     "command": "Charge DB for 2 secs, DF, DB, UF + any Kick (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge DB for 2 secs, DF, DB, UF + any Kick (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "dhalsim",
+   "name": "Dhalsim",
+   "title": "",
+   "moves": [
+    {
+     "name": "Yoga Fire",
+     "command": "D, DF, F + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F + any Punch"
+     }
+    },
+    {
+     "name": "Yoga Flame",
+     "command": "B, DB, D, DF, F + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B, DB, D, DF, F + any Punch"
+     }
+    },
+    {
+     "name": "Teleport",
+     "command": "F, D, DF or B, D, DB any Punch or Kick (SF2T and up)",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, D, DF or B, D, DB any Punch or Kick (SF2T and up)"
+     }
+    },
+    {
+     "name": "Head Drill",
+     "command": "Jump + HP (in SF2 do it at the peak of the jump)",
+     "category": "other"
+    },
+    {
+     "name": "Drill Kick",
+     "command": "Jump + HK (in SF2 do it at the peak of the jump)",
+     "category": "other"
+    },
+    {
+     "name": "Slide",
+     "command": "D + any Kick",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "D + any Kick"
+     }
+    },
+    {
+     "name": "Yoga Blast",
+     "command": "B, DB, D, DF, F + any Kick (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "B, DB, D, DF, F + any Kick (ST only)"
+     }
+    },
+    {
+     "name": "Yoga Inferno",
+     "command": "B, DB, D, DF, F x 2 + any Punch (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "hcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B, DB, D, DF, F x 2 + any Punch (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "t-hawk",
+   "name": "T.Hawk",
+   "title": "",
+   "moves": [
+    {
+     "name": "Hawk Dive",
+     "command": "in air, press all Punches",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "air": true,
+      "notation": "in air, press all Punches"
+     }
+    },
+    {
+     "name": "Storm Hammer",
+     "command": "360 + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "360 + any Punch"
+     }
+    },
+    {
+     "name": "Thunderstrike",
+     "command": "F, D, DF + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, D, DF + any Punch"
+     }
+    },
+    {
+     "name": "Body Press",
+     "command": "in air, D + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "in air, D + HP"
+     }
+    },
+    {
+     "name": "Double Typhoon",
+     "command": "720 + any Punch (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "rotate_720",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "720 + any Punch (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "cammy",
+   "name": "Cammy",
+   "title": "",
+   "moves": [
+    {
+     "name": "Spin Knuckle",
+     "command": "B, DB, D, DF, F + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B, DB, D, DF, F + any Punch"
+     }
+    },
+    {
+     "name": "Cannon Drill",
+     "command": "D, DF, F + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D, DF, F + any Kick"
+     }
+    },
+    {
+     "name": "Cannon Spike",
+     "command": "F, D, DF + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "F, D, DF + any Kick"
+     }
+    },
+    {
+     "name": "Hooligan",
+     "command": "B, DB, D, DF, F, UF + any Punch (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B, DB, D, DF, F, UF + any Punch (ST only)"
+     }
+    },
+    {
+     "name": "Throw",
+     "command": "during Hooligan press Kick",
+     "category": "other"
+    },
+    {
+     "name": "Cancel",
+     "command": "during Hooligan press Kick before she begins the downward part",
+     "category": "other"
+    },
+    {
+     "name": "Spin Drive Smasher",
+     "command": "D, DF, F x 2 + any Kick (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D, DF, F x 2 + any Kick (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "fei-long",
+   "name": "Fei Long",
+   "title": "",
+   "moves": [
+    {
+     "name": "Rekka Ken",
+     "command": "D, DF, F + any Punch (up to 3 times)",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F + any Punch (up to 3 times)"
+     }
+    },
+    {
+     "name": "Rising Kick",
+     "command": "B, D, DB + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "B, D, DB + any Kick"
+     }
+    },
+    {
+     "name": "Roundhouse Hop",
+     "command": "F + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "F + HK"
+     }
+    },
+    {
+     "name": "Forward Hop",
+     "command": "Back or Forward + MK",
+     "category": "other"
+    },
+    {
+     "name": "Arc Kick",
+     "command": "B, DB, D, DF, F, UF + any Kick (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "B, DB, D, DF, F, UF + any Kick (ST only)"
+     }
+    },
+    {
+     "name": "Super Rekka Ken",
+     "command": "D, DF, F x 2 + any Punch (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F x 2 + any Punch (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "dee-jay",
+   "name": "Dee Jay",
+   "title": "",
+   "moves": [
+    {
+     "name": "Max Out",
+     "command": "Charge Back for 2 secs, Forward + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Punch"
+     }
+    },
+    {
+     "name": "Dread Kick",
+     "command": "Charge Back for 2 secs, Forward + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Kick"
+     }
+    },
+    {
+     "name": "Hyper Fist",
+     "command": "Charge Down for 2 secs, Up + any Punch, press P rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Punch, press P rapidly"
+     }
+    },
+    {
+     "name": "Knee Shot",
+     "command": "In air, D + LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, D + LK"
+     }
+    },
+    {
+     "name": "Jacknife",
+     "command": "Charge Down for 2 secs, Up + any Kick (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Kick (ST only)"
+     }
+    },
+    {
+     "name": "Dread Carnival",
+     "command": "Charge Back for 2 secs, Forward, Back, Forward + any Kick",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward, Back, Forward + any Kick"
+     }
+    }
+   ]
+  },
+  {
+   "key": "balrog",
+   "name": "Balrog",
+   "title": "",
+   "moves": [
+    {
+     "name": "Turn Around Punch",
+     "command": "Hold all 3 Punches or Kicks, release (longer the hold the",
+     "category": "other"
+    },
+    {
+     "name": "Dash Straight",
+     "command": "Charge Back for 2 secs, Forward + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Punch"
+     }
+    },
+    {
+     "name": "Dash Uppercut",
+     "command": "Charge Back for 2 secs, Forward + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Kick"
+     }
+    },
+    {
+     "name": "Buffalo Headbutt",
+     "command": "Charge Down for 2 secs, Up + any Punch (SSF2 / ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Punch (SSF2 / ST only)"
+     }
+    },
+    {
+     "name": "Dash Low",
+     "command": "Charge Back for 2 secs, DF + any Punch (ST only)",
+     "category": "other"
+    },
+    {
+     "name": "Crazy Buffalo",
+     "command": "Charge Back for 2 secs, Forward, Back, Forward + any Kick or",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward, Back, Forward + any Kick or"
+     }
+    }
+   ]
+  },
+  {
+   "key": "vega",
+   "name": "Vega",
+   "title": "",
+   "moves": [
+    {
+     "name": "Rolling Crystal Flash",
+     "command": "Charge Back for 2 secs, Forward + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Punch"
+     }
+    },
+    {
+     "name": "Flying Barcelona Attack",
+     "command": "Charge Down for 2 secs, Up + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Kick"
+     }
+    },
+    {
+     "name": "Izuna Drop",
+     "command": "Charge Down for 2 secs, Up + any Kick, Forward + Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Kick, Forward + Punch"
+     }
+    },
+    {
+     "name": "Backflip",
+     "command": "Back, Back (CE only)",
+     "category": "other"
+    },
+    {
+     "name": "Sky High Claw",
+     "command": "Charge Down for 2 secs, Up + any Punch (SSF2 / ST)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Punch (SSF2 / ST)"
+     }
+    },
+    {
+     "name": "Flip Kick",
+     "command": "Charge Back for 2 secs, Forward + any Kick (ST only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Kick (ST only)"
+     }
+    },
+    {
+     "name": "Backflip",
+     "command": "Press all 3 Kicks (ST only) (Quicker then 3 Punches)",
+     "category": "other"
+    },
+    {
+     "name": "Rolling Izuna Drop",
+     "command": "Charge DB, DF, DB, UF + any Kick, Forward + any Punch",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "sagat",
+   "name": "Sagat",
+   "title": "",
+   "moves": [
+    {
+     "name": "Tiger Shot",
+     "command": "D, DF, F + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F + any Punch"
+     }
+    },
+    {
+     "name": "Ground Tiger Shot",
+     "command": "D, DF, F + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D, DF, F + any Kick"
+     }
+    },
+    {
+     "name": "Tiger Uppercut",
+     "command": "F, D, DF + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, D, DF + any Punch"
+     }
+    },
+    {
+     "name": "Tiger Knee",
+     "command": "DB, D, DF, F, UF + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "tk",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "DB, D, DF, F, UF + any Kick"
+     }
+    },
+    {
+     "name": "Tiger Genocide",
+     "command": "D, DF, F x 2 + any Punch (ST only)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F x 2 + any Punch (ST only)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "m-bison",
+   "name": "M.Bison",
+   "title": "",
+   "moves": [
+    {
+     "name": "Psycho Crusher",
+     "command": "Charge Back for 2 secs, Forward + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Punch"
+     }
+    },
+    {
+     "name": "Scissor Kicks",
+     "command": "Charge Back for 2 secs, Forward + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward + any Kick"
+     }
+    },
+    {
+     "name": "Head Press",
+     "command": "Charge Down for 2 secs, Up + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Kick"
+     }
+    },
+    {
+     "name": "Skull Diver",
+     "command": "after Head Press, press any Punch (CE / SF2T only)",
+     "category": "other"
+    },
+    {
+     "name": "Skull Diver",
+     "command": "Charge Down for 2 secs, Up + any Punch, press P again",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge Down for 2 secs, Up + any Punch, press P again"
+     }
+    },
+    {
+     "name": "Scissor Nightmare",
+     "command": "Charge Back for 2 secs, Forward, Back, Forward + any Kick",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge Back for 2 secs, Forward, Back, Forward + any Kick"
+     }
+    }
+   ]
+  },
+  {
+   "key": "akuma",
+   "name": "Akuma",
+   "title": "",
+   "moves": [
+    {
+     "name": "Fireball",
+     "command": "D, DF, F + any Punch (can also be done in air)",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D, DF, F + any Punch (can also be done in air)"
+     }
+    },
+    {
+     "name": "Hurricane",
+     "command": "D, DB, B + any Kick",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D, DB, B + any Kick"
+     }
+    },
+    {
+     "name": "Dragon Punch",
+     "command": "F, D, DF + any Punch",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, D, DF + any Punch"
+     }
+    },
+    {
+     "name": "Red Fireball",
+     "command": "B, DF, D, DF, F + any Punch",
+     "category": "other"
+    }
+   ]
+  }
+ ]
+}

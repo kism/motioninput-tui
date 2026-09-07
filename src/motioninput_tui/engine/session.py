@@ -1,0 +1,155 @@
+"""A training session: one game, one character, one control layout."""
+
+from __future__ import annotations
+
+import time
+from collections import deque
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
+
+from motioninput_tui.controls.layouts import repeat_delay_advice
+from motioninput_tui.controls.source import KeyboardSource
+from motioninput_tui.utils.logger import get_logger
+
+from .buffer import InputBuffer
+from .notation import Button, Direction
+from .recognizer import Activation, Recognizer
+
+if TYPE_CHECKING:
+    from motioninput_tui.controls.layouts import ControlLayout
+    from motioninput_tui.games.models import Character, Game
+
+logger = get_logger(__name__)
+
+HISTORY_LENGTH = 40
+"""How many input entries the strip remembers."""
+
+ACTIVATION_LENGTH = 12
+"""How many activated moves to keep in the feed."""
+
+
+def monotonic_ms() -> int:
+    """Milliseconds from a monotonic clock."""
+    return time.monotonic_ns() // 1_000_000
+
+
+@dataclass(slots=True)
+class InputEntry:
+    """One column of the input display."""
+
+    direction: Direction
+    at_ms: int
+    buttons: list[Button] = field(default_factory=list)
+    activated: str | None = None
+
+
+class TrainingSession:
+    """Wires an input source, an input buffer and a move recogniser together.
+
+    The caller drives it with :meth:`press` and :meth:`tick`; everything else
+    is read-only state for the interface to render.
+    """
+
+    def __init__(self, game: Game, character: Character, layout: ControlLayout) -> None:
+        """Set up the buffer, source and recogniser for this pairing."""
+        self.game = game
+        self.character = character
+        self.layout = layout
+        self.buffer = InputBuffer()
+        self.source = KeyboardSource(layout)
+        self.recognizer = Recognizer(character.moves, game.ruleset)
+        self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
+        self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
+        self.total_inputs = 0
+        self.total_activations = 0
+        logger.debug(
+            "Session: %s / %s / %s, %d trainable moves",
+            game.short_name,
+            character.name,
+            layout.name,
+            len(character.trainable_moves),
+        )
+
+    @property
+    def direction(self) -> Direction:
+        """The direction currently held."""
+        return self.source.direction
+
+    @property
+    def hold_window_ms(self) -> int:
+        """How long a single key press counts as a held direction."""
+        return self.source.tap_ms
+
+    @property
+    def keyboard_advice(self) -> str:
+        """Advice if the keyboard's repeat delay is hurting input timing."""
+        return repeat_delay_advice(self.source.repeat_delay_ms)
+
+    def press(self, key: str, at_ms: int | None = None) -> bool:
+        """Feed a key press in. Returns True when the display should redraw."""
+        now = monotonic_ms() if at_ms is None else at_ms
+        update = self.source.press(key, now)
+        if update is None:
+            return False
+
+        self.total_inputs += 1
+        if update.direction_changed:
+            self.buffer.set_direction(update.direction, now)
+            self._append_entry(update.direction, now)
+
+        if update.button is None:
+            return update.direction_changed
+
+        self.buffer.press_button(update.button, now)
+        self._record_button(update.button, update.direction, now)
+        pressed = self.buffer.simultaneous_buttons(now)
+        self.recognizer.decay_ms = self.source.tap_ms
+        activation = self.recognizer.evaluate(self.buffer, now, pressed)
+        if activation is not None:
+            self.activations.appendleft(activation)
+            self.total_activations += 1
+            if self.entries:
+                self.entries[-1].activated = activation.name
+        return True
+
+    def tick(self, at_ms: int | None = None) -> bool:
+        """Let held directions expire. Returns True when the display changed."""
+        now = monotonic_ms() if at_ms is None else at_ms
+        update = self.source.tick(now)
+        if update is None or not update.direction_changed:
+            return False
+        self.buffer.set_direction(update.direction, now)
+        self._append_entry(update.direction, now)
+        return True
+
+    def reset(self) -> None:
+        """Clear everything and go back to neutral."""
+        self.buffer.clear()
+        self.source.reset()
+        self.recognizer.reset()
+        self.entries.clear()
+        self.activations.clear()
+        self.total_inputs = 0
+        self.total_activations = 0
+
+    def _append_entry(self, direction: Direction, at_ms: int) -> None:
+        # Collapse a run of empty neutrals rather than filling the strip with them.
+        previous = self.entries[-1] if self.entries else None
+        if (
+            direction is Direction.NEUTRAL
+            and previous is not None
+            and not previous.buttons
+            and previous.direction is Direction.NEUTRAL
+        ):
+            return
+        self.entries.append(InputEntry(direction=direction, at_ms=at_ms))
+
+    def _record_button(self, button: Button, direction: Direction, at_ms: int) -> None:
+        if self.entries:
+            last = self.entries[-1]
+            if last.direction is direction and at_ms - last.at_ms <= self.buffer.simultaneous_ms:
+                last.buttons.append(button)
+                return
+        entry = InputEntry(direction=direction, at_ms=at_ms)
+        entry.buttons.append(button)
+        self.entries.append(entry)

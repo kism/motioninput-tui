@@ -5,7 +5,10 @@ description = ""
 authors = []
 readme = "README.md"
 requires-python = ">=3.14.0,<4"
-dependencies = ["rich>=15.0.0"]
+dependencies = [
+    "rich>=15.0.0",
+    "textual>=8.2.8",
+]
 
 [project.optional-dependencies]
 type = ["ty>=0.0.69"]
@@ -28,7 +31,8 @@ requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
 
 [project.scripts]
-motioninput-tui = "motioninput_tui:__main__.main"
+motioninput-tui = "motioninput_tui.__main__:main"
+motioninput-tui-datagen = "motioninput_tui.datagen.__main__:main"
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"

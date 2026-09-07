@@ -1,0 +1,6957 @@
+{
+ "key": "sfa3",
+ "name": "Street Fighter Alpha 3",
+ "source": "references/sfa3.txt",
+ "characters": [
+  {
+   "key": "adon",
+   "name": "Adon",
+   "title": "",
+   "moves": [
+    {
+     "name": "Jaguar Carry",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Jaguar Slam",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Jaguar Stab",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Jaguar Throw",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Rising Jaguar",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Jaguar Kick",
+     "command": "b,d,db + K",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b,d,db + K"
+     }
+    },
+    {
+     "name": "Jaguar Kick",
+     "command": "In air, press K",
+     "category": "other"
+    },
+    {
+     "name": "Jaguar Tooth",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Jaguar Crunch",
+     "command": "f + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 6,
+      "notation": "f + MP"
+     }
+    },
+    {
+     "name": "Jaguar Revolver",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "Jaguar Varied Assault",
+     "command": "qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Jaguar Thousand",
+     "command": "Tap P during Jaguar Varied Assault",
+     "category": "other"
+    },
+    {
+     "name": "Jaguar Assassin",
+     "command": "Tap K during Jaguar Varied Assault",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "akuma",
+   "name": "Akuma",
+   "title": "",
+   "moves": [
+    {
+     "name": "Seoi Nage",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Tomoe Nage",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Jigoku-guruma",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Gou Hadou Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Zankuu Hadou Ken",
+     "command": "In air, qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcf + P"
+     }
+    },
+    {
+     "name": "Shakunetsu Hadou Ken",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Gou Shouryuu Ken",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Tatsumaki Zankuu Kyaku",
+     "command": "qcb + K  (air)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "qcb + K  (air)"
+     }
+    },
+    {
+     "name": "Zenpou Tenshin",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Ashura Senkuu",
+     "command": "f,d,df / b,d,db + PPP / KKK",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "f,d,df / b,d,db + PPP / KKK"
+     }
+    },
+    {
+     "name": "Hyakki Shuu",
+     "command": "qcf,uf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf_uf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,uf + P"
+     }
+    },
+    {
+     "name": "Hyakki Gou Zan",
+     "command": "qcf,uf + P, then do nothing",
+     "category": "other"
+    },
+    {
+     "name": "Hyakki Gou Shou",
+     "command": "qcf,uf + P, then press P",
+     "category": "other"
+    },
+    {
+     "name": "Hyakki Gou Sen",
+     "command": "qcf,uf + P, then press K",
+     "category": "other"
+    },
+    {
+     "name": "Hyakki Gou Sai",
+     "command": "Any dir. but d / u + P when close",
+     "category": "other"
+    },
+    {
+     "name": "Hyakki Gou Tsui",
+     "command": "Perform Gou Sai with K w/ foe in air",
+     "category": "other"
+    },
+    {
+     "name": "Tenma Kuujin Kyaku",
+     "command": "Jump forward, d + MK at apex",
+     "category": "other"
+    },
+    {
+     "name": "Zugai Hasatsu",
+     "command": "f + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 6,
+      "notation": "f + MP"
+     }
+    },
+    {
+     "name": "Senpuu Kyaku",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Messatsu Gou Hadou",
+     "command": "hcb,hcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb,hcb + P"
+     }
+    },
+    {
+     "name": "Messatsu Gou Shouryuu",
+     "command": "qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Tenma Gou Zankuu",
+     "command": "In air, qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Shun Goku Satsu",
+     "command": "LP,LP,f,LK,HP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK",
+        "LP"
+       ],
+       "count": 3,
+       "label": "LP+HP+LK"
+      },
+      "notation": "LP,LP,f,LK,HP"
+     }
+    }
+   ]
+  },
+  {
+   "key": "birdie",
+   "name": "Birdie",
+   "title": "",
+   "moves": [
+    {
+     "name": "Bull Spike",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Bad Throw",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Bad Scrap",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Bull Head",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Bull Horn",
+     "command": "Hold and release PP / KK",
+     "category": "other"
+    },
+    {
+     "name": "Murderer Chain",
+     "command": "Rotate 360 + P",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 360 + P"
+     }
+    },
+    {
+     "name": "Bandit Chain",
+     "command": "Rotate 360 + K",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Rotate 360 + K"
+     }
+    },
+    {
+     "name": "Body Slam",
+     "command": "Jump, d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "Jump, d + HP"
+     }
+    },
+    {
+     "name": "Bull Drop",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Bad Hammer",
+     "command": "Get 2 hits w/ close stand HP, hold u",
+     "category": "other"
+    },
+    {
+     "name": "The Birdie",
+     "command": "Charge b,f,b,f + P",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P"
+     }
+    },
+    {
+     "name": "Bull Revenger",
+     "command": "qcf,d,df + P / K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P / K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "blanka",
+   "name": "Blanka",
+   "title": "",
+   "moves": [
+    {
+     "name": "Wild Fang",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Jungle Slam",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Wild Shoot",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Electric Thunder",
+     "command": "Tap P rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P rapidly"
+     }
+    },
+    {
+     "name": "Rolling Attack",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Backstep Rolling",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Vertical Rolling",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Surprise Forward",
+     "command": "KKK / f + KKK  (u~f~d + KKK)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "notation": "KKK / f + KKK  (u~f~d + KKK)"
+     }
+    },
+    {
+     "name": "Surprise Back",
+     "command": "b + KKK  (ub~db + KKK)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "hold": 4,
+      "notation": "b + KKK  (ub~db + KKK)"
+     }
+    },
+    {
+     "name": "Rock Crush",
+     "command": "When close, b / f + MP",
+     "category": "other"
+    },
+    {
+     "name": "Rock Crush",
+     "command": "b + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 4,
+      "notation": "b + MP"
+     }
+    },
+    {
+     "name": "Amazon River Run",
+     "command": "df + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 3,
+      "notation": "df + HP"
+     }
+    },
+    {
+     "name": "Ground Shave Rolling",
+     "command": "Charge b,f,b,f + P",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P"
+     }
+    },
+    {
+     "name": "Tropical Hazard",
+     "command": "Charge db,df,db,uf + K, tap P / K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,df,db,uf + K, tap P / K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "cammy",
+   "name": "Cammy",
+   "title": "",
+   "moves": [
+    {
+     "name": "Hooligan Suplex",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Frankensteiner",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Flying Neck Hunt",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Air Frankensteiner",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Spiral Arrow",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Cannon Spike",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Cannon Strike",
+     "command": "Jump forward, qcb + K",
+     "category": "other"
+    },
+    {
+     "name": "Cannon Revenge",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Axle Spin Knuckle",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Hooligan Combination",
+     "command": "hcf,uf + P  (press K to cancel)",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf,uf + P  (press K to cancel)"
+     }
+    },
+    {
+     "name": "Razor Edge Slicer",
+     "command": "Do nothing after after H.C.",
+     "category": "other"
+    },
+    {
+     "name": "Fatal Leg Twister",
+     "command": "b / f + K when close after H.C.",
+     "category": "other"
+    },
+    {
+     "name": "Cross Scissor Pressure",
+     "command": "Do F.L.T. when low to the ground",
+     "category": "other"
+    },
+    {
+     "name": "Spin Drive Smasher",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    },
+    {
+     "name": "Reverse Shaft Breaker",
+     "command": "qcb,d,db + K, tap P / K rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,d,db + K, tap P / K rapidly"
+     }
+    },
+    {
+     "name": "Killer Bee Assault",
+     "command": "Charge db,df,db,uf + K at Level 3",
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,df,db,uf + K at Level 3"
+     }
+    }
+   ]
+  },
+  {
+   "key": "charlie",
+   "name": "Charlie",
+   "title": "",
+   "moves": [
+    {
+     "name": "Dragon Suplex",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Knee Gatling",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Flying Buster Drop",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Airjack",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Sonic Boom",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Somersault Shell",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Dash",
+     "command": "Tap f,f  (or tap uf~df,uf~df)",
+     "category": "other"
+    },
+    {
+     "name": "Knee Bazooka",
+     "command": "Press K during Dash",
+     "category": "other"
+    },
+    {
+     "name": "Knee Bazooka",
+     "command": "b / f + LK",
+     "category": "other"
+    },
+    {
+     "name": "Jump Sobat",
+     "command": "b / f + MK",
+     "category": "other"
+    },
+    {
+     "name": "Step Kick",
+     "command": "b / f + HK",
+     "category": "other"
+    },
+    {
+     "name": "Spin Back Knuckle",
+     "command": "Press HP",
+     "category": "other"
+    },
+    {
+     "name": "Somersault Justice",
+     "command": "Charge db,df,db,uf + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,df,db,uf + K"
+     }
+    },
+    {
+     "name": "Sonic Break",
+     "command": "Charge b,f,b,f + P, tap P,(P),(P)",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P, tap P,(P),(P)"
+     }
+    },
+    {
+     "name": "Crossfire Blitz",
+     "command": "Charge b,f,b,f + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f,b,f + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "chun-li",
+   "name": "Chun-Li",
+   "title": "",
+   "moves": [
+    {
+     "name": "Koshuu Tou",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Ryuusei Raku",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Kikou Ken",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Sen'en Shuu",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Hyakuretsu Kyaku",
+     "command": "Tap K rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Tap K rapidly"
+     }
+    },
+    {
+     "name": "Tenshou Kyaku",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Sou Hakkei",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Spinning Bird Kick",
+     "command": "Charge b,f + K  (air)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "Charge b,f + K  (air)"
+     }
+    },
+    {
+     "name": "Kouhou Kaiten Kyaku",
+     "command": "df + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 3,
+      "notation": "df + MK"
+     }
+    },
+    {
+     "name": "Kaku Kyaku Raku",
+     "command": "df + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 3,
+      "notation": "df + HK"
+     }
+    },
+    {
+     "name": "Yousou Kyaku",
+     "command": "In air, d + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + MK"
+     }
+    },
+    {
+     "name": "Sankaku Tobi",
+     "command": "Jump against a wall, press f",
+     "category": "other"
+    },
+    {
+     "name": "Kikou Shou",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Senretsu Kyaku",
+     "command": "Charge b,f,b,f + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f,b,f + K"
+     }
+    },
+    {
+     "name": "Hazan Tenshou Kyaku",
+     "command": "Charge db,df,db,uf + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,df,db,uf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "cody",
+   "name": "Cody",
+   "title": "",
+   "moves": [
+    {
+     "name": "Prisoner Throw",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Bad Stamp",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Guilty Stamp",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Bad Stone",
+     "command": "qcf + P  (hold P to delay)",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P  (hold P to delay)"
+     }
+    },
+    {
+     "name": "Fake Throw",
+     "command": "qcf + Start  (hold Start to delay)",
+     "category": "other"
+    },
+    {
+     "name": "Ruffian Kick",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Criminal Upper",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Bad Spray",
+     "command": "b,db,d + P  (reversal only)",
+     "category": "other"
+    },
+    {
+     "name": "Tokushu Koudou: Knife Hiroi",
+     "command": "d + PP when near a knife",
+     "category": "other"
+    },
+    {
+     "name": "Tokushu Koudou: Knife Kougeki",
+     "command": "When armed, press P  (air)",
+     "category": "other"
+    },
+    {
+     "name": "Tokushu Koudou: Knife Nage",
+     "command": "When armed, qcf + P",
+     "category": "other"
+    },
+    {
+     "name": "Stomach Blow",
+     "command": "f + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 6,
+      "notation": "f + MP"
+     }
+    },
+    {
+     "name": "Crack Kick",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Yoke",
+     "command": "Hold b / db when attacked",
+     "category": "other"
+    },
+    {
+     "name": "Final Destruction",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Dead End Irony",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "dan-hibiki",
+   "name": "Dan Hibiki",
+   "title": "",
+   "moves": [
+    {
+     "name": "Seoi Nage",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Otoko Nage",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Gadou Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Kouryuu Ken",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Dankuu Kyaku",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Kuuchuu Dankuu Kyaku",
+     "command": "In air, qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcb + K"
+     }
+    },
+    {
+     "name": "Zenten Chouhatsu",
+     "command": "qcf + Start",
+     "category": "other"
+    },
+    {
+     "name": "Kouten Chouhatsu",
+     "command": "qcb + Start",
+     "category": "other"
+    },
+    {
+     "name": "Saikyou-ryuu Bougyo",
+     "command": "Block b / db, then f + PPP  (air)",
+     "category": "other"
+    },
+    {
+     "name": "Shagami Chouhatsu",
+     "command": "Press Start while crouching",
+     "category": "other"
+    },
+    {
+     "name": "Kuuchuu Chouhatsu",
+     "command": "Press Start while in air",
+     "category": "other"
+    },
+    {
+     "name": "Shin Kuu Gadou Ken",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Hisshou Burai Ken",
+     "command": "qcb,qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,qcb + K"
+     }
+    },
+    {
+     "name": "Kouryuu Rekka",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    },
+    {
+     "name": "Chouhatsu Densetsu",
+     "command": "qcf,qcf + Start",
+     "category": "other"
+    },
+    {
+     "name": "Chouhatsu Shinwa",
+     "command": "qcb,qcb + Start at Level 3",
+     "category": "other"
+    },
+    {
+     "name": "Zenten / Kouten Chouhatsu",
+     "command": "db / df + P / K during C. Shinwa",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "dhalsim",
+   "name": "Dhalsim",
+   "title": "",
+   "moves": [
+    {
+     "name": "Yoga Smash",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Yoga Throw",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Yoga Trip",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Yoga Fire",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Yoga Flame",
+     "command": "hcb + P  (hcf + P in X-ISM)",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P  (hcf + P in X-ISM)"
+     }
+    },
+    {
+     "name": "Yoga Blast",
+     "command": "hcb + K  (hcf + K in X-ISM)",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K  (hcf + K in X-ISM)"
+     }
+    },
+    {
+     "name": "Yoga Escape",
+     "command": "b,db,d + K  (reversal only)",
+     "category": "other"
+    },
+    {
+     "name": "Yoga Teleport",
+     "command": "f,d,df / b,d,db + PPP / KKK",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "f,d,df / b,d,db + PPP / KKK"
+     }
+    },
+    {
+     "name": "Yoga Shock",
+     "command": "b + LP, hold LP until you attack",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 4,
+      "notation": "b + LP, hold LP until you attack"
+     }
+    },
+    {
+     "name": "Yoga Palm",
+     "command": "f + LP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 6,
+      "notation": "f + LP"
+     }
+    },
+    {
+     "name": "Drill Zutsuki",
+     "command": "In air, d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + HP"
+     }
+    },
+    {
+     "name": "Drill Kick",
+     "command": "In air, d + K",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + K"
+     }
+    },
+    {
+     "name": "Kuuchuu Chouhatsu",
+     "command": "In air, press Start",
+     "category": "other"
+    },
+    {
+     "name": "Yoga Tempest",
+     "command": "hcf,hcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf,hcf + P"
+     }
+    },
+    {
+     "name": "Yoga Inferno",
+     "command": "qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Yoga Strike",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    },
+    {
+     "name": "Yoga Stream",
+     "command": "qcb,qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,qcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "edmond-honda",
+   "name": "Edmond Honda",
+   "title": "",
+   "moves": [
+    {
+     "name": "Tawara Nage",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Saba Ori",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Tsuriyane Nage",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Hyakuretsu Harite",
+     "command": "Tap P rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P rapidly"
+     }
+    },
+    {
+     "name": "Super Zutsuki",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Super Hyakkan Otoshi",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Ooichou Nage",
+     "command": "Rotate 360 + P",
+     "category": "throw",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 360 + P"
+     }
+    },
+    {
+     "name": "Flying Sumo Press",
+     "command": "Jump, press MK  (d + MK in X-ISM)",
+     "category": "other"
+    },
+    {
+     "name": "Hiza-geri",
+     "command": "f + MK  (b / f + MK in X-ISM)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK  (b / f + MK in X-ISM)"
+     }
+    },
+    {
+     "name": "Harai-geri",
+     "command": "f + HK  (b / f + HK in X-ISM)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK  (b / f + HK in X-ISM)"
+     }
+    },
+    {
+     "name": "Oni Musou",
+     "command": "Charge b,f,b,f + P",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P"
+     }
+    },
+    {
+     "name": "Fuji Oroshi",
+     "command": "Charge b,f,b,f + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f,b,f + K"
+     }
+    },
+    {
+     "name": "Orochi Kudaki",
+     "command": "Rotate 720 + P at Level 3",
+     "category": "super",
+     "motion": {
+      "kind": "rotate_720",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 720 + P at Level 3"
+     }
+    }
+   ]
+  },
+  {
+   "key": "gen",
+   "name": "Gen",
+   "title": "",
+   "moves": [
+    {
+     "name": "Ansatsu Ken: Sou-ryuu",
+     "command": "Press PPP at any time  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "air": true,
+      "notation": "Press PPP at any time  (air)"
+     }
+    },
+    {
+     "name": "Juraku",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Houzen",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Shuuga",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Hyakurenkou",
+     "command": "Tap P rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P rapidly"
+     }
+    },
+    {
+     "name": "Gekirou",
+     "command": "f,d,df + K, tap K  (see notes)",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, tap K  (see notes)"
+     }
+    },
+    {
+     "name": "Zan'ei",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Shitenshuu",
+     "command": "qcb,qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,qcb + P"
+     }
+    },
+    {
+     "name": "Ansatsu Ken: Ki-ryuu",
+     "command": "Press KKK at any time  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "air": true,
+      "notation": "Press KKK at any time  (air)"
+     }
+    },
+    {
+     "name": "Jasen",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Ouga",
+     "command": "Charge d,ub~uf + K",
+     "category": "other"
+    },
+    {
+     "name": "Kyoutetsu",
+     "command": "Press MP",
+     "category": "other"
+    },
+    {
+     "name": "Onkyou",
+     "command": "Press HP",
+     "category": "other"
+    },
+    {
+     "name": "Kirou",
+     "command": "d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "d + HP"
+     }
+    },
+    {
+     "name": "Satsu Jin",
+     "command": "d + LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 2,
+      "notation": "d + LK"
+     }
+    },
+    {
+     "name": "Saizu",
+     "command": "Jump over someone, press MK",
+     "category": "other"
+    },
+    {
+     "name": "Uken -> Shakudan",
+     "command": "In air, quickly press HK twice",
+     "category": "other"
+    },
+    {
+     "name": "Kouga",
+     "command": "In air, qcb,qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcb,qcb + K"
+     }
+    },
+    {
+     "name": "Jakouha",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "guy",
+   "name": "Guy",
+   "title": "",
+   "moves": [
+    {
+     "name": "Seoi Nage",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Tsukami Nage",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Izuna Otoshi",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Bushin Izuna Otoshi",
+     "command": "qcf + P,P when close",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P,P when close"
+     }
+    },
+    {
+     "name": "Izuna no Hiji Otoshi",
+     "command": "qcf + P,P when far",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P,P when far"
+     }
+    },
+    {
+     "name": "Houzantou",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Bushin Senpuu Kyaku",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Hayagake",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Hayagake: Kyuuteishi",
+     "command": "qcf + LK,K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "qcf + LK,K"
+     }
+    },
+    {
+     "name": "Hayagake: Kage Sukui",
+     "command": "qcf + MK,K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "notation": "qcf + MK,K"
+     }
+    },
+    {
+     "name": "Hayagake: Kubikari",
+     "command": "qcf + HK,K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "qcf + HK,K"
+     }
+    },
+    {
+     "name": "Hiji Otoshi",
+     "command": "In air, d + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + MP"
+     }
+    },
+    {
+     "name": "Kubi Kudaki",
+     "command": "f + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 6,
+      "notation": "f + MP"
+     }
+    },
+    {
+     "name": "Kamaitachi",
+     "command": "df + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 3,
+      "notation": "df + HK"
+     }
+    },
+    {
+     "name": "Bushin Gokusa Ken",
+     "command": "When close, tap LP,MP,HP,HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 4,
+       "label": "LP+MP+HP+HK"
+      },
+      "notation": "When close, tap LP,MP,HP,HK"
+     }
+    },
+    {
+     "name": "Bushin-ryuu Seoi Nage",
+     "command": "When close, tap LP,MP,HP, d + HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 4,
+       "label": "LP+MP+HP+HK"
+      },
+      "notation": "When close, tap LP,MP,HP, d + HK"
+     }
+    },
+    {
+     "name": "Bushin-ryuu Seoi Nage",
+     "command": "f + MP / HP during Tsukami Nage",
+     "category": "other"
+    },
+    {
+     "name": "Sankaku Tobi",
+     "command": "Jump against a wall, press f",
+     "category": "other"
+    },
+    {
+     "name": "Bushin Hassou Ken",
+     "command": "qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Bushin Gourai Kyaku",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    },
+    {
+     "name": "Bushin Musou Renge",
+     "command": "hcb,hcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb,hcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "karin-kanzuki",
+   "name": "Karin Kanzuki",
+   "title": "",
+   "moves": [
+    {
+     "name": "Yashiro Kuzushi",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Homura-geri",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Abise Yashiro Kuzushi (front)",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Abise Yashiro Kuzushi (back)",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Guren Ken",
+     "command": "qcf + P,P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P,P"
+     }
+    },
+    {
+     "name": "Hou Shou",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Mujin Kyaku",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Ressen Chou",
+     "command": "b,d,db + P",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "b,d,db + P"
+     }
+    },
+    {
+     "name": "Ressen Chuu",
+     "command": "Press P during Ressen Chou",
+     "category": "other"
+    },
+    {
+     "name": "Ressen Ha",
+     "command": "qcf,uf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,uf + K"
+     }
+    },
+    {
+     "name": "Yasha Gaeshi (Joudan)",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Yasha Gaeshi (Gedan)",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Arakuma Inashi",
+     "command": "Rotate 360 + K",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Rotate 360 + K"
+     }
+    },
+    {
+     "name": "Tsumuji-gari",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Kanzuki-ryuu Shinpikaibyaku",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Kanzuki-ryuu Kou'ou Ken",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ken-masters",
+   "name": "Ken Masters",
+   "title": "",
+   "moves": [
+    {
+     "name": "Jigoku-guruma",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Tsukami Nage",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Jigoku Fuusha",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Hadou Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Shouryuu Ken",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Tatsumaki Senpuu Kyaku",
+     "command": "qcb + K  (air)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "qcb + K  (air)"
+     }
+    },
+    {
+     "name": "Zenpou Tenshin",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Zentou",
+     "command": "qcf + Start",
+     "category": "other"
+    },
+    {
+     "name": "Inazuma Kakato Wari",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Ushiro Mawashi-geri",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Shouryuu Reppa",
+     "command": "qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Shinryuu Ken",
+     "command": "qcf,d,df + K, tap P / K rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K, tap P / K rapidly"
+     }
+    },
+    {
+     "name": "Shippuujinrai Kyaku",
+     "command": "qcb,qcb + K at Level 3",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,qcb + K at Level 3"
+     }
+    }
+   ]
+  },
+  {
+   "key": "m-bison",
+   "name": "M. Bison",
+   "title": "",
+   "moves": [
+    {
+     "name": "Deadly Throw",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Psycho Fall",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Psycho Crusher Attack",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Psycho Shot",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Double Knee Press",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Head Press",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Somersault Skull Diver",
+     "command": "b / f + P after Head Press",
+     "category": "other"
+    },
+    {
+     "name": "Somersault Skull Diver",
+     "command": "Charge d,u + P, b / f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge d,u + P, b / f + P"
+     }
+    },
+    {
+     "name": "Bison Warp",
+     "command": "f,d,df / b,d,db + PPP / KKK",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "f,d,df / b,d,db + PPP / KKK"
+     }
+    },
+    {
+     "name": "Psycho Crusher",
+     "command": "Charge b,f,b,f + P",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P"
+     }
+    },
+    {
+     "name": "Knee Press Nightmare",
+     "command": "Charge b,f,b,f + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f,b,f + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "rainbow-mika",
+   "name": "Rainbow Mika",
+   "title": "",
+   "moves": [
+    {
+     "name": "German Suplex",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Brain Buster",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Headbutt",
+     "command": "db / df + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "db / df + PP"
+     }
+    },
+    {
+     "name": "Hip Buster",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Neck Breaker",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Flying Peach",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Shooting Peach",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Paradise Hold",
+     "command": "Rotate 360 + P",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 360 + P"
+     }
+    },
+    {
+     "name": "Daydream Headlock",
+     "command": "Rotate 360 + K, tap P / K rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Rotate 360 + K, tap P / K rapidly"
+     }
+    },
+    {
+     "name": "Wingless Airplane",
+     "command": "In air, hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, hcb + K"
+     }
+    },
+    {
+     "name": "Flying Body Press",
+     "command": "Jump b / f, d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "Jump b / f, d + HP"
+     }
+    },
+    {
+     "name": "Knee Drop",
+     "command": "Jump b / f, d + LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 2,
+      "notation": "Jump b / f, d + LK"
+     }
+    },
+    {
+     "name": "Rainbow Sobat",
+     "command": "f + MK  (b / f + MK in X-ISM)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK  (b / f + MK in X-ISM)"
+     }
+    },
+    {
+     "name": "Sliding",
+     "command": "d + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "notation": "d + HK"
+     }
+    },
+    {
+     "name": "Heavenly Dyanamite",
+     "command": "Rotate 720 + P, tap P / K rapidly",
+     "category": "super",
+     "motion": {
+      "kind": "rotate_720",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 720 + P, tap P / K rapidly"
+     }
+    },
+    {
+     "name": "Rainbow Hip Rush",
+     "command": "qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Sardine's Beach Special",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    },
+    {
+     "name": "Hashiru",
+     "command": "Move b / f after S.B.S.",
+     "category": "other"
+    },
+    {
+     "name": "Dageki: J. Ocean Drop Kick",
+     "command": "Press LP during Hashiru",
+     "category": "other"
+    },
+    {
+     "name": "Dageki: Mika Sliding",
+     "command": "Press MP during Hashiru",
+     "category": "other"
+    },
+    {
+     "name": "Dageki: Mika Lariat",
+     "command": "Press HP during Hashiru",
+     "category": "other"
+    },
+    {
+     "name": "Tobikoshi",
+     "command": "Press K during Hashiru",
+     "category": "other"
+    },
+    {
+     "name": "Tobikoshi",
+     "command": "Run into your enemy during Hashiru",
+     "category": "other"
+    },
+    {
+     "name": "Haigotori",
+     "command": "Tap P / K during Tobikoshi, then...",
+     "category": "other"
+    },
+    {
+     "name": "Moonsault Press",
+     "command": "Press P or do nothing after Dageki",
+     "category": "other"
+    },
+    {
+     "name": "Missile Kick",
+     "command": "Press K after Dageki",
+     "category": "other"
+    },
+    {
+     "name": "Paradise Hold",
+     "command": "Press b / f + P after Dageki",
+     "category": "other"
+    },
+    {
+     "name": "Paradise Hold",
+     "command": "Hold b / f after Dageki",
+     "category": "other"
+    },
+    {
+     "name": "Wingless Airplane",
+     "command": "Press b / f + K after Dageki",
+     "category": "other"
+    },
+    {
+     "name": "Enzui Lariat",
+     "command": "Press P after Haigotori",
+     "category": "other"
+    },
+    {
+     "name": "Enzui Drop Kick",
+     "command": "Press K after Haigotori",
+     "category": "other"
+    },
+    {
+     "name": "Rainbow Suplex",
+     "command": "Press b / f + P after Haigotori",
+     "category": "other"
+    },
+    {
+     "name": "Daydream Headlock",
+     "command": "Press b / f + K after Haigotori",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "rolento-schugerg",
+   "name": "Rolento Schugerg",
+   "title": "",
+   "moves": [
+    {
+     "name": "Colonel Carrier",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Deadly Package",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Fatality Package",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Patriot Circle",
+     "command": "qcf + P  (perform 3 times)",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P  (perform 3 times)"
+     }
+    },
+    {
+     "name": "Stinger",
+     "command": "f,d,df + K, then press P / K",
+     "category": "other"
+    },
+    {
+     "name": "Mekong Delta Air Raid",
+     "command": "qcb + P, then press P",
+     "category": "other"
+    },
+    {
+     "name": "Mekong Delta Escape",
+     "command": "qcb + K, then move b / f + P / K",
+     "category": "other"
+    },
+    {
+     "name": "Mekong Delta Attack",
+     "command": "Press PPP, then P when you land",
+     "category": "other"
+    },
+    {
+     "name": "Trick Landing",
+     "command": "Just before you land, (b / f) + KKK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "notation": "Just before you land, (b / f) + KKK"
+     }
+    },
+    {
+     "name": "High Jump",
+     "command": "Tap db~df,ub~uf",
+     "category": "other"
+    },
+    {
+     "name": "Spike Rod",
+     "command": "In air, d + MK  (can repeat)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + MK  (can repeat)"
+     }
+    },
+    {
+     "name": "Fake Rod",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Take No Prisoner",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Steel Rain",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "Mine Sweeper",
+     "command": "qcb,qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,qcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "rose",
+   "name": "Rose",
+   "title": "",
+   "moves": [
+    {
+     "name": "Soul Drain",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Soul Fade",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Soul Spark",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Soul Throw",
+     "command": "f,d,df + P",
+     "category": "throw",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Soul Reflect",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Soul Spiral",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Sliding",
+     "command": "df + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 3,
+      "notation": "df + MK"
+     }
+    },
+    {
+     "name": "Soul-piette",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Aura Soul Spark",
+     "command": "qcb,qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,qcb + P"
+     }
+    },
+    {
+     "name": "Aura Soul Throw",
+     "command": "qcf,d,df + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,d,df + P"
+     }
+    },
+    {
+     "name": "Soul Illusion",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ryu",
+   "name": "Ryu",
+   "title": "",
+   "moves": [
+    {
+     "name": "Seoi Nage",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Tomoe Nage",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Kuuchuu Seoi Nage",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Hadou Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Hadou no Kamae",
+     "command": "qcf + Start",
+     "category": "other"
+    },
+    {
+     "name": "Shakunetsu Hadou Ken",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Shouryuu Ken",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Tatsumaki Senpuu Kyaku",
+     "command": "qcb + K  (air)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "qcb + K  (air)"
+     }
+    },
+    {
+     "name": "Seichuu Nidan Tsuki",
+     "command": "f + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     }
+    },
+    {
+     "name": "Sakotsu Wari",
+     "command": "f + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 6,
+      "notation": "f + MP"
+     }
+    },
+    {
+     "name": "Senpuu Kyaku",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Shinkuu Hadou Ken",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Shinkuu Tatsumaki Senpuu Kyaku",
+     "command": "qcb,qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,qcb + K"
+     }
+    },
+    {
+     "name": "Metsu Shouryuu Ken",
+     "command": "qcf,d,df + K at Level 3",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K at Level 3"
+     }
+    },
+    {
+     "name": "Shin Shouryuu Ken",
+     "command": "Perform the M.S. from a distance",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "sagat",
+   "name": "Sagat",
+   "title": "",
+   "moves": [
+    {
+     "name": "Tiger Carry",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Tiger Rage",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Kuuchuu Tiger Carry",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Tiger Shot",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Ground Tiger Shot",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Tiger Uppercut",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Tiger Blow",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Tiger Crush",
+     "command": "f,d,df + K  (qcf,uf + K in X-ISM)",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K  (qcf,uf + K in X-ISM)"
+     }
+    },
+    {
+     "name": "Fake Kick",
+     "command": "Quickly press MK twice",
+     "category": "other"
+    },
+    {
+     "name": "Tiger Cannon",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Tiger Raid",
+     "command": "qcb,qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,qcb + K"
+     }
+    },
+    {
+     "name": "Tiger Genocide",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    },
+    {
+     "name": "Angry Charge",
+     "command": "qcf + Start",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "sakura-kasugano",
+   "name": "Sakura Kasugano",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sakura-jime",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Sailor Shoot",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Sailor Fly",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Hadou Ken",
+     "command": "qcf + P,P,P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P,P,P"
+     }
+    },
+    {
+     "name": "Shou'ou Ken",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Sakura Otoshi",
+     "command": "f,d,df + K, tap P,P,P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, tap P,P,P"
+     }
+    },
+    {
+     "name": "Shunpuu Kyaku",
+     "command": "qcb + K  (air)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "qcb + K  (air)"
+     }
+    },
+    {
+     "name": "Flower Kick",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Shinkuu Hadou Ken",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Haru Ichiban",
+     "command": "qcb,qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,qcb + K"
+     }
+    },
+    {
+     "name": "Midare-zakura",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sodom",
+   "name": "Sodom",
+   "title": "",
+   "moves": [
+    {
+     "name": "Shogun Throw (long toss)",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Shogun Throw (short toss)",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Daimyo Throw",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Jigoku Scrape",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Butsumetsu Buster",
+     "command": "Rotate 360 + P",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 360 + P"
+     }
+    },
+    {
+     "name": "Daikyou Burning",
+     "command": "Rotate 360 + K",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Rotate 360 + K"
+     }
+    },
+    {
+     "name": "Shiraha Catch",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Yagura Reverse",
+     "command": "b,d,db + K",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b,d,db + K"
+     }
+    },
+    {
+     "name": "Kouten Okiagari",
+     "command": "f,df,d + P  (reversal only)",
+     "category": "other"
+    },
+    {
+     "name": "Tengu Walking",
+     "command": "b,db,d + K  (reversal only)",
+     "category": "other"
+    },
+    {
+     "name": "Tengu Walking",
+     "command": "While getting up, qcf + K",
+     "category": "other"
+    },
+    {
+     "name": "Sliding",
+     "command": "d + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "notation": "d + HK"
+     }
+    },
+    {
+     "name": "Meido no Miyage",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Ten Chuu Satsu",
+     "command": "Rotate 720 + P",
+     "category": "super",
+     "motion": {
+      "kind": "rotate_720",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 720 + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "vega",
+   "name": "Vega",
+   "title": "",
+   "moves": [
+    {
+     "name": "Rainbow Suplex",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Stardust Drop",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Crescent Line",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Rolling Crystal Flash",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Scarlet Terror",
+     "command": "Charge db,f + K",
+     "category": "other"
+    },
+    {
+     "name": "Sky High Claw",
+     "command": "Charge d,ub~uf + P",
+     "category": "other"
+    },
+    {
+     "name": "Flying Barcelona Attack...",
+     "command": "Charge d,ub~uf + K, then...",
+     "category": "other"
+    },
+    {
+     "name": "...(cont'd.)",
+     "command": "Move b / f, press P",
+     "category": "other"
+    },
+    {
+     "name": "Izuna Drop...",
+     "command": "Charge d,ub~uf + K, then...",
+     "category": "other"
+    },
+    {
+     "name": "Kabe Hari Tsuki",
+     "command": "Charge d,ub~uf + KKK",
+     "category": "other"
+    },
+    {
+     "name": "Backslash",
+     "command": "Press PPP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "Press PPP"
+     }
+    },
+    {
+     "name": "Short Backslash",
+     "command": "Press KKK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "notation": "Press KKK"
+     }
+    },
+    {
+     "name": "Cosmic Smart",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Sankaku Tobi",
+     "command": "Jump against a wall, press f",
+     "category": "other"
+    },
+    {
+     "name": "Rolling...",
+     "command": "Charge db,df,db,ub~uf + K, then...",
+     "category": "other"
+    },
+    {
+     "name": "...Barcelona Attack",
+     "command": "Move b / f, press P when close",
+     "category": "other"
+    },
+    {
+     "name": "...Izuna Drop",
+     "command": "Move b / f, any dir. + P when close",
+     "category": "other"
+    },
+    {
+     "name": "Hari Tsuki Rolling...",
+     "command": "Charge db,df,db,ub~uf + KKK, then...",
+     "category": "other"
+    },
+    {
+     "name": "Scarlet Mirage",
+     "command": "Charge b,f,b,f + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f,b,f + K"
+     }
+    },
+    {
+     "name": "Red Impact",
+     "command": "Charge b,f,b,f + P at Level 3",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P at Level 3"
+     }
+    }
+   ]
+  },
+  {
+   "key": "zangief",
+   "name": "Zangief",
+   "title": "",
+   "moves": [
+    {
+     "name": "Back Drop",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Kamitsuki",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Stomach Claw",
+     "command": "db / df + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "db / df + PP"
+     }
+    },
+    {
+     "name": "Piledriver",
+     "command": "db / df + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "db / df + KK"
+     }
+    },
+    {
+     "name": "Flying Piledriver",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Double Lariat",
+     "command": "Press PPP, move b / f",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "Press PPP, move b / f"
+     }
+    },
+    {
+     "name": "Quick Double Lariat",
+     "command": "Press KKK, move b / f",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "notation": "Press KKK, move b / f"
+     }
+    },
+    {
+     "name": "Screw Piledriver",
+     "command": "Rotate 360 + P",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 360 + P"
+     }
+    },
+    {
+     "name": "Flying Powerbomb",
+     "command": "Rotate 360 + K",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Rotate 360 + K"
+     }
+    },
+    {
+     "name": "Atomic Suplex",
+     "command": "Rotate 360 + K when close",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Rotate 360 + K when close"
+     }
+    },
+    {
+     "name": "Banishing Flat",
+     "command": "f,d,df + P  (f,df,d + P in X-ISM)",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P  (f,df,d + P in X-ISM)"
+     }
+    },
+    {
+     "name": "Body Press",
+     "command": "Jump b / f, d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "Jump b / f, d + HP"
+     }
+    },
+    {
+     "name": "Double Knee Drop",
+     "command": "Jump b / f, d + LK / MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "LK/MK"
+      },
+      "hold": 2,
+      "notation": "Jump b / f, d + LK / MK"
+     }
+    },
+    {
+     "name": "Kuuchuu Headbutt",
+     "command": "Jump up, u + MP / HP",
+     "category": "other"
+    },
+    {
+     "name": "Headbutt",
+     "command": "f + HP  (f + MP in V-ISM)",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP  (f + MP in V-ISM)"
+     }
+    },
+    {
+     "name": "Dynamite Kick",
+     "command": "db + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 1,
+      "notation": "db + MK"
+     }
+    },
+    {
+     "name": "Russian Kick",
+     "command": "db + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 1,
+      "notation": "db + HK"
+     }
+    },
+    {
+     "name": "Final Atomic Buster",
+     "command": "Rotate 720 + P",
+     "category": "super",
+     "motion": {
+      "kind": "rotate_720",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 720 + P"
+     }
+    },
+    {
+     "name": "Aerial Russian Slam",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "balrog",
+   "name": "Balrog",
+   "title": "",
+   "moves": [
+    {
+     "name": "Head Bomber",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Kuuchuu Head Bomber",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Dash Straight",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Dash Upper",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Dash Ground Straight",
+     "command": "Charge b,df + P",
+     "category": "other"
+    },
+    {
+     "name": "Dash Ground Upper",
+     "command": "Charge b,df + K",
+     "category": "other"
+    },
+    {
+     "name": "Buffalo Head",
+     "command": "Charge d,u + P  (reversal only)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge d,u + P  (reversal only)"
+     }
+    },
+    {
+     "name": "Turn Punch",
+     "command": "Hold and release PPP / KKK",
+     "category": "other"
+    },
+    {
+     "name": "Crazy Buffalo",
+     "command": "Charge b,f,b,f + P / K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P / K"
+     }
+    },
+    {
+     "name": "Gigaton Blow",
+     "command": "Charge b,f,b,f + K at Level 3",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f,b,f + K at Level 3"
+     }
+    }
+   ]
+  },
+  {
+   "key": "juli",
+   "name": "Juli",
+   "title": "",
+   "moves": [
+    {
+     "name": "Hooligan Suplex",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Frankensteiner",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Flying Neck Hunt",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Air Frankensteiner",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Sniping Arrow",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Cannon Spike",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Axle Spin Knuckle",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Falling Arc",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Reverse Shaft Breaker",
+     "command": "qcb,d,db + K, tap P / K rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,d,db + K, tap P / K rapidly"
+     }
+    },
+    {
+     "name": "Spin Drive Smasher",
+     "command": "qcf,d,df + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,d,df + K"
+     }
+    },
+    {
+     "name": "Psycho Charge Beta",
+     "command": "Press KKK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "notation": "Press KKK"
+     }
+    },
+    {
+     "name": "Psycho Charge Gamma",
+     "command": "CPU Juli only",
+     "category": "other"
+    },
+    {
+     "name": "Psycho Rolling",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Death Cross Dancing",
+     "command": "LP,LP,f,LK,HP at Level 3",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK",
+        "LP"
+       ],
+       "count": 3,
+       "label": "LP+HP+LK"
+      },
+      "notation": "LP,LP,f,LK,HP at Level 3"
+     }
+    }
+   ]
+  },
+  {
+   "key": "juni",
+   "name": "Juni",
+   "title": "",
+   "moves": [
+    {
+     "name": "Hooligan Suplex",
+     "command": "b / f + PP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "notation": "b / f + PP"
+     }
+    },
+    {
+     "name": "Frankensteiner",
+     "command": "b / f + KK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "notation": "b / f + KK"
+     }
+    },
+    {
+     "name": "Flying Neck Hunt",
+     "command": "Any direction but u / d + PP  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 2,
+       "label": "PP"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + PP  (air)"
+     }
+    },
+    {
+     "name": "Air Frankensteiner",
+     "command": "Any direction but u / d + KK  (air)",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 2,
+       "label": "KK"
+      },
+      "air": true,
+      "notation": "Any direction but u / d + KK  (air)"
+     }
+    },
+    {
+     "name": "Spiral Arrow",
+     "command": "Charge b,f + K  (air)",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "Charge b,f + K  (air)"
+     }
+    },
+    {
+     "name": "Cannon Spike",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Mach Slide",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Cannon Strike",
+     "command": "Jump forward, qcf + K",
+     "category": "other"
+    },
+    {
+     "name": "Psycho Shield",
+     "command": "Block b / db, then f + PPP",
+     "category": "other"
+    },
+    {
+     "name": "Psycho Shield",
+     "command": "Block b / db, then f + PPP  (air)",
+     "category": "other"
+    },
+    {
+     "name": "Hooligan Combination",
+     "command": "hcf,uf + P  (press K to cancel)",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf,uf + P  (press K to cancel)"
+     }
+    },
+    {
+     "name": "Razor Edge Slicer",
+     "command": "Do nothing after after H.C.",
+     "category": "other"
+    },
+    {
+     "name": "Fatal Leg Twister",
+     "command": "b / f + K when close after H.C.",
+     "category": "other"
+    },
+    {
+     "name": "Cross Scissor Pressure",
+     "command": "Do F.L.T. when low to the ground",
+     "category": "other"
+    },
+    {
+     "name": "Earth Direct",
+     "command": "Rotate 360 + P",
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rotate 360 + P"
+     }
+    },
+    {
+     "name": "Falling Arc",
+     "command": "f + MK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 6,
+      "notation": "f + MK"
+     }
+    },
+    {
+     "name": "Psycho Streak",
+     "command": "Charge b,f,b,f + P",
+     "category": "super",
+     "motion": {
+      "kind": "charge_bfbf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f,b,f + P"
+     }
+    },
+    {
+     "name": "Spin Drive Smasher",
+     "command": "Charge db,df,db,uf + K",
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,df,db,uf + K"
+     }
+    },
+    {
+     "name": "Psycho Charge Alpha",
+     "command": "Press PPP",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "Press PPP"
+     }
+    },
+    {
+     "name": "Psycho Rolling",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Death Cross Dancing",
+     "command": "LP,LP,f,LK,HP at Level 3",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK",
+        "LP"
+       ],
+       "count": 3,
+       "label": "LP+HP+LK"
+      },
+      "notation": "LP,LP,f,LK,HP at Level 3"
+     }
+    }
+   ]
+  }
+ ]
+}
