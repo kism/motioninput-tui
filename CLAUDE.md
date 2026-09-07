@@ -27,6 +27,7 @@ uv sync --all-extras            # dev setup; omit --all-extras for prod
 
 .venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
 .venv/bin/pytest -k logger                                 # by name
+.venv/bin/pytest tests/engine/test_motions/sfiii3          # one game's motion tests
 
 python -m motioninput_tui                                  # run it
 python -m motioninput_tui --game sfiii3 --character ryu    # skip the pickers
@@ -148,11 +149,23 @@ is pinned; check this file after a Textual upgrade.
 
 ## Testing
 
-`tests/engine/test_motions.py` drives `TrainingSession.press` / `.release` /
-`.tick` with explicit timestamps rather than a real clock, at the key level so
-SOCD cleaning is covered too. Follow its `play()` helper.
+`tests/engine/test_motions/` is one directory per game and one file per
+character (`sfiii3/test_ken_masters.py`), because that is how the behaviour is
+validated: against the real game, a character at a time. The directory is the
+game key and the file name is the character key with underscores for hyphens.
+The `play` fixture in its `conftest.py` reads both out of the path, so tests
+never name a game or a character; `test_hierarchy.py` fails on a directory that
+is not a game or a file that is not one of its characters. Add a game by making
+the directory.
 
-Those tests use `exact_input=True`. For the inferred path a test must also
-simulate the OS auto-repeat stream (first repeat after the initial delay, then
-~33ms apart) — bare presses without repeats do not reproduce how a real
-terminal behaves and will give misleading results.
+`harness.py` holds the key names, the `press`/`release` script builders, the
+player itself, and the inputs that are deliberately shared between games so the
+same keys at the same moments can be shown to give a dragon punch in 3rd Strike
+and nothing in Alpha 3. Scripts carry explicit timestamps rather than running
+against a real clock, and go in at the key level, so SOCD cleaning is covered
+too. Assert on `attempt.directions` (the strip as arrows) and `attempt.moves`.
+
+Play defaults to `exact_input=True`. For the inferred path a test must pass
+`exact_input=False` and also simulate the OS auto-repeat stream (first repeat
+after the initial delay, then ~33ms apart) — bare presses without repeats do
+not reproduce how a real terminal behaves and will give misleading results.

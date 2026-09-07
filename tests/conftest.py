@@ -1,4 +1,5 @@
-"""Fixtures shared across the test suite.
+"""Fixtures shared across the whole suite.
 
-There are no meaningful tests yet; the engine is exercised by hand for now.
+The motion tests have their own harness and fixtures in
+``tests/engine/test_motions/``, since they all need the same kind of setup.
 """

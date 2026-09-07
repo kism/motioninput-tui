@@ -135,21 +135,58 @@ Run `ty`
 Run `pytest`, It will get its config from pyproject.toml
 
 ```bash
-pytest tests/test__meta.py::test_repo_url   # a single test
-pytest -k logger                            # by name
+pytest tests/test__meta.py::test_repo_url          # a single test
+pytest -k logger                                   # by name
+pytest tests/engine/test_motions/sfiii3            # one game
+pytest tests/engine/test_motions/sfiii3/test_elena.py   # one character
 ```
 
-`tests/engine/test_motions.py` drives `TrainingSession.press`, `.release` and
-`.tick` with explicit timestamps rather than a real clock, at the key level so
-SOCD cleaning and the resulting direction states are covered too. Its `play()`
-helper and the arrow-string assertions from `directions()` are the pattern to
-follow.
+### Motion tests
 
-Those tests use `exact_input=True`, which is the terminal reporting key
-releases. A test for the inferred path has to simulate the operating system's
-auto-repeat stream instead (first repeat after the initial delay, then roughly
-every 33ms); bare presses without repeats do not reproduce what a real terminal
-sends and give misleading results.
+Motion behaviour is checked per game and per character, because that is how it
+gets validated: against the real game, one character at a time.
+
+```text
+tests/engine/test_motions/
+  harness.py       Key names, script builders, the player, canonical inputs.
+  conftest.py      The play fixture, bound to the file's game and character.
+  test_hierarchy.py  Guards the layout below.
+  sfiii3/test_elena.py   3rd Strike, Elena.
+  sfiii3/test_ryu.py     3rd Strike, Ryu.
+  sfa3/test_ryu.py       Alpha 3, Ryu, same scripts and different answers.
+```
+
+The directory is the game key and the file name is the character key, with
+underscores for the hyphens in the rosters (`test_ken_masters.py` is
+`ken-masters`). The `play` fixture reads both out of the path, so a test never
+names them and cannot be run against the wrong character. `test_hierarchy.py`
+fails if a directory is not a game or a file is not one of its characters.
+
+To add coverage, make the directory for the game if it is missing and write
+`test_<character>.py` in it:
+
+```python
+from tests.engine.test_motions.harness import DOWN, FORWARD, HP, press, release
+
+
+def test_quarter_circle_forward_is_a_fireball(play) -> None:
+    attempt = play([press(DOWN, 0), press(FORWARD, 70), release(DOWN, 110), press(HP, 150)])
+    assert attempt.directions == "↓ ↘ →"
+    assert attempt.moves == ["Hadou Ken"]
+```
+
+Scripts are timestamped by hand rather than run against a real clock, and they
+go in at the key level, so SOCD cleaning and the direction states it produces
+are covered as well as the matchers. `attempt.directions` is the input strip as
+arrows, which is what makes a failure readable. Inputs meant to be compared
+across games live in `harness.py` so that all three games are demonstrably
+being given the same keys at the same moments.
+
+Play defaults to `exact_input=True`, which is the terminal reporting key
+releases. A test for the inferred path has to pass `exact_input=False` and
+simulate the operating system's auto-repeat stream itself (first repeat after
+the initial delay, then roughly every 33ms); bare presses without repeats do
+not reproduce what a real terminal sends and give misleading results.
 
 ### Workflows
 
