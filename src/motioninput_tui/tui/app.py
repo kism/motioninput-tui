@@ -5,7 +5,7 @@ from __future__ import annotations
 from time import monotonic
 from typing import TYPE_CHECKING
 
-from textual.app import App
+from textual.app import App, SystemCommand
 
 from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
@@ -18,6 +18,10 @@ from .screens.setup import SetupScreen
 from .screens.training import TrainingScreen
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+
+    from textual.screen import Screen
+
     from motioninput_tui.engine.recognizer import BufferPolicy
 
 logger = get_logger(__name__)
@@ -60,6 +64,12 @@ class MotionInputApp(App[None]):
             self._start(self.config.game or "", self.config.character or "", self.config.layout)
             return
         self._open_setup()
+
+    def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
+        """Drop the SVG screenshot command; this trainer has no use for it."""
+        for command in super().get_system_commands(screen):
+            if command.title != "Screenshot":
+                yield command
 
     def action_help_quit(self) -> None:
         """Quit on a second ctrl+c.
