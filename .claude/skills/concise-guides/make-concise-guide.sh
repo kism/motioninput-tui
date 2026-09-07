@@ -8,49 +8,49 @@ set -euo pipefail
 
 REFERENCES=${REFERENCES:-references}
 CHUNK_LINES=${CHUNK_LINES:-900}
-MODEL=${MODEL:-sonnet}
+MODEL=${MODEL:-haiku}
 MIN_BYTES=${MIN_BYTES:-500}
 force=0
 games=()
 
 while [[ $# -gt 0 ]]; do
-	case "$1" in
-	--force) force=1 ;;
-	--chunk-lines)
-		CHUNK_LINES=$2
-		shift
-		;;
-	-h | --help)
-		sed -n '2,7p' "$0"
-		exit 0
-		;;
-	-*)
-		echo "Unknown option: $1" >&2
-		exit 2
-		;;
-	*) games+=("$1") ;;
-	esac
-	shift
+    case "$1" in
+    --force) force=1 ;;
+    --chunk-lines)
+        CHUNK_LINES=$2
+        shift
+        ;;
+    -h | --help)
+        sed -n '2,7p' "$0"
+        exit 0
+        ;;
+    -*)
+        echo "Unknown option: $1" >&2
+        exit 2
+        ;;
+    *) games+=("$1") ;;
+    esac
+    shift
 done
 
 # The CLI is not always on PATH; the VS Code extension bundles one.
 find_claude() {
-	if [[ -n ${CLAUDE_BIN:-} ]]; then
-		echo "$CLAUDE_BIN"
-		return
-	fi
-	if command -v claude >/dev/null 2>&1; then
-		command -v claude
-		return
-	fi
-	local bundled
-	bundled=$(find "$HOME/.vscode/extensions" -maxdepth 4 -path '*anthropic.claude-code*/resources/native-binary/claude' 2>/dev/null | sort -V | tail -1)
-	if [[ -n $bundled ]]; then
-		echo "$bundled"
-		return
-	fi
-	echo "No claude CLI found. Install it, or set CLAUDE_BIN to its path." >&2
-	exit 1
+    if [[ -n ${CLAUDE_BIN:-} ]]; then
+        echo "$CLAUDE_BIN"
+        return
+    fi
+    if command -v claude >/dev/null 2>&1; then
+        command -v claude
+        return
+    fi
+    local bundled
+    bundled=$(find "$HOME/.vscode/extensions" -maxdepth 4 -path '*anthropic.claude-code*/resources/native-binary/claude' 2>/dev/null | sort -V | tail -1)
+    if [[ -n $bundled ]]; then
+        echo "$bundled"
+        return
+    fi
+    echo "No claude CLI found. Install it, or set CLAUDE_BIN to its path." >&2
+    exit 1
 }
 
 CLAUDE=$(find_claude)
@@ -79,69 +79,69 @@ fences. If this chunk contains nothing worth keeping, output nothing at all.
 EOF
 
 condense() {
-	local game=$1
-	local source="$REFERENCES/$game.txt"
-	local target="$REFERENCES/${game}_concise.txt"
+    local game=$1
+    local source="$REFERENCES/$game.txt"
+    local target="$REFERENCES/${game}_concise.txt"
 
-	if [[ ! -f $source ]]; then
-		echo "  $game: no $source, fetch it first with: uv run python -m motioninput_tui_guides" >&2
-		return 1
-	fi
-	if [[ -s $target && $force -eq 0 ]]; then
-		echo "  $game: already have $(basename "$target"), skipping"
-		return 0
-	fi
+    if [[ ! -f $source ]]; then
+        echo "  $game: no $source, fetch it first with: uv run python -m motioninput_tui_guides" >&2
+        return 1
+    fi
+    if [[ -s $target && $force -eq 0 ]]; then
+        echo "  $game: already have $(basename "$target"), skipping"
+        return 0
+    fi
 
-	local work
-	work=$(mktemp -d)
-	# shellcheck disable=SC2064 - expand the path now, while it is still set
-	trap "rm -rf '$work'" RETURN
+    local work
+    work=$(mktemp -d)
+    # shellcheck disable=SC2064 - expand the path now, while it is still set
+    trap "rm -rf '$work'" RETURN
 
-	split -l "$CHUNK_LINES" "$source" "$work/chunk."
-	local chunks=("$work"/chunk.*)
-	echo "  $game: $(wc -l <"$source" | tr -d ' ') lines in ${#chunks[@]} chunks"
+    split -l "$CHUNK_LINES" "$source" "$work/chunk."
+    local chunks=("$work"/chunk.*)
+    echo "  $game: $(wc -l <"$source" | tr -d ' ') lines in ${#chunks[@]} chunks"
 
-	local index=0
-	for chunk in "${chunks[@]}"; do
-		index=$((index + 1))
-		printf '    chunk %d/%d ... ' "$index" "${#chunks[@]}"
-		if ! "$CLAUDE" -p --model "$MODEL" "$PROMPT" <"$chunk" >>"$work/out.txt"; then
-			echo "failed"
-			echo "  $game: the claude CLI failed, leaving $target alone" >&2
-			return 1
-		fi
-		printf '\n' >>"$work/out.txt"
-		echo "ok"
-	done
+    local index=0
+    for chunk in "${chunks[@]}"; do
+        index=$((index + 1))
+        printf '    chunk %d/%d ... ' "$index" "${#chunks[@]}"
+        if ! "$CLAUDE" -p --model "$MODEL" "$PROMPT" <"$chunk" >>"$work/out.txt"; then
+            echo "failed"
+            echo "  $game: the claude CLI failed, leaving $target alone" >&2
+            return 1
+        fi
+        printf '\n' >>"$work/out.txt"
+        echo "ok"
+    done
 
-	local size
-	size=$(wc -c <"$work/out.txt" | tr -d ' ')
-	if [[ $size -lt $MIN_BYTES ]]; then
-		echo "  $game: only $size bytes came back, that is not a guide. Leaving $target alone" >&2
-		return 1
-	fi
+    local size
+    size=$(wc -c <"$work/out.txt" | tr -d ' ')
+    if [[ $size -lt $MIN_BYTES ]]; then
+        echo "  $game: only $size bytes came back, that is not a guide. Leaving $target alone" >&2
+        return 1
+    fi
 
-	mv "$work/out.txt" "$target"
-	echo "  $game: wrote $target ($size bytes, was $(wc -c <"$source" | tr -d ' '))"
+    mv "$work/out.txt" "$target"
+    echo "  $game: wrote $target ($size bytes, was $(wc -c <"$source" | tr -d ' '))"
 }
 
 if [[ ${#games[@]} -eq 0 ]]; then
-	for path in "$REFERENCES"/*.txt; do
-		[[ -f $path ]] || continue
-		name=$(basename "$path" .txt)
-		[[ $name == *_concise ]] && continue
-		games+=("$name")
-	done
+    for path in "$REFERENCES"/*.txt; do
+        [[ -f $path ]] || continue
+        name=$(basename "$path" .txt)
+        [[ $name == *_concise ]] && continue
+        games+=("$name")
+    done
 fi
 
 if [[ ${#games[@]} -eq 0 ]]; then
-	echo "No guides in $REFERENCES. Fetch them with: uv run python -m motioninput_tui_guides" >&2
-	exit 1
+    echo "No guides in $REFERENCES. Fetch them with: uv run python -m motioninput_tui_guides" >&2
+    exit 1
 fi
 
 echo "Condensing with $CLAUDE (model: $MODEL)"
 failed=0
 for game in "${games[@]}"; do
-	condense "$game" || failed=1
+    condense "$game" || failed=1
 done
 exit "$failed"

@@ -95,6 +95,26 @@ reference file.
 You do not need the guides to run or develop the trainer; the parsed rosters are
 committed. They are only needed to regenerate that data.
 
+### Concise guides
+
+Each guide also has a condensed twin at `references/<game>_concise.txt`, about a
+quarter the size, holding the roster, the move lists, the notation key and
+anything the guide says about how the game reads inputs. It is what to read when
+adding a game, rather than wading through the full FAQ.
+
+```bash
+./scripts/run-concise-guides.sh              # every guide that lacks one, then check them
+./scripts/run-concise-guides.sh --force sfa3 # redo one
+```
+
+That condenses each guide by running the `claude` CLI over it in chunks, then
+checks the result by parsing both the full and the concise file and comparing the
+rosters, which is a real check for the three games that already have parsers.
+Guides that already have a concise version are skipped, so the bare command is
+cheap to repeat. See [the skill](.claude/skills/concise-guides/SKILL.md) for what
+it keeps and why. These files are derived from the guides, so they are gitignored
+and not redistributable either.
+
 ## Regenerating character data
 
 The rosters in `src/motioninput_tui/games/data/` are generated from the guides in

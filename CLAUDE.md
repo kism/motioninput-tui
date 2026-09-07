@@ -24,6 +24,7 @@ uv sync --all-extras            # dev setup; omit --all-extras for prod
 .venv/bin/pytest -q             # tests
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
+./scripts/run-concise-guides.sh # condense any guide lacking references/<game>_concise.txt
 
 .venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
 .venv/bin/pytest -k logger                                 # by name
@@ -36,6 +37,12 @@ python -m motioninput_tui --list                           # rosters
 python -m motioninput_tui.datagen --show-skipped           # rebuild packaged rosters
 python -m motioninput_tui_guides --list                    # reference guide catalogue
 ```
+
+When adding a game, read `references/<game>_concise.txt` rather than the full
+guide: same roster, move lists, notation key and input-behaviour notes, about a
+quarter of the size. The `concise-guides` skill makes any that are missing and
+verifies them by parsing both files and comparing rosters. They are derived from
+the guides, so they are gitignored and must not be committed or quoted either.
 
 `src/motioninput_tui_guides/` fetches `references/*.txt` from GameFAQs. It is a
 sibling package rather than a subpackage so `uv_build` leaves it out of the
