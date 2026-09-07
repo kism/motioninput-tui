@@ -36,12 +36,12 @@ uv sync --all-extras # Omit --all-extras for prod
 ### Running the app
 
 ```bash
-python -m motioninput_tui                              # pick everything in the TUI
-python -m motioninput_tui --game sfiii3 --character ryu --layout hitbox
-python -m motioninput_tui --list                       # games and characters
-python -m motioninput_tui --check-terminal             # terminal speed and key release support
-python -m motioninput_tui --no-key-release             # force the auto-repeat fallback
-python -m motioninput_tui --loose-buffer               # let inputs feed more than one move
+motioninput-tui                              # pick everything in the TUI
+motioninput-tui --game sfiii3 --character ryu --layout hitbox
+motioninput-tui --list                       # games and characters
+motioninput-tui --check-terminal             # terminal speed and key release support
+motioninput-tui --no-key-release             # force the auto-repeat fallback
+motioninput-tui --loose-buffer               # let inputs feed more than one move
 ```
 
 ## Controls
@@ -66,10 +66,10 @@ row read as the double quarter circle of a super.
 
 Two things enforce this, and both matter:
 
-* **The buffer is flushed on activation.** Normals and throws do not flush it,
+- **The buffer is flushed on activation.** Normals and throws do not flush it,
   matching the games, so a quarter circle survives an intervening command
   normal.
-* **Steps of a motion must be close together.** A total time limit is not
+- **Steps of a motion must be close together.** A total time limit is not
   enough on its own: a forward left over from a fireball is still in the buffer
   afterwards, and without a per-step limit a later down, down-forward would turn
   it into a dragon punch. `step_gap_ms` bounds the pause between one step of a
@@ -93,7 +93,7 @@ terminal you are using.
 
 ## Key releases
 
-A plain terminal only ever tells you a key went *down*. That is a problem for a
+A plain terminal only ever tells you a key went _down_. That is a problem for a
 motion input trainer, because knowing when the player let go of down is the
 difference between a fireball and a dragon punch.
 
@@ -111,7 +111,7 @@ Supported by kitty, Ghostty, foot, WezTerm, Alacritty, Contour and Rio. Check
 yours with:
 
 ```bash
-python -m motioninput_tui --check-terminal
+motioninput-tui --check-terminal
 ```
 
 Textual asks for the protocol but not for event types, and its parser raises on
@@ -172,8 +172,8 @@ The rosters in `src/motioninput_tui/games/data/` are generated from the FAQs in
 `references/` and committed. To rebuild them:
 
 ```bash
-python -m motioninput_tui.datagen                # rewrite the JSON
-python -m motioninput_tui.datagen --show-skipped # list moves that were not understood
+motioninput-tui.datagen                # rewrite the JSON
+motioninput-tui.datagen --show-skipped # list moves that were not understood
 ```
 
 Around 80-90% of listed moves become trainable. The rest are follow-ups, stances
