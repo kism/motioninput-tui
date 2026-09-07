@@ -62,15 +62,20 @@ its input, and anything the guide says about how the game reads inputs.
 
 Keep, copied out exactly as they appear:
   - character names and the headings that introduce them
+  - the rules of dashes, equals signs or underscores directly above and below a
+    heading. These are not decoration: a parser finds where a character starts
+    by looking for a heading framed by them, so a heading that arrives without
+    its rules is a character the trainer cannot see
   - move list lines: the move name and its command notation, with the original
     spacing, column alignment and line breaks left untouched
   - the notation key or legend explaining the abbreviations the guide uses
   - any statement about input timing, buffering, motion leniency, input
     shortcuts, negative edge, charge times or how strict the game is
 
-Drop everything else: story, credits, greetings, email addresses, ASCII art,
-tables of contents, version history, legal notices, strategy, combos, matchup
-advice, tier lists, unlock instructions and anything about modes or options.
+Drop everything else: story, credits, greetings, email addresses, pictures drawn
+with characters, tables of contents, version history, legal notices, strategy,
+combos, matchup advice, tier lists, unlock instructions and anything about modes
+or options.
 
 Do not summarise, rewrite, reformat or translate what you keep. A parser will be
 written against the exact layout of these lines, so copy them character for
