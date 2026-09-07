@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
 from rich import traceback
 
+from .config import Config, config_path
 from .constants import PROGRAM_NAME, PROGRAM_NAME_WITH_FULL_VERSION, PROGRAM_NAME_WITH_VERSION
 from .controls.layouts import DEFAULT_LAYOUT, available_layouts
 from .games.loader import GameDataMissingError, available_games, load_game
@@ -25,8 +27,8 @@ def _get_args() -> argparse.Namespace:
     parser.add_argument(
         "--layout",
         choices=sorted(layout.key for layout in available_layouts()),
-        default=DEFAULT_LAYOUT,
-        help=f"Control layout (default: {DEFAULT_LAYOUT}).",
+        default=None,
+        help=f"Control layout (default: last used, or {DEFAULT_LAYOUT}).",
     )
     parser.add_argument(
         "--no-key-release",
@@ -35,9 +37,16 @@ def _get_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--loose-buffer",
-        action="store_true",
+        action=argparse.BooleanOptionalAction,
+        default=None,
         help="Do not spend inputs when a move comes out, so one motion can feed several moves. "
-        "Not how the games behave; toggle it in the trainer with ctrl+b.",
+        "Not how the games behave; toggle it in the trainer with ctrl+b. Default: last used.",
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=None,
+        help=f"Config file holding the last used selection (default: {config_path()}).",
     )
     parser.add_argument("--list", action="store_true", help="List games and characters, then exit.")
     parser.add_argument("--check-terminal", action="store_true", help="Report terminal suitability, then exit.")
@@ -91,11 +100,14 @@ def main() -> int:
         logger.error("--character needs --game as well")
         return 2
 
+    config = Config.load(args.config)
+    _apply_overrides(config, args)
+
     try:
-        if args.game:
-            game = load_game(args.game)
-            if args.character:
-                game.character(args.character)
+        if config.game:
+            game = load_game(config.game)
+            if config.character:
+                config.character = game.character(config.character).key
     except (GameDataMissingError, KeyError) as exc:
         logger.error("%s", exc)  # ruff: ignore[error-instead-of-exception] - a traceback helps nobody here
         return 1
@@ -112,17 +124,30 @@ def main() -> int:
     else:
         logger.info("Terminal does not report key releases; holds will be inferred from auto-repeat")
 
-    from .engine.recognizer import BufferPolicy  # ruff: ignore[import-outside-top-level] - keeps startup light
     from .tui import MotionInputApp  # ruff: ignore[import-outside-top-level] - importing textual is slow, only do it when running the app
 
     MotionInputApp(
-        game=args.game,
-        character=args.character,
-        layout=args.layout,
+        config,
         key_release=key_release,
-        policy=BufferPolicy.LOOSE if args.loose_buffer else BufferPolicy.CONSUME,
+        skip_setup=bool(args.game and args.character),
     ).run()
     return 0
+
+
+def _apply_overrides(config: Config, args: argparse.Namespace) -> None:
+    """Let command line arguments win over what was remembered."""
+    from .engine.recognizer import BufferPolicy  # ruff: ignore[import-outside-top-level] - keeps startup light
+
+    if args.game:
+        config.game = args.game
+        # A game named without a character must not reuse the other game's one.
+        config.character = args.character
+    if args.character:
+        config.character = args.character
+    if args.layout:
+        config.layout = args.layout
+    if args.loose_buffer is not None:
+        config.buffer_policy = BufferPolicy.LOOSE if args.loose_buffer else BufferPolicy.CONSUME
 
 
 if __name__ == "__main__":

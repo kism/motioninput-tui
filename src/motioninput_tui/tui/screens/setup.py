@@ -40,12 +40,18 @@ class SetupScreen(Screen):
     #detail { height: 5; padding: 0 2; color: $text-muted; }
     """
 
-    def __init__(self) -> None:
-        """Load the rosters and detect the terminal up front."""
+    def __init__(self, initial: tuple[str | None, str | None, str | None] = (None, None, None)) -> None:
+        """Load the rosters and detect the terminal up front.
+
+        ``initial`` is the (game, character, layout) used last time, so the
+        pickers open on it rather than always on the first entry.
+        """
         super().__init__()
         self.games = available_games()
         self.layouts = available_layouts()
         self.terminal = detect()
+        self._initial = initial
+        self._loaded_game: int | None = None
 
     def compose(self) -> ComposeResult:
         """Build the three pickers."""
@@ -82,24 +88,40 @@ class SetupScreen(Screen):
                 Text("No roster data found. Run: python -m motioninput_tui.datagen", style="bold red")
             )
             return
-        self.query_one("#layouts", OptionList).highlighted = 0
-        games = self.query_one("#games", OptionList)
-        games.highlighted = 0
-        self._load_characters(0)
+        # An OptionList highlights its first entry when options are added and
+        # posts an event for it, so the last used selection has to wait until
+        # those have been dealt with or it gets overwritten.
+        self.call_after_refresh(self._apply_initial)
         self.query_one("#layouts", OptionList).focus()
 
-    def _load_characters(self, game_index: int) -> None:
+    def _apply_initial(self) -> None:
+        """Open the pickers on whatever was used last time."""
+        game_key, character_key, layout_key = self._initial
+        self.query_one("#layouts", OptionList).highlighted = _index_of(
+            [layout.key for layout in self.layouts], layout_key
+        )
+        game_index = _index_of([game.key for game in self.games], game_key)
+        self.query_one("#games", OptionList).highlighted = game_index
+        self._load_characters(game_index, character_key)
+
+    def _load_characters(self, game_index: int, character_key: str | None = None) -> None:
+        self._loaded_game = game_index
         characters = self.query_one("#characters", OptionList)
         characters.clear_options()
         game = self.games[game_index]
         characters.add_options([character.name for character in game.characters])
         if game.characters:
-            characters.highlighted = 0
+            characters.highlighted = _index_of([entry.key for entry in game.characters], character_key)
         self._describe()
 
     def on_option_list_option_highlighted(self, event: OptionList.OptionHighlighted) -> None:
-        """Keep the character list and the blurb in step with the selection."""
-        if event.option_list.id == "games":
+        """Keep the character list and the blurb in step with the selection.
+
+        Setting a game on mount queues a highlight event that arrives after
+        the character has been pre-selected, so a game that is already loaded
+        is ignored rather than resetting the character back to the first one.
+        """
+        if event.option_list.id == "games" and event.option_index != self._loaded_game:
             self._load_characters(event.option_index)
         self._describe()
 
@@ -143,3 +165,10 @@ class SetupScreen(Screen):
             return
         layout, game, character_key = selection
         self.dismiss((game.key, character_key, layout.key))
+
+
+def _index_of(keys: list[str], wanted: str | None) -> int:
+    """Where ``wanted`` sits in ``keys``, or the first entry if it is gone."""
+    if wanted is not None and wanted in keys:
+        return keys.index(wanted)
+    return 0

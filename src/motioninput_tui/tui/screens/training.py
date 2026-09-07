@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, ClassVar
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
+from textual.message import Message
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
@@ -36,6 +37,14 @@ class TrainingScreen(Screen):
         Binding("ctrl+b", "toggle_policy", "Buffer rule"),
         Binding("ctrl+c", "quit", "Quit"),
     ]
+
+    class PolicyChanged(Message):
+        """Posted when the player toggles the buffer rule, so it can be saved."""
+
+        def __init__(self, policy: BufferPolicy) -> None:
+            """Carry the policy now in force."""
+            super().__init__()
+            self.policy = policy
 
     DEFAULT_CSS = """
     TrainingScreen { layout: vertical; }
@@ -150,7 +159,7 @@ class TrainingScreen(Screen):
 
     def action_toggle_policy(self) -> None:
         """Switch between spending inputs on activation and loose matching."""
-        self.session.toggle_policy()
+        self.post_message(self.PolicyChanged(self.session.toggle_policy()))
         self._refresh()
 
     def action_toggle_movelist(self) -> None:

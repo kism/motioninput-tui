@@ -48,6 +48,23 @@ Suppressions in this repo use `# ruff: ignore[rule-name] - why` and
 `# ty: ignore[rule-name]`, not `# noqa`; the preview `noqa-comments` rule
 enforces that.
 
+## Config
+
+`config.py` remembers the last game, character, layout and buffer policy in
+`~/.config/motioninput-tui/config.json` (honouring `XDG_CONFIG_HOME`). It is
+best-effort throughout: a missing, corrupt or unwritable file logs and falls
+back to defaults rather than raising. `Config` doubles as the app's starting
+selection and its persistence, which is why `MotionInputApp` takes one instead
+of separate game/character/layout arguments.
+
+Key release support is deliberately not persisted; it is probed per terminal
+each launch.
+
+Setting `OptionList.highlighted` queues a highlight event, and an OptionList
+also posts one for index 0 when options are added. `SetupScreen` therefore
+applies the remembered selection from `call_after_refresh`, not `on_mount`, or
+the queued events overwrite it.
+
 ## Architecture
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`.

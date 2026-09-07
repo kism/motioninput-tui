@@ -45,7 +45,22 @@ motioninput-tui --list                       # games and characters
 motioninput-tui --check-terminal             # terminal speed and key release support
 motioninput-tui --no-key-release             # force the auto-repeat fallback
 motioninput-tui --loose-buffer               # let inputs feed more than one move
+motioninput-tui --config path/to/config.json # use a different config file
 ```
+
+### Remembering your last session
+
+The game, character, layout and buffer rule you last used are saved to
+`~/.config/motioninput-tui/config.json` (or under `$XDG_CONFIG_HOME` if set),
+so the pickers open where you left off and `ctrl+b` sticks between runs.
+
+Command line arguments win over what was saved, and `--no-loose-buffer` turns
+the buffer rule back off. Naming a different `--game` on its own clears the
+remembered character, since it belonged to another roster. If the file is
+missing or damaged the defaults are used and a fresh one is written.
+
+Key release support is *not* remembered: it is probed per terminal on every
+launch, so a saved value would disable exact tracking after switching terminal.
 
 ## Controls
 

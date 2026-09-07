@@ -7,6 +7,7 @@ installing and using the trainer, see [README.md](README.md).
 
 ```text
 src/motioninput_tui/
+  config.py      Last used selection, saved under ~/.config/motioninput-tui/.
   engine/        Device independent: notation, input buffer, motion matchers,
                  rulesets, the recogniser and a training session.
   controls/      Control layouts and input sources. Keyboards today, gamepads later.
