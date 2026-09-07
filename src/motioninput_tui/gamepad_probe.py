@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Protocol
 
 from .constants import PROGRAM_NAME
-from .controls.gamepad import AXIS_DEADZONE, TRIGGER_THRESHOLD, codes_from_pad, load_pygame
+from .controls.gamepad import AXIS_DEADZONE, AXIS_MAX, TRIGGER_THRESHOLD, codes_from_pad, load_pygame
 from .utils.logger import get_logger, setup_logger_cli
 
 if TYPE_CHECKING:
@@ -129,10 +129,11 @@ def _snapshot(joystick: RawJoystick, pad: Pad | None, buttons: Mapping[int, str]
     parts = [f"raw: buttons={held_b} axes={loud_a} hats={held_h}"]
     if pad is not None:
         pressed = [name for button, name in buttons.items() if pad.get_button(button)]
+        # Controller axes come back as raw int16; scale to match codes_from_pad.
         loud = [
-            f"{name}={pad.get_axis(axis):+.2f}"
+            f"{name}={pad.get_axis(axis) / AXIS_MAX:+.2f}"
             for axis, name in axes.items()
-            if abs(pad.get_axis(axis)) > _SHOW_AXIS_ABOVE
+            if abs(pad.get_axis(axis) / AXIS_MAX) > _SHOW_AXIS_ABOVE
         ]
         parts += [
             f"controller: buttons={pressed} axes={loud}",

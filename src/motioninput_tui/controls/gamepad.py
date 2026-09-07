@@ -36,6 +36,13 @@ AXIS_DEADZONE = 0.5
 TRIGGER_THRESHOLD = 0.5
 """How far a trigger must be pulled before it counts as a button press."""
 
+AXIS_MAX = 32767
+"""SDL reports controller axes as a signed 16-bit value. ``Controller.get_axis``
+returns that raw range, not the -1.0..1.0 that ``Joystick.get_axis`` gives, so
+every reading here is divided by this first. (Miss it and a pad whose sticks
+rest a few counts off zero -- a DualShock 3 in particular -- reads as holding
+left and up forever.)"""
+
 # SDL2 ``SDL_GameControllerButton`` / ``...Axis`` enum values. These are part of
 # SDL's stable ABI; pygame also exposes them as ``pygame.CONTROLLER_BUTTON_*``.
 # Naming them here keeps :func:`codes_from_pad` a plain function the tests can
@@ -123,13 +130,14 @@ def codes_from_pad(pad: Pad, deadzone: float = AXIS_DEADZONE) -> frozenset[str]:
     """The binding codes a pad's current state maps to.
 
     The d-pad and the left stick both drive movement. SDL reports stick-down as
-    +y, so the down/up test is on the sign of ``y`` directly.
+    +y, so the down/up test is on the sign of ``y`` directly. Axis readings are
+    the raw signed-16-bit range (see :data:`AXIS_MAX`), scaled to -1.0..1.0 here.
     """
     codes: set[str] = {code for button, code in _ATTACK_BUTTONS.items() if pad.get_button(button)}
-    codes.update(code for axis, code in _ATTACK_TRIGGERS.items() if pad.get_axis(axis) >= TRIGGER_THRESHOLD)
+    codes.update(code for axis, code in _ATTACK_TRIGGERS.items() if pad.get_axis(axis) / AXIS_MAX >= TRIGGER_THRESHOLD)
     codes.update(code for button, code in _DPAD_DIRECTIONS.items() if pad.get_button(button))
 
-    x, y = pad.get_axis(_AXIS_LEFTX), pad.get_axis(_AXIS_LEFTY)
+    x, y = pad.get_axis(_AXIS_LEFTX) / AXIS_MAX, pad.get_axis(_AXIS_LEFTY) / AXIS_MAX
     if x <= -deadzone:
         codes.add("pad:left")
     if x >= deadzone:

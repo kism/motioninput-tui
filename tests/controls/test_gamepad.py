@@ -11,9 +11,15 @@ from motioninput_tui.engine.notation import Button
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.games.loader import load_game
 
+_FULL = gamepad.AXIS_MAX  # SDL reports a fully deflected axis as this raw value
+
 
 class FakePad:
-    """A game controller frozen in one state, read via SDL's semantic API."""
+    """A game controller frozen in one state, read via SDL's semantic API.
+
+    ``axes`` values are the raw signed-16-bit range SDL's controller API uses,
+    not -1.0..1.0.
+    """
 
     name = "Fake Pad"
 
@@ -33,12 +39,20 @@ def test_a_centred_pad_holds_nothing() -> None:
 
 
 def test_the_left_stick_reads_as_a_direction() -> None:
-    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTX: -1.0})) == {"pad:left"}
-    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTY: 1.0})) == {"pad:down"}
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTX: -_FULL})) == {"pad:left"}
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTY: _FULL})) == {"pad:down"}
 
 
 def test_a_stick_inside_the_deadzone_is_still_neutral() -> None:
-    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTX: 0.3, gamepad._AXIS_LEFTY: -0.3})) == frozenset()
+    small = round(0.3 * _FULL)
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_LEFTX: small, gamepad._AXIS_LEFTY: -small})) == frozenset()
+
+
+def test_a_stick_resting_a_few_counts_off_zero_is_not_a_direction() -> None:
+    # A DualShock 3 / GP2040 in PS3 mode sits at about -129 raw on every axis;
+    # without scaling by AXIS_MAX that read as holding left and up forever.
+    resting = dict.fromkeys((gamepad._AXIS_LEFTX, gamepad._AXIS_LEFTY), -129.0)
+    assert codes_from_pad(FakePad(axes=resting)) == frozenset()
 
 
 def test_the_dpad_reads_as_a_direction() -> None:
@@ -47,7 +61,7 @@ def test_the_dpad_reads_as_a_direction() -> None:
 
 
 def test_stick_and_dpad_diagonals_combine() -> None:
-    pad = FakePad(buttons=(gamepad._BUTTON_DPAD_LEFT,), axes={gamepad._AXIS_LEFTY: 1.0})
+    pad = FakePad(buttons=(gamepad._BUTTON_DPAD_LEFT,), axes={gamepad._AXIS_LEFTY: _FULL})
     assert codes_from_pad(pad) == {"pad:down", "pad:left"}
 
 
@@ -57,8 +71,8 @@ def test_face_and_shoulder_buttons_map_to_their_codes() -> None:
 
 
 def test_a_pulled_trigger_counts_as_a_button() -> None:
-    assert codes_from_pad(FakePad(axes={gamepad._AXIS_TRIGGERRIGHT: 1.0})) == {"pad:7"}
-    assert codes_from_pad(FakePad(axes={gamepad._AXIS_TRIGGERLEFT: 0.1})) == frozenset()  # barely touched
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_TRIGGERRIGHT: _FULL})) == {"pad:7"}
+    assert codes_from_pad(FakePad(axes={gamepad._AXIS_TRIGGERLEFT: round(0.1 * _FULL)})) == frozenset()
 
 
 def test_diff_reports_releases_before_presses() -> None:

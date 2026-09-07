@@ -66,9 +66,10 @@ def test_report_path_carries_pad_name_and_a_timestamp() -> None:
 
 def test_snapshot_shows_what_the_trainer_would_see() -> None:
     joystick = FakeJoystick(buttons=(False,) * 15, axes=(0.0,) * 6, hats=())
-    pad = FakePad(buttons={gamepad._BUTTON_DPAD_LEFT}, axes={gamepad._AXIS_LEFTY: 1.0})
+    pad = FakePad(buttons={gamepad._BUTTON_DPAD_LEFT}, axes={gamepad._AXIS_LEFTY: gamepad.AXIS_MAX})
     line = _snapshot(joystick, pad, {gamepad._BUTTON_DPAD_LEFT: "DPAD_LEFT"}, {gamepad._AXIS_LEFTY: "LEFTY"})
     assert "DPAD_LEFT" in line
+    assert "LEFTY=+1.00" in line  # raw int16 scaled back to -1.0..1.0
     assert "trainer sees: ['pad:down', 'pad:left']" in line
 
 
