@@ -74,7 +74,7 @@ class Pad(Protocol):
     def get_axis(self, axis: int) -> float: ...
 
 
-def _load_pygame() -> ModuleType | None:
+def load_pygame() -> ModuleType | None:
     """Import pygame headlessly, or return None if the extra is not installed.
 
     On macOS the SDL joystick subsystem only sees gamepads when the real Cocoa
@@ -106,7 +106,7 @@ def _load_pygame() -> ModuleType | None:
 
 def _first_controller(pygame: ModuleType) -> Pad | None:
     """Open the first plugged-in device SDL recognises as a game controller."""
-    from pygame._sdl2 import controller  # ruff: ignore[import-outside-top-level,import-private-name] - see _load_pygame
+    from pygame._sdl2 import controller  # ruff: ignore[import-outside-top-level,import-private-name] - see load_pygame
 
     for index in range(controller.get_count()):
         if not controller.is_controller(index):
@@ -163,7 +163,7 @@ class GamepadReader:
     def __init__(self, deadzone: float = AXIS_DEADZONE) -> None:
         """Set up polling; does not open a pad yet."""
         self.deadzone = deadzone
-        self._pygame = _load_pygame()
+        self._pygame = load_pygame()
         self._pad: Pad | None = None
         self._held: frozenset[str] = frozenset()
 

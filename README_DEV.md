@@ -8,6 +8,7 @@ installing and using the trainer, see [README.md](README.md).
 ```text
 src/motioninput_tui/
   config.py      Last used selection, saved under ~/.config/motioninput-tui/.
+  gamepad_probe.py  `python -m ...gamepad_probe`: dumps a pad's SDL state to /tmp.
   engine/        Device independent: notation, input buffer, motion matchers,
                  rulesets, the recogniser and a training session.
   controls/      Control layouts and input sources: keyboard, plus a gamepad

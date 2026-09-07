@@ -68,7 +68,7 @@ def test_diff_reports_releases_before_presses() -> None:
 
 
 def test_reader_without_pygame_reports_no_events(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(gamepad, "_load_pygame", lambda: None)
+    monkeypatch.setattr(gamepad, "load_pygame", lambda: None)
     reader = GamepadReader()
     assert not reader.available
     assert not reader.connected
@@ -78,7 +78,7 @@ def test_reader_without_pygame_reports_no_events(monkeypatch: pytest.MonkeyPatch
 
 def test_reader_reports_the_open_pad_name(monkeypatch: pytest.MonkeyPatch) -> None:
     pad = FakePad()
-    monkeypatch.setattr(gamepad, "_load_pygame", FakePygame)
+    monkeypatch.setattr(gamepad, "load_pygame", FakePygame)
     monkeypatch.setattr(gamepad, "_first_controller", lambda _pygame: pad)
     reader = GamepadReader()
     assert reader.name is None  # nothing opened yet
@@ -123,7 +123,7 @@ class FakePygame:
 
 def test_reader_opens_a_pad_and_diffs_its_state(monkeypatch: pytest.MonkeyPatch) -> None:
     pad = FakePad()
-    monkeypatch.setattr(gamepad, "_load_pygame", FakePygame)
+    monkeypatch.setattr(gamepad, "load_pygame", FakePygame)
     monkeypatch.setattr(gamepad, "_first_controller", lambda _pygame: pad)
     reader = GamepadReader()
 

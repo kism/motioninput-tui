@@ -72,8 +72,9 @@ def test_rebinding_an_attack_persists_it(tmp_path: Path, fake_pad: FakeReader) -
             await pilot.pause()
             await pilot.press("enter")  # arm HP
             await pilot.pause()
+            assert bind._armed is not None
             fake_pad.press("pad:1")  # B on an Xbox pad
-            await pilot.pause()
+            bind._poll()  # what the poll interval does, but without the timing race
             await pilot.pause()
             await pilot.press("escape")  # done
             await pilot.pause()

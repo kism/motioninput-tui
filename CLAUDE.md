@@ -33,6 +33,7 @@ uv sync --all-extras            # dev setup; omit --all-extras for prod
 python -m motioninput_tui                                  # run it
 python -m motioninput_tui --game sfiii3 --character ryu    # skip the pickers
 python -m motioninput_tui --check-terminal                 # speed + key release support
+python -m motioninput_tui.gamepad_probe                    # dump a pad's SDL state to /tmp (ctrl+c to stop)
 python -m motioninput_tui --list                           # rosters
 python -m motioninput_tui.datagen --show-skipped           # rebuild packaged rosters
 python -m motioninput_tui_guides --list                    # reference guide catalogue
