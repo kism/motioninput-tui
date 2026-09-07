@@ -18,6 +18,9 @@ lint = ["ruff>=0.16.2"]
 # Only for fetching reference guides, never imported by the trainer itself.
 guides = ["curl-cffi>=0.7.0", "beautifulsoup4>=4.12.0"]
 
+# Gamepad support. Imported only when the gamepad layout is selected.
+gamepad = ["pygame-ce>=2.5.8"]
+
 test = [
     "pytest>=9.1.1",
     "coverage>=7.15.4",
@@ -69,8 +72,10 @@ ignore = [
     "ANN", # Don't care about annotations in tests
     "D",   # Don't care about docstrings in tests
     "DOC", # Don't care about docstrings in tests
+    "TC",  # Test doubles are used at runtime; no need to guard their imports
 
     # Specific rules
+    "no-self-use", # Test doubles mirror a real API, even when a method ignores self
     "assert",    # asserts allowed in tests.
     "private-member-access",  # Accessing private members is needed for testing.
     "implicit-namespace-package",  # __init__.py not needed for PyTest.

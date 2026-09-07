@@ -10,7 +10,8 @@ src/motioninput_tui/
   config.py      Last used selection, saved under ~/.config/motioninput-tui/.
   engine/        Device independent: notation, input buffer, motion matchers,
                  rulesets, the recogniser and a training session.
-  controls/      Control layouts and input sources. Keyboards today, gamepads later.
+  controls/      Control layouts and input sources: keyboard, plus a gamepad
+                 (optional `gamepad` extra) polled from the training tick.
   games/         Game metadata, rulesets, move models and the packaged rosters.
   datagen/       Parsers that turn the reference FAQs into games/data/*.json.
   terminal/      Terminal identification, latency warnings, kitty keyboard protocol.

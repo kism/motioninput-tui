@@ -104,6 +104,13 @@ handles this two ways and the distinction runs through several files:
   burst of fast repeats proves a genuine hold; the OS repeat delay is measured
   as you play and `tap_ms` widens to match.
 
+A gamepad is always exact. `controls/gamepad.py` polls pygame from the training
+tick, diffs the pad's state, and feeds presses and releases through the same
+`KeyboardSource` (in `exact=True` mode) that the keyboard uses — there is no
+separate source. pygame is the optional `gamepad` extra; everything degrades to
+"no gamepad" when it is missing or nothing is plugged in. The button map is a
+fixed Xbox-style default keyed by `pad:*` codes; a bind menu is still to come.
+
 `decay_ms` is the bridge between them: how long the device takes to reveal a
 release. Zero when exact, `tap_ms` when inferred. It is threaded
 session → recogniser → `MatchContext` → matchers, where it widens motion

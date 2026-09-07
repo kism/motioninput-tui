@@ -120,7 +120,11 @@ def _optional_str(value: object) -> str | None:
 
 
 def _valid_layout(value: object) -> str:
-    return value if isinstance(value, str) and value in LAYOUTS else DEFAULT_LAYOUT
+    # An unavailable layout (gamepad without the extra installed) falls back,
+    # so a stale config cannot drop the trainer into a dead input mode.
+    if isinstance(value, str) and value in LAYOUTS and LAYOUTS[value].available:
+        return value
+    return DEFAULT_LAYOUT
 
 
 def _valid_policy(value: object) -> BufferPolicy:

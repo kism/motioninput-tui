@@ -127,10 +127,13 @@ class TrainingScreen(Screen):
     def on_app_blur(self) -> None:
         """Drop every hold when the terminal loses focus.
 
-        Releases that happen while unfocused never arrive, so anything still
-        held would otherwise stick.
+        Keyboard releases that happen while unfocused never arrive, so anything
+        still held would otherwise stick. A gamepad is unaffected by focus, so
+        it just re-asserts whatever it is holding on the next poll.
         """
         self.session.source.reset()
+        if self.session.gamepad is not None:
+            self.session.gamepad.reset()
         self._refresh()
 
     def _refresh(self) -> None:
@@ -141,8 +144,10 @@ class TrainingScreen(Screen):
         status = Text()
         plural = "" if session.total_activations == 1 else "s"
         status.append(f"{session.total_activations} move{plural} from {session.total_inputs} inputs")
-        if session.exact_input:
-            status.append("   exact key tracking", style="dim green")
+        if session.gamepad_waiting:
+            status.append("   no gamepad detected — plug one in", style="yellow")
+        elif session.exact_input:
+            status.append("   exact input tracking", style="dim green")
         else:
             status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
         if session.policy is BufferPolicy.LOOSE:

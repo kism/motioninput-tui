@@ -1,12 +1,13 @@
 """Physical control layouts.
 
-Only keyboards are implemented, but everything downstream talks to
-:class:`ControlLayout`, so adding a gamepad means adding a layout and a source
-rather than touching the engine.
+Everything downstream talks to :class:`ControlLayout`. Keyboard layouts bind
+literal key names; the gamepad layout binds ``pad:*`` codes that
+:mod:`motioninput_tui.controls.gamepad` produces from the pad's state.
 """
 
 from __future__ import annotations
 
+import importlib.util
 from dataclasses import dataclass, field
 from enum import StrEnum
 
@@ -40,6 +41,9 @@ class ControlLayout:
     attacks: dict[str, Button]
     kind: LayoutKind = LayoutKind.KEYBOARD
     available: bool = True
+    key_labels: dict[str, str] = field(default_factory=dict)
+    """Friendlier names for binding codes that are not literal keys, e.g.
+    ``{"pad:2": "X"}`` so the gamepad help reads ``LP=X`` not ``LP=pad:2``."""
 
     @property
     def bindings(self) -> dict[str, Axis | Button]:
@@ -48,20 +52,23 @@ class ControlLayout:
         combined.update(self.attacks)
         return combined
 
+    def _label(self, key: str) -> str:
+        if key in self.key_labels:
+            return self.key_labels[key]
+        return "␣" if key == "space" else key
+
     def movement_help(self) -> str:
         """Human readable movement bindings, e.g. 'a s d space'."""
+        if self.kind is LayoutKind.GAMEPAD:
+            return "D-pad / left stick"
         order = (Axis.LEFT, Axis.DOWN, Axis.RIGHT, Axis.UP)
         by_axis = {axis: key for key, axis in self.movement.items()}
-        return " ".join(_display_key(by_axis[axis]) for axis in order if axis in by_axis)
+        return " ".join(self._label(by_axis[axis]) for axis in order if axis in by_axis)
 
     def attack_help(self) -> str:
         """Human readable attack bindings, e.g. 'LP=u MP=i ...'."""
         by_button = {button: key for key, button in self.attacks.items()}
-        return " ".join(f"{button.value}={_display_key(by_button[button])}" for button in Button if button in by_button)
-
-
-def _display_key(key: str) -> str:
-    return "␣" if key == "space" else key
+        return " ".join(f"{button.value}={self._label(by_button[button])}" for button in Button if button in by_button)
 
 
 HITBOX = ControlLayout(
@@ -94,14 +101,33 @@ SOUTHPAW = ControlLayout(
     },
 )
 
+
+def _gamepad_supported() -> bool:
+    """Whether the optional ``gamepad`` extra (pygame) is installed."""
+    return importlib.util.find_spec("pygame") is not None
+
+
+# The d-pad and the left stick both feed the movement axes. Attack buttons use
+# SDL's standard numbering for an Xbox-style pad; a bind menu will make this
+# configurable, until then it is a reasonable Street Fighter default.
+_PAD_BUTTON_LABELS = {"pad:0": "A", "pad:1": "B", "pad:2": "X", "pad:3": "Y", "pad:4": "LB", "pad:5": "RB"}
+
 GAMEPAD = ControlLayout(
     key="gamepad",
     name="Gamepad",
-    description="Not implemented yet. The engine is device agnostic, so this only needs an input source.",
-    movement={},
-    attacks={},
+    description="D-pad or left stick to move. Attacks LP=X MP=Y HP=RB / LK=A MK=B HK=LB. Rebindable later.",
+    movement={"pad:left": Axis.LEFT, "pad:down": Axis.DOWN, "pad:right": Axis.RIGHT, "pad:up": Axis.UP},
+    attacks={
+        "pad:2": Button.LP,
+        "pad:3": Button.MP,
+        "pad:5": Button.HP,
+        "pad:0": Button.LK,
+        "pad:1": Button.MK,
+        "pad:4": Button.HK,
+    },
     kind=LayoutKind.GAMEPAD,
-    available=False,
+    available=_gamepad_supported(),
+    key_labels=_PAD_BUTTON_LABELS,
 )
 
 LAYOUTS: dict[str, ControlLayout] = {layout.key: layout for layout in (HITBOX, SOUTHPAW, GAMEPAD)}

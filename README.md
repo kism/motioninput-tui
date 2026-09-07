@@ -64,14 +64,17 @@ launch, so a saved value would disable exact tracking after switching terminal.
 
 ## Controls
 
-Two keyboard layouts, chosen on launch. Gamepad support is not implemented, but
-the engine talks to an `InputSource`, so adding one means adding a source rather
-than touching anything else.
+Chosen on launch. Two keyboard layouts, plus a gamepad if the `gamepad` extra is
+installed (`uv sync --extra gamepad`, or `--all-extras`).
 
-| Layout   | Back / Down / Forward / Up | LP MP HP | LK MK HK |
-| -------- | -------------------------- | -------- | -------- |
-| Hitbox   | `a` `s` `d` `space`        | `u i o`  | `j k l`  |
-| Southpaw | `j` `k` `l` `space`        | `q w e`  | `a s d`  |
+| Layout   | Back / Down / Forward / Up | LP MP HP  | LK MK HK  |
+| -------- | -------------------------- | --------- | --------- |
+| Hitbox   | `a` `s` `d` `space`        | `u i o`   | `j k l`   |
+| Southpaw | `j` `k` `l` `space`        | `q w e`   | `a s d`   |
+| Gamepad  | D-pad or left stick        | `X Y RB`  | `A B LB`  |
+
+The gamepad map is a fixed Xbox-style default for now; a bind menu comes later.
+A pad reports button releases, so holds are always exact with one plugged in.
 
 In the trainer: `esc` goes back to the picker with the character list focused,
 ready to pick someone else. `ctrl+r` clears the buffer,

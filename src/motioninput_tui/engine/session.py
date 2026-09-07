@@ -7,7 +7,7 @@ from collections import deque
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
-from motioninput_tui.controls.layouts import repeat_delay_advice
+from motioninput_tui.controls.layouts import LayoutKind, repeat_delay_advice
 from motioninput_tui.controls.source import KeyboardSource
 from motioninput_tui.utils.logger import get_logger
 
@@ -16,6 +16,7 @@ from .notation import Button, Direction
 from .recognizer import Activation, BufferPolicy, Recognizer
 
 if TYPE_CHECKING:
+    from motioninput_tui.controls.gamepad import GamepadReader
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.games.models import Character, Game
 
@@ -70,7 +71,9 @@ class TrainingSession:
         self.character = character
         self.layout = layout
         self.buffer = InputBuffer()
-        self.source = KeyboardSource(layout, exact=exact_input)
+        self.gamepad = self._open_gamepad(layout)
+        # A gamepad reports releases, so holds are always exact with one attached.
+        self.source = KeyboardSource(layout, exact=exact_input or self.gamepad is not None)
         self.recognizer = Recognizer(character.moves, game.ruleset, policy=policy)
         self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
@@ -84,10 +87,33 @@ class TrainingSession:
             len(character.trainable_moves),
         )
 
+    @staticmethod
+    def _open_gamepad(layout: ControlLayout) -> GamepadReader | None:
+        """A gamepad reader when the layout wants one, else None.
+
+        pygame is a heavy optional import, so it only happens here, and only
+        for the gamepad layout.
+        """
+        if layout.kind is not LayoutKind.GAMEPAD:
+            return None
+        from motioninput_tui.controls.gamepad import (  # ruff: ignore[import-outside-top-level] - optional dependency, gamepad layout only
+            GamepadReader,
+        )
+
+        reader = GamepadReader()
+        if not reader.available:
+            logger.warning("Gamepad layout selected but pygame is not installed")
+        return reader
+
     @property
     def direction(self) -> Direction:
         """The direction currently held."""
         return self.source.direction
+
+    @property
+    def gamepad_waiting(self) -> bool:
+        """True when a gamepad layout is active but no pad is connected yet."""
+        return self.gamepad is not None and not self.gamepad.connected
 
     @property
     def exact_input(self) -> bool:
@@ -144,14 +170,27 @@ class TrainingSession:
         return True
 
     def tick(self, at_ms: int | None = None) -> bool:
-        """Let held directions expire. Returns True when the display changed."""
+        """Poll the gamepad and expire holds. Returns True if the display changed."""
         now = monotonic_ms() if at_ms is None else at_ms
+        changed = self._poll_gamepad(now)
         update = self.source.tick(now)
-        if update is None or not update.direction_changed:
+        if update is not None and update.direction_changed:
+            self.buffer.set_direction(update.direction, now)
+            self._append_entry(update.direction, now)
+            changed = True
+        return changed
+
+    def _poll_gamepad(self, now: int) -> bool:
+        """Feed any gamepad presses and releases through the normal path."""
+        if self.gamepad is None:
             return False
-        self.buffer.set_direction(update.direction, now)
-        self._append_entry(update.direction, now)
-        return True
+        changed = False
+        for code, pressed in self.gamepad.poll(now):
+            if pressed:
+                changed |= self.press(code, now)
+            else:
+                changed |= self.release(code, now)
+        return changed
 
     @property
     def policy(self) -> BufferPolicy:
@@ -171,6 +210,8 @@ class TrainingSession:
         """Clear everything and go back to neutral."""
         self.buffer.clear()
         self.source.reset()
+        if self.gamepad is not None:
+            self.gamepad.reset()
         self.recognizer.reset()
         self.entries.clear()
         self.activations.clear()

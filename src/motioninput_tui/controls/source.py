@@ -25,9 +25,10 @@ class SourceUpdate:
 class InputSource(Protocol):
     """Anything that can drive the engine.
 
-    A gamepad source would implement this and nothing else has to change. It
-    would also see real button releases, so it could report directions exactly
-    rather than inferring holds the way the keyboard source has to.
+    The keyboard is the only implementation. The gamepad reuses it in exact
+    mode (:mod:`motioninput_tui.controls.gamepad` polls the pad and feeds its
+    presses and releases through :class:`KeyboardSource`), since a pad reports
+    real releases and never needs holds inferred.
     """
 
     def press(self, code: str, at_ms: int) -> SourceUpdate | None:
