@@ -41,6 +41,7 @@ python -m motioninput_tui --game sfiii3 --character ryu --layout hitbox
 python -m motioninput_tui --list                       # games and characters
 python -m motioninput_tui --check-terminal             # terminal speed and key release support
 python -m motioninput_tui --no-key-release             # force the auto-repeat fallback
+python -m motioninput_tui --loose-buffer               # let inputs feed more than one move
 ```
 
 ## Controls
@@ -55,7 +56,28 @@ than touching anything else.
 | Southpaw | `j` `k` `l` `space`        | `q w e`  | `a s d`  |
 
 In the trainer: `esc` goes back to the picker, `ctrl+r` clears the buffer,
-`ctrl+l` toggles the move list, `ctrl+c` quits.
+`ctrl+l` toggles the move list, `ctrl+b` toggles the buffer rule, `ctrl+c` quits.
+
+## Spending inputs
+
+When a special comes out, the games clear the command buffer so the inputs that
+produced it cannot go on to feed another move. Without that, two fireballs in a
+row read as the double quarter circle of a super.
+
+Two things enforce this, and both matter:
+
+* **The buffer is flushed on activation.** Normals and throws do not flush it,
+  matching the games, so a quarter circle survives an intervening command
+  normal.
+* **Steps of a motion must be close together.** A total time limit is not
+  enough on its own: a forward left over from a fireball is still in the buffer
+  afterwards, and without a per-step limit a later down, down-forward would turn
+  it into a dragon punch. `step_gap_ms` bounds the pause between one step of a
+  motion and the next.
+
+`--loose-buffer`, or `ctrl+b` in the trainer, turns both off. Inputs are then
+reused freely and one motion can light up several moves at once. No game behaves
+that way, but it is a useful way to see everything your inputs contain.
 
 ## Terminal choice matters
 

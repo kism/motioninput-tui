@@ -13,7 +13,7 @@ from motioninput_tui.utils.logger import get_logger
 
 from .buffer import InputBuffer
 from .notation import Button, Direction
-from .recognizer import Activation, Recognizer
+from .recognizer import Activation, BufferPolicy, Recognizer
 
 if TYPE_CHECKING:
     from motioninput_tui.controls.layouts import ControlLayout
@@ -50,19 +50,28 @@ class TrainingSession:
     is read-only state for the interface to render.
     """
 
-    def __init__(self, game: Game, character: Character, layout: ControlLayout, *, exact_input: bool = False) -> None:
+    def __init__(
+        self,
+        game: Game,
+        character: Character,
+        layout: ControlLayout,
+        *,
+        exact_input: bool = False,
+        policy: BufferPolicy = BufferPolicy.CONSUME,
+    ) -> None:
         """Set up the buffer, source and recogniser for this pairing.
 
         ``exact_input`` says the terminal reports key releases, so holds are
         tracked exactly from the first keystroke rather than after the first
-        release has proved it.
+        release has proved it. ``policy`` decides whether the inputs that
+        produced a move are spent.
         """
         self.game = game
         self.character = character
         self.layout = layout
         self.buffer = InputBuffer()
         self.source = KeyboardSource(layout, exact=exact_input)
-        self.recognizer = Recognizer(character.moves, game.ruleset)
+        self.recognizer = Recognizer(character.moves, game.ruleset, policy=policy)
         self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
         self.total_inputs = 0
@@ -143,6 +152,20 @@ class TrainingSession:
         self.buffer.set_direction(update.direction, now)
         self._append_entry(update.direction, now)
         return True
+
+    @property
+    def policy(self) -> BufferPolicy:
+        """Whether inputs are spent when a move comes out."""
+        return self.recognizer.policy
+
+    def toggle_policy(self) -> BufferPolicy:
+        """Switch between consuming inputs and loose matching."""
+        self.recognizer.policy = (
+            BufferPolicy.LOOSE if self.recognizer.policy is BufferPolicy.CONSUME else BufferPolicy.CONSUME
+        )
+        self.buffer.clear()
+        self.recognizer.reset()
+        return self.recognizer.policy
 
     def reset(self) -> None:
         """Clear everything and go back to neutral."""

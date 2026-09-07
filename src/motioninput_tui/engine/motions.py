@@ -199,46 +199,74 @@ _DOUBLE_MOTIONS = frozenset(
 )
 
 
-def _find_steps(states: list[DirectionState], steps: list[Step], max_skip: int, tail_skip: int = 0) -> int | None:
+@dataclass(frozen=True, slots=True)
+class _Limits:
+    """How sloppily a motion may be performed.
+
+    Attributes:
+        max_skip: Junk direction changes allowed between two steps.
+        tail_skip: Direction changes allowed after the final step, since a
+            motion is usually finished a moment before the button.
+        max_gap_ms: The longest pause between one step and the next. Without
+            it, a direction left over from an earlier input can act as the
+            opening of a motion made much later: hold forward, wait, then tap
+            down and down-forward, and the stale forward turns a fireball into
+            a dragon punch.
+    """
+
+    max_skip: int
+    tail_skip: int = 0
+    max_gap_ms: int = _UNBOUNDED
+
+
+def _find_steps(states: list[DirectionState], steps: list[Step], limits: _Limits) -> int | None:
     """Match ``steps`` against ``states`` backwards from the most recent state.
 
     Returns the index of the earliest state used, or None if there is no match.
     Where several matches exist the tightest (most recent) one wins, since that
     is the one most likely to fall inside the ruleset's window.
-
-    ``tail_skip`` is how many states may sit after the last step. A motion is
-    usually finished a fraction of a second before the button, leaving a
-    trailing direction or a neutral behind it.
     """
     last = len(steps) - 1
-    cache: dict[tuple[int, int], int | None] = {}
+    cache: dict[tuple[int, int, int], int | None] = {}
 
-    def search(si: int, pi: int) -> int | None:
+    def candidates(si: int, pi: int, successor: int) -> list[int]:
+        """States that could match ``steps[pi]``, most recent first."""
+        allowed, _ = steps[pi]
+        skip = limits.tail_skip if pi == last else limits.max_skip
+        found = []
+        for j in range(si, max(-1, si - skip - 1), -1):
+            if successor >= 0 and states[successor].start_ms - states[j].start_ms > limits.max_gap_ms:
+                break  # Anything earlier is further away still.
+            if states[j].direction in allowed:
+                found.append(j)
+        return found
+
+    def search(si: int, pi: int, successor: int) -> int | None:
         if pi < 0:
             return _UNBOUNDED
-        key = (si, pi)
+        key = (si, pi, successor)
         if key in cache:
             return cache[key]
-        allowed, optional = steps[pi]
-        skip = tail_skip if pi == last else max_skip
-        best: int | None = None
-        if optional:
-            best = search(si, pi - 1)
-        if si >= 0:
-            for j in range(si, max(-1, si - skip - 1), -1):
-                if states[j].direction not in allowed:
-                    continue
-                deeper = search(j - 1, pi - 1)
-                if deeper is None:
-                    continue
-                candidate = min(deeper, j)
-                if best is None or candidate > best:
-                    best = candidate
+        best: int | None = search(si, pi - 1, successor) if steps[pi][1] else None
+        for j in candidates(si, pi, successor):
+            deeper = search(j - 1, pi - 1, j)
+            if deeper is not None:
+                best = max(best, min(deeper, j)) if best is not None else min(deeper, j)
         cache[key] = best
         return best
 
-    result = search(len(states) - 1, last)
+    result = search(len(states) - 1, last, -1)
     return None if result == _UNBOUNDED else result
+
+
+def _limits(context: MatchContext) -> _Limits:
+    """Leniency for this ruleset, widened by whatever the input device costs."""
+    ruleset = context.ruleset
+    return _Limits(
+        max_skip=ruleset.max_intermediate,
+        tail_skip=ruleset.tail_states,
+        max_gap_ms=_UNBOUNDED if context.loose else ruleset.step_gap_ms + context.decay_ms,
+    )
 
 
 def _window_for(kind: MotionKind, ruleset: Ruleset) -> int:
@@ -246,7 +274,8 @@ def _window_for(kind: MotionKind, ruleset: Ruleset) -> int:
     return base * 2 if kind in _DOUBLE_MOTIONS else base
 
 
-def _match_directional(kind: MotionKind, buffer: InputBuffer, ruleset: Ruleset, at_ms: int, decay_ms: int) -> bool:
+def _match_directional(kind: MotionKind, buffer: InputBuffer, context: MatchContext) -> bool:
+    ruleset, at_ms, decay_ms = context.ruleset, context.at_ms, context.decay_ms
     window = _window_for(kind, ruleset)
     sequences = _step_sequences(kind, ruleset)
     longest = max((len(steps) for steps in sequences), default=0)
@@ -255,7 +284,7 @@ def _match_directional(kind: MotionKind, buffer: InputBuffer, ruleset: Ruleset, 
     if not states:
         return False
     for steps in sequences:
-        earliest = _find_steps(states, steps, ruleset.max_intermediate, ruleset.tail_states)
+        earliest = _find_steps(states, steps, _limits(context))
         if earliest is None:
             continue
         # Each step of the motion costs one decay window, because a keyboard
@@ -280,7 +309,8 @@ _CHARGE_DEFINITIONS: dict[MotionKind, tuple[frozenset[Direction], list[Step]]] =
 }
 
 
-def _match_charge(kind: MotionKind, buffer: InputBuffer, ruleset: Ruleset, at_ms: int, decay_ms: int) -> bool:
+def _match_charge(kind: MotionKind, buffer: InputBuffer, context: MatchContext) -> bool:
+    ruleset, at_ms, decay_ms = context.ruleset, context.at_ms, context.decay_ms
     charge_dirs, release_steps = _CHARGE_DEFINITIONS[kind]
     states = list(buffer.directions)
     release_budget = ruleset.charge_release_ms + (ruleset.motion_window_ms + decay_ms) * len(release_steps)
@@ -292,7 +322,7 @@ def _match_charge(kind: MotionKind, buffer: InputBuffer, ruleset: Ruleset, at_ms
             continue
         if state.end_ms is None or at_ms - state.end_ms > release_budget:
             continue
-        if _find_steps(states[index + 1 :], release_steps, ruleset.max_intermediate, ruleset.tail_states) is not None:
+        if _find_steps(states[index + 1 :], release_steps, _limits(context)) is not None:
             return True
     return False
 
@@ -388,6 +418,9 @@ class MatchContext:
     at_ms: int
     pressed: frozenset[Button]
     decay_ms: int = 0
+    loose: bool = False
+    """Drop the limit on how long a motion may pause between steps, so inputs
+    can feed more than one move. Not how the games behave."""
 
 
 def matches(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
@@ -402,5 +435,5 @@ def matches(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> boo
     if simple is not None:
         return simple(spec, buffer, ruleset, at_ms)
     if spec.kind in CHARGE_KINDS:
-        return _match_charge(spec.kind, buffer, ruleset, at_ms, context.decay_ms)
-    return _match_directional(spec.kind, buffer, ruleset, at_ms, context.decay_ms)
+        return _match_charge(spec.kind, buffer, context)
+    return _match_directional(spec.kind, buffer, context)

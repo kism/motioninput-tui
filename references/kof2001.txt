@@ -1,0 +1,4419 @@
+Move List and Guide (ARC) by Kao_Megura
+
+Version: 0.7 | Updated: 12/28/2002
+
+ ------------------------------------------------------------------------
+ THE KING OF FIGHTERS 2001 FAQ v0.7
+ by Chris MacDonald
+ ------------------------------------------------------------------------
+
+ Unpublished work Copyright (c) 2002 Chris MacDonald
+
+ The guidelines for using this faq are simple; don't sell it or give it
+ away, don't reprint it without obtaining permission, and don't bother
+ posting it on a website (I'm only releasing it for www.GameFAQs.com to
+ host).  You may not incorporate any part of this FAQ into your own guide
+ without obtaining my express written permission.
+
+ Game mag/guide/site authors that want to use this faq can go shove it,
+ especially the following: Ziff-Davis Video Game Group (publishers of
+ Expert Gamer), Game 13th Magazine, IDG Media, Future Publishing, Ltd.
+ (publishers of PlayStation Power, Official UK Play Station Magazine),
+ Brady Games, Prima Games and Eric Pratte, CheatCC.com, Shoryuken.com,
+ and IGN.
+
+ The King of Fighters and all characters are (c) SNK and (c) Eolith.
+
+
+ =================
+ TABLE OF CONTENTS
+ =================
+
+ 1. INTRODUCTION
+      - Revision History
+      - Special Thanks
+ 2. HOW TO PLAY
+      - FAQ Notation
+      - Basic Commands
+ 3. TEAM MOVELISTS
+      - Hero Team                K'     / Maxima   / Whip    / Lin
+      - Japan Team               Kyo    / Benimaru / Goro    / Shingo
+      - Iori Team                Iori   / Seth     / Vanessa / Ramon
+      - Ikari Team               Leona  / Ralf     / Clark   / Heidern
+      - Fatal Fury Team          Terry  / Andy     / Joe     / Blue Mary
+      - Art of Fighting Team     Ryo    / Robert   / Yuri    / Takuma
+      - Women's Team             King   / Mai      / Hinako  / Xiangfei
+      - Nests Team               Kula   / K9999    / Foxy    / Angel
+      - Psycho Soldier Team      Athena / Kensou   / Chin    / Bao
+      - Korea Team               Kim    / Chang    / Choi    / May Lee
+      - Bosses                   Zero              /           Igniz
+ 4. GAMEPLAY NOTES
+      - Autoguard
+      - Blocking Attacks
+      - Counter Hits
+      - Dropped Guard
+      - Power Gauge
+      - Reversal Moves
+      - Super Cancels
+      - Throw Types
+      - Wire Damage
+      - Surefire Juggles
+ 5. STRIKER INFO.
+      - Striker System
+      - Using Strikers
+      - Striker Cancel System
+      - Multiple Striker System
+      - Striker Action List
+ 6. MISCELLANEOUS
+      - Glitches
+      - Special Intros
+      - Special Win Poses
+      - Translations
+
+
+ ========================================================================
+ 1. INTRODUCTION
+ ========================================================================
+
+ Welcome to my KoF '01 FAQ.  It started off as a basic moves list for a
+ friend to use, but it seemed kind of pointless to just forget about
+ it afterwards.  This is sort of a one-off deal, and besides, there are
+ already a lot of very detailed and in-depth KoF FAQs available from
+ www.GameFAQs.com.  Still, I figure one more guide can't hurt ;)
+
+ If you have any comments or criticisms, or if you'd like to contribute
+ some info., feel free to mail me at (k.megura at eudoramail dot com).
+ Just don't ask about emulators or roms or anything, I don't know the
+ first thing about that.
+
+
+ ------------------------------------------------------------------------
+ REVISION HISTORY
+ ------------------------------------------------------------------------
+
+ Version 0.7  (December 28, 2002)
+  - More contributor info. added, as well as some corrections.
+
+ Version 0.6  (November 7, 2002)
+  - More contributor info. added.
+
+ Version 0.5  (July 8, 2002)
+  - Some corrections were made, and I added some contributor information.
+
+ Version 0.4  (July 4, 2002)
+  - A few minor corrections, and I finally confirmed Chang's supercancel.
+
+ Version 0.3  (June 30, 2002)
+  - The first public release.  Remaining info. for supercancels and
+    "wire" moves has been tested and added.  Other misc. info has been
+    confirmed.  Ver. 0.3b through 0.3d added a few minor corrections
+    and alterations (and here I thought the faq was error-free) :(
+
+ Version 0.2  (June 13, 2002)
+  - The second release.  Cancelable attack charts have been finished,
+    and other missing info. has been added.  Still more to do; the FAQ
+    is about 85% done at this point.
+
+ Version 0.1  (June 2, 2002)
+  - The first release.
+
+
+ ------------------------------------------------------------------------
+ SPECIAL THANKS
+ ------------------------------------------------------------------------
+
+ This FAQ would have not been possible without help from the following:
+
+ Anthony Majarian
+  - For telling me about the "surefire" juggles and explaining how
+    they work.
+  - (v0.7)  For Seth's surefire juggle and infinite combo, and
+    info. about Whip's Whip Shot being cancelable.
+
+ Cool
+  - For telling me about the "Leona beats Iori" win pose and Goro vs.
+    Hinako intro, as well as notes about Igniz' Power Gauge and for
+    explaining how damage increases when using multiple Strikers.
+
+ Mario san                                    <www.liquid2k.com/mariosan>
+  - For giving me permission to list some supercancels I first read
+    about in his Super Cancels FAQ (available at GameFAQs).
+
+ Neo-Gallery                             <shinjuku.cool.ne.jp/kagami007/>
+  - For the bosses' move names and commands.
+
+ Oyajinagi                     <oyajinagilv99.tripod.co.jp/indexkof.html>
+  - For some of the new characters move names and commands.
+
+ Breeze                                       <www.tt.rim.or.jp/~reivel/>
+  - For some of the new characters move names and commands.
+
+ Maxwell                       <www.geocities.co.jp/Playtown-Spade/6712/>
+  - For some of the special intros and win poses (from KoF '00).
+
+ SNK of Japan                                   <http://www.neogeo.co.jp>
+  - For information taken from KoF 2001 section and KoF '99 dictionary
+    section (back when their page was still up).
+
+ Charles MacDonald
+  - For helping me test some reversal moves.
+
+ Klenboy
+  - For lots of advice and information, and for info. about comboing
+    all three hits of Iori's "Shinigame."
+
+ NJStar                                           <http://www.njstar.com>
+  - For their excellent Japanese word processor.
+
+ Jim Breen's WWWJDIC           <www.csse.monash.edu.au/~jwb/wwwjdic.html>
+  - I used this handy online dictionary to translate some of the move
+    names.
+
+
+ ========================================================================
+ 2. HOW TO PLAY
+ ========================================================================
+
+ ------------------------------------------------------------------------
+ FAQ NOTATION
+ ------------------------------------------------------------------------
+
+ 7 8 9          Up-Back         Up      Up-Forward
+ 4 5 6          Backward      Neutral   Forward
+ 1 2 3          Down-Back      Down     Down-Forward
+
+ P              Use A or C.
+ K              Use B or D.
+ <H             can hold.
+ H>             must hold.
+ <A             can be used in air.
+ A>             must be used in air.
+ <T             can tap buttons.
+ T>             must tap buttons.
+ N>             must perform when near to the opponent.
+ F>             must perform from furthest throw range possible.
+ _              additional input.
+ ( )            optional input.
+ (x#)           perform the listed number of times.
+ ()x2           perform bracketed commands twice before continuing.
+ ~              Indicates middle ranges (so 4~2~6 is 4/1/2/3/6).
+ .              charge for 2 sec. in first direction before continuing.
+ /              either command is acceptable.
+ CAPS           can or must be used as an SDM (use AC or BD to perform).
+ DM             Desperation Move (requires 1 level to use).
+ SDM            Super Desperation Move (requires 2 levels to use).
+
+ For the cancelable attacks chart:
+
+ -      not cancelable
+ /      divides hits
+ C      cancelable into anything
+ c      only cancels into command attacks
+ S      only cancels into (S)DMs
+ s      only cancels into special moves [and (S)DMs]
+ r      can repeat attack / cancels into other repeatable attacks.
+
+
+ ------------------------------------------------------------------------
+ BASIC COMMANDS
+ ------------------------------------------------------------------------
+
+ hold 4 when attacked           Standing Block
+ hold 1 when attacked           Crouching Block
+ 44                             Backstep
+ 66 (_<H)                       Dash (_Run)
+ dash or run_tap 9              Running Short Jump
+ dash or run_press 9            Running Long Jump
+ tap 7/8/9                      Short Jump
+ press 7/8/9                    Middle Jump
+ 1~3_7 or 1~3_9                 Long Jump
+ (6+)AB                         Emergency Evade: Forward
+ 4+AB                           Emergency Evade: Backward
+ CD<A                           Blow Away Attack
+ blocking_(4/6+)AB              Guard Cancel Emergency Evade
+ blocking_CD                    Guard Cancel Blow Away Attack
+ N>4/6+C/D                      Basic Throw
+ when thrown_4/6+C/D            Basic Throw Escape
+ as fall ends_AB                Knockdown Recovery
+ BC                             Striker Call
+ 4/6+BC                         Striker Call (Alternate)
+ Start                          Taunt
+
+ - During a Short Jump, your character will usually do the attack
+   animations for a Vertical Jump, even though you you can Short
+   Jump diagonally.  The same thing applies to the Running Short Jump.
+ - Also note that during either type of Short Jump, there are some
+   mid-air command attacks that cannot be used.  However, you can
+   still perform mid-air throws and aerial special moves or (S)DMs
+   while in air.
+ - During the Emergency Evade moves, you are immune to attack while
+   rolling, but not as the roll ends.  Also, you are vulnerable to
+   being thrown at any point during the roll.
+ - The Blow Away Attack will knock down a hit opponent.  You cannot
+   use this move while crouching.
+ - The "Guard Cancel" moves require 1 level of your Power Gauge to use.
+ - Furthermore, you are totally invincible during a Guard Cancel roll.
+ - The Guard Cancel Blow Away Attack does no damage.  Furthermore,
+   it isn't cancelable like some CD attacks are.
+ - For the Basic Throw Escape, you have to press the same button that
+   your opponent used to grab you.
+ - Taunting can be canceled shortly after the taunt has begun, simply
+   by moving around.
+
+
+ ========================================================================
+ 3. TEAM MOVELISTS
+ ========================================================================
+
+ Moves are listed in this order: normal throws, command attacks, special
+ moves, DMs, then SDMs.  Afterwards is a list of super cancels, critical
+ and counter wires, and your character's Striker Attack (if no hit is
+ listed for the super cancel, assume the move is super cancelable on any
+ hit).  Following that are some notes on that character's moves and
+ abilities.  Translations for the move names can be found at the end of
+ Section 6.  More detailed information on how to play can be found in
+ Section 4.
+
+ ------------------------------------------------------------------------
+ K'  (pronounced "kay dash")                                [ Hero Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Spot Pile
+ N>4/6+D                Knee Strike
+
+ 6+A                    One Inch
+ 6+B                    Knee Assault
+
+ 236+P                  Eins Trigger
+ _6+B                   Second Shoot
+ _6+D                   Second Shell
+ _4+K                   Blackout
+
+ 236+K                  Blackout
+ 214+K<A                Minutes Spike
+ 214+K_214+K            Minutes Spike (_Narrow Spike)
+ 623+P                  Crow Bites
+ 623+C_6+K              Tsuika Kougeki
+
+ 236236+P<H             Heat Drive
+ 2363214+P              CHAIN DRIVE
+
+ Super Cancels          Crow Bites (1st-2nd hit)
+                        Narrow Spike
+ Critical Wire          None.
+ Counter Wire           One Inch
+ Striker Action         Narrow Spike
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     C     s
+    Standing Far        -r    -     -     -     s
+    Crouching           Cr    -r    C     C
+    Upward Jump         -     -     s     s     -
+    Diagonal Jump       -     -     s     s     -
+
+ - The One Inch is a knockdown attack.  If canceled into, it loses this
+   feature, but becomes cancelable.  It can be canceled directly into
+   an (S)DM, though.
+ - The Knee Assault is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable (into the mid-air Minutes Spike).
+ - The (A) Eins Trigger knocks down, while the (C) version does not.
+ - The button used for the Eins Trigger determines how fast the Second
+   Shoot travels across the screen.
+ - You can juggle an opponent after the Second Shell.
+ - The Blackout is a teleportation move.
+ - The Tsuika Kougeki is cancelable (into the Minutes Spike).
+ - If you delay the Heat Drive until it automatically occurs, it becomes
+   unblockable.
+
+
+ ------------------------------------------------------------------------
+ MAXIMA                                                     [ Hero Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Dynamite Drop
+ N>4/6+D                Choking Vice
+
+ 6+A                    Mongolian
+ 3+C                    M9 Kata Maxima Missile (Shisaku)
+
+ 214+P                  M4 Kata Vapour Cannon
+ 623+K                  M19 Kata Blitz Cannon
+ 41236+K                M11 Kata Dangerous Arch
+
+ 236+A                  System 1: Maxima Scramble
+ _236+A                 Double Bomber
+  _236+A                Bulldog Press
+
+ 236+C                  System 2: Maxima Scramble
+ _236+C                 Double Bomber
+  _236+C                Bulldog Press
+
+ 63214+K                System 3: Maxima Lift
+ _6+K                   Centoun Press
+
+ 2363214+P              Bunker Buster
+ (63214)x2+K            MAXIMA REVENGER
+
+ Super Cancels          System 1/2 (3rd hit only)
+ Critical Wire          None.
+ Counter Wire           Vapour Cannon
+ Striker Action         Maxima Gallows
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C    C/-    C     s
+    Standing Far        -     -     -     -     s
+    Crouching           Cr    -     C     -
+
+ - The Mongolian is an overhead attack.  If canceled into, it loses this
+   feature, but becomes cancelable.  It can be canceled directly into
+   an (S)DM, though.
+ - The Maxima Missile is cancelable.  If Maxima's opponent is airborne
+   when they're hit, they will be launched into the sky, allowing you
+   to cancel into the Blitz Cannon for a 2-hit combo.  Alternately, if
+   the Maxima Missile counter hits, then you can hit them with a normal
+   attack as they fall.
+ - The Vapour Cannon can negate normal projectiles.
+ - The Blitz Cannon is an anti-air throw.  However, the (B) version can
+   grab large characters who are standing (like Chang).
+ - If the Centoun Press is mistimed, Maxima will simply throw himself
+   to the floor.  He is vulnerable to attack while recovering.
+ - Maxima' standing CD attack has autoguard, in the frame where his
+   arms are held horizontally behind him.
+ - The Bunker Buster has autoguard both as the move begins, and as
+   Maxima recovers from it.
+ - The Bunker Buster is an overhead attack.
+ - The Dangerous Arch, Maxima Lift, and Maxima Revenger are unblockable.
+
+
+ ------------------------------------------------------------------------
+ WHIP                                                       [ Hero Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C/D              Zed
+
+ 6+A (x5)               Whip Shot
+
+ 63214+A<H              Strings Shot Type A "Code: Yuuetsu"
+ 63214+B<H              Strings Shot Type B "Code: Chikara"
+ 63214+C<H              Strings Shot Type C "Code: Shouri"
+ 63214+H>A/B/C_D        Strings Shot Type D "Code: Ame"
+
+ 41236+P                Boomerang Shot "Code: SC"
+ A>214+P                Hook Shot "Code: Kaze"
+ 623+P/K                Assassin Strike "Code: BB"
+ 421+P<T                Desert Eagle
+
+ 2141236+P              SONIC SLAUGHTER "CODE: KW"
+
+ Super Cancels          Strings Shot Type A (1st hit)
+                        Strings Shot Type B (1st hit)
+                        Strings Shot Type C (1st hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Valkyrie Killer
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     C     s
+    Standing Far        -     C     -     S     s
+    Crouching           -     C    C/C    -
+    Upward Jump         -     s     -     -     -
+    Diagonal Jump       -     s     -     s     -
+
+ - The last hit of the Whip Shot can be canceled.  If your opponent is
+   out in the open, you can catch them with an (A) Boomerang Shot, or
+   if they are in the corner, you can step on them with a (B) Assassin
+   Strike.
+ - After landing from the Assassin Strike, Whip can cancel her recovery
+   pose into the Whip Shot or a special or (S)DM.  The Assassin Strike
+   can also hit an opponent who is on the floor.
+ - The Assassin Strike is an overhead attack, as is the Strings Shot Type
+   A (but only on the second hit).
+ - The Strings Shot Type D is cancelable.
+ - During the Desert Eagle, you can tap P to make Whip fire up to seven
+   shots.  After the seventh shot, she will reload her gun if P is
+   pressed.  However, this limit applies even if you, say, fire three
+   shots at some point in the game, then four later on.  If you've
+   used seven shots and have put the Desert Eagle away, then the next
+   time you input 421+P, Whip will simply take out the gun and reload
+   it without firing.
+ - In addition, the Desert Eagle can juggle an opponent as long as you
+   keep tapping P.  Keep in mind that the (A) version has a shorter
+   range than the (C) version does.
+ - The Desert Eagle is a low attack, as is the Strings Shot Type B (but
+   only on the second hit).
+ - Whip's crouching A and the Desert Eagle can hit an opponent who is
+   lying on the ground.
+ - The (A) Boomerang Shot and (C) Strings Shot can hit opponents who
+   are falling towards the floor.  Only the "second hit" animation will
+   connect, however.
+ - Whip's far standing D is odd in that the actual "hit" can only be
+   canceled into the Sonic Slaughter, but the recovery animation is
+   still cancelable into any attack (the Whip Shot, Boomerang Shot,
+   etc.)
+
+
+ ------------------------------------------------------------------------
+ LIN                                                        [ Hero Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C/D              Akuzan
+
+ 6+A                    Benpatsu Ken (Chuudan)
+ 3+C                    Benpatsu Ken (Gedan)
+
+ 236+A                  Zantetsu Bu: Rasatsu
+ 236+C_236+P_236+P      Zantetsu Bu: Rasatsu
+ 214+P                  Kasumi
+ 623+P                  Muei Kusashu
+ 421+P/K                Jatotsu Ga
+ 63214+K                Hiten Kyaku
+ 41236+K                Hike Kyaku
+
+ 2141236+P              HIZOKU OUGI RANBU: DOKUGA
+ 222+AC                 HIZOKU OUGI SENSHU RAKAN SATSU
+
+ Super Cancels          (C) Zantetsu Bu: Rasatsu (1st input)
+                            Zantetsu Bu: Rasatsu (2nd input)
+ Critical Wire          None.
+ Counter Wire           (A) Zantetsu Bu: Rasatsu
+                            Zantetsu Bu: Rasatsu (3rd input)
+                        (only if the 3rd input is the only one that hits)
+ Striker Action         Hirai Kyaku
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     C     s
+    Standing Far        Cr    -     -     -     s
+    Crouching           Cr    Cr    C     C
+
+ - The Benpatsu Ken (Chuudan) is an overhead attack.  It retains this
+   feature even if canceled into (in which case, it becomes cancelable).
+ - The Benpatsu Ken (Gedan) is a knockdown attack.  If canceled into,
+   it becomes cancelable.  This move can hit an opponent who is lying
+   on the floor.
+ - The button used for the Jatotsu Ga determines where Lin's arm comes
+   out (A is closest, C is furthest, and D fakes).  The direction that
+   the arm bends in is determined by your opponent's location.  If the
+   arm comes out behind your opponent, it will knock them towards you,
+   if it comes out in front of them, it will knock them away from you.
+ - You can juggle an opponent after the (D) Hiten Kyaku or Jatotsu Ga
+   (excluding the D Jatotsu Ga).  You can even juggle someone with two
+   Jatotsu Gas in a row.
+ - The Hike Kyaku is a teleportation move.  The (B) version makes Lin
+   immune to low attacks, while the (D) version makes him immune to
+   mid-level and high attacks.
+
+
+ ------------------------------------------------------------------------
+ KYO KUSANAGI                                              [ Japan Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Hatsugane
+ N>4/6+D                Issetsu Seoi Nage
+
+ A>1~3+C                Geshiki: Naraku Otoshi
+ 6+B                    Geshiki: Goufu You
+ 3+D                    88 Shiki
+
+ 623+P                  100 Shiki: Oniyaki
+ 421+K                  707 Shiki: Koma Hofuri (aka R.E.D. KicK)
+ 236+K_K                75 Shiki Kai
+ 62314+K                427 Shiki: Hikigane
+
+ 236+A                  114 Shiki: Aragami
+ _236+P                 128 Shiki: Konokizu
+  _P                    127 Shiki: Yanosabi
+  _K                    125 Shiki: Nanase
+
+ 236+A                  114 Shiki: Aragami
+ _63214+P               127 Shiki: Yanosabi
+  _P                    Geshiki: Migiri Ugachi
+  _K                    125 Shiki: Nanase
+  _63214+K              212 Shiki: Kototsuki You
+
+ 236+C                  115 Shiki: Dokugami
+ _63214+P               401 Shiki: Tsumi Yomi
+  _6+P                  402 Shiki: Batsu Yomi
+   _623+P               100 Shiki: Oniyaki
+
+ 2141236+P<H            URA 108 SHIKI: OROCHI NAGI
+ N>(62314)x2+AC         524 SHIKI: KAMUKURA
+
+ Super Cancels          (C) Oniyaki (1st hit)
+                        (B) Hikigane
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         R.E.D. KicK
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     C     s
+    Standing Far        Cr    -     -     -     s
+    Crouching           Cr    -r    C     C
+
+ - The Goufu You is an overhead attack.  If canceled into, it loses this
+   feature, but becomes a two-hit move which is cancelable on the second
+   hit.
+ - The (A) Oniyaki hits twice on a counter hit.
+ - You can juggle your opponent after the 75 Shiki Kai or (B) Hikigane.
+ - The Yanosabi and Migiri Ugachi are low attacks.
+ - The Migiri Ugachi and Kototsuki You can hit opponents who are lying
+   on the ground.
+ - The Kamukura is unblockable.
+
+
+ ------------------------------------------------------------------------
+ BENIMARU NIKAIDO                                          [ Japan Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Catch and Shoot
+ N>4/6+D                Front Suplex
+ N>A>4~2~6+C            Spinning Knee Drop
+ N>A>4/6+D              Spinning Knee Drop
+
+ A>1~3+D                Flying Drill
+ 6+B                    Jackknife Kick
+
+ 236+A                  Raijin Ken
+ 236+C                  Taikuu Raijin Ken
+ A>236+P                Kuuchuu Raijin Ken
+ 214+P                  Shinkuu Katategoma
+ 236+K                  Iai Geri
+ _28+K                  Handou Sandan Geri
+
+ 214214+K               Gen'ei Hurricane
+ 236236+A               Raikou Ken
+ 236236+C               Taikuu Raikou Ken
+ 236236+AC              RAIKOU KEN
+
+ Super Cancels          Shinkuu Katategoma
+                        (B) Handou Sandan Geri (1st hit)
+ Critical Wire          Handou Sandan Geri
+ Counter Wire           Iai Geri (hits while leg is pulling back)
+ Striker Action         Electrigger
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     C     s
+    Standing Far        -r    -     -     -     s
+    Crouching           Cr    Cr    C     C
+    Upward Jump         -     -     C     -     -
+    Diagonal Jump       -     -     C     -     -
+
+ - The Flying Drill is not an overhead attack.
+ - The Jackknife Kick is cancelable.
+ - The last hit of the Handou Sandan Geri drops an opponent's guard,
+   since it is a Critical Wire.
+ - The SDM Raikou Ken can hit opponents who are falling towards the
+   floor (but it only seems to work in the corner).
+
+
+ ------------------------------------------------------------------------
+ GORO DAIMON                                               [ Japan Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Juuji Shime
+ F>4/6+C                Tsukami Tataki Tsuke
+ N>4/6+D                Okuri Ashi Barai
+
+ 6+A                    Tama Tsubushi
+ 3+C                    Zujou Barai
+
+ 623+P                  Jirai Shin
+ 623+K                  Chou Oosotogari
+ 41236+A                Kumo Tsukami Nage
+ 41236+C                Kubikiri Gaeshi
+ 632146+P               Tenchi Gaeshi
+ 632146+K               Ura Nage
+ 236+K                  Nekko Gaeshi
+ 214+K                  Chou Ukemi
+
+ (63214)x2+P            JIGOKU GOKURAKU OTOSHI
+ (41236)x2+K            ARASHI NO YAMA (NEKKO NUKI)
+ _41236+K               Zoku: Kirikabu Gaeshi
+  _623+K  (DM ver.)     Bukko Nuki Ura Nage
+  _623+K  (SDM ver.)    Zoku: Tenchi Gaeshi
+
+ Super Cancels          None.
+ Critical Wire          None.
+ Counter Wire           Jumping CD
+ Striker Action         Abare Goro
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C     C     C     s
+    Standing Far        C     C     -     -     s
+    Crouching           C     -     -     C
+
+ - The Tama Tsubushi is a knockdown attack, even if it is canceled
+   into.  It can also destroy non-(S)DM projectiles and Striker
+   projectiles.
+ - The Zujou Barai is cancelable.  If Goro's opponent is hit by the
+   "high" part of Goro's arm while they're airborne, they will be
+   launched into the sky, allowing you to cancel into the Kumo Tsukami
+   Nage for a 2-hit combo.  Alternately, if the Zujou Barai counter
+   hits, then you can hit them with a normal attack as they fall.
+ - The (A) Jirai Shin is a low attack.
+ - You can fake the Jirai Shin by using the (C) button.
+ - The Kumo Tsukami Nage is an anti-air throw.  However, it can also
+   grab large characters (like Chang) from up close.
+ - You can pick an opponent off the floor with the Kubikiri Gaeshi.
+   For example, it can be used after a (D) sweep, the (A) Jirai Shin,
+   the Nekko Nuki, or the Zoku: Kirikabu Gaeshi.
+ - The Nekko Gaeshi reverses high and mid-level attacks.
+ - The Nekko Nuki has autoguard.  Since it is a throw move, it is
+   possible for Goro to autoguard against even multiple hits, then
+   grab his opponent's outstretched limb and continue the move.
+ - The Chou Oosotogari, Tenchi Gaeshi, Ura Nage, Jigoku Gokuraku Otoshi,
+   and Nekko Nuki are unblockable.
+
+
+ ------------------------------------------------------------------------
+ SHINGO YABUKI                                             [ Japan Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Hatsugane
+ N>4/6+D                Issetsu Seoi Nage Fukanzen
+
+ 6+B                    Geshiki: Goufu "Kakkodake"
+
+ 236+A                  114 Shiki: Aragami Mikansei
+ 236+C                  115 Shiki: Dokugami Mikansei
+ 623+P                  100 Shiki: Oniyaki Mikansei
+ 421+K                  101 Shiki: Oboroguruma Mikansei
+ 63214+K                212 Shiki: Kototsuki Mikansei
+ 41236+K                Shingo Kick
+ N>623+K                Shingo Kinsei Ore Shiki: Nie Togi
+ 214+P                  Shingo Kinsei Ore Shiki: Gecchuu
+
+ 2141236+P              Shingo Kinsei Ore Mushiki
+ 236236+P               GESHIKI: KAKE HOURIN
+
+ Super Cancels          212 Shiki: Kototsuki Mikansei (1st hit)
+ Critical Wire          None.
+ Counter Wire           Gecchuu (only if it reverses)
+ Striker Action         212 Shiki: Kototsuki Mikansei
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     C     C
+    Standing Far        C     -     -     -     C
+    Crouching           Cr    Cr    C     C
+
+ - The Goufu "Kakkodake" is cancelable.
+ - The (C) Oniyaki Mikansei hits twice on a counter hit.
+ - Shingo will randomly add a 3rd hit to the Oboroguruma Mikansei.
+   This hit is an overhead attack.
+ - The Kototsuki Mikansei is an overhead attack on the 2nd hit.
+ - The Gecchuu is an overhead attack.  It can reverse high and mid-
+   level attacks.  If it reverses, Shingo does a reverse kick instead
+   of an elbow drop.  What's more, Shingo moves away while attacking,
+   so you may be pushed out of harm's way even if the kick misses.
+ - You can juggle an opponent after the Nie Togi or SDM Kake Hourin.
+ - An opponent hit by the Kake Hourin has their guard dropped.  Note
+   that Shingo is not invincible while dashing during this move.
+ - Shingo's jumping CD hits twice on a counterhit.  However, you cannot
+   juggle an opponent if they take both hits.
+ - The Nie Togi is unblockable.
+
+
+ ------------------------------------------------------------------------
+ IORI YAGAMI                                                [ Iori Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Sakahagi
+ N>4/6+D                Saka Sakahagi
+
+ A>4+B                  Geshiki: Yuri Ori
+ 6+A_6+A                Geshiki: Yumebiki
+ 6+B                    Geshiki: Goufu In "Shinigame"
+
+ 236+P                  108 Shiki: Yami Barai
+ 623+P                  100 Shiki: Oniyaki
+ 214+P_214+P_214+P      127 Shiki: Aoi Hana
+ 63214+K                212 Shiki: Kototsuki In
+ 632146+P               Kuzukaze
+
+ 2363214+P              Kin 1121 Shiki: Ya Otome
+ _(236236)x2+AC         URA 306 SHIKI: SAIKA
+
+ Super Cancels          (A) Oniyaki (1st, or 2nd hit on a counter)
+                        (C) Oniyaki (1st-2nd hit)
+                        Aoi Hana (1st-2nd input)
+ Critical Wire          None.
+ Counter Wire           Ura 108 Shiki: Ya Sakazuki (dashing animation)
+ Striker Action         Ura 108 Shiki: Ya Sakazuki
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C     C     -     C
+    Standing Far        -r    -     -     -     C
+    Crouching           C     -r    C     -
+
+ - The "Shinigame" is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable on either hit.
+ - The "Shinigame" also has a third hit animation--this is the pose
+   when Iori is almost done with the move and is bringing his leg
+   in.  This is a knockdown attack, but if you cancel into it, it
+   becomes cancelable.
+ - So how do you combo into the Shinigame and get all three hits to
+   connect?  Jump over the opponent and hit them with an early Yuri
+   Ori, (it must hit before you actually cross up) then do a standing
+   (C) into the Shinigame.  This doesn't work against all opponents,
+   though.
+ - The first two inputs of the Aoi Hana are cancelable into other
+   special moves (like the Kototsuki In).
+ - The 3rd input of the Aoi Hana is an overhead attack.
+ - The Kuzukaze is unblockable.  You can hit an opponent who is reeling
+   from this move.
+ - The Saika only costs 1 level to use, even though the screen will
+   turn negative as it does during an SDM.
+ - In order to get the Saika to come out at all, you need to finish the
+   command once Iori has performed the final hit of the Ya Otome (the one
+   where his opponent "explodes" in purple flame).  This means you need
+   to start the 236236236236 input halfway through the move, so that
+   you're pressing AC at some point after the final hit has begun.  The
+   timing is actually rather lax beyond that--you can even hit someone
+   off the floor with this move, if they're lying in the corner of the
+   screen.
+
+
+ ------------------------------------------------------------------------
+ VANESSA                                                    [ Iori Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Dynamite Puncher
+ N>4/6+D                Clench Puncher
+
+ 6+A                    One-Two Puncher
+ 3+B                    Sliding Puncher
+
+ 623+P                  Parrying Puncher
+ 4.6+P                  Dash Puncher
+ 41236+P<T              Machine Gun Puncher
+
+ 236+K                  Puncher Vision (Zenpou)
+ _6+A                   Puncher Upper
+ _6+C                   Puncher Straight
+ _4+P<H                 Puncher Weaving
+ _236+K                 Puncher Vision (Zenpou)
+ _214+K                 Puncher Vision (Kouhou)
+
+ 214+K                  Puncher Vision (Kouhou)
+ _6+A                   Puncher Upper
+ _6+C                   Puncher Straight
+ _4+P<H                 Puncher Weaving
+ _236+K                 Puncher Vision (Zenpou)
+ _214+K                 Puncher Vision (Kouhou)
+
+ 214+A<H                Puncher Weaving
+ _6+C                   Dash Puncher
+ _4+C                   Parrying Puncher
+ _6+K                   Puncher Vision (Zenpou)
+ _4+K                   Puncher Vision (Kouhou)
+
+ 214+C<H                Puncher Weaving
+ _6+A                   Dash Puncher
+ _4+A                   Parrying Puncher
+ _6+K                   Puncher Vision (Zenpou)
+ _4+K                   Puncher Vision (Kouhou)
+
+ N>236236+P             Champion Puncher
+ 2141236+P              CRAZY PUNCHER
+
+ Super Cancels          Parrying Puncher (623+C version)
+                        Puncher Upper (2nd hit)
+ Critical Wire          Puncher Straight
+ Counter Wire           None.
+ Striker Action         Hard Puncher
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr   -/C   -/-    C
+    Standing Far        Cr    Cr   -/C   -/-    C
+    Crouching           Cr    Cr    C     C
+
+ - The One-Two Puncher is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable on the first hit.
+ - The Sliding Puncher is a low attack.  It can hit opponents who are
+   lying on the floor.
+ - During the (A) Parrying Puncher, Vanessa is immune to high attacks
+   (but not low attacks or throws).
+ - You can juggle an opponent after the Dash Puncher.
+ - The Puncher Vision is a teleportation move.  This move can cancel
+   into itself.  For example, you could cancel a (236+K) Puncher Vision
+   into either the (236+K) or (214+K) versions.  This also applies to
+   the Puncher Weaving version of the Puncher Vision (so you could
+   cancel a 4+K Vision into the 214+K or 236+K versions).
+ - The 2nd hit of the Puncher Straight drops an opponent's guard.
+   since it is a Critical Wire.
+ - The Puncher Weaving makes Vanessa dodge high and mid-level attacks.
+
+
+ ------------------------------------------------------------------------
+ SETH                                                       [ Iori Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Hiji ate kara no hadou uchi
+ N>4/6+D                Tomoe Nage
+
+ 6+A                    Tackle
+ 4+A                    Back Blow
+ 6+B                    Mae Age Geri
+ 4+B                    Sobat
+ 3+B                    Sliding
+
+ 236+P                  Sho-Yoh
+ 22+P                   Ashi-Tori
+ 41236+K                Doh-Kuzushi
+ A>236+B                Raku-Getsu
+ A>236+D                An-Getsu
+
+ 63214+K                Kyu-Getsu
+ _6+K                   Ya-Getsu
+ _2+K                   Gen-Getsu
+
+ 236236+P               "Morote"-Sho-Yoh
+ 2362314+K              Irimi-Nadazuki
+ 2363214+AC             DOH-TORI-SHICHIMONSATSU
+
+ Super Cancels          (A) Sho-Yoh (either hit)
+                        (C) Sho-Yoh
+ Critical Wire          None.
+ Counter Wire           (C) Sho-Yoh
+ Striker Action         Final Agent
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     -    C/-    C     C
+    Standing Far        -     -     -     -     C
+    Crouching           Cr    -     C     -
+    Upward Jump         s     -     s     -     s
+    Diagonal Jump       s     -     s     -     s
+
+ - The Tackle is a knockdown attack, and it is cancelable.
+ - The Back Blow is cancelable.
+ - The Mae Age Geri is cancelable; it can even cancel into the Tackle
+   (although the Tackle no longer knocks down if this is the case).
+ - The Sobat is an overhead attack, unless canceled into.
+ - The Sliding is a low attack.  If canceled into, it becomes cancelable.
+ - The Ashi-Tori reverses low attacks.  You can juggle your opponent
+   after connecting this move.
+ - The (B) Doh-Kuzushi reverses jumping attacks, special moves, and
+   (S)DMs.
+ - The (D) Doh-Kuzushi reverses mid-level attacks.  It does no damage,
+   but reverses places with your opponent and leaves them open to
+   attack momentarily.
+ - The Raku-Getsu and An-Getsu are overhead attacks.
+ - You can juggle your opponent after the Kyu-Getsu.
+ - The Gen-Getsu, Sliding and Irimi-Nadazuki are low attacks.
+ - The Doh-Tori-Shichimonsatsu reverses almost any attack, including
+   jumping, high, mid-level and low attacks, as well as special moves
+   and (S)DMs.
+
+
+ ------------------------------------------------------------------------
+ RAMON                                                      [ Iori Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Arm Whip
+ N>4/6+D                Flying Mayor
+
+ 3+B                    Teikuu Drop Kick
+
+ 41236+P                Tiger Neck Chancery
+ 214+A<H                Feint Step (_Drop Kick)
+ 214+C<H                Feint Step
+
+ 623+K                  Rolling Sobat
+ _623+K                 Flying Body Attack
+  _22+P                 Hiki Okoshi
+
+ 41236+K                Somersault
+ _ABC while dashing     Cancel
+
+ 421+K                  Tiger Road
+ _D when near a wall    Cross Chop
+ _ABC while dashing     Cancel
+
+ 2141236+K              El Diablo Amarillo Ramon
+ (63214)x2+P            TIGER SPIN
+
+ Super Cancels          Hiki Okoshi (2nd hit)
+ Critical Wire          None.
+ Counter Wire           Rolling Sobat
+ Striker Action         El Diablo Amarillo
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C     C     C     -
+    Standing Far        Cr    -     -     -     -
+    Crouching           Cr    C     C     C
+
+ - The Teikuu Drop Kick is a low attack.  If canceled into, it becomes
+   cancelable but no longer hits low.  It can be canceled directly into
+   an (S)DM, though.
+ - The Rolling Sobat and Tiger Road are overhead attacks.
+ - To use the Cross Chop, press D as Ramon touches the wall.
+ - The Tiger Neck Chancery, Somersault, and Tiger Spin are unblockable.
+
+
+ ------------------------------------------------------------------------
+ LEONA HEIDERN                                             [ Ikari Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Leona Crush
+ N>4/6+D                Ordeal Buckler
+ N>A>2+C/D              Heidern Inferno
+
+ 4/6+B                  Strike Arch
+
+ 2.8+P                  Moon Slasher
+ 4.6+P                  Vortex Launcher
+ 4.6+K                  Ground Saber
+ 4.6+D_6+D              Gliding Buster
+ A>214+P                X Calibur
+ 214+K                  Earring Bakudan 1
+ 421+K                  Earring Bakudan 2: Heart Attack
+ _421+K                 Kibaku
+ _occurs automatically  Kibaku
+
+ 236236+P               Grateful Dead
+ 2141236+K              Rebel Spark
+ A>2362314+P            V SLASHER
+
+ Super Cancels          Gliding Buster
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Killer Touch
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr   C/C   C/C    s
+    Standing Far        -r    -     C     -     s
+    Crouching           Cr    -r    C     -
+    Upward Jump         -     s     -     s     s
+    Diagonal Jump       -     s     -     s     s
+
+ - The Strike Arch is both a knockdown and an overhead attack.  If
+   canceled into, it loses these properties but can be canceled into
+   the X Calibur or V Slasher.
+ - You can juggle your opponent after the Ground Saber (if they're in
+   the corner), the Earring Bakudan 1, or the time-delayed Kibaku.
+ - The Heart Attack won't hit unless it's done from up close, but
+   it can be blocked.  When this move is used, Leona plants an
+   explosive on her opponent.  It will shine for a few seconds
+   before exploding (or, you can use the Kibaku command to make it
+   automatically explode).
+ - What's more, Leona recovers before her opponent does, so you can
+   combo off of this move.
+ - Although the bomb can explode at any time (even when your opponent is
+   lying on the floor), that doesn't necessarily mean it will hit for
+   damage.  For example, if your opponent is in the middle of getting
+   up off the floor, the explosion will do no damage.
+
+
+ ------------------------------------------------------------------------
+ RALF JONES                                                [ Ikari Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Dynamite Headbutt
+ N>4/6+D                Northern Light Bomb
+
+ 623+P_623+P            Vulcan Punch
+ _H>6                   Move Forward
+ 236236+P               Galactica Phantom
+ 4.6+P                  Gatling Attack
+ 2.8+P                  Kyuukouka Bakudan Punch (Chijou)
+ A>236+P                Kyuukouka Bakudan Punch (Kuuchuu)
+ 41236+K                Super Argentine Backbreaker
+ 63214+B                Ralf Kick
+ 63214+D                Ralf Tackle
+
+ 2141236+K              Umanori Vulcan Punch
+ 2363214+P              BARIBARI VULCAN PUNCH
+
+ Super Cancels          Gatling Attack (2nd hit)
+ Critical Wire          Galactica Phantom
+ Counter Wire           None.
+ Striker Action         Galactica Phantom
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       -     -     C     -     s
+    Standing Far        -     -     -     -     s
+    Crouching           Cr    -     C     C
+    Upward Jump         -     -     C     -     s
+    Diagonal Jump       -     -     -     -     s
+
+ - During the Vulcan Punch, you can input 623+P again to make Ralf
+   continue to attack for a second or two longer than usual.
+ - The Galactica Phantom is unblockable.  This move has autoguard on
+   the very last frames before Ralf attacks, when he is fully hunched
+   over.
+ - The Kyuukouka Bakudan Punch can hit an opponent who is lying on the
+   ground.
+ - The Super Argentine Backbreaker is unblockable.
+
+
+ ------------------------------------------------------------------------
+ CLARK STEEL                                               [ Ikari Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Nageppanashi German
+ N>4/6+D                Fisherman Buster
+ N>A>2+C/D              Death Lake Drive
+
+ 6+B                    Stomping
+
+ 4.6+P                  Gatling Attack
+ 4.6+C_623+P            Gatling Attack (_Napalm Stretch)
+ _236+P                 Flashing Elbow
+
+ 623+P                  Napalm Stretch
+ _236+P                 Flashing Elbow
+ 623+K                  Frankensteiner
+ _236+P                 Flashing Elbow
+ 41236+K                Super Argentine Backbreaker
+ _236+P                 Flashing Elbow
+
+ 41236+P                Mount Tackle
+ _22+K                  Rolling Cradle
+ _22+A                  Clark Lift
+ _22+C                  Sleeper Lift (D.D.T.)
+  _236+P                Flashing Elbow
+
+ (41236)x2+K            Running Three
+ (63214)x2+P            ULTRA ARGENTINE BACKBREAKER
+
+ Super Cancels          None.
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Ultra Argentine Backbreaker
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       -     Cr   C/-    -     s
+    Standing Far        -     -r    -     -     s
+    Crouching           C     -     -     -
+
+ - The Stomping can be canceled directly into an (S)DM.
+ - You can cancel the (C) Gatling Attack into the Napalm Stretch on the
+   third hit.
+ - Even if you follow up a throw with the Flashing Elbow, Clark will
+   simply stop running if his opponent ends up too far away from him.
+ - The Napalm Stretch, Frankensteiner, Super Argentine Backbreaker,
+   Ultra Argentine Backbreaker, and Running Three are unblockable.
+
+
+ ------------------------------------------------------------------------
+ HEIDERN                                                   [ Ikari Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Lead Belcher
+ N>4/6+D                Backstabbing
+ N>A>2+C/D              Heidern Inferno
+
+ 6+B                    Shooter Narnagel
+
+ 236+P                  Cross Cutter
+ 623+P                  Moon Slasher
+ 623+K                  Neck Rolling
+ 63214+P                Storm Bringer
+ 63214+K                Killing Bringer
+
+ 236236+P               FINAL BRINGER
+ 2141236+K              HEIDERN END
+
+ Super Cancels          (A) Moon Slasher
+ Critical Wire          None.
+ Counter Wire           Standing CD
+ Striker Action         Clearing Moon Slasher
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       -r    Cr   -/C    C     s
+    Standing Far        -r    -     -     -     -
+    Crouching           Cr    -r    C     C
+
+ - The Shooter Narnagel is an overhead attack.  If canceled into, it
+   loses this feature, but becomes cancelable on the first hit.
+ - The Cross Cutter now knocks an opponent down.  However, Heidern can
+   still catch a falling opponent with moves like the Neck Rolling and
+   Final Bringer.
+ - Heidern will regain lost life during the "Bringer" moves.  The
+   Killing Bringer seems to restore a variable amount of life, though.
+ - The Killing Bringer reverses jumping and high attacks, as well as
+   special moves and (S)DMs.  Note that it only reverses moves when
+   Heidern is hit in his final pose (with his fingers splayed).
+ - The Storm Bringer is unblockable.
+
+
+ ------------------------------------------------------------------------
+ TERRY BOGARD                                         [ Fatal Fury Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Grasping Upper
+ N>4/6+D                Buster Throw
+
+ 6+A                    Hammer Punch
+ 3+C                    Rising Upper
+
+ 236+A                  Power Wave
+ 236+C                  Round Wave
+ 623+K                  Power Dunk
+ 214+P                  Burn Knuckle
+ 214+K                  Crack Shoot
+ 2.8+P                  Rising Tackle
+
+ 236236+K               High Angle Geyser
+ 21416+P                POWER GEYSER
+
+ Super Cancels          Round Wave
+                        Rising Tackle (1st hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Dunk Geyser
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     C    C/C    C     C
+    Standing Far        Cr    -     -     -     C
+    Crouching           Cr    Cr    C     C
+
+ - The Hammer Arch is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable.
+ - The Rising Upper is cancelable.
+ - The Round Wave is cancelable into other special moves (like the
+   Crack Shoot), or even into itself.
+
+
+ ------------------------------------------------------------------------
+ ANDY BOGARD                                          [ Fatal Fury Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Gourin Kai
+ N>4/6+D                Kakaekomi Nage
+
+ 6+B                    Uwa Agito
+ 3+A                    Age Men
+
+ 214+A                  Hishou Ken
+ 214+C                  Geki Hishou Ken
+ 623+P                  Shouryuu Dan
+ 41236+K                Kuuha Dan
+ N>41236+P              Gekiheki Haisui Shou
+
+ 16+P                   Zan'ei Ken
+
+ _236+P                 Shippuu Ouken
+
+ A>236+K                Gen'ei Shiranui
+ _P upon landing        Gen'ei Shiranui: Shimo Agito
+ _K upon landing        Gen'ei Shiranui: Uwa Agito
+
+ 2141236+P              Zan'ei Ryuusei Ken
+ 21416+K                CHOU REPPA DAN
+
+ Super Cancels          (A) Shouryuu Dan (1st hit)
+                        (A) Zan'ei Ken
+                        Shippuu Ouken
+                        Gen'ei Shiranui: Shimo Agito
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Shippuu Zan'ei Ken
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C    C/C    -     C
+    Standing Far        -     -     -     -     C
+    Crouching           Cr    Cr    C     -
+    Upward Jump         s     -     s     -     -
+    Diagonal Jump       s     -     s     -     -
+
+ - The Age Men is cancelable on the first hit.
+ - The Uwa Agito is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable (into the Gen'ei Shiranui).
+ - The Gekiheki Haisui Shou is unblockable.  You can juggle an opponent
+   after this move.
+ - The Gen'ei Shiranui: Shimo Agito is a low attack.
+ - The Gen'ei Shiranui: Uwa Agito is an overhead attack.
+
+
+ ------------------------------------------------------------------------
+ JOE HIGASHI                                          [ Fatal Fury Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Hiza Jigoku
+ N>4/6+D                Leg Throw
+
+ 6+B                    Low Kick
+ 3+B                    Sliding
+
+ 41236+P                Hurricane Upper
+ 41236+K                Slash Kick
+ 623+K                  Tiger Kick
+ 214+K                  Ougon no Kakato
+ T>P                    Bakuretsu Ken
+ _236+P                 Bakuretsu Finish
+
+ 2362314+P              Bakuretsu Hurricane Tiger Kakato
+ 236236+K               Shijou Saikyou no Low Kick
+ 2369+K                 Ougon no Tiger Kick
+ 236236+P               SCREW UPPER
+
+ Super Cancels          Tiger Kick (1st hit)
+                        (A) Bakuretsu Finish
+                        Ougon no Tiger Kick (1st hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Shijou Saikyou no Low Kick
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     C     C     C     s
+    Standing Far        -r    C     -     -     s
+    Crouching           Cr    -r    -     C
+
+ - The Low Kick is cancelable.
+ - The Sliding is a low attack.  If canceled into, it loses this feature.
+ - The (A) Bakuretsu Finish is an overhead attack.
+ - The Shijou Saikyou no Low Kick is a low attack.  If this counter hits
+   in the corner, you can juggle your opponent with a Tiger Kick.
+
+
+ ------------------------------------------------------------------------
+ BLUE MARY                                            [ Fatal Fury Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Victor Nage
+ N>4/6+D                Head Throw
+
+ 4/6+A                  Hammer Arch
+ 4/6+B                  Double Rolling
+ 1+B                    Climbing Arrow
+
+ 236+P                  Spin Fall
+ _236+P                 M. Spider
+
+ 623+K                  Vertical Arrow
+ _623+K                 M. Snatcher
+
+ 4.6+K                  Straight Slicer
+ _236+K                 Crab Clutch
+
+ 214+P                  Real Counter
+ _41236+P               Backdrop Real
+ _41236+K               Head Crush
+
+ 214+B                  M. Reverse Facelock
+ 214+D                  M. Head Buster
+
+ 2363214+P              M. Splash Rose
+ A,A,6,B,C              M. Dynamite Swing
+ A,A,4,B,C              M. DYNAMITE SWING
+
+ Super Cancels          (B) Vertical Arrow (1st hit)
+                        (B) Straight Slicer
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Rapid Spider
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr   C/C   -/C    s
+    Standing Far        Cr    C    C/C    -     s
+    Crouching           Cr    Cr    C     -
+
+ - The Hammer Arch is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable.  It can be canceled directly
+   an (S)DM, though.
+ - The 2nd hit of the Double Rolling is a low attack and it is also
+   cancelable.
+ - The Climbing Arrow is cancelable.
+ - The Spin Fall is an overhead attack.
+ - The Straight Slicer is a low attack.
+ - Mary is invincible to attack during the Real Counter.
+ - The Backdrop Real and Head Crush are unblockable.
+ - The M. Reverse Facelock reverses jumping attacks, special moves,
+   and (S)DMs.
+ - The M. Head Buster reverses high and mid-level attacks.  A hit
+   opponent can be juggled afterwards.
+ - Since Mary's Dynamite Swing has a button-press input, it can super
+   cancel out of most attacks, including uncancelable moves (like Mary's
+   far standing D), special moves (the D Straight Slicer), and even the
+   M. Splash Rose (you can do it after she finishes all 8 hits, even)!
+
+
+ ------------------------------------------------------------------------
+ RYO SAKAZAKI                                    [ Art of Fighting Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Tani Otoshi
+ N>4/6+D                Tomoe Nage
+
+ 6+A                    Hyouchuu Wari
+ 6+B                    Joudan Uke
+ 3+B                    Gedan Uke
+
+ 236+A                  Ko'ou Ken
+ 623+P                  Kohou
+ 646+P                  Zanretsu Ken
+ 214+P                  Kohou Shippuu Ken
+ 236+K                  Mouko Raijin Setsu
+ 63214+K                Hien Shippuu Kyaku
+
+ 641236+P               Haou Shoukou Ken
+ 236236+P               Tenchi Haou Ken
+ 2363214+P              Ryuuko Ranbu
+ 236+C_A                RYUUKO RANBU
+
+ Super Cancels          (A) Kohou
+                        (A) Kohou (1st hit)
+                        Kohou Shippuu Ken (1st-2nd hit)
+ Critical Wire          (A) Zanretsu Ken
+ Counter Wire           None.
+ Striker Action         Tenchi Haou Ken
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C     C     C     C
+    Standing Far        Cr    -     -     -     C
+    Crouching           Cr    -r    C     C
+
+ - The Hyouchuu Wari is an overhead attack.  If canceled into, it
+   loses this feature.
+ - The Joudan Uke will autoguard against high and mid-level attacks.
+   If the autoguard is triggered, this move becomes cancelable.
+ - The Gedan Uke works in the same way, but only against low attacks.
+ - The (A) Kohou hits twice on a counter hit.
+ - The Zanretsu Ken has autoguard.
+ - The Kohou Shippuu Ken and Tenchi Haou Ken do greatly increased
+   damage on a counter hit.
+ - The Mouko Raijin Setsu is an overhead attack.
+ - Performing the SDM Ryuuko Ranbu is a bit tricky.  Simply entering
+   236+C and then pressing A won't work, since Ryo's standing C pose
+   has too much recovery time.  To get around this, you can either
+   combo into the move (for example, a close C interrupted by 236+C_A,
+   or you can perform it during another attack, even if it whiffs.
+   For example, you could enter the command during a far standing B
+   or an AB roll, then hit A just as you come out and Ryo will do
+   the Ryuuko Ranbu.  Supercanceling from the Kohou or Kohou Shippuu
+   Ken is another easy way to perform this move.
+
+
+ ------------------------------------------------------------------------
+ ROBERT GARCIA                                   [ Art of Fighting Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Ryuuchou Kyaku
+ N>4/6+D                Kubikiri Nage
+
+ 4+A                    Uraken
+ 6+A                    Kouryuu Koukyaku Geri
+ 3+B                    Nidan Sokutou Geri
+ 4/6+B                  Ryuu Hanshuu
+ A>3+K                  Hien Ryuujin Kyaku
+
+ 236+P                  Ryuugeki Ken
+ 623+P                  Ryuuga
+ 646+K                  Gen'ei Kyaku
+ 16+K                   Hien Senpuu Kyaku
+ N>63214+K              Kyokugen-ryuu Renbu Kyaku
+
+ 641236+P               Haou Shoukou Ken
+ 236236+P               Hairyuuga
+ 2363214+P              RYUUKO RANBU
+
+ Super Cancels          Ryuuga (1st hit)
+                        Kyokugen-ryuu Renbu Kyaku (4th hit)
+ Critical Wire          Kyokugen-ryuu Renbu Kyaku (4th hit)
+ Counter Wire           None.
+ Striker Action         Ryuuren Moushuu
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     C     C    C/-    s
+    Standing Far        -r    -     -     -     s
+    Crouching           Cr    Cr    C     C
+    Upward Jump         -     -     c     c     -
+    Diagonal Jump       -     -     c     c     -
+
+ - The Uraken is cancelable.  You can juggle your opponent afterwards.
+ - The Kouryuu Koukyaku Geri is an overhead attack.  If canceled into,
+   it loses this property.
+ - The Nidan Sokutou Geri is a low attack.  If canceled into, it loses
+   this property, but the first hit becomes cancelable.
+ - The Ryuu Hanshuu is cancelable.
+ - The (A) Ryuuga hits twice on a counter hit.
+ - Surprisingly, Kyokugen-ryuu Renbu Kyaku is blockable.  Not only can
+   you juggle your opponent after this move finishes, but the last hit
+   will drop an opponent's guard (since it is a Critical Wire).
+ - Robert's jumping CD hits twice on a counterhit.  However, you cannot
+   juggle an opponent if they take both hits.
+
+
+ ------------------------------------------------------------------------
+ YURI SAKAZAKI                                   [ Art of Fighting Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Oni Harite
+ N>4/6+D                Silent Nage
+ N>A>2+C/D              Tsubame Otoshi
+
+ 6+A                    En Yoku
+ 6+B_6+B                Senkai Kyaku
+
+ 236+P                  Ko'ou Ken
+ 236+H>P                Haou Shoukou Ken
+ 236+K                  Raiou Ken
+ 623+P                  Yuri Chou Upper
+ 623+C_623+P            Double Yuri Chou Upper
+ 214+P<H                Yuri Chou Knuckle
+ 214+K                  Yuri Chou Mawashi Geri
+ 632146+K               Hyakuretsu Binta
+
+ 236236+K               Shin! Chou Upper
+ 2363214+K              HIEN HOU'OU KYAKU
+ A,A,6,B,C              YURI CHOU ENBU
+
+ Super Cancels          Yuri Chou Upper (1st hit)
+                        Senkai Kyaku (1st-3rd hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Hien Rekkou
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C     C     C     s
+    Standing Far        Cr    -     -     -     s
+    Crouching           Cr    -r    C     C
+
+ - The En Yoku is an overhead attack, unless canceled into.
+ - Delaying the Yuri Chou Knuckle increases the amount of damage that
+   it does.
+ - The Hyakuretsu Binta is unblockable.
+ - The Yuri Chou Enbu is unblockable.  There is a random chance that
+   this move will do increased damage.  When this happens, Yuri's
+   recovery pose changes (she has her back facing the screen, instead
+   of giving the "victory" sign with her hands).
+ - Since the Yuri Chou Enbu has a button-press input, it can super
+   cancel out of most attacks, including uncancelable moves (like
+   Yuri's far standing C or the Shin! Chou Upper).
+ - Yuri's intro is actually a parody of Felicia's intro from Vampire
+   Savior.  That's why she says, "Meow, meow!" while getting up. :)
+
+
+ ------------------------------------------------------------------------
+ TAKUMA SAKAZAKI                                 [ Art of Fighting Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Oosotogari
+ N>4/6+D                Ippon Seoi
+
+ 6+A                    Oniguruma
+ 4+A                    Hisha Otoshi: Dan Tsubushi
+ 6+B                    Kawara Wari
+ 3+B                    Keima Uchi: Oiuchi
+
+ 236+P                  Ko'ou Ken
+ 214+P                  Mouko Burai Gan
+ 646+P                  Zanretsu Ken
+ 63214+K                Shouran Kyaku
+ 1.6+K                  Hien Shippuu Kyaku
+
+ 641236+P<H             Haou Shikou Ken
+ N>236236+P             Shin Kishin Geki
+ 2363214+P              RYUUKO RANBU
+
+ Super Cancels          Mouko Burai Gan
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Chou Hissatsu: Tengu Shikou Ken
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     Cr    C     -     s
+    Standing Far        -r    -     -     -     s
+    Crouching           Cr    Cr    C     C
+
+ - The Oniguruma is a knockdown attack.  If canceled into, it loses
+   this feature.  Either way, it is also cancelable.
+ - The Kawara Wari is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable.
+ - The Keima Uchi is a low attack that knocks down hit opponents.
+   If canceled into, it loses it's knockdown property, but becomes
+   cancelable.  This move can also be used to hit an opponent who
+   is lying on the ground.
+ - The Hisha Otoshi can destroy one-hit projectiles (normal, DM, or
+   otherwise).  If canceled into, it becomes cancelable.
+ - The Mouko Burai Gan no longer drops an opponent's guard.
+ - You can juggle your opponent after the (D) Hien Shippuu Kyaku.
+ - You can hold P during the Haou Shikou Ken to increase the amount of
+   damage it inflicts.
+ - The Shouran Kyaku and Shin Kishin Geki are unblockable.
+
+
+ ------------------------------------------------------------------------
+ KING                                                    [ Women's Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Hold Rush
+ N>4/6+D                Hook Buster
+
+ 6+B                    Trap Kick
+ 3+D                    Sliding
+
+ 236+B                  Venom Strike
+ 236+D                  Double Strike
+ 623+K                  Trap Shot
+ 63214+P                Mirage Kick
+ 63214+K                Tornado Kick '95
+ N>41236+P              Mirage Dance
+
+ 4632+K                 Surprise Rose
+ 2363214+K              ILLUSION DANCE
+
+ Super Cancels          Mirage Kick (1st-3rd hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Trap Rush
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    -     C    C/C    s
+    Standing Far        -r    -     -     -     s
+    Crouching           Cr    -r    C     -
+
+ - The Trap Kick is an overhead attack.  If canceled into, it loses
+   this property, however.
+ - The Sliding is a low attack.
+ - The "diving" hit of the Surprise Rose is an overhead attack.
+ - The Mirage Dance is unblockable.
+
+
+ ------------------------------------------------------------------------
+ MAI SHIRANUI                                            [ Women's Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Shiranui Gourin
+ N>4/6+D                Fuusha Kuzushi
+ N>A>2+C/D              Yume Zakura
+
+ 6+B                    Koku'en no Mai
+ 3+B                    Benitsuru no Mai
+ A>1~3+A                Dairin Fuusha Otoshi
+ A>2+B                  Ukihane
+ A>1~3+D                Yusura Ume
+ 7 near a wall_9        Sankaku Tobi
+
+ 236+P                  Kachou Sen
+ 214+P                  Ryuu Enbu
+ 214+K_214+P            Sayo Chidori (_Ryuu Enbu)
+ 41236+K                Hissatsu Shinobi Bachi
+ A>214+P                Musasabi no Mai (Kuuchuu)
+ 2.7~9+H>P              Musasabi no Mai (Chijou)
+
+ 2.7~9+P_4/6            Musasabi no Mai (Chijou)
+ _214+P                 Musasabi no Mai (Kuuchuu)
+ _N>2+D                 Toki Tsubute (opponent must be in air)
+ _2+P                   Yusura Ume
+ _2+K                   Ukihane
+
+ 236236+P               Hana Arashi
+ 214214+P               Hou'ou no Mai
+ 2141236+K              CHOU HISSATSU SHINOBI BACHI
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     Cr    C     C     s
+    Standing Far        -     -     -     -     s
+    Crouching           -r    -r    C     -
+    Upward Jump         -     -     -     C     C
+    Diagonal Jump       C     -     C     C     C
+
+ Super Cancels          (C) Ryuu Enbu (1st hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Mizudori no Mai
+
+ - The Dairin Fuusha Otoshi is a knockdown attack and is cancelable.
+   It is not an overhead attack, though.
+ - The Koku'en no Mai is an overhead attack.  If canceled into, it
+   becomes cancelable.
+ - The Benitsuru no Mai is a low attack.  If canceled into, it becomes
+   cancelable (on the first hit).
+ - Both the Ukihane and Yusura Ume are overhead and knockdown attacks.
+ - If you cancel the Sayo Chidori into the Ryuu Enbu, it becomes a
+   knockdown attack.  You can't super cancel the (C) Ryuu Enbu this
+   way, either.
+ - The Toki Tsubute is unblockable.
+
+
+ ------------------------------------------------------------------------
+ HINAKO SHIJOU                                           [ Women's Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Tasuki Nage
+ N>4/6+D                Uwate Nage
+
+ 3+A                    Maemitsu Tataki
+ 3+D                    Ketaguri
+
+ T>P                    Tsukidashi
+ 214+P                  Tsuki Otoshi
+ 623+K                  Yorigiri
+ 41236+K                Kote Nage
+ 632146+K               Kake Nage
+
+ 632146+P               Gaburi Yori
+ _412+K                 Ketaguri
+ _632+P                 Hatakikomi
+
+ 236236+P               Dai Ichiban
+ (41236)x2+K            GASSHOU HINERI
+
+ Super Cancels          Gaburi Yori
+                        Ketaguri (_412+K version)
+ Critical Wire          Hatakikomi
+ Counter Wire           Teppou Hinako (if only the last hit connects)
+ Striker Action         Teppou Hinako
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C     C     C     C
+    Standing Far        -r    -r    -     C     C
+    Crouching           C     -r    C     C
+
+ - The Maemitsu Tataki is cancelable on either hit.
+ - The (3+D) Ketaguri is a low attack and is cancelable.
+ - The Tsuki Otoshi has autoguard before the first hit.  The 2nd hit
+   is a knockdown attack.
+ - The Gaburi Yori won't grab from up close.  Like the Gasshou
+   Hineri, Hinako moves forward before making a grab attempt.
+ - During the Gaburi Yori, you can perform any other special move,
+   excluding another Gaburi Yori.  Or, you can supercancel into the
+   Oo Ichiban or Gasshou Hineri.
+ - However, if you mistime the input, Hinako will be hit by her
+   opponent and take damage.  If you simply input the Gaburi Yori and
+   do nothing, Hinako will be attacked but will defend herself.
+ - The Kake Nage and Gaburi Yori are unblockable.
+
+
+ ------------------------------------------------------------------------
+ XIANGFEI LI                                             [ Women's Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Kadoma
+ N>4/6+D                Ryokuchi Kou'en
+
+ 6+A                    Soushouda
+ 6+B                    Kyuuho: Kousentai
+ 3+D                    Fukuho: Kousentai
+
+ 236+P                  Nanpa
+ 623+K                  Tenpou Zan
+ 236+B_236+B            Senri Chuu'ou  (_Kankuu)
+ 236+D                  Senri Chuu'ou: Shinsaiha
+ foe attacks_A_8/6/2    Esaka
+
+ 632146+P               Banpaku Kou'en
+ _214+P                 Eikishuhou
+
+ AC_43+C_4+C            Chou Pai Long
+ 2363214+K              DAI TETSUJIN
+ (62314)x2+K            MAJINGA
+
+ Super Cancels          Tenpou Zan (1st hit)
+                        Esaka (A_6 or A_2 version)
+                        Eikishuhou
+ Critical Wire          Chou Pai Long (3rd input)
+ Counter Wire           None.
+ Striker Action         Chou Pai Long Ni
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     Cr    C     C     s
+    Standing Far       C/C    -     -     -     s
+    Crouching           Cr    -r    C     C
+
+ - The Soushouda is an overhead attack.  If canceled into, it loses
+   this feature, but becomes cancelable.
+ - The Kyuuho: Kousentai is a low attack.  If canceled into, it becomes
+   cancelable.
+ - The Fukuho: Kousentai is a low attack.
+ - In the corner, you can juggle your opponent after the (C) Nanpa.
+ - Xiangfei's Esaka is a reversal move, but it doesn't work like most
+   other reversal moves do.  While your opponent is currently making
+   an attack _that can hit_, you can perform this move.  For example,
+   you couldn't use the Esaka during the start of Heidern's far standing
+   D kick because only the ending animation can actually hit you.
+ - While your opponent is attacking, press A and then _immediately_
+   press in the desired direction.  Pressing 8 catches jumping attacks
+   and (S)DMs, while 6 catches standing attacks and special moves.
+   Pressing 2 catches attacks.
+ - Only the appropriate type of Esaka can be used, so if someone attacks
+   with a crouching sweep and you input A_8, nothing will happen.
+   However, you can input the command from anywhere on screen (even
+   though this is pretty useless if your opponent is nowhere near you).
+ - Also, the Esaka has autoguard before Xiangfei attacks (but she can
+   still be hit out of the beginning of the Esaka animation).
+ - The last input of the Chou Pai Long will drop an opponent's guard.
+   since it is a Critical Wire.
+ - The SDM Majinga normally hits 103 times.  However, there is a
+   random chance that it will hit 2001 times, although the damage
+   increase is not that much greater than normal.
+ - The Senri Chuu'ou, Shinsaiha, Banpaku Kou'en, and Majinga are
+   unblockable.
+
+
+ ------------------------------------------------------------------------
+ KULA DIAMOND                                              [ Nests Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Ice Coffin
+ N>4/6+D                Behind Rush
+
+ 6+A                    One Inch
+ 3+B                    Slider Shoot
+ 3+C                    Critical Ice
+
+ 236+P                  Diamond Breath
+ 623+P                  Crow Bites
+ 214+P                  Counter Shell
+ 214+K                  Ray Spin
+ _6+B                   Tsuika Kougeki (Stand)
+ _6+D                   Tsuika Kougeki (Sit)
+
+ 236236+P               DIAMOND EDGE
+ (63214)x2+AC           FREEZE EXECUTION
+
+ Super Cancels          One Inch
+                        (C) Crow Bites (1st hit)
+                        (B) Tsuika Kougeki (1st hit)
+                        (D) Tsuika Kougeki
+ Critical Wire          None.
+ Counter Wire           One Inch
+                        Critical Ice
+                        (only if the 1st hit is the only one to connect)
+                        Counter Shell
+ Striker Action         Slider Crow Bites
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr   -/-   C/C   -/C    s
+    Standing Far        Cr   -/-    C     -     s
+    Crouching           C     Cr    -     C
+
+ - The One Inch is a knockdown attack.  If canceled into, it loses this
+   feature, but becomes cancelable.  It can be canceled directly into
+   an (S)DM, though.
+ - The (A) Diamond Breath knocks an opponent over.  You can hit your
+   opponent after either version connects, however.
+ - The Counter Shell can be used to absorb normal and SDM projectiles,
+   as well as Striker projectiles.  Kula will respond by firing an
+   icicle across the screen (the same as her Tsuika Kougeki: Stand
+   attack).
+ - The Slider Shoot and Tsuika Kougeki (Sit) are low attacks.
+ - You can juggle an opponent after the Tsuika Kougeki, but only on
+   a counter hit (otherwise, Kula doesn't recover fast enough).
+ - The Tsuika Kougeki (Stand) also produces a projectile when used.
+ - When you use the Freeze Execution, you can get the most hits if
+   your opponent is in the corner of the screen where Kula is (so if
+   Kula is in the far left corner and uses this move, you'd take the
+   most damage if you were in the far left corner next to her).  You
+   can tell where the high-damage area is because the "white" part
+   juts further down into the playing field).  Remember that if Kula
+   is facing in the opposite direction, the white area is reversed
+   as well.
+
+
+ ------------------------------------------------------------------------
+ FOXY                                                      [ Nests Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Daisan no Kagi
+ N>4/6+D                Daijuuni no Kagi
+
+ 6+A                    Nanatsu no Kinzoku
+ 3+A                    Nanatsu no Koubutsu
+ 6+B                    Nanajuu no Junkan
+ 3+B                    Nanajuu no Jouryuu
+
+ 236+P                  Unicorn no Tsuno
+ 623+P                  Prenylnium
+ 623+K                  Taiki no Shoukei
+ 236+K                  Chie no Ki
+ _6+P while sliding     Getsu no Shirogane
+
+ 63214+P                Hajimari no Ki
+ _P                     Noah no Kioku
+ _4+K                   Nanajuu no Hoshi
+
+ 236236+P               Hakuchou no Uta
+ _2+K while dashing     Chishiki no Bon
+ _6+P while dashing     Getsu no Shirognae
+
+ A>236236+AC            WAKUSEI NO INORI
+ (236236)x2+BD          MITSUBACHI
+
+ Super Cancels          (A) Prenylnium (1st hit)
+                        Hajimari no Ki
+                        Chishiki no Bon (3rd hit)
+                        Getsu no Shirogane (from 236+K)
+                        Getsu no Shirogane (2nd hit from 236236+P)
+ Critical Wire          None.
+ Counter Wire           Standing CD
+                        Jumping CD
+ Striker Action         Getsu no Shirogane
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr   C/C   -/-    C
+    Standing Far        -r    -r    -     -     C
+    Crouching           -r    Cr    C     -
+    Upward Jump         S     -     -     S     -
+    Diagonal Jump       S     -     -     S     -
+
+ - The Nanatsu no Kinzoku is cancelable if canceled into.
+ - The Nanatsu no Koubutsu is cancelable.
+ - You can cancel the Nanatsu no Kinzoku into the Nanatsu no Koubutsu.
+ - The Nanatsu no Junkan and Nanajuu no Hoshi will autoguard against
+   high and mid-level attacks.  If the autoguard is triggered, this
+   move becomes cancelable.
+ - The Nanajuu no Jouryuu works in the same way, but only against
+   low and some mid-level attacks.
+ - The Unicorn no Tsuno does no damage.  However, a hit character is
+   momentarily stunned and is left open to attack.
+ - The Taiki no Shoukei is a teleportation move.  You can cancel this
+   move's animation into Foxy's 6+B or 3+B moves, or into any special
+   move or the Hakuchou no Uta (this is not a supercancel).
+ - The Chie no Ki and Chishiki no Bon are low attacks.
+ - The Getsu no Shirogane is an overhead attack (but the Striker
+   version is not).
+ - The Chishiki no Bon will drop an opponent's guard on the 2nd hit
+   if they are blocking low.  The last hit is cancelable and super
+   cancelable, and you can juggle a hit opponent in the corner.
+ - The Wakusei no Inori makes a row of slash-marks hit the opponent
+   from behind.  Your opponent must block backwards (by holding
+   forward), or they will be hit.
+ - When you perform the Mitsubachi, Foxy will automatically forfeit
+   the round if her attack misses or is blocked.  If it hits, then
+   both characters are killed and the round ends in a draw.
+
+
+ ------------------------------------------------------------------------
+ K9999  (pronounced "kay four nine")                       [ Nests Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Kieroo!
+ N>4/6+D                Itsumade yondendayoo!
+
+ 6+A                    Urusee-!
+
+ 236+P                  Acchi he itteroo!
+ 623+P                  Wareroo!
+
+ 1632143+P              Tsuki...
+ 1632143+K              Temee mo oucchimae!!
+ 263+ABCD               CHIKARA GA...KATTE NI...UWAAAA!!
+
+ Super Cancels          (A) Acchi he itteroo! (3rd-4th hits)
+                        (C) Acchi he itteroo! (1st-4th hits)
+                        Wareroo!
+                        Urusee-! (1st-3rd hits only)
+ Critical Wire          Ore ni meirei sunna-!!  (if CD attack hits)
+ Counter Wire           None.
+ Striker Action         Ore ni meirei sunna-!!
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr  C/C/C   -     C
+    Standing Far        -r    -r   -x6    -     C
+    Crouching           Cr    Cr   -/-    -
+
+ - At the proper distance from your opponent, the 163214+K super will
+   hit nine times instead of the usual five (the first four shots
+   register as two hits apiece).  The spacing on this is difficult;
+   it's somewhere between being half-a-screen away and being a full
+   screen away from your opponent.
+ - The 263+ABCD super can hit opponents who are falling towards the
+   floor.
+ - Strangely enough, K9999's crouching (D) can be canceled into, just
+   like a command attack.  For example, you could press 2+D during his
+   near standing (C) and interrupt it on any hit, or combo into it
+   from his standing close (B), etc.
+ - While K9999's crouching (D) doesn't knock down, his crouching (C)
+   does, on the second hit.
+ - K9999's standing (D) is an overhead attack.  It's also a knockdown
+   attack, and it can hit an enemy who is lying on the ground.
+
+
+ ------------------------------------------------------------------------
+ ANGEL                                                     [ Nests Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Go Go For Ten Girl
+ N>4/6+D                Starlit Field
+
+ A>1~3+D                At The Wasteland
+ 6+B                    Senseless Chatter
+
+ 214+P                  Repun Kamuy                          (S)
+ 41236+K                Beyond The Frames                    (S)
+ 63214+K                Red Sky of Japonesia
+ N>421+K                Mad Murder Roulette
+ 3+K                    Formalists' Blue
+ _P                     Welcome To Ryuugu                    (S)
+ _K                     Citizen of the World                 (S)
+
+ From (S)tart:
+ 8+P                    Bye Bye Ryuugu                       (M)
+ 8+K                    Shelter From The Storm               (M)
+ 6+P                    Buggy And Coffin                     (M)
+ 6+K                    With A Lamp For The Pathway          (M)
+ 2+P                    A Train To See Cherry Blossoms       (M)
+ 2+K                    Impotent Symptom                     (M)
+
+ From (M)idst:
+ 66+P                   Crown Under the Sky                   (E)
+ 66+K                   State of Heat Haze                    (E)
+ 214+P                  A Full Moon Evening                   (E)
+ 41236+K                Light Your Cycle                      (E)
+ 63214+K                Red Sky of Japonesia                  (E)
+ 421+K                  A Garden To Play With Ghosts          (E)
+ 4623+P                 THE UNIDENTIFIED VICTIM CONSCIOUSNESS (E)
+
+ 4623+K                 Royality Test For the Liberalists
+
+ Super Cancels          None.
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Beyond the Frames
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    -r    C     C     s
+    Standing Far        Cr    -r    -     -     s
+    Crouching           Cr    -r    C     C
+    Upward Jump         c     -     c     c     -
+    Diagonal Jump       c     -     c     c     -
+
+ - You can cancel a mid-air attack into "At the Wasteland," which isn't
+   that surprising, except that it will actually combo.
+ - The "Senseless Chatter" is cancelable on the second hit.  If you
+   cancel into it, then it becomes cancelable on either hit.
+ - The (A) Repun Kamuy will knock an opponent away from you.
+ - The (C) Repun Kamuy keeps an opponent standing.  It will also drop
+   their guard if blocked (and some moves, like her 8+P/K, are fast
+   enough to combo in after you drop your opponent's guard).
+ - When you use the "Beyond the Frames", Angel will run forward.  If
+   she gets close enough to her opponent, she'll warp behind them.
+   However, if she runs for too long, she won't warp at all and
+   will simply stop in front of her enemy.  You can cancel this move
+   into itself repeatedly.
+ - Canceling the "Beyond the Frames" into one of the (M) moves is
+   another story.  For the (D) version, you can simply enter the
+   command while she's running (before she warps).  For the (B)
+   version, enter the command as she nears her opponent.  She will
+   tackle them, warp to their other side (if possible), and then do
+   the attack that you just input.
+ - During the "Red Sky of Japonesia" (the 63214+K version), Angel
+   will warp forward.  If she gets close enough to her opponent
+   before the warp is over, she'll get them in a leg hold.  If she
+   can't get close enough (or if your opponent is blocking), then
+   she comes out of the warp without attacking.
+ - You can juggle an opponent after "Mad Murder Roulette."  If they're
+   in the corner, you can do whatever you like, but out in the open,
+   the only thing that will catch them is the "Red Sky of Japonesia."
+ - The "Formalists' Blue" has the same cancelable properties as a
+   special move.  This means that you can cancel into it from a command
+   attack, like the "Senseless Chatter."
+ - "Welcome to Ryuugu" will combo from the "Formalists' Blue."  However,
+   "Citizen of the World" will not, although it is an overhead attack.
+ - Both "A Train to See Cherry Blossoms" and "Impotent Symptom" hit low.
+ - The "Impotent Symptom" will hit an opponent who is lying on the floor.
+   If they were knocked down as the result of a previous (M) move, then
+   they will be knocked back into a standing position.
+ - "Buggy and Coffin," "With a Lamp for the Pathway," and the second
+   hit of "State of Heat Haze" are all overhead attacks.
+ - You can juggle your opponent after "Crown Under the Sky."
+ - "State of Heat Haze" is an overhead attack.
+ - "A Full Moon Evening" is unblockable.  You can cancel the start-up
+   animation into "The Unidentified Victim Consciousness," if you like.
+   This move does much more damage on a counter hit.
+ - "A Garden To Play With Ghosts" functions just like the "Mad Murder
+   Roulette" (see above).  However, Angel backsteps before attempting
+   to throw, making this move difficult to land.
+ - Angel's (4623+K) move reverses almost any attack (jumping, high, mid,
+   and low), as well as special moves and (S)DMs.  There are two versions
+   of this move; one if you reverse a mid-air attack, and one if you
+   reverse a ground attack.  You can juggle your opponent after the
+   ground version.
+ - Angel's jumping (C) is designed to be used when jumping over your
+   opponent, like Iori's Yuri Ori.
+ - Angel has the ability to chain together certain attacks.  It may
+   seem complicated, but the rules are rather simple.  Simply perform
+   an attack marked with an (S), and during it, perform an (M) attack.
+ - You then have two options; perform an (E) move during the (M) attack,
+   or chain it into another (M) attack and keep chaining.
+ - When chaining (M) attacks, there are three basic rules:
+
+     1.  You must alternate between Punch and Kick for each attack.
+     2.  You cannot use the same direction twice in a row.
+     3.  You may not repeat a command.
+
+ - Therefore, a chain such as (6+P > 6+K > 8+K) would not be possible,
+   since it breaks all the rules.
+ - So, does this mean you're limited to doing short chains?  Not at
+   all.  In fact, you can chain together all the (M) attacks, like so:
+
+       any (S) > 6+K > 8+P > 2+K > 6+P > 8+K > 2+P > any (E)
+
+ - It may look confusing, but it's actually easy to remember, since it
+   just repeats itself with different buttons.  And this is just one
+   of several possible ways to chain the attacks together (you could
+   do the whole (M) sequence in reverse, for example).
+
+
+ ------------------------------------------------------------------------
+ ATHENA ASAMIYA                                   [ Psycho Soldier Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Bit Throw
+ N>4/6+D                Psychic Throw
+ N>A>2+C/D              Psychic Shoot
+
+ 6+B                    Renkantai
+ A>1~3+B                Phoenix Bomb
+ 7 near a wall_9        Sankaku Tobi
+
+ 214+P                  Psycho Ball Attack
+ 41236+P                Psycho Shoot
+ 623+P<A                Psycho Sword
+ A>214+K                Phoenix Arrow
+ 236+K                  Psychic Teleport
+ 214+B                  Psycho Reflector
+ 214+D                  Nu Psycho Reflector
+
+ A>236236+K             Phoenix Fang Arrow
+
+ 63214x2+P<A            SHINING CRYSTAL BIT
+ _214+P<H               Crystal Shoot
+ _ABCD                  Cancel
+
+ 632146+AC              PSYCHIC 9
+ _(A,B,C)x2,D,236+P     Sailor Finish
+ _(A,B,C)x2,D,623+P     Psycho Sword Sword
+ _(A,B,C)x2,D,62314+K   Fire Sword Finish
+
+ Super Cancels          (A) Psycho Sword (1st or 3rd hit)
+                        (C) Psycho Sword (5th-7th hit)
+                        (A) Mid-Air Psycho Sword (1st-3rd hit)
+                        (C) Mid-Air Psycho Sword (3rd-7th hit)
+                        (A) Phoenix Arrow (3rd hit)
+                        (C) Phoenix Arrow (1st-4th in air)
+                        (C) Phoenix Arrow (5th on ground)
+ Critical Wire          Psychic Throw (from Psychic 9)
+                        Phoenix Arrow '95 (crouching kick only)
+ Counter Wire           None.
+ Striker Action         Phoenix Arrow '95
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    C     C     C     s
+    Standing Far        C     C     -     -     s
+    Crouching           Cr    Cr    C     C
+    Upward Jump         C     -     C     -     C
+    Diagonal Jump       C     -     C     -     C
+
+ - The second hit of the Renkantai is cancelable.
+ - The Phoenix Bomb is cancelable.
+ - The Psycho Reflector moves can reflect normal and (S)DM projectiles.
+   It will merely negate Striker projectiles.
+ - When performing the Psychic 9, wait for the first two automatic hits
+   before you start pressing the buttons.  The final (D) press has to
+   be done very quickly, whereas the rest of the button presses can be
+   done rather moderately.
+ - You can juggle your opponent after the "Psycho Sword" variation of
+   the Psychic 9.
+
+
+ ------------------------------------------------------------------------
+ SIE KENSOU                                       [ Psycho Soldier Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Hakkei
+ N>4/6+D                Tomoe Nage
+
+ 6+A                    Kobokushu
+ 6+B                    Kousentai
+
+ 214+P                  Choukyuu Dan
+ 236+K                  Senkyuutai
+ 421+K                  Ryuu Gakusai
+ A>214+P                Ryuu Sougeki
+ 41236+A                Ryuu Renga: Chiryuu
+ 41236+C                Ryuu Renga: Tenryuu
+
+ 2363214+B              Shinryuu Seiou Rekkyaku
+ 2363214+D              Shinryuu Tenbu Kyaku
+ N>236236+AC            SENKI HAKKEI
+
+ Super Cancels          Ryuu Gakusai (2nd hit)
+ Critical Wire          Sen Shippo (if it misses and the taunt hits)
+ Counter Wire           None.
+ Striker Action         Sen Shippo
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     C     s
+    Standing Far        Cr    -    -/C    -     s
+    Crouching           Cr    -r    C     C
+    Upward Jump         s     -     -     -     s
+    Diagonal Jump       -     s     -     -     s
+
+ - The Kobokushu is an overhead attack.  If canceled into, it loses this
+   feature, but becomes cancelable.
+ - The Kousentai is cancelable.
+ - You can juggle your opponent after the Senkyuutai.
+ - The Senkyuutai and (A) Ryuu Renga has autoguard.
+ - The 2nd and 3rd hit of the Shinryuu Seiou Rekkyaku are overhead
+   attacks.
+ - The Senki Hakkei is unblockable.
+
+
+ ------------------------------------------------------------------------
+ CHIN GENTSAI                                     [ Psycho Soldier Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Gou Inshu
+ N>4/6+D                Sakkyaku Nage
+
+ 6+A                    Suiho Hyoutan Shuu
+
+ 214+P                  Hyoutan Geki
+
+ 236+P                  Suihai Kou
+ _236+P                 Fun'en Kou
+ _623+P                 Ryuurin Hourai
+ _623+K                 Gou'en Shourai: Kai
+ _41236+K               Kaiten-teki Kuutotsu Ken
+
+ 22+K                   Bougetsu Sui
+ _4/6                   Move Back/Forward
+ _8+B                   Rouja Hanhou
+ _8+D                   Rigyo Hanhou
+ _ABCD                  Cancel
+
+ 2362314+P              Gou'en Shourai
+ 236236+P               GOURAN ENPOU
+
+ Super Cancels          (C) Ryuurin Hourai (1st hit)
+                        (B) Gou'en Shourai: Kai (last hit)
+                        (D) Gou'en Shourai: Kai (1st hit)
+                        Kaiten-teki Kuutotsu Ken
+                        Rigyo Hanhou
+                        Gou'en Shourai (last hit)
+ Critical Wire          (B) Gou'en Shourai: Kai (last hit)
+ Counter Wire           None.
+ Striker Action         Kaiten Hyoutan Shuu
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    -r    C    -/-    s
+    Standing Far        -r    -r    C     -     s
+    Crouching           Cr    -r    C     -
+
+ - The Suihai Kou no longer hits.  Instead, Chin is immune to attack
+   during this move.
+ - The Suiho Hyoutan Shuu is an overhead attack and is cancelable.
+ - The Hyoutan Geki can negate normal projectiles.
+ - The last hit of the (B) Gou'en Shourai: Kai will drop an enemy's
+   guard, since it is a Critical Wire.
+
+
+ ------------------------------------------------------------------------
+ BAO  (pronounced "pow")                          [ Psycho Soldier Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Gen'ei Tougi
+ N>4/6+D                Critical Throw
+
+ 6+A                    Kawasaki
+ 6+B                    Senheki Shuu
+ 3+B                    Senshou Shuu
+ 3+D                    Rikatsu Shuu
+ 2+D                    Sliding
+ A>2+A                  Soushou
+ A>2+B                  Hikida
+ 7 near a wall_9        Sankaku Tobi
+
+ 236+A                  Psycho Ball Attack
+ 236+C                  Psycho Ball Crash: Rise
+ 236+K                  Psycho Ball Crash: Bound
+ 214+P                  Psycho Ball Crash: Front
+ 214+K                  Psycho Ball Crash: Reflect
+ A>214+P                Psycho Ball Crash: Air Front
+ A>236+K                Psycho Ball Crash: Air Bound
+
+ 214214+K               Psycho Ball Crash SP
+ 641236+AC<H            PSYCHO BALL ATTACK 3
+
+ Super Cancels          Psycho Ball Crash: Rise (1st hit)
+                        Psycho Ball Crash: Front
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Psycho Ball Attack: Rise
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     C     C    -/-    -
+    Standing Far        -     -     -     -     -
+    Crouching           C     -r    C     -
+
+ - The Kawasaki, Senshou Shuu, Rikatsu Shuu, and Soushou are cancelable.
+ - The Kawasaki is also a knockdown attack.
+ - The Senheki Shuu is an overhead attack, even if canceled into.
+ - The second hit of the Sliding is a low attack.
+ - The Rikatsu Shuu and Psycho Ball Attack 3 can hit an opponent who
+   is lying on the floor.
+ - The (236+C) can be canceled into the Air Front or Air Bound after
+   the 2nd hit.
+ - You can juggle your opponent after Bao's (214+C), if they are in the
+   corner of the screen.
+ - The Psycho Ball Crash: Reflect can reflect normal and (S)DM
+   projectiles.  It will merely negate Striker projectiles.
+ - The Air Bound can be canceled into any ground special move or (S)DM
+   during the brief period when Bao lands before bouncing upward again.
+ - The 236+K attack can be canceled into a ground special move or (S)DM
+   like the Air Bound, but it's much harder to do.  This is because the
+   move is only cancelable if Bao hits his opponent while at the lowest
+   point of his forward movement (before he bounces upward).  An easy
+   way to get the timing right (vs most characters), is to do it in
+   this combo:
+
+     Standing or crouching (C) -> Kawasaki or Rikatsu Shuu -> Bound
+
+   You should hit your opponent at the lowest point of the Bound this
+   way (although the Kawasaki or Rikatsu Shuu will not actually combo
+   with the Bound, so your opponent could block the Bound).
+ - You can delay the Psycho Ball Attack 3, but it will automatically
+   explode if it gets close to your opponent.
+
+
+ ------------------------------------------------------------------------
+ KIM KAPHWAN                                               [ Korea Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Kubikime Otoshi
+ N>4/6+D                Sakkyaku Nage
+
+ 6+A                    Kuuren Geki
+ 6+B                    Neri Chagi
+
+ 214+K                  Hangetsu Zan
+ 2.8+K                  Hien Zan
+ 2.8+D_2+D              Hien Zan (_Tenshou Zan)
+ 22+K                   Haki Kyaku
+ 22+B_623+K             Haki Kyaku (_Double Dechagi)
+ A>236+K                Hishou Kyaku
+
+ 236236+K               Hou'ou Hiten Kyaku
+ A>236236+K             Hou'ou Tenbu Kyaku
+ 21416+BD<A             HOU'OU KYAKU
+
+ Super Cancels          (B) Haki Kyaku
+                        (D) Hien Zan (1st hit)
+                        Double Dechagi (2nd hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Hishou Kyaku
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C    C/C   C/-   C/C    s
+    Standing Far        -     -     -     -     s
+    Crouching           C     -r    C     C
+    Upward Jump         C     -     -     -     C
+    Diagonal Jump       C     -     -     -     C
+
+ - The second hit of the Kuuren Geki is cancelable.
+ - The Neri Chagi is an overhead attack.  If canceled into, it loses this
+   feature, but becomes a two-hit move which is cancelable on either hit.
+ - The (D) Haki Kyaku is a knockdown attack.  It can also hit an
+   opponent who is lying on the ground.
+ - You can juggle your opponent after the Hou'ou Hiten Kyaku.
+
+
+ ------------------------------------------------------------------------
+ CHANG KOEHAN                                              [ Korea Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Hagan Geki
+ N>4/6+D                Kusari Jime
+
+ 3+A                    Hiki Nige
+
+ 214+P                  Tekkyuu Funsai Geki
+ 41236+K                Tekkyuu Taiko Uchi
+ 632146+P               Dai Hakai Nage
+
+ 623+P                  Tekkyuu Dai Kaiten
+ _4/6                   Move Back / Forward
+ _ABCD                  Cancel
+
+ 2363214+P              Tekkyuu Dai Bousou
+ 236236+P               TEKKYUU DAI ASSATSU
+
+ Super Cancels          (C) Tekkyuu Funsai Geki (if it hits from behind)
+ Critical Wire          Tekkyuu Dai Bousou (standing B finish)
+ Counter Wire           None.
+ Striker Action         Tekkyuu Dai Kourin
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       C     C    -/-    C     s
+    Standing Far        -     C     -     -     s
+    Crouching           C     C     C     C
+
+ - The (C) Tekkyuu Funsai Geki has autoguard during the beginning of
+   the move, right when Chang rears back to begin spinning the ball.
+ - Furthermore, this move will no longer hit an opponent if Chang is
+   spinning the ball behind his head and his challenger moves behind him.
+ - However, when Chang actually swings the ball forward, then an
+   opponent who is behind him will be hit.  Even stranger is that this
+   is the only way to use the (C) Tekkyuu Funsai Geki as a supercancel.
+ - The timing on the supercancel seems to be incredibly difficult,
+   though (I got it to work twice out of literally 60 tries).  What's
+
+   more, the Tekkyuu Dai Bousou doesn't connect off of the super cancel
+   (maybe the Assatsu does, I couldn't get it to work).  If anyone has
+   a reliable way to pull this off, I'd love to hear from you :)
+ - During the Tekkyuu Dai Kaiten, Chang's spinning ball can absorb
+   projectiles.  This move hits twice on a counter hit.
+ - The Tekkyuu Taiko Uchi reverses jumping, high, and mid-level attacks,
+   as well as special moves and (S)DMs.  For every third time that you
+   successfully reverse a move, Chang will fall down instead of sneezing,
+   which inflicts much more damage.  However, the "fall" animation has
+   less range than the sneeze does.
+ - The Dai Hakai Nage is unblockable.
+ - The Tekkyuu Dai Bousou ends with one of seven random finishes,
+   including: a belly bop, a forward roll, an upward roll, a ground
+   slide, a Hien Zan (hits on the way down), a mini belly flop, and
+   a standing kick attack (looks like his standing B).
+ - If you're lucky enough to get the standing B finish, then it will
+   act like a Critical Wire when it his, allowing you to juggle your
+   opponent as they bounce off the wall.
+ - The DM version of the Tekkyuu Dai Assatsu acts as an overhead attack
+   while Chang is falling.  In addition, the (A) version makes Chang
+   go directly into the bellyflop, and can hit twice on a counter hit.
+ - The (C) version makes Chang run forward, and as he starts running,
+   he has autoguard.  This move usually hits twice (once on the way
+   up and again on the way down), but it can hit twice in the air if
+   it's a counter hit.
+ - The SDM Tekkyuu Dai Assatsu is not an overhead, but it hits low,
+   like Goro's Jiraishin.  This means that Chang's opponent will be
+   damaged no matter where he is on the screen (unless he's blocking
+   low or is in mid-air).
+ - The SDM Tekkyuu Dai Assatsu can also hit someone who is lying on
+   the floor.
+ - Chang's crouching C only hits once.  However, it has several "hit
+   points" that can connect.  All of them are cancelable except for
+   when the ball is fully over Chang's head (the previous one, where
+   it is above his head but is still at an angle, is cancelable).
+
+
+ ------------------------------------------------------------------------
+ CHOI BOUNGE                                               [ Korea Team ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Zujou Sashi
+ N>4/6+D                Geketsu Zuki
+
+ 4/6+B                  Toorima Geri
+ 7 near a wall_9        Sankaku Tobi
+
+ 2.8+P                  Tatsumaki Shippuu Zan
+ 4.6+P                  Senpuu Hien Zashi
+ _(dir.+P/K)x2          Houkou Tenkan
+ 2.7~9+K<H              Hishou Kuuretsu Zan
+ _(dir.+P/K)x2          Houkou Tenkan
+ 623+K                  Hien Zan
+ A>236+K                Hishou Kyaku
+
+ 214+P                  Kaiten Hien Zan
+ _P                     Kishuu Hien Zuki
+ _236+K at apex         Hishou Kyaku
+
+ (63214)x2+P            Shin! Chouzetsu Tatsumaki Shinkuu Zan
+ _4/6                   Move Back / Forward
+ (41236)x2+P<H          Zan! Engetsu Rin
+ 2141236+BD             HOU'OU KYAKU
+
+ Super Cancels          Tatsumaki Shippuu Zan (1st hit)
+ Critical Wire          None.
+ Counter Wire           None.
+ Striker Action         Toorima Zuki
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C     -     s
+    Standing Far        Cr    -     -     -     s
+    Crouching           Cr    -r    C     -
+
+ - When using the Hishou Kuuretsu Zan, the (B) version makes Choi
+   fly diagonally downward, while the (D) version makes him fly
+   horizontally.
+ - The Shin! Chouzetsu Tatsumaki Shinkuu Zan is only a DM, but it
+   can juggle an opponent repeatedly like the old SDM version could.
+ - If you delay the Zan! Engetsu Rin until Choi attacks, the third
+   "slash mark" he makes becomes an unblockable attack.
+
+
+ ------------------------------------------------------------------------
+ MAY LEE (NORMAL)                                          [ Korea Team ]
+ ------------------------------------------------------------------------
+
+ ABC                    Kamae Henka (Hero)
+
+ N>4/6+C                Omote Enbu
+ N>4/6+D                Ura Enbu
+
+ 6+B                    Kuusetsu Geki
+
+ 236+K                  Mawashi Geri
+ 623+B                  Kakato Otoshi
+ 623+D                  Gedan Geri
+ 63214+K                Gada Hanshuu
+
+ (see notes)            Sanren Kyaku
+ _63214+B               Ushiro Mawashi Geri
+ _63214+D               Ushiro Mawashi Geri (_Kamae Henka)
+
+ 236236+K               Ryuu Getsurin Kyaku
+ 214214+K               Shinjuu Kyaku
+
+ Super Cancels          Gedan Geri
+                        (B) Ushiro Mawashi Geri
+ Critical Wire          Shinjuu Kyaku
+ Counter Wire           None.
+ Striker Action         Shinjuu Shoukan
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    Cr    C    -/C    s
+    Standing Far        Cr    -r    -    -/-    s
+    Crouching           Cr    -r    C     -
+
+ - Pressing ABC will make May change her stance and enter "Hero Mode."
+   In this mode, she has a completely different moveslist; see the
+   next entry for more details.  May will revert to normal mode if she
+   is hit while in Hero Mode.
+ - The ABC stance switch also has the neat ability to cancel out of
+   most moves.  This means that if you input 236+K, you can press
+   ABC during either hit to make May stop and switch stances.  Since
+   the stance change occurs so quickly, you can even continue to
+   combo while in Hero Mode.
+ - May has the ability to cancel certain attacks into other attacks.
+   This ability is called the "Sanren Kyaku" (Triple Continuous Kicks),
+   because she can do precisely that--deliver three attacks in quick
+   succession.  The possible "Sanren Kyaku" routes are listed below:
+
+                236+K    ->  623+K    ->  62314+K
+                623+K    ->  236+K    ->  63214+K
+                236+K    ->  63214+B  ->  623+K
+                623+K    ->  63214+B  ->  236+K
+                63214+B  ->  236+K    ->  623+K
+                63214+B  ->  623+K    ->  236+K
+                236+K    ->  63214+D
+                623+K    ->  63214+D
+
+ - Note that the last two routes stop after "63214+D" because using
+   this move automatically puts May Lee in Hero Mode afterwards.
+ - Also note that you can cancel these attacks into each other without
+   waiting for them to connect.
+ - The (D) Mawashi Geri has autoguard during the animation when May Lee
+   sticks her knee out before stepping forward and kicking.
+ - The Kakato Otoshi is an overhead attack.
+ - Inputting 63214+K makes May Lee perform the Gada Hanshuu.  If you
+   input 63214+K during her 236+K or 623+K attacks, she'll perform
+   the Ushiro Mawashi Geri instead.
+ - The Gada Hanshuu reverses all attacks (jumping, high, mid, and low),
+   as well as special moves and (S)DMs.  You can juggle your opponent
+   afterwards.  It seems to be picky when it comes to low attacks,
+   though (i.e. it can stop Kim's low D or Haki Kyaku, but not his
+   low B).
+ - The Shinjuu Kyaku is an overhead attack.  Although this move is
+   May's Critical Wire, she recovers too late to juggle her opponent.
+   In order to get around this, switch into Hero Mode after using the
+   Shinjuu Kyaku.
+
+
+ ------------------------------------------------------------------------
+ MAY LEE (HERO)                                            [ Korea Team ]
+ ------------------------------------------------------------------------
+
+ ABC                    Kamae Henka (Normal)
+
+ N>4/6+C                Omote Enbu
+ N>4/6+D                Ura Enbu
+
+ 6+A                    Hero Uke
+ 3+B                    Sliding
+
+ 236+P                  Full Swing Chop
+ 214+P                  "May Lee Cho~p!"
+ _236+K                 "May Lee Ki~ck!"
+ A>236+K                "May Lee Ki~ck!"
+ 632146+P               "May Lee Break!"
+
+ A>236236+P             "May Lee Dynamic!"
+ 236236+AC              MAY THEE END
+
+ Super Cancels          (C) Full Swing Chop
+                        "May Lee Cho~p!"
+ Critical Wire          (C) Full Swing Chop
+                        Standing CD
+ Counter Wire           (A) Full Swing Chop
+ Striker Action         Shinjuu Shoukan
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near      -/-    Cr    C     C     -
+    Standing Far       -/-    Cr    C     C     -
+    Crouching           Cr    Cr    C     C
+    Upward Jump         C     -     C     C
+    Diagonal Jump       C     -     C     C
+
+ - As in Normal Mode, May's "stance change" (press ABC) can cancel out
+   of most attacks.
+ - In Hero Mode, May Lee has no jumping CD attack.  In addition, her
+   standing CD doesn't function like your average CD attack; it drops
+   an opponent's guard and is uncancelable.  Although it functions
+   as her Critical Wire, you have to ABC cancel back into Normal Mode
+   if you want to juggle off of it.
+ - Furthermore, in Hero Mode, May Lee cannot use the Emergency Evade
+   roll, nor can she block attacks.  This presents a problem, as
+   getting hit while in Hero Mode returns her to Normal mode.
+ - The Hero Uke will automatically guard against high and mid-level
+   attacks.  If the autoguard is triggered, you can cancel this move
+   into a special move or SDM.
+ - The Sliding is a low attack and is cancelable.
+ - The (C) Full Swing Chop will drop an opponent's guard, since it is
+   a Critical Wire.
+ - The (A) "May Lee Cho~p!" is an overhead attack.
+ - The last hit of the "May Lee Ki~ck!" hits low, and can hit an enemy
+   who is lying on the ground.
+ - The "May Lee Break!" is unblockable.
+ - You can link an attack after May's standing (A).
+ - May's crouching (C) will launch an opponent, allowing you to juggle
+   them.  You can also cancel it into her (C) "May Lee Cho~p!" for an
+   easy 2-hit combo.
+
+
+ ------------------------------------------------------------------------
+ ZERO                                                        [ Mid-Boss ]
+ ------------------------------------------------------------------------
+
+ N>C_6                  Genma Kokushou
+ N>4+C                  Genma Kokushou
+ N>4/6+D                Genma Kokushou
+
+ A_6                    Jagai Kusetsu
+ 6+A                    Krizalid
+ 6+B                    Grugan
+ 6+C                    Ron
+
+ 236+A                  Zanpuu Enpa: Hankyou
+ 236+C                  Zanpuu Enpa: Satsuma
+ 623+P                  Zanpuu Enpa: Kouga
+
+ 236236+P               Gokusa Zanjin
+ 236236+K               Hakura Messei
+
+ Super Cancels          None.
+ Critical Wire          Ron
+ Counter Wire           Standing D
+                        Standing CD
+                        Jumping CD
+ Striker Action         Typhon Rage
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       -r    -     C     C     C
+    Standing Far        -r    -     C     C     C
+    Crouching           C     C     C     C
+
+ - Zero comes with his own "strikers" that can be summoned by pressing
+   6+A/B/C.  They don't function like real Strikers, though, aside from
+   the fact that they come in and attack, and that you can hit them out
+   of their attacks if you're quick enough.
+ - To perform the Jagai Kusetsu, you can press 6+A at exactly the same
+   time.  However, this is difficult to do, because you're more likely
+   to end up summoning Krizalid.  An easier way to do this is to press
+   A and then press 6 _immediately_ afterward.  Zero should perform the
+   move without even beginning his standing A animation.
+ - This method can also be used to input his 6+C throw (whereas pressing
+   6+C is more likely to summon Ron).
+ - The Jagai Kusetsu is an overhead and a knockdown attack.  It loses
+   both properties if canceled into, but becomes cancelable.
+ - Zero is invincible during any of the 6+A/B/C summoning moves, but
+   only while he is facing away.
+ - You can juggle an opponent who is hit by Krizalid's Typhon Rage or
+   Grugan's diving attack.
+ - Ron's attack will drop an opponent's guard, since it is a Critical
+   Wire.
+ - The Hankyou can reflect normal and (S)DM projectiles.
+ - The last hit of the Zanpuu Enpa and Gokusa Zanjin causes your
+   opponent's guard to drop.
+ - When playing as Zero, you cannot use his teammates as Strikers,
+   unless you're in Practice Mode.
+ - Although Zero has no Power Gauge, it's really just invisible.  It
+   still holds levels just like a normal gauge, and you still have to
+   build up power if you want to use his DMs or Guard Cancel moves.
+
+
+ ------------------------------------------------------------------------
+ IGNIZ                                                      [ Last Boss ]
+ ------------------------------------------------------------------------
+
+ N>4/6+C                Blue Noah
+ N>4/6+D                Red Noah
+
+ 236+P                  Chain-Blade Transaxle Slice
+ 623+P                  Chain-Blade Sagital Edge Slice
+ 236+K                  Void Genocide
+ 214+A                  Divine Arrow: Air
+ 214+C                  Divine Arrow: Ground
+ 214+K                  Nega Genesis
+
+ 236236+P               Idion Blade
+ 623+K                  Chaos Tide
+ 2363214+AC             BRUTAL GOD PROJECT
+
+ Super Cancels          Chain-Blade Transaxle Slice
+                        Chain-Blade Sagital Edge Slice
+                        Nega Genesis
+ Critical Wire          Nega Genesis (1st hit)
+ Counter Wire           Void Genocide (if it reverses)
+                        Jumping CD
+ Striker Action         None.
+
+    Cancelables         A     B     C     D    C D
+    ----------------------------------------------
+    Standing Near       Cr    -     Cr    -     s
+    Standing Far        Cr    -     Cr    -     s
+    Crouching           Cr    -     Cr    -
+
+ - Several of Igniz' special moves are cancelable.  This includes the
+   Transaxle Slice, Nega Genesis, and Sagital Slice (the A version is
+   only cancelable on the first 3 hits, while the C version is only
+   cancelable on the first 6 hits).  All of these moves can be canceled
+   into other special moves, (S)DMs, or even themselves, providing you
+   use another strength (so you could interrupt Igniz' 623+C with his
+   623+A attack).
+ - The Void Genocide reverses mid-level and low attacks.
+ - The Divine Arrow: Low is a low attack.
+ - The first hit of the Nega Genesis will drop an enemy's guard, since
+   it is a Critical Wire.  Furthermore, either hit is cancelable.
+ - You can juggle your opponent after the Idion Blade.
+ - Against thin characters (like Leona), the Chaos Tide will miss
+   when performed from up close.
+ - Igniz' standing CD only knocks down on the 2nd hit.  Either hit is
+   cancelable, however.
+ - When playing as Igniz, you cannot use his teammates as Strikers.
+ - Although Zero has no Power Gauge, it's really just invisible.  It
+   still holds levels just like a normal gauge, and you still have to
+   build up power if you want to use his DMs or Guard Cancel moves.
+
+
+ ========================================================================
+ 4. GAMEPLAY NOTES
+ ========================================================================
+
+ This section explains some of the KoF basics (listed in alphabetical
+ order).
+
+ ------------------------------------------------------------------------
+ AUTOGUARD
+ ------------------------------------------------------------------------
+
+ Autoguard is a nifty little feature that lets you defend against an
+ attack while you're in the middle of performing a move.  This may seem
+ kind of cheap, but in most cases, the autoguard can only be "triggered"
+ during a particular animation frame (or series of frames).  For example,
+ Ryo's Joudan Uke only has one frame of autoguard, while Maxima's Bunker
+ Buster offers autoguard during the entire time that the move is
+ beginning, and as he recovers from it upon landing.  Even if you hit
+ him with multiple attacks, they will all be blocked.
+
+ As an example of autoguard, let's look at Maxima's standing CD.  If
+ an opponent attacks him, the autoguard will only come into effect if
+ he is hit at a particular moment.  In this case, it's when he is
+ holding his arms directly behind him horizontally.  If the autoguard
+ is triggered, then there is a brief pause as the incoming attack is
+ blocked, followed by the rest of the CD animation.
+
+ Another feature of autoguard is that your guard won't drop during an
+ automatically blocked attack, nor does it contribute to your chance
+ of getting your guard dropped.  However, you still take block damage
+ from autoguarding against a special move or (S)DM.
+
+ Also, autoguard is not perfect.  It is entirely possible for your
+ opponent to trigger your autoguard, but still hit you even after it's
+ been triggered (usually this occurs when they're using an attack that
+ hits more than once).
+
+ Keep in mind that some moves have no effect except to provide you with
+ autoguard, like Ryo's Gedan Uke or May Lee's Hero Uke [however, in
+ both these cases, if autoguard is triggered, you can cancel into a
+ special move or (S)DM].
+
+
+ ------------------------------------------------------------------------
+ BLOCKING ATTACKS
+ ------------------------------------------------------------------------
+
+ There are two ways to defend against attacks; by blocking them, or
+ by using autoguard.  Autoguard is explained in a previous entry (see
+ above).
+
+ Blocking attacks is as simple as holding back to block while standing
+ (also known as blocking high), or holding down-back to block while
+ crouching (also known as blocking low).  When you block an attack,
+ you take no damage from it.  If you block a special move or (S)DM,
+ then you take greatly reduced damage with each hit.  Normally, you
+ can't block a throw attempt, but some throws will not connect (or
+ will miss entirely), if you block them.  Note that if you block too
+ many attacks in a short period of time, you will experience "dropped
+ guard" (see the entry below for more information on this).
+
+ Blocking high will protect you from any kind of jumping attack, and
+ most standing attacks (although some character's standing kicks can
+ hit below the belt and must be blocked low).  However, you are left
+ vulnerable to low attacks.  Blocking low protects you from low attacks
+ (like crouching kicks, etc.) and most standing attacks.  However, you
+ are left open to jumping attacks and overheads.
+
+ An overhead is any move that cannot be blocked low, but it's most
+ commonly used to describe moves that look like they should be able to
+ be blocked low.  For example, Terry's Hammer Arch is a standing punch
+ attack.  It looks like you could crouch and block it, but in fact, it
+ will hit you unless you block while standing.
+
+
+ ------------------------------------------------------------------------
+ COUNTER HITS
+ ------------------------------------------------------------------------
+
+ A counter hit occurs when you are damaged while making an attack of some
+ sort.  This can occur if you're hit while your attack begins, as it is
+ being performed, or while you recover from it.  Any time a move connects
+ on a counter hit, it does slightly more damage than usual.  Some moves
+ do significantly more damage, like Ryo's Kohou Shippuu Ken or Tenchi
+ Haou Ken.
+
+ If a Blow Away Attack (more commonly known as the CD attack) counter
+ hits, then you can juggle your opponent afterwards.  For example, if
+ you jumped in with a CD that hit, doing an Oniyaki upon landing would
+ not do anything.  However, if the CD counterhit, then the Oniyaki would
+ actually connect.
+
+ Unlike previous KoF games, there is no "Counter" message that pops up
+ when you land a successful counter hit.  Instead, the screen will simply
+ flash white as the hit connects.
+
+
+ ------------------------------------------------------------------------
+ DROPPED GUARD
+ ------------------------------------------------------------------------
+
+ "Dropped Guard" refers to those instances when, while in the midst of
+ blocking an attack, your character suddenly stops blocking and goes
+ into a sort of "stunned" animation for a split second.  There are two
+ ways that this can happen:
+
+ The first is by Guard Crush.  This happens when you block too many
+ attacks in a brief period of time.  For example, if Heidern were to
+ quickly attack Maxima with nine close standing (D) attacks, then on
+ the ninth one, Maxima would stop blocking.  However, after you are
+ Guard Crushed, the chance of getting GC'd "resets", so he could block
+ nine more of the same attack before getting Guard Crushed again.
+ Every character can resist a different number of hits before being
+ GC'd (for example, in the above example, Mai would be GC'd in only
+ eight blocked hits).
+
+ The second method involves special moves that have the special ability
+ to block an opponent's guard.  There's nothing special here--some moves
+ can just do that, like Shingo's Kake Hourin, or the last hit of Robert's
+ Kyokugen-ryuu Renbu Kyaku.  These moves will drop your guard every time,
+ no matter what.
+
+ So, what's the significance of all this?  Well, if your guard drops,
+ that means that you're left open to attack for a moment.  If, for
+ example, Kyo GC'd you with a close standing C, he could cancel it into
+ the Aragami, and that would hit you before you recovered and resumed
+ blocking.  The same applies to moves that drop your guard; if you
+ try to block Angel's (C) Repun Kamuy, your guard would drop, and she
+ could follow it up with the "Shelter From The Storm" attack (which
+ would combo).
+
+
+ ------------------------------------------------------------------------
+ POWER GAUGE
+ ------------------------------------------------------------------------
+
+ The Power Gauge is found at the bottom of the screen.  It's length and
+ the number of levels it can hold is determined by the number of Strikers
+ in your party (see Section 5 for more information about this).
+
+ The Power Gauge will gradually fill up as the following requirements are
+ met:
+
+   - You perform a special move that misses (including special throws).
+   - You perform an attack that is blocked.
+   - You perform an attack that hits [excluding normal throws and
+     (S)DMs].
+   - You are hit by an opponent's attack (excluding normal throws).
+
+ Once the Power Gauge is completely full, it will change color and a
+ number will appear.  Depending on your Striker arrangement, you may
+ only be able to hold 1 full level of power, or you may be able to hold
+ up to four levels.
+
+ Once you earn a level of power, the only way to lose it is to either
+ end the battle (meaning all of your opponents are defeated), or expend
+ your level(s) on one of the following moves:
+
+   - A Guard Cancel roll                (press 4/6+AB while blocking)
+   - A Guard Cancel attack              (press CD while blocking)
+   - A Desperation Move (DM)            (command varies)
+   - A Super Desperation Move (SDM)     (command varies)
+   - A Super Cancel                     (command varies)
+
+ Guard Cancel moves cost one level of power to use, as do DMs.  SDMs
+ cost two levels to use.  A supercancel costs one level for the act
+ of canceling, and one or more additional levels for the DM or SDM
+ that you're canceling into (see the entry on Super Cancels for more
+ information).
+
+
+ ------------------------------------------------------------------------
+ REVERSAL MOVES
+ ------------------------------------------------------------------------
+
+ Reversal moves have the ability to "catch" your opponent's attack and
+ respond with an attack on your own.  Some of these reversal moves cannot
+ hit unless the "reversal" feature is triggered (such as Goro's Nekko
+ Gaeshi), while others can actually hit an opponent and only reverse
+ attacks as a secondary function (like Shingo's Gecchuu).
+
+ All reversal moves have a certain animation frame (or frames) in which
+ the reversal can be triggered.  Otherwise, if your opponent attacks you
+ and you're not in that particular frame, you'll just get hit.  For
+ example, Shingo's Gecchuu can only be used as a reversal if Shingo is
+ hit while he is lifting up his arm above his head.
+
+ Not all reversal moves can "catch" the same attacks.  Here are the types
+ of attacks you can reverse, depending on who you're using:
+
+  Jumping       - an attack your opponent makes while in air.
+  High          - an attack that hits above the waist.
+  Mid-Level     - an attack that hits below the waist, but doesn't
+                  hit the lower legs or feet (such as most crouching
+                  punches).
+  Low           - attacks that hit the feet (such as most crouching
+                  kicks).
+  special moves - Includes non-projectile and non-throw special moves.
+  (S)DMs        - Includes non-projectile and non-throw (S)DMs.
+
+ Note that an opponent's "attack" refers to any move that has a hit
+ animation that is not a special move or (S)DM.  So a jumping CD attack,
+ standing B, or a command attack (like Leona's Strike Arch) could all
+ be reversed.  Ryo's Joudan Uke could not, because although it is a
+ command attack, it has no hit animation.
+
+ If a character can reverse special moves or (S)DMs, then they can
+ "catch" those moves even if they are unblockable (such as Ralf's
+ Galactica Phantom).  A character who can reverse special moves still
+ cannot reverse blockable throws, even though they have a "hit"
+ animation.  Also, just because you can reverse a particular type of
+ attack doesn't mean that you can reverse _all_ of them.
+
+
+ ------------------------------------------------------------------------
+ SUPER CANCELS
+ ------------------------------------------------------------------------
+
+ When you cancel a special move into a DM or SDM, you are performing a
+ "super cancel."  You can tell that a super cancel takes place because
+ not only does the screen turn black (as it does when you perform a DM
+ or SDM), but your character briefly flashes white.  Most characters
+ have at least one special move that can be used for super canceling--
+ those moves are listed in Section 3.
+
+ Unlike previous KoF incarnations, the DM or SDM you cancel into comes
+ out instantly, allowing for more combo possibilities.  Also, note that
+ since there is no Counter Mode in KoF '01, there are no special
+ prerequisites for using a super cancel.  The only thing you need is an
+ extra level, since the act of super canceling costs 1 level.  This means
+ that canceling into a DM costs 2 levels in all, and canceling into a SDM
+ costs 3 levels.  Also, supercancels can only be used with special moves
+ that hit or are blocked--if they miss, the supercancel will not come
+ out.
+
+ As an example of a supercancel, let's look at Xiangfei.  One of her
+ super cancelable moves is the Tenpou Zan.  Let's say you want to cancel
+ in into her Dai Tetsujin DM.  In addition to needing 2 levels (one for
+ the cancel, and one for the DM), you'll see that the Tenpou Zan is only
+ super cancelable on the first hit (because Xiangfei leaves the ground
+ on the 2nd hit).  Therefore, if you want to perform this supercancel,
+ you'd enter the commands like so:
+
+                      623+K (1st hit) -> 2363214+K
+
+ Although you could use the command above, an easier way to perform
+ super cancels is to use abbreviated commands.  This is done by
+ combining the special move and DM commands into one smooth motion,
+ allowing you to pull off the move faster and with less hassle.  In
+ the above example, you can shorten it like so:
+
+                      6236+K (1st hit) -> 3214+K
+
+ By altering the first command, you can still perform the Tenpou Zan
+ while also putting in part of the Dai Tetsujin command.  You don't
+ have to "abbreviate" the commands for super cancels, but it makes
+ super canceling a lot easier to do.
+
+ Some characters can even cancel DMs into (S)DMs.  These work the same
+ as super cancels, but they require more levels of power to use.  For
+ example, if Joe does his Ougon no Tiger Kick and cancels the first hit
+ into the SDM Screw Upper, it would cost 4 levels of his Power Gauge;
+ one for the Ougon no Tiger Kick, one for the supercancel, and two for
+ the SDM Screw Upper.
+
+ Also note that characters with cancelable DMs can cancel into the same
+ move twice.  This means Joe could cancel the 1st hit of the Ougon no
+ Tiger Kick into the Ougon no Tiger Kick again.
+
+ Characters with "button-press" supers (Mary's Dynamite Swing or Yuri's
+ Yuri Chou Enbu), can super cancel out of almost any special move into
+ their "button-press" DM or SDM.  This includes moves that normally
+ cannot be super canceled out of, like Mary's M. Snatcher or Yuri's
+ Shin! Chou Upper.
+
+ Finally, some characters can supercancel without using up levels.
+ This applies to some command attacks (like Kula's  One Inch) and
+ some special moves (like Foxy's Taiki no Shoukei).  There is no
+ "white flash" while canceling, and the only levels you lose are for
+ the cost of the (S)DM.
+
+
+ ------------------------------------------------------------------------
+ THROW TYPES
+ ------------------------------------------------------------------------
+
+ Not all throws function in the same way.  Throws can be put into one of
+ three categories; those that are unblockable (anybody's normal C or D
+ throw, for example), those that are blockable (Maxima's Blitz Cannon)
+ and those that miss entirely if you block them (Hinako's Yorigiri).
+
+
+ ------------------------------------------------------------------------
+ WIRE DAMAGE
+ ------------------------------------------------------------------------
+
+ The biggest new addition to the KoF series is the concept of "Wire
+ Damage."  The idea is that there are certain moves that, when they hit
+ your opponent, will send them flying into a wall, which they will then
+ bounce off of.  It's supposed to make you think of someone being yanked
+ backwards by a wire (like when they film special effects, etc.)
+
+ In terms of gameplay, what this simply means is that some moves open
+ up juggle possibilities, since they send your opponent rebounding off
+ the wall.  While your opponent is airborne, they are open to attack
+ and can be juggled by pretty much anything.
+
+ There are two types of "wire" attacks.  One is "Critical Wire" attacks.
+ These are moves that bounce your opponent off the wall by their very
+ nature.  They include moves like Ralf's Galactica Phantom and Zero's
+ Ron summon.  Critical Wires will drop an opponent's guard if they are
+ blocked, but this only applies to the hit which actually produces the
+ Critical Wire.  In other words, moves like Ryo's (A) Zanretsu Ken and
+ May Lee's Shinjuu Kyaku will not drop your guard because the initial
+ hits aren't the ones that act as Critical Wires.
+
+ The other type of wire attack is called a "Counter Wire."  These
+ attacks don't juggle the opponent unless they land on a counter hit
+ (see the previous section on Counter Hits).  If you are lucky enough
+ to counter hit with one of these moves, then you can juggle your
+ opponent as you normally would.  Some examples of Counter Wires
+ include Goro's jumping CD attack, and May Lee's (A) Full Swing Chop.
+
+
+ ========================================================================
+ 5. STRIKER INFO.
+ ========================================================================
+
+ Strikers have always been an important part of KoF gameplay, so this
+ section deals exclusively with them.
+
+ ------------------------------------------------------------------------
+ STRIKER SYSTEM
+ ------------------------------------------------------------------------
+
+ The Striker System has been changed this time around.  After selecting
+ your four teammates, you can choose which members of your party are
+ playable, and which ones are strikers.  How you arrange your party
+ affects a number of different factors, as the table below illustrates:
+
+     # of Players        One   |    Two   |   Three  |   Four
+     # of Strikers      Three  |    Two   |    One   |   None
+     # of Levels        Four   |   Three  |    Two   |    One
+     Gauge Length       Short  |  Medium  |   Long   |  Longest
+     Attack Power*        1    |     3    |     3    |     4
+     Defense Power       3.5   |     3    |     2    |     1
+     Life Recovery        4    |     4    |     1    |    0.5
+
+ * You can Guard Crush someone with fewer hits depending on how high
+   your Attack Power is.
+
+ The ratings used for attack, defense, and life recovery are not exact,
+ they're just there to give you an idea of the contrast between ratings,
+ with 0 being the lowest, and 4 being the highest.  In other words, if
+ you have one person in your party and three Strikers, then you have
+ low attack power, high defense power, and you recover a lot of life
+ after each winning round.
+
+ However, don't worry if you arrange your team and are unsatisfied with
+ how they turned out.  Before each new battle, you have the option of
+ rearranging your team.  For example, you could have 1 player and 3
+ strikers in the first battle, and 2 players and 2 strikers in the
+ second battle.
+
+
+ ------------------------------------------------------------------------
+ USING STRIKERS
+ ------------------------------------------------------------------------
+
+ Calling a Striker now drains a level from your Power Gauge--the old
+ system of using "Strike Bombs" has been done away with.  In general,
+ a Striker can be summoned by pressing BC.  However, if you have more
+ than one striker, additional commands can be used:
+
+  - With 2 strikers, BC summons the middle one, and 4/6+BC summons the
+    one behind them.
+  - With 3 strikers, BC summons the middle one, 4+BC summons the one
+    behind them, and 6+BC summons the one in front of them.
+  - Alternately, you can summon Strikers from a crouching position
+    by using 1/2/3+BC, respectively (useful if you want to charge
+    a move like Kim's Hien Zan while calling out a Striker).
+
+ For example, let's say you're setting up your characters and you put
+ them in this order: Goro as a Striker, then Kyo as your player, then
+ Benimaru as a Striker, and Shingo as a Striker.  Once game game
+ begins, you will be using Kyo, and your Striker portraits will be
+ arranged in this order:
+
+                        Goro / Benimaru / Shingo
+
+ This means that pressing BC will summon Benimaru, 4+BC will summon
+ Goro, and 6+BC will summon Shingo.  Don't forget, the Striker Call
+ command is reversed when you're facing in the opposite direction,
+ just like all your other moves.  This means that pressing towards
+ your opponent and BC would summon Shingo, even though the portrait
+ lineup might confuse you into thinking you're calling out Goro.
+
+ When you press BC to summon a Striker, your character will pose for a
+ moment.  During the instant that you press BC, your character will
+ be totally invincible.  Afterwards, though (even if they are still
+ posing), they can be hit.  Furthermore, Strikers are not invulnerable
+ and can be attacked as soon as they appear on-screen.  After they have
+ made their attack, however, they cannot be hit.
+
+ Finally, remember that a Striker's attack usually does very little
+ damage, since their main purpose is to set your opponent up for a
+ juggle or combo.
+
+
+ ------------------------------------------------------------------------
+ STRIKER CANCEL SYSTEM
+ ------------------------------------------------------------------------
+
+ Normally, when you call out a Striker, your character poses while the
+ Striker appears.  Another way of calling a Striker is by using the
+ "Striker Cancel System."  To do this, attack your opponent.  If your
+ attack hits, then press BC (or 4/6+BC) while your opponent is taking
+ the hit.  This will summon a Striker without making your character pose.
+ In fact, it allows you to keep attacking while your Striker is helping
+ you out.
+
+ The only requirement is that your opponent must still be standing after
+ you hit them.  If your attack knocks them over, you cannot summon your
+ Striker.  However, since you can summon a Striker any particular _hit_,
+ you could still attack your opponent with a special move like Kyo's
+ close (C) Oniyaki, and summon a Striker on the first hit (since your
+ opponent is still standing), even though the second hit will knock them
+ down.
+
+ Note that you cannot cancel into a Striker Call using DMs, SDMs, or
+ throws.  Only normal attacks, command attacks, and special moves can
+ be used.
+
+
+ ------------------------------------------------------------------------
+ MULTIPLE STRIKER SYSTEM
+ ------------------------------------------------------------------------
+
+ The Multiple Striker System is a variation of the Striker Cancel System
+ explained above.  It allows you to summon more than one striker, as
+ long as your opponent is still standing.  If your opponent has been
+ knocked down or launched into the air by a previous attack, you cannot
+ call another striker.  Obviously, you cannot use this if you only have
+ one Striker in your team.
+
+ So, how do you use the Multiple Striker System?  Well, while your
+ first Striker is on-screen (before, during, or after they've attacked),
+ simply use the Cancel Striker System (i.e. attack your opponent and
+ press BC while your attack hits).  This will bring out another Striker.
+ As long as you keep making hits, you can keep summoning Strikers until
+ all of them are on-screen.  This also means that instead of making two
+ separate attacks to call in two Strikers, you can do it off two hits
+ of the same attack, such as Mai's (C) Ryuu Enbu (since both hits leave
+ her opponent standing).
+
+ You can determine which striker you want to cancel summon by pressing
+ in the desired direction + BC, or you can simply press BC to call out
+ the strikers in a predetermined order (which I haven't figured out
+ yet).
+
+ If you have 4 levels of power stored, you can even bring out the same
+ Striker again, if they've already left the screen.  This is usually
+ using the first striker you called out (since they are the first to
+ leave the screen).  So, after calling out three strikers, if your foe
+ is still standing and your first Striker has left, press BC and he'll
+ come out again.
+
+ I'm not sure if it's a bug or not (I would say yes), but if you use
+ the Multiple Striker System, then the damage the Strikers inflict
+ starts going way up (especially if you have three Strikers on your
+ team).  Depending on the Striker you're using, you can do some pretty
+ insane damage.
+
+ For an easy example of how this works, let's say you're using Takuma
+ and have Angel and Choi as Strikers.  Call Angel, then hit your foe
+ with a standing A and cancel into the Choi summon.  When Choi stabs
+ your opponent, he will do about double damage.  This feature doesn't
+ seem to work with all strikers, though (reverse the situation and
+ Angel's Striker attack still does piddly damage).
+
+
+ ------------------------------------------------------------------------
+ SUREFIRE JUGGLES
+ ------------------------------------------------------------------------
+
+ One contributor brought up an interesting point--certain moves can
+ juggle an opponent no matter what.  For example, we all know that you
+ can't juggle someone off a CD attack unless it counterhits.  However,
+ Benimaru can hit someone with a jumping CD, then do a short jump C
+ and still hit them.  Or you can throw someone with K9999, then juggle
+ them with his 263+ABCD super.
+
+ Here's a list of the "surefire" juggles known so far:
+
+        K'                      Mid-air Minutes Spike
+        Benimaru                Jumping C
+        Whip                    Boomerang Shot (2nd hit)
+        Seth                    (C) "Morote"-Sho-Yoh (2nd hit)
+        Blue Mary               Dynamite Swing (either version)
+        Kula                    (D) Ray Spin
+        K9999                   Chikara ga...katte ni...uwaaa!!
+
+ Some of the juggles he told me about were truly crazy--such as doing
+ K's air Minutes Spike after the Heat Drive (!) and an infinite for
+ Kula.  I was able to get it to work best by cornering the opponent
+ and doing a (B) Ray Spin into the Stand followup, then juggle with
+ a standing C and repeat, using the (D) Ray Spin.  Another follow-up
+ for Kula is to do the Freeze Execution from the opposite end of the
+ screen, then juggle with the (D) Ray Spin.
+
+ Seth has an easy "instant kill" using his surefire juggle.  Get your
+ opponent in the corner and do this combo:
+
+        Jumping D -> Standing D -> Back Blow -> Irimi-Nadazuki
+
+ You can then juggle your opponent after the Nadazuki with the (C)
+ "Morote"-Sho-Yoh.  You need to input the command the moment you
+ recover, so that there will be enough time for Seth to begin the
+ second arm swing (since that and the "steam" are the hits that
+ count as surefire juggles).  Then just repeat the "Morote"-Sho-Yoh
+ until they are dead.
+
+ If anyone knows of any other "surefire" juggles, feel free to drop
+ me a line.
+
+
+ ------------------------------------------------------------------------
+ STRIKER ACTION LIST
+ ------------------------------------------------------------------------
+
+ This section lists each character, the name of their Striker Action, and
+ what they actually do when summoned.  Characters are listed in order by
+ their teams.
+
+ K'                                                        (Narrow Spike)
+  - K' performs the Narrow Spike.  However, if his opponent is in the
+    air, he'll do an (A) Crow Bites instead.
+
+ MAXIMA                                                  (Maxima Gallows)
+  - Maxima leaps in and strangles his opponent with one hand.  Although
+    this is a throw move, it can be blocked.  The "strangle" animation
+    does no damage.
+
+ WHIP                                                   (Valkyrie Killer)
+  - Whip comes down using an Assassin Strike (this doesn't hit), and
+    then does the Strings Shot Type B: "Code: Chikara."
+
+ LIN                                                        (Hirai Kyaku)
+  - Lin leaps in while kicking.  If his kick connects, he does the
+    ending of the (D) Hiten Kyaku, which launches a hit opponent.
+
+ KYO KUSANAGI                                               (R.E.D. KicK)
+  - Kyo comes in with a (B) R.E.D. KicK.  If it misses, he taunts.  If
+    it hits, he follows up with a (B) Hikigane.
+
+ BENIMARU NIKAIDO                                           (Electrigger)
+  - Benimaru leaps in and does his old Electrigger DM.  Although this
+    is a throw move, it can be blocked.  The "electrocution" part of
+    this move does no damage.
+
+ GORO DAIMON                                                 (Abare Goro)
+  - Goro leaps in and does his "Jigoku Gokuraku Otoshi" animation.
+    However, this is not a throw--instead, the animation of him
+    leaning from side to side can hit like a physical attack.  A
+    hit opponent is launched into the air.
+
+ SHINGO YABUKI                            (212 Shiki: Kototsuki Mikansei)
+  - Shingo runs onscreen and performs a (D) Kototsuki Mikansei.  The
+    second hit still functions as an overhead, too.
+
+ IORI YAGAMI                                 (Ura 108 Shiki: Ya Sakazuki)
+  - Iori dashes in (this can hit an opponent) and throws a Yami Barai.
+    If it hits his opponent, it turns into a puddle and his enemy is
+    launched into the air.  The Yami Barai can also hit an opponent who
+    is lying on the floor.  If the dashing animation counterhits, it
+    acts as a Counter Wire.
+
+ SETH                                                       (Final Agent)
+  - Seth jumps in and performs a Sho-Yoh.
+
+ VANESSA                                                   (Hard Puncher)
+  - Vanessa glides in while punching rapidly.  This move does no damage.
+
+ RAMON                                               (El Diablo Amarillo)
+  - Ramon races forward while performing a short version of his
+    "El Diablo Amarillo Ramon" DM.
+
+ LEONA                                                     (Killer Touch)
+  - Leona slides forward.  If she touches her opponent before her slide
+    is over, she attaches a bomb to them and leaps away as they explode.
+
+ RALF JONES                                           (Galactica Phantom)
+  - Ralf dives in with a Kyuukouka Bakudan Punch.  Upon landing, he
+    performs an instant Galactica Phantom (which is blockable).
+
+ CLARK STEEL                                             (Gatling Attack)
+  - Clark leaps in with a CD attack (this can't hit), and then does
+    an (A) Gatling Attack upon landing.
+
+ HEIDERN                                          (Clearing Moon Slasher)
+  - Heidern appears out of the shadows (it's his old '98 intro pose).
+    After raising his arm up and drawing it across, he performs a
+    Moon Slasher.
+
+ TERRY BOGARD                                               (Dunk Geyser)
+  - Terry rushes forward while doing his old Power Charge.  If it hits,
+    he then performs a multi-hit Dunk Geyser.  If the Charge misses, he
+    does a Power Geyser instead.
+
+ ANDY BOGARD                                         (Shippuu Zan'ei Ken)
+  - Andy leaps in, lands, and performs a long-range Zan'ei Ken.
+
+ JOE HIGASHI                                 (Shijou Saikyou no Low Kick)
+  - Joe leaps in and does his Shijou Saikyou no Low Kick.  However,
+    this move can be blocked standing.
+
+ BLUE MARY                                                 (Rapid Spider)
+  - Mary comes in with a Straight Slicer (which hits low).  Even if
+    she misses, she'll still follow with an M. Spider.  If that misses,
+    she stands up and leaves.  If it hits, she gets her opponent into a
+    hold on the ground, then kicks them up into the air.
+
+ RYO SAKAZAKI                                           (Tenchi Haou Ken)
+  - Ryo runs in and performs a Tenchi Haou Ken.
+
+ ROBERT GARCIA                                          (Ryuuren Moushuu)
+  - Robert dashes forward.  If he hits his opponent while dashing, he
+    does a mini "Ryuuko Ranbu"-type attack ending with his old "Ryuu
+    Zanshou" kick.
+
+ YURI SAKAZAKI                                              (Hien Rekkou)
+  - Yuri runs in and performs her old "Hien Rekkou" DM.  This move does
+    no damage.
+
+ TAKUMA SAKAZAKI                        (Chou Hissatsu: Tengu Shikou Ken)
+  - Wearing his Mr. Karate mask, Takuma runs in and throws a Haou
+    Shikou Ken across the screen.
+
+ KING                                                         (Trap Rush)
+  - King slides across the floor.  Whether the slide hits or misses,
+    she follows up with a multi-hit version of her old "Silent Flash."
+
+ MAI SHIRANUI                                           (Mizudori no Mai)
+  - Mai shows up and throw three flaming fans across the screen, a la
+    her old "Mizudori no Mai" SDM.
+
+ HINAKO SHIJOU                                            (Teppou Hinako)
+  - Hinako rushes forward while doing her "Tsukidashi" attack.  If only
+    the last hit connects on a counterhit, it acts as a Counter Wire.
+
+ XIANGFEI LI                                           (Chou Pai Long Ni)
+  - Xiangfei leaps on-screen, waits for a moment, then does her Chou
+    Pai Long DM.  She taunts afterwards, then leaps away.
+
+ KULA DIAMOND                                         (Slider Crow Bites)
+  - Kula skates forward and does a sliding kick into the (C) Crow Bites.
+
+ K9999                                           (Ore ni meirei sunna-!!)
+  - K9999 leaps in with a jumping (C) attack that hits twice.  If it
+    hits, he does his standing CD attack.  However, if the (C) attack
+    misses, then he just stands there, then walks away without
+    attacking.  The standing CD attack is a Critical Wire.
+
+ FOXY                                                (Getsu no Shirogane)
+  - Foxy races forward, then leaps up and does her "Getsu no Shirogane"
+    attack.  Note that it is not an overhead and can be blocked low.
+
+ ANGEL                                                (Beyond the Frames)
+  - Angel rushes forward and does her "Beyond the Frames" attack, then
+    follows it up with a hit from behind.  This move does no damage.
+
+ ATHENA ASAMIYA                                       (Phoenix Arrow '95)
+  - Athena dives downward at an angle while doing her old (B) Phoenix
+    Arrow attack (there is no ball of light around her).  If none of
+    the diving hits connect, she lands and starts crying.  However, if
+    at least one of them hits, she does a crouching kick upon landing
+    that acts as a Critical Wire.
+
+ SIE KENSOU                                                  (Sen Shippo)
+  - Kensou dives in using the Ryuu Sougeki (which cannot hit).  Upon
+    landing, he does a (C) Sen Shippo.  If it misses, he taunts (and
+    the taunt can hit and acts as a Critical Wire, which means it will
+    also drop an opponent's guard if blocked).
+
+ CHIN GENTSAI                                       (Kaiten Hyoutan Shuu)
+  - Chin rolls in and does his old "spinning gourd" win pose from '98.
+    However, the spinning gourd animation can actually hit now.
+
+ BAO                                           (Psycho Ball Attack: Rise)
+  - Bao leaps in with a Senheki Shuu (this cannot hit).  Upon landing,
+
+    he does his "Psycho Ball Attack: Rise," (which hits low), then
+    rolls backwards.
+
+ KIM KAPHWAN                                               (Hishou Kyaku)
+  - Kim leaps in while doing a single hit "Hishou Kyaku."  If it hits,
+    he does a single hit of his old "Kuu Sajin" attack.
+
+ CHANG KOEHAN                                        (Tekkyuu Dai Kourin)
+  - Chang bellyflops onscreen ala his "Tekkyuu Dai Assatsu."  Upon
+    landing, he bounces forward again (allowing for another hit).
+    This move does no damage.
+
+ CHOI BOUNGE                                               (Toorima Zuki)
+  - Choi runs forward until he reaches his opponent.  He then does his
+    Geketsu Zuki (it's a physical attack, not a throw).  Afterwards,
+    he bows, removes his hat, then runs off.
+
+ MAY LEE                                                (Shinjuu Shoukan)
+  - May runs forward and does the (A) Full Swing Chop, followed by a
+    backwards kick.  Note that the two attacks do not combo together.
+
+ ZERO                                                       (Typhon Rage)
+  - Krizalid leaps in and does the Typhon Rage, just like Zero's 6+B
+    attack.
+
+ IGNIZ                                                             (None)
+  - Igniz jumps on-screen, then jumps away.  If his opponent is in the
+    air, he jumps in, hops forward, then jumps away.
+
+
+ ========================================================================
+ 6. MISCELLANEOUS
+ ========================================================================
+
+ ------------------------------------------------------------------------
+ GLITCHES
+ ------------------------------------------------------------------------
+
+ Backstep Jump
+ ------------------------------------------------------------------------
+ Here's a trick that's been around for a couple of years already. :)
+ When using Iori, tap 44 to backstep and hold 4 while pressing B.  Not
+ only will Iori do the Yuri Ori, but he'll jump back much further than
+ he would during a normal backstep.
+
+ This trick can also be done using Kyo's Naraku Otoshi or Mai's Dairin
+ Fuusha Otoshi, although they won't move back as far as Iori will.  You
+ need to input the command as soon as possible for it to work well, so
+ try entering the command as 4412+A (for Mai) or 4412+C (for Kyo), so
+ that the backstep command smoothly interrupts into the attack animation.
+
+ Storm Bringer Damage Increase
+ ------------------------------------------------------------------------
+ For some odd reason, Heidern returns with the same glitch he had in KoF
+ '98. :)  Simply perform a Moon Slasher that misses.  Anytime before the
+ round ends, connect with the Storm Bringer, and Heidern will drain more
+ life than usual (but he still earns back the normal amount of life).
+
+ Gain Power Gauge Energy From Throws
+ ------------------------------------------------------------------------
+ Andy retains his old throw glitch from '98.  Normally, using normal
+ throws does not earn any Power Gauge energy, but once you've gained any
+ amount of power in your Power Gauge, Andy's (C) throw starts earning
+ energy on the "ground kick" part of his throw.  This effect ends if
+ your Power Gauge is emptied (but you can earn more power to start up
+ the glitch again).
+
+ Other simple glitches involve Ralf's (C) throw earning Power Gauge
+ energy when it connects, and Ramon's Tiger Spin earning Power Gauge
+ energy if it misses.  This works with both the DM and SDM Tiger Spin.
+
+ Short Input Command
+ ------------------------------------------------------------------------
+ In previous KoFs, some commands could be shortened to make them easier
+ to perform.  The only one that still seems to exist in 2001 is the
+ shortened "Hou'ou Kyaku" input.  Instead of using "21416+K", you can
+ simply use "246+K."  This can also be applied to Terry's Power Geyser.
+
+
+ ------------------------------------------------------------------------
+ SPECIAL INTROS
+ ------------------------------------------------------------------------
+
+ This section lists brief explanations of the various "special intros"
+ between characters.  Some intros only work if you are on the first round
+ of the battle (like the Shingo vs. Iori intro).  The characters are
+ listed in their team order:
+
+ K' vs. MAXIMA
+  - Maxima is shown grunting, pushing his fist into his palm.  K'
+    talks while looking down, then looks up.
+
+ K' vs. WHIP
+  - K' talks for a bit.
+
+ K' vs. K9999
+  - The two rivals talk to each other.
+
+ WHIP vs. LEONA, RALF, or CLARK
+  - Whip rocks back and forth on her heels, then turns and salutes.
+
+ LIN vs. ZERO
+  - Lin attempts to strike Zero's back with a Jatotsu Ga, but Ron
+    appears and stops him.
+
+ KYO vs. IORI
+  - Kyo and Iori are standing next to each other.  They talk for a
+    bit, then leap away as their orange and purple flames explode.
+
+ SHINGO vs. IORI
+  - Shingo stands tall and blabbers on before pointing at Iori.
+
+ SETH vs. ZERO
+  - Seth stands silently for a moment, then points at Zero and says
+    something.
+
+ VANESSA vs. ANY FEMALE (except VANESSA, FOXY, and MAY LEE)
+  - Vanessa talks for a bit while resting her elbow on her arm.
+
+ RAMON vs. VANESSA
+  - Ramon gets love-struck and utters something, while Vanessa puts
+    a hand to her face, looking embarrassed.
+
+ LEONA vs. WHIP or CHANG
+  - Leona salutes her challenger.  Against Whip, she will salute back.
+
+ RALF vs. WHIP, LEONA, or CLARK
+  - Ralf does a sort of sumo stomp and gestures for his opponent to
+    approach him.
+
+ CLARK vs. WHIP, LEONA, or RALF
+  - Clark doffs his cap at his opponent.
+
+ HEIDERN vs. WHIP or LEONA
+  - Either woman salutes Heidern, who salutes back.
+
+ HEIDERN vs. RALF or CLARK
+  - Heidern points at either soldier with his baton.
+
+ HEIDERN vs. IGNIZ
+  - Heidern appears in a trenchcoat and cap, which he tosses aside.
+
+ TERRY vs. MARY
+  - Terry hunches over and says, "Get ready!"  Mary responds with
+    "Let's fight, Terry!"
+
+ ANGEL vs. KULA, FOXY, or K9999
+  - Angel makes a funny face and sticks her tongue out.  I could swear
+    she's saying "okey dokey," but that's probably not right.
+
+ JOE vs. TERRY or ANDY
+  - Joe lifts up his fist and smacks it into his other hand.
+
+ RYO vs. ROBERT or YURI
+  - Ryo poses while saying "Osu!"  His opponent strikes the same pose
+    (and Yuri says "Osu!" as well).
+
+ ROBERT vs. YURI
+  - Robert poses, and Yuri strikes the same pose while saying "Osu!"
+
+ HINAKO vs. GORO, MAI, XIANGFEI, YURI
+  - Hinako does an awkward-looking Sumo stomp while saying "Dosu koi!"
+
+ TAKUMA vs. RYO, ROBERT, or YURI
+  - Takuma's disciples pose, and he nods approvingly before striking
+    the same pose.
+
+ KING vs. RYO
+  - King bows respectfully to Ryo, who looks away with a disgruntled
+    expression.
+
+ KING vs. MAI or HINAKO
+  - King is looking away.  She brushes her hair with her hand, faces
+    her opponent while gesturing, and says, "C'mon baby!"
+
+ MAI vs. ANDY
+  - Mai sets down a baby boy, who starts walking towards Andy.  She
+    then taunts with her fan and says, "Hora, ganbatte!"  Andy freaks
+    out, but the baby vanishes after a few steps--it was just another
+    one of Mai's tricks.  Andy actually has to smack himself in the
+    face in order to snap out of it :)
+
+ KULA vs. K', MAXIMA, WHIP, ANGEL, ZERO, IGNIZ
+  - Kula appears with Candy and Diana by her side, who both pose
+    with their rapiers before disappearing.
+
+ KULA vs. FOXY
+  - Kula appears in a different outfit, holding a lollipop. Diana
+    goes up to Foxy and talks to her, then moves to Kula's side,
+    replacing Kula's outfit with her battle gear.
+
+ KULA vs. K9999
+  - Diana appears and talks, prompting K9999 to snap back at her.
+
+ FOXY vs. IGNIZ
+  - Foxy appears facing away from Igniz.  She creates her sword from
+    a flash of light, then turns while thrusting outward with it.
+
+ KENSOU vs. ATHENA
+  - Kensou looks at Athena with a pained expression.  Athena says,
+    "Nani?" (What's wrong?) but Kensou says nothing.
+
+ CHIN vs. ATHENA, KENSOU, or BAO
+  - Chin nods at his opponent.
+
+ BAO vs. ATHENA, KENSOU or CHIN
+  - Bao folds his arms and bows while saying, "Ganbatte!"
+
+ KIM vs. IORI, KULA, FOXY, K9999, ANGEL, ZERO, and IGNIZ
+  - Kim's eye glow menacingly as he points at his opponent and says,
+    "Ikuzo!"
+
+ CHANG vs. CHOI
+  - Choi is wearing Chang's bracelets and is holding his iron ball,
+    while Chang is wearing Choi's claws on his index fingers.  The
+    two look in confusion at their weapons, then throw them up in
+    the air, jump up, and don their proper equipment upon landing.
+
+ MAY LEE vs. KIM
+  - May sort of imitates Kim's opening stance.
+
+ MAY LEE vs. KULA, FOXY, K9999, ANGEL, ZERO, or IGNIZ
+  - May gets into her Hero stance and points at her opponent.
+
+ ZERO vs. K', MAXIMA, WHIP, KULA, FOXY, K9999, and ANGEL
+  - Zero is down on one knee, with Grugan by his side.
+
+ IGNIZ vs. K', MAXIMA, WHIP, KULA, FOXY, K9999, ANGEL
+  - Igniz talks for a bit and then whips his cloak around in a
+    dismissive motion.
+
+
+ ------------------------------------------------------------------------
+ SPECIAL WIN POSES
+ ------------------------------------------------------------------------
+
+ The following scenes only take place if the first player defeats the
+ second player on any round other than the last one:
+
+ WHIP vs. K', MAXIMA, or RAMON
+  - This only works if you get a Draw Game by running out of time.
+    Instead of her normal time out pose, Whip does one of her normal
+    win poses (the one where she kisses her whip).
+
+ LIN beats ZERO
+  - Several of Lin's fellow ninjas appear (according to the ending
+    credits, the big guy is Sai, the woman is Lan, and the child's
+    name is Chato).
+
+ BENIMARU beats ANY WOMAN except XIANGFEI, FOXY, ANGEL, and MAY LEE
+  - Benimaru stands with his arms at his side, looking startled.  He
+    then says, "Gomen ne."
+
+ SHINGO beats KYO
+  - Shingo poses and begins talking.  He realizes that Kyo is just lying
+    there and asks, "Kusanagi-san?" several times before freaking out at
+    the thought of having done in his master.
+
+ SETH beats VANESSA
+  - Seth lets out a long breath, then leans over and starts talking.
+
+ VANESSA beats SETH
+  - Vanessa stands with her arms behind her head and says something.
+
+ RAMON beats VANESSA
+  - Ramon rushes over to Vanessa's side, looking worried.  He gets down
+    on one knee and makes an odd gesture with his arms while saying
+    "Miss Vanessa!"
+
+ LEONA beats IORI
+  - Leona turns away and flexes her fingers while talking.  Her hair
+    turns pink and her eyes go white as she reverts into Orochi Leona
+    for a brief moment, then she reverts to her normal self and swipes
+    her arm across her side.
+
+ LEONA beats RALF, CLARK, or HEIDERN
+  - Leona salutes her fallen opponent.
+
+ MARY beats TERRY, ANDY, or JOE
+  - Mary turns slightly with her hand on her hip, and says "I did."
+
+ RYO beats ROBERT, YURI, or TAKUMA
+  - Ryo does a series of poses.
+
+ ROBERT beats RYO, YURI, or TAKUMA
+  - Robert does his Gen'ei Kick, then poses.
+
+ YURI beats RYO, ROBERT, or TAKUMA
+  - Yuri sits down on her knees and puts her hands on her hips, looking
+    irritated.
+
+ TAKUMA beats RYO, ROBERT, or YURI
+  - Takuma turns his back on his opponent, and smiles as his teeth glint.
+
+ KING beats RYO, ROBERT, YURI, or TAKUMA
+  - King adjusts her tie, then takes off her jacket and leans forward.
+
+ KULA beats FOXY
+  - Kula's hair reverts to blonde and she looks away, surprised, as
+    Diana appears and pats her on the head.
+
+ FOXY beats IGNIZ
+  - Diana appears, carrying Kula.  After setting Kula down, both Foxy
+    and Diana switch into their normal clothes.
+
+ ATHENA beats KENSOU
+  - Athena gets a worried look (the same pose from the Athena vs. Kensou
+    intro), and says something.
+
+ KENSOU beats ATHENA
+  - Kensou covers his face with his arm and starts bawling.
+
+ ZERO beats K' or KULA
+  - Zero turns his back on his opponent, then Krizalid leaps on-screen.
+
+ ZERO beats LIN
+  - Ron appears and says something.
+
+
+ ------------------------------------------------------------------------
+ TRANSLATIONS
+ ------------------------------------------------------------------------
+
+ The translations in this section were made with a lot of help from
+ WWWJDIC and NJSTAR, not to mention SNK's old dictionary files taken
+ from their site.  A few were sent in by contributors to my previous
+ FAQs.  Translations in other languages were done using various
+ online translators or other resources found via www.google.com.
+ Finally, I'm not that good at Japanese, so there may be some mistakes.
+
+ [ K' ]  ----------------------------------------------------------------
+
+ Eins Trigger                   First Trigger
+ Tsuika Kougeki                 Additional Attack
+
+ - "Eins" is German for "one."
+
+ [ MAXIMA ]  ------------------------------------------------------------
+
+ M9 Kata Maxima Missile (Shisaku)
+ M9 Style Maxima Missile (Experimental)
+
+ [ WHIP ]  --------------------------------------------------------------
+
+ S.S. Type A "Code: Yuuetsu"    Strings Shot Type A "Code: Supremacy"
+ S.S. Type B "Code: Chikara"    Strings Shot Type B "Code: Power"
+ S.S. Type C "Code: Shouri"     Strings Shot Type C "Code: Victory"
+ S.S. Type D "Code: Ame"        Strings Shot Type D "Code: Candy"
+ Hook Shot "Code: Kaze"         Hook Shot "Code: Wind"
+
+ [ LIN ]  ---------------------------------------------------------------
+
+ Akuzan                         Holding Slash
+ Benpatsu Ken (Chuudan)         Pigtail Fist (Mid-Level)
+ Benpatsu Ken (Gedan)           Pigtail Fist (Low-Level)
+ Zantetsu Bu: Rasatsu           Iron-Slashing Dance: Deadly Net
+ Kasumi                         Mist (lit. "hold aloft")
+ Muei Kusashu                   Invisible Red Sand Hand
+ Jatotsu Ga                     Snake Fang Thrust
+ Hiten Kyaku                    Flying Heaven Kick
+ Hike Kyaku                     Flying Feather Kick
+
+ Hizoku Ougi Ranbu: Dokuga
+ Profound Art of Hizoku - Boisterous Dance: Poisonous Moth
+
+ Hizoku Ougi Senshu Rakan Satsu
+ Profound Art of Hizoku - Thousand Hands Disciple Killer
+
+ [ KYO KUSANAGI ]  ------------------------------------------------------
+
+ Hatsugane                      Forged Iron
+ Issetsu Seoi Nage              Single Shoulder Throw
+ Geshiki: Naraku Otoshi         Foreign Style: Hades Drop
+ Geshiki: Goufu You             Foreign Style: Positive Roaring Axe
+ 88 Shiki                       Style No. 88
+ 100 Shiki: Oniyaki             Style No. 100: Demon Scorcher
+ 707 Shiki: Koma Hofuri         Style No. 707: Spinning Slaughter
+ R.E.D. KicK                    Rainbow Energy Dynamite KicK
+ 75 Shiki Kai                   Style No. 75 - Modified
+ 427 Shiki: Hikigane            Style No. 427: Running Over Iron
+ 114 Shiki: Aragami             Style No. 114: Wild Bite
+ 128 Shiki: Konokizu            Style No. 128: Nine Wounds
+ 127 Shiki: Yanosabi            Style No. 127: Eight Tarnish
+ Geshiki: Migiri Ugachi         Foreign Style: Timely Drilling
+ 125 Shiki: Nanase              Style No. 125: Seven Torrents
+ 212 Shiki: Kototsuki You       Style No. 212: Koto Moon Positive
+ 115 Shiki: Dokugami            Style No. 115: Poison Bite
+ 401 Shiki: Tsumi Yomi          Style No. 401: Composing Sin
+ 402 Shiki: Batsu Yomi          Style No. 401: Composing Punishment
+ 524 Shiki: Kamukura            Style No. 524: God Waster
+
+ Ura 108 Shiki: Orochi Nagi
+ Style No. 108 Reversed: Eight-Headed Serpent Slayer
+
+ [ BENIMARU NIKAIDO ]  --------------------------------------------------
+
+ Raijin Ken                     Quivering Lightning Fist
+ Taikuu Raijin Ken              Anti-Air Quivering Lightning Fist
+ Kuuchuu Raijin Ken             Mid-Air Quivering Lightning Fist
+ Shinkuu Katategoma             Vacuum One-Handed Top
+ Iai Geri                       Sword-Drawing Kick
+ Handou Sandan Geri             Reactionary Triple Kick
+ Taikuu Raikou Ken              Anti-Air Lightning Gleam Fist
+ Raikou Ken                     Lightning Gleam Fist
+ Gen'ei Hurricane               Phantom Hurricane
+
+ [ GORO DAIMON ]  -------------------------------------------------------
+
+ Juuji Shime                    Cross Choke
+ Tsukami Tataki Tsuke           Grabbing Assault Grip
+ Okuri Ashi Barai               Leg Tripping Sendoff
+ Tama Tsubushi                  Treasure Smasher
+ Zujou Barai                    Overhead Sweep
+ Jirai Shin                     Mine Quake
+ Chou Oosotogari                Super Outer Reaping
+ Kumo Tsukami Nage              Cloud-Grabbing Throw
+ Kirikabu Gaeshi                Stump Return
+ Tenchi Gaeshi                  Heaven and Earth Return
+ Ura Nage                       Reverse Throw
+ Nekko Gaeshi                   Root Reverse
+ Chou Ukemi                     Super Tumble
+ Jigoku Gokuraku Otoshi         Hell to Paradise Drop
+ Arashi no Yama                 Mountain of Storms
+ Nekko Nuki                     Root Puller
+ Zoku: Kirikabu Gaeshi          Continued: Stump Return
+ Bukko Nuki Ura Nage            Deadly Pulling Reverse Throw
+ Zoku: Tenchi Gaeshi            Continued: Heaven and Earth Return
+ Abare Goro                     Raging Goro
+
+ [ SHINGO YABUKI ]  -----------------------------------------------------
+
+ Hatsugane                      Forged Iron
+ Issetsu Seoi Nage Fukanzen     Imperfect Single Shoulder Throw
+ 114 Shiki: Aragami Mikansei    Incomplete Style No. 114: Wild Bite
+ 115 Shiki: Dokugami Mikansei   Incomplete Style No. 115: Poison Bite
+ 100 Shiki: Oniyaki Mikansei    Incomplete Style No. 100: Demon Scorcher
+ 212 Shiki: Kototsuki You       Incomplete Style No. 212: Koto Moon
+ Shingo Kinsei Ore Mushiki      Shingo's Humbly Made Own "No Style"
+
+ Geshiki: Goufu "Kakkodake"
+ Foreign Style: Roaring Axe "Only In Appearance"
+
+ 101 Shiki: Oboroguruma Mikansei
+ Incomplete Style No. 101: Twilight Wheel
+
+ Shingo Kinsei Ore Shiki: Nie Togi
+ Shingo's Humbly Made Own Style: Sharpening the Patterned Sword Blade
+
+ Shingo Kinsei Ore Shiki: Gecchuu
+ Shingo's Humbly Made Own Style: Moon Elbow
+
+ Geshiki: Kake Hourin
+ Foreign Style: Racing Phosphorous Phoenix
+
+ [ IORI YAGAMI ]  -------------------------------------------------------
+
+ Sakahagi                       Reverse Flayer
+ Saka Sakahagi                  Reversed Reverse Flayer
+ Geshiki: Yuri Ori              Foreign Style: Lily Break
+ Geshiki: Yumebiki              Foreign Style: Dream Shot
+ 108 Shiki: Yami Barai          Style No. 108: Darkness Sweep
+ 100 Shiki: Oniyaki             Style No. 100: Demon Scorcher
+ 127 Shiki: Aoi Hana            Style No. 127: Hollyhock Flower
+ 212 Shiki: Kototsuki In        Style No. 212: Koto Moon Negative
+ Kuzukaze                       Scum Wind
+ Kin 1121 Shiki: Ya Otome       Forbidden Style 1121: Eight Maidens
+ Ura 306 Shiki: Saika           Style No. 306 Reversed: Shining Jackal
+
+ Geshiki: Goufu In "Shinigame"
+ Foreign Style: Negative Roaring Axe "Death God"
+
+ [ VANESSA ]  -----------------------------------------------------------
+
+ Puncher Vision (Zenpou)        Puncher Vision (Forward)
+ Puncher Vision (Kouhou)        Puncher Vision (Backward)
+
+ [ SETH ]  --------------------------------------------------------------
+
+ Hiji ate kara no hadou uchi    Elbow Hit with a Surging Blow
+ Tomoe Nage                     Overhead Judo Throw
+ Mae Age Geri                   Forward Rising Kick
+ Shouyou                        Rising Sunshine
+ Ashitori                       Leg Catcher
+ Dou Kuzushi                    Body Destroyer
+ Rakugetsu                      Falling Moon
+ Angetsu                        Dark Moon
+ Kyuugetsu                      Curved Moon
+ Yagetsu                        Arrow Moon
+ Gengetsu                       Crescent Moon
+ Morote Shouyou                 Paired Palms Rising Sunshine
+ Irimi Nadazuki                 Body-Entering Moon Over the Open Sea
+ Doutori Shichimonsatsu         Body-Catching Seven Agonizing Deaths
+
+ [ RAMON ]  -------------------------------------------------------------
+
+ Teikuu Drop Kick               Low Altitude Drop Kick
+ Hiki Okoshi                    Pulling Up (Onto Feet)
+ El Diablo Amarillo Ramon       The Yellow Devil Ramon
+ El Diablo Amarillo             The Yellow Devil
+
+ [ LEONA ]  -------------------------------------------------------------
+
+ Earring Bakudan 1              Earring Bomb 1
+ Kibaku                         Exploding
+
+ [ RALF JONES ]  --------------------------------------------------------
+
+ Kyuukouka Bakudan Punch        Diving Bomb Punch
+ Chijou                         Ground
+ Kuuchuu                        Mid-Air
+ Baribari Vulcan Punch          Exploding Vulcan Punch
+ Umanori Vulcan Punch           Horse-Mounted Vulcan Punch
+
+ [ CLARK STEEL ]  -------------------------------------------------------
+
+ Nageppanashi German            German Throwing
+
+ [ ANDY BOGARD ]  -------------------------------------------------------
+
+ Gourin Kai                     Strong Confrontation - Modified
+ Kakaekomi Nage                 Carrying Throw
+ Uwa Agito                      Upper Jaw
+ Age Men                        "blow to the face"
+ Hishou Ken                     Soaring Fist
+ Geki Hishou Ken                Violent Soaring Fist
+ Shouryuu Dan                   Rising Dragon Shot
+ Kuuha Dan                      Sky-Ripping Shot
+ Gekiheki Haisui Shou           Dam Breaking Palm Attack
+ Zan'ei Ken                     Slashing Phantom Fist
+ Shippuu Ouken                  Horizontal Gale Fist
+ Gen'ei Shiranui                Phantom Shiranui
+ Uwa Agito                      Upper Jaw
+ Shimo Agito                    Lower Jaw
+ Zan'ei Ryuusei Ken             Slashing Phantom Meteor Fist
+ Chou Reppa Dan                 Super Rending Shot
+
+ - "Shiranui" means "phosphorescent light," but "Gen'ei Shiranui" is
+   referring to the Shiranui ninja clan and not the literal meaning.
+
+ [ JOE HIGASHI ]  -------------------------------------------------------
+
+ Hiza Jigoku                    Knee Hell
+ Ougon no Kakato                Golden Heel
+ Bakuretsu Ken                  Exploding Fist
+ Bakuretsu Finish               Exploding Finish
+ Shijou Saikyou no Low Kick     Strongest Low Kick in History
+ Ougon no Tiger Kick            Golden Tiger Kick
+
+ Bakuretsu Hurricane Tiger Kakato
+ Exploding Hurricane Tiger Heel
+
+ [ BLUE MARY ]  ---------------------------------------------------------
+
+ Victor Nage                    Victor Throw
+
+ [ RYO SAKAZAKI ]  ------------------------------------------------------
+
+ Tani Otoshi                    Valley Drop
+ Tomoe Nage                     Overhead Judo Throw
+ Hyouchuu Wari                  Ice Pillar Splitter
+ Joudan Uke                     Upper Defense
+ Gedan Uke                      Lower Defense
+ Ko'ou Ken                      Tiger Gleam Fist
+ Kohou                          Roaring Tiger
+ Zanretsu Ken                   Momentary Violent Fist
+ Kohou Shippuu Ken              Roaring Tiger Gale Fist
+ Mouko Raijin Setsu             Fierce Tiger: Lightning God's Arm
+ Hien Shippuu Kyaku             Flying Gale Kick
+ Haou Shoukou Ken               Supreme King Flying Roaring Fist
+ Tenchi Haou Ken                Heaven and Earth Supreme Gleam Fist
+ Ryuuko Ranbu                   Dragon/Tiger Boisterous Dance
+
+ [ ROBERT GARCIA ]  -----------------------------------------------------
+
+ Ryuuchou Kyaku                 Dragon Flip Kick
+ Kubikiri Nage                  Neck-Cutting Throw
+ Uraken                         Reverse Fist
+ Kouryuu Koukyaku Geri          Slanted Dragon Falling Leg Kick
+ Ryuu Hanshuu                   Dragon Hop Kick
+ Nidan Sokutou Geri             Two-Part Leg Blade Kick
+ Hien Ryuujin Kyaku             Flying Dragon God Kick
+ Ryuugeki Ken                   Dragon Attack Fist
+ Ryuuga                         Dragon Fang
+ Gen'ei Kyaku                   Illusion Kick
+ Hien Senpuu Kyaku              Flying Whirlwind Kick
+ Kyokugen-ryuu Renbu Kyaku      Extreme-Style Rapid Kick Dance
+ Haou Shoukou Ken               Supreme King Flying Roaring Fist
+ Hairyuuga                      Back Dragon Fang
+ Ryuuko Ranbu                   Dragon/Tiger Boisterous Dance
+ Ryuuren Moushuu                Rapid Dragon Fierce Attack
+
+ [ YURI SAKAZAKI ]  -----------------------------------------------------
+
+ Oni Harite                     Demon Hand Slap
+ Silent Nage                    Silent Throw
+ Tsubame Otoshi                 Falling Swallow
+ En Yoku                        Swallow Wing
+ Senkai Kyaku                   Rotating Kick
+ Ko'ou Ken                      Tiger Gleam Fist
+ Haou Shoukou Ken               Supreme King Flying Roaring Fist
+ Raiou Ken                      Lightning Sparkle Fist
+ Kuuga                          Air Fang
+ Yuri Chou Upper                Yuri Super Upper
+ Ura Kuuga                      Reverse Air Fang
+ Double Yuri Chou Upper         Double Yuri Super Upper
+ Yuri Chou Knuckle              Yuri Super Knuckle
+ Hien Shippuu Ken               Flying Gale Fist
+ Yuri Chou Mawashi Geri         Yuri Super Spinning Kick
+ Hien Senpuu Kyaku              Flying Whirlwind Kick
+ Hyakuretsu Binta               Hundred Violent Slaps
+ Shin! Chou Upper               Heart! Super Upper
+ Mekki Zan Kuuga                Destructive Demon Air Fang Slash
+ Hien Hou'ou Kyaku              Flying Phoenix Kick
+ Yuri Chou Enbu                 Yuri Super Swallow Dance
+ Hien Rekkou                    Flying Help Violent Pierce
+
+ [ TAKUMA SAKAZAKI ]  ---------------------------------------------------
+
+ Oosotogari                     Great Outer Reaping
+ Ippon Seoi                     Shoulder Blow
+ Oniguruma                      Demon Wheel
+ Hisha Otoshi: Dan Tsubushi     Rook Drop: Projectile Smasher
+ Kawara Wari                    Tile Splitter
+ Keima Uchi: Oiuchi             Knight Strike: Pursuit Strike
+ Ko'ou Ken                      Tiger Gleam Fist
+ Mouko Burai Gan                Fierce Tiger: Bandit Boulder
+ Zanretsu Ken                   Momentary Violent Fist
+ Shouran Kyaku                  Riot Kick
+ Hien Shippuu Kyaku             Flying Gale Kick
+ Haou Shikou Ken                Champion King Supremacy Fist
+ Shin Kishin Geki               True Fierce God Attack
+ Ryuuko Ranbu                   Dragon/Tiger Boisterous Dance
+
+ Chou Hissatsu: Tengu Shikou Ken
+ Super Deadly: Tengu Supremacy Fist
+
+ - A "tengu" is a long-nosed demon.
+
+ [ MAI SHIRANUI ]  ------------------------------------------------------
+
+ Shiranui Gourin                Shiranui Strong Confrontation
+ Fuusha Kuzushi                 Windmill Destroyer
+ Yume Zakura                    Dream Cherry
+ Koku'en no Mai                 Dance of the Black Swallow
+ Benitsuru no Mai               Dance of the Flamingo
+ Dairin Fuusha Otoshi           Great Windmill Drop
+ Ukihane                        Floating Feather
+ Sankaku Tobi                   Triangle Hop
+ Kachou Sen                     Flower/Butterfly Fan
+ Ryuu Enbu                      Dragon Blaze Dance
+ Sayo Chidori                   Evening Plover
+ Hissatsu Shinobi Bachi         Deadly Ninja Bees
+ Musasabi no Mai                Dance of the Giant Flying Squirrel
+ Toki Tsubute                   Ibis Smasher
+ Hana Arashi                    Flower Tempest
+ Hou'ou no Mai                  Dance of the Phoenix
+ Chou Hissatsu Shinobi Bachi    Super Deadly Ninja Bees
+ Mizudori no Mai                Dance of the Waterfowl
+
+ Yusura Ume
+ Fruit from "a tree yielding cherry-like fruit"
+
+ [ HINAKO SHIJOU ]  -----------------------------------------------------
+
+ Tasuki Nage                    "strings used to hold up sleeves" throw
+ Uwate Nage                     "sumo throw using the outside of the arm"
+ Maemitsu Tataki                Advancing Assault
+ Ketaguri                       Kicking Down
+ Tsukidashi                     "sumo technique of thrusting out of ring"
+ Tsuki Otoshi                   "sumo technique of thrusting down"
+ Kote Nage                      Forearm Throw
+ Kake Nage                      Hanging Throw
+ Gaburi Yori                    Head Twist
+ Hatakikomi                     Slapping down (your opponent)
+ Oo Ichiban                     Decisive Match
+ Gasshou Hineri                 Playing With Hands Folded In Prayer
+ Teppou Hinako                  Doll Gun
+
+ Yorigiri
+ "sumo technique of pushing enemy out of the ring while holding them by
+ the waist"
+
+ - "Uwate" can also be translated as "jouzu," which means "skillful."
+
+ [ XIANGFEI LI ]  -------------------------------------------------------
+
+ Kadoma                         Shiny Noisy Flax
+ Ryokuchi Kou'en                Thousand-Strong Back Feast
+ Soushouda                      Paired Palm Strike
+ Kyuuho: Kousentai              Arcing Step: Backspin Thigh
+ Fukuho: Kousentai              Crouching Step: Backspin Thigh
+ Nanpa                          Dream Wave
+ Senri Chuu'ou                  Long Distance Emperor's Elbow
+ Kankuu                         Sky Pierce
+ Shinsaiha                      Heartbreaker Hold
+ Esaka                          Drunken Singing
+ Banpaku Kou'en                 Ten Thousand Nights Back Feast
+ Eikishuhou                     Mental Guard Burn
+ Dai Tetsujin                   Great Iron God
+ Chou Pai Long                  Super White Dragon
+ Majinga                        Sincere Fang
+ Chou Pai Long Ni               Super White Dragon II
+
+ [ KULA ]  --------------------------------------------------------------
+
+ Tsuika Kougeki (Stand)         Additional Attack (Stand)
+ Tsuika Kougeki (Sit)           Additional Attack (Sit)
+
+ [ FOXY ]  --------------------------------------------------------------
+
+ Daisan no Kagi                 Key No. 3
+ Daijuuni no Kagi               Key No. 12
+ Nanatsu no Kinzoku             The Seven Metals
+ Nanatsu no Koubutsu            The Seven Minerals
+ Nanajuu no Junkan              Sevenfold Cycle
+ Nanajuu no Jouryuu             Sevenfold Distillation
+ Unicorn no Tsuno               Horn of the Unicorn
+ Taiki no Shoukei               Aspiration of the Atmosphere
+ Chie no Ki                     Tree of Wisdom
+ Getsu no Shirogane             Silver Moon
+ Hajimari no Ki                 Tree of Beginnings
+ Noah no Kioku                  Remembrance of Noah
+ Nanajuu no Hoshi               Sevenfold Star
+ Hakuchou no Uta                Swan Song
+ Chishiki no Bon                Tree of Knowledge
+ Wakusei no Inori               Planet's Prayer
+ Mitsubachi                     Honeybee
+
+ [ K9999 ]  -------------------------------------------------------------
+
+ Kieroo!                        Vanish!
+ Itsumade yondendayoo!          How long must we play?
+ Urusee-!                       Nuisance!
+ Acchi he itteroo!              Over there!
+ Wareroo!                       Break!
+ Tsuki...                       Moon...
+ Temee mo oucchimae!!           Wait, take one more!!
+ Ore ni meirei sunna-!!         I won't object to my orders!!
+
+ Chikara ga...katte ni...uwaaaa!!
+ My power...(grows) of it's own accord...uwaaaa!!
+
+ - I'm pretty bad at conversational Japanese, so these translations are
+   undoubtedly incorrect.  Any corrections are welcome.
+
+ [ ANGEL ]  -------------------------------------------------------------
+
+ Repun Kamuy                    Spirit of the Sea
+ Welcome To Ryuugu              ???
+
+ - I can't figure out what word "ryuugu" is supposed to be.  It doesn't
+   seem to be from another language, and the closest Japanese word I
+   could find was "ryuuguu" (Palace of the Dragon King).
+
+ [ ATHENA ASAMIYA ]  ----------------------------------------------------
+
+ Nu Psycho Reflector            New Psycho Reflector
+ Renkantai                      Chained Thigh
+
+ [ SIE KENSOU ]  --------------------------------------------------------
+
+ Hakkei                         Internal Energy Release
+ Tomoe Nage                     Overhead Judo Throw
+ Kobokushu                      Tiger Hand Strike
+ Kousentai                      Backspin Thigh
+ Choukyuu Dan                   Super Ball Shot
+ Senkyuutai                     Arcing Thigh Drill
+ Ryuu Gakusai                   Dragon Jaw Smash
+ Ryuu Sougeki                   Dragon Talon Attack
+ Ryuu Renga: Chiryuu            Rapid Dragon Fang: Earth Dragon
+ Ryuu Renga: Tenryuu            Rapid Dragon Fang: Heaven Dragon
+ Shinryuu Tenbu Kyaku           Dragon God Heavenly Dance Kick
+ Senki Hakkei                   Hermit's Mental Energy Release
+ Sen Shippo                     Fast Arrow Walk
+
+ Shinryuu Seiou Rekkyaku
+ Dragon God Horrible Gleaming Rending Kick
+
+ [ CHIN GENTSAI ]  ------------------------------------------------------
+
+ Gou Inshu                      Drinking Strong Sake
+ Sakkyaku Nage                  Reverse Leg Throw
+ Suiho Hyoutan Shuu             Drunken Stagger Gourd Attack
+ Hyoutan Geki                   Gourd Attack
+ Suihai Kou                     Drunken Cup Lean
+ Fun'en Kou                     Blazing Angry Mouth
+ Gou'en Shourai: Kai            Roaring Flame Invitation: Modified
+ Kaiten-teki Kuutotsu Ken       Rotary Air Pierce Fist
+ Bougetsu Sui                   Full Moon Drunkard
+ Rouja Hanhou                   Dragonsnake Anti-Strike
+ Rigyo Hanhou                   Carp Anti-Strike
+ Gou'en Shourai                 Roaring Flame Invitation
+ Gouran Enpou                   Roaring Flame Inferno
+ Kaiten Hyoutan Shuu            Spinning Gourd Advance
+
+ Ryuurin Hourai
+ Willow Phosphorous "Mountain Paradise of the Sennin"
+
+ - I still can't figure out the exact translation for "ryuurin," but
+   "hourai" is the name of a mountain that lies in the middle of the
+   sea, according to Japanese mythology.  On the mountain live the
+   "sennin," hermits with special powers (this is all according to
+   some dictionary I read).
+
+ [ BAO ]  ---------------------------------------------------------------
+
+ Gen'ei Tougi                   Phantom Head Technique
+ Kawasaki                       Skin Ripper
+ Senheki Shuu                   Spinning Wall Kick
+ Senshou Shuu                   Flying Flash Kick
+ Rikatsu Shuu                   Reverse Slide Kick
+ Soushou                        Paired Palms
+ Hikida                         Snake Saw
+
+ [ KIM KAPHWAN ]  -------------------------------------------------------
+
+ Kubikime Otoshi                Extreme Neck Drop
+ Sakkyaku Nage                  Deadly Leg Throw
+ Kuuren Geki                    Rapid Air Attack
+ Neri Chagi                     Falling Leg
+ Hangetsu Zan                   Half-Moon Slash
+ Hien Zan                       Flying Slash
+ Tenshou Zan                    Ascension Slash
+ Haki Kyaku                     Ambition Kick
+ Double Dechagi                 Double Leg
+ Hishou Kyaku                   Soaring Kick
+ Hou'ou Hiten Kyaku             Phoenix Flying Heaven Kick
+ Hou'ou Tenbu Kyaku             Phoenix Heavenly Dance Kick
+ Hou'ou Kyaku                   Phoenix Kick
+ Hishou Kyaku                   Flying Rising Kick
+
+ [ CHANG KOEHAN ]  ------------------------------------------------------
+
+ Hagan Geki                     Face-Smashing Attack
+ Kusari Jime                    Chain Strangle
+ Hiki Nige                      Sliding Evade
+ Tekkyuu Funsai Geki            Iron Ball Smashing Attack
+ Tekkyuu Taiko Uchi             Iron Ball Drum Thrust
+ Dai Hakai Nage                 Great Destruction Throw
+ Tekkyuu Dai Kaiten             Iron Ball Great Spin
+ Tekkyuu Dai Bousou             Iron Ball Great Reckless Run
+ Tekkyuu Dai Assatsu            Iron Ball Great "Crush to Death"
+ Tekkyuu Dai Kourin             Iron Ball Great Falling Confrontation
+
+ [ CHOI BOUNGE ]  -------------------------------------------------------
+
+ Zujou Sashi                    Head-Riding Stab
+ Geketsu Zuki                   Bloody Bowel Pierce
+ Toorima Geri                   Phantom Killer Kick
+ Senpuu Hien Zashi              Whirlwind Flying (Monkey) Pierce
+ Houkou Tenkan                  Direction Divert
+ Tatsumaki Shippuu Zan          Tornado Gale Slash
+ Hishou Kuuretsu Zan            Soaring Air-Ripping Slash
+ Hien Zan                       Confessions of a Sorrowful Monkey
+ Hishou Zan                     Soaring Kick
+ Kaiten Hien Zan                Spinning Flying Monkey Slash
+ Kishuu Hien Zuki               Surprise Attack Flying Monkey Stab
+ Zan! Engetsu Rin               Slash! (Monkey) Crescent Moon
+ Hou'ou Kyaku                   Phoenix Kick
+ Toorima Zuki                   Phantom Killer Pierce
+
+ Shin! Chouzetsu Tatsumaki Shinkuu Zan
+ True! Superior Tornado Vacuum Slash
+
+ [ MAY LEE ]  -----------------------------------------------------------
+
+ Kamae Henka                    Posture Change
+ Omote Enbu                     Front Performance
+ Ura Enbu                       Back Performance
+ Kuusetsu Geki                  Single Air Attack
+ Hero Uke                       Hero Defense
+ Mawashi Geri                   Spinning Kick
+ Kakato Otoshi                  Heel Drop
+ Gedan Geri                     Low-Level Kick
+ Sanren Kyaku                   Triple Continuous Kicks
+ Ushiro Mawashi Geri            Backwards Spinning Kick
+ Gada Hanshuu                   Anti Self-Strike Kick
+ Ryuu Getsurin Kyaku            Flowing Moon (Confrontation) Kick
+ Shinjuu Kyaku                  God of Beasts Kick
+ Shinjuu Shoukan                Call Upon the God of Beasts
+
+ - May's real name is "Mei Jinjuu."
+
+ [ ZERO ]  --------------------------------------------------------------
+
+ Genma Kokushou                 Evil Phantom Flying Chop
+ Jagai Kusetsu                  Evil Bodyblow Arm
+ Zanpuu Enpa: Hankyou           Flying Airslash Rip: Rebel Mirror
+ Zanpuu Enpa: Satsuma           Flying Airslash Rip: Deadly Demon
+ Zanpuu Enpa: Kouga             Flying Airslash Rip: Phoenix Fang
+ Gokusa Zanjin                  Imprisoning Chain Slash Formation
+ Hakura Messei                  White Net (of) Destructive Energy
+
+ - Not only does Zero have some strange quotes (in English, no less),
+   but his some of his move names are actually from "Hokuto no Ken"
+   (Fist of the North Star).  This also includes the "Shikka Koujin"
+   and "Mabukousou" moves he had in 2000.
+
+ [ IGNIZ ]  -------------------------------------------------------------
+
+ - Well, the kana for "Idion Blade" sounds like "EE-de-yawn," which
+   isn't a real English word.  The closest is "idiom" (IH-de-ohm), which
+   refers to one's characteristic style (such as they way in which an
+   artist paints).  I'm not sure if this is the word they were after or
+   if "Idion" is more correct.
+ - Along the same lines, "sagital" is not a real word, either, even
+   though that's what the kana sounds like.  I suppose the word is
+   supposed to make you think of "sage" or "Sagittarius", or something
+   like that.
+ - The same applies to "nega."  I guess it's referring to "negative?"
+
+ Thanks for reading.
+
+ ------------------------------------------------------------------------
+ THE KING OF FIGHTERS 2001 FAQ v0.7        copyright 2002 Chris MacDonald
+ ------------------------------------------------------------------------
+
+View in:
+GameFAQsfacebook.com/GFAQstwitter.com/GameFAQsHelp / Contact UsChange Colors
+
+gamespot.commetacritic.comfandom.comfanatical.com
+
+SitemapPartnershipsCareersTerms of UseDigital Services Act
+
+Privacy PolicyCookies SettingsReport Ad
+
+© 2026 FANDOM, INC. ALL RIGHTS RESERVED.
+AI Detection
+0%
+0% Human Score
+— Readability
+
+AI Prediction Map
+
+Sign up to access our complete features:
+
+    Access to our Advanced Scan (99.98% accuracy rate).
+    Sentence level precision.
+    Shareable reports.
+    Plagiarism Checker.
+    Writing Feedback, and much more.
+
+Free Plan —
+Upgrade
+AI Detection
+0%
+0% Human Score
+— Readability
+
+AI Prediction Map
+
+Sign up to access our complete features:
+
+    Access to our Advanced Scan (99.98% accuracy rate).
+    Sentence level precision.
+    Shareable reports.
+    Plagiarism Checker.
+    Writing Feedback, and much more.
+
+Free Plan —
+Upgrade
+AI Detection
+0%
+0% Human Score
+— Readability
+
+AI Prediction Map
+
+Sign up to access our complete features:
+
+    Access to our Advanced Scan (99.98% accuracy rate).
+    Sentence level precision.
+    Shareable reports.
+    Plagiarism Checker.
+    Writing Feedback, and much more.
+
+Free Plan —
+Upgrade
+AI Detection
+0%
+0% Human Score
+— Readability
+
+AI Prediction Map
+
+Sign up to access our complete features:
+
+    Access to our Advanced Scan (99.98% accuracy rate).
+    Sentence level precision.
+    Shareable reports.
+    Plagiarism Checker.
+    Writing Feedback, and much more.
+
+Free Plan —
+Upgrade

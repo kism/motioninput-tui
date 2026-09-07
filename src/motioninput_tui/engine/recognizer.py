@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from enum import StrEnum
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
 from .motions import CHARGE_KINDS, MatchContext, MotionKind, matches
@@ -92,6 +93,23 @@ def _priority(move: RecognisableMove) -> int:
     return base * 10 + move.motion.buttons.count
 
 
+class BufferPolicy(StrEnum):
+    """What happens to the input buffer once a move comes out."""
+
+    CONSUME = "consume"
+    """Flush the buffer, as the games do. Two quarter circles give two
+    fireballs rather than a super."""
+
+    LOOSE = "loose"
+    """Keep everything, so inputs can feed more than one move. Not how any of
+    these games behave, but useful for seeing every motion your inputs contain."""
+
+
+# Contextual moves. A normal or a throw does not clear a game's command buffer,
+# so a quarter circle survives an intervening command normal.
+_NON_FLUSHING = frozenset({MotionKind.HOLD, MotionKind.ANY})
+
+
 @dataclass
 class Recognizer:
     """Matches a character's moves against the live input buffer."""
@@ -100,6 +118,7 @@ class Recognizer:
     ruleset: Ruleset
     decay_ms: int = 0
     """How long the input device takes to reveal a release. See `motions.matches`."""
+    policy: BufferPolicy = BufferPolicy.CONSUME
     _last_fired: dict[str, int] = field(default_factory=dict, init=False)
 
     def __post_init__(self) -> None:
@@ -112,7 +131,9 @@ class Recognizer:
 
     def evaluate(self, buffer: InputBuffer, at_ms: int, pressed: set[Button]) -> Activation | None:
         """Return the winning move for this press, if any."""
-        context = MatchContext(self.ruleset, at_ms, frozenset(pressed), self.decay_ms)
+        context = MatchContext(
+            self.ruleset, at_ms, frozenset(pressed), self.decay_ms, loose=self.policy is BufferPolicy.LOOSE
+        )
         hits = [move for move in self._ranked if move.motion is not None and matches(move.motion, buffer, context)]
         if not hits:
             return None
@@ -123,9 +144,7 @@ class Recognizer:
             return None
         self._last_fired[winner.name] = at_ms
 
-        # Charge moves consume their charge, so drop the history that fed them.
-        if winner.motion is not None and winner.motion.kind in CHARGE_KINDS:
-            buffer.set_direction(buffer.current_direction(), at_ms)
+        self._spend(buffer, winner, at_ms)
 
         return Activation(
             move=winner,
@@ -133,6 +152,18 @@ class Recognizer:
             buttons=frozenset(pressed),
             also_matched=tuple(move.name for move in hits[1:4]),
         )
+
+    def _spend(self, buffer: InputBuffer, winner: RecognisableMove, at_ms: int) -> None:
+        """Take the inputs that produced a move out of circulation."""
+        kind = winner.motion.kind if winner.motion is not None else None
+        if kind is None or kind in _NON_FLUSHING:
+            return
+        if self.policy is BufferPolicy.CONSUME:
+            buffer.consume(at_ms)
+        elif kind in CHARGE_KINDS:
+            # Even loose matching has to spend a charge, or one held direction
+            # would let every charge move fire over and over.
+            buffer.set_direction(buffer.current_direction(), at_ms)
 
     def reset(self) -> None:
         """Forget recent activations."""

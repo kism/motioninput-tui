@@ -6,6 +6,7 @@ from textual.app import App
 
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
 from motioninput_tui.controls.layouts import get_layout
+from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.utils.logger import get_logger
 
@@ -31,6 +32,7 @@ class MotionInputApp(App[None]):
         layout: str | None = None,
         *,
         key_release: bool = True,
+        policy: BufferPolicy = BufferPolicy.CONSUME,
     ) -> None:
         """Optionally skip the setup screen when everything is given up front.
 
@@ -41,6 +43,7 @@ class MotionInputApp(App[None]):
         super().__init__(driver_class=ReleaseAwareDriver if key_release else None)
         self._preset = (game, character, layout)
         self._key_release = key_release
+        self._policy = policy
 
     def on_key_release(self, event: KeyRelease) -> None:
         """Route a key release to the trainer.
@@ -77,4 +80,7 @@ class MotionInputApp(App[None]):
         def on_done(_result: None) -> None:
             self._open_setup()
 
-        self.push_screen(TrainingScreen(game, character, layout, exact_input=self._key_release), on_done)
+        self.push_screen(
+            TrainingScreen(game, character, layout, exact_input=self._key_release, policy=self._policy),
+            on_done,
+        )

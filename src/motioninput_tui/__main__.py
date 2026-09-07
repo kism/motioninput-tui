@@ -33,6 +33,12 @@ def _get_args() -> argparse.Namespace:
         action="store_true",
         help="Do not ask the terminal for key release reporting; infer holds from auto-repeat instead.",
     )
+    parser.add_argument(
+        "--loose-buffer",
+        action="store_true",
+        help="Do not spend inputs when a move comes out, so one motion can feed several moves. "
+        "Not how the games behave; toggle it in the trainer with ctrl+b.",
+    )
     parser.add_argument("--list", action="store_true", help="List games and characters, then exit.")
     parser.add_argument("--check-terminal", action="store_true", help="Report terminal suitability, then exit.")
     parser.add_argument("--version", action="version", version=PROGRAM_NAME_WITH_FULL_VERSION)
@@ -106,6 +112,7 @@ def main() -> int:
     else:
         logger.info("Terminal does not report key releases; holds will be inferred from auto-repeat")
 
+    from .engine.recognizer import BufferPolicy  # ruff: ignore[import-outside-top-level] - keeps startup light
     from .tui import MotionInputApp  # ruff: ignore[import-outside-top-level] - importing textual is slow, only do it when running the app
 
     MotionInputApp(
@@ -113,6 +120,7 @@ def main() -> int:
         character=args.character,
         layout=args.layout,
         key_release=key_release,
+        policy=BufferPolicy.LOOSE if args.loose_buffer else BufferPolicy.CONSUME,
     ).run()
     return 0
 

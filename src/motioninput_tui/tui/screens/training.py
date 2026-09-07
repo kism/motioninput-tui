@@ -10,6 +10,7 @@ from textual.containers import Horizontal, Vertical
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
+from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import InputStrip
@@ -32,6 +33,7 @@ class TrainingScreen(Screen):
         Binding("escape", "back", "Change character"),
         Binding("ctrl+r", "reset", "Reset buffer"),
         Binding("ctrl+l", "toggle_movelist", "Move list"),
+        Binding("ctrl+b", "toggle_policy", "Buffer rule"),
         Binding("ctrl+c", "quit", "Quit"),
     ]
 
@@ -45,10 +47,18 @@ class TrainingScreen(Screen):
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     """
 
-    def __init__(self, game: Game, character: Character, layout: ControlLayout, *, exact_input: bool = False) -> None:
+    def __init__(
+        self,
+        game: Game,
+        character: Character,
+        layout: ControlLayout,
+        *,
+        exact_input: bool = False,
+        policy: BufferPolicy = BufferPolicy.CONSUME,
+    ) -> None:
         """Start a session for this game, character and layout."""
         super().__init__()
-        self.session = TrainingSession(game, character, layout, exact_input=exact_input)
+        self.session = TrainingSession(game, character, layout, exact_input=exact_input, policy=policy)
         self.terminal = detect()
 
     def compose(self) -> ComposeResult:
@@ -126,6 +136,8 @@ class TrainingScreen(Screen):
             status.append("   exact key tracking", style="dim green")
         else:
             status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
+        if session.policy is BufferPolicy.LOOSE:
+            status.append("   loose buffer: inputs are reused between moves", style="yellow")
         advice = session.keyboard_advice
         if advice:
             status.append(f"\n⚠ {advice}", style="yellow")
@@ -134,6 +146,11 @@ class TrainingScreen(Screen):
     def action_reset(self) -> None:
         """Clear the input buffer and the feed."""
         self.session.reset()
+        self._refresh()
+
+    def action_toggle_policy(self) -> None:
+        """Switch between spending inputs on activation and loose matching."""
+        self.session.toggle_policy()
         self._refresh()
 
     def action_toggle_movelist(self) -> None:

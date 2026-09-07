@@ -87,6 +87,22 @@ class InputBuffer:
         """Buttons pressed close enough to ``at_ms`` to count as one input."""
         return {press.button for press in self.buttons if abs(press.at_ms - at_ms) <= self.simultaneous_ms}
 
+    def consume(self, at_ms: int) -> None:
+        """Flush the command buffer because a move just came out.
+
+        Games scan a rolling buffer of recent inputs and clear it once a
+        special move activates, so the inputs that produced it cannot go on to
+        feed another one. Without this, two quarter circles in a row read as
+        the double quarter circle of a super.
+
+        The direction being held survives, since the player has not physically
+        let go of it, but it starts counting from now: a charge is spent.
+        """
+        current = self.current_direction()
+        self.directions.clear()
+        self.buttons.clear()
+        self.directions.append(DirectionState(current, at_ms))
+
     def clear(self) -> None:
         """Drop all history."""
         self.directions.clear()

@@ -18,6 +18,9 @@ class Ruleset:
             direction. Shorter is stricter.
         activation_window_ms: How long after finishing a motion the button may
             be pressed and still count.
+        step_gap_ms: The longest pause allowed between two steps of a motion.
+            This is what stops a direction left over from an earlier input
+            acting as the start of a later one.
         max_intermediate: How many junk direction changes may sit between two
             steps of a motion. 0 means the motion must be clean.
         tail_states: How many direction changes may follow the end of a motion
@@ -43,6 +46,7 @@ class Ruleset:
 
     motion_window_ms: int = 300
     activation_window_ms: int = 150
+    step_gap_ms: int = 180
     max_intermediate: int = 1
     tail_states: int = 2
     lenient_diagonals: bool = False
