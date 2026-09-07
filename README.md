@@ -59,7 +59,7 @@ the buffer rule back off. Naming a different `--game` on its own clears the
 remembered character, since it belonged to another roster. If the file is
 missing or damaged the defaults are used and a fresh one is written.
 
-Key release support is _not_ remembered: it is probed per terminal on every
+Key release support is *not* remembered: it is probed per terminal on every
 launch, so a saved value would disable exact tracking after switching terminal.
 
 ## Controls
@@ -71,7 +71,7 @@ than touching anything else.
 | Layout   | Back / Down / Forward / Up | LP MP HP | LK MK HK |
 | -------- | -------------------------- | -------- | -------- |
 | Hitbox   | `a` `s` `d` `space`        | `u i o`  | `j k l`  |
-| Southpaw | `j` `k` `l` `space`        | `a s d`  | `z x c`  |
+| Southpaw | `j` `k` `l` `space`        | `q w e`  | `a s d`  |
 
 In the trainer: `esc` goes back to the picker, `ctrl+r` clears the buffer,
 `ctrl+l` toggles the move list, `ctrl+b` toggles the buffer rule, `ctrl+c` quits.

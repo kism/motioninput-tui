@@ -82,15 +82,15 @@ HITBOX = ControlLayout(
 SOUTHPAW = ControlLayout(
     key="southpaw",
     name="Southpaw",
-    description="Right hand on j k l for back/down/forward, space for up. Attacks on a s d / z x c.",
+    description="Right hand on j k l for back/down/forward, space for up. Attacks on q w e / a s d.",
     movement={"j": Axis.LEFT, "k": Axis.DOWN, "l": Axis.RIGHT, "space": Axis.UP},
     attacks={
-        "a": Button.LP,
-        "s": Button.MP,
-        "d": Button.HP,
-        "z": Button.LK,
-        "x": Button.MK,
-        "c": Button.HK,
+        "q": Button.LP,
+        "w": Button.MP,
+        "e": Button.HP,
+        "a": Button.LK,
+        "s": Button.MK,
+        "d": Button.HK,
     },
 )
 
