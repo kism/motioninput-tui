@@ -89,32 +89,20 @@ class FetchError(RuntimeError):
 def _http_get(url: str, timeout: float) -> str:
     """Fetch a page as text.
 
-    Prefers curl_cffi, which presents a browser-like TLS handshake. GameFAQs
-    sits behind Cloudflare and a plain client is usually turned away.
+    Uses curl_cffi, which presents a browser-like TLS handshake. GameFAQs sits
+    behind Cloudflare and a plain client is turned away.
     """
     try:
         from curl_cffi import requests as curl_requests  # ruff: ignore[import-outside-top-level] - optional extra
-    except ImportError:
-        curl_requests = None
+    except ImportError as exc:
+        package = "curl_cffi"
+        raise MissingDependencyError(package) from exc
 
-    if curl_requests is not None:
-        response = curl_requests.get(url, impersonate="chrome", timeout=timeout)
-        status, text = response.status_code, response.text
-    else:
-        try:
-            # Not in the guides extra: a plain client rarely gets past Cloudflare,
-            # but it is a usable fallback where curl_cffi has no wheel.
-            import requests  # ruff: ignore[import-outside-top-level]  # ty: ignore[unresolved-import]
-        except ImportError as exc:
-            package = "curl_cffi (or requests)"
-            raise MissingDependencyError(package) from exc
-        response = requests.get(url, timeout=timeout, headers={"User-Agent": "Mozilla/5.0"})
-        status, text = response.status_code, response.text
-
-    if status != HTTP_OK:
-        message = f"HTTP {status}"
+    response = curl_requests.get(url, impersonate="chrome", timeout=timeout)
+    if response.status_code != HTTP_OK:
+        message = f"HTTP {response.status_code}"
         raise FetchError(message)
-    return text
+    return response.text
 
 
 def _printable_url(url: str) -> str:
