@@ -16,6 +16,7 @@ import time
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from motioninput_tui.utils.logger import get_logger
 
@@ -116,6 +117,19 @@ def _http_get(url: str, timeout: float) -> str:
     return text
 
 
+def _printable_url(url: str) -> str:
+    """Add ``print=1`` to a GameFAQs guide URL.
+
+    Long guides are paginated on the site and the plain page only carries the
+    first chunk (~50 KB); the printable version is the whole thing in one
+    document. Harmless on a guide short enough to fit one page.
+    """
+    parts = urlparse(url)
+    query = dict(parse_qsl(parts.query))
+    query["print"] = "1"
+    return urlunparse(parts._replace(query=urlencode(query)))
+
+
 def _looks_blocked(html: str) -> bool:
     head = html[:4000].lower()
     return any(marker in head for marker in _BLOCK_MARKERS)
@@ -182,7 +196,7 @@ def fetch_guide(
         return _checked(guide, dest_dir, Status.SKIPPED, detail, "re-fetch with --force")
 
     try:
-        html = _http_get(guide.url, timeout)
+        html = _http_get(_printable_url(guide.url), timeout)
     except MissingDependencyError:
         raise
     except Exception as exc:  # ruff: ignore[blind-except] - one bad guide must not stop the rest
