@@ -33,4 +33,7 @@ notation.
 
 ## Credit
 
-Move list guides by Kao Megura / Chris MacDonald [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
+Move list guides by:
+
+- Kao Megura / Chris MacDonald [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
+- MJ

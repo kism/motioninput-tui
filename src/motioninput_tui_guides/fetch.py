@@ -19,7 +19,7 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.utils.logger import get_logger
 
-from .catalog import DEFAULT_DEST
+from .catalog import DEFAULT_DEST, canonicalise_file
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -147,8 +147,14 @@ def extract_guide_text(html: str) -> str:
 def _checked(guide: Guide, dest_dir: Path, ok_status: Status, detail: str, hint: str) -> Result:
     """Turn ``detail`` into a Result, failing it if the guide's SHA-256 is wrong.
 
-    ``hint`` is appended to the failure message to say how to recover.
+    ``hint`` is appended to the failure message to say how to recover. The guide
+    is first rewritten in canonical form (leading blank lines dropped, one
+    trailing newline) so an existing copy that differs only in surrounding
+    whitespace matches its recorded ``sha256`` instead of failing the check.
     """
+    path = guide.path(dest_dir)
+    if path.is_file():
+        canonicalise_file(path)
     if guide.checksum_ok(dest_dir) is False:
         return Result(guide, Status.FAILED, guide.path(dest_dir), f"{detail}, but {_CHECKSUM_MISMATCH}; {hint}")
     return Result(guide, ok_status, guide.path(dest_dir), detail)

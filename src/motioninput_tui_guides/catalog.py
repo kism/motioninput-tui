@@ -12,9 +12,32 @@ SOURCES_PATH = Path(__file__).parent / "sources.json"
 DEFAULT_DEST = Path("references")
 
 
+def _canonical_text(text: str) -> str:
+    """The form a guide is checksummed in, so trivial whitespace never breaks it.
+
+    Leading blank (whitespace-only) lines are dropped and the file ends in
+    exactly one newline. A guide re-fetched or hand-edited with only surrounding
+    whitespace changed still matches its recorded ``sha256``.
+    """
+    lines = text.split("\n")
+    while lines and not lines[0].strip():
+        lines.pop(0)
+    return "\n".join(lines).rstrip("\n") + "\n"
+
+
+def canonicalise_file(path: Path) -> bool:
+    """Rewrite ``path`` in canonical form. Returns whether it changed on disk."""
+    original = path.read_text(encoding="utf-8")
+    canonical = _canonical_text(original)
+    if canonical == original:
+        return False
+    path.write_text(canonical, encoding="utf-8")
+    return True
+
+
 def sha256_file(path: Path) -> str:
-    """Hex SHA-256 of a file's contents, the form stored in sources.json."""
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """Hex SHA-256 of a guide's canonical text, the form stored in sources.json."""
+    return hashlib.sha256(_canonical_text(path.read_text(encoding="utf-8")).encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True, slots=True)
