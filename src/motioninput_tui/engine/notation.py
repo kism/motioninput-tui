@@ -208,4 +208,3 @@ def _default_label(allowed: frozenset[Button], count: int) -> str:
 
 ANY_PUNCH = ButtonRequirement(PUNCHES, 1)
 ANY_KICK = ButtonRequirement(KICKS, 1)
-ANY_BUTTON = ButtonRequirement(ALL_BUTTONS, 1)

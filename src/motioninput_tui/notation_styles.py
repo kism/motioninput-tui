@@ -201,9 +201,6 @@ STYLES: dict[Family, tuple[Style, ...]] = {
     ),
 }
 
-DEFAULT_CHOICES: dict[str, str] = {family.value: styles[0].key for family, styles in STYLES.items()}
-"""Arrows, and every motion spelled out in them."""
-
 _KIND_FAMILY: dict[MotionKind, Family] = {
     _K.QCF: Family.QUARTER,
     _K.QCB: Family.QUARTER,

@@ -65,7 +65,3 @@ class Ruleset:
     mash_window_ms: int = 600
     rotation_window_ms: int = 500
     rotation_slack: int = 2
-
-
-STRICT = Ruleset()
-"""Sensible strict default, roughly Super Turbo."""

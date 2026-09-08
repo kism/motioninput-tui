@@ -306,15 +306,6 @@ wheels = [
 ]
 
 [[package]]
-name = "detect-test-pollution"
-version = "1.2.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/7d/45/c1e5d4aa0e6c64e87a284bb12e3b607474dd5c8218ed7464f9491781b86d/detect_test_pollution-1.2.0.tar.gz", hash = "sha256:94f383759bbab309771ceedb8dd526a62fa59607e5f7e41f5b33bbc656bfcea9", size = 6768, upload-time = "2023-09-28T20:26:01.412Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/a4/696c220231ee35466269c93f51f782b889f4dde73fc6f1d105e89a1c135e/detect_test_pollution-1.2.0-py2.py3-none-any.whl", hash = "sha256:96095425dadf95d4ceabd585659ccc3197e88dfb1efb02a8479b27d8ad1a3afb", size = 7290, upload-time = "2023-09-28T20:26:00.26Z" },
-]
-
-[[package]]
 name = "docutils"
 version = "0.22.4"
 source = { registry = "https://pypi.org/simple" }
@@ -466,10 +457,7 @@ lint = [
 ]
 test = [
     { name = "coverage" },
-    { name = "detect-test-pollution" },
     { name = "pytest" },
-    { name = "pytest-mock" },
-    { name = "pytest-random-order" },
 ]
 type = [
     { name = "ty" },
@@ -480,12 +468,9 @@ requires-dist = [
     { name = "beautifulsoup4", marker = "extra == 'guides'", specifier = ">=4.12.0" },
     { name = "coverage", marker = "extra == 'test'", specifier = ">=7.15.4" },
     { name = "curl-cffi", marker = "extra == 'guides'", specifier = ">=0.7.0" },
-    { name = "detect-test-pollution", marker = "extra == 'test'" },
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=4.0.0" },
     { name = "pygame-ce", marker = "extra == 'gamepad'", specifier = ">=2.5.8" },
     { name = "pytest", marker = "extra == 'test'", specifier = ">=9.1.1" },
-    { name = "pytest-mock", marker = "extra == 'test'" },
-    { name = "pytest-random-order", marker = "extra == 'test'" },
     { name = "rich", specifier = ">=15.0.0" },
     { name = "ruff", marker = "extra == 'lint'", specifier = ">=0.16.2" },
     { name = "sphinx", marker = "extra == 'docs'", specifier = ">=8.1.0" },
@@ -593,30 +578,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/e4/47/b9efed96c114afcfa3c9d3fe98a76a1d14c74a9e266d397cf6eb64be5e01/pytest-9.1.1.tar.gz", hash = "sha256:1088fbde8f2b49d95a549a195707afa7a76a3ce9bcadc26b6d71f0ffda5fe313", size = 1636369, upload-time = "2026-06-19T10:58:32.857Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl", hash = "sha256:37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c", size = 386536, upload-time = "2026-06-19T10:58:31.347Z" },
-]
-
-[[package]]
-name = "pytest-mock"
-version = "3.15.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pytest" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/68/14/eb014d26be205d38ad5ad20d9a80f7d201472e08167f0bb4361e251084a9/pytest_mock-3.15.1.tar.gz", hash = "sha256:1849a238f6f396da19762269de72cb1814ab44416fa73a8686deac10b0d87a0f", size = 34036, upload-time = "2025-09-16T16:37:27.081Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5a/cc/06253936f4a7fa2e0f48dfe6d851d9c56df896a9ab09ac019d70b760619c/pytest_mock-3.15.1-py3-none-any.whl", hash = "sha256:0a25e2eb88fe5168d535041d09a4529a188176ae608a6d249ee65abc0949630d", size = 10095, upload-time = "2025-09-16T16:37:25.734Z" },
-]
-
-[[package]]
-name = "pytest-random-order"
-version = "1.2.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pytest" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a8/ad/a2a32d91effe0f84a300b9ba6c9d000bd52f31b77f8e49d8fd8653a9ddc3/pytest_random_order-1.2.0.tar.gz", hash = "sha256:12b2d4ee977ec9922b5e3575afe13c22cbdb06e3d03e550abc43df137b90439a", size = 107304, upload-time = "2025-06-22T14:44:43.807Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/a4/7f/92c8dbe185aa38270fec1e73e0ed70d8e5de31963aa057ba621055f8b008/pytest_random_order-1.2.0-py3-none-any.whl", hash = "sha256:78d1d6f346222cdf26a7302c502d2f1cab19454529af960b8b9e1427a99ab277", size = 10889, upload-time = "2025-06-22T14:44:42.438Z" },
 ]
 
 [[package]]

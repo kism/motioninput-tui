@@ -27,9 +27,6 @@ docs = ["sphinx>=8.1.0", "myst-parser>=4.0.0", "sphinx-rtd-theme>=3.0.0"]
 test = [
     "pytest>=9.1.1",
     "coverage>=7.15.4",
-    "pytest-mock",
-    "pytest-random-order",
-    "detect-test-pollution",
 ]
 
 [project.urls]

@@ -1,7 +1,7 @@
 """Input sources: things that turn a device into directions and buttons."""
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Protocol
+from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.notation import Button, Direction, direction_from_axes
 
@@ -20,35 +20,14 @@ class SourceUpdate:
     direction_changed: bool = False
 
 
-class InputSource(Protocol):
-    """Anything that can drive the engine.
-
-    The keyboard is the only implementation. The gamepad reuses it in exact
-    mode (:mod:`motioninput_tui.controls.gamepad` polls the pad and feeds its
-    presses and releases through :class:`KeyboardSource`), since a pad reports
-    real releases and never needs holds inferred.
-    """
-
-    def press(self, code: str, at_ms: int) -> SourceUpdate | None:
-        """Handle a device input going down."""
-        ...
-
-    def release(self, code: str, at_ms: int) -> SourceUpdate | None:
-        """Handle a device input going up, where the device reports that."""
-        ...
-
-    def tick(self, at_ms: int) -> SourceUpdate | None:
-        """Handle the passage of time (hold expiry, polling)."""
-        ...
-
-    def reset(self) -> None:
-        """Return to neutral."""
-        ...
-
-
 @dataclass
 class KeyboardSource:
     """Reads a :class:`ControlLayout` and infers which directions are held.
+
+    The only input source there is: the gamepad reuses this in exact mode
+    (:mod:`motioninput_tui.controls.gamepad` polls the pad and feeds its
+    presses and releases straight through), since a pad reports real releases
+    and never needs holds inferred.
 
     See :class:`~.layouts.HoldTiming` for how holds are deduced from presses
     and auto-repeats, which is the one place this trainer has to approximate
