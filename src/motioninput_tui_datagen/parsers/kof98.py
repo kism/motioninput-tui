@@ -23,11 +23,10 @@ import re
 from dataclasses import replace
 from typing import TYPE_CHECKING
 
-from motioninput_tui.engine.notation import ALL_BUTTONS, KICKS, PUNCHES, Button, ButtonRequirement
 from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
+from motioninput_tui_datagen.neogeo import TO_SHORTHAND, to_neo_panel
 
 if TYPE_CHECKING:
-    from motioninput_tui.engine.motions import MotionSpec
     from motioninput_tui.games.models import Character, Move
 
 # The table of contents lists the heading once too; the movelists are second.
@@ -42,20 +41,7 @@ _SUBTITLE = re.compile(r"^\s*\[.*\]\s*$")
 
 # Directions are lower case in this guide (``d,df,f``) and the button letters
 # upper case (``+ C``), so a case-sensitive swap keeps the two apart.
-_TO_SHORTHAND = {"A": "LP", "B": "LK", "C": "HP", "D": "HK", "P": "any punch", "K": "any kick"}
 _BUTTON_LETTER = re.compile(r"(?<![A-Za-z])([ABCDPK])(?![A-Za-z])")
-
-_NEO_PUNCHES = frozenset({Button.A, Button.C})
-_NEO_KICKS = frozenset({Button.B, Button.D})
-_TO_NEO = {
-    Button.LP: Button.A,
-    Button.MP: Button.A,
-    Button.HP: Button.C,
-    Button.LK: Button.B,
-    Button.MK: Button.B,
-    Button.HK: Button.D,
-}
-_NEO_ORDER = (Button.A, Button.B, Button.C, Button.D)
 
 
 def parse(text: str) -> tuple[list[Character], ParseReport]:
@@ -106,28 +92,10 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
 
 def _neo_move(move_name: str, command: str, report: ParseReport, character: str) -> Move:
     """Build a move from a Neo Geo command, keeping the A B C D notation."""
-    move = build_move(move_name, _BUTTON_LETTER.sub(lambda m: _TO_SHORTHAND[m.group(1)], command), report, character)
+    move = build_move(move_name, _BUTTON_LETTER.sub(lambda m: TO_SHORTHAND[m.group(1)], command), report, character)
     if move.motion is None:
         return replace(move, command=command)
-    return replace(move, command=command, motion=_to_neo_panel(move.motion, command))
-
-
-def _to_neo_panel(motion: MotionSpec, command: str) -> MotionSpec:
-    """Put a motion's button requirement back onto the Neo Geo's A B C D."""
-    return replace(motion, buttons=_neo_buttons(motion.buttons), notation=command.strip())
-
-
-def _neo_buttons(requirement: ButtonRequirement) -> ButtonRequirement:
-    count = requirement.count
-    if requirement.allowed == PUNCHES:
-        return ButtonRequirement(_NEO_PUNCHES, count, "P" * count)
-    if requirement.allowed == KICKS:
-        return ButtonRequirement(_NEO_KICKS, count, "K" * count)
-    if requirement.allowed == ALL_BUTTONS:
-        return ButtonRequirement(_NEO_PUNCHES | _NEO_KICKS, count, "any button")
-    mapped = frozenset(_TO_NEO.get(button, button) for button in requirement.allowed)
-    names = [button.value for button in _NEO_ORDER if button in mapped]
-    return ButtonRequirement(mapped, count, ("+" if count >= len(names) else "/").join(names))
+    return replace(move, command=command, motion=to_neo_panel(move.motion, command))
 
 
 def _section(text: str) -> list[str]:
