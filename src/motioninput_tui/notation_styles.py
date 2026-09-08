@@ -159,7 +159,7 @@ STYLES: dict[Family, tuple[Style, ...]] = {
     ),
     Family.DRAGON: (
         Style(key="spelled", name="Spelled out"),
-        Style(key="dogra", name="Dogra", glyphs={_K.DP: "𑪼", _K.RDP: "𑪽"}),
+        Style(key="canadian", name="Canadian Syllabics", glyphs={_K.DP: "𑪼", _K.RDP: "𑪽"}),
         Style(key="turkic", name="Old Turkic", glyphs={_K.DP: "𐰁", _K.RDP: "𐰀"}),
         Style(key="kanji", name="Dragon 龍", glyphs=_beast("龍")),
         Style(key="simplified", name="Dragon 龙", glyphs=_beast("龙")),
