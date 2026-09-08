@@ -58,6 +58,11 @@ in front of it."""
 
 _COLUMNS = re.compile(r"\s{2,}")
 
+_SET_MEMBER = re.compile(r"^\*\s+")
+"""Marks a move as one of a numbered set -- Yoshitora's six Tachi, Rera's
+Shikite. It is a note about the name, not part of it. The same star inside a
+command ("use all * moves") is prose and stays."""
+
 # A B AB are the slashes, C the kick, D the dodge. The mapping is arbitrary but
 # has to be one-to-one, so neogeo.to_neo_panel can put it back on A B C D.
 _BUTTONS = {"A": "LP", "B": "LK", "C": "HP", "D": "HK"}
@@ -112,12 +117,12 @@ def _split(line: str) -> tuple[str, str, bool] | None:
     marker = _RAGE.search(body)
     if marker is not None:
         command, move_name = body[: marker.start()], body[marker.end() :]
-        return command.strip(), move_name.strip(), True
+        return command.strip(), _SET_MEMBER.sub("", move_name.strip()), True
 
     parts = _COLUMNS.split(body.strip(), maxsplit=1)
     if len(parts) < 2:  # ruff: ignore[magic-value-comparison] - a command and a name
         return None
-    return parts[0].strip(), parts[1].strip(), False
+    return parts[0].strip(), _SET_MEMBER.sub("", parts[1].strip()), False
 
 
 def _slash_move(move_name: str, command: str, report: ParseReport, character: str, *, rage: bool) -> Move:

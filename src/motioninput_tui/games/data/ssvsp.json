@@ -2978,17 +2978,17 @@
      "category": "other"
     },
     {
-     "name": "* Mer Shikite",
+     "name": "Mer Shikite",
      "command": "_b,db,d + S",
      "category": "other"
     },
     {
-     "name": "* Kanto Shikite",
+     "name": "Kanto Shikite",
      "command": "_f,d,df + S",
      "category": "other"
     },
     {
-     "name": "* Imer Shikite",
+     "name": "Imer Shikite",
      "command": "_qcf + S in air",
      "category": "other"
     },
@@ -4025,7 +4025,7 @@
    "title": "",
    "moves": [
     {
-     "name": "* Ichi no Tachi: Nadeshiko",
+     "name": "Ichi no Tachi: Nadeshiko",
      "command": "qcf + S",
      "category": "special",
      "motion": {
@@ -4042,7 +4042,7 @@
      }
     },
     {
-     "name": "* Ni no Tachi: Shirayuri",
+     "name": "Ni no Tachi: Shirayuri",
      "command": "f,d,df + S",
      "category": "special",
      "motion": {
@@ -4059,7 +4059,7 @@
      }
     },
     {
-     "name": "* San no Tachi: Botan",
+     "name": "San no Tachi: Botan",
      "command": "qcf + S in air",
      "category": "special",
      "motion": {
@@ -4076,7 +4076,7 @@
      }
     },
     {
-     "name": "* Yon no Tachi: Tsubaki",
+     "name": "Yon no Tachi: Tsubaki",
      "command": "b,d,db + S",
      "category": "special",
      "motion": {
@@ -4093,7 +4093,7 @@
      }
     },
     {
-     "name": "* Go no Tachi: Asagao",
+     "name": "Go no Tachi: Asagao",
      "command": "qcb + S",
      "category": "special",
      "motion": {
@@ -4110,7 +4110,7 @@
      }
     },
     {
-     "name": "* Roku no Tachi: Yuugao",
+     "name": "Roku no Tachi: Yuugao",
      "command": "f,d,df + C when near",
      "category": "special",
      "motion": {
