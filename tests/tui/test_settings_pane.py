@@ -15,6 +15,7 @@ from textual.widgets import OptionList
 
 from motioninput_tui.config import Config
 from motioninput_tui.engine.recognizer import BufferPolicy
+from motioninput_tui.settings import SETTINGS
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.settings import SettingsScreen
 from motioninput_tui.tui.screens.setup import SetupScreen
@@ -45,6 +46,11 @@ async def _open_setup(pilot: Pilot) -> SetupScreen:
     return screen
 
 
+def _row(attribute: str) -> int:
+    """Where a setting sits in the pane, so inserting one cannot break a test."""
+    return next(index for index, setting in enumerate(SETTINGS) if setting.attribute == attribute)
+
+
 def test_toggling_a_setting_saves_it(config: Config) -> None:
     async def session() -> None:
         app = MotionInputApp(config, key_release=False)
@@ -52,7 +58,7 @@ def test_toggling_a_setting_saves_it(config: Config) -> None:
             setup = await _open_setup(pilot)
             settings = setup.query_one(SettingsList)
             assert settings.has_focus
-            assert settings.highlighted == 0  # relaxed half circles
+            assert settings.highlighted == _row("lenient_half_circles") == 0
             await pilot.press("enter")
             await pilot.pause()
 
@@ -153,7 +159,7 @@ def test_the_buffer_rule_still_toggles_from_there(config: Config) -> None:
             await pilot.press("ctrl+b")
             await pilot.pause()
             await pilot.pause()
-            app.screen.query_one(SettingsList).highlighted = 1  # loose buffer
+            app.screen.query_one(SettingsList).highlighted = _row("loose_buffer")
             await pilot.pause()
             await pilot.press("enter")
             await pilot.pause()

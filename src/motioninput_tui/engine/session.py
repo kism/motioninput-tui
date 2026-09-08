@@ -200,6 +200,17 @@ class TrainingSession:
         """Whether inputs are spent when a move comes out."""
         return self.recognizer.policy
 
+    def rebind(self, layout: ControlLayout) -> None:
+        """Take a changed control layout mid-session.
+
+        Only the input display does this, when the player rearranges a panel
+        from the settings. Everything held is dropped with the old bindings,
+        since a key that meant one button a moment ago may mean another now.
+        """
+        self.layout = layout
+        self.source.layout = layout
+        self.reset()
+
     def retune(self, game: Game, policy: BufferPolicy) -> None:
         """Take changed rules mid-session, without losing the session.
 

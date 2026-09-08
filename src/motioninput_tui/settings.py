@@ -46,6 +46,11 @@ SETTINGS: tuple[Setting, ...] = (
         detail="A half circle may skip straight down, so b,db,df,f counts. Off wants the down hit.",
     ),
     Setting(
+        attribute="neo_geo_slant",
+        name="Neo Geo slant",
+        detail="Neo Geo's four buttons as the arcade slants them, A B below C D. Off puts A B C D across.",
+    ),
+    Setting(
         attribute="loose_buffer",
         name="Loose buffer",
         detail="Inputs are not spent when a move comes out, so one motion can feed several. Not how the games behave.",

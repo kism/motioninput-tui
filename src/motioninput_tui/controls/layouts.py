@@ -14,6 +14,8 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.notation import Button
 
+from .buttons import DEFAULT_SET, ButtonSet
+
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
@@ -36,13 +38,20 @@ class LayoutKind(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class ControlLayout:
-    """A mapping from physical inputs to directions and attack buttons."""
+    """A mapping from physical inputs to directions and attack buttons.
+
+    ``attack_rows`` is where the attacks sit on the device, top row first, and
+    ``attacks`` is what those positions currently mean. A layout is built with
+    the Street Fighter six on it; :func:`with_buttons` lays another game's set
+    onto the same positions. See :mod:`.buttons`.
+    """
 
     key: str
     name: str
     description: str
     movement: dict[str, Axis]
     attacks: dict[str, Button]
+    attack_rows: tuple[tuple[str, ...], ...] = ()
     kind: LayoutKind = LayoutKind.KEYBOARD
     available: bool = True
     key_labels: dict[str, str] = field(default_factory=dict)
@@ -56,10 +65,19 @@ class ControlLayout:
         combined.update(self.attacks)
         return combined
 
-    def _label(self, key: str) -> str:
+    def key_label(self, key: str) -> str:
+        """What to call a binding code on screen."""
         if key in self.key_labels:
             return self.key_labels[key]
         return "␣" if key == "space" else key
+
+    def bound_rows(self) -> tuple[tuple[tuple[str, Button], ...], ...]:
+        """The attack positions that currently mean something, row by row.
+
+        This is what the input display draws: the physical panel, with the keys
+        that a shorter button set leaves over dropped.
+        """
+        return tuple(tuple((key, self.attacks[key]) for key in row if key in self.attacks) for row in self.attack_rows)
 
     def movement_help(self) -> str:
         """Human readable movement bindings, e.g. 'a s d space'."""
@@ -67,42 +85,57 @@ class ControlLayout:
             return "D-pad / left stick"
         order = (Axis.LEFT, Axis.DOWN, Axis.RIGHT, Axis.UP)
         by_axis = {axis: key for key, axis in self.movement.items()}
-        return " ".join(self._label(by_axis[axis]) for axis in order if axis in by_axis)
+        return " ".join(self.key_label(by_axis[axis]) for axis in order if axis in by_axis)
 
     def attack_help(self) -> str:
         """Human readable attack bindings, e.g. 'LP=u MP=i ...'."""
-        by_button = {button: key for key, button in self.attacks.items()}
-        return " ".join(f"{button.value}={self._label(by_button[button])}" for button in Button if button in by_button)
+        # First key wins: a set that binds a button twice, as the Neo Geo does,
+        # is named by the row it is written in rather than the duplicate.
+        by_button: dict[Button, str] = {}
+        for key, button in self.attacks.items():
+            by_button.setdefault(button, key)
+        return " ".join(
+            f"{button.value}={self.key_label(by_button[button])}" for button in Button if button in by_button
+        )
 
+
+def lay_out(rows: tuple[tuple[str, ...], ...], buttons: ButtonSet) -> dict[str, Button]:
+    """Lay a button set onto rows of attack keys, position by position.
+
+    A row of the set that is longer than the layout's row runs out of keys, and
+    keys past the end of a row are left unbound. A button appearing twice, as
+    the Neo Geo's does, simply gets both keys.
+    """
+    bound: dict[str, Button] = {}
+    for keys, row in zip(rows, buttons.rows, strict=False):
+        bound.update(zip(keys, row, strict=False))
+    return bound
+
+
+def with_buttons(layout: ControlLayout, buttons: ButtonSet) -> ControlLayout:
+    """The same layout with another game's buttons on its attack positions."""
+    return replace(layout, attacks=lay_out(layout.attack_rows, buttons))
+
+
+HITBOX_ROWS = (("u", "i", "o", "p"), ("j", "k", "l", ";"))
+SOUTHPAW_ROWS = (("a", "s", "d", "f"), ("z", "x", "c", "v"))
 
 HITBOX = ControlLayout(
     key="hitbox",
     name="Hitbox",
-    description="Left hand on a s d for back/down/forward, space for up. Attacks on u i o / j k l.",
+    description="Left hand on a s d for back/down/forward, space for up. Attacks on u i o p / j k l ;.",
     movement={"a": Axis.LEFT, "s": Axis.DOWN, "d": Axis.RIGHT, "space": Axis.UP},
-    attacks={
-        "u": Button.LP,
-        "i": Button.MP,
-        "o": Button.HP,
-        "j": Button.LK,
-        "k": Button.MK,
-        "l": Button.HK,
-    },
+    attacks=lay_out(HITBOX_ROWS, DEFAULT_SET),
+    attack_rows=HITBOX_ROWS,
 )
 
 SOUTHPAW = ControlLayout(
     key="southpaw",
     name="Southpaw",
-    description="Right hand on j k l for back/down/forward, space for up. Attacks on q w e / a s d.",
+    description="Right hand on j k l for back/down/forward, space for up. Attacks on a s d f / z x c v.",
     movement={"j": Axis.LEFT, "k": Axis.DOWN, "l": Axis.RIGHT, "space": Axis.UP},
-    attacks={
-        "q": Button.LP,
-        "w": Button.MP,
-        "e": Button.HP,
-        "a": Button.LK,
-        "s": Button.MK,
-        "d": Button.HK,
-    },
+    attacks=lay_out(SOUTHPAW_ROWS, DEFAULT_SET),
+    attack_rows=SOUTHPAW_ROWS,
 )
 
 
@@ -127,19 +160,17 @@ _PAD_BUTTON_LABELS = {
     "pad:7": "RT",
 }
 
+GAMEPAD_ROWS = (("pad:2", "pad:3", "pad:5", "pad:7"), ("pad:0", "pad:1", "pad:4", "pad:6"))
+"""X Y RB RT over A B LB LT, so the first three of each row are the Xbox-style
+default the six-button rebinding starts from."""
+
 GAMEPAD = ControlLayout(
     key="gamepad",
     name="Gamepad",
     description="D-pad or left stick to move. Press b on this row to rebind the attack buttons.",
     movement={"pad:left": Axis.LEFT, "pad:down": Axis.DOWN, "pad:right": Axis.RIGHT, "pad:up": Axis.UP},
-    attacks={
-        "pad:2": Button.LP,
-        "pad:3": Button.MP,
-        "pad:5": Button.HP,
-        "pad:0": Button.LK,
-        "pad:1": Button.MK,
-        "pad:4": Button.HK,
-    },
+    attacks=lay_out(GAMEPAD_ROWS, DEFAULT_SET),
+    attack_rows=GAMEPAD_ROWS,
     kind=LayoutKind.GAMEPAD,
     available=_gamepad_supported(),
     key_labels=_PAD_BUTTON_LABELS,

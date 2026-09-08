@@ -111,7 +111,12 @@ def direction_from_axes(*, left: bool, right: bool, down: bool, up: bool, last_h
 
 
 class Button(StrEnum):
-    """An attack button."""
+    """An attack button, from any game's button set.
+
+    The six Street Fighter ones come first because the rosters are written in
+    them; the rest exist so a layout can be laid out for another game's panel.
+    See :mod:`motioninput_tui.controls.buttons` for which set uses which.
+    """
 
     LP = "LP"
     MP = "MP"
@@ -119,6 +124,24 @@ class Button(StrEnum):
     LK = "LK"
     MK = "MK"
     HK = "HK"
+    BL = "BL"
+    """Mortal Kombat's block, the fifth button."""
+    A = "A"
+    B = "B"
+    C = "C"
+    D = "D"
+    SQUARE = "□"
+    TRIANGLE = "△"
+    CROSS = "✕"
+    CIRCLE = "○"
+    B1 = "1"
+    B2 = "2"
+    B3 = "3"
+    B4 = "4"
+    B5 = "5"
+    B6 = "6"
+    B7 = "7"
+    B8 = "8"
 
     @property
     def is_punch(self) -> bool:
@@ -133,9 +156,13 @@ class Button(StrEnum):
 
 PUNCHES = frozenset({Button.LP, Button.MP, Button.HP})
 KICKS = frozenset({Button.LK, Button.MK, Button.HK})
-ALL_BUTTONS = frozenset(Button)
+ALL_BUTTONS = PUNCHES | KICKS
+"""Every button a *roster* can ask for. The generated data is Street Fighter,
+so this is the six, not every member of the enum: widening it would change what
+``any button`` means in the move lists."""
 
 BUTTON_ORDER: tuple[Button, ...] = (Button.LP, Button.MP, Button.HP, Button.LK, Button.MK, Button.HK)
+"""The six the gamepad rebind screen offers, in panel order."""
 
 
 class ButtonRequirement:

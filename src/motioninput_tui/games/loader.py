@@ -6,10 +6,11 @@ import json
 from functools import cache
 from pathlib import Path
 
+from motioninput_tui.controls.buttons import BUTTON_SETS
 from motioninput_tui.utils.logger import get_logger
 
 from .models import Character, Game
-from .rulesets import GAME_SPECS, get_spec
+from .rulesets import DISPLAY_GAME, GAME_SPECS, GameSpec, get_spec
 
 logger = get_logger(__name__)
 
@@ -28,6 +29,8 @@ class GameDataMissingError(FileNotFoundError):
 def load_game(key: str) -> Game:
     """Load a game and its roster. Cached, since the data never changes."""
     spec = get_spec(key)
+    if spec.key == DISPLAY_GAME:
+        return _display_game(spec)
     path = DATA_DIR / f"{spec.key}.json"
     if not path.is_file():
         raise GameDataMissingError(path)
@@ -42,9 +45,31 @@ def load_game(key: str) -> Game:
         name=spec.name,
         short_name=spec.short_name,
         ruleset=spec.ruleset,
+        buttons=spec.buttons,
         characters=characters,
         notes=spec.notes,
         source=spec.reference,
+    )
+
+
+def _display_game(spec: GameSpec) -> Game:
+    """The input display, whose characters are the button sets.
+
+    It has no roster to load, and nothing to recognise. Standing it up as a
+    game is what lets it be picked with the same two lists as everything else,
+    with the panel where the character goes.
+    """
+    characters = tuple(
+        Character(key=button_set.key, name=button_set.name, title=button_set.note) for button_set in BUTTON_SETS
+    )
+    return Game(
+        key=spec.key,
+        name=spec.name,
+        short_name=spec.short_name,
+        ruleset=spec.ruleset,
+        buttons=spec.buttons,
+        characters=characters,
+        notes=spec.notes,
     )
 
 

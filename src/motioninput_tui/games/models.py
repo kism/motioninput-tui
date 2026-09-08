@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import StrEnum
 
+from motioninput_tui.controls.buttons import STREET_FIGHTER, ButtonSet
 from motioninput_tui.engine.motions import MotionSpec
 from motioninput_tui.engine.ruleset import Ruleset
 
@@ -100,6 +101,8 @@ class Game:
     name: str
     short_name: str
     ruleset: Ruleset = field(default_factory=Ruleset)
+    buttons: ButtonSet = STREET_FIGHTER
+    """The panel it is played on. See :mod:`motioninput_tui.controls.buttons`."""
     characters: tuple[Character, ...] = ()
     notes: tuple[str, ...] = ()
     source: str = ""

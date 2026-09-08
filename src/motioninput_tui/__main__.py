@@ -81,7 +81,12 @@ def _print_roster() -> int:
     for game in available_games():
         logger.info("%s - %s", game.key, game.name)
         for character in game.characters:
-            logger.info("    %-22s %d trainable moves", character.key, len(character.trainable_moves))
+            # The input display's "characters" are button sets, with no moves
+            # to count, so they say what they are instead.
+            if character.moves:
+                logger.info("    %-22s %d trainable moves", character.key, len(character.trainable_moves))
+            else:
+                logger.info("    %-22s %s", character.key, character.name)
     return 0
 
 

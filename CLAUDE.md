@@ -146,6 +146,31 @@ directions, player on the left, so 6 is forward) → `engine/buffer.py` →
 `engine/motions.py` → `engine/ruleset.py` → `engine/recognizer.py` →
 `engine/session.py`.
 
+### Layouts, button sets and the input display
+
+A `ControlLayout` is *where* the attacks are: `attack_rows`, two rows of key
+codes. A `ButtonSet` (`controls/buttons.py`) is what those positions *mean*,
+also as rows, and `with_buttons` lays one onto the other position by position.
+That is the whole mechanism: a game with a different panel is a table entry, not
+a new layout per keyboard arrangement. A button appearing in both rows of a set
+is how the Neo Geo binds `asdf` and `zxcv` to the same four.
+
+`Button` therefore holds every game's buttons, but `ALL_BUTTONS` is still only
+the Street Fighter six: it is what a *roster* can ask for, and the generated
+data is Street Fighter. Widening it would change what "any button" means in the
+move lists.
+
+Layouts are built carrying the six, so `app._panel_for` only lays a set on when
+it is not that one — which is also what keeps a rebound gamepad from being
+flattened back to its defaults, since the rebind screen only knows those six.
+
+The first game in the list, `display`, has no roster: `loader._display_game`
+builds it, and its characters *are* the button sets, which is how a panel gets
+picked with the same two lists as everything else. `InputDisplayScreen` runs a
+real `TrainingSession` (so SOCD and holds behave exactly as in the trainer) and
+draws the panel instead of recognising anything. The Neo Geo's two arrangements
+are a global setting rather than two entries, applied by `buttons.arrangement`.
+
 ### Two input models
 
 Terminals report key presses and auto-repeats but **not releases**. The trainer

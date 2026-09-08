@@ -55,6 +55,9 @@ class Config:
     lenient_half_circles: bool = True
     """Whether a half circle may skip straight down. See
     :mod:`motioninput_tui.settings`."""
+    neo_geo_slant: bool = False
+    """Whether the Neo Geo's four buttons are arranged as the arcade slants
+    them. See :mod:`motioninput_tui.controls.buttons`."""
     notation: dict[str, str] = field(default_factory=dict)
     """How each family of motions is written, ``{family: style}``. Empty means
     the plain default. See :mod:`motioninput_tui.notation_styles`."""
@@ -101,6 +104,7 @@ class Config:
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
             lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=True),
+            neo_geo_slant=_valid_flag(raw.get("neo_geo_slant"), default=False),
             notation=_valid_notation(raw.get("notation")),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
             path=target,
@@ -115,6 +119,7 @@ class Config:
             "layout": self.layout,
             "buffer_policy": str(self.buffer_policy),
             "lenient_half_circles": self.lenient_half_circles,
+            "neo_geo_slant": self.neo_geo_slant,
             "notation": self.notation,
             "gamepad_bindings": self.gamepad_bindings,
         }

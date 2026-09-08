@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from motioninput_tui.controls.buttons import STREET_FIGHTER, ButtonSet
 from motioninput_tui.engine.ruleset import Ruleset
 
 
@@ -22,6 +23,8 @@ class GameSpec:
     ruleset: Ruleset
     notes: tuple[str, ...]
     reference: str
+    buttons: ButtonSet = STREET_FIGHTER
+    """The panel this game is played on. See :mod:`motioninput_tui.controls.buttons`."""
 
 
 HSF2 = GameSpec(
@@ -110,7 +113,24 @@ SFIII3 = GameSpec(
     reference="references/sfiii3.txt",
 )
 
-GAME_SPECS: dict[str, GameSpec] = {spec.key: spec for spec in (HSF2, SFA3, SFIII3)}
+INPUT_DISPLAY = GameSpec(
+    key="display",
+    name="Input display",
+    short_name="Inputs",
+    # Nothing is recognised here, so the rules never come into it.
+    ruleset=Ruleset(),
+    notes=(
+        "No moves and no rules: whatever you press is drawn as you press it.",
+        "Pick the panel you want laid out; the keys come from your layout.",
+    ),
+    reference="",
+)
+"""A game only in so far as it is picked like one: it has no roster, and its
+characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
+
+DISPLAY_GAME = INPUT_DISPLAY.key
+
+GAME_SPECS: dict[str, GameSpec] = {spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3)}
 DEFAULT_GAME = SFIII3.key
 
 

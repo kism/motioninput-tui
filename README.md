@@ -48,6 +48,26 @@ motioninput-tui --loose-buffer               # let inputs feed more than one mov
 motioninput-tui --config path/to/config.json # use a different config file
 ```
 
+### Input display
+
+The first entry in the game list is not a game: it draws your panel and lights
+it up as you press, with no moves and nothing to recognise. Its "characters"
+are the button sets above, so pick the one your game uses. Directions are
+cleaned exactly as they are in the trainer, so it is also the quickest way to
+see what your keyboard is really sending.
+
+```
+ ╭───╮ ╭───╮ ╭───╮    ╭─────╮ ╭─────╮ ╭─────╮
+ │ ↖ │ │ ↑ │ │ ↗ │    │  LP │ │  MP │ │  HP │
+ ╰───╯ ╰───╯ ╰───╯    │  u  │ │  i  │ │  o  │
+ ╭───╮ ╭───╮ ╭───╮    ╰─────╯ ╰─────╯ ╰─────╯
+ │ ← │ │ · │ │ → │    ╭─────╮ ╭─────╮ ╭─────╮
+ ╰───╯ ╰───╯ ╰───╯    │  LK │ │  MK │ │  HK │
+ ╭───╮ ╭───╮ ╭───╮    │  j  │ │  k  │ │  l  │
+ │ ↙ │ │ ↓ │ │ ↘ │    ╰─────╯ ╰─────╯ ╰─────╯
+ ╰───╯ ╰───╯ ╰───╯
+```
+
 ### Picking what to train
 
 The app opens on a full screen input picker: keyboard layout or gamepad, since
@@ -106,6 +126,7 @@ These are yours, not the games', so they apply whichever game is selected.
 | Setting              | Default | Off                                    | On                                |
 | -------------------- | ------- | -------------------------------------- | --------------------------------- |
 | Relaxed half circles | on      | A half circle has to pass through down | `b,db,df,f` counts as one         |
+| Neo Geo slant        | off     | A B C D straight across                | A B on the bottom row, C D above  |
 | Loose buffer         | off     | Inputs are spent when a move comes out | One motion can feed several moves |
 
 Relaxed half circles is on by default because of how a hitbox or a keyboard
@@ -133,11 +154,29 @@ launch, so a saved value would disable exact tracking after switching terminal.
 Chosen on the first screen. Two keyboard layouts, plus a gamepad if the
 `gamepad` extra is installed (`uv sync --extra gamepad`, or `--all-extras`).
 
-| Layout   | Back / Down / Forward / Up | LP MP HP  | LK MK HK  |
-| -------- | -------------------------- | --------- | --------- |
-| Hitbox   | `a` `s` `d` `space`        | `u i o`   | `j k l`   |
-| Southpaw | `j` `k` `l` `space`        | `q w e`   | `a s d`   |
-| Gamepad  | D-pad or left stick        | `X Y RB`  | `A B LB`  |
+| Layout   | Back / Down / Forward / Up | Attack row 1 | Attack row 2 |
+| -------- | -------------------------- | ------------ | ------------ |
+| Hitbox   | `a` `s` `d` `space`        | `u i o p`    | `j k l ;`    |
+| Southpaw | `j` `k` `l` `space`        | `a s d f`    | `z x c v`    |
+| Gamepad  | D-pad or left stick        | `X Y RB RT`  | `A B LB LT`  |
+
+A layout is only *where* the attacks are. What those positions mean is the
+game's button set, laid onto them in order:
+
+| Panel                | Row 1        | Row 2       | On southpaw          |
+| -------------------- | ------------ | ----------- | -------------------- |
+| Street Fighter, 6    | LP MP HP     | LK MK HK    | `asd` `zxc`          |
+| Mortal Kombat, 5     | HP BL HK     | LP LK       | `asd` `zx`           |
+| Neo Geo, 4           | A B C D      | A B C D     | `asdf` and `zxcv`    |
+| Neo Geo, arcade slant| C D          | A B         | `as` over `zx`       |
+| Tekken, 4            | □ △          | ✕ ○         | `as` `zx`            |
+| Eight button         | 1 2 3 4      | 5 6 7 8     | `asdf` `zxcv`        |
+
+The Street Fighter games use the six, so that is what a layout carries unless
+something else asks for another set. The Neo Geo is the one panel with two
+arrangements in circulation, so which one you get is a setting: **Neo Geo
+slant** puts A B on the bottom row with C D above, instead of A B C D straight
+across both rows.
 
 The gamepad attack buttons start on the Xbox-style default above; the triggers
 (`LT` `RT`) are free to bind to as well. Highlight the gamepad row in the input

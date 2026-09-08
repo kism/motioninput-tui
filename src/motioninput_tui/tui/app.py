@@ -9,14 +9,17 @@ from textual.app import App, SystemCommand
 
 from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
-from motioninput_tui.controls.layouts import LayoutKind, gamepad_layout, get_layout
+from motioninput_tui.controls.buttons import DEFAULT_SET, arrangement, get_set
+from motioninput_tui.controls.layouts import LayoutKind, gamepad_layout, get_layout, with_buttons
 from motioninput_tui.games.loader import load_game
+from motioninput_tui.games.rulesets import DISPLAY_GAME
 from motioninput_tui.notation_styles import Notation
 from motioninput_tui.settings import current as current_settings
 from motioninput_tui.settings import tuned_game
 from motioninput_tui.utils.logger import get_logger
 
 from .keyboard_driver import KeyRelease, ReleaseAwareDriver
+from .screens.input_display import InputDisplayScreen
 from .screens.input_picker import InputPickerScreen
 from .screens.notation import NotationScreen
 from .screens.settings import SettingsScreen
@@ -28,7 +31,10 @@ if TYPE_CHECKING:
 
     from textual.screen import Screen
 
+    from motioninput_tui.controls.buttons import ButtonSet
+    from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.engine.recognizer import BufferPolicy
+    from motioninput_tui.games.models import Character, Game
 
     from .widgets.settings_list import SettingsList
 
@@ -125,6 +131,9 @@ class MotionInputApp(App[None]):
         for screen in self.screen_stack:
             if isinstance(screen, TrainingScreen):
                 screen.apply_settings(tuned_game(screen.session.game, self.config), self.config.buffer_policy)
+            elif isinstance(screen, InputDisplayScreen):
+                session = screen.session
+                screen.apply_panel(*self._panel_for(session.game, screen.character, session.layout.key))
 
     def on_key_release(self, event: KeyRelease) -> None:
         """Route a key release to the trainer.
@@ -133,7 +142,7 @@ class MotionInputApp(App[None]):
         their own; nothing else in the app has any use for them.
         """
         screen = self.screen
-        if isinstance(screen, TrainingScreen):
+        if isinstance(screen, TrainingScreen | InputDisplayScreen):
             screen.handle_release(event.key)
 
     def _remember(self, **changes: object) -> None:
@@ -175,17 +184,44 @@ class MotionInputApp(App[None]):
             on_done,
         )
 
-    def _start(self, game_key: str, character_key: str, layout_key: str) -> None:
-        game = tuned_game(load_game(game_key), self.config)
-        character = game.character(character_key)
+    def _buttons_for(self, game: Game, character: Character) -> ButtonSet:
+        """The panel to play this on.
+
+        Every game names its own set; the input display is the one where the
+        player picks it, which is what its characters are.
+        """
+        chosen = get_set(character.key) if game.key == DISPLAY_GAME else game.buttons
+        return arrangement(chosen, slanted_neo_geo=self.config.neo_geo_slant)
+
+    def _panel_for(self, game: Game, character: Character, layout_key: str) -> tuple[ControlLayout, ButtonSet]:
+        """The layout with this game's buttons on its attack positions.
+
+        Every layout already carries the Street Fighter six, rebinds included,
+        so only another set has to be laid out; that also keeps a rebound pad
+        from being flattened back to its defaults.
+        """
         layout = get_layout(layout_key)
         if layout.kind is LayoutKind.GAMEPAD:
             layout = gamepad_layout(self.config.gamepad_bindings or None)
+        buttons = self._buttons_for(game, character)
+        if buttons is not DEFAULT_SET:
+            layout = with_buttons(layout, buttons)
+        return layout, buttons
+
+    def _start(self, game_key: str, character_key: str, layout_key: str) -> None:
+        game = tuned_game(load_game(game_key), self.config)
+        character = game.character(character_key)
+        layout, buttons = self._panel_for(game, character, layout_key)
         self._remember(game=game.key, character=character.key, layout=layout.key)
 
         def on_done(_result: None) -> None:
-            # Leaving the trainer is nearly always about picking someone else.
+            # Leaving is nearly always about picking someone, or something, else.
             self._open_setup(focus_characters=True)
+
+        if game.key == DISPLAY_GAME:
+            display = InputDisplayScreen(game, character, layout, buttons, exact_input=self._key_release)
+            self.push_screen(display, on_done)
+            return
 
         policy: BufferPolicy = self.config.buffer_policy
         screen = TrainingScreen(game, character, layout, exact_input=self._key_release, policy=policy)
