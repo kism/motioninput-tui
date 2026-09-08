@@ -19,7 +19,7 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.utils.logger import get_logger
 
-from .catalog import DEFAULT_DEST, canonicalise_file
+from .catalog import DEFAULT_DEST, canonical_text, canonicalise_file
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -191,12 +191,15 @@ def fetch_guide(
     if _looks_blocked(html):
         return Result(guide, Status.FAILED, path, "blocked by anti-bot check; try again later")
 
-    text = extract_guide_text(html).strip()
-    if len(text.encode("utf-8")) < MIN_BYTES:
+    # canonical_text, not strip(): it drops leading blank lines and trailing
+    # whitespace but keeps the indentation on the first real line, which is
+    # often a centred title.
+    text = canonical_text(extract_guide_text(html))
+    if len(text.strip().encode("utf-8")) < MIN_BYTES:
         return Result(guide, Status.FAILED, path, f"only {len(text)} characters extracted, looks like an error page")
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text + "\n", encoding="utf-8")
+    path.write_text(text, encoding="utf-8")
     size = f"{path.stat().st_size:,} bytes"
     return _checked(guide, dest_dir, Status.FETCHED, size, "the guide may have changed upstream")
 
