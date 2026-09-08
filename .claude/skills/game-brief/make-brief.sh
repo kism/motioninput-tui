@@ -54,6 +54,11 @@ find_claude() {
 
 CLAUDE=$(find_claude)
 
+# A brief is a plain text completion: no tools, no MCP, no project settings.
+# Without these the nested CLI loads this machine's MCP servers on every call and
+# a 100KB prompt takes minutes instead of seconds.
+CLAUDE_FLAGS=(-p --model "$MODEL" --strict-mcp-config --setting-sources "" --tools "")
+
 # Engine files the analysis has to reason against, pasted into the prompt.
 CONTEXT_FILES=(
     src/motioninput_tui/engine/ruleset.py
@@ -201,7 +206,7 @@ brief_for() {
     } >"$work/data.txt"
 
     echo "  $game: analysing $(wc -c <"$work/data.txt" | tr -d ' ') bytes with $MODEL ..."
-    if ! "$CLAUDE" -p --model "$MODEL" "$INSTRUCTIONS" <"$work/data.txt" >"$work/out.md"; then
+    if ! "$CLAUDE" "${CLAUDE_FLAGS[@]}" "$INSTRUCTIONS" <"$work/data.txt" >"$work/out.md"; then
         echo "  $game: the claude CLI failed, leaving $target alone" >&2
         return 1
     fi

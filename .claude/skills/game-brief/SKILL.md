@@ -40,9 +40,10 @@ arguments to the first:
 the analysis needs a global view) along with the engine files it must reason
 against: `engine/ruleset.py`, `games/rulesets.py`, `datagen/normalise.py`,
 `engine/notation.py`, `controls/buttons.py`, the existing parsers, and
-`briefs/kof98.md` as a worked example. `MODEL` defaults to `sonnet`. It is a
-large prompt — a few minutes per game, longer for a big roster — so
-`run-game-briefs.sh` is meant to run in the background.
+`briefs/kof98.md` as a worked example. `MODEL` defaults to `sonnet`. The nested
+call runs with `--strict-mcp-config --setting-sources "" --tools ""` — a brief
+is a plain completion, and without those flags the CLI loads this machine's MCP
+servers on every call and a 100KB prompt takes minutes instead of seconds.
 
 Nothing is written unless the reply is a plausible size and has every required
 `##` heading, so a failed run leaves the previous brief in place.

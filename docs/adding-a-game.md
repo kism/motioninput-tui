@@ -63,8 +63,8 @@ if it does not exist yet:
 ./scripts/run-game-briefs.sh kof98
 ```
 
-That is a single `claude -p` pass over the full guide (a few minutes), so run
-it in the background. Read the brief before writing the ruleset and parser, and
+That is a single `claude -p` pass over the full guide, so run it in the
+background. Read the brief before writing the ruleset and parser, and
 read it *critically* — it is one model's homework and it can be wrong. See the
 [`game-brief` skill](https://github.com/kism/motioninput-tui/blob/main/.claude/skills/game-brief/SKILL.md)
 for its structure and how it is verified.
