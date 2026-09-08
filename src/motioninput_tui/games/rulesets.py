@@ -7,7 +7,7 @@ Alpha 3 want a real f,d,df and will hand you a fireball if they do not get it.
 
 from dataclasses import dataclass
 
-from motioninput_tui.controls.buttons import STREET_FIGHTER, ButtonSet
+from motioninput_tui.controls.buttons import NEO_GEO, STREET_FIGHTER, ButtonSet
 from motioninput_tui.engine.ruleset import Ruleset
 
 
@@ -111,6 +111,37 @@ SFIII3 = GameSpec(
     reference="references/sfiii3.txt",
 )
 
+KOF98 = GameSpec(
+    key="kof98",
+    name="The King of Fighters '98: The Slugfest",
+    short_name="KoF '98",
+    ruleset=Ruleset(
+        motion_window_ms=320,
+        activation_window_ms=160,
+        step_gap_ms=180,
+        max_intermediate=1,
+        tail_states=2,
+        lenient_diagonals=True,
+        charge_ms=850,
+        charge_release_ms=220,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=True,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+    ),
+    notes=(
+        "Neo Geo four-button panel: A and B are the light punch and kick, C and D the heavy pair.",
+        "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
+        "No dragon punch shortcut: f,d,df means f,d,df, and holding down then tapping forward gives nothing.",
+        "Negative edge exists, so releasing a button can complete a special.",
+        "Charge moves want most of a second in the held direction.",
+    ),
+    reference="references/kof98.txt",
+    buttons=NEO_GEO,
+)
+
 INPUT_DISPLAY = GameSpec(
     key="display",
     name="Input display",
@@ -128,7 +159,7 @@ characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
 
 DISPLAY_GAME = INPUT_DISPLAY.key
 
-GAME_SPECS: dict[str, GameSpec] = {spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3)}
+GAME_SPECS: dict[str, GameSpec] = {spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98)}
 DEFAULT_GAME = SFIII3.key
 
 

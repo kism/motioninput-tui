@@ -34,6 +34,13 @@ OVERRIDES: dict[str, dict[str, str]] = {
         "rolento-schugerg": "Rolento",
         "sakura-kasugano": "Sakura",
     },
+    "kof98": {
+        # The Real Orochi Team's move names were sounded out from Russian; the
+        # guide's headings are unwieldy and nobody calls them that.
+        "kawa-ita-daichi-no-yashiro": "Orochi Yashiro",
+        "arekuruu-inabikari-no-shermie": "Orochi Shermie",
+        "honoo-no-sadame-no-chris": "Orochi Chris",
+    },
     "sfiii3": {
         # The 3rd Strike guide uses the Japanese name; the Super Turbo one does
         # not, and a roster that calls the same character two things is worse

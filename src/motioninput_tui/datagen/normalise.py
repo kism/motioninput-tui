@@ -24,7 +24,7 @@ from motioninput_tui.engine.notation import (
 _UNSUPPORTED = re.compile(
     r"\b(during|after|then|while|instead|do nothing|occurs when|knocked|thrown|"
     r"start\b|against a wall|blocking|attacked|near a knife|when armed|"
-    r"back-turned|from sa|hold and release|press and hold|get \d)",
+    r"back-turned|from (?!far\b|afar\b|distance\b)|hold and release|press and hold|get \d)",
 )
 
 MULTI_BUTTON = 2

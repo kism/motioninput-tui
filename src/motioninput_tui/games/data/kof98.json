@@ -1,0 +1,7187 @@
+{
+ "key": "kof98",
+ "name": "The King of Fighters '98: The Slugfest",
+ "source": "references/kof98.txt",
+ "characters": [
+  {
+   "key": "kyo-kusanagi",
+   "name": "Kyo Kusanagi",
+   "title": "Hero Team",
+   "moves": [
+    {
+     "name": "Hatsugane",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Issetsu Seoi Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Ge Shiki: Naraku Otoshi",
+     "command": "In air, d + C",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + C"
+     }
+    },
+    {
+     "name": "Ge Shiki: Goufu You",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "88 Shiki",
+     "command": "df + D",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 3,
+      "notation": "df + D"
+     }
+    },
+    {
+     "name": "114 Shiki: Aragami",
+     "command": "qcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf + A"
+     }
+    },
+    {
+     "name": "128 Shiki: Kono Kizu",
+     "command": "qcf + P from Aragami",
+     "category": "other"
+    },
+    {
+     "name": "127 Shiki: Yano Sabi",
+     "command": "hcb + P from Aragami",
+     "category": "other"
+    },
+    {
+     "name": "Ge Shiki: Migiri Ugachi",
+     "command": "Press P from Kono Kizu / Yano Sabi",
+     "category": "other"
+    },
+    {
+     "name": "125 Shiki: Nanase",
+     "command": "Press K from Kono Kizu / Yano Sabi",
+     "category": "other"
+    },
+    {
+     "name": "115 Shiki: Dokugami",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "401 Shiki: Tsumi Yomi",
+     "command": "hcb + P from Dokugami",
+     "category": "other"
+    },
+    {
+     "name": "402 Shiki: Batsu Yomi",
+     "command": "f + P from Tsumi Yomi",
+     "category": "other"
+    },
+    {
+     "name": "100 Shiki: Oniyaki",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "R.E.D. Kick",
+     "command": "b,d,db + K",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b,d,db + K"
+     }
+    },
+    {
+     "name": "75 Shiki Kai",
+     "command": "qcf + K,K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K,K"
+     }
+    },
+    {
+     "name": "212 Shiki: Kototsuki You",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "910 Shiki: Nue Tsumi",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Ryuu Iri",
+     "command": "Use Nue Tsumi as a high reversal",
+     "category": "other"
+    },
+    {
+     "name": "Tora Fuse",
+     "command": "Use Nue Tsumi as a low reversal",
+     "category": "other"
+    },
+    {
+     "name": "Ura 108 Shiki: Orochi Nagi",
+     "command": "qcb,hcf + P  (hold P to delay)",
+     "category": "other"
+    },
+    {
+     "name": "Saishuu Kessen Ougi \"Mu Shiki\"",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Chouhatsu",
+     "command": "Tap any button after DM Mu Shiki hits",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "benimaru-nikaido",
+   "name": "Benimaru Nikaido",
+   "title": "Hero Team",
+   "moves": [
+    {
+     "name": "Catch and Shoot",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Front Suplex",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Spinning Knee Drop",
+     "command": "When close, b~d~f + C / D  (both in air)",
+     "category": "other"
+    },
+    {
+     "name": "Flying Drill",
+     "command": "In air, db~df + D  (an overhead)",
+     "category": "other"
+    },
+    {
+     "name": "Jackknife Kick",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Raijin Ken",
+     "command": "qcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf + A"
+     }
+    },
+    {
+     "name": "Taikuu Raijin Ken",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Kuuchuu Raijin Ken",
+     "command": "In air, qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcf + P"
+     }
+    },
+    {
+     "name": "Shinkuu Katategoma",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Iai Geri",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Handou Sandan Geri",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Super Inazuma Kick",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Benimaru Collider",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Raikou Ken",
+     "command": "qcf,qcf + A  (qcf,qcf + P on SDM)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf,qcf + A  (qcf,qcf + P on SDM)"
+     }
+    },
+    {
+     "name": "Taikuu Raikou Ken",
+     "command": "qcf,qcf + C  (DM only)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf,qcf + C  (DM only)"
+     }
+    },
+    {
+     "name": "Elec-Trigger",
+     "command": "When close, hcb,hcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,hcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "goro-daimon",
+   "name": "Goro Daimon",
+   "title": "Hero Team",
+   "moves": [
+    {
+     "name": "Juuji Shime",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Okuri Ashi Barai",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Tsukami Tataki Tsuke",
+     "command": "Within throw range, b / f + C / D",
+     "category": "other"
+    },
+    {
+     "name": "Tama Tsubushi",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Zujou Barai",
+     "command": "df + C",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 3,
+      "notation": "df + C"
+     }
+    },
+    {
+     "name": "Jiraishin",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Chou Oosotogari",
+     "command": "When close, f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, f,d,df + K"
+     }
+    },
+    {
+     "name": "Chou Ukemi",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Nekko Gaeshi",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Tenchi Gaeshi",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Ura Nage",
+     "command": "hcb,f + K",
+     "category": "other"
+    },
+    {
+     "name": "Kumo Tsukami Nage",
+     "command": "hcf + A",
+     "category": "throw",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "hcf + A"
+     }
+    },
+    {
+     "name": "Kirikabu Gaeshi",
+     "command": "hcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "hcf + C"
+     }
+    },
+    {
+     "name": "Jigoku Gokuraku Otoshi",
+     "command": "When close, hcb,hcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,hcb + P"
+     }
+    },
+    {
+     "name": "Arashi no Yama (Nekko Nuki)",
+     "command": "When close, hcf,hcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "hcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, hcf,hcf + K"
+     }
+    },
+    {
+     "name": "A.n.Y. (Zoku Kirikabu Gaeshi)",
+     "command": "hcf + K from Nekko Nuki",
+     "category": "other"
+    },
+    {
+     "name": "A.n.Y. (Bukko Nuki Ura Nage)",
+     "command": "f,d,df + K from Z.K.G. (DM only)",
+     "category": "other"
+    },
+    {
+     "name": "A.n.Y. (Zoku Tenchi Gaeshi)",
+     "command": "f,d,df + K from Z.K.G. (SDM only)",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "terry-bogard",
+   "name": "Terry Bogard",
+   "title": "Fatal Fury Team",
+   "moves": [
+    {
+     "name": "Grasping Upper",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Buster Throw",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Back Knuckle",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Rising Upper",
+     "command": "df + C",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 3,
+      "notation": "df + C"
+     }
+    },
+    {
+     "name": "Power Wave",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Burn Knuckle",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Crack Shoot",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Rising Tackle",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Power Dunk",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Power Charge",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Power Geyser",
+     "command": "qcb,db,f + P",
+     "category": "other"
+    },
+    {
+     "name": "High Angle Geyser",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "andy-bogard",
+   "name": "Andy Bogard",
+   "title": "Fatal Fury Team",
+   "moves": [
+    {
+     "name": "Gourin Kai",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Kakaekomi Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Age Men",
+     "command": "df + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 3,
+      "notation": "df + A"
+     }
+    },
+    {
+     "name": "Uwa Agito",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Hishou Ken",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Zan'ei Ken",
+     "command": "db,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Gadankou",
+     "command": "qcf + P from Zan'ei Ken",
+     "category": "other"
+    },
+    {
+     "name": "Shouryuu Dan",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Kuuha Dan",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Gekiheki Haisui Shou",
+     "command": "When close, hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcf + P"
+     }
+    },
+    {
+     "name": "Gen'ei Shiranui",
+     "command": "In air, qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcf + K"
+     }
+    },
+    {
+     "name": "Gen'ei Shiranui: Uwa Agito",
+     "command": "Press P upon landing from Gen'ei S.",
+     "category": "other"
+    },
+    {
+     "name": "Gen'ei Shiranui: Shimo Agito",
+     "command": "Press K upon landing from Gen'ei S.",
+     "category": "other"
+    },
+    {
+     "name": "Chou Reppa Dan",
+     "command": "qcb,db,f + K",
+     "category": "other"
+    },
+    {
+     "name": "Hishou Ryuusei Ken",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "joe-higashi",
+   "name": "Joe Higashi",
+   "title": "Fatal Fury Team",
+   "moves": [
+    {
+     "name": "Hiza Jigoku",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Leg Throw",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Low Kick",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Sliding Kick",
+     "command": "df + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 3,
+      "notation": "df + B"
+     }
+    },
+    {
+     "name": "Hurricane Upper",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Slash Kick",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Ougon no Kakato",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Tiger Knee",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Bakuretsu Ken",
+     "command": "Tap P rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P rapidly"
+     }
+    },
+    {
+     "name": "Bakuretsu Finish",
+     "command": "qcf + P from Bakuretsu Ken",
+     "category": "other"
+    },
+    {
+     "name": "Screw Upper",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Bakuretsu Hurricane Tiger Kakato",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "ryo-sakazaki",
+   "name": "Ryo Sakazaki",
+   "title": "Art of Fighting Team",
+   "moves": [
+    {
+     "name": "Tani Otoshi",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Tomoe Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Hyouchuu Wari",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Ko'ou Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Mouko Raijin Setsu",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Mouko Raijin Gou",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Kohou",
+     "command": "f,d,df + P  (or from Mouko Raijin Gou)",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P  (or from Mouko Raijin Gou)"
+     }
+    },
+    {
+     "name": "Hien Shippuu Kyaku",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Kyokugen-ryuu Renbu Ken",
+     "command": "When close, hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcf + P"
+     }
+    },
+    {
+     "name": "Ryuuko Ranbu",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Tenchi Haou Ken",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Haou Shoukou Ken",
+     "command": "f,hcf + P",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "robert-garcia",
+   "name": "Robert Garcia",
+   "title": "Art of Fighting Team",
+   "moves": [
+    {
+     "name": "Kubikiri Nage",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Ryuuchou Kyaku",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Kouryuu Koukyaku Geri",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Ryuu Hanshuu",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Ryuugeki Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Ryuuga",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Ryuu Zanshou",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Hien Ryuujin Kyaku",
+     "command": "In air, qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcb + K"
+     }
+    },
+    {
+     "name": "Hien Senpuu Kyaku",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Kyokugen-ryuu Renbu Kyaku",
+     "command": "When close, hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, hcf + K"
+     }
+    },
+    {
+     "name": "Ryuuko Ranbu",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Muei Senpuu Juudan Kyaku",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "Haou Shoukou Ken",
+     "command": "f,hcf + P",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "yuri-sakazaki",
+   "name": "Yuri Sakazaki",
+   "title": "Art of Fighting Team",
+   "moves": [
+    {
+     "name": "Oni Harite",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Silent Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Tsubame Otoshi",
+     "command": "When close, b~d~f + C / D  (both in air)",
+     "category": "other"
+    },
+    {
+     "name": "En Yoku",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Ko'ou Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Raiou Ken",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Yuri Chou Upper",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Double Yuri Chou Upper",
+     "command": "f,d,df + P from (C) Yuri Chou Upper",
+     "category": "other"
+    },
+    {
+     "name": "Yuri Chou Knuckle",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Yuri Chou Mawashi Geri",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Hien Hou'ou Kyaku",
+     "command": "qcf,hcb + K",
+     "category": "other"
+    },
+    {
+     "name": "Hien Rekkou",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "Haou Shoukou Ken",
+     "command": "f,hcf + P",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "leona",
+   "name": "Leona",
+   "title": "Ikari Team",
+   "moves": [
+    {
+     "name": "Leona Crush",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Order Buckler",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Heidern Inferno",
+     "command": "When close, b~d~f + C / D  (both in air)",
+     "category": "other"
+    },
+    {
+     "name": "Strike Arc",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Moon Slasher",
+     "command": "Charge d,u + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge d,u + P"
+     }
+    },
+    {
+     "name": "X Calibur",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Baltic Launcher",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Ground Saber",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Gliding Buster",
+     "command": "f + K from (D) Ground Saber",
+     "category": "other"
+    },
+    {
+     "name": "Eye Slasher",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Earring Bakudan",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "V Slasher",
+     "command": "In air, qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Gravity Storm",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Rebel Spark",
+     "command": "qcb,hcf + K",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "ralf-jones",
+   "name": "Ralf Jones",
+   "title": "Ikari Team",
+   "moves": [
+    {
+     "name": "Dynamite Headbutt",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Northern Light Bomb",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Vulcan Punch",
+     "command": "Tap P rapidly, move f",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P rapidly, move f"
+     }
+    },
+    {
+     "name": "Gatling Attack",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Ralf Kick",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Kyuukouka Bakudan Punch (Chijou)",
+     "command": "Charge d,u + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge d,u + P"
+     }
+    },
+    {
+     "name": "Kyuukouka Bakudan Punch (Kuuchuu)",
+     "command": "In air, qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcf + P"
+     }
+    },
+    {
+     "name": "Super Argentine Backbreaker",
+     "command": "When close, hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, hcf + K"
+     }
+    },
+    {
+     "name": "Baribari Bakudan Punch",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Umanori Bakudan Punch",
+     "command": "qcb,hcf + K",
+     "category": "other"
+    },
+    {
+     "name": "Galactica Phantom",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "clark-steel",
+   "name": "Clark Steel",
+   "title": "Ikari Team",
+   "moves": [
+    {
+     "name": "Nageppanashi German",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Fisherman Buster",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Death Lake Drive",
+     "command": "When close, b~d~f + C / D  (both in air)",
+     "category": "other"
+    },
+    {
+     "name": "Stomping",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Vulcan Punch",
+     "command": "Tap P rapidly, move f",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P rapidly, move f"
+     }
+    },
+    {
+     "name": "Flashing Elbow",
+     "command": "qcf + P from any non-DM command throw",
+     "category": "other"
+    },
+    {
+     "name": "Napalm Stretch",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Frankensteiner",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Rolling Cradle",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Super Arabian Burglary B.B.",
+     "command": "hcf + B",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "hcf + B"
+     }
+    },
+    {
+     "name": "Super Argentine Backbreaker",
+     "command": "When close, hcf + D",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "When close, hcf + D"
+     }
+    },
+    {
+     "name": "Ultra Argentine Backbreaker",
+     "command": "When close, hcb,hcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, hcb,hcb + K"
+     }
+    },
+    {
+     "name": "Running Three",
+     "command": "hcf,hcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "hcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf,hcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "athena-asamiya",
+   "name": "Athena Asamiya",
+   "title": "Psycho Soldier Team",
+   "moves": [
+    {
+     "name": "Psychic Throw",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Bit Throw",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Psychic Shoot",
+     "command": "When close, b~d~f + C / D  (both in air)",
+     "category": "other"
+    },
+    {
+     "name": "Phoenix Bomb",
+     "command": "In air, d + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + B"
+     }
+    },
+    {
+     "name": "Renkan Tai",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Psycho Ball Attack",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Phoenix Arrow",
+     "command": "In air, qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcb + K"
+     }
+    },
+    {
+     "name": "Psychic Teleport",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Psycho Sword",
+     "command": "f,d,df + P  (air)",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "f,d,df + P  (air)"
+     }
+    },
+    {
+     "name": "Psycho Reflector",
+     "command": "hcb + B",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "hcb + B"
+     }
+    },
+    {
+     "name": "Nu Psycho Reflector",
+     "command": "hcb + D",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "hcb + D"
+     }
+    },
+    {
+     "name": "Super Psychic Throw",
+     "command": "When close, hcf + P",
+     "category": "throw",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcf + P"
+     }
+    },
+    {
+     "name": "Shining Crystal Bit",
+     "command": "hcb,hcb + P, ABCD to cancel  (air)",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "hcb,hcb + P, ABCD to cancel  (air)"
+     }
+    },
+    {
+     "name": "Crystal Shoot",
+     "command": "qcb + P from S.C. Bit  (hold P to delay)",
+     "category": "other"
+    },
+    {
+     "name": "Phoenix Fang Arrow",
+     "command": "In air, qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sie-kensou",
+   "name": "Sie Kensou",
+   "title": "Psycho Soldier Team",
+   "moves": [
+    {
+     "name": "Hakkei",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Tomoe Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Kobokushu",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Kousentai",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Choukyuu Dan",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Ryuu Sougeki",
+     "command": "In air, qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcb + P"
+     }
+    },
+    {
+     "name": "Ryuu Renga: Tenryuu",
+     "command": "hcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "hcf + A"
+     }
+    },
+    {
+     "name": "Ryuu Renga: Chiryuu",
+     "command": "hcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "hcf + C"
+     }
+    },
+    {
+     "name": "Ryuu Renda",
+     "command": "When close, f,d,df + P  (tap P rapidly)",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, f,d,df + P  (tap P rapidly)"
+     }
+    },
+    {
+     "name": "Ryuu Gakusai",
+     "command": "b,d,db + K",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b,d,db + K"
+     }
+    },
+    {
+     "name": "Shinryuu Seiou Rekkyaku",
+     "command": "qcf,hcb + B",
+     "category": "other"
+    },
+    {
+     "name": "Shinryuu Tenbu Kyaku",
+     "command": "qcf,hcb + D",
+     "category": "other"
+    },
+    {
+     "name": "Senki Hakkei",
+     "command": "When close, qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Niku Man o Kuu",
+     "command": "qcb,qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,qcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "chin-gentsai",
+   "name": "Chin Gentsai",
+   "title": "Psycho Soldier Team",
+   "moves": [
+    {
+     "name": "Gou Inshu",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Gyaku Ashi Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Suiho Hyoutan Shuu",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Kisui Shuu",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Hyoutan Geki",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Ryuurin Hourai",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Kaiten-teki Kuutotsu Ken",
+     "command": "hcf + K  (f + K from S. Kanou / Bougetsu)",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K  (f + K from S. Kanou / Bougetsu)"
+     }
+    },
+    {
+     "name": "Suikan Kanou",
+     "command": "d,d + P  (ABCD cancels)",
+     "category": "other"
+    },
+    {
+     "name": "Choushuu Rikugyo",
+     "command": "f + P from Suikan Kanou",
+     "category": "other"
+    },
+    {
+     "name": "Bougetsu Sui",
+     "command": "d,d + K, move b / f  (ABCD cancels)",
+     "category": "other"
+    },
+    {
+     "name": "Rouja Hanhou",
+     "command": "u + B from Bougetsu Sui",
+     "category": "other"
+    },
+    {
+     "name": "Rigyo Hanhou",
+     "command": "u + D from Bougetsu Sui",
+     "category": "other"
+    },
+    {
+     "name": "Gouran Enpou",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Gou'en Shourai",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "chizuru-kagura",
+   "name": "Chizuru Kagura",
+   "title": "Women's Fighting Team",
+   "moves": [
+    {
+     "name": "Reigetsu",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Kaiten",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Jokatsu: Sousou (Zheng Zheng)",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Jokatsu: Sousou (Cang Cang)",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Jokatsu: Sousou (Cong Cong)",
+     "command": "df + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 3,
+      "notation": "df + B"
+     }
+    },
+    {
+     "name": "108 Katsu: Tamayura no Shitsune",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "100 Katsu: Tenjin no Kotowari",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "212 Katsu: Shinsoku no Norito",
+     "command": "hcb + P / K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P / K"
+     }
+    },
+    {
+     "name": "212 Katsu: Shinsoku no Norito ~ Tenzui",
+     "command": "qcb + same button from Norito",
+     "category": "other"
+    },
+    {
+     "name": "212 Katsu Otsu Shiki: Choumon no Isshin",
+     "command": "d,d + P / K",
+     "category": "other"
+    },
+    {
+     "name": "Rimen 85 Katsu: Reigi no Ishizue",
+     "command": "qcb,hcf + P",
+     "category": "other"
+    },
+    {
+     "name": "Rimen 1 Katsu: Sanrai no Fujin",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "king",
+   "name": "King",
+   "title": "Women's Fighting Team",
+   "moves": [
+    {
+     "name": "Hold Rush",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Hook Buster",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Sliding Kick",
+     "command": "df + D",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 3,
+      "notation": "df + D"
+     }
+    },
+    {
+     "name": "Venom Strike",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Double Strike",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "Surprise Rose",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Trap Shot",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Mirage Kick",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Tornado Kick",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Illusion Dance",
+     "command": "qcf,hcb + K",
+     "category": "other"
+    },
+    {
+     "name": "Silent Flash",
+     "command": "qcb,qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,qcb + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "mai-shiranui",
+   "name": "Mai Shiranui",
+   "title": "Women's Fighting Team",
+   "moves": [
+    {
+     "name": "Shiranui Gourin",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Fuusha Kuzushi",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Yume Zakura",
+     "command": "When close, b~d~f + C / D  (both in air)",
+     "category": "other"
+    },
+    {
+     "name": "Sankaku Tobi",
+     "command": "Jump ub against a wall, then press uf",
+     "category": "other"
+    },
+    {
+     "name": "Dairin Fuusha Otoshi",
+     "command": "In air, d + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + A"
+     }
+    },
+    {
+     "name": "Benitsuru no Mai",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Koku'en no Mai",
+     "command": "df + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 3,
+      "notation": "df + B"
+     }
+    },
+    {
+     "name": "Kachou Sen",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Ryuu Enbu",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Hakuro no Mai",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Hishou Ryuu'en Jin",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Hissatsu Shinobi Bachi",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Musasabi no Mai (Chijou)",
+     "command": "Charge d,ub~uf + P  (hold P to attack)",
+     "category": "other"
+    },
+    {
+     "name": "Musasabi no Mai (Kuuchuu)",
+     "command": "In air, qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcb + P"
+     }
+    },
+    {
+     "name": "Chou Hissatsu Shinobi Bachi",
+     "command": "qcb,hcf + K",
+     "category": "other"
+    },
+    {
+     "name": "Mizudori no Mai",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Hou'ou no Mai",
+     "command": "qcb,qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,qcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "kim-kaphwan",
+   "name": "Kim Kaphwan",
+   "title": "Kim Team",
+   "moves": [
+    {
+     "name": "Kubikime Otoshi",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Sakkyaku Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Dora Yup Chagi",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Neri Chagi",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Sanren Geki",
+     "command": "qcb + P  (perform 3 times)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P  (perform 3 times)"
+     }
+    },
+    {
+     "name": "Hangetsu Zan",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Haki Kyaku",
+     "command": "d,d + K  (can follow with Hou'ou Kyaku)",
+     "category": "other"
+    },
+    {
+     "name": "Hishou Kyaku",
+     "command": "In air, qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcf + K"
+     }
+    },
+    {
+     "name": "Ryuusei Raku",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Kuu Sajin",
+     "command": "Charge d,u + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge d,u + P"
+     }
+    },
+    {
+     "name": "Hien Zan",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Tenshou Kyaku",
+     "command": "d + D from (D) Hien Zan",
+     "category": "other"
+    },
+    {
+     "name": "Hou'ou Kyaku",
+     "command": "qcb,db,f + K  (air)",
+     "category": "other"
+    },
+    {
+     "name": "Hou'ou Tenbu Kyaku",
+     "command": "In air, qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "choi-bounge",
+   "name": "Choi Bounge",
+   "title": "Kim Team",
+   "moves": [
+    {
+     "name": "Zujou Sashi",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Geketsu Tsuki",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Sankaku Tobi",
+     "command": "Jump ub against a wall, then press uf",
+     "category": "other"
+    },
+    {
+     "name": "Nidan Zan",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Toorima Geri",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Shissou Hishou Zan",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Senpuu Hien Sashi",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Tatsumaki Shippuu Zan",
+     "command": "Charge d,u + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge d,u + P"
+     }
+    },
+    {
+     "name": "Hishou Kuuretsu Zan",
+     "command": "Charge d,ub~uf + K, hold K to attack",
+     "category": "other"
+    },
+    {
+     "name": "Houkou Tenkan",
+     "command": "Dir. + P / K (x3) from HKZ / SHS",
+     "category": "other"
+    },
+    {
+     "name": "Kaiten Hien Zan",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Kishuu Hien Zuki",
+     "command": "Press P from Kaiten Hien Zan",
+     "category": "other"
+    },
+    {
+     "name": "Hishou Kyaku",
+     "command": "In air, qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcf + K"
+     }
+    },
+    {
+     "name": "Shin!",
+     "command": "Chouzetsu T. Shinkuu Zan  hcb,hcb + P, move b / f",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Chouzetsu T. Shinkuu Zan  hcb,hcb + P, move b / f"
+     }
+    },
+    {
+     "name": "Hou'ou Kyaku",
+     "command": "qcf,hcb + K",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "chang-koehan",
+   "name": "Chang Koehan",
+   "title": "Kim Team",
+   "moves": [
+    {
+     "name": "Hagan Geki",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Kusari Jime",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Hiki Nige",
+     "command": "df + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 3,
+      "notation": "df + A"
+     }
+    },
+    {
+     "name": "Tekkyuu Dai Kaiten",
+     "command": "Tap P rapidly, move b / f  (ABCD cancels)",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P rapidly, move b / f  (ABCD cancels)"
+     }
+    },
+    {
+     "name": "Tekkyuu Funsai Geki",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Tekkyuu Hien Zan",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Dai Hakai Nage",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Tekkyuu Dai Bousou",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Tekkyuu Dai Assatsu",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ryuji-yamazaki",
+   "name": "Ryuji Yamazaki",
+   "title": "'97 Special Team",
+   "moves": [
+    {
+     "name": "Shime Age",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Bun Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Bussashi",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Hebi Tsukai (Joudan)",
+     "command": "qcb + A  (hold A to delay)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcb + A  (hold A to delay)"
+     }
+    },
+    {
+     "name": "Hebi Tsukai (Chuudan)",
+     "command": "qcb + B  (hold B to delay)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcb + B  (hold B to delay)"
+     }
+    },
+    {
+     "name": "Hebi Tsukai (Gedan)",
+     "command": "qcb + C  (hold C to delay)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C  (hold C to delay)"
+     }
+    },
+    {
+     "name": "Hebi Damashi",
+     "command": "Press D while delaying Hebi Tsukai",
+     "category": "other"
+    },
+    {
+     "name": "Sabaki no Aikuchi",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Yakiire",
+     "command": "f,d,df + B",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "f,d,df + B"
+     }
+    },
+    {
+     "name": "Suna Kake",
+     "command": "f,d,df + D",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "f,d,df + D"
+     }
+    },
+    {
+     "name": "Bai Gaeshi (Kyuushuu)",
+     "command": "qcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf + A"
+     }
+    },
+    {
+     "name": "Bai Gaeshi (Dan Hassha)",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Sadomazo",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Bakudan Pachiki",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Guillotine",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Drill",
+     "command": "When close, hcb,hcb + P, tap P rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,hcb + P, tap P rapidly"
+     }
+    },
+    {
+     "name": "Punch Ranbu",
+     "command": "Tap P 0-4 times during DM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Kick Ranbu",
+     "command": "Tap P 5-8 times during DM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Rapid Pachiki",
+     "command": "Tap P 9-12 times during DM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Repeated Hebi Tsukai",
+     "command": "Tap P 13+ times during DM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Rapid Aikuchi",
+     "command": "Tap P 5-8 times during SDM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Rapid Stomps",
+     "command": "Tap P 0-4 times during SDM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Rapid Shime Age",
+     "command": "Tap P 9-12 times during SDM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Chou Repeated Hebi Tsukai",
+     "command": "Tap P 13+ times during SDM Drill",
+     "category": "other"
+    },
+    {
+     "name": "Chouhatsu",
+     "command": "Tap any button after Drill ends",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "blue-mary",
+   "name": "Blue Mary",
+   "title": "'97 Special Team",
+   "moves": [
+    {
+     "name": "Victor Nage",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Head Throw",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Hammer Arch",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Double Rolling",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Climbing Arrow",
+     "command": "df + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 3,
+      "notation": "df + B"
+     }
+    },
+    {
+     "name": "M. Spider",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Spin Fall",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Vertical Arrow",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "M. Snatcher",
+     "command": "f,d,df + K from Vertical Arrow",
+     "category": "other"
+    },
+    {
+     "name": "Straight Slicer",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Crab Clutch",
+     "command": "qcf + K from Straight Slicer",
+     "category": "other"
+    },
+    {
+     "name": "M. Reverse Facelock",
+     "command": "qcb + B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcb + B"
+     }
+    },
+    {
+     "name": "M. Head Buster",
+     "command": "qcb + D",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "qcb + D"
+     }
+    },
+    {
+     "name": "Backdrop Real",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "M. Splash Rose",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "M. Dynamite Swing",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "M. Typhoon",
+     "command": "hcb,hcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb,hcb + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "billy-kane",
+   "name": "Billy Kane",
+   "title": "'97 Special Team",
+   "moves": [
+    {
+     "name": "Jigoku Otoshi",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Ippon Zuri Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Dai Kaiten Geri",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Boutaka Tobigeri",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Senpuu Kon",
+     "command": "Tap A rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "Tap A rapidly"
+     }
+    },
+    {
+     "name": "Shuuten Renpa Kon",
+     "command": "Tap C rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Tap C rapidly"
+     }
+    },
+    {
+     "name": "Sansetsu Kon: Chuudan Uchi",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Kaen Sansetsu Kon: Chuudan Tsuki",
+     "command": "qcf + P from Sansetsu Kon Chuudan Uchi",
+     "category": "other"
+    },
+    {
+     "name": "Sen'en Sakkon",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Kyoushuu Hishou Kon",
+     "command": "f,d,df + K, move b / f",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, move b / f"
+     }
+    },
+    {
+     "name": "Karyuu Tsuigeki Kon",
+     "command": "qcb + B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcb + B"
+     }
+    },
+    {
+     "name": "Suiryuu Tsuigeki Kon",
+     "command": "qcb + D",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "qcb + D"
+     }
+    },
+    {
+     "name": "Chou Kaen Senpuu Kon",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Dai Senpuu",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "yashiro-nanakase",
+   "name": "Yashiro Nanakase",
+   "title": "Orochi Team",
+   "moves": [
+    {
+     "name": "Lever Blow",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Hatchet Throw",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Regret Bash",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Step Side Kick",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Upper Duel",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Missile Might Bash",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Sledgehammer",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Jet Counter",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Jet Counter: Still",
+     "command": "qcf + P from Jet Counter",
+     "category": "other"
+    },
+    {
+     "name": "Million Bash Stream",
+     "command": "qcb,hcf + P, tap P rapidly",
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P, tap P rapidly"
+     }
+    },
+    {
+     "name": "Final Impact",
+     "command": "qcf,qcf + P  (hold P to power-up)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P  (hold P to power-up)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "shermie",
+   "name": "Shermie",
+   "title": "Orochi Team",
+   "moves": [
+    {
+     "name": "Shermie Flash: Original",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Front Flash",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Shermie Stand",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Shermie Whip",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Axle Spin Kick",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Shermie Shoot",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Shermie Spiral",
+     "command": "When close, hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcf + P"
+     }
+    },
+    {
+     "name": "Shermie Clutch",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Shermie Cute",
+     "command": "qcf + K from any command throw",
+     "category": "other"
+    },
+    {
+     "name": "Shermie Flash",
+     "command": "When close, hcb,hcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,hcb + P"
+     }
+    },
+    {
+     "name": "Shermie Carnival",
+     "command": "When close, hcf,hcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcf,hcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "chris",
+   "name": "Chris",
+   "title": "Orochi Team",
+   "moves": [
+    {
+     "name": "Step Turn",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Aerial Drop",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Spinning Array",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Reverse Anchor Kick",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Carry Off Kick",
+     "command": "df + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 3,
+      "notation": "df + B"
+     }
+    },
+    {
+     "name": "Slide Touch",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Scramble Dash",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Direction Change",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Hunting Air",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Glider Stamp",
+     "command": "In air, qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcf + K"
+     }
+    },
+    {
+     "name": "Shooting Dancer: Thrust",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Shooting Dancer: Step",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Chain Slide Touch",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Twister Drive",
+     "command": "qcb,qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,qcb + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "iori-yagami",
+   "name": "Iori Yagami",
+   "title": "Yagami Team",
+   "moves": [
+    {
+     "name": "Sakahagi",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Saka Sakahagi",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Ge Shiki: Yuri Ori",
+     "command": "In air, b + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 4,
+      "air": true,
+      "notation": "In air, b + B"
+     }
+    },
+    {
+     "name": "Ge Shiki: Yumebiki",
+     "command": "f + A,A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A,A"
+     }
+    },
+    {
+     "name": "Ge Shiki: Goufu In \"Shinigame\"",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "108 Shiki: Yami Barai",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "127 Shiki: Aoi Hana",
+     "command": "qcb + P  (perform 3 times)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P  (perform 3 times)"
+     }
+    },
+    {
+     "name": "100 Shiki: Oniyaki",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "311 Shiki: Tsumagushi",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "212 Shiki: Kototsuki In",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Kuzukaze",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Kin 1211 Shiki: Ya Otome",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Ura 108 Shiki: Ya Sakazuki",
+     "command": "qcb,hcf + P  (hold P to delay)",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "mature",
+   "name": "Mature",
+   "title": "Yagami Team",
+   "moves": [
+    {
+     "name": "Death Blow",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Back Rush",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Crematory",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Death Row",
+     "command": "qcb + P  (perform 3 times)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P  (perform 3 times)"
+     }
+    },
+    {
+     "name": "Metal Massacre",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Despair",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Decide",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Ebony Tears",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Sacrilege",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Heaven's Gate",
+     "command": "qcb,hcf + K",
+     "category": "other"
+    },
+    {
+     "name": "Nocturnal Lights",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "vice",
+   "name": "Vice",
+   "title": "Yagami Team",
+   "moves": [
+    {
+     "name": "Death Blow",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Back Rush",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Monstrosity",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Mayhem",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Outrage",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Ravenous",
+     "command": "In air, qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcb + K"
+     }
+    },
+    {
+     "name": "Gore Fest",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Blackend",
+     "command": "When close, hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcf + P"
+     }
+    },
+    {
+     "name": "Decide",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Mithan's Robe",
+     "command": "qcf + P from Blackend or Mayhem",
+     "category": "other"
+    },
+    {
+     "name": "Negative Gain",
+     "command": "When close, hcb,hcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, hcb,hcb + K"
+     }
+    },
+    {
+     "name": "Withering Surface",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "heidern",
+   "name": "Heidern",
+   "title": "Father Team",
+   "moves": [
+    {
+     "name": "Backstabbing",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Lead Belcher",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Critical Drive",
+     "command": "When close, b~d~f + C / D  (both in air)",
+     "category": "other"
+    },
+    {
+     "name": "Shooter Narnagel",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Cross Cutter",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Moon Slasher",
+     "command": "Charge d,u + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge d,u + P"
+     }
+    },
+    {
+     "name": "Neck Rolling",
+     "command": "Charge d,u + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K"
+     }
+    },
+    {
+     "name": "Storm Bringer",
+     "command": "When close, hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb + P"
+     }
+    },
+    {
+     "name": "Killing Bringer",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Final Bringer",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Heidern End",
+     "command": "qcb,hcf + K",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "takuma-sakazaki",
+   "name": "Takuma Sakazaki",
+   "title": "Father Team",
+   "moves": [
+    {
+     "name": "Oosotogari",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Ippon Seoi",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Oni Guruma",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Kawara Wari",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Ko'ou Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Mouko Burai Gan",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Shouran Kyaku",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Zanretsu Ken",
+     "command": "f,b,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Haou Shikou Ken",
+     "command": "f,hcf + P  (hold P to power-up)",
+     "category": "other"
+    },
+    {
+     "name": "Hien Shippuu Kyaku",
+     "command": "Charge db,f + K",
+     "category": "other"
+    },
+    {
+     "name": "Ryuuko Ranbu",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Shin Kishin Geki",
+     "command": "When close, qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "saishu-kusanagi",
+   "name": "Saishu Kusanagi",
+   "title": "Father Team",
+   "moves": [
+    {
+     "name": "Hikiri Tsuchi",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Issetsu Seoi Nage",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Ge Shiki: Gou Tsui",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Ge Shiki: Kubu Tsuchi",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "108 Shiki: Yami Barai",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "721 Shiki: Homura Gasane",
+     "command": "qcb + P  (perform 2 times)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P  (perform 2 times)"
+     }
+    },
+    {
+     "name": "100 Shiki: Oniyaki",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "110 Shiki: Nata Guruma",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "427 Shiki: Kamu Kakari",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Ura 108 Shiki: Orochi Nagi",
+     "command": "qcb,hcf + P  (hold P to delay)",
+     "category": "other"
+    },
+    {
+     "name": "1127 Shiki: Tsumugari",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "heavy-d",
+   "name": "Heavy D!",
+   "title": "American Sports Team",
+   "moves": [
+    {
+     "name": "Stomach Buster",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Reverse Stomach Buster",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Rock Crush",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "R.S.D. (Rolling Soul Diver)",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Ducking Combination",
+     "command": "qcb + P  (perform 2 times)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P  (perform 2 times)"
+     }
+    },
+    {
+     "name": "Blast Upper",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Soul Flower",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Shadow",
+     "command": "d,d + P  (then perform a special move)",
+     "category": "other"
+    },
+    {
+     "name": "Dancing Beat",
+     "command": "When close, f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, f,d,df + P"
+     }
+    },
+    {
+     "name": "D. Crazy",
+     "command": "qcb,hcf + P",
+     "category": "other"
+    },
+    {
+     "name": "D. Magnum",
+     "command": "qcf,qcf + P  (hold P to delay)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P  (hold P to delay)"
+     }
+    }
+   ]
+  },
+  {
+   "key": "lucky-glauber",
+   "name": "Lucky Glauber",
+   "title": "American Sports Team",
+   "moves": [
+    {
+     "name": "Dunk Buster",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Lucky Crash",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Dunk Otoshi",
+     "command": "In air, d + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + A"
+     }
+    },
+    {
+     "name": "Lucky Kick",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Death Bound",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Death Dunk",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Cyclone Break",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Lucky Vision",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Death Shoot",
+     "command": "d,d + P / K",
+     "category": "other"
+    },
+    {
+     "name": "Death Heel",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Hell Bound",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Lucky Driver",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "brian-battler",
+   "name": "Brian Battler",
+   "title": "American Sports Team",
+   "moves": [
+    {
+     "name": "Atomic Drop",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Rock Buster",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Buster Tomahawk",
+     "command": "In air, d + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "In air, d + A"
+     }
+    },
+    {
+     "name": "Screw Body Press",
+     "command": "In air, qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcf + P"
+     }
+    },
+    {
+     "name": "Brian Tornado",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Hyper Tackle",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Rocket Tackle",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Brian Hammer",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Double Hammer",
+     "command": "qcb + P from Brian Hammer",
+     "category": "other"
+    },
+    {
+     "name": "D.D.T.",
+     "command": "qcb + P from Double Hammer",
+     "category": "other"
+    },
+    {
+     "name": "Tiger Driver",
+     "command": "hcf + P from Brian Hammer",
+     "category": "other"
+    },
+    {
+     "name": "Samurai Bomb",
+     "command": "d,d + P from Tiger Driver",
+     "category": "other"
+    },
+    {
+     "name": "Shoulder Backbreaker",
+     "command": "d,d,d + K from Tiger Driver",
+     "category": "other"
+    },
+    {
+     "name": "Buster & Bomb",
+     "command": "d,u + P from Shoulder Backbreaker",
+     "category": "other"
+    },
+    {
+     "name": "American Supernova",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Big Bang Tackle",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "rugal-bernstein",
+   "name": "Rugal Bernstein",
+   "title": "Edit Character",
+   "moves": [
+    {
+     "name": "Scorpion Deathlock",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Scorpion Blow",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Double Tomahawk",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Reppuu Ken",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Dark Barrier",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "God Press",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Kaiser Wave",
+     "command": "f,hcf + P  (hold P to power-up)",
+     "category": "other"
+    },
+    {
+     "name": "Genocide Cutter",
+     "command": "f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K"
+     }
+    },
+    {
+     "name": "Gigantic Pressure",
+     "command": "qcf,hcb + P",
+     "category": "other"
+    },
+    {
+     "name": "Dead End Screamer",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "shingo-yabuki",
+   "name": "Shingo Yabuki",
+   "title": "Edit Character",
+   "moves": [
+    {
+     "name": "Hatsugane",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Issetsu Seoi Nage Fukanzen",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Ge Shiki: Goufu You Kakkodake",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "104 Shiki: Aragami Mikansei",
+     "command": "qcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf + A"
+     }
+    },
+    {
+     "name": "105 Shiki: Dokugami Mikansei",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "100 Shiki: Oniyaki Mikansei",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Shingo Kinsei Ore Shiki: Nie Togi",
+     "command": "When close, f,d,df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, f,d,df + K"
+     }
+    },
+    {
+     "name": "Shingo Kinsei Ore Shiki: Tsuki Hiji",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "101 Shiki: Oboro Guruma Mikansei",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Shingo Kick",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Ge Shiki: Kake Hourin",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Burning Shingo",
+     "command": "qcb,hcf + P",
+     "category": "other"
+    }
+   ]
+  },
+  {
+   "key": "orochi-yashiro",
+   "name": "Orochi Yashiro",
+   "title": "Real Orochi Team",
+   "moves": [
+    {
+     "name": "Baku",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Beki",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Saku",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Bu",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Kujiku Daichi",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Odoru Daichi",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Niragu Daichi",
+     "command": "When close, hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcf + P"
+     }
+    },
+    {
+     "name": "Musebu Daichi",
+     "command": "When close, hcb,f + P",
+     "category": "other"
+    },
+    {
+     "name": "Araburu Daichi",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "Hoeru Daichi",
+     "command": "qcf,qcf + P  (hold P to power-up)",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P  (hold P to power-up)"
+     }
+    },
+    {
+     "name": "Ankoku Jigoku Gokuraku Otoshi",
+     "command": "When close, hcb,hcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,hcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "orochi-shermie",
+   "name": "Orochi Shermie",
+   "title": "Real Orochi Team",
+   "moves": [
+    {
+     "name": "Bakurai",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Enrai",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Kourai",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Mugetsu no Raiun",
+     "command": "hcf + P / K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P / K"
+     }
+    },
+    {
+     "name": "Yatanagi no Muchi",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Shajitsu no Odori",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Raijin no Tsue",
+     "command": "In air, qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "In air, qcf + K"
+     }
+    },
+    {
+     "name": "Shukumei, Gen'ei, Shinshi",
+     "command": "qcf,qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,qcf + K"
+     }
+    },
+    {
+     "name": "Ankoku Raikou Ken",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "orochi-chris",
+   "name": "Orochi Chris",
+   "title": "Real Orochi Team",
+   "moves": [
+    {
+     "name": "Chi no Batsu",
+     "command": "When close, b / f + C",
+     "category": "other"
+    },
+    {
+     "name": "Ten no Tsumi",
+     "command": "When close, b / f + D",
+     "category": "other"
+    },
+    {
+     "name": "Muyou no Ono",
+     "command": "f + A",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "f + A"
+     }
+    },
+    {
+     "name": "Jukei no Oni",
+     "command": "f + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "f + B"
+     }
+    },
+    {
+     "name": "Setsudan no Koto",
+     "command": "df + B",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 3,
+      "notation": "df + B"
+     }
+    },
+    {
+     "name": "Taiyou o Iru Honoo",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Kagami o Hofuru Honoo",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Tsuki o Tsumu Honoo",
+     "command": "f,d,df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,d,df + P"
+     }
+    },
+    {
+     "name": "Shishi o Kamu Honoo",
+     "command": "When close, hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "When close, hcf + K"
+     }
+    },
+    {
+     "name": "Daichi o Harau Gouka",
+     "command": "qcf,qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P"
+     }
+    },
+    {
+     "name": "Ankoku Orochi Nagi",
+     "command": "qcb,hcf + P  (hold P to delay)",
+     "category": "other"
+    }
+   ]
+  }
+ ]
+}

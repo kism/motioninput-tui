@@ -17,7 +17,7 @@ stream itself.
 from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING
 
-from motioninput_tui.controls.layouts import HITBOX
+from motioninput_tui.controls.layouts import HITBOX, with_buttons
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.games.loader import load_game
 
@@ -85,7 +85,11 @@ def play_as(
     game = load_game(game_key)
     if ruleset is not None:
         game = replace(game, ruleset=ruleset)
-    session = TrainingSession(game, game.character(character_key), HITBOX, exact_input=exact_input)
+    # The hitbox keys keep their positions; a non-Street-Fighter game relabels
+    # what those positions mean (the Neo Geo's u/o become A/C), exactly as the
+    # app does when it lays the game's panel onto the layout.
+    layout = with_buttons(HITBOX, game.buttons)
+    session = TrainingSession(game, game.character(character_key), layout, exact_input=exact_input)
     now = 0
     for event in script:
         while now < event.at_ms:

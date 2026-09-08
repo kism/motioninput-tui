@@ -13,12 +13,12 @@ from motioninput_tui.games.loader import write_game
 from motioninput_tui.games.rulesets import GAME_SPECS
 from motioninput_tui.utils.logger import get_logger, setup_logger_cli
 
-from . import hsf2, sfa3, sfiii3
+from . import hsf2, kof98, sfa3, sfiii3
 from .names import apply_overrides
 
 logger = get_logger(__name__)
 
-PARSERS = {"hsf2": hsf2.parse, "sfa3": sfa3.parse, "sfiii3": sfiii3.parse}
+PARSERS = {"hsf2": hsf2.parse, "sfa3": sfa3.parse, "sfiii3": sfiii3.parse, "kof98": kof98.parse}
 
 
 def _get_args() -> argparse.Namespace:
