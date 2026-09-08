@@ -5,8 +5,6 @@ filled in rather than merely coloured, which is the difference you can see out
 of the corner of your eye while your hands are busy.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING
 
 from rich.text import Text

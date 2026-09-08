@@ -6,8 +6,6 @@ Move lists look like::
      I   Hyper Bomb                 Rotate 360 + P   x1
 """
 
-from __future__ import annotations
-
 import re
 
 from motioninput_tui.games.models import Category, Character

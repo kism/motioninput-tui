@@ -1,7 +1,5 @@
 """The list of moves the engine believes came out."""
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING
 
 from rich.text import Text

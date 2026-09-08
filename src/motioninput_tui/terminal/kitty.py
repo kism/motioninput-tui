@@ -12,8 +12,6 @@ requirement.
 Reference: https://sw.kovidgoyal.net/kitty/keyboard-protocol/
 """
 
-from __future__ import annotations
-
 import os
 import re
 import select

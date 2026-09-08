@@ -16,8 +16,6 @@ the pad's state and returns press and release events keyed by the same binding
 codes the :data:`~.layouts.GAMEPAD` layout uses (``pad:left``, ``pad:0`` ...).
 """
 
-from __future__ import annotations
-
 import os
 import sys
 from typing import TYPE_CHECKING, Protocol

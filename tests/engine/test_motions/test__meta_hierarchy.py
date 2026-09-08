@@ -4,8 +4,6 @@ A test filed under the wrong directory, or named after a character who is not
 in that game's roster, would otherwise fail somewhere confusing.
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 
 import pytest

@@ -7,8 +7,6 @@ just means the defaults are used, and a config that cannot be written is
 logged and ignored rather than interrupting a training session.
 """
 
-from __future__ import annotations
-
 import json
 import os
 import re

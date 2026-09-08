@@ -6,8 +6,6 @@ has, so every row is its own preview and the line underneath shows a move
 written out with the whole set of choices.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar, override
 
 from rich.cells import cell_len

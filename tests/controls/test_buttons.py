@@ -4,8 +4,6 @@ The arrangements are written down here in the keys they land on, which is how
 they were specified and the only way to see at a glance that a panel is right.
 """
 
-from __future__ import annotations
-
 import pytest
 
 from motioninput_tui.controls import buttons as sets

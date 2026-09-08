@@ -1,7 +1,5 @@
 """The rolling display of what the player actually pressed."""
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING
 
 from rich.text import Text

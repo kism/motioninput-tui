@@ -1,7 +1,5 @@
 """The trainer itself: press inputs, watch moves come out."""
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar
 
 from rich.text import Text

@@ -1,7 +1,5 @@
 """The trainer runs on the gamepad layout even with no pad attached."""
 
-from __future__ import annotations
-
 import asyncio
 
 from motioninput_tui.config import Config

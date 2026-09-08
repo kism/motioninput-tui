@@ -6,8 +6,6 @@ and the other a screen. The app applies whatever comes back to the session
 already running.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar, override
 
 from rich.text import Text

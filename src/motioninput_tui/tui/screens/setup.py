@@ -6,8 +6,6 @@ three panes here are all about what to train: the player's own settings, which
 sit above every game's rules, then the game and the character.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar
 
 from rich.text import Text

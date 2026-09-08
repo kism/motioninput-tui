@@ -8,8 +8,6 @@ This guide spells directions out in full::
     Dragon Punch   - F, D, DF + any Punch
 """
 
-from __future__ import annotations
-
 import re
 from typing import TYPE_CHECKING
 

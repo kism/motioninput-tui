@@ -5,8 +5,6 @@ the trainer, so directions are cleaned and holds inferred exactly as they are
 when a move is on the line. Nothing is recognised; the panel is drawn instead.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar, override
 
 from rich.text import Text

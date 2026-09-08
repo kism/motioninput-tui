@@ -7,8 +7,6 @@ This lives outside the ``motioninput_tui`` package on purpose, so it is not
 shipped in the wheel. It is a development tool for regenerating roster data.
 """
 
-from __future__ import annotations
-
 import argparse
 import sys
 from pathlib import Path

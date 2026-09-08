@@ -4,8 +4,6 @@ Textual's test pilot is asynchronous, and the suite has no async plugin, so
 each test drives one short session through ``asyncio.run``.
 """
 
-from __future__ import annotations
-
 import asyncio
 from typing import TYPE_CHECKING
 

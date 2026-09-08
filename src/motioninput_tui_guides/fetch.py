@@ -10,8 +10,6 @@ in the wheel, and its dependencies live in a separate extra. Install them with
 ``uv sync --extra guides``.
 """
 
-from __future__ import annotations
-
 import time
 from dataclasses import dataclass
 from enum import StrEnum

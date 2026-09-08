@@ -1,7 +1,5 @@
 """Config persistence: what survives a save/load round trip, and what is dropped."""
 
-from __future__ import annotations
-
 import json
 from typing import TYPE_CHECKING
 

@@ -9,8 +9,6 @@ The shouryuuken here is done the hitbox way, tapping forward twice against a
 held down, which never produces a plain forward.
 """
 
-from __future__ import annotations
-
 import pytest
 
 from tests.engine.test_motions.harness import DOWN, FORWARD, HP, Script, press, release

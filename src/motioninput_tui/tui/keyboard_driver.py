@@ -11,8 +11,6 @@ are guarded, and if either stops working the trainer simply falls back to
 inferring holds from auto-repeat.
 """
 
-from __future__ import annotations
-
 import sys
 from typing import TYPE_CHECKING
 

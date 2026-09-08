@@ -6,8 +6,6 @@ GPU accelerated terminals are comfortably fast; some of the older or
 web-technology based ones are not.
 """
 
-from __future__ import annotations
-
 import os
 from dataclasses import dataclass
 from enum import StrEnum

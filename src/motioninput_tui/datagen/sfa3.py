@@ -6,8 +6,6 @@ Move lists carry an ISM column in the first five characters::
      A   Jaguar Revolver                 qcf,qcf + K
 """
 
-from __future__ import annotations
-
 import re
 from typing import TYPE_CHECKING
 

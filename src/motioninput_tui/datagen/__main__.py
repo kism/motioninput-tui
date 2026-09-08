@@ -5,8 +5,6 @@ Run from the repository root::
     python -m motioninput_tui.datagen
 """
 
-from __future__ import annotations
-
 import argparse
 import sys
 from pathlib import Path

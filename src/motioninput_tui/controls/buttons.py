@@ -18,8 +18,6 @@ The Neo Geo has two arrangements in circulation, so which one is used is the
 player's choice: :func:`arrangement` applies it.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 from motioninput_tui.engine.notation import Button

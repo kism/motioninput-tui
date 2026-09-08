@@ -1,7 +1,5 @@
 """Turns a stream of inputs into a stream of activated moves."""
 
-from __future__ import annotations
-
 from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import TYPE_CHECKING, Protocol, runtime_checkable

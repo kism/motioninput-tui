@@ -4,8 +4,6 @@ Everything in here is measured in milliseconds since an arbitrary origin, so
 the engine never touches the clock itself and stays trivially testable.
 """
 
-from __future__ import annotations
-
 from collections import deque
 from dataclasses import dataclass, field
 

@@ -14,8 +14,6 @@ simulated. A test of the inferred path has to opt out and send the repeat
 stream itself.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING
 

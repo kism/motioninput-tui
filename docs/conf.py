@@ -6,8 +6,6 @@ by both `sphinx-build` locally and Read the Docs; neither imports the project,
 so it does not need to be installed to build the docs.
 """
 
-from __future__ import annotations
-
 project = "motioninput-tui"
 copyright = "kism"  # ruff: ignore[builtin-variable-shadowing] - the name Sphinx's conf.py convention expects
 author = "kism"

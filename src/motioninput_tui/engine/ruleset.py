@@ -4,8 +4,6 @@ This is where the games actually differ from each other. The motion matchers in
 ``motions.py`` are generic; a :class:`Ruleset` decides how forgiving they are.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 

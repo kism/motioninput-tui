@@ -1,7 +1,5 @@
 """Game, character and move data models."""
 
-from __future__ import annotations
-
 from dataclasses import dataclass, field
 from enum import StrEnum
 

@@ -10,8 +10,6 @@ Each one is a boolean attribute of :class:`~motioninput_tui.config.Config`, so
 the pane can read and write them by name without knowing what any of them mean.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING
 

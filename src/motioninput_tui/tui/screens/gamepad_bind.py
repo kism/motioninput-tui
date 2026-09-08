@@ -5,8 +5,6 @@ Movement stays on the d-pad and left stick; only the attack buttons move.
 The result is a ``{button name: pad code}`` map, or ``None`` if nothing changed.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar, override
 
 from rich.text import Text

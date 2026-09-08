@@ -1,7 +1,5 @@
 """Alpha 3, Ryu. Same inputs as `sfiii3/test_ryu.py`, stricter game."""
 
-from __future__ import annotations
-
 from tests.engine.test_motions.harness import DOWN_DOUBLE_TAP_FORWARD_HP, QUARTER_CIRCLE_FORWARD_HP
 
 

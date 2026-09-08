@@ -12,8 +12,6 @@ Run from the repository root::
     .venv/bin/python .claude/skills/concise-guides/verify-concise-guide.py [game ...]
 """
 
-from __future__ import annotations
-
 import sys
 from pathlib import Path
 

@@ -1,7 +1,5 @@
 """The list of reference guides and where each one came from."""
 
-from __future__ import annotations
-
 import hashlib
 import json
 from dataclasses import dataclass

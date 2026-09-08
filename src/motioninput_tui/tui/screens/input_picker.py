@@ -6,8 +6,6 @@ also keeps the gamepad rebinding (``b``) and the pad detection polling out of
 the setup screen, which is then only about what to train.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar
 
 from rich.text import Text

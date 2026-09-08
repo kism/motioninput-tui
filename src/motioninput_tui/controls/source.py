@@ -1,7 +1,5 @@
 """Input sources: things that turn a device into directions and buttons."""
 
-from __future__ import annotations
-
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Protocol
 

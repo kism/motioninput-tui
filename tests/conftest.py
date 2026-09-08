@@ -4,8 +4,6 @@ The motion tests have their own harness and fixtures in
 ``tests/engine/test_motions/``, since they all need the same kind of setup.
 """
 
-from __future__ import annotations
-
 import pytest
 
 from motioninput_tui.controls import gamepad

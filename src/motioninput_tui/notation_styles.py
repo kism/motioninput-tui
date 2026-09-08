@@ -13,8 +13,6 @@ whatever quarter circles are set to. Moves the engine has no directional model
 of keep the reference guide's own words.
 """
 
-from __future__ import annotations
-
 import re
 from dataclasses import dataclass, field
 from enum import StrEnum

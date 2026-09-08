@@ -5,8 +5,6 @@ to the config file and back into the engine: at the start of a session from the
 pane, and part way through one from the modal.
 """
 
-from __future__ import annotations
-
 import asyncio
 from typing import TYPE_CHECKING
 

@@ -1,7 +1,5 @@
 """The gamepad probe's pure helpers (the SDL parts need real hardware)."""
 
-from __future__ import annotations
-
 import re
 
 from motioninput_tui import gamepad_probe

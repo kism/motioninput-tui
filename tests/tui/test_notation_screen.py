@@ -4,8 +4,6 @@ The live input strip is checked here too, since the whole point of leaving it
 out of the menu is that what you pressed always reads the same way.
 """
 
-from __future__ import annotations
-
 import asyncio
 from typing import TYPE_CHECKING
 

@@ -5,8 +5,6 @@ leniency, so the same ``qcf`` matcher is strict in Super Turbo and forgiving in
 Third Strike.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING

@@ -1,7 +1,5 @@
 """Startup decisions made before the interface takes over the terminal."""
 
-from __future__ import annotations
-
 import json
 import sys
 from typing import TYPE_CHECKING

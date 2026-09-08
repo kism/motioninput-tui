@@ -12,8 +12,6 @@ override changes ``--character`` and the saved config, so it is worth doing at
 the point the roster is generated rather than papering over it later.
 """
 
-from __future__ import annotations
-
 from dataclasses import replace
 from typing import TYPE_CHECKING
 

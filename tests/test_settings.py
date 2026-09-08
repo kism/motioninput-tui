@@ -5,8 +5,6 @@ the same scripts the Elena tests use: one hitbox half circle that never touches
 straight down, and one that rolls cleanly through it.
 """
 
-from __future__ import annotations
-
 from dataclasses import replace
 
 from motioninput_tui.config import Config

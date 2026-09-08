@@ -4,8 +4,6 @@ The rosters are the real test data here: every motion kind the guides produce
 has to come out as something a person can read, in every style on offer.
 """
 
-from __future__ import annotations
-
 import pytest
 
 from motioninput_tui.engine.motions import MotionKind, MotionSpec

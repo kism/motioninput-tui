@@ -5,8 +5,6 @@ will give you one for holding down and double tapping forward; Super Turbo and
 Alpha 3 want a real f,d,df and will hand you a fireball if they do not get it.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 from motioninput_tui.controls.buttons import STREET_FIGHTER, ButtonSet

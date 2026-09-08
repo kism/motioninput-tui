@@ -3,8 +3,6 @@
 Compare `sfa3/test_ryu.py` and `hsf2/test_ryu.py`, which play the same script.
 """
 
-from __future__ import annotations
-
 from tests.engine.test_motions.harness import DOWN_DOUBLE_TAP_FORWARD_HP, QUARTER_CIRCLE_FORWARD_HP
 
 

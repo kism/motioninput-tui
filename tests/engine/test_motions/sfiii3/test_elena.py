@@ -1,7 +1,5 @@
 """3rd Strike, Elena. Rhino Horn is hcf+K, Lynx Tail is b, d, db+K."""
 
-from __future__ import annotations
-
 from tests.engine.test_motions.harness import (
     BACK,
     DOWN,

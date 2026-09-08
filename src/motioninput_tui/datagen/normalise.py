@@ -7,8 +7,6 @@ dialects are reduced to a canonical list of direction tokens, which is then
 looked up in one table.
 """
 
-from __future__ import annotations
-
 import re
 
 from motioninput_tui.engine.motions import MotionKind, MotionSpec

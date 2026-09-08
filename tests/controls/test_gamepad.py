@@ -1,7 +1,5 @@
 """Turning a pad's state into binding codes, and the reader that polls it."""
 
-from __future__ import annotations
-
 import pytest
 
 from motioninput_tui.controls import gamepad

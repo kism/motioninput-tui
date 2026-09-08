@@ -10,8 +10,6 @@ datestamped copy of the whole session, named after the pad, is written to
     python -m motioninput_tui.gamepad_probe --seconds 30
 """
 
-from __future__ import annotations
-
 import argparse
 import contextlib
 import re

@@ -8,8 +8,6 @@ side of the screen (so 6 is forward/towards the opponent, 4 is back):
     1 2 3
 """
 
-from __future__ import annotations
-
 from enum import IntEnum, StrEnum
 
 

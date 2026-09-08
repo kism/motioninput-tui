@@ -1,7 +1,5 @@
 """Binds each test file to the game and character its path names."""
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, Protocol
 
 import pytest

@@ -5,8 +5,6 @@ literal key names; the gamepad layout binds ``pad:*`` codes that
 :mod:`motioninput_tui.controls.gamepad` produces from the pad's state.
 """
 
-from __future__ import annotations
-
 import importlib.util
 from dataclasses import dataclass, field, replace
 from enum import StrEnum

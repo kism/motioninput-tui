@@ -6,8 +6,6 @@ posted as :class:`SettingsList.Changed` and bubbles to the app, which owns the
 config and decides what the change means for whatever is running.
 """
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING, ClassVar
 
 from rich.text import Text

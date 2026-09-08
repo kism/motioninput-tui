@@ -4,8 +4,6 @@ What matters is that it stands up without a roster, that what is held is lit,
 and that rearranging the Neo Geo from the settings reaches a panel already open.
 """
 
-from __future__ import annotations
-
 import asyncio
 from typing import TYPE_CHECKING
 
