@@ -10,8 +10,12 @@ The whole point is that the same input differs per game: in 3rd Strike holding
 down and double tapping forward gives a dragon punch, in Alpha 3 and Super
 Turbo it gives nothing.
 
-See `README.md` for using the trainer and `README_DEV.md` for the developer
-setup; this file covers what is hard to discover from the code alone.
+See `README.md` for a quick start, and the full documentation at
+`docs/index.md` (built with MkDocs, published to Read the Docs) for using the
+trainer, `docs/development.md` for the developer setup, and
+`docs/adding-a-game.md` for adding a new title — also available as the
+`add-a-game` skill. This file covers what is hard to discover from the code
+alone.
 
 ## Commands
 
@@ -44,6 +48,8 @@ guide: same roster, move lists, notation key and input-behaviour notes, about a
 quarter of the size. The `concise-guides` skill makes any that are missing and
 verifies them by parsing both files and comparing rosters. They are derived from
 the guides, so they are gitignored and must not be committed or quoted either.
+The `add-a-game` skill walks the whole procedure end to end; `docs/adding-a-game.md`
+is the same walkthrough for a person.
 
 `src/motioninput_tui_guides/` fetches `references/*.txt` from GameFAQs. It is a
 sibling package rather than a subpackage so `uv_build` leaves it out of the

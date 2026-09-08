@@ -21,6 +21,9 @@ guides = ["curl-cffi>=0.7.0", "beautifulsoup4>=4.12.0"]
 # Gamepad support. Imported only when the gamepad layout is selected.
 gamepad = ["pygame-ce>=2.5.8"]
 
+# Building the docs/ site. Never imported by the trainer itself.
+docs = ["mkdocs>=1.6.0"]
+
 test = [
     "pytest>=9.1.1",
     "coverage>=7.15.4",
@@ -31,6 +34,7 @@ test = [
 
 [project.urls]
 Repository = "https://github.com/kism/motioninput-tui"
+Documentation = "https://motioninput-tui.readthedocs.io/"
 
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]

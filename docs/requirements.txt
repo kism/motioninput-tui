@@ -1,0 +1,3 @@
+# What Read the Docs installs to build this site. Kept in sync with the
+# `docs` extra in pyproject.toml, which is for `uv sync --extra docs` locally.
+mkdocs>=1.6.0
