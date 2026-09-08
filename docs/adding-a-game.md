@@ -48,27 +48,33 @@ page, so a bad fetch fails loudly rather than writing garbage. The checksum is
 what catches a *good* fetch of a page that later changed underneath you: every
 run checks the guide on disk against `sha256`, freshly downloaded or not.
 
-## 2. Read the concise version
+## 2. Read the brief
 
 The full FAQ runs to hundreds of kilobytes, most of it story, strategy and
-combos. `references/<key>_concise.md` is a quarter the size, and standardised
-Markdown: an `## heading` per character, a `| Move | Input |` table under each,
-the notation key, and anything the guide says about how the game reads inputs
-(diagonal leniency, dragon punch shortcuts, negative edge, charge times) under
-an `## Input behaviour` heading. Move names and input text are copied verbatim;
-only the layout around them is regularised. Make it if it does not exist yet:
+combos, and reading it does not by itself tell you where the game sits on the
+strict-to-lenient axis or which of its motions the engine cannot model. The
+*brief* does: `.claude/skills/game-brief/briefs/<key>.md` is an analysis of one
+guide against this codebase — the roster and which sections to skip, the guide's
+layout so the parser can find the move list, the button and motion gotchas with
+a predicted trainable rate, a proposed `Ruleset`, and motion-test seeds. Make it
+if it does not exist yet:
 
 ```bash
-./scripts/run-concise-guides.sh kof98
+./scripts/run-game-briefs.sh kof98
 ```
 
-Read this before writing the ruleset — see the
-[`concise-guides` skill](https://github.com/kism/motioninput-tui/blob/main/.claude/skills/concise-guides/SKILL.md)
-for what it keeps and why. The parser in step 4 is written against the full
-guide instead, since that is what datagen parses and it keeps the column layout
-the concise Markdown regularised. Both the full and the concise guide are
-gitignored and copyrighted: never commit one, quote one back into a commit
-message, a docstring, an issue or a PR, and never `git add -f` past the ignore.
+That is a single `claude -p` pass over the full guide (a minute or two), so run
+it in the background. Read the brief before writing the ruleset and parser, and
+read it *critically* — it is one model's homework and it can be wrong. See the
+[`game-brief` skill](https://github.com/kism/motioninput-tui/blob/main/.claude/skills/game-brief/SKILL.md)
+for its structure and how it is verified.
+
+Briefs *are* committed: they are our notes — character names and the occasional
+example input, never a whole move list. The guide itself
+(`references/<key>.txt`) is gitignored and copyrighted: never commit it, quote
+it into a commit message, a docstring, an issue or a PR, or `git add -f` past
+the ignore. The parser in step 4 is written against that full guide, since that
+is what datagen parses and it keeps the fixed-width columns a parser keys off.
 
 ## 3. Write the `GameSpec`
 
@@ -78,8 +84,8 @@ next to the three that are there. The
 [`Ruleset` docstring](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/engine/ruleset.py)
 documents every field; the existing three are a good starting range to
 interpolate within — `HSF2` is strict, `SFA3` a little more forgiving, `SFIII3`
-the lenient one. What the concise guide's own notes on input behaviour tell you
-should decide where the new game sits, not a guess:
+the lenient one. Start from the brief's proposed `Ruleset(...)` and its
+reasoning about where the game sits, then sanity-check the fields that matter:
 
 * Does a dragon punch need a genuine `f, d, df`, or does the game give a
   shortcut for holding down and tapping forward twice (`dp_double_tap`)?
@@ -93,25 +99,34 @@ should decide where the new game sits, not a guess:
 [`controls/buttons.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/controls/buttons.py).
 Most games use the Street Fighter six, which is the default; a game on another
 panel (Mortal Kombat's five, Neo Geo's four, Tekken's four) points `buttons` at
-the matching `ButtonSet` instead, or a new one if none fits.
+the matching `ButtonSet` instead, or a new one if none fits. A non-SF panel also
+needs the parser to remap button requirements, because the recogniser matches
+`Button` identity, not punch/kick family — see
+[`datagen/kof98.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/kof98.py)
+and step 4.
 
 ## 4. Write the parser
 
-The parser runs against the full `references/<key>.txt`, not the concise guide
-(`datagen/__main__` reads `spec.reference`), so write it looking at the full
-guide's move-list section — the concise Markdown regularised the column
-alignment a fixed-width parser keys off.
+The parser runs against the full `references/<key>.txt` (`datagen/__main__`
+reads `spec.reference`), so write it looking at the guide's move-list section.
+The brief's "Guide anatomy" section names the section markers, the
+character-heading shape, which block to parse per character, and the closest
+existing parser to start from.
 
 Every guide spells its move list a different way, so
 [`datagen/<key>.py`](https://github.com/kism/motioninput-tui/tree/main/src/motioninput_tui/datagen)
-is bespoke, but the pieces are shared. Compare the two existing dialects before
-writing a third:
+is bespoke, but the pieces are shared. Compare the existing dialects first:
 
 * [`hsf2.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/hsf2.py)
   parses a guide that spells directions out in full: `D, DF, F + any Punch`.
 * [`sfa3.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/sfa3.py)
   parses shorthand (`qcf,qcf + K`) with a fixed-width ISM column at the start
   of each line.
+* [`kof98.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/kof98.py)
+  parses shorthand on a non-Street-Fighter panel: it translates `A/B/C/D` to
+  SF notation for `normalise`, then maps the button requirement back onto the
+  real panel (`_neo_buttons`). Copy this when the brief says the panel needs a
+  remap.
 
 Both lean on
 [`datagen/common.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/common.py)
@@ -157,12 +172,14 @@ motioninput-tui-datagen --show-skipped
 ```
 
 This parses every game with a registered parser and writes
-`games/data/<key>.json`, which **is** committed. Expect roughly 80-90% of
-listed moves to become trainable; the rest are follow-ups, stances and
-conditional moves ("press P during Ducking") the engine has no model of, and
-they still show up in the move list struck through. `--show-skipped` lists
-what did not parse — worth a scan for a new game, since a skipped move is
-sometimes a parser gap rather than a genuinely unmodellable one.
+`games/data/<key>.json`, which **is** committed. Compare the trainable rate to
+the brief's prediction. The Street Fighter games land around 80-90%; a game can
+be lower for structural reasons the brief should have called out — command
+throws the engine has no model for, compound super motions absent from
+`normalise`'s tables (KoF '98 is 63% for both reasons). The rest are follow-ups,
+stances and conditional moves the engine cannot model, shown struck through.
+`--show-skipped` lists what did not parse — scan it: a whole character missing
+is a parser gap, not an unmodellable move.
 
 ## 7. Write motion tests
 
@@ -181,10 +198,12 @@ def test_quarter_circle_forward_is_a_fireball(play) -> None:
     assert attempt.moves == ["Fireball"]
 ```
 
-Reuse `harness.py`'s shared canonical scripts (`DOWN_DOUBLE_TAP_FORWARD_HP` and
-friends) where they apply — the point of sharing them is to show the same keys
-at the same moments giving a different answer in the new game than they do in
-3rd Strike or Alpha 3, which is the whole reason this trainer exists.
+Start from the brief's "Test seeds". Reuse `harness.py`'s shared canonical
+scripts (`DOWN_DOUBLE_TAP_FORWARD_HP` and friends) where they apply — the point
+of sharing them is to show the same keys at the same moments giving a different
+answer in the new game than they do in 3rd Strike or Alpha 3, which is the whole
+reason this trainer exists. `harness.play_as` lays the game's panel onto the
+layout, so `HP`/`LP`/… address whatever that panel puts in those positions.
 
 ## 8. Run everything
 
@@ -194,14 +213,14 @@ at the same moments giving a different answer in the new game than they do in
 
 ## Getting Claude to do it
 
-Steps 1, 2, 4 and 6 are mechanical and well specified: link a page, condense
-it, translate a fixed-width text format into a small parser, run a generator
-and read its output. Steps 3, 5 and 7 need judgement (reading what the guide
-says about the game's own feel, picking sensible defaults, writing tests that
-actually distinguish this game from the others), but are still concrete enough
-to hand over with a guide link and a game key.
+Steps 1, 2, 4 and 6 are mechanical and well specified: link a page, brief it,
+translate a fixed-width text format into a small parser, run a generator and
+read its output. Steps 3, 5 and 7 need judgement (deciding where the game sits
+on the strict-to-lenient axis, picking sensible defaults, writing tests that
+actually distinguish this game from the others), but the brief does most of
+that homework — Claude's job is to check it and turn it into code.
 
 The `add-a-game` skill walks through exactly the steps above, in order, with
 the same cautions about never committing or quoting the guide text. Ask for it
 by name, or just ask to add a game and name the GameFAQs page — either invokes
-it. It in turn uses the `concise-guides` skill for step 2.
+it. It in turn uses the `game-brief` skill for step 2.

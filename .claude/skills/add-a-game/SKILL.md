@@ -16,10 +16,11 @@ JSON, and motion tests. Do them in this order.
 
 ## Never commit or quote the guide text
 
-`references/*.txt` and `references/*_concise.md` are gitignored and
-copyrighted by their authors. Read them, quote nothing from them into a
-commit message, docstring, comment, issue or PR, and never `git add -f` one.
-Only the parsed rosters under `games/data/` are committed.
+`references/*.txt` is gitignored and copyrighted by its authors. Read it,
+quote nothing from it into a commit message, docstring, comment, issue or PR,
+and never `git add -f` one. Only the parsed rosters under `games/data/` and
+the analysis in `.claude/skills/game-brief/briefs/` (character names and the
+odd example input, never whole move lists) are committed.
 
 ## 1. Find or confirm the guide link
 
@@ -54,57 +55,63 @@ Paste the printed sha256 into the new `sources.json` entry. If the fetch fails
 (too small, or looks like a Cloudflare interstitial), the URL is probably wrong
 or the page needs a different one — do not force a bad guide through.
 
-## 3. Make the concise guide
+## 3. Read the game brief
 
 ```bash
-./scripts/run-concise-guides.sh <key>
+./scripts/run-game-briefs.sh <key>
 ```
 
-Run this in the background (roughly a minute per 1000 lines of guide) and read
-`references/<key>_concise.md` when it finishes — standardised Markdown with the
-roster, a move table per character, and the input-behaviour notes. Write the
-ruleset from it. Write the parser looking at the full `references/<key>.txt`
-instead: it keeps the fixed-width column layout the concise guide regularised,
-and datagen parses the full guide anyway.
+If the brief already exists (it is committed), just read it. Otherwise run this
+in the background (a minute or two per game) and read
+`.claude/skills/game-brief/briefs/<key>.md` when it finishes. It is analysis,
+not a copy of the guide: the roster and which sections to skip, the guide's
+layout for the parser, the button/motion gotchas and a predicted trainable
+rate, a proposed `Ruleset`, and motion-test seeds. Steps 4-8 below are the
+brief's homework turned into code — read it critically, it can be wrong.
 
 ## 4. Write the `GameSpec`
 
-Add one to `src/motioninput_tui/games/rulesets.py`. Base the `Ruleset` fields
-on what the concise guide's own notes say about the game's input behaviour
-(dragon punch shortcuts, whether diagonals can be skipped, charge timing,
-negative edge) — read the `Ruleset` docstring in `src/motioninput_tui/engine/ruleset.py`
-field by field, and use `HSF2`/`SFA3`/`SFIII3` as reference points along a
-strict-to-lenient range rather than guessing in a vacuum.
+Add one to `src/motioninput_tui/games/rulesets.py`, starting from the brief's
+proposed `Ruleset(...)` call. Sanity-check it against the `Ruleset` docstring in
+`src/motioninput_tui/engine/ruleset.py` field by field, and against
+`HSF2`/`SFA3`/`SFIII3` as strict-to-lenient reference points.
 
-Set `buttons=` to the matching `ButtonSet` from `src/motioninput_tui/controls/buttons.py`
-if the game is not on a Street Fighter six-button panel (`STREET_FIGHTER` is
-the default).
+Set `buttons=` to the `ButtonSet` the brief names (from
+`src/motioninput_tui/controls/buttons.py`) if the game is not on the Street
+Fighter six-button panel (`STREET_FIGHTER`, the default). A non-SF panel also
+needs the parser to remap button requirements — see step 5 and
+`datagen/kof98.py`.
 
 ## 5. Write the parser
 
-Work from the full `references/<key>.txt` here, not the concise Markdown. Look
-at two existing parsers before starting:
+Work from the full `references/<key>.txt`. The brief's "Guide anatomy" section
+names the move-list section markers, the character-heading shape, which block to
+parse per character, and the closest existing parser to start from:
 
 - `src/motioninput_tui/datagen/hsf2.py` — directions spelled out in full.
 - `src/motioninput_tui/datagen/sfa3.py` — shorthand (`qcf,qcf + K`) with a
   fixed-width column.
+- `src/motioninput_tui/datagen/kof98.py` — shorthand on a non-SF panel: it
+  translates `A/B/C/D` to SF notation for `normalise`, then maps the button
+  requirement back onto the real panel (`_neo_buttons`). Copy this when the
+  brief's "Notation & engine fit" section says the panel needs a remap.
 
-Your guide's dialect is probably close to one of these. Write
-`src/motioninput_tui/datagen/<key>.py` with a `parse(text) -> tuple[list[Character], ParseReport]`,
-using the helpers in `datagen/common.py` (`DASHED`, `build_move`,
-`finish_character`, `split_name_command`, `character_key`) to find character
-headings and move lines, and let `datagen/normalise.parse_command` turn the
-command text into a `MotionSpec` — it already understands both existing
-dialects' direction tokens, so a new parser rarely needs new normalisation
-logic, just to get the guide's text into a form it recognises.
+Write `src/motioninput_tui/datagen/<key>.py` with a
+`parse(text) -> tuple[list[Character], ParseReport]`, using the helpers in
+`datagen/common.py` (`DASHED`, `build_move`, `finish_character`,
+`split_name_command`, `character_key`), and let `datagen/normalise.parse_command`
+turn the command text into a `MotionSpec`. A new parser rarely needs new
+normalisation logic — but the brief flags any motions this guide uses that are
+not in `normalise`'s tables, and those stay non-trainable unless you extend the
+engine.
 
 Register the parser in `src/motioninput_tui/datagen/__main__.py`'s `PARSERS` dict.
 
 ## 6. Fix character names if needed
 
-If the guide's names collide with another game's for the same character, or
-are just ugly (`"ken-masters"`), add an override to
-`src/motioninput_tui/datagen/names.py`'s `OVERRIDES` dict, keyed by game.
+Add the `datagen/names.py` `OVERRIDES` entries the brief's "Roster" section
+lists (names that collide with another game, or are just ugly like
+`"ken-masters"`), keyed by game.
 
 ## 7. Generate and inspect the roster
 
@@ -112,18 +119,20 @@ are just ugly (`"ken-masters"`), add an override to
 motioninput-tui-datagen --show-skipped
 ```
 
-Expect roughly 80-90% trainable. Read the skipped list: a move skipped because
-it is a genuine stance/follow-up is fine, but if a whole character's moves are
-skipped the parser probably missed their heading.
+Compare the trainable rate to the brief's prediction. Read the skipped list: a
+move skipped because it is a genuine stance/follow-up, a throw the engine has no
+model for, or a motion the brief flagged as unsupported is expected; a whole
+character skipped means the parser missed their heading.
 
 ## 8. Write motion tests
 
-Make `tests/engine/test_motions/<key>/` and a `test_<character>.py` per
-character covered, named and pathed after the game and character keys (see
-`docs/development.md#motion-tests` for the full convention). Reuse
+Start from the brief's "Test seeds". Make `tests/engine/test_motions/<key>/` and
+a `test_<character>.py` per character covered, named and pathed after the game
+and character keys (see `docs/development.md#motion-tests`). Reuse
 `tests/engine/test_motions/harness.py`'s shared canonical scripts where they
 apply, so the same keys at the same moments can be shown giving a different
-answer in this game than in the others.
+answer in this game than in the others. `harness.play_as` lays the game's panel
+onto the layout, so `HP`/`LP`/… address whatever the panel puts there.
 
 ## 9. Check everything
 

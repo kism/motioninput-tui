@@ -134,8 +134,8 @@ reference file.
 
 You do not need the guides to run or develop the trainer; the parsed rosters are
 committed. They are only needed to regenerate that data — see
-[Adding a game](adding-a-game.md) for the full procedure, including the concise
-guides that are actually worth reading.
+[Adding a game](adding-a-game.md) for the full procedure, including the
+per-game briefs that analyse each guide against the engine.
 
 ## Check/Test
 

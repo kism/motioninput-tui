@@ -28,7 +28,7 @@ uv sync --all-extras            # dev setup; omit --all-extras for prod
 .venv/bin/pytest -q             # tests
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
-./scripts/run-concise-guides.sh # condense any guide lacking references/<game>_concise.md
+./scripts/run-game-briefs.sh    # analyse any guide lacking .claude/skills/game-brief/briefs/<game>.md
 
 .venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
 .venv/bin/pytest -k logger                                 # by name
@@ -43,16 +43,17 @@ python -m motioninput_tui.datagen --show-skipped           # rebuild packaged ro
 python -m motioninput_tui_guides --list                    # reference guide catalogue
 ```
 
-When adding a game, read `references/<game>_concise.md` rather than the full
-guide: same roster, move lists, notation key and input-behaviour notes as
-standardised Markdown (an `## heading` per character, a `| Move | Input |` table
-under each), about a quarter of the size. The `concise-guides` skill makes any
-that are missing and verifies them by checking the full guide's character and
-move names still appear in the Markdown. The datagen parser is still written
-against the full guide's exact layout, not this one. They are derived from the
-guides, so they are gitignored and must not be committed or quoted either.
-The `add-a-game` skill walks the whole procedure end to end; `docs/adding-a-game.md`
-is the same walkthrough for a person.
+When adding a game, read its brief at `.claude/skills/game-brief/briefs/<game>.md`
+first. It is analysis, not a copy of the guide: the roster and which sections to
+skip, the guide's layout for the parser, the button and motion gotchas with a
+predicted trainable rate, a proposed `Ruleset`, and motion-test seeds. The
+`game-brief` skill writes one per guide (a single `claude -p` pass over the full
+guide, reasoning against the engine files) and verifies it. Briefs *are*
+committed — they name characters and quote the odd input, never whole move
+lists. The datagen parser is still written against the full
+`references/<game>.txt`, whose fixed-width layout it keys off. The `add-a-game`
+skill walks the whole procedure end to end; `docs/adding-a-game.md` is the same
+walkthrough for a person.
 
 `src/motioninput_tui_guides/` fetches `references/*.txt` from GameFAQs. It is a
 sibling package rather than a subpackage so `uv_build` leaves it out of the
