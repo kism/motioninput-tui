@@ -63,6 +63,11 @@ Suppressions in this repo use `# ruff: ignore[rule-name] - why` and
 `# ty: ignore[rule-name]`, not `# noqa`; the preview `noqa-comments` rule
 enforces that.
 
+Python 3.14+ only. Use modern type hints throughout: `list[str]`, `X | None`,
+`from collections.abc import ...`, and the plain built-in generics. Never add
+`from __future__ import annotations` — the runtime is new enough that it buys
+nothing, and existing files are being cleaned of it.
+
 ## Config
 
 `config.py` remembers the last game, character, layout, settings and buffer
