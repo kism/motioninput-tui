@@ -70,7 +70,7 @@ def _print_terminal() -> int:
         logger.warning(
             "Key releases: not supported. Holds will be inferred from auto-repeat, "
             "so charge moves depend on your keyboard repeat delay. "
-            "Terminals that do support this: kitty, Ghostty, foot, WezTerm, Alacritty, Contour, Rio."
+            "Terminals that do support this: Ghostty, Alacritty, WezTerm, kitty, foot, Contour, Rio."
         )
     return 0
 

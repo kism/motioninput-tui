@@ -12,7 +12,7 @@ See [Adding a game](adding-a-game.md) to add another title, or
 ## Games
 
 | Key      | Game                           | Character source        |
-| -------- | ------------------------------ | ------------------------ |
+| -------- | ------------------------------ | ----------------------- |
 | `hsf2`   | Hyper Street Fighter II        | `references/hsf2.txt`   |
 | `sfa3`   | Street Fighter Alpha 3         | `references/sfa3.txt`   |
 | `sfiii3` | Street Fighter III: 3rd Strike | `references/sfiii3.txt` |
@@ -70,11 +70,11 @@ The app opens on a full screen input picker: keyboard layout or gamepad, since
 that decides how the trainer reads you rather than what you are training. Press
 `enter` and the next screen has three panes, `tab` between them:
 
-| Pane      | What it is                                                |
-| --------- | ---------------------------------------------------------- |
-| Settings  | Your own options, which sit above whatever the game says   |
-| Game      | Which game's rules to judge your inputs by                 |
-| Character | Whose move list to train                                   |
+| Pane      | What it is                                               |
+| --------- | -------------------------------------------------------- |
+| Settings  | Your own options, which sit above whatever the game says |
+| Game      | Which game's rules to judge your inputs by               |
+| Character | Whose move list to train                                 |
 
 `space` flips the highlighted setting; `enter` moves on from the game pane and
 starts training from either of the others. `esc` goes back to the input picker.
@@ -91,14 +91,14 @@ move list and the activation feed write a move's input. Pick a motion on the
 left and a style on the right, where every row is drawn in the style it offers,
 so you can see what your font makes of it before taking it.
 
-| Motion          | Written as                                                            |
-| --------------- | ---------------------------------------------------------------------- |
-| Directions      | `↓ ↘ →`, `D, DF, F`, `236`, `⬇️ ↘️ ➡️`, `2️⃣3️⃣6️⃣`                       |
-| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`, `🔥 →`                    |
-| Half circles    | spelled out, or `⋃ →`, `◡ →`, `🌙 →`                                   |
-| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍 →`, `龙 →`, `竜 →`, `𓆈 →`, `🐉 →`     |
-| Full circles    | `360` `720`, or `⥁`, `⭮`, `🌀`                                        |
-| Charges         | `[←] →`, or `⮀ ⮃`, `🔋 →`                                             |
+| Motion          | Written as                                                          |
+| --------------- | ------------------------------------------------------------------- |
+| Directions      | `↓ ↘ →`, `D, DF, F`, `236`, `⬇️ ↘️ ➡️`, `2️⃣3️⃣6️⃣`                    |
+| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`, `🔥 →`                  |
+| Half circles    | spelled out, or `⋃ →`, `◡ →`, `🌙 →`                                |
+| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍 →`, `龙 →`, `竜 →`, `𓆈 →`, `🐉 →` |
+| Full circles    | `360` `720`, or `⥁`, `⭮`, `🌀`                                      |
+| Charges         | `[←] →`, or `⮀ ⮃`, `🔋 →`                                           |
 
 `236` is the numpad, from a player on the left: `236 + P` is a fireball and
 `623 + P` a dragon punch, which is how the notation is written everywhere else.
@@ -120,11 +120,11 @@ changes whatever else you pick.
 
 These are yours, not the games', so they apply whichever game is selected.
 
-| Setting              | Default | Off                                    | On                                 |
-| --------------------- | ------- | --------------------------------------- | ------------------------------------ |
-| Relaxed half circles | on      | A half circle has to pass through down | `b,db,df,f` counts as one          |
-| Neo Geo slant        | off     | A B C D straight across                | A B on the bottom row, C D above   |
-| Loose buffer         | off     | Inputs are spent when a move comes out | One motion can feed several moves  |
+| Setting              | Default | Off                                    | On                                |
+| -------------------- | ------- | -------------------------------------- | --------------------------------- |
+| Relaxed half circles | on      | A half circle has to pass through down | `b,db,df,f` counts as one         |
+| Neo Geo slant        | off     | A B C D straight across                | A B on the bottom row, C D above  |
+| Loose buffer         | off     | Inputs are spent when a move comes out | One motion can feed several moves |
 
 Relaxed half circles is on by default because of how a hitbox or a keyboard
 actually plays: pressing forward while back is still held goes straight to
@@ -153,22 +153,22 @@ Chosen on the first screen. Two keyboard layouts, plus a gamepad if the
 `gamepad` extra is installed (`uv sync --extra gamepad`, or `--all-extras`).
 
 | Layout   | Back / Down / Forward / Up | Attack row 1 | Attack row 2 |
-| -------- | --------------------------- | ------------- | ------------- |
-| Hitbox   | `a` `s` `d` `space`         | `u i o p`     | `j k l ;`     |
-| Southpaw | `j` `k` `l` `space`         | `a s d f`     | `z x c v`     |
-| Gamepad  | D-pad or left stick         | `X Y RB RT`   | `A B LB LT`   |
+| -------- | -------------------------- | ------------ | ------------ |
+| Hitbox   | `a` `s` `d` `space`        | `u i o p`    | `j k l ;`    |
+| Southpaw | `j` `k` `l` `space`        | `a s d f`    | `z x c v`    |
+| Gamepad  | D-pad or left stick        | `X Y RB RT`  | `A B LB LT`  |
 
-A layout is only *where* the attacks are. What those positions mean is the
+A layout is only _where_ the attacks are. What those positions mean is the
 game's button set, laid onto them in order:
 
-| Panel                  | Row 1     | Row 2    | On southpaw       |
-| ----------------------- | --------- | -------- | ------------------ |
-| Street Fighter, 6      | LP MP HP  | LK MK HK | `asd` `zxc`        |
-| Mortal Kombat, 5       | HP BL HK  | LP LK    | `asd` `zx`         |
-| Neo Geo, 4             | A B C D   | A B C D  | `asdf` and `zxcv`  |
-| Neo Geo, arcade slant  | C D       | A B      | `as` over `zx`     |
-| Tekken, 4              | □ △       | ✕ ○      | `as` `zx`          |
-| Eight button           | 1 2 3 4   | 5 6 7 8  | `asdf` `zxcv`      |
+| Panel                 | Row 1    | Row 2    | On southpaw       |
+| --------------------- | -------- | -------- | ----------------- |
+| Street Fighter, 6     | LP MP HP | LK MK HK | `asd` `zxc`       |
+| Mortal Kombat, 5      | HP BL HK | LP LK    | `asd` `zx`        |
+| Neo Geo, 4            | A B C D  | A B C D  | `asdf` and `zxcv` |
+| Neo Geo, arcade slant | C D      | A B      | `as` over `zx`    |
+| Tekken, 4             | □ △      | ✕ ○      | `as` `zx`         |
+| Eight button          | 1 2 3 4  | 5 6 7 8  | `asdf` `zxcv`     |
 
 The Street Fighter games use the six, so that is what a layout carries unless
 something else asks for another set. The Neo Geo is the one panel with two
@@ -212,7 +212,7 @@ Motions are judged on wall clock timing, so a terminal that is slow to paint
 makes clean inputs read as late. The app identifies your terminal on launch and
 warns if it is likely to get in the way.
 
-Comfortable: alacritty, foot, ghostty, kitty, wezterm, contour, rio, st.
+Comfortable: alacritty, ghostty, foot, kitty, wezterm, contour, rio, st.
 Usable: xterm, urxvt, konsole, iTerm2, VTE based terminals, Windows Terminal.
 Expect trouble: Terminal.app, the VS Code integrated terminal, Hyper, Tabby.
 Running under tmux or screen, or over SSH, adds latency on top of whatever
@@ -234,7 +234,7 @@ tracked exactly, motions are judged against the games' real timing windows, and
 your keyboard repeat settings stop mattering entirely. The status line says
 `exact key tracking` when this is active.
 
-Supported by kitty, Ghostty, foot, WezTerm, Alacritty, Contour and Rio. Check
+Supported by Ghostty, Alacritty, WezTerm, kitty, foot, Contour, Rio. Check
 yours with:
 
 ```bash
