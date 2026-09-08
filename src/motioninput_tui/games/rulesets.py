@@ -142,6 +142,40 @@ KOF98 = GameSpec(
     buttons=NEO_GEO,
 )
 
+KOF2001 = GameSpec(
+    key="kof2001",
+    name="The King of Fighters 2001",
+    short_name="KoF 2001",
+    ruleset=Ruleset(
+        # Mechanically this is KoF '98 three years on, so the fields track it.
+        # The Eolith/BrezzaSoft engine is reckoned a touch looser and slower to
+        # respond, which is the only reason the windows are a hair wider.
+        motion_window_ms=330,
+        activation_window_ms=170,
+        step_gap_ms=190,
+        max_intermediate=1,
+        tail_states=2,
+        lenient_diagonals=True,
+        charge_ms=700,
+        charge_release_ms=220,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=True,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+    ),
+    notes=(
+        "Neo Geo four-button panel: A and B are the light punch and kick, C and D the heavy pair.",
+        "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
+        "No dragon punch shortcut: f,d,df means f,d,df, and holding down then tapping forward gives nothing.",
+        "Charge moves want a little less than KoF '98 asks for.",
+        "The guide is written in numpad notation, so the move list here is the translation of it.",
+    ),
+    reference="references/kof2001.txt",
+    buttons=NEO_GEO,
+)
+
 INPUT_DISPLAY = GameSpec(
     key="display",
     name="Input display",
@@ -159,7 +193,7 @@ characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
 
 DISPLAY_GAME = INPUT_DISPLAY.key
 
-GAME_SPECS: dict[str, GameSpec] = {spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98)}
+GAME_SPECS: dict[str, GameSpec] = {spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98, KOF2001)}
 DEFAULT_GAME = SFIII3.key
 
 

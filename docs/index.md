@@ -11,11 +11,18 @@ See [Adding a game](adding-a-game.md) to add another title, or
 
 ## Games
 
-| Key      | Game                           | Character source        |
-| -------- | ------------------------------ | ----------------------- |
-| `hsf2`   | Hyper Street Fighter II        | `references/hsf2.txt`   |
-| `sfa3`   | Street Fighter Alpha 3         | `references/sfa3.txt`   |
-| `sfiii3` | Street Fighter III: 3rd Strike | `references/sfiii3.txt` |
+| Key       | Game                            | Character source         |
+| --------- | ------------------------------- | ------------------------ |
+| `hsf2`    | Hyper Street Fighter II         | `references/hsf2.txt`    |
+| `sfa3`    | Street Fighter Alpha 3          | `references/sfa3.txt`    |
+| `sfiii3`  | Street Fighter III: 3rd Strike  | `references/sfiii3.txt`  |
+| `kof98`   | The King of Fighters '98        | `references/kof98.txt`   |
+| `kof2001` | The King of Fighters 2001       | `references/kof2001.txt` |
+
+The two King of Fighters entries are on the Neo Geo's four-button panel rather
+than the Street Fighter six, and a smaller share of their move lists is
+trainable (63% and 57%): KoF leans on close-range command throws and long
+follow-up chains, neither of which the engine models.
 
 Each game has its own `Ruleset` in
 [`games/rulesets.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/games/rulesets.py)

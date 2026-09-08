@@ -41,6 +41,11 @@ OVERRIDES: dict[str, dict[str, str]] = {
         "arekuruu-inabikari-no-shermie": "Orochi Shermie",
         "honoo-no-sadame-no-chris": "Orochi Chris",
     },
+    "kof2001": {
+        # The '98 guide calls her Leona and this one gives her a surname; the
+        # same character keyed two ways across the rosters is worse than either.
+        "leona-heidern": "Leona",
+    },
     "sfiii3": {
         # The 3rd Strike guide uses the Japanese name; the Super Turbo one does
         # not, and a roster that calls the same character two things is worse
