@@ -16,11 +16,15 @@ stream itself.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from typing import TYPE_CHECKING
 
 from motioninput_tui.controls.layouts import HITBOX
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.games.loader import load_game
+
+if TYPE_CHECKING:
+    from motioninput_tui.engine.ruleset import Ruleset
 
 # Hitbox: a is back, s is down, d is forward, space is up. Attacks on u i o / j k l.
 BACK, DOWN, FORWARD, UP = "a", "s", "d", "space"
@@ -67,9 +71,22 @@ class Attempt:
     """Names of the moves that came out, oldest first."""
 
 
-def play_as(game_key: str, character_key: str, script: Script, *, exact_input: bool = True) -> Attempt:
-    """Run a script against one character, on a clock the test controls."""
+def play_as(
+    game_key: str,
+    character_key: str,
+    script: Script,
+    *,
+    exact_input: bool = True,
+    ruleset: Ruleset | None = None,
+) -> Attempt:
+    """Run a script against one character, on a clock the test controls.
+
+    ``ruleset`` stands in for the game's own rules, which is how the player's
+    settings reach the engine; without one the game's are used as they stand.
+    """
     game = load_game(game_key)
+    if ruleset is not None:
+        game = replace(game, ruleset=ruleset)
     session = TrainingSession(game, game.character(character_key), HITBOX, exact_input=exact_input)
     now = 0
     for event in script:
@@ -119,4 +136,27 @@ QUARTER_CIRCLE_FORWARD_HP: Script = [
     press(FORWARD, 70),
     release(DOWN, 110),
     press(HP, 150),
+]
+
+# Back, then add down, then add forward. Pressing forward while back is still
+# held gives down-forward straight away, so a plain down never appears. This is
+# an ordinary hitbox half circle, and whether it counts as one is the player's
+# "relaxed half circles" setting rather than anything the games disagree on.
+HALF_CIRCLE_SKIPPING_DOWN_MK: Script = [
+    press(BACK, 0),
+    press(DOWN, 60),
+    press(FORWARD, 120),
+    release(DOWN, 180),
+    release(BACK, 185),
+    press(MK, 220),
+]
+
+# The same motion rolled cleanly through every direction, down included.
+HALF_CIRCLE_THROUGH_DOWN_MK: Script = [
+    press(BACK, 0),
+    press(DOWN, 60),
+    release(BACK, 100),
+    press(FORWARD, 140),
+    release(DOWN, 180),
+    press(MK, 220),
 ]

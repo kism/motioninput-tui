@@ -59,8 +59,8 @@ enforces that.
 
 ## Config
 
-`config.py` remembers the last game, character, layout and buffer policy in
-`~/.config/motioninput-tui/config.json` (honouring `XDG_CONFIG_HOME`). It is
+`config.py` remembers the last game, character, layout, settings and buffer
+policy in `~/.config/motioninput-tui/config.json` (honouring `XDG_CONFIG_HOME`). It is
 best-effort throughout: a missing, corrupt or unwritable file logs and falls
 back to defaults rather than raising. `Config` doubles as the app's starting
 selection and its persistence, which is why `MotionInputApp` takes one instead
@@ -70,14 +70,35 @@ Key release support is deliberately not persisted; it is probed per terminal
 each launch.
 
 Setting `OptionList.highlighted` queues a highlight event, and an OptionList
-also posts one for index 0 when options are added. `SetupScreen` therefore
-applies the remembered selection from `call_after_refresh`, not `on_mount`, or
-the queued events overwrite it. Focus is set there too, since the character
-list has no options until then.
+also posts one for index 0 when options are added. `SetupScreen` and
+`InputPickerScreen` therefore apply the remembered selection from
+`call_after_refresh`, not `on_mount`, or the queued events overwrite it. Focus
+is set there too, since the character list has no options until then.
+
+### Global settings
+
+`settings.py` is the player's own preferences, as opposed to a game's rules or a
+device's timings. Each one is a `Setting` naming a **boolean attribute of
+`Config`**, which is what lets the settings pane read and write them by name
+without knowing what any of them mean; `buffer_policy` is an enum, so
+`Config.loose_buffer` bridges it. `tuned_game` folds the ones that change
+matching into the game's ruleset, so everything downstream still just reads
+`game.ruleset` and nothing else has to know the player has a say in it.
+
+Adding one: a boolean field on `Config` (loaded through `_valid_flag`, saved in
+`save`), an entry in `SETTINGS`, and, if it changes matching, a `Ruleset` field
+plus a line in `tuned_game`.
 
 ## Architecture
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`.
+
+The screens run input picker → setup → trainer. The input picker is on its own
+because the device decides how the trainer reads you, not what you are training;
+it owns the gamepad detection and the `b` rebind modal. The setup screen is the
+three panes of what to train: settings, game, character. Escape steps back one
+screen (trainer → setup → input picker); each screen dismisses and the app
+pushes the next, so the stack never grows.
 
 **`engine/` is device and terminal agnostic and never reads a clock.** Callers
 pass `at_ms` timestamps in. `engine/recognizer.py` takes moves through a
@@ -136,13 +157,16 @@ session → recogniser → `MatchContext` → matchers, where it widens motion
 windows and step gaps. Without it, inferred holds would make every motion look
 too slow to land.
 
-### Two kinds of tuning constant, easily confused
+### Three kinds of tuning constant, easily confused
 
 * `engine/ruleset.py` / `games/rulesets.py` — **game** behaviour. Motion
   windows, whether diagonals can be skipped, charge times, `dp_double_tap`
   (the headline SF3 difference). Per game.
 * `controls/layouts.py` `HoldTiming` — **device** behaviour. Nothing to do with
   which game is selected.
+* `settings.py` — the **player's** choice, whichever game is selected.
+  `lenient_half_circles` lives on `Ruleset` because that is what the matchers
+  read, but its value comes from the player, not the game.
 
 ### Spending inputs
 

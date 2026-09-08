@@ -28,6 +28,13 @@ class Ruleset:
             forward and a neutral behind it, and the game still accepts it.
         lenient_diagonals: Whether diagonals may be skipped entirely, so that
             d,f reads as a quarter circle forward.
+        lenient_half_circles: Whether the down of a half circle may be db or df
+            rather than straight down, so b,db,df,f counts as one. Adding
+            forward while back is still held goes straight to df, so an
+            ordinary hitbox half circle never touches down at all. Unlike the
+            rest of this class it is the player's choice rather than the game's:
+            :mod:`motioninput_tui.settings` folds it in on top of the game's
+            own rules.
         charge_ms: How long a charge direction must be held.
         charge_release_ms: How long after releasing a charge the follow-up
             direction and button may arrive.
@@ -50,6 +57,7 @@ class Ruleset:
     max_intermediate: int = 1
     tail_states: int = 2
     lenient_diagonals: bool = False
+    lenient_half_circles: bool = True
     charge_ms: int = 900
     charge_release_ms: int = 200
     dp_double_tap: bool = False

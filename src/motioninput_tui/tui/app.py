@@ -11,9 +11,12 @@ from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
 from motioninput_tui.controls.layouts import LayoutKind, gamepad_layout, get_layout
 from motioninput_tui.games.loader import load_game
+from motioninput_tui.settings import current as current_settings
+from motioninput_tui.settings import tuned_game
 from motioninput_tui.utils.logger import get_logger
 
 from .keyboard_driver import KeyRelease, ReleaseAwareDriver
+from .screens.input_picker import InputPickerScreen
 from .screens.setup import SetupScreen
 from .screens.training import TrainingScreen
 
@@ -31,7 +34,7 @@ QUIT_CONFIRM_WINDOW_S = 2.0
 
 
 class MotionInputApp(App[None]):
-    """Move between the setup screen and the trainer.
+    """Move between the input picker, the setup screen and the trainer.
 
     The :class:`~motioninput_tui.config.Config` passed in doubles as the
     starting selection and as the place the last used one is remembered, so
@@ -63,7 +66,7 @@ class MotionInputApp(App[None]):
         if self._skip_setup and all(selection):
             self._start(self.config.game or "", self.config.character or "", self.config.layout)
             return
-        self._open_setup()
+        self._open_input_picker()
 
     def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
         """Drop the SVG screenshot command; this trainer has no use for it."""
@@ -91,9 +94,17 @@ class MotionInputApp(App[None]):
         """Remember the buffer rule the player just toggled to."""
         self._remember(buffer_policy=event.policy)
 
-    def on_setup_screen_gamepad_bindings_changed(self, event: SetupScreen.GamepadBindingsChanged) -> None:
+    def on_input_picker_screen_gamepad_bindings_changed(self, event: InputPickerScreen.GamepadBindingsChanged) -> None:
         """Remember the gamepad attack rebinds the player just made."""
         self._remember(gamepad_bindings=event.bindings)
+
+    def on_setup_screen_settings_changed(self, event: SetupScreen.SettingsChanged) -> None:
+        """Remember a setting the player just toggled.
+
+        Every setting is a boolean attribute of the config, so the map the
+        screen sends back can be written straight onto it.
+        """
+        self._remember(**event.values)
 
     def on_key_release(self, event: KeyRelease) -> None:
         """Route a key release to the trainer.
@@ -111,25 +122,41 @@ class MotionInputApp(App[None]):
             setattr(self.config, field, value)
         self.config.save()
 
-    def _open_setup(self, *, focus_characters: bool = False) -> None:
-        def on_done(result: tuple[str, str, str] | None) -> None:
-            if result is None:
+    def _open_input_picker(self) -> None:
+        """Ask what the player is on, then move on to what they are training."""
+
+        def on_done(layout_key: str | None) -> None:
+            if layout_key is None:  # Dismissed without a choice; nothing sits behind it.
                 self.exit()
                 return
-            self._start(*result)
+            self._remember(layout=layout_key)
+            self._open_setup()
 
-        initial = (self.config.game, self.config.character, self.config.layout)
+        self.push_screen(
+            InputPickerScreen(self.config.layout, gamepad_bindings=self.config.gamepad_bindings),
+            on_done,
+        )
+
+    def _open_setup(self, *, focus_characters: bool = False) -> None:
+        def on_done(result: tuple[str, str] | None) -> None:
+            if result is None:
+                # Escape here is about changing input device, not leaving.
+                self._open_input_picker()
+                return
+            self._start(*result, self.config.layout)
+
         self.push_screen(
             SetupScreen(
-                initial,
+                (self.config.game, self.config.character),
+                settings=current_settings(self.config),
+                layout_name=get_layout(self.config.layout).name,
                 focus_characters=focus_characters,
-                gamepad_bindings=self.config.gamepad_bindings,
             ),
             on_done,
         )
 
     def _start(self, game_key: str, character_key: str, layout_key: str) -> None:
-        game = load_game(game_key)
+        game = tuned_game(load_game(game_key), self.config)
         character = game.character(character_key)
         layout = get_layout(layout_key)
         if layout.kind is LayoutKind.GAMEPAD:

@@ -1,4 +1,4 @@
-"""Rebinding the gamepad attack buttons from the setup screen."""
+"""Rebinding the gamepad attack buttons from the input picker."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from motioninput_tui.config import Config
 from motioninput_tui.controls import gamepad
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.gamepad_bind import GamepadBindScreen
-from motioninput_tui.tui.screens.setup import SetupScreen
+from motioninput_tui.tui.screens.input_picker import InputPickerScreen
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -43,8 +43,8 @@ def fake_pad(monkeypatch: pytest.MonkeyPatch) -> FakeReader:
     return reader
 
 
-def _gamepad_row(setup: SetupScreen) -> int:
-    index = setup._gamepad_index()
+def _gamepad_row(picker: InputPickerScreen) -> int:
+    index = picker._gamepad_index()
     assert index is not None
     return index
 
@@ -57,10 +57,10 @@ def test_rebinding_an_attack_persists_it(tmp_path: Path, fake_pad: FakeReader) -
         async with app.run_test() as pilot:
             await pilot.pause()
             await pilot.pause()
-            setup = app.screen
-            assert isinstance(setup, SetupScreen)
-            layouts = setup.query_one("#layouts", OptionList)
-            layouts.highlighted = _gamepad_row(setup)
+            picker = app.screen
+            assert isinstance(picker, InputPickerScreen)
+            layouts = picker.query_one("#layouts", OptionList)
+            layouts.highlighted = _gamepad_row(picker)
             await pilot.pause()
 
             await pilot.press("b")
@@ -96,16 +96,16 @@ def test_rebind_hotkey_is_hidden_off_the_gamepad_row(tmp_path: Path) -> None:
         async with app.run_test() as pilot:
             await pilot.pause()
             await pilot.pause()
-            setup = app.screen
-            assert isinstance(setup, SetupScreen)
-            layouts = setup.query_one("#layouts", OptionList)
+            picker = app.screen
+            assert isinstance(picker, InputPickerScreen)
+            layouts = picker.query_one("#layouts", OptionList)
             layouts.focus()
             layouts.highlighted = 0  # a keyboard layout
             await pilot.pause()
-            off = setup.check_action("bind_gamepad", ())
-            layouts.highlighted = _gamepad_row(setup)
+            off = picker.check_action("bind_gamepad", ())
+            layouts.highlighted = _gamepad_row(picker)
             await pilot.pause()
-            on = setup.check_action("bind_gamepad", ())
+            on = picker.check_action("bind_gamepad", ())
             return off, on
 
     off, on = asyncio.run(run())

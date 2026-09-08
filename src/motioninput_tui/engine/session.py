@@ -65,16 +65,19 @@ class TrainingSession:
         ``exact_input`` says the terminal reports key releases, so holds are
         tracked exactly from the first keystroke rather than after the first
         release has proved it. ``policy`` decides whether the inputs that
-        produced a move are spent.
+        produced a move are spent. The game's rules are taken as they come:
+        the player's settings are folded into them beforehand by
+        :func:`motioninput_tui.settings.tuned_game`.
         """
         self.game = game
         self.character = character
         self.layout = layout
+        self.ruleset = game.ruleset
         self.buffer = InputBuffer()
         self.gamepad = self._open_gamepad(layout)
         # A gamepad reports releases, so holds are always exact with one attached.
         self.source = KeyboardSource(layout, exact=exact_input or self.gamepad is not None)
-        self.recognizer = Recognizer(character.moves, game.ruleset, policy=policy)
+        self.recognizer = Recognizer(character.moves, self.ruleset, policy=policy)
         self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
         self.total_inputs = 0

@@ -51,12 +51,29 @@ class Config:
     character: str | None = None
     layout: str = DEFAULT_LAYOUT
     buffer_policy: BufferPolicy = BufferPolicy.CONSUME
+    lenient_half_circles: bool = True
+    """Whether a half circle may skip straight down. See
+    :mod:`motioninput_tui.settings`."""
     gamepad_bindings: dict[str, str] = field(default_factory=dict)
     """The player's gamepad attack rebinds, ``{button name: pad code}``. Empty
     means the built-in default. :func:`~.controls.layouts.gamepad_layout` has
     the final say on which entries are usable."""
     path: Path | None = None
     """Where this was loaded from, and where :meth:`save` writes back to."""
+
+    @property
+    def loose_buffer(self) -> bool:
+        """The buffer policy as a plain on/off, which is how it is presented.
+
+        The settings pane treats every setting as a boolean attribute, and
+        ``buffer_policy`` is the one that is really an enum, so it is bridged
+        here rather than special cased there.
+        """
+        return self.buffer_policy is BufferPolicy.LOOSE
+
+    @loose_buffer.setter
+    def loose_buffer(self, on: bool) -> None:
+        self.buffer_policy = BufferPolicy.LOOSE if on else BufferPolicy.CONSUME
 
     @classmethod
     def load(cls, path: Path | None = None) -> Config:
@@ -79,6 +96,7 @@ class Config:
             character=_optional_str(raw.get("character")),
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
+            lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=True),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
             path=target,
         )
@@ -91,6 +109,7 @@ class Config:
             "character": self.character,
             "layout": self.layout,
             "buffer_policy": str(self.buffer_policy),
+            "lenient_half_circles": self.lenient_half_circles,
             "gamepad_bindings": self.gamepad_bindings,
         }
         try:
@@ -132,6 +151,11 @@ def _valid_layout(value: object) -> str:
     if isinstance(value, str) and value in LAYOUTS and LAYOUTS[value].available:
         return value
     return DEFAULT_LAYOUT
+
+
+def _valid_flag(value: object, *, default: bool) -> bool:
+    """A saved on/off, ignoring anything that is not one."""
+    return value if isinstance(value, bool) else default
 
 
 def _valid_policy(value: object) -> BufferPolicy:

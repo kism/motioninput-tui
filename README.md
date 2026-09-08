@@ -48,9 +48,40 @@ motioninput-tui --loose-buffer               # let inputs feed more than one mov
 motioninput-tui --config path/to/config.json # use a different config file
 ```
 
+### Picking what to train
+
+The app opens on a full screen input picker: keyboard layout or gamepad, since
+that decides how the trainer reads you rather than what you are training. Press
+`enter` and the next screen has three panes, `tab` between them:
+
+| Pane      | What it is                                              |
+| --------- | ------------------------------------------------------- |
+| Settings  | Your own options, which sit above whatever the game says |
+| Game      | Which game's rules to judge your inputs by              |
+| Character | Whose move list to train                                |
+
+`enter` toggles the highlighted setting, moves on from the game pane, and starts
+training from the character pane. `esc` goes back to the input picker.
+
+### Settings
+
+These are yours, not the games', so they apply whichever game is selected.
+
+| Setting              | Default | Off                                    | On                                |
+| -------------------- | ------- | -------------------------------------- | --------------------------------- |
+| Relaxed half circles | on      | A half circle has to pass through down | `b,db,df,f` counts as one         |
+| Loose buffer         | off     | Inputs are spent when a move comes out | One motion can feed several moves |
+
+Relaxed half circles is on by default because of how a hitbox or a keyboard
+actually plays: pressing forward while back is still held goes straight to
+down-forward, so an ordinary half circle never touches straight down at all.
+Turn it off to be made to hit the down. Loose buffer is the same rule
+`--loose-buffer` and `ctrl+b` control, described under
+[spending inputs](#spending-inputs).
+
 ### Remembering your last session
 
-The game, character, layout and buffer rule you last used are saved to
+The game, character, layout, settings and buffer rule you last used are saved to
 `~/.config/motioninput-tui/config.json` (or under `$XDG_CONFIG_HOME` if set),
 so the pickers open where you left off and `ctrl+b` sticks between runs.
 
@@ -64,8 +95,8 @@ launch, so a saved value would disable exact tracking after switching terminal.
 
 ## Controls
 
-Chosen on launch. Two keyboard layouts, plus a gamepad if the `gamepad` extra is
-installed (`uv sync --extra gamepad`, or `--all-extras`).
+Chosen on the first screen. Two keyboard layouts, plus a gamepad if the
+`gamepad` extra is installed (`uv sync --extra gamepad`, or `--all-extras`).
 
 | Layout   | Back / Down / Forward / Up | LP MP HP  | LK MK HK  |
 | -------- | -------------------------- | --------- | --------- |
@@ -74,15 +105,15 @@ installed (`uv sync --extra gamepad`, or `--all-extras`).
 | Gamepad  | D-pad or left stick        | `X Y RB`  | `A B LB`  |
 
 The gamepad attack buttons start on the Xbox-style default above; the triggers
-(`LT` `RT`) are free to bind to as well. Highlight the gamepad row in the picker
-(it names your connected pad) and press `b` to remap them; the map is remembered
-in the config. Movement stays on the d-pad and left stick. Buttons are read
+(`LT` `RT`) are free to bind to as well. Highlight the gamepad row in the input
+picker (it names your connected pad) and press `b` to remap them; the map is
+remembered in the config. Movement stays on the d-pad and left stick. Buttons are read
 through SDL's controller database, so any recognised pad works regardless of how
 its firmware numbers them. A pad reports button releases, so holds are always
 exact with one plugged in.
 
-In the trainer: `esc` goes back to the picker with the character list focused,
-ready to pick someone else. `ctrl+r` clears the buffer,
+In the trainer: `esc` goes back to the setup screen with the character list
+focused, ready to pick someone else. `ctrl+r` clears the buffer,
 `ctrl+l` toggles the move list, `ctrl+b` toggles the buffer rule, and `ctrl+q` or
 two presses of `ctrl+c` quit.
 

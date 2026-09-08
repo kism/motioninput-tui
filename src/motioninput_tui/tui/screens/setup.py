@@ -1,4 +1,10 @@
-"""Startup screen: pick a control layout, a game and a character."""
+"""Second screen: settings, a game and a character.
+
+The input device is chosen before this, on
+:class:`~motioninput_tui.tui.screens.input_picker.InputPickerScreen`, so the
+three panes here are all about what to train: the player's own settings, which
+sit above every game's rules, then the game and the character.
+"""
 
 from __future__ import annotations
 
@@ -11,109 +17,87 @@ from textual.message import Message
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
-from motioninput_tui.controls.layouts import LayoutKind, available_layouts, gamepad_layout
 from motioninput_tui.games.loader import available_games
-from motioninput_tui.terminal import detect
-
-from .gamepad_bind import GamepadBindScreen
+from motioninput_tui.settings import SETTINGS
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+
     from textual.app import ComposeResult
 
-    from motioninput_tui.controls.gamepad import GamepadReader
-    from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.games.models import Game
+    from motioninput_tui.settings import Setting
 
 
-class SetupScreen(Screen):
-    """Choose what to train before dropping into the trainer."""
+class SetupScreen(Screen["tuple[str, str] | None"]):
+    """Choose what to train. Dismisses with (game, character), or None to go back."""
 
     BINDINGS: ClassVar = [
-        Binding("enter", "start", "Start training", priority=True),
-        Binding("b", "bind_gamepad", "Rebind pad"),
+        Binding("enter", "select", "Toggle / start", priority=True),
+        Binding("escape", "back", "Change input"),
         Binding("ctrl+q", "quit", "Quit"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c,super+c", "app.help_quit", show=False, system=True),
     ]
 
-    class GamepadBindingsChanged(Message):
-        """Posted when the player rebinds the pad, so the app can save it."""
+    class SettingsChanged(Message):
+        """Posted when a setting is toggled, so the app can save it."""
 
-        def __init__(self, bindings: dict[str, str]) -> None:
-            """Carry the new ``{button name: pad code}`` map."""
+        def __init__(self, values: dict[str, bool]) -> None:
+            """Carry every setting's value, keyed by config attribute."""
             super().__init__()
-            self.bindings = bindings
+            self.values = values
 
     DEFAULT_CSS = """
     SetupScreen { layout: vertical; }
-    #warning { padding: 0 2; color: $warning; height: auto; }
-    #blurb { padding: 1 2 0 2; height: auto; }
-    #columns { height: 1fr; padding: 1 1; }
-    #columns > Vertical { width: 1fr; padding: 0 1; }
-    #columns Label { text-style: bold; }
-    #columns OptionList { height: 1fr; border: solid $panel; }
-    #detail { height: 5; padding: 0 2; color: $text-muted; }
+    SetupScreen #blurb { padding: 1 2 0 2; height: auto; }
+    SetupScreen #columns { height: 1fr; padding: 1 1; }
+    SetupScreen #columns > Vertical { width: 1fr; padding: 0 1; }
+    SetupScreen #columns Label { text-style: bold; }
+    SetupScreen #columns OptionList { height: 1fr; border: solid $panel; }
+    SetupScreen #detail { height: 5; padding: 0 2; color: $text-muted; }
     """
 
     def __init__(
         self,
-        initial: tuple[str | None, str | None, str | None] = (None, None, None),
+        initial: tuple[str | None, str | None] = (None, None),
         *,
+        settings: Mapping[str, bool] | None = None,
+        layout_name: str = "",
         focus_characters: bool = False,
-        gamepad_bindings: dict[str, str] | None = None,
     ) -> None:
-        """Load the rosters and detect the terminal up front.
+        """Load the rosters and take the settings as they stand.
 
-        ``initial`` is the (game, character, layout) used last time, so the
-        pickers open on it rather than always on the first entry.
-        ``focus_characters`` starts on the character list instead of the layout
-        one, for coming back from the trainer, where changing character is
-        almost always the reason for leaving. ``gamepad_bindings`` is the saved
-        attack rebind map, applied to the gamepad row and editable with ``b``.
+        ``initial`` is the (game, character) used last time, so the pickers open
+        on it rather than always on the first entry. ``settings`` is every
+        setting's current value, keyed by config attribute. ``layout_name``
+        names the input device chosen on the way in, which is all this screen
+        does with it. ``focus_characters`` starts on the character list instead
+        of the settings one, for coming back from the trainer, where changing
+        character is almost always the reason for leaving.
         """
         super().__init__()
         self.games = available_games()
-        self._gamepad_bindings = dict(gamepad_bindings or {})
-        self.layouts = self._build_layouts()
-        self.terminal = detect()
+        self._settings = {setting.attribute: False for setting in SETTINGS} | dict(settings or {})
         self._initial = initial
+        self._layout_name = layout_name
         self._focus_characters = focus_characters
         self._loaded_game: int | None = None
-        self._reader: GamepadReader | None = None
-        self._pad_name: str | None = None
-
-    def _build_layouts(self) -> list[ControlLayout]:
-        """Available layouts, with the player's rebinds on the gamepad entry."""
-        return [
-            gamepad_layout(self._gamepad_bindings) if layout.kind is LayoutKind.GAMEPAD else layout
-            for layout in available_layouts()
-        ]
-
-    def _gamepad_index(self) -> int | None:
-        """Row of the gamepad layout in the picker, or None if it is unavailable."""
-        for index, layout in enumerate(self.layouts):
-            if layout.kind is LayoutKind.GAMEPAD:
-                return index
-        return None
 
     def compose(self) -> ComposeResult:
-        """Build the three pickers."""
+        """Build the three panes."""
         yield Header()
         yield Static(
             Text.from_markup(
-                "Motion input trainer. Pick a [b]layout[/b], a [b]game[/b] and a [b]character[/b], "
-                "then press [b]enter[/b]."
+                "Set your [b]options[/b], pick a [b]game[/b] and a [b]character[/b], then press [b]enter[/b]."
             ),
             id="blurb",
         )
-        if self.terminal.should_warn:
-            yield Static(Text(f"⚠ {self.terminal.warning()}"), id="warning")
-
         with Horizontal(id="columns"):
             with Vertical():
-                yield Label("Layout")
-                yield OptionList(*[layout.name for layout in self.layouts], id="layouts")
+                yield Label("Settings")
+                yield OptionList(id="settings")
             with Vertical():
                 yield Label("Game")
                 yield OptionList(*[game.short_name for game in self.games], id="games")
@@ -124,9 +108,10 @@ class SetupScreen(Screen):
         yield Footer()
 
     def on_mount(self) -> None:
-        """Select sensible defaults and focus the layout picker."""
+        """Fill the settings pane, then open the pickers where they left off."""
         self.title = "motioninput-tui"
-        self.sub_title = f"{self.terminal.name} ({self.terminal.speed})"
+        self.sub_title = self._layout_name or "What are you training?"
+        self._render_settings()
         if not self.games:
             self.query_one("#detail", Static).update(
                 Text("No roster data found. Run: python -m motioninput_tui.datagen", style="bold red")
@@ -137,27 +122,35 @@ class SetupScreen(Screen):
         # those have been dealt with or it gets overwritten. Focus waits with
         # it, since the character list is empty until then.
         self.call_after_refresh(self._apply_initial)
-        if self._gamepad_index() is not None:
-            self.set_interval(0.25, self._poll_pad)
 
     def _apply_initial(self) -> None:
         """Open the pickers on whatever was used last time."""
-        game_key, character_key, layout_key = self._initial
-        self.query_one("#layouts", OptionList).highlighted = _index_of(
-            [layout.key for layout in self.layouts], layout_key
-        )
+        game_key, character_key = self._initial
         game_index = _index_of([game.key for game in self.games], game_key)
         self.query_one("#games", OptionList).highlighted = game_index
         self._load_characters(game_index, character_key)
         self._focus_picker()
 
     def _focus_picker(self) -> None:
-        """Start on the character list when asked, or the layout list otherwise."""
+        """Start on the character list when asked, or the settings one otherwise."""
         characters = self.query_one("#characters", OptionList)
         if self._focus_characters and characters.option_count:
             characters.focus()
             return
-        self.query_one("#layouts", OptionList).focus()
+        self.query_one("#settings", OptionList).focus()
+
+    def _render_settings(self) -> None:
+        """Redraw the settings pane, keeping the highlighted row where it is."""
+        pane = self.query_one("#settings", OptionList)
+        keep = pane.highlighted
+        pane.clear_options()
+        pane.add_options([self._setting_prompt(setting) for setting in SETTINGS])
+        pane.highlighted = keep if keep is not None else 0
+
+    def _setting_prompt(self, setting: Setting) -> Text:
+        on = self._settings[setting.attribute]
+        mark = Text("[✓] ", style="green") if on else Text("[ ] ", style="dim")
+        return mark + Text(setting.name)
 
     def _load_characters(self, game_index: int, character_key: str | None = None) -> None:
         self._loaded_game = game_index
@@ -178,98 +171,63 @@ class SetupScreen(Screen):
         """
         if event.option_list.id == "games" and event.option_index != self._loaded_game:
             self._load_characters(event.option_index)
-        if event.option_list.id == "layouts":
-            if event.option_index == self._gamepad_index():
-                self._ensure_reader()
-            self.refresh_bindings()
         self._describe()
-
-    def _ensure_reader(self) -> None:
-        """Open a gamepad reader the first time the gamepad row is looked at.
-
-        pygame is a heavy import, so it is put off until someone actually
-        highlights the gamepad layout rather than paid on every launch.
-        """
-        if self._reader is not None:
-            return
-        from motioninput_tui.controls.gamepad import (  # ruff: ignore[import-outside-top-level] - optional dependency, gamepad row only
-            GamepadReader,
-        )
-
-        self._reader = GamepadReader()
-
-    def _poll_pad(self) -> None:
-        """Track the connected pad's name and show it on the gamepad row."""
-        reader = self._reader
-        # A pushed modal (the rebind screen) polls the same reader; stay out of
-        # its way so it, not this, sees the button presses.
-        if reader is None or self.app.screen is not self:
-            return
-        reader.poll(0)
-        name = reader.name if reader.connected else None
-        if name == self._pad_name:
-            return
-        self._pad_name = name
-        index = self._gamepad_index()
-        if index is not None:
-            self.query_one("#layouts", OptionList).replace_option_prompt_at_index(index, name or "Gamepad")
-            self._describe()
-
-    def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
-        """Only offer the rebind hotkey while the gamepad row is highlighted."""
-        del parameters
-        if action != "bind_gamepad":
-            return True
-        layouts = self.query_one("#layouts", OptionList)
-        if layouts.has_focus and layouts.highlighted == self._gamepad_index():
-            return True
-        return None
-
-    def action_bind_gamepad(self) -> None:
-        """Open the attack-button rebind modal for the gamepad layout."""
-        self._ensure_reader()
-        self.app.push_screen(GamepadBindScreen(self._gamepad_bindings, self._reader), self._on_rebind)
-
-    def _on_rebind(self, bindings: dict[str, str] | None) -> None:
-        """Apply and remember a map that came back from the rebind modal."""
-        if bindings is None:
-            return
-        self._gamepad_bindings = bindings
-        self.layouts = self._build_layouts()
-        self._describe()
-        self.post_message(self.GamepadBindingsChanged(bindings))
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
-        """Enter on any list starts training."""
-        if event.option_list.id in {"layouts", "games"}:
-            self._focus_next_picker(event.option_list.id)
-            return
+        """A click does what enter does on that pane."""
+        self._act_on(event.option_list.id or "")
+
+    def action_select(self) -> None:
+        """Enter: toggle a setting, move on from a game, or start training."""
+        for pane in ("settings", "games", "characters"):
+            if self.query_one(f"#{pane}", OptionList).has_focus:
+                self._act_on(pane)
+                return
         self.action_start()
 
-    def _focus_next_picker(self, current: str) -> None:
-        order = {"layouts": "#games", "games": "#characters"}
-        self.query_one(order[current], OptionList).focus()
+    def _act_on(self, pane: str) -> None:
+        """What enter means on each pane."""
+        if pane == "settings":
+            self._toggle_setting()
+        elif pane == "games":
+            self.query_one("#characters", OptionList).focus()
+        else:
+            self.action_start()
 
-    def _selection(self) -> tuple[ControlLayout, Game, str] | None:
+    def _toggle_setting(self) -> None:
+        """Flip the highlighted setting and tell the app to save it."""
+        index = self.query_one("#settings", OptionList).highlighted
+        if index is None:
+            return
+        setting = SETTINGS[index]
+        self._settings[setting.attribute] = not self._settings[setting.attribute]
+        self._render_settings()
+        self._describe()
+        self.post_message(self.SettingsChanged(dict(self._settings)))
+
+    def _selection(self) -> tuple[Game, str] | None:
         if not self.games:
             return None
-        layout_index = self.query_one("#layouts", OptionList).highlighted or 0
         game_index = self.query_one("#games", OptionList).highlighted or 0
         character_index = self.query_one("#characters", OptionList).highlighted or 0
         game = self.games[game_index]
         if not game.characters:
             return None
-        return self.layouts[layout_index], game, game.characters[character_index].key
+        return game, game.characters[character_index].key
 
     def _describe(self) -> None:
-        selection = self._selection()
-        if selection is None:
-            return
-        layout, game, _ = selection
+        """Explain the highlighted setting, then the highlighted game."""
         text = Text()
-        text.append(f"{layout.description}\n", style="bold")
-        text.append(f"Move: {layout.movement_help()}    Attack: {layout.attack_help()}\n")
-        text.append(f"{game.name}: {game.notes[0] if game.notes else ''}", style="italic")
+        index = self.query_one("#settings", OptionList).highlighted
+        if index is not None:
+            setting = SETTINGS[index]
+            state = "on" if self._settings[setting.attribute] else "off"
+            text.append(f"{setting.name}: {state}\n", style="bold")
+            text.append(f"{setting.detail}\n")
+        selection = self._selection()
+        if selection is not None:
+            game, _ = selection
+            text.append(f"{game.name}: {game.notes[0] if game.notes else ''}", style="italic")
         self.query_one("#detail", Static).update(text)
 
     def action_start(self) -> None:
@@ -277,8 +235,12 @@ class SetupScreen(Screen):
         selection = self._selection()
         if selection is None:
             return
-        layout, game, character_key = selection
-        self.dismiss((game.key, character_key, layout.key))
+        game, character_key = selection
+        self.dismiss((game.key, character_key))
+
+    def action_back(self) -> None:
+        """Return to the input picker."""
+        self.dismiss(None)
 
 
 def _index_of(keys: list[str], wanted: str | None) -> int:

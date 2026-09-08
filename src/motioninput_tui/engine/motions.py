@@ -122,14 +122,26 @@ def _quarter_back(ruleset: Ruleset) -> list[Step]:
     return [(_DOWNISH_FWD, False), (_ONLY_DB, ruleset.lenient_diagonals), (_ONLY_B, False)]
 
 
+def _half_down(ruleset: Ruleset) -> frozenset[Direction]:
+    """What counts as the down of a half circle.
+
+    Relaxed, a diagonal will do: pressing forward while back is still held goes
+    straight to df, so a hitbox half circle usually never touches down at all.
+    Strict, the down has to be hit.
+    """
+    return DOWN_DIRECTIONS if ruleset.lenient_half_circles else _ONLY_DOWN
+
+
 def _half_forward(ruleset: Ruleset) -> list[Step]:
     lenient = ruleset.lenient_diagonals
-    return [(_ONLY_B, False), (_ONLY_DB, lenient), (DOWN_DIRECTIONS, False), (_ONLY_DF, lenient), (_ONLY_F, False)]
+    down = _half_down(ruleset)
+    return [(_ONLY_B, False), (_ONLY_DB, lenient), (down, False), (_ONLY_DF, lenient), (_ONLY_F, False)]
 
 
 def _half_back(ruleset: Ruleset) -> list[Step]:
     lenient = ruleset.lenient_diagonals
-    return [(_ONLY_F, False), (_ONLY_DF, lenient), (DOWN_DIRECTIONS, False), (_ONLY_DB, lenient), (_ONLY_B, False)]
+    down = _half_down(ruleset)
+    return [(_ONLY_F, False), (_ONLY_DF, lenient), (down, False), (_ONLY_DB, lenient), (_ONLY_B, False)]
 
 
 def _dragon_punch(ruleset: Ruleset) -> list[Step]:

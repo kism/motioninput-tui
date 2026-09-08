@@ -68,7 +68,11 @@ class TrainingScreen(Screen):
         exact_input: bool = False,
         policy: BufferPolicy = BufferPolicy.CONSUME,
     ) -> None:
-        """Start a session for this game, character and layout."""
+        """Start a session for this game, character and layout.
+
+        The game's rules arrive already tuned to the player's settings; see
+        :func:`motioninput_tui.settings.tuned_game`.
+        """
         super().__init__()
         self.session = TrainingSession(game, character, layout, exact_input=exact_input, policy=policy)
         self.terminal = detect()
@@ -155,6 +159,8 @@ class TrainingScreen(Screen):
             status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
         if session.policy is BufferPolicy.LOOSE:
             status.append("   loose buffer: inputs are reused between moves", style="yellow")
+        if not session.ruleset.lenient_half_circles:
+            status.append("   strict half circles: the down must be hit", style="yellow")
         advice = session.keyboard_advice
         if advice:
             status.append(f"\n⚠ {advice}", style="yellow")
