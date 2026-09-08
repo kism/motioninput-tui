@@ -17,7 +17,7 @@ from motioninput_tui.games.rulesets import GAME_SPECS
 from motioninput_tui.utils.logger import get_logger, setup_logger_cli
 
 from .names import apply_overrides
-from .parsers import hsf2, kof98, kof2001, sfa3, sfiii3
+from .parsers import hsf2, kof98, kof2001, sfa3, sfiii3, ssvsp
 from .roster import write_game
 from .summary import print_summary
 
@@ -29,6 +29,7 @@ PARSERS = {
     "sfiii3": sfiii3.parse,
     "kof98": kof98.parse,
     "kof2001": kof2001.parse,
+    "ssvsp": ssvsp.parse,
 }
 
 

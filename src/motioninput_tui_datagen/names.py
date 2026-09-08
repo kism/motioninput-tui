@@ -46,6 +46,12 @@ OVERRIDES: dict[str, dict[str, str]] = {
         # same character keyed two ways across the rosters is worse than either.
         "leona-heidern": "Leona",
     },
+    "ssvsp": {
+        # The guide's own contents page calls these two what everyone calls
+        # them; only the movelist headings give them in full.
+        "charlotte-christine-corday": "Charlotte",
+        "galford-d-wyler": "Galford",
+    },
     "sfiii3": {
         # The 3rd Strike guide uses the Japanese name; the Super Turbo one does
         # not, and a roster that calls the same character two things is worse

@@ -18,11 +18,17 @@ See [Adding a game](adding-a-game.md) to add another title, or
 | `sfiii3`  | Street Fighter III: 3rd Strike  | `references/sfiii3.txt`  |
 | `kof98`   | The King of Fighters '98        | `references/kof98.txt`   |
 | `kof2001` | The King of Fighters 2001       | `references/kof2001.txt` |
+| `ssvsp`   | Samurai Shodown V Special       | `references/ssvsp.txt`   |
 
-The two King of Fighters entries are on the Neo Geo's four-button panel rather
-than the Street Fighter six, and a smaller share of their move lists is
-trainable (63% and 57%): KoF leans on close-range command throws and long
+The last three are on the Neo Geo's four-button panel rather than the Street
+Fighter six. The two King of Fighters entries have the smallest trainable share
+of any game here (63% and 57%): KoF leans on close-range command throws and long
 follow-up chains, neither of which the engine models.
+
+Samurai Shodown V Special is on the same panel but means something different by
+it — A and B are the weak and medium slash, A+B the strong one, C kicks and D is
+the dodge. Its motions are plainer than KoF's, so 74% of the move list is
+trainable.
 
 Each game has its own `Ruleset` in
 [`games/rulesets.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/games/rulesets.py)

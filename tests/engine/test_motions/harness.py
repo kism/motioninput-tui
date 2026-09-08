@@ -24,10 +24,17 @@ from motioninput_tui.games.loader import load_game
 if TYPE_CHECKING:
     from motioninput_tui.engine.ruleset import Ruleset
 
-# Hitbox: a is back, s is down, d is forward, space is up. Attacks on u i o / j k l.
+# Hitbox: a is back, s is down, d is forward, space is up.
+# Attacks are four to a row, u i o p over j k l ;, and the game's panel decides
+# what those positions mean.
 BACK, DOWN, FORWARD, UP = "a", "s", "d", "space"
 LP, MP, HP = "u", "i", "o"
 LK, MK, HK = "j", "k", "l"
+
+# The same top row under the Neo Geo's names, for the SNK games. Worth using
+# by name where the panel is not punches and kicks: in Samurai Shodown A and B
+# are slashes, C is the kick and D the dodge, so calling C "HP" reads as a lie.
+NEO_A, NEO_B, NEO_C, NEO_D = "u", "i", "o", "p"
 
 TICK_MS = 8
 """How finely time is advanced between events, so hold expiry runs as it does live."""

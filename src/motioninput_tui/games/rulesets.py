@@ -176,6 +176,40 @@ KOF2001 = GameSpec(
     buttons=NEO_GEO,
 )
 
+SSVSP = GameSpec(
+    key="ssvsp",
+    name="Samurai Shodown V Special",
+    short_name="SSV Special",
+    ruleset=Ruleset(
+        # A slower, more deliberate game than the KoF pair on the same panel:
+        # you commit to a swing, and the motions are correspondingly plainer.
+        # Windows sit near KoF '98's, with SNK's usual generous buffering.
+        motion_window_ms=320,
+        activation_window_ms=170,
+        step_gap_ms=180,
+        max_intermediate=1,
+        tail_states=2,
+        lenient_diagonals=True,
+        charge_ms=900,
+        charge_release_ms=220,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=False,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+    ),
+    notes=(
+        "Neo Geo panel, but not a Neo Geo brawler: A and B are the weak and medium slash,",
+        "A+B the strong one, C kicks and D is the dodge button.",
+        "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
+        "No dragon punch shortcut: f,d,df means f,d,df.",
+        "The supers need a full Rage gauge, which the trainer does not model - only the input.",
+    ),
+    reference="references/ssvsp.txt",
+    buttons=NEO_GEO,
+)
+
 INPUT_DISPLAY = GameSpec(
     key="display",
     name="Input display",
@@ -193,7 +227,9 @@ characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
 
 DISPLAY_GAME = INPUT_DISPLAY.key
 
-GAME_SPECS: dict[str, GameSpec] = {spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98, KOF2001)}
+GAME_SPECS: dict[str, GameSpec] = {
+    spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98, KOF2001, SSVSP)
+}
 DEFAULT_GAME = SFIII3.key
 
 
