@@ -89,6 +89,23 @@ Adding one: a boolean field on `Config` (loaded through `_valid_flag`, saved in
 `save`), an entry in `SETTINGS`, and, if it changes matching, a `Ruleset` field
 plus a line in `tuned_game`. Nothing in the interface needs touching.
 
+### Move notation
+
+`notation_styles.py` is how a move's input is *written*, as opposed to
+`engine/notation.py`, which is what a direction *is*. A `Notation` holds one
+`Style` per `Family` (directions, quarter, half, dragon, rotate, charge) and
+writes a `MotionSpec` by parts: each part is either a glyph the player picked
+for its family or the directions spelled out, so a compound motion follows its
+parts' styles for free. A style with no glyph for a kind spells that kind out,
+which is what makes the first style of every family the plain one. Moves with
+no `MotionSpec`, and `MotionKind.ANY`, keep the guide's own wording.
+
+The live input strip never consults it: what the player pressed is always
+arrows, deliberately, so one reading of the display never changes.
+
+Adding a style is a row in `STYLES` — nothing else, since the config validator
+takes its vocabulary from that table and the menu previews whatever is in it.
+
 `tui/widgets/settings_list.py` is the toggles themselves, shared by the setup
 screen's pane and the trainer's `ctrl+b` modal. It posts `SettingsList.Changed`,
 which bubbles past both to `MotionInputApp.on_settings_list_changed`: that saves
@@ -100,7 +117,10 @@ change lands mid-session rather than at the next one. The widget stops
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`.
 
-The screens run input picker → setup → trainer. The input picker is on its own
+The screens run input picker → setup → trainer, with two modals over them:
+`ctrl+b` for the settings and `ctrl+n` for the move notation, both opened by an
+action on the app (`app.settings`, `app.notation`) so any screen can offer them
+and the app, which owns the config, is the one that saves what comes back. The input picker is on its own
 because the device decides how the trainer reads you, not what you are training;
 it owns the gamepad detection and the `b` rebind modal. The setup screen is the
 three panes of what to train: settings, game, character. Escape steps back one

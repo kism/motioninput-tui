@@ -33,6 +33,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
     BINDINGS: ClassVar = [
         Binding("enter", "select", "Toggle / start", priority=True),
         Binding("escape", "back", "Change input"),
+        Binding("ctrl+n", "app.notation", "Notation"),
         Binding("ctrl+q", "quit", "Quit"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.

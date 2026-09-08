@@ -51,3 +51,16 @@ def test_a_malformed_setting_falls_back_to_its_default(tmp_path: Path) -> None:
 
 def test_settings_default_to_relaxed(tmp_path: Path) -> None:
     assert Config.load(tmp_path / "missing.json").lenient_half_circles is True
+
+
+def test_notation_round_trips(tmp_path: Path) -> None:
+    path = tmp_path / "config.json"
+    Config(notation={"dragon": "kanji"}, path=path).save()
+    assert Config.load(path).notation == {"dragon": "kanji"}
+
+
+def test_a_notation_style_that_no_longer_exists_is_dropped(tmp_path: Path) -> None:
+    """Styles come and go as the menu grows; a stale one must not draw nothing."""
+    path = tmp_path / "config.json"
+    path.write_text(json.dumps({"notation": {"dragon": "kanji", "quarter": "sharpie", "nonsense": "arrows"}}))
+    assert Config.load(path).notation == {"dragon": "kanji"}

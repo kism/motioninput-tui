@@ -11,12 +11,14 @@ from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
 from motioninput_tui.controls.layouts import LayoutKind, gamepad_layout, get_layout
 from motioninput_tui.games.loader import load_game
+from motioninput_tui.notation_styles import Notation
 from motioninput_tui.settings import current as current_settings
 from motioninput_tui.settings import tuned_game
 from motioninput_tui.utils.logger import get_logger
 
 from .keyboard_driver import KeyRelease, ReleaseAwareDriver
 from .screens.input_picker import InputPickerScreen
+from .screens.notation import NotationScreen
 from .screens.settings import SettingsScreen
 from .screens.setup import SetupScreen
 from .screens.training import TrainingScreen
@@ -101,6 +103,17 @@ class MotionInputApp(App[None]):
         """Open the settings over whatever is running. The trainer's ctrl+b."""
         self.push_screen(SettingsScreen(current_settings(self.config)))
 
+    def action_notation(self) -> None:
+        """Open the notation menu over whatever is running. ctrl+n."""
+        self.push_screen(NotationScreen(self.config.notation))
+
+    def on_notation_screen_changed(self, event: NotationScreen.Changed) -> None:
+        """Remember how moves are to be written, and rewrite any on screen."""
+        self._remember(notation=event.choices)
+        for screen in self.screen_stack:
+            if isinstance(screen, TrainingScreen):
+                screen.apply_notation(Notation(event.choices))
+
     def on_settings_list_changed(self, event: SettingsList.Changed) -> None:
         """Remember a toggled setting, wherever it was toggled.
 
@@ -175,7 +188,6 @@ class MotionInputApp(App[None]):
             self._open_setup(focus_characters=True)
 
         policy: BufferPolicy = self.config.buffer_policy
-        self.push_screen(
-            TrainingScreen(game, character, layout, exact_input=self._key_release, policy=policy),
-            on_done,
-        )
+        screen = TrainingScreen(game, character, layout, exact_input=self._key_release, policy=policy)
+        screen.apply_notation(Notation(self.config.notation))
+        self.push_screen(screen, on_done)

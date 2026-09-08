@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
 
     from motioninput_tui.engine.recognizer import Activation
+    from motioninput_tui.notation_styles import Notation
 
 
 class MoveFeed(Static):
@@ -25,8 +26,8 @@ class MoveFeed(Static):
     }
     """
 
-    def show(self, activations: Iterable[Activation]) -> None:
-        """Redraw the feed."""
+    def show(self, activations: Iterable[Activation], notation: Notation) -> None:
+        """Redraw the feed, with each move's input written in ``notation``."""
         text = Text(no_wrap=True, overflow="ellipsis")
         entries = list(activations)
         if not entries:
@@ -42,7 +43,7 @@ class MoveFeed(Static):
                 style = f"dim {style}"
             text.append(marker, style=style)
             text.append(f"{move.name:<30}", style=style)
-            text.append(f"{move.command:<28}", style="dim")
+            text.append(f"{notation.write_move(move):<28}", style="dim")
             if activation.also_matched:
                 text.append(f"also: {', '.join(activation.also_matched)}", style="dim italic")
             text.append("\n")

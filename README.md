@@ -67,6 +67,35 @@ training from the character pane. `esc` goes back to the input picker.
 can change them without leaving it. A change applies immediately; the input
 buffer is cleared with it, since what was in it was read under the old rules.
 
+### Move notation
+
+`ctrl+n`, from the setup screen or the trainer, opens the second menu: how the
+move list and the activation feed write a move's input. Pick a motion on the
+left and a style on the right, where every row is drawn in the style it offers,
+so you can see what your font makes of it before taking it.
+
+| Motion          | Written as                                          |
+| --------------- | --------------------------------------------------- |
+| Directions      | `↓ ↘ →` or `D, DF, F`                               |
+| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`          |
+| Half circles    | spelled out, or `⋃ →`, `◡ →`                        |
+| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍 →`, `龙 →`, `竜 →`, `𓆈 →` |
+| Full circles    | `360` `720`, or `⥁`, `⭮`                            |
+| Charges         | `[←] →`, or `⮀ ⮃`                                   |
+
+Quarter circles, half circles and dragon punches also offer a nerd font style.
+Those glyphs live in the private use area, so they are empty boxes without a
+patched font — which the preview will show you.
+
+A motion nobody has a glyph for is spelled out in whatever directions are set
+to, and a compound motion follows its parts: a super that is two quarter
+circles reads `⮩ ×2` once quarter circles are curved arrows. Moves the engine
+has no directional model of keep the reference guide's own wording.
+
+The live input strip is deliberately not part of this. What you actually
+pressed is always arrows, so there is one reading of the display that never
+changes whatever else you pick.
+
 ### Settings
 
 These are yours, not the games', so they apply whichever game is selected.
@@ -84,7 +113,7 @@ Turn it off to be made to hit the down. Loose buffer is the same rule
 
 ### Remembering your last session
 
-The game, character, layout, settings and buffer rule you last used are saved to
+The game, character, layout, settings, notation and buffer rule you last used are saved to
 `~/.config/motioninput-tui/config.json` (or under `$XDG_CONFIG_HOME` if set),
 so the pickers open where you left off and your settings stick between runs.
 
@@ -117,8 +146,8 @@ exact with one plugged in.
 
 In the trainer: `esc` goes back to the setup screen with the character list
 focused, ready to pick someone else. `ctrl+r` clears the buffer,
-`ctrl+l` toggles the move list, `ctrl+b` opens the settings, and `ctrl+q` or
-two presses of `ctrl+c` quit.
+`ctrl+l` toggles the move list, `ctrl+b` opens the settings, `ctrl+n` the move
+notation, and `ctrl+q` or two presses of `ctrl+c` quit.
 
 ## Spending inputs
 

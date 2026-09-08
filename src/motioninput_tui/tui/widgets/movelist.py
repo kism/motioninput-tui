@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 from typing import TYPE_CHECKING, override
 
 from rich.text import Text
@@ -16,23 +15,20 @@ from .input_strip import CATEGORY_STYLES
 if TYPE_CHECKING:
     from textual.app import ComposeResult
 
-    from motioninput_tui.games.models import Character
+    from motioninput_tui.games.models import Character, Move
+    from motioninput_tui.notation_styles import Notation
 
 _ORDER = (Category.SUPER, Category.SPECIAL, Category.COMMAND, Category.THROW, Category.MOVEMENT, Category.OTHER)
 
 NAME_WIDTH = 24
 COMMAND_WIDTH = 22
-# Stock counts and parenthetical asides make commands too wide for the panel.
-_NOISE = re.compile(r"\s*(\(.*?\)|x\s*\(?(max stocks?|\d)\)?.*)\s*$")
 
 
-def _tidy_command(command: str) -> str:
-    """Trim a reference command down to something that fits the panel."""
-    trimmed = _NOISE.sub("", command).strip()
-    trimmed = trimmed.removeprefix("Press ").strip()
-    if len(trimmed) > COMMAND_WIDTH:
-        return trimmed[: COMMAND_WIDTH - 1] + "…"
-    return trimmed
+def _fit(command: str) -> str:
+    """Trim a written command down to something that fits the panel."""
+    if len(command) > COMMAND_WIDTH:
+        return command[: COMMAND_WIDTH - 1] + "…"
+    return command
 
 
 class MoveList(VerticalScroll):
@@ -52,10 +48,10 @@ class MoveList(VerticalScroll):
         """Hold a single Static that we repaint wholesale."""
         yield Static(id="movelist-body")
 
-    def show(self, character: Character) -> None:
-        """Render this character's move list."""
+    def show(self, character: Character, notation: Notation) -> None:
+        """Render this character's move list, written in ``notation``."""
         text = Text(no_wrap=True, overflow="ellipsis")
-        by_category: dict[str, list] = {}
+        by_category: dict[str, list[Move]] = {}
         for move in character.moves:
             by_category.setdefault(move.category, []).append(move)
 
@@ -69,7 +65,7 @@ class MoveList(VerticalScroll):
                 if not move.trainable:
                     style = "dim strike"
                 text.append(f"  {move.name[:NAME_WIDTH]:<{NAME_WIDTH + 1}}", style=style)
-                text.append(f"{_tidy_command(move.command)}\n", style="dim")
+                text.append(f"{_fit(notation.write_move(move))}\n", style="dim")
             text.append("\n")
 
         untrainable = sum(1 for move in character.moves if not move.trainable)

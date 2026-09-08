@@ -12,6 +12,7 @@ from textual.widgets import Footer, Static
 
 from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.engine.session import TrainingSession
+from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import InputStrip
 from motioninput_tui.tui.widgets.move_feed import MoveFeed
@@ -22,18 +23,27 @@ if TYPE_CHECKING:
 
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.games.models import Character, Game
+    from motioninput_tui.notation_styles import Notation
 
 TICK_HZ = 60
 
 
 class TrainingScreen(Screen):
-    """Reads raw key presses and renders what the engine made of them."""
+    """Reads raw key presses and renders what the engine made of them.
+
+    The notation the move list and the feed are written in is set with
+    :meth:`apply_notation`, before the screen is pushed and again whenever the
+    player changes it, rather than being fixed at construction.
+    """
+
+    notation: Notation = DEFAULT_NOTATION
 
     BINDINGS: ClassVar = [
         Binding("escape", "back", "Change character"),
         Binding("ctrl+r", "reset", "Reset buffer"),
         Binding("ctrl+l", "toggle_movelist", "Move list"),
         Binding("ctrl+b", "app.settings", "Settings"),
+        Binding("ctrl+n", "app.notation", "Notation"),
         Binding("ctrl+q", "quit", "Quit"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
@@ -88,7 +98,7 @@ class TrainingScreen(Screen):
         self.title = f"{session.game.short_name} · {session.character.name}"
         self.sub_title = session.layout.name
         self._paint_banner()
-        self.query_one(MoveList).show(session.character)
+        self.query_one(MoveList).show(session.character, self.notation)
         self._refresh()
         self.set_interval(1 / TICK_HZ, self._tick)
         self.focus()
@@ -137,7 +147,7 @@ class TrainingScreen(Screen):
     def _refresh(self) -> None:
         session = self.session
         self.query_one(InputStrip).show(session.entries, session.direction)
-        self.query_one(MoveFeed).show(session.activations)
+        self.query_one(MoveFeed).show(session.activations, self.notation)
 
         status = Text()
         plural = "" if session.total_activations == 1 else "s"
@@ -156,6 +166,13 @@ class TrainingScreen(Screen):
         if advice:
             status.append(f"\n⚠ {advice}", style="yellow")
         self.query_one("#status", Static).update(status)
+
+    def apply_notation(self, notation: Notation) -> None:
+        """Take the notation moves are written in, before or during a session."""
+        self.notation = notation
+        if self.is_mounted:
+            self.query_one(MoveList).show(self.session.character, notation)
+            self._refresh()
 
     def apply_settings(self, game: Game, policy: BufferPolicy) -> None:
         """Take rules the player changed mid-session, from the settings modal."""

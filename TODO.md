@@ -1,33 +1,5 @@
 # TODO
 
-- add a nerdfont toggle to the options menu
-- motions
-  - Half circles
-    - nf-md-arrow_u_up_left, nf-md-arrow_u_up_right
-    - ⋃ →
-    - ◡ →
-  - Quater circles
-    - nf-md-arrow_up_left, nf-md-arrow_up_right
-    - ⮩, ⮨
-    - ⮠, ⮡
-    - ⮐, ⮑
-    - ⮰, ⮱
-  - Dragon punch, second one flips writing to right ot left so might now work
-    - 𑪼 𑪽
-    - 𐰁 𐰀
-    - nf-fa-dragon →
-    - 龍 →
-    - 龙 →
-    - 竜 →
-    - 𓆈 →
-    - → ↓ ↘
-    - F, D, DF
-  - Full circles
-    - ⥀, ⥁
-    - ⭯, ⭮
-  - Up down, down up, right left, left right
-    - ⮁, ⮃, ⮂, ⮀
-
-- Arrow style
-  - ↘ ↓ ↘
-  - DF, D, DF
+- Nerd font glyphs beyond the three already offered (quarter circles, half
+  circles, dragon punch). Codepoints come from `glyphnames.json` in the
+  nerd-fonts repository; add a row to `STYLES` in `notation_styles.py`.

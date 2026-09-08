@@ -18,6 +18,7 @@ from pathlib import Path
 
 from .controls.layouts import DEFAULT_LAYOUT, LAYOUTS
 from .engine.recognizer import BufferPolicy
+from .notation_styles import STYLES
 from .utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -54,6 +55,9 @@ class Config:
     lenient_half_circles: bool = True
     """Whether a half circle may skip straight down. See
     :mod:`motioninput_tui.settings`."""
+    notation: dict[str, str] = field(default_factory=dict)
+    """How each family of motions is written, ``{family: style}``. Empty means
+    the plain default. See :mod:`motioninput_tui.notation_styles`."""
     gamepad_bindings: dict[str, str] = field(default_factory=dict)
     """The player's gamepad attack rebinds, ``{button name: pad code}``. Empty
     means the built-in default. :func:`~.controls.layouts.gamepad_layout` has
@@ -97,6 +101,7 @@ class Config:
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
             lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=True),
+            notation=_valid_notation(raw.get("notation")),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
             path=target,
         )
@@ -110,6 +115,7 @@ class Config:
             "layout": self.layout,
             "buffer_policy": str(self.buffer_policy),
             "lenient_half_circles": self.lenient_half_circles,
+            "notation": self.notation,
             "gamepad_bindings": self.gamepad_bindings,
         }
         try:
@@ -163,6 +169,19 @@ def _valid_policy(value: object) -> BufferPolicy:
         return BufferPolicy(value)
     except ValueError:
         return BufferPolicy.CONSUME
+
+
+def _valid_notation(value: object) -> dict[str, str]:
+    # Styles come and go as the notation menu grows, so an entry naming one
+    # that is not there any more is dropped rather than left to draw nothing.
+    if not isinstance(value, dict):
+        return {}
+    known = {family.value: {style.key for style in styles} for family, styles in STYLES.items()}
+    return {
+        family: style
+        for family, style in value.items()
+        if isinstance(family, str) and isinstance(style, str) and style in known.get(family, ())
+    }
 
 
 _PAD_CODE = re.compile(r"^pad:\d+$")
