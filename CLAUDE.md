@@ -104,7 +104,15 @@ The live input strip never consults it: what the player pressed is always
 arrows, deliberately, so one reading of the display never changes.
 
 Adding a style is a row in `STYLES` — nothing else, since the config validator
-takes its vocabulary from that table and the menu previews whatever is in it.
+takes its vocabulary from that table and the menu previews whatever is in it. A
+`Family.DIRECTIONS` style carries a direction table and a separator instead of
+glyphs, which is how numpad (`236`, the `Direction` enum's own values, joined by
+nothing) and the emoji and nerd font variants are written.
+
+Nerd font codepoints come from `glyphnames.json` in the nerd-fonts repository,
+downloaded rather than committed (it is gitignored). Every one in the source is
+commented with the glyph name it came from, so it can be checked against a fresh
+copy.
 
 `tui/widgets/settings_list.py` is the toggles themselves, shared by the setup
 screen's pane and the trainer's `ctrl+b` modal. It posts `SettingsList.Changed`,

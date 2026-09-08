@@ -219,3 +219,7 @@ __marimo__/
 # Copyright their authors and not redistributable, so never commit them.
 # Fetch your own copy with: motioninput-tui-guides
 references/*.txt
+
+# Nerd font glyph lookup, downloaded when adding notation styles.
+# https://github.com/ryanoasis/nerd-fonts/blob/master/glyphnames.json
+glyphnames.json

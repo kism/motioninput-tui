@@ -53,6 +53,45 @@ def test_letters_write_the_directions_out() -> None:
     assert letters.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "D, DF, F + P"
 
 
+def test_numpad_writes_the_conventional_numbers() -> None:
+    """236 and 623 are how the notation is written everywhere else."""
+    numpad = Notation({"directions": "numpad"})
+    assert numpad.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "236 + P"
+    assert numpad.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "623 + P"
+    assert numpad.write(MotionSpec(kind=MotionKind.HCF, buttons=ANY_PUNCH)) == "41236 + P"
+    assert numpad.write(MotionSpec(kind=MotionKind.CHARGE_BF, buttons=ANY_KICK)) == "[4] 6 + K"
+
+
+def test_the_numpad_digits_are_the_directions_own_numbers() -> None:
+    """Numpad notation is the enum, so the two can never drift apart."""
+    numpad = Notation({"directions": "numpad"})
+    for direction in Direction:
+        assert numpad.directions((direction,)) == str(int(direction))
+
+
+def test_emoji_arrows_replace_the_plain_ones() -> None:
+    emoji = Notation({"directions": "emoji"})
+    assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬇️ ↘️ ➡️ + P"
+
+
+def test_emoji_keycaps_write_the_numpad() -> None:
+    keycaps = Notation({"directions": "keycaps"})
+    assert keycaps.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "2️⃣3️⃣6️⃣ + P"
+
+
+def test_an_emoji_style_names_the_move_it_stands_for() -> None:
+    emoji = Notation({"quarter": "emoji", "dragon": "emoji"})
+    assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "🔥 → + P"
+    assert emoji.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "🐉 → + P"
+
+
+def test_style_keys_are_unique_within_a_family() -> None:
+    """The config stores a key per family, so a duplicate would be unreachable."""
+    for family, styles in STYLES.items():
+        keys = [style.key for style in styles]
+        assert len(keys) == len(set(keys)), f"{family} has a repeated style key"
+
+
 def test_a_glyph_replaces_the_directions() -> None:
     curved = Notation({"quarter": "curved"})
     assert curved.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⮩ + P"

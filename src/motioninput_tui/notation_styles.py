@@ -61,14 +61,22 @@ class Style:
         glyphs: The writing for each motion kind. A kind that is missing is
             spelled out as directions instead, which is what makes the first
             style of every family the plain one.
-        letters: :attr:`Family.DIRECTIONS` only: write ``D, DF, F`` rather than
-            ``↓ ↘ →``.
+        directions: :attr:`Family.DIRECTIONS` only: how to draw each direction.
+            A direction that is missing falls back to its arrow.
+        separator: :attr:`Family.DIRECTIONS` only: what goes between them.
+            Numpad notation runs them together as ``236``, letters want
+            ``D, DF, F``, arrows want the space.
     """
 
     key: str
     name: str
     glyphs: Mapping[MotionKind, str] = field(default_factory=dict)
-    letters: bool = False
+    directions: Mapping[Direction, str] = field(default_factory=dict)
+    separator: str = " "
+
+    def write_direction(self, direction: Direction) -> str:
+        """One direction, drawn this way."""
+        return self.directions.get(direction, direction.glyph)
 
 
 _D = Direction
@@ -84,6 +92,41 @@ _NF_HALF_BACK = "\U000f17b9"  # nf-md-arrow_u_up_left
 _NF_DRAGON = ""  # nf-fa-dragon
 
 
+_LETTERS: dict[Direction, str] = {direction: direction.short.upper() for direction in Direction}
+_NUMPAD: dict[Direction, str] = {direction: str(int(direction)) for direction in Direction}
+_KEYCAPS: dict[Direction, str] = {direction: f"{int(direction)}\ufe0f\u20e3" for direction in Direction}
+"""The numpad as keycap emoji, ``2️⃣3️⃣6️⃣``."""
+
+_EMOJI_ARROWS: dict[Direction, str] = {
+    _D.DOWN_BACK: "↙️",
+    _D.DOWN: "⬇️",
+    _D.DOWN_FORWARD: "↘️",
+    _D.BACK: "⬅️",
+    _D.FORWARD: "➡️",
+    _D.UP_BACK: "↖️",
+    _D.UP: "⬆️",
+    _D.UP_FORWARD: "↗️",
+}
+
+# nf-md-numeric_1_box to nf-md-numeric_9_box, which is the numpad in boxes.
+_NF_DIGIT_BOXES = (
+    "\U000f03a4",
+    "\U000f03a7",
+    "\U000f03aa",
+    "\U000f03ad",
+    "\U000f03b1",
+    "\U000f03b3",
+    "\U000f03b6",
+    "\U000f03b9",
+    "\U000f03bc",
+)
+_NERD_NUMPAD: dict[Direction, str] = {direction: _NF_DIGIT_BOXES[int(direction) - 1] for direction in Direction}
+
+_NF_ROTATE = "\U000f1999"  # nf-md-rotate_360
+_NF_LEFT_RIGHT = "\U000f0e73"  # nf-md-arrow_left_right
+_NF_UP_DOWN = "\U000f0e79"  # nf-md-arrow_up_down
+
+
 def _beast(glyph: str) -> dict[MotionKind, str]:
     """A dragon punch written as a creature facing the way the motion ends."""
     return {_K.DP: f"{glyph} →", _K.RDP: f"{glyph} ←"}
@@ -92,7 +135,11 @@ def _beast(glyph: str) -> dict[MotionKind, str]:
 STYLES: dict[Family, tuple[Style, ...]] = {
     Family.DIRECTIONS: (
         Style(key="arrows", name="Arrows"),
-        Style(key="letters", name="Letters", letters=True),
+        Style(key="letters", name="Letters", directions=_LETTERS, separator=", "),
+        Style(key="numpad", name="Numpad", directions=_NUMPAD, separator=""),
+        Style(key="emoji", name="Emoji arrows", directions=_EMOJI_ARROWS),
+        Style(key="keycaps", name="Emoji numpad", directions=_KEYCAPS, separator=""),
+        Style(key="nerd", name="Nerd numpad", directions=_NERD_NUMPAD, separator=""),
     ),
     Family.QUARTER: (
         Style(key="spelled", name="Spelled out"),
@@ -101,12 +148,14 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(key="ribbon", name="Ribbon arrows", glyphs={_K.QCF: "⮱", _K.QCB: "⮰"}),
         Style(key="return", name="Return arrows", glyphs={_K.QCF: "⮑", _K.QCB: "⮐"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.QCF: _NF_QUARTER_FORWARD, _K.QCB: _NF_QUARTER_BACK}),
+        Style(key="emoji", name="Emoji fireball", glyphs={_K.QCF: "🔥 →", _K.QCB: "🔥 ←"}),
     ),
     Family.HALF: (
         Style(key="spelled", name="Spelled out"),
         Style(key="cup", name="Cup", glyphs={_K.HCF: "⋃ →", _K.HCB: "⋃ ←"}),
         Style(key="arc", name="Arc", glyphs={_K.HCF: "◡ →", _K.HCB: "◡ ←"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.HCF: _NF_HALF_FORWARD, _K.HCB: _NF_HALF_BACK}),
+        Style(key="emoji", name="Emoji moon", glyphs={_K.HCF: "🌙 →", _K.HCB: "🌙 ←"}),
     ),
     Family.DRAGON: (
         Style(key="spelled", name="Spelled out"),
@@ -117,11 +166,18 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(key="japanese", name="Dragon 竜", glyphs=_beast("竜")),
         Style(key="hieroglyph", name="Serpent 𓆈", glyphs=_beast("𓆈")),
         Style(key="nerd", name="Nerd font", glyphs=_beast(_NF_DRAGON)),
+        Style(key="emoji", name="Emoji dragon", glyphs=_beast("🐉")),
     ),
     Family.ROTATE: (
         Style(key="spelled", name="Spelled out"),
         Style(key="open", name="Open circles", glyphs={_K.ROTATE_360: "⥁", _K.ROTATE_720: "⥁ ⥁"}),
         Style(key="circle", name="Circle arrows", glyphs={_K.ROTATE_360: "⭮", _K.ROTATE_720: "⭮ ⭮"}),
+        Style(
+            key="nerd",
+            name="Nerd font",
+            glyphs={_K.ROTATE_360: _NF_ROTATE, _K.ROTATE_720: f"{_NF_ROTATE} {_NF_ROTATE}"},
+        ),
+        Style(key="emoji", name="Emoji cyclone", glyphs={_K.ROTATE_360: "🌀", _K.ROTATE_720: "🌀 🌀"}),
     ),
     Family.CHARGE: (
         Style(key="spelled", name="Spelled out"),
@@ -129,6 +185,20 @@ STYLES: dict[Family, tuple[Style, ...]] = {
             key="paired",
             name="Paired arrows",
             glyphs={_K.CHARGE_BF: "⮀", _K.CHARGE_DU: "⮃", _K.CHARGE_BFBF: "⮀ ⮀"},
+        ),
+        Style(
+            key="nerd",
+            name="Nerd font",
+            glyphs={
+                _K.CHARGE_BF: _NF_LEFT_RIGHT,
+                _K.CHARGE_DU: _NF_UP_DOWN,
+                _K.CHARGE_BFBF: f"{_NF_LEFT_RIGHT} {_NF_LEFT_RIGHT}",
+            },
+        ),
+        Style(
+            key="emoji",
+            name="Emoji battery",
+            glyphs={_K.CHARGE_BF: "🔋 →", _K.CHARGE_DU: "🔋 ↑", _K.CHARGE_BFBF: "🔋 → ← →"},
         ),
     ),
 }
@@ -262,9 +332,8 @@ class Notation:
 
     def directions(self, sequence: tuple[Direction, ...]) -> str:
         """A run of directions in the chosen direction style."""
-        if self.style(Family.DIRECTIONS).letters:
-            return ", ".join(direction.short.upper() for direction in sequence)
-        return " ".join(direction.glyph for direction in sequence)
+        style = self.style(Family.DIRECTIONS)
+        return style.separator.join(style.write_direction(direction) for direction in sequence)
 
     def _motion(self, spec: MotionSpec) -> str:
         """The directional half of a requirement, without the buttons."""

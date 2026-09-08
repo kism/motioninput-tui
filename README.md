@@ -74,18 +74,21 @@ move list and the activation feed write a move's input. Pick a motion on the
 left and a style on the right, where every row is drawn in the style it offers,
 so you can see what your font makes of it before taking it.
 
-| Motion          | Written as                                          |
-| --------------- | --------------------------------------------------- |
-| Directions      | `↓ ↘ →` or `D, DF, F`                               |
-| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`          |
-| Half circles    | spelled out, or `⋃ →`, `◡ →`                        |
-| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍 →`, `龙 →`, `竜 →`, `𓆈 →` |
-| Full circles    | `360` `720`, or `⥁`, `⭮`                            |
-| Charges         | `[←] →`, or `⮀ ⮃`                                   |
+| Motion          | Written as                                                     |
+| --------------- | -------------------------------------------------------------- |
+| Directions      | `↓ ↘ →`, `D, DF, F`, `236`, `⬇️ ↘️ ➡️`, `2️⃣3️⃣6️⃣`              |
+| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`, `🔥 →`             |
+| Half circles    | spelled out, or `⋃ →`, `◡ →`, `🌙 →`                           |
+| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍 →`, `龙 →`, `竜 →`, `𓆈 →`, `🐉 →` |
+| Full circles    | `360` `720`, or `⥁`, `⭮`, `🌀`                                 |
+| Charges         | `[←] →`, or `⮀ ⮃`, `🔋 →`                                      |
 
-Quarter circles, half circles and dragon punches also offer a nerd font style.
-Those glyphs live in the private use area, so they are empty boxes without a
-patched font — which the preview will show you.
+`236` is the numpad, from a player on the left: `236 + P` is a fireball and
+`623 + P` a dragon punch, which is how the notation is written everywhere else.
+
+Every family also offers a nerd font style, directions included (the numpad in
+boxes). Those glyphs live in the private use area, so they are empty boxes
+without a patched font — which the preview will show you.
 
 A motion nobody has a glyph for is spelled out in whatever directions are set
 to, and a compound motion follows its parts: a super that is two quarter
