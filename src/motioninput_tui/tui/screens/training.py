@@ -38,6 +38,9 @@ class TrainingScreen(Screen):
 
     BINDINGS: ClassVar = [
         Binding("escape", "back", "Change character"),
+        # Priority, or Textual moves focus to the move list instead. Only shown
+        # for a game with Super Arts; see check_action.
+        Binding("tab", "next_super_art", "Super art", priority=True),
         Binding("ctrl+r", "reset", "Reset buffer"),
         Binding("ctrl+l", "toggle_movelist", "Move list"),
         Binding("ctrl+b", "app.settings", "Settings"),
@@ -96,7 +99,7 @@ class TrainingScreen(Screen):
         self.title = f"{session.game.short_name} · {session.character.name}"
         self.sub_title = session.layout.name
         self._paint_banner()
-        self.query_one(MoveList).show(session.character, self.notation)
+        self._paint_movelist()
         self._refresh()
         self.set_interval(1 / TICK_HZ, self._tick)
         self.focus()
@@ -108,10 +111,16 @@ class TrainingScreen(Screen):
         text.append(f"  ·  {session.character.name}", style="bold cyan")
         if session.character.title:
             text.append(f" ({session.character.title})", style="dim")
+        if session.super_art:
+            text.append(f"  ·  Super Art {session.super_art}", style="bold magenta")
+            text.append("  tab to change", style="dim")
         text.append(f"\nMove {session.layout.movement_help()}   Attack {session.layout.attack_help()}\n", style="dim")
         for note in session.game.notes:
             text.append(f"• {note}\n", style="italic dim")
         self.query_one("#banner", Static).update(text)
+
+    def _paint_movelist(self) -> None:
+        self.query_one(MoveList).show(self.session.character, self.notation, self.session.super_art)
 
     def _tick(self) -> None:
         if self.session.tick():
@@ -169,12 +178,33 @@ class TrainingScreen(Screen):
         """Take the notation moves are written in, before or during a session."""
         self.notation = notation
         if self.is_mounted:
-            self.query_one(MoveList).show(self.session.character, notation)
+            self._paint_movelist()
             self._refresh()
 
     def apply_settings(self, game: Game, policy: BufferPolicy) -> None:
         """Take rules the player changed mid-session, from the settings modal."""
         self.session.retune(game, policy)
+        self._refresh()
+
+    def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
+        """Only offer the Super Art key for a game that has them, so only SF3."""
+        del parameters
+        if action != "next_super_art":
+            return True
+        return True if self.session.super_arts else None
+
+    def action_next_super_art(self) -> None:
+        """Equip the next Super Art, wrapping round.
+
+        Only one is live at a time, exactly as in the game, which is what lets
+        the recogniser tell three supers on the same ``qcf,qcf + P`` apart.
+        """
+        arts = self.session.super_arts
+        if not arts:
+            return
+        self.session.select_super_art(arts[(arts.index(self.session.super_art) + 1) % len(arts)])
+        self._paint_banner()
+        self._paint_movelist()
         self._refresh()
 
     def action_reset(self) -> None:

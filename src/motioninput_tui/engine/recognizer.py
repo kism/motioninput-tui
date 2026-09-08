@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
-from .motions import CHARGE_KINDS, MatchContext, MotionKind, matches
+from .motions import CHARGE_KINDS, MatchContext, MotionKind, mash_satisfied, matches, motion_ready
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -67,6 +67,10 @@ class RecognisableMove(Protocol):
     def category(self) -> str:
         """Rough move type, used for grouping and colour."""
 
+    @property
+    def super_art(self) -> str:
+        """Which Super Art equips this move, or "" if it is always available."""
+
 
 @dataclass(frozen=True, slots=True)
 class Activation:
@@ -87,8 +91,10 @@ def _priority(move: RecognisableMove) -> int:
     if move.motion is None:
         return -1
     base = _KIND_PRIORITY.get(move.motion.kind, 30)
-    # A move needing two buttons beats the same motion with one (PP versions).
-    return base * 10 + move.motion.buttons.count
+    # A move needing two buttons beats the same motion with one (PP versions),
+    # and one that also needs a mash beats the plain motion (Sean's three
+    # identical qcf,qcf supers, only one of which wants you to tap after).
+    return base * 10 + move.motion.buttons.count + (1 if move.motion.mash else 0)
 
 
 class BufferPolicy(StrEnum):
@@ -133,6 +139,12 @@ class Recognizer:
             self.ruleset, at_ms, frozenset(pressed), self.decay_ms, loose=self.policy is BufferPolicy.LOOSE
         )
         hits = [move for move in self._ranked if move.motion is not None and matches(move.motion, buffer, context)]
+
+        # A move that is one mash short of activating, and would outrank
+        # everything that did match, holds the press: firing a lesser move now
+        # would flush the buffer before the player finishes tapping.
+        if self._awaiting_mash(buffer, context, hits):
+            return None
         if not hits:
             return None
 
@@ -149,6 +161,25 @@ class Recognizer:
             at_ms=at_ms,
             buttons=frozenset(pressed),
             also_matched=tuple(move.name for move in hits[1:4]),
+        )
+
+    def _awaiting_mash(self, buffer: InputBuffer, context: MatchContext, hits: list[RecognisableMove]) -> bool:
+        """Whether a mash-tail move is still gathering taps and deserves the press.
+
+        Its motion is complete but its mash is not, and it outranks anything
+        that did match. Holding here keeps the buffer intact for the next tap;
+        under the loose policy nothing is flushed anyway, so there is no need.
+        """
+        if self.policy is BufferPolicy.LOOSE:
+            return False
+        best_hit = _priority(hits[0]) if hits else -1
+        return any(
+            move.motion is not None
+            and move.motion.mash
+            and _priority(move) > best_hit
+            and motion_ready(move.motion, buffer, context)
+            and not mash_satisfied(move.motion, buffer, context)
+            for move in self._ranked
         )
 
     def _spend(self, buffer: InputBuffer, winner: RecognisableMove, at_ms: int) -> None:

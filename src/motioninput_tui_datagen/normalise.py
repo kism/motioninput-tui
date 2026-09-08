@@ -29,6 +29,9 @@ _UNSUPPORTED = re.compile(
 
 MULTI_BUTTON = 2
 
+# "tap P rapidly" after a motion never comes with a count, so assume three taps.
+_MASH_DEFAULT = 3
+
 _PARENTHETICAL = re.compile(r"\([^)]*\)")
 _STOCKS = re.compile(r"\bx\s*\(?\s*(max\s+stocks?|\d+)\s*\)?\s*(/\s*\d+)?\s*$")
 _SECONDS = re.compile(r"for\s+\d+\s+secs?\b")
@@ -149,7 +152,12 @@ def parse_command(command: str) -> ParsedCommand:
     kind, hold, reason = _classify(raw, text, buttons)
     if kind is None:
         return ParsedCommand(None, reason)
-    return ParsedCommand(MotionSpec(kind, buttons, hold=hold, air=_detect_air(raw), notation=command.strip()))
+    # A real motion with "tap P rapidly" tacked on keeps the motion and gains a
+    # mash tail; a bare "tap P rapidly" is already MotionKind.MASH.
+    mash = _MASH_DEFAULT if kind is not MotionKind.MASH and "rapid" in raw else 0
+    return ParsedCommand(
+        MotionSpec(kind, buttons, hold=hold, air=_detect_air(raw), mash=mash, notation=command.strip())
+    )
 
 
 def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKind | None, Direction | None, str]:

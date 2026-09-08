@@ -185,9 +185,26 @@ regardless of how its firmware numbers them. A pad reports button releases, so
 holds are always exact with one plugged in.
 
 In the trainer: `esc` goes back to the setup screen with the character list
-focused, ready to pick someone else. `ctrl+r` clears the buffer,
-`ctrl+l` toggles the move list, `ctrl+b` opens the settings, `ctrl+n` the move
-notation, and `ctrl+q` or two presses of `ctrl+c` quit.
+focused, ready to pick someone else. `tab` equips the next Super Art in 3rd
+Strike, `ctrl+r` clears the buffer, `ctrl+l` toggles the move list, `ctrl+b`
+opens the settings, `ctrl+n` the move notation, and `ctrl+q` or two presses of
+`ctrl+c` quit.
+
+## Super Arts
+
+In 3rd Strike you pick one Super Art of three before a match, and most of the
+roster has two or three of them on the very same `qcf, qcf + P`. So the trainer
+equips one too: `tab` cycles I, II and III, the banner says which is live, and
+the move list marks it with `▸` and dims the other two. Only the equipped one
+can come out, which is the only way to tell Sean's Hadou Burst, Shouryuu Cannon
+and Hyper Tornado apart.
+
+Some Super Arts want you to keep tapping after the motion — Sean's Shouryuu
+Cannon is `qcf, qcf + P, tap P rapidly`. Those need the taps as well as the
+motion, so on SA II the two quarter circles alone will not give you the move.
+
+No other game here works this way; every super is always available, and `tab`
+does nothing.
 
 ## Spending inputs
 

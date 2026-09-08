@@ -1216,6 +1216,7 @@
        "count": 1,
        "label": "K"
       },
+      "mash": 3,
       "notation": "qcb,d,db + K, tap P / K rapidly"
      }
     },
@@ -3774,6 +3775,7 @@
        "count": 1,
        "label": "K"
       },
+      "mash": 3,
       "notation": "qcf,d,df + K, tap P / K rapidly"
      }
     },
@@ -4156,6 +4158,7 @@
        "count": 1,
        "label": "K"
       },
+      "mash": 3,
       "notation": "Rotate 360 + K, tap P / K rapidly"
      }
     },
@@ -4261,6 +4264,7 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "Rotate 720 + P, tap P / K rapidly"
      }
     },
@@ -6562,6 +6566,7 @@
        "count": 1,
        "label": "K"
       },
+      "mash": 3,
       "notation": "qcb,d,db + K, tap P / K rapidly"
      }
     },

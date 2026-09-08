@@ -16,7 +16,7 @@ from .recognizer import Activation, BufferPolicy, Recognizer
 if TYPE_CHECKING:
     from motioninput_tui.controls.gamepad import GamepadReader
     from motioninput_tui.controls.layouts import ControlLayout
-    from motioninput_tui.games.models import Character, Game
+    from motioninput_tui.games.models import Character, Game, Move
 
 logger = get_logger(__name__)
 
@@ -75,7 +75,11 @@ class TrainingSession:
         self.gamepad = self._open_gamepad(layout)
         # A gamepad reports releases, so holds are always exact with one attached.
         self.source = KeyboardSource(layout, exact=exact_input or self.gamepad is not None)
-        self.recognizer = Recognizer(character.moves, self.ruleset, policy=policy)
+        # 3rd Strike equips one Super Art of three; everywhere else this is empty
+        # and every move stays live.
+        self.super_arts: tuple[str, ...] = character.super_arts
+        self.super_art = self.super_arts[0] if self.super_arts else ""
+        self.recognizer = Recognizer(self._live_moves(), self.ruleset, policy=policy)
         self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
         self.total_inputs = 0
@@ -105,6 +109,24 @@ class TrainingSession:
         if not reader.available:
             logger.warning("Gamepad layout selected but pygame is not installed")
         return reader
+
+    def _live_moves(self) -> list[Move]:
+        """The character's moves, minus the Super Arts that are not equipped."""
+        return [move for move in self.character.moves if not move.super_art or move.super_art == self.super_art]
+
+    def select_super_art(self, value: str) -> None:
+        """Equip one of the character's Super Arts, as you would before a match.
+
+        The buffer goes with it for the same reason :meth:`retune` clears it:
+        what is sitting there was read against a different set of moves.
+        """
+        if value == self.super_art or value not in self.super_arts:
+            return
+        self.super_art = value
+        self.recognizer = Recognizer(
+            self._live_moves(), self.ruleset, decay_ms=self.recognizer.decay_ms, policy=self.recognizer.policy
+        )
+        self.buffer.clear()
 
     @property
     def direction(self) -> Direction:

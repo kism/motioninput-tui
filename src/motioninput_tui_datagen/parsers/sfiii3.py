@@ -7,6 +7,7 @@ Move lists look like::
 """
 
 import re
+from dataclasses import replace
 
 from motioninput_tui.games.models import Category, Character
 from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
@@ -18,6 +19,9 @@ _HEADER = re.compile(r"^ ?([A-Z][A-Z0-9.'\- ]{0,30})(?:,\s*(.+))?$")
 _MOVE = re.compile(r"^ {1,6}(?:(EX|III|II|I|any)\s+)?(\S.*?) {2,}(\S.*)$")
 _STOP = re.compile(r"^\s*(Target Combos|Link Combos|Combos)\s*:")
 _SUPER_FLAGS = frozenset({"I", "II", "III", "any"})
+_SUPER_ARTS = frozenset({"I", "II", "III"})
+"""The numbered Super Arts. ``EX`` marks an EX special and ``any`` a generic
+super, neither of which is one of the three you equip."""
 
 
 def parse(text: str) -> tuple[list[Character], ParseReport]:
@@ -60,7 +64,12 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
         if parts is None:
             continue
         category = Category.SUPER if flag in _SUPER_FLAGS else None
-        moves.append(build_move(raw_name.strip(), command.strip(), report, name, category))
+        moves.append(
+            replace(
+                build_move(raw_name.strip(), command.strip(), report, name, category),
+                super_art=flag if flag in _SUPER_ARTS else "",
+            )
+        )
 
     character = finish_character(name, title, moves, report)
     if character is not None:

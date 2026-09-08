@@ -269,6 +269,29 @@ enforce this together, and both are needed:
 
 `BufferPolicy.LOOSE` (`--loose-buffer`, `ctrl+b`) disables both.
 
+A `MotionSpec.mash` tail (from `qcf,qcf + P, tap P rapidly`, defaulting to three
+taps) is the other side of this: while a move's motion is complete but its mash
+is not, `Recognizer._awaiting_mash` holds the press rather than let a lower
+move activate and flush the buffer before the taps land.
+
+### One Super Art at a time
+
+3rd Strike equips one Super Art of three, and 17 of its 20 characters have two
+or three supers on the identical `qcf,qcf + P` — no other game here has a single
+such clash. So `Move.super_art` carries the guide's `I`/`II`/`III` flag (the
+`sfiii3` parser already matched it, it was just being thrown away) and
+`TrainingSession._live_moves` hands the recogniser only the equipped one.
+`tab` on the trainer cycles them.
+
+This is what makes the clash tractable at all, and it is also why the mash tail
+above stays cheap: with one Super Art equipped nobody has two supers on one
+input, so `_awaiting_mash` only ever holds a press for a move that genuinely
+wants the taps.
+
+`Character.super_arts` is empty for every other game, and the whole mechanism
+turns into a no-op — the filter passes everything and `check_action` hides the
+`tab` binding.
+
 ### SOCD is last-input priority, deliberately
 
 `direction_from_axes` resolves simultaneous left+right by newest-wins rather

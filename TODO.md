@@ -13,3 +13,7 @@ No whole character is missing. The skipped moves are: command throws (b/f + C wh
 ## Timings
 
 Not sure when the ai got it's information from, but need to see if there is a way to get input timing into each game
+
+## Supers
+
+Option to specify super when on the trainer screen, to avoid overrides

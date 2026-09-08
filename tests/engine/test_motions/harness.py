@@ -76,11 +76,14 @@ def play_as(
     *,
     exact_input: bool = True,
     ruleset: Ruleset | None = None,
+    super_art: str | None = None,
 ) -> Attempt:
     """Run a script against one character, on a clock the test controls.
 
     ``ruleset`` stands in for the game's own rules, which is how the player's
     settings reach the engine; without one the game's are used as they stand.
+    ``super_art`` equips one of 3rd Strike's three, as ``tab`` does in the
+    trainer; without one the session starts on the first, as it does live.
     """
     game = load_game(game_key)
     if ruleset is not None:
@@ -90,6 +93,8 @@ def play_as(
     # app does when it lays the game's panel onto the layout.
     layout = with_buttons(HITBOX, game.buttons)
     session = TrainingSession(game, game.character(character_key), layout, exact_input=exact_input)
+    if super_art is not None:
+        session.select_super_art(super_art)
     now = 0
     for event in script:
         while now < event.at_ms:

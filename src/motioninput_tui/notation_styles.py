@@ -319,7 +319,11 @@ class Notation:
             return f"mash {buttons}"
         motion = self._motion(spec)
         text = f"{motion} + {buttons}" if motion else buttons
-        return f"{text} (air)" if spec.air else text
+        if spec.air:
+            text = f"{text} (air)"
+        if spec.mash:
+            text = f"{text}, mash {buttons}"
+        return text
 
     def preview(self, family: Family, style: Style) -> str:
         """What ``style`` would look like, with every other family left alone."""

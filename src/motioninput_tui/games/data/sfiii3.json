@@ -249,7 +249,8 @@
        "label": "P"
       },
       "notation": "Rotate 360 + P   x1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Boomerang Raid",
@@ -267,7 +268,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P      x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Stun Gun Headbutt",
@@ -285,7 +287,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P      x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -563,7 +566,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Houyoku Sen",
@@ -581,7 +585,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K   x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Tensei Ranka",
@@ -599,7 +604,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K   x3"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -860,7 +866,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                  x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Rolling Thunder",
@@ -877,8 +884,10 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "qcf,qcf + P, tap P rapidly   x1"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Corkscrew Blow",
@@ -896,7 +905,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                  x3"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -1113,7 +1123,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K                      x3"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Brave Dance",
@@ -1131,12 +1142,14 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K                      x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Healing",
      "command": "qcf,qcf + P, then PP to cancel   x1",
-     "category": "super"
+     "category": "super",
+     "super_art": "III"
     }
    ]
   },
@@ -1623,7 +1636,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P           x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Tenma Gou Zankuu",
@@ -1642,7 +1656,8 @@
       },
       "air": true,
       "notation": "In air, qcf,qcf + P   x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Messatsu Gou Shouryuu",
@@ -1660,7 +1675,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P           x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Messatsu Gou Rasen",
@@ -1678,7 +1694,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K           x2"
-     }
+     },
+     "super_art": "III"
     },
     {
      "name": "Messatsu Gou Senpuu",
@@ -1697,7 +1714,8 @@
       },
       "air": true,
       "notation": "In air, qcf,qcf + K   x2"
-     }
+     },
+     "super_art": "III"
     },
     {
      "name": "Shun Goku Satsu",
@@ -1932,7 +1950,8 @@
        "label": "P"
       },
       "notation": "Rotate 720 + P when close      x1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Megaton Press",
@@ -1950,7 +1969,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K                    x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Hammer Mountain",
@@ -1968,7 +1988,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P, hold P to delay   x2"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -2288,8 +2309,10 @@
        "label": "P"
       },
       "air": true,
+      "mash": 3,
       "notation": "In air, qcf,qcf + P, tap P rapidly    x3"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Yoroi Dooshi",
@@ -2307,7 +2330,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P  (from far or up close)   x1"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Yami Shigure",
@@ -2325,7 +2349,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                           x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -2513,7 +2538,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                  x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Shinryuu Ken",
@@ -2530,8 +2556,10 @@
        "count": 1,
        "label": "K"
       },
+      "mash": 3,
       "notation": "qcf,qcf + K, tap K rapidly   x1"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Shippuujinrai Kyaku",
@@ -2549,7 +2577,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K                  x3"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -2822,7 +2851,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Abare Tosanami Kudaki",
@@ -2840,7 +2870,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K   x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Tanden Renki: Seme no Kata",
@@ -2858,7 +2889,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -3016,6 +3048,7 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "f,d,df + P, tap P rapidly"
      }
     },
@@ -3162,8 +3195,10 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "qcf,qcf + P, tap P rapidly   x1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Slam Dance",
@@ -3181,7 +3216,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                  x1"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Electric Snake",
@@ -3199,7 +3235,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                  x2"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -3353,6 +3390,7 @@
        "label": "K"
       },
       "air": true,
+      "mash": 3,
       "notation": "In air, qcf + K, tap K rapidly"
      }
     },
@@ -3381,7 +3419,8 @@
     {
      "name": "Kishin Riki",
      "command": "qcf,qcf + P, then P to grab    x1/1",
-     "category": "super"
+     "category": "super",
+     "super_art": "I"
     },
     {
      "name": "Kishin K. Jigoku Guruma",
@@ -3399,7 +3438,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P, grab out of air   x1/1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Yagyou Dama",
@@ -3417,7 +3457,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P  (use 3 times)     x3/3"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Tengu Ishi",
@@ -3435,7 +3476,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                    x1/1"
-     }
+     },
+     "super_art": "III"
     },
     {
      "name": "Kishin Tsui",
@@ -3453,7 +3495,8 @@
        "label": "PP"
       },
       "notation": "qcf,qcf + PP   x(max stock)"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Yagyou Oodama",
@@ -3471,7 +3514,8 @@
        "label": "PP"
       },
       "notation": "qcf,qcf + PP   x(max stocks)"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Tengu Midare Ishi",
@@ -3489,7 +3533,8 @@
        "label": "PP"
       },
       "notation": "qcf,qcf + PP   x(max stock)"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -3711,7 +3756,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Fukubu Oyobi Koutoubu e no Tsuuda (Kari)",
@@ -3729,7 +3775,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Bakuhatsu o Tomonau Dageki ya Hokaku (Kari)",
@@ -3747,17 +3794,20 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "III"
     },
     {
      "name": "Bakuhatsu o Tomonau Dageki ya Hokaku: Dageki",
      "command": "qcf + P from SA III",
-     "category": "super"
+     "category": "super",
+     "super_art": "III"
     },
     {
      "name": "Bakuhatsu o Tomonau Dageki ya Hokaku: Hokaku",
      "command": "qcf + K from SA III",
-     "category": "super"
+     "category": "super",
+     "super_art": "III"
     }
    ]
   },
@@ -3922,7 +3972,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Vierge ni Ansoku O",
@@ -3940,7 +3991,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K   x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Shoushin no Nocturne",
@@ -3958,7 +4010,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K   x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -4141,7 +4194,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                     x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Shin Shouryuu Ken",
@@ -4159,7 +4213,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                     x1"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Denjin Hadou Ken",
@@ -4177,7 +4232,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P, hold P to charge   x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -4378,7 +4434,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                  x3"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Shouryuu Cannon",
@@ -4395,8 +4452,10 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "qcf,qcf + P, tap P rapidly   x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Hyper Tornado",
@@ -4414,7 +4473,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P                  x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -4592,7 +4652,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P           x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "X.F.L.A.T.",
@@ -4611,7 +4672,8 @@
       },
       "air": true,
       "notation": "In air, qcf,qcf + P   x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "X.C.O.P.Y.",
@@ -4629,7 +4691,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P           x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -4828,7 +4891,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P        x2"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Jupiter Thunder",
@@ -4846,7 +4910,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P        x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Aegis Reflector",
@@ -4864,7 +4929,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P / PP   x2"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -5088,7 +5154,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Tenshin Senkyuutai",
@@ -5106,7 +5173,8 @@
        "label": "K"
       },
       "notation": "qcf,qcf + K   x2"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Sei'ei Enbu",
@@ -5124,7 +5192,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   },
@@ -5329,7 +5398,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "I"
     },
     {
      "name": "Sourai Rengeki",
@@ -5347,7 +5417,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x3"
-     }
+     },
+     "super_art": "II"
     },
     {
      "name": "Gen'ei Jin",
@@ -5365,7 +5436,8 @@
        "label": "P"
       },
       "notation": "qcf,qcf + P   x1"
-     }
+     },
+     "super_art": "III"
     }
    ]
   }

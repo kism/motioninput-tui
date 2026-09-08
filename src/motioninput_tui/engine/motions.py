@@ -64,12 +64,18 @@ CHARGE_KINDS = frozenset({MotionKind.CHARGE_BF, MotionKind.CHARGE_DU, MotionKind
 
 @dataclass(frozen=True, slots=True)
 class MotionSpec:
-    """The full input requirement for a move."""
+    """The full input requirement for a move.
+
+    ``mash`` is a follow-up: after the motion activates, the button has to be
+    pressed this many times in quick succession (0 means no mashing). It is how
+    ``qcf,qcf + P, tap P rapidly`` is modelled - the real motion, then a mash.
+    """
 
     kind: MotionKind
     buttons: ButtonRequirement
     hold: Direction | None = None
     air: bool = False
+    mash: int = 0
     notation: str = ""
 
     def to_dict(self) -> dict[str, object]:
@@ -79,6 +85,8 @@ class MotionSpec:
             data["hold"] = int(self.hold)
         if self.air:
             data["air"] = True
+        if self.mash:
+            data["mash"] = self.mash
         if self.notation:
             data["notation"] = self.notation
         return data
@@ -92,6 +100,7 @@ class MotionSpec:
             buttons=ButtonRequirement.from_dict(raw["buttons"]),  # ty: ignore[invalid-argument-type]
             hold=Direction(hold) if hold is not None else None,
             air=bool(raw.get("air")),
+            mash=int(raw.get("mash", 0)),  # ty: ignore[invalid-argument-type]
             notation=str(raw.get("notation", "")),
         )
 
@@ -406,10 +415,14 @@ def _match_air(buffer: InputBuffer, at_ms: int) -> bool:
     return any(state.direction in UP_DIRECTIONS for state in buffer.directions_since(at_ms - AIR_MEMORY_MS))
 
 
-def _match_mash(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> bool:
+def _mash_hits(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> int:
+    """How many of the move's buttons were pressed within the mash window."""
     recent = buffer.buttons_since(at_ms - ruleset.mash_window_ms)
-    hits = sum(1 for press in recent if press.button in spec.buttons.allowed)
-    return hits >= ruleset.mash_count
+    return sum(1 for press in recent if press.button in spec.buttons.allowed)
+
+
+def _match_mash(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> bool:
+    return _mash_hits(spec, buffer, ruleset, at_ms) >= ruleset.mash_count
 
 
 _SIMPLE_MATCHERS: dict[MotionKind, Callable[[MotionSpec, InputBuffer, Ruleset, int], bool]] = {
@@ -441,16 +454,36 @@ class MatchContext:
 
 
 def matches(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
-    """Whether ``spec`` is satisfied by the buffer at the moment of this press."""
-    ruleset, at_ms = context.ruleset, context.at_ms
+    """Whether ``spec`` is fully satisfied by the buffer at the moment of this press."""
+    return motion_ready(spec, buffer, context) and mash_satisfied(spec, buffer, context)
+
+
+def motion_ready(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
+    """Everything a move needs *except* a mashable tail: buttons, air, the motion.
+
+    The recogniser uses this on its own to spot a move that is one mash short of
+    activating, so it can hold the buffer instead of handing the press to a
+    lesser move.
+    """
     if len(context.pressed & spec.buttons.allowed) < spec.buttons.count:
         return False
-    if spec.air and not _match_air(buffer, at_ms):
+    if spec.air and not _match_air(buffer, context.at_ms):
         return False
+    return _match_kind(spec, buffer, context)
 
+
+def mash_satisfied(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
+    """Whether the ``mash`` tail (if any) has had enough button presses."""
+    if not spec.mash:
+        return True
+    return _mash_hits(spec, buffer, context.ruleset, context.at_ms) >= spec.mash
+
+
+def _match_kind(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
+    """The directional / charge / rotation / hold part of the requirement."""
     simple = _SIMPLE_MATCHERS.get(spec.kind)
     if simple is not None:
-        return simple(spec, buffer, ruleset, at_ms)
+        return simple(spec, buffer, context.ruleset, context.at_ms)
     if spec.kind in CHARGE_KINDS:
         return _match_charge(spec.kind, buffer, context)
     return _match_directional(spec.kind, buffer, context)

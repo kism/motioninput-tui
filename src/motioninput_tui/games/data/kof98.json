@@ -2549,6 +2549,7 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "When close, f,d,df + P  (tap P rapidly)"
      }
     },
@@ -3996,6 +3997,7 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "When close, hcb,hcb + P, tap P rapidly"
      }
     },

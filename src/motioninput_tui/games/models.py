@@ -21,12 +21,18 @@ class Category(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class Move:
-    """A single move from a character's move list."""
+    """A single move from a character's move list.
+
+    ``super_art`` is 3rd Strike's ``I`` / ``II`` / ``III``: you equip one Super
+    Art before the match, so only the moves carrying the selected numeral are
+    live. Empty everywhere else, where every super is always available.
+    """
 
     name: str
     command: str
     category: str = Category.OTHER
     motion: MotionSpec | None = None
+    super_art: str = ""
     notes: str = ""
 
     @property
@@ -39,6 +45,8 @@ class Move:
         data: dict[str, object] = {"name": self.name, "command": self.command, "category": self.category}
         if self.motion is not None:
             data["motion"] = self.motion.to_dict()
+        if self.super_art:
+            data["super_art"] = self.super_art
         if self.notes:
             data["notes"] = self.notes
         return data
@@ -52,6 +60,7 @@ class Move:
             command=str(raw["command"]),
             category=str(raw.get("category", Category.OTHER)),
             motion=MotionSpec.from_dict(motion) if motion else None,  # ty: ignore[invalid-argument-type]
+            super_art=str(raw.get("super_art", "")),
             notes=str(raw.get("notes", "")),
         )
 
@@ -69,6 +78,18 @@ class Character:
     def trainable_moves(self) -> tuple[Move, ...]:
         """Moves the engine can recognise."""
         return tuple(move for move in self.moves if move.trainable)
+
+    @property
+    def super_arts(self) -> tuple[str, ...]:
+        """The Super Arts this character has, in the guide's order.
+
+        Empty for a game without them, which is every game but 3rd Strike.
+        """
+        found: list[str] = []
+        for move in self.moves:
+            if move.super_art and move.super_art not in found:
+                found.append(move.super_art)
+        return tuple(found)
 
     def to_dict(self) -> dict[str, object]:
         """Serialise for the generated game data files."""

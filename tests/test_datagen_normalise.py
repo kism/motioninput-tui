@@ -8,25 +8,26 @@ motion, not a mash - the tail is decoration.
 import pytest
 
 from motioninput_tui.engine.motions import MotionKind
-from motioninput_tui_datagen.normalise import parse_command
+from motioninput_tui_datagen.normalise import _MASH_DEFAULT, parse_command
 
 
 @pytest.mark.parametrize(
-    ("command", "kind"),
+    ("command", "kind", "mash"),
     [
-        ("Tap P rapidly", MotionKind.MASH),
-        ("press any Punch rapidly", MotionKind.MASH),
-        ("qcf,qcf + P, tap P rapidly   x2", MotionKind.QCF_X2),  # Sean's Shouryuu Cannon
-        ("qcf,qcf + P   x2", MotionKind.QCF_X2),
-        ("f,d,df + P, tap P rapidly", MotionKind.DP),  # Necro's Denji Blast
-        ("qcb,d,db + K, tap P / K rapidly", MotionKind.QCB_RDP),
-        ("Charge Down for 2 secs, Up + any Punch, press P rapidly", MotionKind.CHARGE_DU),  # Dee Jay's Hyper Fist
+        ("Tap P rapidly", MotionKind.MASH, 0),
+        ("press any Punch rapidly", MotionKind.MASH, 0),
+        ("qcf,qcf + P, tap P rapidly   x2", MotionKind.QCF_X2, _MASH_DEFAULT),  # Sean's Shouryuu Cannon
+        ("qcf,qcf + P   x2", MotionKind.QCF_X2, 0),
+        ("f,d,df + P, tap P rapidly", MotionKind.DP, _MASH_DEFAULT),  # Necro's Denji Blast
+        ("qcb,d,db + K, tap P / K rapidly", MotionKind.QCB_RDP, _MASH_DEFAULT),
+        ("Charge Down for 2 secs, Up + any Punch, press P rapidly", MotionKind.CHARGE_DU, _MASH_DEFAULT),  # Dee Jay
     ],
 )
-def test_a_mashable_tail_does_not_hide_the_motion(command: str, kind: MotionKind) -> None:
+def test_a_mashable_tail_does_not_hide_the_motion(command: str, kind: MotionKind, mash: int) -> None:
     motion = parse_command(command).motion
     assert motion is not None
     assert motion.kind is kind
+    assert motion.mash == mash
 
 
 def test_an_air_super_with_a_mashable_tail_stays_airborne() -> None:
@@ -34,3 +35,11 @@ def test_an_air_super_with_a_mashable_tail_stays_airborne() -> None:
     assert motion is not None
     assert motion.kind is MotionKind.QCF_X2
     assert motion.air
+    assert motion.mash == _MASH_DEFAULT
+
+
+def test_a_bare_mash_keeps_the_ruleset_count_not_the_tail_default() -> None:
+    """A standalone mash is MotionKind.MASH and carries no per-move count."""
+    motion = parse_command("Tap P rapidly").motion
+    assert motion is not None
+    assert motion.mash == 0
