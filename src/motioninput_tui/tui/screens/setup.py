@@ -31,7 +31,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
     """Choose what to train. Dismisses with (game, character), or None to go back."""
 
     BINDINGS: ClassVar = [
-        Binding("enter", "select", "Toggle / start", priority=True),
+        Binding("enter", "select", "Start training", priority=True),
         Binding("escape", "back", "Change input"),
         Binding("ctrl+n", "app.notation", "Notation"),
         Binding("ctrl+q", "quit", "Quit"),
@@ -81,7 +81,8 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         yield Header()
         yield Static(
             Text.from_markup(
-                "Set your [b]options[/b], pick a [b]game[/b] and a [b]character[/b], then press [b]enter[/b]."
+                "Set your [b]options[/b] with [b]space[/b], pick a [b]game[/b] and a "
+                "[b]character[/b], then press [b]enter[/b]."
             ),
             id="blurb",
         )
@@ -161,11 +162,12 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
             self.action_start()
 
     def action_select(self) -> None:
-        """Enter: toggle a setting, move on from a game, or start training."""
-        settings = self.query_one(SettingsList)
-        if settings.has_focus:
-            settings.toggle()
-        elif self.query_one("#games", OptionList).has_focus:
+        """Enter: move on from a game, or start training.
+
+        Settings are flipped with space, so enter means the same on that pane
+        as it does on the character list.
+        """
+        if self.query_one("#games", OptionList).has_focus:
             self.query_one("#characters", OptionList).focus()
         else:
             self.action_start()

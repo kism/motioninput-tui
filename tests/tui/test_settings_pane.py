@@ -59,7 +59,7 @@ def test_toggling_a_setting_saves_it(config: Config) -> None:
             settings = setup.query_one(SettingsList)
             assert settings.has_focus
             assert settings.highlighted == _row("lenient_half_circles") == 0
-            await pilot.press("enter")
+            await pilot.press("space")
             await pilot.pause()
 
     asyncio.run(session())
@@ -75,7 +75,7 @@ def test_the_trainer_starts_with_the_setting_applied(config: Config) -> None:
         app = MotionInputApp(config, key_release=False)
         async with app.run_test() as pilot:
             setup = await _open_setup(pilot)
-            await pilot.press("enter")  # relaxed half circles off
+            await pilot.press("space")  # relaxed half circles off
             await pilot.pause()
             setup.query_one("#characters", OptionList).focus()
             await pilot.pause()
@@ -135,7 +135,7 @@ def test_a_setting_toggled_over_the_trainer_applies_to_the_session(config: Confi
             await pilot.pause()
             assert isinstance(app.screen, SettingsScreen)
             assert app.screen.query_one(SettingsList).highlighted == 0  # relaxed half circles
-            await pilot.press("enter")
+            await pilot.press("space")
             await pilot.pause()
             await pilot.press("escape")
             await pilot.pause()
@@ -161,7 +161,7 @@ def test_the_buffer_rule_still_toggles_from_there(config: Config) -> None:
             await pilot.pause()
             app.screen.query_one(SettingsList).highlighted = _row("loose_buffer")
             await pilot.pause()
-            await pilot.press("enter")
+            await pilot.press("space")
             await pilot.pause()
             await pilot.press("escape")
             await pilot.pause()
@@ -170,3 +170,40 @@ def test_the_buffer_rule_still_toggles_from_there(config: Config) -> None:
 
     assert asyncio.run(session()) is BufferPolicy.LOOSE
     assert config.buffer_policy is BufferPolicy.LOOSE
+
+
+def test_enter_starts_training_rather_than_toggling(config: Config) -> None:
+    """Space is the toggle now, so enter means on this pane what it does on the rest."""
+
+    async def session() -> str:
+        app = MotionInputApp(config, key_release=False)
+        async with app.run_test() as pilot:
+            setup = await _open_setup(pilot)
+            assert setup.query_one(SettingsList).has_focus
+            await pilot.press("enter")
+            await pilot.pause()
+            await pilot.pause()
+            return type(app.screen).__name__
+
+    assert asyncio.run(session()) == "TrainingScreen"
+    assert config.lenient_half_circles is True  # left alone
+
+
+def test_enter_closes_the_settings_modal(config: Config) -> None:
+    """Nothing left for it to mean there, and it is what a person will press."""
+
+    async def session() -> str:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test() as pilot:
+            await pilot.pause()
+            await pilot.press("ctrl+b")
+            await pilot.pause()
+            await pilot.pause()
+            assert isinstance(app.screen, SettingsScreen)
+            await pilot.press("enter")
+            await pilot.pause()
+            await pilot.pause()
+            return type(app.screen).__name__
+
+    assert asyncio.run(session()) == "TrainingScreen"
+    assert config.lenient_half_circles is True  # not flipped on the way out

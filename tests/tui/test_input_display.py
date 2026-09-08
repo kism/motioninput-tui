@@ -132,7 +132,7 @@ def test_the_neo_geo_slant_setting_rearranges_an_open_panel(tmp_path: Path) -> N
             assert isinstance(app.screen, SettingsScreen)
             app.screen.query_one(SettingsList).highlighted = row
             await pilot.pause()
-            await pilot.press("enter")
+            await pilot.press("space")
             await pilot.pause()
             await pilot.press("escape")
             await pilot.pause()

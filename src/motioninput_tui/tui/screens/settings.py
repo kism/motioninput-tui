@@ -30,6 +30,8 @@ class SettingsScreen(ModalScreen[None]):
 
     BINDINGS: ClassVar = [
         Binding("escape,ctrl+b", "close", "Done"),
+        # Space flips a setting, so enter has nothing else to mean here.
+        Binding("enter", "close", "Done", priority=True, show=False),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c,super+c", "app.help_quit", show=False, system=True),

@@ -133,7 +133,7 @@ class NotationScreen(ModalScreen[None]):
         pane.highlighted = styles.index(current)
 
     def _row(self, family: Family, style: Style, *, taken: bool) -> Text:
-        mark = Text("[✓] ", style="green") if taken else Text("[ ] ", style="dim")
+        mark = Text("[✓] " if taken else "[ ] ")
         # Padded by cell width, not by character count: a name with a kanji in
         # it is wider on screen than it is long, and the previews must line up.
         gap = " " * max(1, STYLE_NAME_WIDTH - cell_len(style.name))

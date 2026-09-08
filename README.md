@@ -80,11 +80,12 @@ that decides how the trainer reads you rather than what you are training. Press
 | Game      | Which game's rules to judge your inputs by              |
 | Character | Whose move list to train                                |
 
-`enter` toggles the highlighted setting, moves on from the game pane, and starts
-training from the character pane. `esc` goes back to the input picker.
+`space` flips the highlighted setting; `enter` moves on from the game pane and
+starts training from either of the others. `esc` goes back to the input picker.
 
 `ctrl+b` in the trainer brings the same settings up over your session, so you
-can change them without leaving it. A change applies immediately; the input
+can change them without leaving it: `space` to flip one, `enter` or `esc` when
+you are done. A change applies immediately; the input
 buffer is cleared with it, since what was in it was read under the old rules.
 
 ### Move notation

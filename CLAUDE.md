@@ -118,8 +118,13 @@ copy.
 screen's pane and the trainer's `ctrl+b` modal. It posts `SettingsList.Changed`,
 which bubbles past both to `MotionInputApp.on_settings_list_changed`: that saves
 it and, if a session is running, calls `TrainingScreen.apply_settings` so the
-change lands mid-session rather than at the next one. The widget stops
-`OptionSelected` so a screen that treats enter as a choice cannot also act on it.
+change lands mid-session rather than at the next one.
+
+Space toggles, not enter: enter belongs to the screen the list sits on (start
+training, or close the modal), so both hosts bind it with `priority=True` and
+the widget never sees it. A mouse click still toggles, which is why the widget
+keeps handling `OptionSelected` — and stops it, so a host that treats a
+selection on its other lists as a choice cannot act on it too.
 
 ## Architecture
 
