@@ -12,7 +12,8 @@ The same input does different things in different games: hold down and
 double tap forward in 3rd Strike and you get a dragon punch; do it in Super
 Turbo or Alpha 3 and you get nothing.
 
-Ships with Hyper Street Fighter II, Street Fighter Alpha 3 and 3rd Strike.
+Ships with Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, The
+King of Fighters '98 and 2001, and Samurai Shodown V Special.
 
 **Full documentation: <https://motioninput-tui.readthedocs.io/>**
 
@@ -36,4 +37,4 @@ notation.
 Move list guides by:
 
 - Kao Megura / Chris MacDonald [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
-- MJ
+- x_MJ_x (Hyper Street Fighter II)

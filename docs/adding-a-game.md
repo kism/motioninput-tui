@@ -17,8 +17,7 @@ gitignored and every user fetches their own copy. What *is* committed is
 [`sources.json`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_guides/sources.json),
 which records where each one came from.
 
-Add an entry — `kof98` and `kof2001` are already there, waiting for a parser,
-if you want a game with nothing else to do first:
+Add an entry (the existing six are worked examples of the shape):
 
 ```json
 {
@@ -80,9 +79,9 @@ is what datagen parses and it keeps the fixed-width columns a parser keys off.
 
 Add one to
 [`games/rulesets.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/games/rulesets.py),
-next to the three that are there. The
+next to the ones that are there. The
 [`Ruleset` docstring](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/engine/ruleset.py)
-documents every field; the existing three are a good starting range to
+documents every field; the Street Fighter three span a good starting range to
 interpolate within — `HSF2` is strict, `SFA3` a little more forgiving, `SFIII3`
 the lenient one. Start from the brief's proposed `Ruleset(...)` and its
 reasoning about where the game sits, then sanity-check the fields that matter:
@@ -143,12 +142,19 @@ Register it:
 
 ```python
 # datagen/parsers/__init__.py  — add the new module here
-from . import hsf2, kof98, sfa3, sfiii3
+from . import hsf2, kof98, kof2001, sfa3, sfiii3, ssvsp
 
-__all__ = ["hsf2", "kof98", "sfa3", "sfiii3"]
+__all__ = ["hsf2", "kof98", "kof2001", "sfa3", "sfiii3", "ssvsp"]
 
 # datagen/__main__.py  — and register it in the PARSERS mapping
-PARSERS = {"hsf2": hsf2.parse, "kof98": kof98.parse, "sfa3": sfa3.parse, "sfiii3": sfiii3.parse}
+PARSERS = {
+    "hsf2": hsf2.parse,
+    "sfa3": sfa3.parse,
+    "sfiii3": sfiii3.parse,
+    "kof98": kof98.parse,
+    "kof2001": kof2001.parse,
+    "ssvsp": ssvsp.parse,
+}
 ```
 
 ## 5. Fix character names

@@ -306,8 +306,9 @@ no elevated privileges, and it keeps working over SSH.
 
 ## Special thanks
 
-Kao Megura / Chris MacDonald —
-<https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/>
+Move list guides by Kao Megura / Chris MacDonald
+(<https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/>) for
+every game except Hyper Street Fighter II, whose guide is by x_MJ_x.
 
 ```{toctree}
 :hidden:

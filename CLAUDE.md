@@ -41,7 +41,7 @@ python -m motioninput_tui --game sfiii3 --character ryu    # skip the pickers
 python -m motioninput_tui --check-terminal                 # speed + key release support
 python -m motioninput_tui.gamepad_probe                    # dump a pad's SDL state to /tmp (ctrl+c to stop)
 python -m motioninput_tui --list                           # rosters
-python -m motioninput_tui_datagen --show-skipped           # rebuild packaged rosters
+python -m motioninput_tui_datagen --show-skipped           # rebuild rosters, listing moves that would not normalise
 python -m motioninput_tui_guides --list                    # reference guide catalogue
 ```
 
@@ -331,7 +331,7 @@ character (`sfiii3/test_chun_li.py`), because that is how the behaviour is
 validated: against the real game, a character at a time. The directory is the
 game key and the file name is the character key with underscores for hyphens.
 The `play` fixture in its `conftest.py` reads both out of the path, so tests
-never name a game or a character; `test_hierarchy.py` fails on a directory that
+never name a game or a character; `test__meta_hierarchy.py` fails on a directory that
 is not a game or a file that is not one of its characters. Add a game by making
 the directory.
 
