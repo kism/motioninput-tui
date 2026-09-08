@@ -206,7 +206,8 @@ brief_for() {
     } >"$work/data.txt"
 
     echo "  $game: analysing $(wc -c <"$work/data.txt" | tr -d ' ') bytes with $MODEL ..."
-    if ! "$CLAUDE" "${CLAUDE_FLAGS[@]}" "$INSTRUCTIONS" <"$work/data.txt" >"$work/out.md"; then
+    # `--` ends the variadic --tools list, which would otherwise eat the prompt.
+    if ! "$CLAUDE" "${CLAUDE_FLAGS[@]}" -- "$INSTRUCTIONS" <"$work/data.txt" >"$work/out.md"; then
         echo "  $game: the claude CLI failed, leaving $target alone" >&2
         return 1
     fi
