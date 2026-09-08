@@ -184,6 +184,11 @@ stances and conditional moves the engine cannot model, shown struck through.
 `--show-skipped` lists what did not parse — scan it: a whole character missing
 is a parser gap, not an unmodellable move.
 
+`python -m motioninput_tui_datagen --summary` prints the roster on disk
+character by character (move count, trainable count, category mix), which is the
+quickest way to see what a regeneration changed and to spot a character whose
+count looks wrong.
+
 ## 7. Write motion tests
 
 Motion behaviour is checked per game, per character, against the real game —

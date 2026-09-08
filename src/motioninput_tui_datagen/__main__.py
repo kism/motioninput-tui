@@ -19,6 +19,7 @@ from motioninput_tui.utils.logger import get_logger, setup_logger_cli
 from .names import apply_overrides
 from .parsers import hsf2, kof98, sfa3, sfiii3
 from .roster import write_game
+from .summary import print_summary
 
 logger = get_logger(__name__)
 
@@ -29,6 +30,11 @@ def _get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog="python -m motioninput_tui_datagen", description=__doc__)
     parser.add_argument("--references", type=Path, default=Path("references"), help="Directory of reference FAQs.")
     parser.add_argument("--show-skipped", action="store_true", help="List moves that could not be normalised.")
+    parser.add_argument(
+        "--summary",
+        action="store_true",
+        help="Print a per-character breakdown of the roster data on disk and exit, without regenerating.",
+    )
     parser.add_argument("-v", action="count", default=0, help="Increase verbosity.")
     return parser.parse_args()
 
@@ -37,6 +43,9 @@ def main() -> int:
     """Parse every reference file and write the packaged data."""
     args = _get_args()
     setup_logger_cli(args.v)
+
+    if args.summary:
+        return print_summary()
 
     exit_code = 0
     for key, spec in GAME_SPECS.items():

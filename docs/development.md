@@ -25,8 +25,9 @@ src/motioninput_tui_guides/   Fetches the FAQs from GameFAQs. A sibling package,
                               not a subpackage, so it is not shipped in the wheel.
 src/motioninput_tui_datagen/  Parses the FAQs into games/data/*.json. Also a
                               sibling package, kept out of the wheel; run it with
-                              `python -m motioninput_tui_datagen`. Per-game
-                              parsers live in `parsers/`.
+                              `python -m motioninput_tui_datagen` (or
+                              `--summary` for a per-character breakdown of the
+                              data on disk). Per-game parsers live in `parsers/`.
 ```
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`. The engine

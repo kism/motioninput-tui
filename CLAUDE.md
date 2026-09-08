@@ -30,6 +30,7 @@ uv sync --all-extras            # dev setup; omit --all-extras for prod
 ./scripts/run-coverage.sh       # coverage run + html + report
 ./scripts/run-game-briefs.sh    # analyse any guide lacking .claude/skills/game-brief/briefs/<game>.md
 ./scripts/run-datagen.sh        # rebuild packaged rosters from references/ (wraps python -m motioninput_tui_datagen)
+python -m motioninput_tui_datagen --summary   # per-character move / trainable counts for the data on disk
 
 .venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
 .venv/bin/pytest -k logger                                 # by name
