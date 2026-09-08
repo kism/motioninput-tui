@@ -15,12 +15,12 @@ DEFAULT_DEST = Path("references")
 def _canonical_text(text: str) -> str:
     """The form a guide is checksummed in, so trivial whitespace never breaks it.
 
-    Leading blank (whitespace-only) lines are dropped and the file ends in
-    exactly one newline. A guide re-fetched or hand-edited with only surrounding
-    whitespace changed still matches its recorded ``sha256``.
+    Leading blank lines are dropped, every whitespace-only line is emptied, and
+    the file ends in exactly one newline. A guide re-fetched or hand-edited with
+    only surrounding whitespace changed still matches its recorded ``sha256``.
     """
-    lines = text.split("\n")
-    while lines and not lines[0].strip():
+    lines = [line if line.strip() else "" for line in text.split("\n")]
+    while lines and not lines[0]:
         lines.pop(0)
     return "\n".join(lines).rstrip("\n") + "\n"
 
