@@ -36,6 +36,8 @@ def main() -> int:
 
     exit_code = 0
     for key, spec in GAME_SPECS.items():
+        if not spec.reference:  # The input display has no roster to generate.
+            continue
         source = args.references / Path(spec.reference).name
         if not source.is_file():
             logger.error("Missing reference file: %s. Fetch it with: python -m motioninput_tui_guides", source)

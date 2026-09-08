@@ -1,9 +1,13 @@
-"""Test versioning."""
+"""Test versioning, and that the places a game is named agree."""
 
 import tomllib
 from pathlib import Path
 
 from motioninput_tui import PROGRAM_NAME, PROGRAM_REPO_URL, PROGRAM_VERSION, constants
+from motioninput_tui.datagen.__main__ import PARSERS
+from motioninput_tui.datagen.names import OVERRIDES
+from motioninput_tui.games.rulesets import GAME_SPECS
+from motioninput_tui_guides.catalog import load_guides
 
 
 def test_version_pyproject() -> None:
@@ -51,3 +55,18 @@ def test_get_version_str_no_git(tmp_path, monkeypatch) -> None:
     monkeypatch.setattr(constants, "__file__", str(tmp_path / "pkg" / "constants.py"))
 
     assert constants._get_version_str() == f"{PROGRAM_NAME} v{PROGRAM_VERSION}"
+
+
+def test_game_keys_agree() -> None:
+    """A game with a roster is named in the same way everywhere it appears.
+
+    The key is spelled out in a handful of tables that nothing else joins up, so
+    a game added to one and missed in another is caught here rather than at the
+    next datagen run. The guide catalogue is allowed to run ahead: a guide can be
+    fetched before the game is added to the trainer.
+    """
+    generated = {key for key, spec in GAME_SPECS.items() if spec.reference}
+
+    assert generated == set(PARSERS), "every game with a reference guide needs a parser, and vice versa"
+    assert generated <= {guide.key for guide in load_guides()}, "a game whose guide is not in the catalogue"
+    assert set(OVERRIDES) <= generated, "a name override for a game that is not generated"
