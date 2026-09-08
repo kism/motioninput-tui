@@ -13,21 +13,22 @@ DEFAULT_DEST = Path("references")
 
 
 def canonical_text(text: str) -> str:
-    """The form a guide is checksummed in, so trivial whitespace never breaks it.
+    """The form a guide is stored in, so a fetch produces a stable file.
 
-    Leading blank lines are dropped, every whitespace-only line is emptied, and
-    the file ends in exactly one newline. A guide re-fetched or hand-edited with
-    only surrounding whitespace changed still matches its recorded ``sha256``.
+    Line endings become ``\\n``, leading blank lines are dropped, every
+    whitespace-only line is emptied, and the file ends in exactly one newline.
+    :func:`fetch.fetch_guide` writes this, so the file on disk is already
+    canonical and its plain ``sha256sum`` is what ``sources.json`` records.
     """
-    lines = [line if line.strip() else "" for line in text.split("\n")]
+    lines = [line if line.strip() else "" for line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n")]
     while lines and not lines[0]:
         lines.pop(0)
     return "\n".join(lines).rstrip("\n") + "\n"
 
 
 def sha256_file(path: Path) -> str:
-    """Hex SHA-256 of a guide's canonical text, the form stored in sources.json."""
-    return hashlib.sha256(canonical_text(path.read_text(encoding="utf-8")).encode("utf-8")).hexdigest()
+    """Hex SHA-256 of a guide file's bytes, matching ``sha256sum``."""
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 @dataclass(frozen=True, slots=True)

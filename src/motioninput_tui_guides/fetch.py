@@ -199,15 +199,14 @@ def fetch_guide(
     if _looks_blocked(html):
         return Result(guide, Status.FAILED, path, "blocked by anti-bot check; try again later")
 
-    # canonical_text, not strip(): it drops leading blank lines and trailing
-    # whitespace but keeps the indentation on the first real line, which is
-    # often a centred title.
+    # canonical_text, not strip(): it normalises line endings and blank lines
+    # but keeps the indentation on the first real line, often a centred title.
     text = canonical_text(extract_guide_text(html))
     if len(text.strip().encode("utf-8")) < MIN_BYTES:
         return Result(guide, Status.FAILED, path, f"only {len(text)} characters extracted, looks like an error page")
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
     size = f"{path.stat().st_size:,} bytes"
     return _checked(guide, dest_dir, Status.FETCHED, size, "the guide may have changed upstream")
 
