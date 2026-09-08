@@ -146,15 +146,29 @@ def parse_command(command: str) -> ParsedCommand:
     if buttons is None:
         return ParsedCommand(None, "no button requirement found")
 
-    # A 360 that ends in mashing is still a 360, so rotations are checked first.
-    special = _parse_rotation(text) or (MotionKind.MASH if "rapid" in raw else None)
-    if special is not None:
-        return ParsedCommand(MotionSpec(special, buttons, air=_detect_air(raw), notation=command.strip()))
-
-    kind, hold, reason = _resolve_directions(raw, text, buttons)
+    kind, hold, reason = _classify(raw, text, buttons)
     if kind is None:
         return ParsedCommand(None, reason)
     return ParsedCommand(MotionSpec(kind, buttons, hold=hold, air=_detect_air(raw), notation=command.strip()))
+
+
+def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKind | None, Direction | None, str]:
+    """Pick the motion kind for a command whose button requirement is already known."""
+    # A 360 that ends in mashing is still a 360, so rotations are checked first.
+    rotation = _parse_rotation(text)
+    if rotation is not None:
+        return rotation, None, ""
+
+    kind, hold, reason = _resolve_directions(raw, text, buttons)
+    if kind is not None:
+        return kind, hold, ""
+
+    # "Tap P rapidly" on its own is a mash. "qcf,qcf + P, tap P rapidly" is a
+    # real motion with a mashable tail for extra hits, and matched just above.
+    if "rapid" in raw:
+        return MotionKind.MASH, None, ""
+
+    return None, None, reason
 
 
 def _resolve_directions(

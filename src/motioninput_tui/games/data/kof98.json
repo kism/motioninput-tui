@@ -2540,7 +2540,7 @@
      "command": "When close, f,d,df + P  (tap P rapidly)",
      "category": "special",
      "motion": {
-      "kind": "mash",
+      "kind": "dp",
       "buttons": {
        "allowed": [
         "A",
@@ -3985,9 +3985,9 @@
     {
      "name": "Drill",
      "command": "When close, hcb,hcb + P, tap P rapidly",
-     "category": "special",
+     "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "hcb_x2",
       "buttons": {
        "allowed": [
         "A",

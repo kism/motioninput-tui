@@ -1204,9 +1204,9 @@
     {
      "name": "Reverse Shaft Breaker",
      "command": "qcb,d,db + K, tap P / K rapidly",
-     "category": "special",
+     "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcb_rdp",
       "buttons": {
        "allowed": [
         "HK",
@@ -3762,9 +3762,9 @@
     {
      "name": "Shinryuu Ken",
      "command": "qcf,d,df + K, tap P / K rapidly",
-     "category": "special",
+     "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcf_dp",
       "buttons": {
        "allowed": [
         "HK",
@@ -6550,9 +6550,9 @@
     {
      "name": "Reverse Shaft Breaker",
      "command": "qcb,d,db + K, tap P / K rapidly",
-     "category": "special",
+     "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcb_rdp",
       "buttons": {
        "allowed": [
         "HK",

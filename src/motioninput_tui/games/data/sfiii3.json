@@ -867,7 +867,7 @@
      "command": "qcf,qcf + P, tap P rapidly   x1",
      "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcf_x2",
       "buttons": {
        "allowed": [
         "HP",
@@ -2277,7 +2277,7 @@
      "command": "In air, qcf,qcf + P, tap P rapidly    x3",
      "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcf_x2",
       "buttons": {
        "allowed": [
         "HP",
@@ -2520,7 +2520,7 @@
      "command": "qcf,qcf + K, tap K rapidly   x1",
      "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcf_x2",
       "buttons": {
        "allowed": [
         "HK",
@@ -3006,7 +3006,7 @@
      "command": "f,d,df + P, tap P rapidly",
      "category": "special",
      "motion": {
-      "kind": "mash",
+      "kind": "dp",
       "buttons": {
        "allowed": [
         "HP",
@@ -3152,7 +3152,7 @@
      "command": "qcf,qcf + P, tap P rapidly   x1",
      "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcf_x2",
       "buttons": {
        "allowed": [
         "HP",
@@ -3342,7 +3342,7 @@
      "command": "In air, qcf + K, tap K rapidly",
      "category": "special",
      "motion": {
-      "kind": "mash",
+      "kind": "qcf",
       "buttons": {
        "allowed": [
         "HK",
@@ -3490,6 +3490,274 @@
       },
       "notation": "qcf,qcf + PP   x(max stock)"
      }
+    }
+   ]
+  },
+  {
+   "key": "q",
+   "name": "Q",
+   "title": "Whose Existence is a Mystery",
+   "moves": [
+    {
+     "name": "Hokaku Oyobi Shippu o Mochii ta Tsuuda (Kari)",
+     "command": "Press LP + LK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "Press LP + LK"
+     }
+    },
+    {
+     "name": "Hokaku Oyobi Touteki ni yoru Daraku Shougeki",
+     "command": "b / f + LP + LK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "b / f + LP + LK"
+     }
+    },
+    {
+     "name": "Shippu ni yoru Ko-Chouyaku Kougeki (Kari)",
+     "command": "Press MP + MK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "MK",
+        "MP"
+       ],
+       "count": 2,
+       "label": "MP+MK"
+      },
+      "notation": "Press MP + MK"
+     }
+    },
+    {
+     "name": "Tosshin Toubu Dageki (Kari)",
+     "command": "Charge b,f + P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + P"
+     }
+    },
+    {
+     "name": "Tosshin Touchoubu Dageki (Kari)",
+     "command": "Charge b,f + hold P",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge b,f + hold P"
+     }
+    },
+    {
+     "name": "Tosshin Kashi Dageki (Kari)",
+     "command": "Charge b,f + K",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K"
+     }
+    },
+    {
+     "name": "Kousokudo Renzoku Dageki (Kari)",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Hokaku Oyobi Tsuukon Dageki (Kari)",
+     "command": "hcb + K when close",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K when close"
+     }
+    },
+    {
+     "name": "Toubu ni yoru Jouhou Kougeki (Kari)",
+     "command": "b + MP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "hold": 4,
+      "notation": "b + MP"
+     }
+    },
+    {
+     "name": "Ryouude ni yoru Zenshin Tsuugeki (Kari)",
+     "command": "b + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 4,
+      "notation": "b + HP"
+     }
+    },
+    {
+     "name": "Tentou kara no Toubu Tsuugeki (Kari)",
+     "command": "b + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 4,
+      "notation": "b + HK"
+     }
+    },
+    {
+     "name": "Tentou kara no Kyakubu Tsuugeki (Kari)",
+     "command": "db~df + HK",
+     "category": "other"
+    },
+    {
+     "name": "Tosshin Oyobi Chishi Renzoku Dageki (Kari)",
+     "command": "qcf,qcf + P   x2",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P   x2"
+     }
+    },
+    {
+     "name": "Fukubu Oyobi Koutoubu e no Tsuuda (Kari)",
+     "command": "qcf,qcf + P   x1",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P   x1"
+     }
+    },
+    {
+     "name": "Bakuhatsu o Tomonau Dageki ya Hokaku (Kari)",
+     "command": "qcf,qcf + P   x1",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P   x1"
+     }
+    },
+    {
+     "name": "Bakuhatsu o Tomonau Dageki ya Hokaku: Dageki",
+     "command": "qcf + P from SA III",
+     "category": "super"
+    },
+    {
+     "name": "Bakuhatsu o Tomonau Dageki ya Hokaku: Hokaku",
+     "command": "qcf + K from SA III",
+     "category": "super"
     }
    ]
   },
@@ -4117,7 +4385,7 @@
      "command": "qcf,qcf + P, tap P rapidly   x2",
      "category": "super",
      "motion": {
-      "kind": "mash",
+      "kind": "qcf_x2",
       "buttons": {
        "allowed": [
         "HP",

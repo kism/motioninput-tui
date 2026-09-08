@@ -14,7 +14,7 @@ from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, fini
 SECTION_START = "2.  CHARACTER MOVELISTS"
 SECTION_END = "3.  SECRETS AND TRICKS"
 
-_HEADER = re.compile(r"^ ?([A-Z][A-Z0-9.'\- ]{1,30})(?:,\s*(.+))?$")
+_HEADER = re.compile(r"^ ?([A-Z][A-Z0-9.'\- ]{0,30})(?:,\s*(.+))?$")
 _MOVE = re.compile(r"^ {1,6}(?:(EX|III|II|I|any)\s+)?(\S.*?) {2,}(\S.*)$")
 _STOP = re.compile(r"^\s*(Target Combos|Link Combos|Combos)\s*:")
 _SUPER_FLAGS = frozenset({"I", "II", "III", "any"})
@@ -52,6 +52,10 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
         if match is None:
             continue
         flag, raw_name, command = match.groups()
+        # A move name always starts upper-case (or "..." for a follow-up); a
+        # lower-case start is prose, like Q's three lines about abridged names.
+        if raw_name[:1].islower():
+            continue
         parts = split_name_command(f"{raw_name}  {command}")
         if parts is None:
             continue
