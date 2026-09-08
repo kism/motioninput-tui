@@ -9,3 +9,7 @@ No whole character is missing. The skipped moves are: command throws (b/f + C wh
 
 - Should it be a separate helper module?
 - Separate game files into a folder
+
+## Timings
+
+Not sure when the ai got it's information from, but need to see if there is a way to get input timing into each game

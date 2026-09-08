@@ -12,7 +12,7 @@ from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Vertical
 from textual.screen import ModalScreen
-from textual.widgets import Footer, Label
+from textual.widgets import Footer, Label, OptionList
 
 from motioninput_tui.tui.widgets.settings_list import SettingsList
 
@@ -20,7 +20,6 @@ if TYPE_CHECKING:
     from collections.abc import Mapping
 
     from textual.app import ComposeResult
-    from textual.widgets import OptionList
 
 
 class SettingsScreen(ModalScreen[None]):

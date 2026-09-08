@@ -23,6 +23,7 @@ from .screens.notation import NotationScreen
 from .screens.settings import SettingsScreen
 from .screens.setup import SetupScreen
 from .screens.training import TrainingScreen
+from .widgets.settings_list import SettingsList  # ruff: ignore[typing-only-first-party-import] - Textual evaluates the on_settings_list_changed annotation at runtime
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -33,8 +34,6 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.engine.recognizer import BufferPolicy
     from motioninput_tui.games.models import Character, Game
-
-    from .widgets.settings_list import SettingsList
 
 logger = get_logger(__name__)
 
