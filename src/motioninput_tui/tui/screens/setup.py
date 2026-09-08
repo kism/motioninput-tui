@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
     from textual.app import ComposeResult
 
-    from motioninput_tui.games.models import Game
+    from motioninput_tui.games.models import Character, Game
 
 
 class SetupScreen(Screen["tuple[str, str] | None"]):
@@ -132,10 +132,10 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         self._loaded_game = game_index
         characters = self.query_one("#characters", OptionList)
         characters.clear_options()
-        game = self.games[game_index]
-        characters.add_options([character.name for character in game.characters])
-        if game.characters:
-            characters.highlighted = _index_of([entry.key for entry in game.characters], character_key)
+        roster = _ordered_characters(self.games[game_index])
+        characters.add_options([character.name for character in roster])
+        if roster:
+            characters.highlighted = _index_of([entry.key for entry in roster], character_key)
         self._describe()
 
     def on_option_list_option_highlighted(self, event: OptionList.OptionHighlighted) -> None:
@@ -180,9 +180,10 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         game_index = self.query_one("#games", OptionList).highlighted or 0
         character_index = self.query_one("#characters", OptionList).highlighted or 0
         game = self.games[game_index]
-        if not game.characters:
+        roster = _ordered_characters(game)
+        if not roster:
             return None
-        return game, game.characters[character_index].key
+        return game, roster[character_index].key
 
     def _describe(self) -> None:
         """Explain the highlighted setting, then the highlighted game."""
@@ -210,6 +211,11 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
     def action_back(self) -> None:
         """Return to the input picker."""
         self.dismiss(None)
+
+
+def _ordered_characters(game: Game) -> list[Character]:
+    """The roster as the character list shows it: alphabetical by display name."""
+    return sorted(game.characters, key=lambda character: character.name.casefold())
 
 
 def _index_of(keys: list[str], wanted: str | None) -> int:
