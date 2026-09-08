@@ -203,7 +203,7 @@ simulate the operating system's auto-repeat stream itself (first repeat after
 the initial delay, then roughly every 33ms); bare presses without repeats do
 not reproduce what a real terminal sends and give misleading results.
 
-See [Adding a game](adding-a-game.md#7-write-motion-tests) for the concrete
+See [Adding a game](adding-a-game.md), "Write motion tests," for the concrete
 recipe when covering a new game.
 
 ### Workflows
@@ -236,11 +236,18 @@ for configuring that, since it is stripped out of this repo.
 
 ## Documentation
 
-This site is built with [MkDocs](https://www.mkdocs.org/) from the pages under
-`docs/`, configured in `mkdocs.yml` at the repository root, and hosted on Read
-the Docs. Build it locally with:
+This site is built with [Sphinx](https://www.sphinx-doc.org/) from the pages
+under `docs/`, using [MyST](https://myst-parser.readthedocs.io/) so the pages
+are plain Markdown rather than reStructuredText. Configuration is
+`docs/conf.py`; hosting is Read the Docs, which reads `.readthedocs.yaml` at
+the repository root. Build it locally with:
 
 ```bash
 uv sync --extra docs
-uv run mkdocs serve
+uv run sphinx-build -b html docs docs/_build/html
 ```
+
+Then open `docs/_build/html/index.html`. Pass `-W` to fail the build on any
+warning (an unresolved cross-reference, a heading anchor that moved) — that is
+what Read the Docs itself does not enforce but is worth checking after
+restructuring a page.

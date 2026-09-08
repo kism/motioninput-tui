@@ -278,3 +278,11 @@ no elevated privileges, and it keeps working over SSH.
 
 Kao Megura / Chris MacDonald —
 <https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/>
+
+```{toctree}
+:hidden:
+:maxdepth: 1
+
+adding-a-game
+development
+```

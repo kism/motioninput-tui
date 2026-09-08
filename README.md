@@ -28,8 +28,8 @@ notation.
 
 ## Contributing
 
-- [Adding a game](https://motioninput-tui.readthedocs.io/en/latest/adding-a-game/)
-- [Development setup](https://motioninput-tui.readthedocs.io/en/latest/development/)
+- [Adding a game](https://motioninput-tui.readthedocs.io/en/latest/adding-a-game.html)
+- [Development setup](https://motioninput-tui.readthedocs.io/en/latest/development.html)
 
 ## Credit
 

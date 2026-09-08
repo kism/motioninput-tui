@@ -22,7 +22,7 @@ guides = ["curl-cffi>=0.7.0", "beautifulsoup4>=4.12.0"]
 gamepad = ["pygame-ce>=2.5.8"]
 
 # Building the docs/ site. Never imported by the trainer itself.
-docs = ["mkdocs>=1.6.0"]
+docs = ["sphinx>=8.1.0", "myst-parser>=4.0.0", "sphinx-rtd-theme>=3.0.0"]
 
 test = [
     "pytest>=9.1.1",
@@ -103,6 +103,9 @@ ignore = [
 ".claude/skills/**/*.py" = [
     "print",  # Skill scripts are command line tools; printing is how they report.
     "implicit-namespace-package",  # Standalone scripts, not a package.
+]
+"docs/conf.py" = [
+    "implicit-namespace-package",  # Sphinx config, not part of the motioninput_tui package.
 ]
 
 

@@ -11,11 +11,11 @@ down and double tapping forward gives a dragon punch, in Alpha 3 and Super
 Turbo it gives nothing.
 
 See `README.md` for a quick start, and the full documentation at
-`docs/index.md` (built with MkDocs, published to Read the Docs) for using the
-trainer, `docs/development.md` for the developer setup, and
-`docs/adding-a-game.md` for adding a new title — also available as the
-`add-a-game` skill. This file covers what is hard to discover from the code
-alone.
+`docs/index.md` (Sphinx + MyST, so the pages are Markdown; published to Read
+the Docs) for using the trainer, `docs/development.md` for the developer
+setup, and `docs/adding-a-game.md` for adding a new title — also available as
+the `add-a-game` skill. This file covers what is hard to discover from the
+code alone.
 
 ## Commands
 

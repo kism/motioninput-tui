@@ -159,8 +159,8 @@ sometimes a parser gap rather than a genuinely unmodellable one.
 ## 7. Write motion tests
 
 Motion behaviour is checked per game, per character, against the real game —
-see [Testing](development.md#testing) for the full convention. The short
-version: make `tests/engine/test_motions/<key>/` and a `test_<character>.py`
+see [Development](development.md), "Testing," for the full convention. The
+short version: make `tests/engine/test_motions/<key>/` and a `test_<character>.py`
 per character you cover, named and pathed after the game and character keys.
 
 ```python

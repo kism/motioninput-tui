@@ -1,7 +1,7 @@
 # Read the Docs configuration: https://docs.readthedocs.io/en/stable/config-file/v2.html
 #
-# Only mkdocs itself is installed here, not the project: the docs are plain
-# pages with nothing generated from the code, and the project's own
+# Only the doc toolchain is installed here, not the project: the docs are
+# plain pages with nothing generated from the code, and the project's own
 # requires-python is ahead of what Read the Docs' build image offers.
 version: 2
 
@@ -10,8 +10,8 @@ build:
   tools:
     python: "3.13"
 
-mkdocs:
-  configuration: mkdocs.yml
+sphinx:
+  configuration: docs/conf.py
 
 python:
   install:
