@@ -62,7 +62,7 @@ or the page needs a different one — do not force a bad guide through.
 ```
 
 If the brief already exists (it is committed), just read it. Otherwise run this
-in the background (a minute or two per game) and read
+in the background (a few minutes) and read
 `.claude/skills/game-brief/briefs/<key>.md` when it finishes. It is analysis,
 not a copy of the guide: the roster and which sections to skip, the guide's
 layout for the parser, the button/motion gotchas and a predicted trainable
