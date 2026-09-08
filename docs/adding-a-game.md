@@ -102,7 +102,7 @@ panel (Mortal Kombat's five, Neo Geo's four, Tekken's four) points `buttons` at
 the matching `ButtonSet` instead, or a new one if none fits. A non-SF panel also
 needs the parser to remap button requirements, because the recogniser matches
 `Button` identity, not punch/kick family — see
-[`datagen/kof98.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/kof98.py)
+[`datagen/parsers/kof98.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/parsers/kof98.py)
 and step 4.
 
 ## 4. Write the parser
@@ -114,26 +114,26 @@ character-heading shape, which block to parse per character, and the closest
 existing parser to start from.
 
 Every guide spells its move list a different way, so
-[`datagen/<key>.py`](https://github.com/kism/motioninput-tui/tree/main/src/motioninput_tui/datagen)
+[`datagen/parsers/<key>.py`](https://github.com/kism/motioninput-tui/tree/main/src/motioninput_tui_datagen/parsers)
 is bespoke, but the pieces are shared. Compare the existing dialects first:
 
-* [`hsf2.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/hsf2.py)
+* [`hsf2.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/parsers/hsf2.py)
   parses a guide that spells directions out in full: `D, DF, F + any Punch`.
-* [`sfa3.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/sfa3.py)
+* [`sfa3.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/parsers/sfa3.py)
   parses shorthand (`qcf,qcf + K`) with a fixed-width ISM column at the start
   of each line.
-* [`kof98.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/kof98.py)
+* [`kof98.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/parsers/kof98.py)
   parses shorthand on a non-Street-Fighter panel: it translates `A/B/C/D` to
   SF notation for `normalise`, then maps the button requirement back onto the
   real panel (`_neo_buttons`). Copy this when the brief says the panel needs a
   remap.
 
 Both lean on
-[`datagen/common.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/common.py)
+[`datagen/common.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/common.py)
 (`DASHED` for section rules, `build_move` / `finish_character` to assemble a
 `Character`, `split_name_command`, `character_key`) and both hand the command
 text to
-[`normalise.parse_command`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/normalise.py),
+[`normalise.parse_command`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/normalise.py),
 which reduces either dialect to a canonical list of direction tokens and looks
 them up in one motion table. A new dialect almost never needs a third
 normaliser — it needs a `parse()` that finds the character headings and the
@@ -142,16 +142,19 @@ move lines and gets their text into a form `parse_command` already understands.
 Register it:
 
 ```python
-# datagen/__main__.py
+# datagen/parsers/__init__.py  — add the new module here
 from . import hsf2, kof98, sfa3, sfiii3
 
+__all__ = ["hsf2", "kof98", "sfa3", "sfiii3"]
+
+# datagen/__main__.py  — and register it in the PARSERS mapping
 PARSERS = {"hsf2": hsf2.parse, "kof98": kof98.parse, "sfa3": sfa3.parse, "sfiii3": sfiii3.parse}
 ```
 
 ## 5. Fix character names
 
 Guides disagree about what a character is called across titles and authors.
-[`datagen/names.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/datagen/names.py)
+[`datagen/names.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/names.py)
 maps the key a guide produced to the name to use instead, per game:
 
 ```python
@@ -168,7 +171,7 @@ logs a warning rather than doing nothing silently.
 ## 6. Generate and check the roster
 
 ```bash
-motioninput-tui-datagen --show-skipped
+python -m motioninput_tui_datagen --show-skipped
 ```
 
 This parses every game with a registered parser and writes

@@ -4,9 +4,9 @@ import tomllib
 from pathlib import Path
 
 from motioninput_tui import PROGRAM_NAME, PROGRAM_REPO_URL, PROGRAM_VERSION, constants
-from motioninput_tui.datagen.__main__ import PARSERS
-from motioninput_tui.datagen.names import OVERRIDES
 from motioninput_tui.games.rulesets import GAME_SPECS
+from motioninput_tui_datagen.__main__ import PARSERS
+from motioninput_tui_datagen.names import OVERRIDES
 from motioninput_tui_guides.catalog import load_guides
 
 

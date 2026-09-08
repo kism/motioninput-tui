@@ -24,8 +24,7 @@ from dataclasses import replace
 from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.notation import ALL_BUTTONS, KICKS, PUNCHES, Button, ButtonRequirement
-
-from .common import DASHED, ParseReport, build_move, finish_character, split_name_command
+from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
 
 if TYPE_CHECKING:
     from motioninput_tui.engine.motions import MotionSpec

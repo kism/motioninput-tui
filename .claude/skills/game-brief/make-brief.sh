@@ -63,14 +63,14 @@ CLAUDE_FLAGS=(-p --model "$MODEL" --strict-mcp-config --setting-sources "" --too
 CONTEXT_FILES=(
     src/motioninput_tui/engine/ruleset.py
     src/motioninput_tui/games/rulesets.py
-    src/motioninput_tui/datagen/normalise.py
+    src/motioninput_tui_datagen/normalise.py
     src/motioninput_tui/engine/notation.py
     src/motioninput_tui/controls/buttons.py
-    src/motioninput_tui/datagen/common.py
-    src/motioninput_tui/datagen/hsf2.py
-    src/motioninput_tui/datagen/sfa3.py
-    src/motioninput_tui/datagen/sfiii3.py
-    src/motioninput_tui/datagen/kof98.py
+    src/motioninput_tui_datagen/common.py
+    src/motioninput_tui_datagen/parsers/hsf2.py
+    src/motioninput_tui_datagen/parsers/sfa3.py
+    src/motioninput_tui_datagen/parsers/sfiii3.py
+    src/motioninput_tui_datagen/parsers/kof98.py
     tests/engine/test_motions/harness.py
 )
 EXAMPLE_BRIEF="$BRIEFS/kof98.md"
@@ -132,7 +132,7 @@ Then these five sections, `##` headings exactly as written:
 - If the panel is not Street Fighter's six: the parser must translate commands
   to SF notation for `normalise`, then map the resulting `ButtonRequirement`
   back onto the real panel buttons, because the recogniser matches `Button`
-  identity, not punch/kick family. Point at `datagen/kof98.py`'s `_neo_buttons`.
+  identity, not punch/kick family. Point at `datagen/parsers/kof98.py`'s `_neo_buttons`.
 - Token collisions (button letters that clash with direction tokens) and what
   disambiguates them.
 - Motions in this guide that are NOT keys in `normalise._MOTION_TABLE` or

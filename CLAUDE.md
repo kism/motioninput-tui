@@ -29,6 +29,7 @@ uv sync --all-extras            # dev setup; omit --all-extras for prod
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
 ./scripts/run-game-briefs.sh    # analyse any guide lacking .claude/skills/game-brief/briefs/<game>.md
+./scripts/run-datagen.sh        # rebuild packaged rosters from references/ (wraps python -m motioninput_tui_datagen)
 
 .venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
 .venv/bin/pytest -k logger                                 # by name
@@ -39,7 +40,7 @@ python -m motioninput_tui --game sfiii3 --character ryu    # skip the pickers
 python -m motioninput_tui --check-terminal                 # speed + key release support
 python -m motioninput_tui.gamepad_probe                    # dump a pad's SDL state to /tmp (ctrl+c to stop)
 python -m motioninput_tui --list                           # rosters
-python -m motioninput_tui.datagen --show-skipped           # rebuild packaged rosters
+python -m motioninput_tui_datagen --show-skipped           # rebuild packaged rosters
 python -m motioninput_tui_guides --list                    # reference guide catalogue
 ```
 
@@ -55,12 +56,17 @@ lists. The datagen parser is still written against the full
 skill walks the whole procedure end to end; `docs/adding-a-game.md` is the same
 walkthrough for a person.
 
-`src/motioninput_tui_guides/` fetches `references/*.txt` from GameFAQs. It is a
-sibling package rather than a subpackage so `uv_build` leaves it out of the
-wheel; keep it that way, and do not give it a console script. Its dependencies
-live in the `guides` extra (`uv sync --extra guides`). The fetched guides are
-copyrighted, gitignored, and must never be committed or quoted back into the
-repo; only the parsed rosters under `games/data/` are.
+`src/motioninput_tui_guides/` fetches `references/*.txt` from GameFAQs, and
+`src/motioninput_tui_datagen/` parses them into `games/data/*.json`. Both are
+sibling packages rather than subpackages so `uv_build` (which packages only the
+one module matching the project name) leaves them out of the wheel; keep it that
+way, and do not give either a console script — run them as
+`python -m motioninput_tui_guides` / `python -m motioninput_tui_datagen`, or via
+`scripts/run-download-guides.sh` / `scripts/run-datagen.sh`. The guides package's
+dependencies live in the `guides` extra (`uv sync --extra guides`); datagen needs
+nothing beyond the trainer itself. The fetched guides are copyrighted, gitignored,
+and must never be committed or quoted back into the repo; only the parsed rosters
+under `games/data/` are.
 
 Ruff runs with `select = ["ALL"]` and `preview = true`, so lint is strict.
 Suppressions in this repo use `# ruff: ignore[rule-name] - why` and
@@ -271,14 +277,16 @@ once during ordinary motions. Neutral SOCD makes charge moves impossible.
 
 ### Rosters are generated and committed
 
-`games/data/*.json` is produced from the guides in `references/` by `datagen/`.
-Those guides are gitignored, so a fresh clone has to run
-`python -m motioninput_tui_guides` first. After changing `datagen/normalise.py` or a
-parser, rerun `python -m motioninput_tui.datagen` and commit the JSON. Roughly 80-90% of
+`games/data/*.json` is produced from the guides in `references/` by the
+`motioninput_tui_datagen` sibling package. Those guides are gitignored, so a
+fresh clone has to run `python -m motioninput_tui_guides` first. After changing
+`motioninput_tui_datagen/normalise.py` or a parser in
+`motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
+(or `./scripts/run-datagen.sh`) and commit the JSON. Roughly 80-90% of
 listed moves become trainable; the rest are follow-ups and conditional moves
 that still appear in the move list, struck through.
 
-The guides disagree about character names, so `datagen/names.py` maps the key a
+The guides disagree about character names, so `motioninput_tui_datagen/names.py` maps the key a
 guide produced to the name to use instead, per game (`ken-masters` → `Ken`).
 Keys are rebuilt from the new name, so an override renames the character
 everywhere, including `--character` and anyone's saved config — which is why

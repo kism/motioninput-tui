@@ -11,7 +11,7 @@ This guide spells directions out in full::
 import re
 from typing import TYPE_CHECKING
 
-from .common import DASHED, ParseReport, build_move, finish_character
+from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character
 
 if TYPE_CHECKING:
     from motioninput_tui.games.models import Character

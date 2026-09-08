@@ -20,7 +20,7 @@ class GameDataMissingError(FileNotFoundError):
 
     def __init__(self, path: Path) -> None:
         """Point the user at the generator."""
-        super().__init__(f"No roster data at {path}. Run: python -m motioninput_tui.datagen")
+        super().__init__(f"No roster data at {path}. Run: python -m motioninput_tui_datagen")
 
 
 @cache
@@ -80,20 +80,3 @@ def available_games() -> list[Game]:
         except GameDataMissingError:
             logger.warning("Skipping %s, no roster data generated yet", key)
     return games
-
-
-def write_game(key: str, characters: list[Character]) -> Path:
-    """Write a generated roster to the package data directory."""
-    spec = get_spec(key)
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    path = DATA_DIR / f"{spec.key}.json"
-    payload = {
-        "key": spec.key,
-        "name": spec.name,
-        "source": spec.reference,
-        "characters": [character.to_dict() for character in characters],
-    }
-    with path.open("w", encoding="utf-8") as handle:
-        json.dump(payload, handle, indent=1, ensure_ascii=False)
-        handle.write("\n")
-    return path

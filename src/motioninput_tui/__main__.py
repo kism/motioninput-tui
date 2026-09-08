@@ -135,7 +135,7 @@ def _resolve_selection(config: Config, *, from_cli: bool) -> bool:
     """Check the selection against the rosters. False means do not start.
 
     A remembered character can simply be gone: rosters are regenerated, and a
-    name override in ``datagen/names.py`` renames the key with the character.
+    name override in ``motioninput_tui_datagen/names.py`` renames the key with the character.
     That is no reason to refuse to start, so the selection is dropped and the
     picker opens on it instead. A character named on the command line is
     different, and still gets an error.

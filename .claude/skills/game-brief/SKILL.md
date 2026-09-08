@@ -70,7 +70,7 @@ then, in order:
 * **Notation & engine fit** — the button vocabulary and panel; whether a
   non-Street-Fighter panel needs the parser to remap button requirements (it
   does — the recogniser matches `Button` identity, not punch/kick family — see
-  `datagen/kof98.py`); direction/button token collisions; motions that are
+  `datagen/parsers/kof98.py`); direction/button token collisions; motions that are
   **not** in `normalise._MOTION_TABLE` / `_CHARGE_TABLE` and will be skipped;
   and the predicted trainable percentage with the reasons if it is below ~80%.
 * **Ruleset rationale** — where the game sits relative to `HSF2`, `SFA3` and

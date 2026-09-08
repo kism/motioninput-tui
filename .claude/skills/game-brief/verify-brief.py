@@ -22,7 +22,7 @@ import re
 import sys
 from pathlib import Path
 
-from motioninput_tui.datagen.__main__ import PARSERS
+from motioninput_tui_datagen.__main__ import PARSERS
 
 BRIEFS = Path(__file__).parent / "briefs"
 REFERENCES = Path("references")

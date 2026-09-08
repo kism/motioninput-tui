@@ -2,19 +2,23 @@
 
 Run from the repository root::
 
-    python -m motioninput_tui.datagen
+    python -m motioninput_tui_datagen
+
+This lives outside the ``motioninput_tui`` package on purpose, so it is not
+shipped in the wheel. It is a development tool for regenerating roster data from
+the guides fetched by ``python -m motioninput_tui_guides``.
 """
 
 import argparse
 import sys
 from pathlib import Path
 
-from motioninput_tui.games.loader import write_game
 from motioninput_tui.games.rulesets import GAME_SPECS
 from motioninput_tui.utils.logger import get_logger, setup_logger_cli
 
-from . import hsf2, kof98, sfa3, sfiii3
 from .names import apply_overrides
+from .parsers import hsf2, kof98, sfa3, sfiii3
+from .roster import write_game
 
 logger = get_logger(__name__)
 
@@ -22,7 +26,7 @@ PARSERS = {"hsf2": hsf2.parse, "sfa3": sfa3.parse, "sfiii3": sfiii3.parse, "kof9
 
 
 def _get_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="motioninput-tui-datagen", description=__doc__)
+    parser = argparse.ArgumentParser(prog="python -m motioninput_tui_datagen", description=__doc__)
     parser.add_argument("--references", type=Path, default=Path("references"), help="Directory of reference FAQs.")
     parser.add_argument("--show-skipped", action="store_true", help="List moves that could not be normalised.")
     parser.add_argument("-v", action="count", default=0, help="Increase verbosity.")

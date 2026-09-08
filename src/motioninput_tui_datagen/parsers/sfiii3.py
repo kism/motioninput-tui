@@ -9,8 +9,7 @@ Move lists look like::
 import re
 
 from motioninput_tui.games.models import Category, Character
-
-from .common import DASHED, ParseReport, build_move, finish_character, split_name_command
+from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
 
 SECTION_START = "2.  CHARACTER MOVELISTS"
 SECTION_END = "3.  SECRETS AND TRICKS"

@@ -103,7 +103,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         self.sub_title = self._layout_name or "What are you training?"
         if not self.games:
             self.query_one("#detail", Static).update(
-                Text("No roster data found. Run: python -m motioninput_tui.datagen", style="bold red")
+                Text("No roster data found. Run: python -m motioninput_tui_datagen", style="bold red")
             )
             return
         # An OptionList highlights its first entry when options are added and

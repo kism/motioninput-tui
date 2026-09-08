@@ -11,7 +11,7 @@ anything here is unclear, it has the reasoning this skill only summarises.
 This skill is the checklist for doing it.
 
 A game is five pieces: a linked (not committed) reference guide, a `GameSpec`
-in `games/rulesets.py`, a parser in `datagen/<key>.py`, the generated roster
+in `games/rulesets.py`, a parser in `motioninput_tui_datagen/parsers/<key>.py`, the generated roster
 JSON, and motion tests. Do them in this order.
 
 ## Never commit or quote the guide text
@@ -80,7 +80,7 @@ Set `buttons=` to the `ButtonSet` the brief names (from
 `src/motioninput_tui/controls/buttons.py`) if the game is not on the Street
 Fighter six-button panel (`STREET_FIGHTER`, the default). A non-SF panel also
 needs the parser to remap button requirements — see step 5 and
-`datagen/kof98.py`.
+`datagen/parsers/kof98.py`.
 
 ## 5. Write the parser
 
@@ -88,15 +88,15 @@ Work from the full `references/<key>.txt`. The brief's "Guide anatomy" section
 names the move-list section markers, the character-heading shape, which block to
 parse per character, and the closest existing parser to start from:
 
-- `src/motioninput_tui/datagen/hsf2.py` — directions spelled out in full.
-- `src/motioninput_tui/datagen/sfa3.py` — shorthand (`qcf,qcf + K`) with a
+- `src/motioninput_tui_datagen/parsers/hsf2.py` — directions spelled out in full.
+- `src/motioninput_tui_datagen/parsers/sfa3.py` — shorthand (`qcf,qcf + K`) with a
   fixed-width column.
-- `src/motioninput_tui/datagen/kof98.py` — shorthand on a non-SF panel: it
+- `src/motioninput_tui_datagen/parsers/kof98.py` — shorthand on a non-SF panel: it
   translates `A/B/C/D` to SF notation for `normalise`, then maps the button
   requirement back onto the real panel (`_neo_buttons`). Copy this when the
   brief's "Notation & engine fit" section says the panel needs a remap.
 
-Write `src/motioninput_tui/datagen/<key>.py` with a
+Write `src/motioninput_tui_datagen/parsers/<key>.py` with a
 `parse(text) -> tuple[list[Character], ParseReport]`, using the helpers in
 `datagen/common.py` (`DASHED`, `build_move`, `finish_character`,
 `split_name_command`, `character_key`), and let `datagen/normalise.parse_command`
@@ -105,7 +105,9 @@ normalisation logic — but the brief flags any motions this guide uses that are
 not in `normalise`'s tables, and those stay non-trainable unless you extend the
 engine.
 
-Register the parser in `src/motioninput_tui/datagen/__main__.py`'s `PARSERS` dict.
+Register the parser: import it in `src/motioninput_tui_datagen/parsers/__init__.py`
+(and its `__all__`), then add it to the `PARSERS` dict in
+`src/motioninput_tui_datagen/__main__.py`.
 
 ## 6. Fix character names if needed
 
@@ -116,7 +118,7 @@ lists (names that collide with another game, or are just ugly like
 ## 7. Generate and inspect the roster
 
 ```bash
-motioninput-tui-datagen --show-skipped
+python -m motioninput_tui_datagen --show-skipped
 ```
 
 Compare the trainable rate to the brief's prediction. Read the skipped list: a

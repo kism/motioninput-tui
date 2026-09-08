@@ -15,7 +15,6 @@ src/motioninput_tui/
                  plus a gamepad (optional `gamepad` extra) polled from the
                  training tick.
   games/         Game metadata, rulesets, move models and the packaged rosters.
-  datagen/       Parsers that turn the reference FAQs into games/data/*.json.
   notation_styles.py  How a move's input is *written* (glyphs, letters, emoji);
                  separate from engine/notation.py, which is what a direction *is*.
   settings.py    The player's own preferences, layered on top of a game's rules.
@@ -24,6 +23,10 @@ src/motioninput_tui/
 
 src/motioninput_tui_guides/   Fetches the FAQs from GameFAQs. A sibling package,
                               not a subpackage, so it is not shipped in the wheel.
+src/motioninput_tui_datagen/  Parses the FAQs into games/data/*.json. Also a
+                              sibling package, kept out of the wheel; run it with
+                              `python -m motioninput_tui_datagen`. Per-game
+                              parsers live in `parsers/`.
 ```
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`. The engine

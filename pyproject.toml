@@ -42,7 +42,6 @@ build-backend = "uv_build"
 
 [project.scripts]
 motioninput-tui = "motioninput_tui.__main__:main"
-motioninput-tui-datagen = "motioninput_tui.datagen.__main__:main"
 motioninput-tui-probe = "motioninput_tui.gamepad_probe:main"
 
 [tool.ruff]
