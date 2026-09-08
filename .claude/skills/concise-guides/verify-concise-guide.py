@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 """Check a condensed guide against the full one it came from.
 
-For a game that already has a parser, the strongest evidence that nothing the
-trainer needs was thrown away is that the parser gets the same roster out of
-both files. For a game with no parser yet, which is the usual reason for
-condensing a guide in the first place, there is nothing to compare against, so
-only the obvious signs of a bad condensation are checked.
+The concise guides are Markdown now, not a verbatim copy of the FAQ's
+fixed-width move lists, so this can no longer parse both files and diff the
+rosters. Instead, for a game that already has a parser, it parses the *full*
+guide for the characters and move names the trainer expects, then checks how
+many of those names survived into the Markdown. A name counts as present if it
+appears as a run of words anywhere in the concise text, ignoring case,
+punctuation and spacing. For a game with no parser yet only the size is checked.
 
 Run from the repository root::
 
     .venv/bin/python .claude/skills/concise-guides/verify-concise-guide.py [game ...]
 """
 
+import re
 import sys
 from pathlib import Path
 
@@ -21,6 +24,10 @@ PARSERS = {"hsf2": hsf2.parse, "sfa3": sfa3.parse, "sfiii3": sfiii3.parse}
 REFERENCES = Path("references")
 MIN_RATIO = 0.02
 """Below this fraction of the original, the condensation ate the guide."""
+MIN_CHARACTER_COVERAGE = 1.0
+"""Every character must still be named somewhere in the Markdown."""
+MIN_MOVE_COVERAGE = 0.85
+"""Most move names must still be findable; reformatting notation loses a few."""
 
 
 def read(path: Path) -> str:
@@ -28,9 +35,25 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
 
 
+def normalise(text: str) -> str:
+    """Lowercase, and reduce every run of non-alphanumerics to a single space."""
+    return re.sub(r"[^a-z0-9]+", " ", text.lower())
+
+
+def coverage(names: list[str], haystack: str, label: str, floor: float) -> bool:
+    """Print how many names survived into the normalised haystack; True if enough did."""
+    missing = [name for name in names if (needle := normalise(name).strip()) and needle not in haystack]
+    hits = len(names) - len(missing)
+    ratio = hits / len(names) if names else 1.0
+    print(f"    {label}: {hits}/{len(names)} found ({ratio:.0%})")
+    if missing:
+        print(f"    missing {label}: {missing[:20]}")
+    return ratio >= floor
+
+
 def check(game: str) -> bool:
     """Report on one game. False means something is wrong."""
-    source, concise = REFERENCES / f"{game}.txt", REFERENCES / f"{game}_concise.txt"
+    source, concise = REFERENCES / f"{game}.txt", REFERENCES / f"{game}_concise.md"
     if not concise.is_file():
         print(f"{game}: no {concise.name}")
         return False
@@ -47,25 +70,21 @@ def check(game: str) -> bool:
 
     parse = PARSERS.get(game)
     if parse is None:
-        print(f"{game}: {size}, no parser yet so nothing to compare")
+        print(f"{game}: {size}, no parser yet so only size checked")
         return True
 
-    full_characters, full_report = parse(full_text)
-    concise_characters, concise_report = parse(concise_text)
-    same = [character.key for character in full_characters] == [character.key for character in concise_characters]
-    print(f"{game}: {size}, {'same roster' if same else 'ROSTER DIFFERS'}")
-    print(f"    full:    {full_report.summary()}")
-    print(f"    concise: {concise_report.summary()}")
-    if not same:
-        lost = sorted({c.key for c in full_characters} - {c.key for c in concise_characters})
-        gained = sorted({c.key for c in concise_characters} - {c.key for c in full_characters})
-        print(f"    lost: {lost}  gained: {gained}")
-    return same
+    characters, _ = parse(full_text)
+    haystack = normalise(concise_text)
+    print(f"{game}: {size}")
+    ok = coverage([c.name for c in characters], haystack, "characters", MIN_CHARACTER_COVERAGE)
+    ok &= coverage([move.name for c in characters for move in c.moves], haystack, "moves", MIN_MOVE_COVERAGE)
+    print(f"    {'names survived' if ok else 'NAMES MISSING'}")
+    return ok
 
 
 def main() -> int:
     """Check the games named, or every guide that has a condensed version."""
-    games = sys.argv[1:] or sorted(path.name.removesuffix("_concise.txt") for path in REFERENCES.glob("*_concise.txt"))
+    games = sys.argv[1:] or sorted(path.name.removesuffix("_concise.md") for path in REFERENCES.glob("*_concise.md"))
     if not games:
         print("No condensed guides found. Run make-concise-guide.sh first.")
         return 1

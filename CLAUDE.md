@@ -28,7 +28,7 @@ uv sync --all-extras            # dev setup; omit --all-extras for prod
 .venv/bin/pytest -q             # tests
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
-./scripts/run-concise-guides.sh # condense any guide lacking references/<game>_concise.txt
+./scripts/run-concise-guides.sh # condense any guide lacking references/<game>_concise.md
 
 .venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
 .venv/bin/pytest -k logger                                 # by name
@@ -43,11 +43,14 @@ python -m motioninput_tui.datagen --show-skipped           # rebuild packaged ro
 python -m motioninput_tui_guides --list                    # reference guide catalogue
 ```
 
-When adding a game, read `references/<game>_concise.txt` rather than the full
-guide: same roster, move lists, notation key and input-behaviour notes, about a
-quarter of the size. The `concise-guides` skill makes any that are missing and
-verifies them by parsing both files and comparing rosters. They are derived from
-the guides, so they are gitignored and must not be committed or quoted either.
+When adding a game, read `references/<game>_concise.md` rather than the full
+guide: same roster, move lists, notation key and input-behaviour notes as
+standardised Markdown (an `## heading` per character, a `| Move | Input |` table
+under each), about a quarter of the size. The `concise-guides` skill makes any
+that are missing and verifies them by checking the full guide's character and
+move names still appear in the Markdown. The datagen parser is still written
+against the full guide's exact layout, not this one. They are derived from the
+guides, so they are gitignored and must not be committed or quoted either.
 The `add-a-game` skill walks the whole procedure end to end; `docs/adding-a-game.md`
 is the same walkthrough for a person.
 

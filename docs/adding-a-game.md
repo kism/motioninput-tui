@@ -51,21 +51,24 @@ run checks the guide on disk against `sha256`, freshly downloaded or not.
 ## 2. Read the concise version
 
 The full FAQ runs to hundreds of kilobytes, most of it story, strategy and
-combos. `references/<key>_concise.txt` is a quarter the size: roster, move
-lists with their inputs, the notation key, and anything the guide says about
-how the game reads inputs (diagonal leniency, dragon punch shortcuts, negative
-edge, charge times). Make it if it does not exist yet:
+combos. `references/<key>_concise.md` is a quarter the size, and standardised
+Markdown: an `## heading` per character, a `| Move | Input |` table under each,
+the notation key, and anything the guide says about how the game reads inputs
+(diagonal leniency, dragon punch shortcuts, negative edge, charge times) under
+an `## Input behaviour` heading. Move names and input text are copied verbatim;
+only the layout around them is regularised. Make it if it does not exist yet:
 
 ```bash
 ./scripts/run-concise-guides.sh kof98
 ```
 
-This is what you should actually read before writing the ruleset or the
-parser — see the
+Read this before writing the ruleset — see the
 [`concise-guides` skill](https://github.com/kism/motioninput-tui/blob/main/.claude/skills/concise-guides/SKILL.md)
-for what it keeps and why. Both the full and the concise guide are gitignored
-and copyrighted: never commit one, quote one back into a commit message, a
-docstring, an issue or a PR, and never `git add -f` past the ignore.
+for what it keeps and why. The parser in step 4 is written against the full
+guide instead, since that is what datagen parses and it keeps the column layout
+the concise Markdown regularised. Both the full and the concise guide are
+gitignored and copyrighted: never commit one, quote one back into a commit
+message, a docstring, an issue or a PR, and never `git add -f` past the ignore.
 
 ## 3. Write the `GameSpec`
 
@@ -93,6 +96,11 @@ panel (Mortal Kombat's five, Neo Geo's four, Tekken's four) points `buttons` at
 the matching `ButtonSet` instead, or a new one if none fits.
 
 ## 4. Write the parser
+
+The parser runs against the full `references/<key>.txt`, not the concise guide
+(`datagen/__main__` reads `spec.reference`), so write it looking at the full
+guide's move-list section — the concise Markdown regularised the column
+alignment a fixed-width parser keys off.
 
 Every guide spells its move list a different way, so
 [`datagen/<key>.py`](https://github.com/kism/motioninput-tui/tree/main/src/motioninput_tui/datagen)

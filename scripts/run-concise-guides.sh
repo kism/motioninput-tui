@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Condense every guide in references/ into references/<game>_concise.txt, then
+# Condense every guide in references/ into references/<game>_concise.md, then
 # check the result. Guides that already have a concise version are left alone;
 # pass --force to redo them, or name games to do only those.
 
@@ -10,6 +10,19 @@ function print_heading() {
     echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
     echo "$1 >>>"
 }
+
+if [[ $# -eq 0 ]]; then
+    cat >&2 <<'WARN'
+Note: with no arguments this rebuilds every missing references/<game>_concise.md
+by running the claude CLI over the full guides. You only need that when adding a
+game, or when a guide changed and Claude has to re-interpret it. Existing concise
+guides are left alone; to redo one, name it: run-concise-guides.sh --force <game>.
+WARN
+    if [[ -t 0 ]]; then
+        read -r -p "Continue? [y/N] " reply || reply=""
+        [[ $reply == [yY]* ]] || exit 0
+    fi
+fi
 
 uv run -m motioninput_tui_guides
 

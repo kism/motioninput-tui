@@ -1,10 +1,13 @@
 # references
 
-The move list guides the parsers in `src/motioninput_tui/datagen/` read.
+The move list guides the parsers in `src/motioninput_tui/datagen/` read, plus a
+condensed Markdown version of each for reading while adding a game.
 
-**These files are not in the repository.** They are written by their authors and
-explicitly may not be redistributed, so `references/*.txt` is gitignored and
-each user fetches their own copy of pages they could equally read in a browser.
+**None of these files are in the repository.** The guides are written by their
+authors and explicitly may not be redistributed, so both `references/*.txt` and
+the `references/*_concise.md` derived from them are gitignored, and each user
+fetches or regenerates their own copy of pages they could equally read in a
+browser.
 
 ```bash
 uv sync --extra guides    # curl-cffi and beautifulsoup4, not needed by the trainer
@@ -20,6 +23,24 @@ The catalogue of guides, with the exact GameFAQs page each one comes from and
 its checksum, is
 [`src/motioninput_tui_guides/sources.json`](../src/motioninput_tui_guides/sources.json).
 
-You do not need these files to run the trainer. The parsed rosters in
-`src/motioninput_tui/games/data/` are generated from them and committed; the
-guides are only needed to regenerate that data.
+## Concise guides
+
+`<game>_concise.md` is a full guide with everything but the roster, the move
+tables, the notation key and the input-behaviour notes stripped out — roughly a
+quarter of the size, as standardised Markdown. It is what you read before adding
+a game; the datagen parser is still written against the full `<game>.txt`. Make
+the missing ones with:
+
+```bash
+./scripts/run-concise-guides.sh           # every guide that lacks one
+./scripts/run-concise-guides.sh sfa3       # just this one
+```
+
+See the
+[`concise-guides` skill](../.claude/skills/concise-guides/SKILL.md) for how it
+condenses and how the result is checked.
+
+## You do not need any of this to run the trainer
+
+The parsed rosters in `src/motioninput_tui/games/data/` are generated from the
+guides and committed; the guides are only needed to regenerate that data.

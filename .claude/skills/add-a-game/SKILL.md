@@ -16,7 +16,7 @@ JSON, and motion tests. Do them in this order.
 
 ## Never commit or quote the guide text
 
-`references/*.txt` and `references/*_concise.txt` are gitignored and
+`references/*.txt` and `references/*_concise.md` are gitignored and
 copyrighted by their authors. Read them, quote nothing from them into a
 commit message, docstring, comment, issue or PR, and never `git add -f` one.
 Only the parsed rosters under `games/data/` are committed.
@@ -61,8 +61,11 @@ or the page needs a different one — do not force a bad guide through.
 ```
 
 Run this in the background (roughly a minute per 1000 lines of guide) and read
-`references/<key>_concise.txt` when it finishes — that is what you write the
-ruleset and parser from, not the full guide.
+`references/<key>_concise.md` when it finishes — standardised Markdown with the
+roster, a move table per character, and the input-behaviour notes. Write the
+ruleset from it. Write the parser looking at the full `references/<key>.txt`
+instead: it keeps the fixed-width column layout the concise guide regularised,
+and datagen parses the full guide anyway.
 
 ## 4. Write the `GameSpec`
 
@@ -79,7 +82,8 @@ the default).
 
 ## 5. Write the parser
 
-Look at two existing parsers before starting:
+Work from the full `references/<key>.txt` here, not the concise Markdown. Look
+at two existing parsers before starting:
 
 - `src/motioninput_tui/datagen/hsf2.py` — directions spelled out in full.
 - `src/motioninput_tui/datagen/sfa3.py` — shorthand (`qcf,qcf + K`) with a

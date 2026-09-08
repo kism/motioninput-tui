@@ -1,6 +1,6 @@
 ---
 name: concise-guides
-description: Create references/<game>_concise.txt for any game guide that lacks one, by running the claude CLI over references/<game>.txt to strip everything not needed to add a game to the trainer. Use before adding a new game, when a concise guide is missing, or when asked to condense or refresh the reference guides.
+description: Create references/<game>_concise.md for any game guide that lacks one, by running the claude CLI over references/<game>.txt to strip everything not needed to add a game to the trainer. Use before adding a new game, when a concise guide is missing, or when asked to condense or refresh the reference guides.
 ---
 
 # Concise reference guides
@@ -8,20 +8,26 @@ description: Create references/<game>_concise.txt for any game guide that lacks 
 The FAQs in `references/` run to hundreds of kilobytes each, most of it story,
 strategy, combos and credits. Adding a game needs only the roster, the moves
 with their inputs, the notation key and whatever the guide says about how the
-game reads inputs. `references/<game>_concise.txt` is that, and every game
-should have one.
+game reads inputs. `references/<game>_concise.md` is that, and every game should
+have one.
 
 Reading a concise guide instead of the full one is the point: it is roughly a
 quarter of the size, so it leaves room in context for the work itself.
 
+It is standardised Markdown: an `## Character Name` per character, that
+character's moves in a `| Move | Input |` table, the notation key as a table or
+bullet list, and the input-behaviour notes as prose under their own heading.
+Move names and input text are copied verbatim; only the surrounding layout is
+regularised.
+
 ## Do not commit or quote these files
 
 The guides are written by their authors and may not be redistributed. A
-condensed version is still their work. `references/*.txt` is gitignored, which
-already covers `*_concise.txt`, so this is only a matter of not defeating it:
-never `git add -f` one, never paste its contents into a commit message, a
-comment, a docstring, an issue or a pull request. Only the parsed rosters under
-`games/data/` belong in the repository.
+condensed version is still their work. `references/*.txt` and
+`references/*_concise.md` are both gitignored, so this is only a matter of not
+defeating it: never `git add -f` one, never paste its contents into a commit
+message, a comment, a docstring, an issue or a pull request. Only the parsed
+rosters under `games/data/` belong in the repository.
 
 ## Making the missing ones
 
@@ -39,10 +45,12 @@ arguments through to the first:
 .venv/bin/python .claude/skills/concise-guides/verify-concise-guide.py
 ```
 
-It leaves existing files alone, so running it with no arguments is the normal
-way to satisfy "every game should have one". Each guide is split into chunks of
-900 lines and each chunk goes through `claude -p`, because a whole KOF guide is
-too much to hand back in one reply. Expect roughly a minute per 1000 lines; the
+It leaves existing files alone. Running it with no arguments rebuilds every
+*missing* one, which means paying for a `claude -p` pass over each full guide, so
+the wrapper warns and (on a terminal) asks before doing it — you only need that
+when adding a game or when a guide changed underneath its concise version. Each
+guide is split into chunks of 900 lines and each chunk goes through `claude -p`,
+because a whole KOF guide is too much to hand back in one reply. Expect roughly a minute per 1000 lines; the
 five current guides take about a quarter of an hour, so run it in the background
 and get on with something else.
 
@@ -69,35 +77,44 @@ The wrapper above ends with this, and it can be run on its own:
 .venv/bin/python .claude/skills/concise-guides/verify-concise-guide.py
 ```
 
-For a game that already has a parser this is a real check rather than a
-formality: it runs the parser over both files and compares the rosters. Getting
-the same characters and the same move counts out of the condensed guide means
-the move lists survived intact.
+The condensed guide is Markdown, so the check is a fuzzy one: it cannot parse
+the reformatted move lists, so instead, for a game that already has a parser, it
+parses the *full* guide for the characters and move names the trainer expects
+and checks how many of those names still appear anywhere in the Markdown
+(ignoring case, punctuation and spacing). Every character must be named and at
+least 85% of move names must be findable.
 
 ```text
-hsf2: 9,991 of 40,464 bytes (25%), same roster
-    full:    17 characters, 112 moves, 94 trainable (84%)
-    concise: 17 characters, 112 moves, 94 trainable (84%)
+hsf2: 9,991 of 40,464 bytes (25%)
+    characters: 17/17 found (100%)
+    moves: 110/112 found (98%)
+    names survived
 ```
 
-`ROSTER DIFFERS` means the condensation dropped or mangled a move list. Redo
-that game with `--force`, and with a smaller `CHUNK_LINES` if it happens again.
+`NAMES MISSING` means the condensation dropped or mangled a move list. Redo that
+game with `--force`, and with a smaller `CHUNK_LINES` if it happens again. A move
+name that got legitimately rephrased (a `(lowercase guess)` name spelled
+differently) can drag the percentage down without anything being wrong — check
+the listed misses before re-running.
 
-A new game has no parser yet, so only the size is checked. Look at the file
-before trusting it: character headings should still be there, and move lines
-should have their original column alignment, because a parser will be written
-against that exact layout.
+A new game has no parser yet, so only the size is checked. Read the file before
+trusting it: an `## heading` per character, a move table under each, every move
+present.
 
 ## What the condensation keeps
 
-The prompt lives in `make-concise-guide.sh`. It keeps character names and their
-headings, move lines copied out character for character with their original
-spacing, the notation key, and any statement about input timing, buffering,
-motion leniency, shortcuts, negative edge or charge times. Everything else goes.
+The prompt lives in `make-concise-guide.sh`. It keeps character names as `##`
+headings, every move as a row in that character's `| Move | Input |` table with
+the move name and input copied verbatim, the notation key as a table or list,
+and any statement about input timing, buffering, motion leniency, shortcuts,
+negative edge or charge times under an `## Input behaviour` heading. Everything
+else goes.
 
-The instruction not to reformat matters more than it looks. The parsers in
-`datagen/` read fixed-width `Name    command` lines and hunt for heading shapes,
-so a guide rewritten into tidy markdown tables would be worse than useless for
-writing one. If you change the prompt, re-run the verifier on `hsf2`, `sfa3` and
-`sfiii3`: all three have parsers, so all three will tell you at once whether the
-new prompt still preserves what matters.
+Only the *layout* is regularised — move names and input text are still copied
+character for character, because the datagen parser you write next reads inputs
+like `qcf,qcf + K` literally. That parser runs against the full guide, not this
+one (`datagen/__main__` reads `spec.reference`), so when its exact column widths
+matter, look at `references/<game>.txt`; the concise guide is for learning the
+roster and the rules fast. If you change the prompt, re-run the verifier on
+`hsf2`, `sfa3` and `sfiii3`: all three have parsers, so all three will tell you
+at once whether the new prompt still preserves the names.
