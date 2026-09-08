@@ -40,7 +40,7 @@ def _get_args() -> argparse.Namespace:
         action=argparse.BooleanOptionalAction,
         default=None,
         help="Do not spend inputs when a move comes out, so one motion can feed several moves. "
-        "Not how the games behave; toggle it in the trainer with ctrl+b. Default: last used.",
+        "Not how the games behave; it is also in the trainer's settings, ctrl+b. Default: last used.",
     )
     parser.add_argument(
         "--config",

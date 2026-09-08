@@ -77,9 +77,9 @@ def test_choosing_an_input_moves_on_to_the_settings_pane(config) -> None:
             await pilot.pause()
             await pilot.pause()
             assert isinstance(app.screen, SetupScreen)
-            return app.focused.id if app.focused else None
+            return type(app.focused).__name__ if app.focused else None
 
-    assert run(session) == "settings"
+    assert run(session) == "SettingsList"
 
 
 def test_escape_on_the_setup_screen_goes_back_to_the_input_picker(config) -> None:

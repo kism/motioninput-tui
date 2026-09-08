@@ -63,6 +63,10 @@ that decides how the trainer reads you rather than what you are training. Press
 `enter` toggles the highlighted setting, moves on from the game pane, and starts
 training from the character pane. `esc` goes back to the input picker.
 
+`ctrl+b` in the trainer brings the same settings up over your session, so you
+can change them without leaving it. A change applies immediately; the input
+buffer is cleared with it, since what was in it was read under the old rules.
+
 ### Settings
 
 These are yours, not the games', so they apply whichever game is selected.
@@ -76,14 +80,13 @@ Relaxed half circles is on by default because of how a hitbox or a keyboard
 actually plays: pressing forward while back is still held goes straight to
 down-forward, so an ordinary half circle never touches straight down at all.
 Turn it off to be made to hit the down. Loose buffer is the same rule
-`--loose-buffer` and `ctrl+b` control, described under
-[spending inputs](#spending-inputs).
+`--loose-buffer` controls, described under [spending inputs](#spending-inputs).
 
 ### Remembering your last session
 
 The game, character, layout, settings and buffer rule you last used are saved to
 `~/.config/motioninput-tui/config.json` (or under `$XDG_CONFIG_HOME` if set),
-so the pickers open where you left off and `ctrl+b` sticks between runs.
+so the pickers open where you left off and your settings stick between runs.
 
 Command line arguments win over what was saved, and `--no-loose-buffer` turns
 the buffer rule back off. Naming a different `--game` on its own clears the
@@ -114,7 +117,7 @@ exact with one plugged in.
 
 In the trainer: `esc` goes back to the setup screen with the character list
 focused, ready to pick someone else. `ctrl+r` clears the buffer,
-`ctrl+l` toggles the move list, `ctrl+b` toggles the buffer rule, and `ctrl+q` or
+`ctrl+l` toggles the move list, `ctrl+b` opens the settings, and `ctrl+q` or
 two presses of `ctrl+c` quit.
 
 ## Spending inputs
@@ -129,9 +132,10 @@ time limit. The forward you are still holding after a fireball is genuinely
 still held, so without a per-step limit a later down, down-forward would turn it
 into a dragon punch.
 
-`--loose-buffer`, or `ctrl+b` in the trainer, turns both off. Inputs are then
-reused freely and one motion can light up several moves at once. No game behaves
-that way, but it is a useful way to see everything your inputs contain.
+`--loose-buffer`, or the loose buffer setting (`ctrl+b` in the trainer), turns
+both off. Inputs are then reused freely and one motion can light up several
+moves at once. No game behaves that way, but it is a useful way to see
+everything your inputs contain.
 
 ## Terminal choice matters
 

@@ -17,6 +17,7 @@ from motioninput_tui.utils.logger import get_logger
 
 from .keyboard_driver import KeyRelease, ReleaseAwareDriver
 from .screens.input_picker import InputPickerScreen
+from .screens.settings import SettingsScreen
 from .screens.setup import SetupScreen
 from .screens.training import TrainingScreen
 
@@ -26,6 +27,8 @@ if TYPE_CHECKING:
     from textual.screen import Screen
 
     from motioninput_tui.engine.recognizer import BufferPolicy
+
+    from .widgets.settings_list import SettingsList
 
 logger = get_logger(__name__)
 
@@ -90,21 +93,25 @@ class MotionInputApp(App[None]):
         self._quit_requested_at = now
         self.notify("Press ctrl+c again to quit.", title="Quit?", timeout=QUIT_CONFIRM_WINDOW_S)
 
-    def on_training_screen_policy_changed(self, event: TrainingScreen.PolicyChanged) -> None:
-        """Remember the buffer rule the player just toggled to."""
-        self._remember(buffer_policy=event.policy)
-
     def on_input_picker_screen_gamepad_bindings_changed(self, event: InputPickerScreen.GamepadBindingsChanged) -> None:
         """Remember the gamepad attack rebinds the player just made."""
         self._remember(gamepad_bindings=event.bindings)
 
-    def on_setup_screen_settings_changed(self, event: SetupScreen.SettingsChanged) -> None:
-        """Remember a setting the player just toggled.
+    def action_settings(self) -> None:
+        """Open the settings over whatever is running. The trainer's ctrl+b."""
+        self.push_screen(SettingsScreen(current_settings(self.config)))
+
+    def on_settings_list_changed(self, event: SettingsList.Changed) -> None:
+        """Remember a toggled setting, wherever it was toggled.
 
         Every setting is a boolean attribute of the config, so the map the
-        screen sends back can be written straight onto it.
+        widget sends back can be written straight onto it. A session already
+        running takes the change now rather than on the next one.
         """
         self._remember(**event.values)
+        for screen in self.screen_stack:
+            if isinstance(screen, TrainingScreen):
+                screen.apply_settings(tuned_game(screen.session.game, self.config), self.config.buffer_policy)
 
     def on_key_release(self, event: KeyRelease) -> None:
         """Route a key release to the trainer.

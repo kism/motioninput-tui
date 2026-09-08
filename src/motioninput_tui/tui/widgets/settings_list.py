@@ -1,0 +1,83 @@
+"""The global settings as a list of toggles.
+
+Shared by the setup screen's settings pane and the trainer's settings modal, so
+a setting looks the same and flips the same way wherever it is met. A change is
+posted as :class:`SettingsList.Changed` and bubbles to the app, which owns the
+config and decides what the change means for whatever is running.
+"""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from rich.text import Text
+from textual.message import Message
+from textual.widgets import OptionList
+
+from motioninput_tui.settings import SETTINGS
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+
+    from motioninput_tui.settings import Setting
+
+
+class SettingsList(OptionList):
+    """One row per setting; enter or a click flips it rather than choosing it."""
+
+    class Changed(Message):
+        """Posted when a setting is toggled, with every setting's value."""
+
+        def __init__(self, values: dict[str, bool]) -> None:
+            """Carry the values keyed by config attribute, as the app writes them."""
+            super().__init__()
+            self.values = values
+
+    def __init__(self, values: Mapping[str, bool]) -> None:
+        """Start from every setting's current value, keyed by config attribute."""
+        super().__init__()
+        self._values = dict(values)
+
+    def on_mount(self) -> None:
+        """Draw the rows once there is a widget to draw them in."""
+        self._render_rows()
+
+    @property
+    def highlighted_setting(self) -> Setting | None:
+        """The setting the cursor is on, for whoever wants to describe it."""
+        index = self.highlighted
+        return SETTINGS[index] if index is not None and index < len(SETTINGS) else None
+
+    def is_on(self, setting: Setting) -> bool:
+        """Whether ``setting`` is currently on."""
+        return self._values[setting.attribute]
+
+    def toggle(self, index: int | None = None) -> None:
+        """Flip a row, the highlighted one by default."""
+        target = self.highlighted if index is None else index
+        if target is None or target >= len(SETTINGS):
+            return
+        setting = SETTINGS[target]
+        self._values[setting.attribute] = not self._values[setting.attribute]
+        self._render_rows()
+        self.post_message(self.Changed(dict(self._values)))
+
+    def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
+        """Take the selection here: a settings row is toggled, never chosen.
+
+        Stopping it also keeps a click from being counted twice by a screen
+        that treats enter on its other lists as a choice.
+        """
+        event.stop()
+        self.toggle(event.option_index)
+
+    def _render_rows(self) -> None:
+        """Redraw every row, keeping the cursor where it was."""
+        keep = self.highlighted
+        self.clear_options()
+        self.add_options([self._prompt(setting) for setting in SETTINGS])
+        self.highlighted = keep if keep is not None else 0
+
+    def _prompt(self, setting: Setting) -> Text:
+        mark = Text("[✓] ", style="green") if self._values[setting.attribute] else Text("[ ] ", style="dim")
+        return mark + Text(setting.name)

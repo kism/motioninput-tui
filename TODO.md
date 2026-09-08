@@ -1,12 +1,33 @@
 # TODO
 
 - add a nerdfont toggle to the options menu
-- Half circles
-  - nf-md-arrow_u_up_left
-  - nf-md-arrow_u_up_right
-- Quater circles
-  - nf-md-arrow_up_left
-  - nf-md-arrow_up_right
+- motions
+  - Half circles
+    - nf-md-arrow_u_up_left, nf-md-arrow_u_up_right
+    - ⋃ →
+    - ◡ →
+  - Quater circles
+    - nf-md-arrow_up_left, nf-md-arrow_up_right
+    - ⮩, ⮨
+    - ⮠, ⮡
+    - ⮐, ⮑
+    - ⮰, ⮱
+  - Dragon punch, second one flips writing to right ot left so might now work
+    - 𑪼 𑪽
+    - 𐰁 𐰀
+    - nf-fa-dragon →
+    - 龍 →
+    - 龙 →
+    - 竜 →
+    - 𓆈 →
+    - → ↓ ↘
+    - F, D, DF
+  - Full circles
+    - ⥀, ⥁
+    - ⭯, ⭮
+  - Up down, down up, right left, left right
+    - ⮁, ⮃, ⮂, ⮀
+
 - Arrow style
   - ↘ ↓ ↘
   - DF, D, DF

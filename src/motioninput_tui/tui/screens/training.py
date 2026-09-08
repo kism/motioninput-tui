@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, ClassVar
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
-from textual.message import Message
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
@@ -34,20 +33,12 @@ class TrainingScreen(Screen):
         Binding("escape", "back", "Change character"),
         Binding("ctrl+r", "reset", "Reset buffer"),
         Binding("ctrl+l", "toggle_movelist", "Move list"),
-        Binding("ctrl+b", "toggle_policy", "Buffer rule"),
+        Binding("ctrl+b", "app.settings", "Settings"),
         Binding("ctrl+q", "quit", "Quit"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c,super+c", "app.help_quit", show=False, system=True),
     ]
-
-    class PolicyChanged(Message):
-        """Posted when the player toggles the buffer rule, so it can be saved."""
-
-        def __init__(self, policy: BufferPolicy) -> None:
-            """Carry the policy now in force."""
-            super().__init__()
-            self.policy = policy
 
     DEFAULT_CSS = """
     TrainingScreen { layout: vertical; }
@@ -166,14 +157,14 @@ class TrainingScreen(Screen):
             status.append(f"\n⚠ {advice}", style="yellow")
         self.query_one("#status", Static).update(status)
 
+    def apply_settings(self, game: Game, policy: BufferPolicy) -> None:
+        """Take rules the player changed mid-session, from the settings modal."""
+        self.session.retune(game, policy)
+        self._refresh()
+
     def action_reset(self) -> None:
         """Clear the input buffer and the feed."""
         self.session.reset()
-        self._refresh()
-
-    def action_toggle_policy(self) -> None:
-        """Switch between spending inputs on activation and loose matching."""
-        self.post_message(self.PolicyChanged(self.session.toggle_policy()))
         self._refresh()
 
     def action_toggle_movelist(self) -> None:

@@ -13,12 +13,11 @@ from typing import TYPE_CHECKING, ClassVar
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
-from textual.message import Message
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
 from motioninput_tui.games.loader import available_games
-from motioninput_tui.settings import SETTINGS
+from motioninput_tui.tui.widgets.settings_list import SettingsList
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -26,7 +25,6 @@ if TYPE_CHECKING:
     from textual.app import ComposeResult
 
     from motioninput_tui.games.models import Game
-    from motioninput_tui.settings import Setting
 
 
 class SetupScreen(Screen["tuple[str, str] | None"]):
@@ -40,14 +38,6 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c,super+c", "app.help_quit", show=False, system=True),
     ]
-
-    class SettingsChanged(Message):
-        """Posted when a setting is toggled, so the app can save it."""
-
-        def __init__(self, values: dict[str, bool]) -> None:
-            """Carry every setting's value, keyed by config attribute."""
-            super().__init__()
-            self.values = values
 
     DEFAULT_CSS = """
     SetupScreen { layout: vertical; }
@@ -79,7 +69,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         """
         super().__init__()
         self.games = available_games()
-        self._settings = {setting.attribute: False for setting in SETTINGS} | dict(settings or {})
+        self._settings = dict(settings or {})
         self._initial = initial
         self._layout_name = layout_name
         self._focus_characters = focus_characters
@@ -97,7 +87,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         with Horizontal(id="columns"):
             with Vertical():
                 yield Label("Settings")
-                yield OptionList(id="settings")
+                yield SettingsList(self._settings)
             with Vertical():
                 yield Label("Game")
                 yield OptionList(*[game.short_name for game in self.games], id="games")
@@ -108,10 +98,9 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         yield Footer()
 
     def on_mount(self) -> None:
-        """Fill the settings pane, then open the pickers where they left off."""
+        """Open the pickers where they left off."""
         self.title = "motioninput-tui"
         self.sub_title = self._layout_name or "What are you training?"
-        self._render_settings()
         if not self.games:
             self.query_one("#detail", Static).update(
                 Text("No roster data found. Run: python -m motioninput_tui.datagen", style="bold red")
@@ -137,20 +126,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         if self._focus_characters and characters.option_count:
             characters.focus()
             return
-        self.query_one("#settings", OptionList).focus()
-
-    def _render_settings(self) -> None:
-        """Redraw the settings pane, keeping the highlighted row where it is."""
-        pane = self.query_one("#settings", OptionList)
-        keep = pane.highlighted
-        pane.clear_options()
-        pane.add_options([self._setting_prompt(setting) for setting in SETTINGS])
-        pane.highlighted = keep if keep is not None else 0
-
-    def _setting_prompt(self, setting: Setting) -> Text:
-        on = self._settings[setting.attribute]
-        mark = Text("[✓] ", style="green") if on else Text("[ ] ", style="dim")
-        return mark + Text(setting.name)
+        self.query_one(SettingsList).focus()
 
     def _load_characters(self, game_index: int, character_key: str | None = None) -> None:
         self._loaded_game = game_index
@@ -174,36 +150,28 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         self._describe()
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
-        """A click does what enter does on that pane."""
-        self._act_on(event.option_list.id or "")
+        """A click starts training, or moves on from the game pane.
 
-    def action_select(self) -> None:
-        """Enter: toggle a setting, move on from a game, or start training."""
-        for pane in ("settings", "games", "characters"):
-            if self.query_one(f"#{pane}", OptionList).has_focus:
-                self._act_on(pane)
-                return
-        self.action_start()
-
-    def _act_on(self, pane: str) -> None:
-        """What enter means on each pane."""
-        if pane == "settings":
-            self._toggle_setting()
-        elif pane == "games":
+        The settings pane never gets here: it takes its own selections.
+        """
+        if event.option_list.id == "games":
             self.query_one("#characters", OptionList).focus()
         else:
             self.action_start()
 
-    def _toggle_setting(self) -> None:
-        """Flip the highlighted setting and tell the app to save it."""
-        index = self.query_one("#settings", OptionList).highlighted
-        if index is None:
-            return
-        setting = SETTINGS[index]
-        self._settings[setting.attribute] = not self._settings[setting.attribute]
-        self._render_settings()
+    def action_select(self) -> None:
+        """Enter: toggle a setting, move on from a game, or start training."""
+        settings = self.query_one(SettingsList)
+        if settings.has_focus:
+            settings.toggle()
+        elif self.query_one("#games", OptionList).has_focus:
+            self.query_one("#characters", OptionList).focus()
+        else:
+            self.action_start()
+
+    def on_settings_list_changed(self, _event: SettingsList.Changed) -> None:
+        """Keep the description in step. The app saves it as this bubbles past."""
         self._describe()
-        self.post_message(self.SettingsChanged(dict(self._settings)))
 
     def _selection(self) -> tuple[Game, str] | None:
         if not self.games:
@@ -218,10 +186,10 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
     def _describe(self) -> None:
         """Explain the highlighted setting, then the highlighted game."""
         text = Text()
-        index = self.query_one("#settings", OptionList).highlighted
-        if index is not None:
-            setting = SETTINGS[index]
-            state = "on" if self._settings[setting.attribute] else "off"
+        pane = self.query_one(SettingsList)
+        setting = pane.highlighted_setting
+        if setting is not None:
+            state = "on" if pane.is_on(setting) else "off"
             text.append(f"{setting.name}: {state}\n", style="bold")
             text.append(f"{setting.detail}\n")
         selection = self._selection()

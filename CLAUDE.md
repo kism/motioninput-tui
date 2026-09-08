@@ -87,7 +87,14 @@ matching into the game's ruleset, so everything downstream still just reads
 
 Adding one: a boolean field on `Config` (loaded through `_valid_flag`, saved in
 `save`), an entry in `SETTINGS`, and, if it changes matching, a `Ruleset` field
-plus a line in `tuned_game`.
+plus a line in `tuned_game`. Nothing in the interface needs touching.
+
+`tui/widgets/settings_list.py` is the toggles themselves, shared by the setup
+screen's pane and the trainer's `ctrl+b` modal. It posts `SettingsList.Changed`,
+which bubbles past both to `MotionInputApp.on_settings_list_changed`: that saves
+it and, if a session is running, calls `TrainingScreen.apply_settings` so the
+change lands mid-session rather than at the next one. The widget stops
+`OptionSelected` so a screen that treats enter as a choice cannot also act on it.
 
 ## Architecture
 

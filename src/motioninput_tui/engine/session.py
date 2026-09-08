@@ -200,14 +200,19 @@ class TrainingSession:
         """Whether inputs are spent when a move comes out."""
         return self.recognizer.policy
 
-    def toggle_policy(self) -> BufferPolicy:
-        """Switch between consuming inputs and loose matching."""
-        self.recognizer.policy = (
-            BufferPolicy.LOOSE if self.recognizer.policy is BufferPolicy.CONSUME else BufferPolicy.CONSUME
-        )
+    def retune(self, game: Game, policy: BufferPolicy) -> None:
+        """Take changed rules mid-session, without losing the session.
+
+        The buffer goes with them: what is in it was read under the old rules,
+        and a half circle that has just stopped counting as one should not be
+        left sitting there ready to come out.
+        """
+        self.game = game
+        self.ruleset = game.ruleset
+        self.recognizer.ruleset = game.ruleset
+        self.recognizer.policy = policy
         self.buffer.clear()
         self.recognizer.reset()
-        return self.recognizer.policy
 
     def reset(self) -> None:
         """Clear everything and go back to neutral."""
