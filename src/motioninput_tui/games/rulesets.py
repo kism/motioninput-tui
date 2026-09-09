@@ -210,6 +210,42 @@ SSVSP = GameSpec(
     buttons=NEO_GEO,
 )
 
+USFIV = GameSpec(
+    key="usfiv",
+    name="Ultra Street Fighter IV",
+    short_name="USFIV",
+    ruleset=Ruleset(
+        # The most modern engine in the set: a deep special-move buffer,
+        # forgiving charge partitioning and junk-tolerant motions, sitting
+        # between Alpha 3 and 3rd Strike and leaning toward 3rd Strike for
+        # leniency. The one thing it does not borrow from 3rd Strike is the
+        # hold-down-double-tap-forward dragon punch; its shortcut is the
+        # diagonal one, f,df on its own.
+        motion_window_ms=340,
+        activation_window_ms=200,
+        step_gap_ms=200,
+        max_intermediate=2,
+        tail_states=3,
+        lenient_diagonals=True,
+        charge_ms=900,
+        charge_release_ms=230,
+        dp_double_tap=False,
+        dp_skip_down=True,
+        negative_edge=True,
+        mash_count=5,
+        rotation_window_ms=550,
+        rotation_slack=3,
+    ),
+    notes=(
+        "The modern-buffer game: f,df on its own gives a dragon punch, which is why you eat one walking up to throw.",
+        "But no hold-down-double-tap shortcut, unlike 3rd Strike: a held down and double forward gives nothing.",
+        "Diagonals can be skipped, so d,f still reads as a quarter circle.",
+        "Charge partitioning is forgiving and the special buffer is wide.",
+        "Negative edge exists, so releasing a button can complete a special.",
+    ),
+    reference="references/usfiv.txt",
+)
+
 INPUT_DISPLAY = GameSpec(
     key="display",
     name="Input display",
@@ -228,7 +264,7 @@ characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
 DISPLAY_GAME = INPUT_DISPLAY.key
 
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98, KOF2001, SSVSP)
+    spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98, KOF2001, SSVSP, USFIV)
 }
 DEFAULT_GAME = SFIII3.key
 

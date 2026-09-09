@@ -36,7 +36,9 @@ This is my first AI-heavy project, the workflow is
 - Get claude to add a game based on a gamefaqs guide
   - sha256 of original guide is verified to avoid possibility of claude editing the reference data
   - skill to make a briefing of each guide, each brief gets made in the game-brief skill
-  - claude writes a parser for each guide, which uses regex to turn a gamefaqs guide into a game definition .json
+  - claude writes a parser for each guide
+    - The moves from the guide are parsed with hard logic, not interpereted by claude
+    - The game logic is interpreted by claude based on the guide
 
 - The game engine has many control layouts and motion inputs that are applied per game
 
