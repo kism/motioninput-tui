@@ -12,6 +12,7 @@ from textual.widgets import OptionList
 
 from motioninput_tui.config import Config
 from motioninput_tui.controls import buttons as sets
+from motioninput_tui.controls import gamepad
 from motioninput_tui.games.loader import available_games, load_game
 from motioninput_tui.games.rulesets import DISPLAY_GAME
 from motioninput_tui.settings import SETTINGS
@@ -109,6 +110,49 @@ def test_a_release_puts_a_button_out(config: Config) -> None:
             return _lit(screen.query_one(ButtonPads).art)
 
     assert asyncio.run(session()) == []
+
+
+def test_a_held_pad_button_lights_the_panel(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """The pad feeds the session, not `on_key`, so the panel has to read it back."""
+
+    class MutablePad:
+        name = "Fake Pad"
+
+        def __init__(self) -> None:
+            self.buttons: set[int] = set()
+            self.axes: dict[int, float] = {}
+
+        def get_button(self, button: int) -> int:
+            return int(button in self.buttons)
+
+        def get_axis(self, axis: int) -> float:
+            return self.axes.get(axis, 0.0)
+
+    pad = MutablePad()
+    monkeypatch.setattr(gamepad, "_first_controller", lambda _pygame: pad)
+    config = Config(
+        game=DISPLAY_GAME, character=sets.STREET_FIGHTER.key, layout="gamepad", path=tmp_path / "config.json"
+    )
+
+    async def session() -> tuple[list[str], list[str]]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(100, 26)) as pilot:
+            await pilot.pause()
+            screen = app.screen
+            assert isinstance(screen, InputDisplayScreen)
+            if screen.session.gamepad is None:  # pragma: no cover - pygame missing
+                pytest.skip("pygame is not available")
+            pad.buttons = {gamepad._BUTTON_X}  # LP on the Xbox-style default
+            await pilot.pause()
+            held = _lit(screen.query_one(ButtonPads).art)
+            pad.buttons = set()
+            await pilot.pause()
+            released = _lit(screen.query_one(ButtonPads).art)
+            return held, released
+
+    held, released = asyncio.run(session())
+    assert "LP" in held
+    assert released == []
 
 
 def test_the_panel_is_the_one_the_character_names(tmp_path: Path) -> None:

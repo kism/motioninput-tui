@@ -189,6 +189,15 @@ class GamepadReader:
         return self._pad is not None
 
     @property
+    def held_codes(self) -> frozenset[str]:
+        """The binding codes held as of the last :meth:`poll`.
+
+        The engine treats attack buttons as momentary, so nothing downstream
+        tracks a held button; the input display reads this to light the panel.
+        """
+        return self._held
+
+    @property
     def name(self) -> str | None:
         """The open pad's name as SDL reports it, or None if none is open.
 

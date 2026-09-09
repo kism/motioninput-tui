@@ -156,11 +156,25 @@ class InputDisplayScreen(Screen):
             del self._held[button]
         return bool(lapsed)
 
+    def _held_buttons(self) -> set[Button]:
+        """Every attack button held right now, from the keyboard or the pad.
+
+        Keyboard holds are tracked in ``_held`` (inferred, so they lapse); a
+        gamepad reports releases, so its held buttons are read straight off the
+        reader each frame.
+        """
+        down = set(self._held)
+        gamepad = self.session.gamepad
+        if gamepad is not None:
+            attacks = self.session.layout.attacks
+            down.update(attacks[code] for code in gamepad.held_codes if code in attacks)
+        return down
+
     def _refresh(self) -> None:
         session = self.session
         direction = session.direction
         self.query_one(DirectionGate).show(direction)
-        self.query_one(ButtonPads).show(session.layout, self._held)
+        self.query_one(ButtonPads).show(session.layout, self._held_buttons())
         self.query_one(InputStrip).show(session.entries, direction)
 
         status = Text()

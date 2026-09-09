@@ -318,7 +318,18 @@ def gamepad_layout(bindings: Mapping[str, str] | None = None) -> ControlLayout:
     resolved = resolve_gamepad_bindings(bindings)
     if resolved == GAMEPAD_DEFAULT_BINDINGS:
         return GAMEPAD
-    return replace(GAMEPAD, attacks={code: button for button, code in resolved.items()})
+    # Rebuild the rows so each attack keeps its Street Fighter grid position at
+    # its rebound code, exactly as `keyboard_layout` does. Without this the
+    # input display draws the panel wherever `GAMEPAD_ROWS` happens to place the
+    # codes - an attack bound to a trigger jumps into the shoulder row. A spare
+    # code trails each row so a wider set (the Neo Geo's four) still lays on
+    # through `with_buttons`.
+    spare = [code for code in PAD_ATTACK_CODES if code not in resolved.values()]
+    rows = (
+        (resolved[Button.LP], resolved[Button.MP], resolved[Button.HP], *spare[:1]),
+        (resolved[Button.LK], resolved[Button.MK], resolved[Button.HK], *spare[1:2]),
+    )
+    return replace(GAMEPAD, attacks={code: button for button, code in resolved.items()}, attack_rows=rows)
 
 
 LAYOUTS: dict[str, ControlLayout] = {layout.key: layout for layout in (KB_LEFT, KB_RIGHT, KB_CUSTOM, GAMEPAD)}

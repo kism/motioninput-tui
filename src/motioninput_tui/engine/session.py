@@ -222,9 +222,12 @@ class TrainingSession:
         changed = False
         for code, pressed in self.gamepad.poll(now):
             if pressed:
-                changed |= self.press(code, now)
+                self.press(code, now)
             else:
-                changed |= self.release(code, now)
+                self.release(code, now)
+            # Any pad event moves the panel display, even a button release, which
+            # the engine itself treats as a no-op (buttons are momentary).
+            changed = True
         return changed
 
     @property

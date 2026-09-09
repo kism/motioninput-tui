@@ -3,8 +3,9 @@
 import pytest
 
 from motioninput_tui.controls import gamepad
+from motioninput_tui.controls.buttons import NEO_GEO
 from motioninput_tui.controls.gamepad import GamepadReader, codes_from_pad, diff_codes
-from motioninput_tui.controls.layouts import GAMEPAD, gamepad_layout, resolve_gamepad_bindings
+from motioninput_tui.controls.layouts import GAMEPAD, gamepad_layout, resolve_gamepad_bindings, with_buttons
 from motioninput_tui.engine.notation import Button
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.games.loader import load_game
@@ -115,6 +116,25 @@ def test_gamepad_layout_applies_a_rebind() -> None:
     assert layout.movement == GAMEPAD.movement  # movement untouched
 
 
+def test_a_rebind_keeps_the_panel_in_its_street_fighter_grid() -> None:
+    """The input display draws `bound_rows`; a trigger rebind must not ragged it.
+
+    HK on the right trigger (`pad:7`, which `GAMEPAD_ROWS` lists in the top row)
+    used to jump up beside HP, leaving `LK MK` stranded below.
+    """
+    layout = gamepad_layout({"HK": "pad:7"})
+    assert [[button.value for _, button in row] for row in layout.bound_rows()] == [
+        ["LP", "MP", "HP"],
+        ["LK", "MK", "HK"],
+    ]
+
+
+def test_a_rebind_still_lays_a_wider_set_on() -> None:
+    """A spare code trails each row so the Neo Geo's fourth button still binds."""
+    layout = with_buttons(gamepad_layout({"HK": "pad:7"}), NEO_GEO)
+    assert [len(row) for row in layout.bound_rows()] == [4, 4]
+
+
 def test_gamepad_layout_ignores_junk_and_collisions() -> None:
     assert gamepad_layout({"NOPE": "pad:0", "LP": "keyboard"}) is GAMEPAD
     # Two attacks pointed at one pad button would strand a third: fall back whole.
@@ -144,8 +164,10 @@ def test_reader_opens_a_pad_and_diffs_its_state(monkeypatch: pytest.MonkeyPatch)
 
     pad._buttons = {gamepad._BUTTON_X}
     assert reader.poll(10) == [("pad:2", True)]
+    assert reader.held_codes == {"pad:2"}  # what the input display lights the panel from
     pad._buttons = set()
     assert reader.poll(20) == [("pad:2", False)]
+    assert reader.held_codes == frozenset()
 
 
 def test_gamepad_layout_makes_the_session_exact_even_without_a_terminal() -> None:
