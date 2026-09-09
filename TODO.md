@@ -48,7 +48,6 @@ rather than done.
 
 Not sure when the ai got it's information from, but need to see if there is a way to get input timing into each game
 
-
 ## Super activation time per game
 
 - For Mash / tap tap tap supers, the delay between activation starting and mashing needs to be entered as inputs during the cinematic are dropped. Manually measure each game. In a comment for each game state the source whether its guessed or was part of the prompt.
