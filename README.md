@@ -27,6 +27,35 @@ uv run motioninput-tui
 See the docs for the full command line reference, controls, settings and move
 notation.
 
+## Technical Information and AI Disclaimr
+
+### How it's created
+
+This is my first AI-heavy project, the workflow is
+
+- Get claude to add a game based on a gamefaqs guide
+  - sha256 of original guide is verified to avoid possibility of claude editing the reference data
+  - skill to make a briefing of each guide, each brief gets made in the game-brief skill
+  - claude writes a parser for each guide, which uses regex to turn a gamefaqs guide into a game definition .json
+
+- The game engine has many control layouts and motion inputs that are applied per game
+
+### How I ensure code quality
+
+For each numberd release I do the following
+
+- Manually read all the changed code from the previous release
+
+- In this register of games/characters I personally test and re-verify
+  - This is not frame perfect, I just open 3SX/Mame/whatever and see if it feels the same.
+
+- Register (this will later be a separate file)
+  - SFIII
+    - Ken
+    - Elana
+  - SFA3
+    - Ken
+
 ## Contributing
 
 - [Adding a game](https://motioninput-tui.readthedocs.io/en/latest/adding-a-game.html)
