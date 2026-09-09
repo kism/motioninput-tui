@@ -59,8 +59,8 @@ Capcom's fourth-generation fighter, 44 characters on the standard six-button pan
 
 USFIV is the most modern engine in the set. It sits **between `SFA3` and `SFIII3`, leaning `SFIII3`** for leniency — a deep (~7–10 frame) special-move buffer, forgiving charge partitioning, junk-tolerant motions, and diagonal leniency on quarter circles — **but** it does *not* use 3rd Strike's "hold down, double-tap forward" dragon-punch. Its shortcut is diagonal-based: `f, df` (down skipped entirely) comes out as a Shoryuken, which is why players eat accidental DPs walking up to throw.
 
-- `dp_double_tap = False` — SFIV's DP leniency is the `df` shortcut, not the 3S/CvS2 double-tap. (If playtesting shows a held-down + double-forward input yields a DP, flip this.)
-- `dp_skip_down = True` — `f, df` alone registers a Shoryuken. This False/True pairing is unique in the roster: `HSF2`/`SFA3`/`KOF98` are False/False, `SFIII3` is True/True.
+- `dp_double_tap = True` — SFIV takes the 3S/CvS2 double-tap shortcut too: hold down and double tap forward (or tap `df` twice from a crouch, the notorious walk-up DP) and you get a Shoryuken. *(Set `False` in the first draft of this brief on the theory that the `df` shortcut was the only one; playtesting says both apply, so it now matches `SFIII3`.)*
+- `dp_skip_down = True` — `f, df` alone registers a Shoryuken. True/True like `SFIII3`; `HSF2`/`SFA3`/`KOF98` are False/False.
 - `lenient_diagonals = True` — `d, f` reads as a quarter circle; SFIV is a heavily-buffered engine.
 - `charge_ms = 900` — SFIV's standard charge is ~55 frames; in the `HSF2`/`SFA3` range, not the shorter `SFIII3`.
 - `charge_release_ms = 230` — SFIV's charge buffering / partitioning is notably forgiving; a hair more than `SFA3`.

@@ -1,8 +1,8 @@
-"""Ultra SF4, Ryu. The modern buffer: f,df is a dragon punch, but the 3rd
-Strike hold-down-double-tap is not.
+"""Ultra SF4, Ryu. The shortcut game: both of 3rd Strike's dragon punch
+shortcuts work, the diagonal one and the hold-down-double-tap.
 
-Compare `sfiii3/test_ryu.py`, `sfa3/test_ryu.py` and `hsf2/test_ryu.py`, which
-play the same canonical scripts.
+Compare `sfiii3/test_ryu.py` (also a DP), and `sfa3/test_ryu.py` /
+`hsf2/test_ryu.py` (nothing), which play the same canonical scripts.
 """
 
 from tests.engine.test_motions.harness import (
@@ -20,9 +20,26 @@ def test_quarter_circle_forward_is_a_fireball(play) -> None:
     assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["Hadouken"]
 
 
-def test_hold_down_double_tap_forward_does_nothing(play) -> None:
-    """Unlike 3rd Strike, SF4 has no double-tap dragon punch shortcut."""
-    assert play(DOWN_DOUBLE_TAP_FORWARD_HP).moves == []
+def test_hold_down_double_tap_forward_is_a_dragon_punch(play) -> None:
+    """SF4 takes the 3rd Strike shortcut: hold down, double tap forward, DP.
+
+    This gives nothing in `hsf2` or `sfa3`.
+    """
+    assert "Shoryuken" in play(DOWN_DOUBLE_TAP_FORWARD_HP).moves
+
+
+def test_crouching_double_tap_down_forward_is_a_dragon_punch(play) -> None:
+    """Tapping df twice from a crouch, the notorious SF4 walk-up-DP: d, df, d, df, d + HP."""
+    script = [
+        press(DOWN, 0),
+        press(FORWARD, 60),
+        release(FORWARD, 110),
+        press(FORWARD, 170),
+        release(FORWARD, 220),
+        press(HP, 260),
+        release(HP, 300),
+    ]
+    assert play(script).moves == ["Shoryuken"]
 
 
 def test_forward_then_down_forward_is_a_dragon_punch(play) -> None:
