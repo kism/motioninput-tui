@@ -7,7 +7,7 @@ there is one reading of the display that never changes.
 
 A motion is written as a series of parts, and each part is either spelled out
 as directions or replaced by the glyph the player picked for its family. So the
-same dragon punch reads ``→ ↓ ↘``, ``F, D, DF``, ``𑪼`` or ``龍 →`` depending on
+same dragon punch reads ``→ ↓ ↘``, ``F, D, DF``, ``𑪼`` or ``龍→`` depending on
 the two choices involved, and a super that is a quarter circle twice follows
 whatever quarter circles are set to. Moves the engine has no directional model
 of keep the reference guide's own words.
@@ -127,7 +127,7 @@ _NF_UP_DOWN = "\U000f0e79"  # nf-md-arrow_up_down
 
 def _beast(glyph: str) -> dict[MotionKind, str]:
     """A dragon punch written as a creature facing the way the motion ends."""
-    return {_K.DP: f"{glyph} →", _K.RDP: f"{glyph} ←"}
+    return {_K.DP: f"{glyph}→", _K.RDP: f"{glyph}←"}
 
 
 STYLES: dict[Family, tuple[Style, ...]] = {
@@ -146,14 +146,14 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(key="ribbon", name="Ribbon arrows", glyphs={_K.QCF: "⮱", _K.QCB: "⮰"}),
         Style(key="return", name="Return arrows", glyphs={_K.QCF: "⮑", _K.QCB: "⮐"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.QCF: _NF_QUARTER_FORWARD, _K.QCB: _NF_QUARTER_BACK}),
-        Style(key="emoji", name="Emoji fireball", glyphs={_K.QCF: "🔥 →", _K.QCB: "🔥 ←"}),
+        Style(key="emoji", name="Emoji fireball", glyphs={_K.QCF: "🔥→", _K.QCB: "🔥←"}),
     ),
     Family.HALF: (
         Style(key="spelled", name="Spelled out"),
-        Style(key="cup", name="Cup", glyphs={_K.HCF: "⋃ →", _K.HCB: "⋃ ←"}),
-        Style(key="arc", name="Arc", glyphs={_K.HCF: "◡ →", _K.HCB: "◡ ←"}),
+        Style(key="cup", name="Cup", glyphs={_K.HCF: "⋃→", _K.HCB: "⋃←"}),
+        Style(key="arc", name="Arc", glyphs={_K.HCF: "◡→", _K.HCB: "◡←"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.HCF: _NF_HALF_FORWARD, _K.HCB: _NF_HALF_BACK}),
-        Style(key="emoji", name="Emoji moon", glyphs={_K.HCF: "🌙 →", _K.HCB: "🌙 ←"}),
+        Style(key="emoji", name="Emoji moon", glyphs={_K.HCF: "🌙→", _K.HCB: "🌙←"}),
     ),
     Family.DRAGON: (
         Style(key="spelled", name="Spelled out"),
@@ -196,7 +196,7 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(
             key="emoji",
             name="Emoji battery",
-            glyphs={_K.CHARGE_BF: "🔋 →", _K.CHARGE_DU: "🔋 ↑", _K.CHARGE_BFBF: "🔋 → ← →"},
+            glyphs={_K.CHARGE_BF: "🔋→", _K.CHARGE_DU: "🔋↑", _K.CHARGE_BFBF: "🔋→ ← →"},
         ),
     ),
 }

@@ -80,7 +80,7 @@ def test_picking_a_style_rewrites_the_move_list_and_is_saved(config: Config) -> 
 
     before, after = asyncio.run(session())
     assert "→ ↓ ↘ + P" in before  # Shouryuu Ken, spelled out
-    assert "龍 → + P" in after
+    assert "龍→ + P" in after
     assert config.notation == {"dragon": "kanji"}
     assert config.path is not None
     assert '"dragon": "kanji"' in config.path.read_text()

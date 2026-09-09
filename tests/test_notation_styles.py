@@ -79,8 +79,8 @@ def test_emoji_keycaps_write_the_numpad() -> None:
 
 def test_an_emoji_style_names_the_move_it_stands_for() -> None:
     emoji = Notation({"quarter": "emoji", "dragon": "emoji"})
-    assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "🔥 → + P"
-    assert emoji.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "🐉 → + P"
+    assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "🔥→ + P"
+    assert emoji.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "🐉→ + P"
 
 
 def test_style_keys_are_unique_within_a_family() -> None:
@@ -98,7 +98,7 @@ def test_a_glyph_replaces_the_directions() -> None:
 def test_a_compound_motion_follows_the_styles_of_its_parts() -> None:
     """A super that is a quarter circle and a dragon punch uses both choices."""
     picked = Notation({"quarter": "curved", "dragon": "kanji"})
-    assert picked.write(MotionSpec(kind=MotionKind.QCF_DP, buttons=ANY_PUNCH)) == "⮩  龍 → + P"
+    assert picked.write(MotionSpec(kind=MotionKind.QCF_DP, buttons=ANY_PUNCH)) == "⮩  龍→ + P"
 
 
 def test_a_motion_done_twice_is_marked_rather_than_repeated() -> None:
@@ -143,4 +143,4 @@ def test_previewing_a_style_leaves_the_other_families_alone() -> None:
     picked = Notation({"dragon": "kanji"})
     quarter = STYLES[Family.QUARTER][1]
     assert picked.preview(Family.QUARTER, quarter) == "⮡   ⮠"
-    assert picked.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "龍 → + P"
+    assert picked.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "龍→ + P"

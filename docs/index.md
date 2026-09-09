@@ -107,11 +107,11 @@ so you can see what your font makes of it before taking it.
 | Motion          | Written as                                                          |
 | --------------- | ------------------------------------------------------------------- |
 | Directions      | `↓ ↘ →`, `D, DF, F`, `236`, `⬇️ ↘️ ➡️`, `2️⃣3️⃣6️⃣`                    |
-| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`, `🔥 →`                  |
-| Half circles    | spelled out, or `⋃ →`, `◡ →`, `🌙 →`                                |
-| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍 →`, `龙 →`, `竜 →`, `𓆈 →`, `🐉 →` |
+| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`, `🔥→`                   |
+| Half circles    | spelled out, or `⋃→`, `◡→`, `🌙→`                                   |
+| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍→`, `龙→`, `竜→`, `𓆈→`, `🐉→`      |
 | Full circles    | `360` `720`, or `⥁`, `⭮`, `🌀`                                      |
-| Charges         | `[←] →`, or `⮀ ⮃`, `🔋 →`                                           |
+| Charges         | `[←] →`, or `⮀ ⮃`, `🔋→`                                            |
 
 `236` is the numpad, from a player on the left: `236 + P` is a fireball and
 `623 + P` a dragon punch, which is how the notation is written everywhere else.
