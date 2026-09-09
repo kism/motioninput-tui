@@ -61,4 +61,4 @@ USFIV: TKTKTKTK
 
 ## Tekken 3
 
-This will be difficult, https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979
+This will be difficult, <https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979>
