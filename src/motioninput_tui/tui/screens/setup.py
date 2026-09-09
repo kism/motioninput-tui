@@ -49,16 +49,18 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
 
     def __init__(
         self,
-        initial: tuple[str | None, str | None] = (None, None),
+        initial_game: str | None = None,
         *,
+        characters: Mapping[str, str] | None = None,
         settings: Mapping[str, bool] | None = None,
         layout_name: str = "",
         focus_characters: bool = False,
     ) -> None:
         """Load the rosters and take the settings as they stand.
 
-        ``initial`` is the (game, character) used last time, so the pickers open
-        on it rather than always on the first entry. ``settings`` is every
+        ``initial_game`` is the game used last time and ``characters`` is who
+        was last trained on each game, so both pickers open where they were left
+        rather than always on the first entry. ``settings`` is every
         setting's current value, keyed by config attribute. ``layout_name``
         names the input device chosen on the way in, which is all this screen
         does with it. ``focus_characters`` starts on the character list instead
@@ -68,7 +70,8 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         super().__init__()
         self.games = available_games()
         self._settings = dict(settings or {})
-        self._initial = initial
+        self._initial_game = initial_game
+        self._characters = dict(characters or {})
         self._layout_name = layout_name
         self._focus_characters = focus_characters
         self._loaded_game: int | None = None
@@ -113,10 +116,9 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
 
     def _apply_initial(self) -> None:
         """Open the pickers on whatever was used last time."""
-        game_key, character_key = self._initial
-        game_index = _index_of([game.key for game in self.games], game_key)
+        game_index = _index_of([game.key for game in self.games], self._initial_game)
         self.query_one("#games", OptionList).highlighted = game_index
-        self._load_characters(game_index, character_key)
+        self._load_characters(game_index)
         self._focus_picker()
 
     def _focus_picker(self) -> None:
@@ -127,14 +129,16 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
             return
         self.query_one(SettingsList).focus()
 
-    def _load_characters(self, game_index: int, character_key: str | None = None) -> None:
+    def _load_characters(self, game_index: int) -> None:
+        """Show a game's roster, on whoever was last trained on it."""
         self._loaded_game = game_index
+        game = self.games[game_index]
         characters = self.query_one("#characters", OptionList)
         characters.clear_options()
-        roster = _ordered_characters(self.games[game_index])
+        roster = _ordered_characters(game)
         characters.add_options([character.name for character in roster])
         if roster:
-            characters.highlighted = _index_of([entry.key for entry in roster], character_key)
+            characters.highlighted = _index_of([entry.key for entry in roster], self._characters.get(game.key))
         self._describe()
 
     def on_option_list_option_highlighted(self, event: OptionList.OptionHighlighted) -> None:
@@ -142,7 +146,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
 
         Setting a game on mount queues a highlight event that arrives after
         the character has been pre-selected, so a game that is already loaded
-        is ignored rather than resetting the character back to the first one.
+        is ignored rather than reloading its roster.
         """
         if event.option_list.id == "games" and event.option_index != self._loaded_game:
             self._load_characters(event.option_index)

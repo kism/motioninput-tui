@@ -150,12 +150,13 @@ Turn it off to be made to hit the down. Loose buffer is the same rule
 The game, character, layout, settings, notation and buffer rule you last used
 are saved to `~/.config/motioninput-tui/config.json` (or under
 `$XDG_CONFIG_HOME` if set), so the pickers open where you left off and your
-settings stick between runs.
+settings stick between runs. The character is remembered per game, so switching
+game switches to whoever you were last training on it.
 
 Command line arguments win over what was saved, and `--no-loose-buffer` turns
-the buffer rule back off. Naming a different `--game` on its own clears the
-remembered character, since it belonged to another roster. If the file is
-missing or damaged the defaults are used and a fresh one is written.
+the buffer rule back off. Naming a different `--game` on its own opens on that
+game's remembered character. If the file is missing or damaged the defaults are
+used and a fresh one is written.
 
 Key release support is _not_ remembered: it is probed per terminal on every
 launch, so a saved value would disable exact tracking after switching terminal.

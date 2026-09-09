@@ -81,7 +81,8 @@ nothing, and existing files are being cleaned of it.
 
 ## Config
 
-`config.py` remembers the last game, character, layout, settings, buffer policy
+`config.py` remembers the last game, character (per game, in `characters`;
+`save` folds the current selection into it), layout, settings, buffer policy
 and the pad / custom-keyboard rebinds in `~/.config/motioninput-tui/config.json`
 (honouring `XDG_CONFIG_HOME`). It is best-effort throughout: a missing, corrupt
 or unwritable file logs and falls back to defaults rather than raising.

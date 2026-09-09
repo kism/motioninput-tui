@@ -48,6 +48,10 @@ class Config:
 
     game: str | None = None
     character: str | None = None
+    characters: dict[str, str] = field(default_factory=dict)
+    """Who was last trained on each game, ``{game key: character key}``.
+    :meth:`save` folds the current selection in, so coming back to a game comes
+    back to the character as well."""
     layout: str = DEFAULT_LAYOUT
     buffer_policy: BufferPolicy = BufferPolicy.CONSUME
     lenient_half_circles: bool = True
@@ -103,6 +107,7 @@ class Config:
         return cls(
             game=_optional_str(raw.get("game")),
             character=_optional_str(raw.get("character")),
+            characters=_valid_characters(raw.get("characters")),
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
             lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=True),
@@ -116,9 +121,12 @@ class Config:
     def save(self, path: Path | None = None) -> bool:
         """Write the config. Returns False if it could not be saved."""
         target = path or self.path or config_path()
+        if self.game and self.character:
+            self.characters[self.game] = self.character
         payload = {
             "game": self.game,
             "character": self.character,
+            "characters": self.characters,
             "layout": self.layout,
             "buffer_policy": str(self.buffer_policy),
             "lenient_half_circles": self.lenient_half_circles,
@@ -183,6 +191,18 @@ def _valid_keyboard_bindings(value: object) -> dict[str, str]:
         slot: key
         for slot, key in value.items()
         if isinstance(slot, str) and slot in KEYBOARD_DEFAULT_BINDINGS and isinstance(key, str) and key
+    }
+
+
+def _valid_characters(value: object) -> dict[str, str]:
+    # Best-effort like the rest of the loader; a character who has since left
+    # the roster is dealt with by the picker falling back to the first one.
+    if not isinstance(value, dict):
+        return {}
+    return {
+        game: character
+        for game, character in value.items()
+        if isinstance(game, str) and game and isinstance(character, str) and character
     }
 
 

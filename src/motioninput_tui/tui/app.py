@@ -195,7 +195,8 @@ class MotionInputApp(App[None]):
 
         self.push_screen(
             SetupScreen(
-                (self.config.game, self.config.character),
+                self.config.game,
+                characters=self.config.characters,
                 settings=current_settings(self.config),
                 layout_name=get_layout(self.config.layout).name,
                 focus_characters=focus_characters,

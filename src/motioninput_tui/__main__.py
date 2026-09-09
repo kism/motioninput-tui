@@ -166,10 +166,10 @@ def _apply_overrides(config: Config, args: argparse.Namespace) -> None:
 
     if args.game:
         config.game = args.game
-        # A game named without a character must not reuse the other game's one.
-        config.character = args.character
-    if args.character:
-        config.character = args.character
+        # Not the character from whatever game was being played last: whoever
+        # was last trained on this one. --character always wins, and cannot be
+        # given without --game.
+        config.character = args.character or config.characters.get(args.game)
     if args.layout:
         config.layout = args.layout
     if args.loose_buffer is not None:

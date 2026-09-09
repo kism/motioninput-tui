@@ -83,3 +83,21 @@ def test_a_notation_style_that_no_longer_exists_is_dropped(tmp_path: Path) -> No
     path = tmp_path / "config.json"
     path.write_text(json.dumps({"notation": {"dragon": "kanji", "quarter": "sharpie", "nonsense": "arrows"}}))
     assert Config.load(path).notation == {"dragon": "kanji"}
+
+
+def test_the_character_is_remembered_per_game(tmp_path: Path) -> None:
+    """Switching game and back returns to whoever was being trained on it."""
+    path = tmp_path / "config.json"
+    Config(game="sfiii3", character="ken", path=path).save()
+
+    config = Config.load(path)
+    config.game, config.character = "sfa3", "sakura"
+    config.save()
+
+    assert Config.load(path).characters == {"sfiii3": "ken", "sfa3": "sakura"}
+
+
+def test_malformed_per_game_characters_are_dropped(tmp_path: Path) -> None:
+    path = tmp_path / "config.json"
+    path.write_text(json.dumps({"characters": {"sfiii3": "ken", "sfa3": 4, "": "ryu", "hsf2": ""}}))
+    assert Config.load(path).characters == {"sfiii3": "ken"}
