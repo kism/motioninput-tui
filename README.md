@@ -78,3 +78,4 @@ Move list guides by:
 
 - [Kao Megura / Chris MacDonald](https://gamefaqs.gamespot.com/community/Kao_Megura/contributions/faqs) [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
 - x_MJ_x (Hyper Street Fighter II)
+- THEMCD / Damon M. McDaniel (Ultimate Street Fighter IV)

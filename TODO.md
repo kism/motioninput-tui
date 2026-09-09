@@ -54,7 +54,6 @@ Not sure when the ai got it's information from, but need to see if there is a wa
   - asd space, jkl nm,
   - jkl space, asd zxc
   - `<keyboard custom>`
-- Save keybinds and controller binds into a separate config file
 
 ## Publish
 
