@@ -50,10 +50,12 @@ For each numberd release I do the following
 
 - In this register of games/characters I personally test and re-verify
   - This is not frame perfect, I just open 3SX/Mame/whatever and see if it feels the same.
+  - The tests that claude writes will reflect these, but absolutely needs to be checked by a human
 
 - Register (this will later be a separate file)
   - SFA3
     - Ken
+    - Sakura
   - SFIII
     - Ken
     - Elana
