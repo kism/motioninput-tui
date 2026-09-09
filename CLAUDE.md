@@ -81,10 +81,11 @@ nothing, and existing files are being cleaned of it.
 
 ## Config
 
-`config.py` remembers the last game, character, layout, settings and buffer
-policy in `~/.config/motioninput-tui/config.json` (honouring `XDG_CONFIG_HOME`). It is
-best-effort throughout: a missing, corrupt or unwritable file logs and falls
-back to defaults rather than raising. `Config` doubles as the app's starting
+`config.py` remembers the last game, character, layout, settings, buffer policy
+and the pad / custom-keyboard rebinds in `~/.config/motioninput-tui/config.json`
+(honouring `XDG_CONFIG_HOME`). It is best-effort throughout: a missing, corrupt
+or unwritable file logs and falls back to defaults rather than raising.
+`_LAYOUT_ALIASES` migrates a pre-rework `hitbox` / `southpaw` layout on load. `Config` doubles as the app's starting
 selection and its persistence, which is why `MotionInputApp` takes one instead
 of separate game/character/layout arguments.
 
@@ -190,6 +191,17 @@ move lists.
 Layouts are built carrying the six, so `app._panel_for` only lays a set on when
 it is not that one — which is also what keeps a rebound gamepad from being
 flattened back to its defaults, since the rebind screen only knows those six.
+
+The picker offers two keyboard presets (`KB_LEFT` / `KB_RIGHT`) and a
+`KB_CUSTOM` whose keys — all four directions and the six attacks — are set from
+`tui/screens/keyboard_bind.py` (`b` on that row), stored as
+`config.keyboard_bindings` (`{slot: key name}`) and applied by
+`keyboard_layout()`, exactly parallel to `gamepad_bindings` / `gamepad_layout`.
+`resolve_keyboard_bindings` falls back to the default map whole if two slots
+collide. Key names are Textual's (`comma`, `semicolon`, `space`); `friendly_key`
+turns them back into glyphs for display. `HITBOX` / `SOUTHPAW` stay as module
+constants — the four-key reference layouts the engine test harness and
+`tests/controls/test_buttons.py` are written against — but are out of `LAYOUTS`.
 
 The first game in the list, `display`, has no roster: `loader._display_game`
 builds it, and its characters *are* the button sets, which is how a panel gets

@@ -35,6 +35,27 @@ def test_gamepad_bindings_default_to_empty(tmp_path: Path) -> None:
     assert Config.load(tmp_path / "missing.json").gamepad_bindings == {}
 
 
+def test_keyboard_bindings_round_trip(tmp_path: Path) -> None:
+    path = tmp_path / "config.json"
+    Config(keyboard_bindings={"HP": "semicolon", "up": "w"}, path=path).save()
+    assert Config.load(path).keyboard_bindings == {"HP": "semicolon", "up": "w"}
+
+
+def test_malformed_keyboard_bindings_are_dropped(tmp_path: Path) -> None:
+    path = tmp_path / "config.json"
+    path.write_text(json.dumps({"keyboard_bindings": {"HP": "j", "nonsense": "q", "MP": "", "LK": 4}}))
+    assert Config.load(path).keyboard_bindings == {"HP": "j"}
+
+
+def test_a_replaced_keyboard_layout_migrates(tmp_path: Path) -> None:
+    """A config from before the keyboard layouts changed still opens somewhere."""
+    path = tmp_path / "config.json"
+    path.write_text(json.dumps({"layout": "hitbox"}))
+    assert Config.load(path).layout == "keyboard-left"
+    path.write_text(json.dumps({"layout": "southpaw"}))
+    assert Config.load(path).layout == "keyboard-right"
+
+
 def test_settings_round_trip(tmp_path: Path) -> None:
     path = tmp_path / "config.json"
     Config(lenient_half_circles=False, path=path).save()

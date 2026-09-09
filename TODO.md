@@ -48,13 +48,6 @@ rather than done.
 
 Not sure when the ai got it's information from, but need to see if there is a way to get input timing into each game
 
-## UI
-
-- Add a custom keyboard option that can be rebound so the options are:
-  - asd space, jkl nm,
-  - jkl space, asd zxc
-  - `<keyboard custom>`
-
 ## Publish
 
 - Published wheel should have the gamepad group
@@ -75,3 +68,7 @@ Store last selected character per-game
 SFA3: TKTKTKTK
 SFIII3: TKTKTKTK
 USFIV: TKTKTKTK
+
+## Tekken 3
+
+This will be difficult, https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979

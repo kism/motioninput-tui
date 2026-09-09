@@ -24,7 +24,7 @@ def test_ctrl_q_is_declared_visible() -> None:
 
 def test_ctrl_q_quits(tmp_path: Path) -> None:
     async def session() -> int | None:
-        config = Config(game="usfiv", character="ryu", layout="hitbox", path=tmp_path / "config.json")
+        config = Config(game="usfiv", character="ryu", layout="keyboard-left", path=tmp_path / "config.json")
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()

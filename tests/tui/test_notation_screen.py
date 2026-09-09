@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 @pytest.fixture
 def config(tmp_path: Path) -> Config:
     """A saved selection that writes back to a throwaway file, never the real one."""
-    return Config(game="sfiii3", character="ryu", layout="hitbox", path=tmp_path / "config.json")
+    return Config(game="sfiii3", character="ryu", layout="keyboard-left", path=tmp_path / "config.json")
 
 
 async def _pick(pilot: Pilot, family: int, style: int) -> None:
@@ -113,7 +113,7 @@ def test_a_remembered_notation_is_used_from_the_start(tmp_path: Path) -> None:
     config = Config(
         game="sfiii3",
         character="ryu",
-        layout="hitbox",
+        layout="keyboard-left",
         notation={"quarter": "curved"},
         path=tmp_path / "config.json",
     )

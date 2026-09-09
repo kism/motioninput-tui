@@ -49,7 +49,7 @@ uv sync --all-extras # Omit --all-extras for prod
 
 ```bash
 motioninput-tui                              # pick everything in the TUI
-motioninput-tui --game sfiii3 --character ryu --layout hitbox
+motioninput-tui --game sfiii3 --character ryu --layout keyboard-left
 motioninput-tui --list                       # games and characters
 motioninput-tui --check-terminal             # terminal speed and key release support
 motioninput-tui --no-key-release             # force the auto-repeat fallback
@@ -162,26 +162,35 @@ launch, so a saved value would disable exact tracking after switching terminal.
 
 ## Controls
 
-Chosen on the first screen. Two keyboard layouts, plus a gamepad if the
-`gamepad` extra is installed (`uv sync --extra gamepad`, or `--all-extras`).
+Chosen on the first screen. Two keyboard presets and a rebindable one, plus a
+gamepad if the `gamepad` extra is installed (`uv sync --extra gamepad`, or
+`--all-extras`).
 
-| Layout   | Back / Down / Forward / Up | Attack row 1 | Attack row 2 |
-| -------- | -------------------------- | ------------ | ------------ |
-| Hitbox   | `a` `s` `d` `space`        | `u i o p`    | `j k l ;`    |
-| Southpaw | `j` `k` `l` `space`        | `a s d f`    | `z x c v`    |
-| Gamepad  | D-pad or left stick        | `X Y RB RT`  | `A B LB LT`  |
+| Layout               | Back / Down / Forward / Up | Attack row 1 | Attack row 2 |
+| -------------------- | -------------------------- | ------------ | ------------ |
+| `asd space, jkl nm,` | `a` `s` `d` `space`        | `j k l`      | `n m ,`      |
+| `jkl space, asd zxc` | `j` `k` `l` `space`        | `a s d`      | `z x c`      |
+| Keyboard (custom)    | rebindable                 | rebindable   | rebindable   |
+| Gamepad              | D-pad or left stick        | `X Y RB RT`  | `A B LB LT`  |
+
+Highlight **Keyboard (custom)** and press `b` to rebind every key — the four
+directions and the six attacks — from its own screen; the map is remembered in
+the config. Every keyboard layout carries only the Street Fighter six, so the
+Neo Geo's fourth button and the eight-button panel are reachable on the gamepad
+alone. Every game in the trainer is a six-button game, so this only shows in the
+input display's wider panels.
 
 A layout is only _where_ the attacks are. What those positions mean is the
 game's button set, laid onto them in order:
 
-| Panel                 | Row 1    | Row 2    | On southpaw       |
-| --------------------- | -------- | -------- | ----------------- |
-| Street Fighter, 6     | LP MP HP | LK MK HK | `asd` `zxc`       |
-| Mortal Kombat, 5      | HP BL HK | LP LK    | `asd` `zx`        |
-| Neo Geo, 4            | A B C D  | A B C D  | `asdf` and `zxcv` |
-| Neo Geo, arcade slant | C D      | A B      | `as` over `zx`    |
-| Tekken, 4             | □ △      | ✕ ○      | `as` `zx`         |
-| Eight button          | 1 2 3 4  | 5 6 7 8  | `asdf` `zxcv`     |
+| Panel                 | Row 1    | Row 2    |
+| --------------------- | -------- | -------- |
+| Street Fighter, 6     | LP MP HP | LK MK HK |
+| Mortal Kombat, 5      | HP BL HK | LP LK    |
+| Neo Geo, 4            | A B C D  | A B C D  |
+| Neo Geo, arcade slant | C D      | A B      |
+| Tekken, 4             | □ △      | ✕ ○      |
+| Eight button          | 1 2 3 4  | 5 6 7 8  |
 
 The Street Fighter games use the six, so that is what a layout carries unless
 something else asks for another set. The Neo Geo is the one panel with two

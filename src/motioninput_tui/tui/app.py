@@ -9,7 +9,14 @@ from textual.binding import Binding
 from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
 from motioninput_tui.controls.buttons import DEFAULT_SET, arrangement, get_set
-from motioninput_tui.controls.layouts import LayoutKind, gamepad_layout, get_layout, with_buttons
+from motioninput_tui.controls.layouts import (
+    KB_CUSTOM,
+    LayoutKind,
+    gamepad_layout,
+    get_layout,
+    keyboard_layout,
+    with_buttons,
+)
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.rulesets import DISPLAY_GAME
 from motioninput_tui.notation_styles import Notation
@@ -107,6 +114,12 @@ class MotionInputApp(App[None]):
         """Remember the gamepad attack rebinds the player just made."""
         self._remember(gamepad_bindings=event.bindings)
 
+    def on_input_picker_screen_keyboard_bindings_changed(
+        self, event: InputPickerScreen.KeyboardBindingsChanged
+    ) -> None:
+        """Remember the custom keyboard rebinds the player just made."""
+        self._remember(keyboard_bindings=event.bindings)
+
     def action_settings(self) -> None:
         """Open the settings over whatever is running. The trainer's ctrl+b."""
         self.push_screen(SettingsScreen(current_settings(self.config)))
@@ -164,7 +177,11 @@ class MotionInputApp(App[None]):
             self._open_setup()
 
         self.push_screen(
-            InputPickerScreen(self.config.layout, gamepad_bindings=self.config.gamepad_bindings),
+            InputPickerScreen(
+                self.config.layout,
+                gamepad_bindings=self.config.gamepad_bindings,
+                keyboard_bindings=self.config.keyboard_bindings,
+            ),
             on_done,
         )
 
@@ -205,6 +222,8 @@ class MotionInputApp(App[None]):
         layout = get_layout(layout_key)
         if layout.kind is LayoutKind.GAMEPAD:
             layout = gamepad_layout(self.config.gamepad_bindings or None)
+        elif layout.key == KB_CUSTOM.key:
+            layout = keyboard_layout(self.config.keyboard_bindings or None)
         buttons = self._buttons_for(game, character)
         if buttons is not DEFAULT_SET:
             layout = with_buttons(layout, buttons)

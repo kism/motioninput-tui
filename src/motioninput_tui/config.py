@@ -14,7 +14,7 @@ import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .controls.layouts import DEFAULT_LAYOUT, LAYOUTS
+from .controls.layouts import DEFAULT_LAYOUT, KEYBOARD_DEFAULT_BINDINGS, LAYOUTS
 from .engine.recognizer import BufferPolicy
 from .notation_styles import STYLES
 from .utils.logger import get_logger
@@ -63,6 +63,10 @@ class Config:
     """The player's gamepad attack rebinds, ``{button name: pad code}``. Empty
     means the built-in default. :func:`~.controls.layouts.gamepad_layout` has
     the final say on which entries are usable."""
+    keyboard_bindings: dict[str, str] = field(default_factory=dict)
+    """The custom keyboard layout's rebinds, ``{slot: key name}`` over the four
+    movement axes and the six attacks. Empty means the built-in default;
+    :func:`~.controls.layouts.keyboard_layout` has the final say."""
     path: Path | None = None
     """Where this was loaded from, and where :meth:`save` writes back to."""
 
@@ -105,6 +109,7 @@ class Config:
             neo_geo_slant=_valid_flag(raw.get("neo_geo_slant"), default=False),
             notation=_valid_notation(raw.get("notation")),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
+            keyboard_bindings=_valid_keyboard_bindings(raw.get("keyboard_bindings")),
             path=target,
         )
 
@@ -120,6 +125,7 @@ class Config:
             "neo_geo_slant": self.neo_geo_slant,
             "notation": self.notation,
             "gamepad_bindings": self.gamepad_bindings,
+            "keyboard_bindings": self.keyboard_bindings,
         }
         try:
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -154,12 +160,30 @@ def _optional_str(value: object) -> str | None:
     return value if isinstance(value, str) and value else None
 
 
+_LAYOUT_ALIASES = {"hitbox": "keyboard-left", "southpaw": "keyboard-right"}
+"""The keyboard layouts that were replaced, mapped to their nearest successor so
+a config from before the change still opens somewhere sensible."""
+
+
 def _valid_layout(value: object) -> str:
     # An unavailable layout (gamepad without the extra installed) falls back,
     # so a stale config cannot drop the trainer into a dead input mode.
+    if isinstance(value, str):
+        value = _LAYOUT_ALIASES.get(value, value)
     if isinstance(value, str) and value in LAYOUTS and LAYOUTS[value].available:
         return value
     return DEFAULT_LAYOUT
+
+
+def _valid_keyboard_bindings(value: object) -> dict[str, str]:
+    # Best-effort like the rest of the loader; keyboard_layout is authoritative.
+    if not isinstance(value, dict):
+        return {}
+    return {
+        slot: key
+        for slot, key in value.items()
+        if isinstance(slot, str) and slot in KEYBOARD_DEFAULT_BINDINGS and isinstance(key, str) and key
+    }
 
 
 def _valid_flag(value: object, *, default: bool) -> bool:

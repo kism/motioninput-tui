@@ -21,13 +21,13 @@ if TYPE_CHECKING:
 @pytest.fixture
 def config(tmp_path: Path) -> Config:
     """A 3rd Strike selection, so there are Super Arts to cycle."""
-    return Config(game="sfiii3", character="sean", layout="hitbox", path=tmp_path / "config.json")
+    return Config(game="sfiii3", character="sean", layout="keyboard-left", path=tmp_path / "config.json")
 
 
 @pytest.fixture
 def no_super_arts(tmp_path: Path) -> Config:
     """Super Turbo has no Super Arts, so tab should do nothing there."""
-    return Config(game="hsf2", character="ryu", layout="hitbox", path=tmp_path / "config.json")
+    return Config(game="hsf2", character="ryu", layout="keyboard-left", path=tmp_path / "config.json")
 
 
 def run(coroutine: Callable[[], Awaitable[list[str]]]) -> list[str]:

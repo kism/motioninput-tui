@@ -10,7 +10,7 @@ from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from motioninput_tui.engine.notation import Button
+from motioninput_tui.engine.notation import BUTTON_ORDER, Button
 
 from .buttons import DEFAULT_SET, ButtonSet
 
@@ -25,6 +25,25 @@ class Axis(StrEnum):
     RIGHT = "right"
     DOWN = "down"
     UP = "up"
+
+
+_KEY_DISPLAY = {
+    "space": "␣",
+    "comma": ",",
+    "semicolon": ";",
+    "full_stop": ".",
+    "minus": "-",
+    "slash": "/",
+    "apostrophe": "'",
+    "left_square_bracket": "[",
+    "right_square_bracket": "]",
+}
+"""Friendly one-glyph names for the keys Textual reports under a word."""
+
+
+def friendly_key(key: str) -> str:
+    """A key name as it should read on screen, e.g. ``comma`` -> ``,``."""
+    return _KEY_DISPLAY.get(key, key)
 
 
 class LayoutKind(StrEnum):
@@ -67,7 +86,7 @@ class ControlLayout:
         """What to call a binding code on screen."""
         if key in self.key_labels:
             return self.key_labels[key]
-        return "␣" if key == "space" else key
+        return friendly_key(key)
 
     def bound_rows(self) -> tuple[tuple[tuple[str, Button], ...], ...]:
         """The attack positions that currently mean something, row by row.
@@ -115,6 +134,11 @@ def with_buttons(layout: ControlLayout, buttons: ButtonSet) -> ControlLayout:
     return replace(layout, attacks=lay_out(layout.attack_rows, buttons))
 
 
+# The two reference layouts the engine test suite is written against: every
+# button of every panel has a key, which is what lets `tests/controls/
+# test_buttons.py` and the motion-test harness prove the panel-laying machinery.
+# They are not offered in the picker (see `LAYOUTS` below) - the keyboard
+# choices a player sees are `KB_LEFT` / `KB_RIGHT` / `KB_CUSTOM`.
 HITBOX_ROWS = (("u", "i", "o", "p"), ("j", "k", "l", ";"))
 SOUTHPAW_ROWS = (("a", "s", "d", "f"), ("z", "x", "c", "v"))
 
@@ -135,6 +159,94 @@ SOUTHPAW = ControlLayout(
     attacks=lay_out(SOUTHPAW_ROWS, DEFAULT_SET),
     attack_rows=SOUTHPAW_ROWS,
 )
+
+# The keyboard layouts a player actually picks: the Street Fighter six on three
+# keys a hand, one hand on movement and the other on the attacks below it.
+KB_LEFT_ROWS = (("j", "k", "l"), ("n", "m", "comma"))
+KB_RIGHT_ROWS = (("a", "s", "d"), ("z", "x", "c"))
+
+KB_LEFT = ControlLayout(
+    key="keyboard-left",
+    name="asd space, jkl nm,",
+    description="Left hand a s d space to move. Attacks j k l over n m ,.",
+    movement={"a": Axis.LEFT, "s": Axis.DOWN, "d": Axis.RIGHT, "space": Axis.UP},
+    attacks=lay_out(KB_LEFT_ROWS, DEFAULT_SET),
+    attack_rows=KB_LEFT_ROWS,
+)
+
+KB_RIGHT = ControlLayout(
+    key="keyboard-right",
+    name="jkl space, asd zxc",
+    description="Right hand j k l space to move. Attacks a s d over z x c.",
+    movement={"j": Axis.LEFT, "k": Axis.DOWN, "l": Axis.RIGHT, "space": Axis.UP},
+    attacks=lay_out(KB_RIGHT_ROWS, DEFAULT_SET),
+    attack_rows=KB_RIGHT_ROWS,
+)
+
+KB_CUSTOM = ControlLayout(
+    key="keyboard-custom",
+    name="Keyboard (custom)",
+    description="Every key rebindable. Highlight this row and press b to set them.",
+    movement=dict(KB_LEFT.movement),
+    attacks=dict(KB_LEFT.attacks),
+    attack_rows=KB_LEFT_ROWS,
+)
+
+KEYBOARD_SLOTS: tuple[str, ...] = (
+    Axis.LEFT.value,
+    Axis.DOWN.value,
+    Axis.RIGHT.value,
+    Axis.UP.value,
+    *(button.name for button in BUTTON_ORDER),
+)
+"""The rebindable slots of the custom keyboard layout, in the order the rebind
+screen lists them: the four movement axes, then the six attacks."""
+
+KEYBOARD_DEFAULT_BINDINGS: dict[str, str] = {
+    Axis.LEFT.value: "a",
+    Axis.DOWN.value: "s",
+    Axis.RIGHT.value: "d",
+    Axis.UP.value: "space",
+    "LP": "j",
+    "MP": "k",
+    "HP": "l",
+    "LK": "n",
+    "MK": "m",
+    "HK": "comma",
+}
+"""What the custom layout starts from: the same keys as ``KB_LEFT``,
+``{slot: key name}``."""
+
+
+def resolve_keyboard_bindings(bindings: Mapping[str, str] | None = None) -> dict[str, str]:
+    """A full ``{slot: key name}`` map from a stored, partial one.
+
+    Unknown slots and empty values are ignored; anything left unset keeps its
+    default. If two slots end up on one key the default is returned whole, so a
+    movement direction or an attack is never left unreachable.
+    """
+    resolved = dict(KEYBOARD_DEFAULT_BINDINGS)
+    resolved.update(
+        (slot, key)
+        for slot, key in (bindings or {}).items()
+        if slot in KEYBOARD_DEFAULT_BINDINGS and isinstance(key, str) and key
+    )
+    if len(set(resolved.values())) != len(resolved):
+        return dict(KEYBOARD_DEFAULT_BINDINGS)
+    return resolved
+
+
+def keyboard_layout(bindings: Mapping[str, str] | None = None) -> ControlLayout:
+    """The custom keyboard layout with the player's rebinds applied."""
+    resolved = resolve_keyboard_bindings(bindings)
+    if resolved == KEYBOARD_DEFAULT_BINDINGS:
+        return KB_CUSTOM
+    movement = {resolved[axis.value]: axis for axis in (Axis.LEFT, Axis.DOWN, Axis.RIGHT, Axis.UP)}
+    rows = (
+        (resolved["LP"], resolved["MP"], resolved["HP"]),
+        (resolved["LK"], resolved["MK"], resolved["HK"]),
+    )
+    return replace(KB_CUSTOM, movement=movement, attacks=lay_out(rows, DEFAULT_SET), attack_rows=rows)
 
 
 def _gamepad_supported() -> bool:
@@ -208,8 +320,8 @@ def gamepad_layout(bindings: Mapping[str, str] | None = None) -> ControlLayout:
     return replace(GAMEPAD, attacks={code: button for button, code in resolved.items()})
 
 
-LAYOUTS: dict[str, ControlLayout] = {layout.key: layout for layout in (HITBOX, SOUTHPAW, GAMEPAD)}
-DEFAULT_LAYOUT = HITBOX.key
+LAYOUTS: dict[str, ControlLayout] = {layout.key: layout for layout in (KB_LEFT, KB_RIGHT, KB_CUSTOM, GAMEPAD)}
+DEFAULT_LAYOUT = KB_LEFT.key
 
 
 def get_layout(key: str) -> ControlLayout:

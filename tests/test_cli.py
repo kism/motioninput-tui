@@ -20,7 +20,7 @@ def saved(tmp_path: Path):
 
     def write(**values: str) -> Path:
         path = tmp_path / "config.json"
-        path.write_text(json.dumps({"layout": "hitbox", **values}), encoding="utf-8")
+        path.write_text(json.dumps({"layout": "keyboard-left", **values}), encoding="utf-8")
         return path
 
     return write

@@ -15,10 +15,17 @@ from textual.message import Message
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
-from motioninput_tui.controls.layouts import LayoutKind, available_layouts, gamepad_layout
+from motioninput_tui.controls.layouts import (
+    KB_CUSTOM,
+    LayoutKind,
+    available_layouts,
+    gamepad_layout,
+    keyboard_layout,
+)
 from motioninput_tui.terminal import detect
 
 from .gamepad_bind import GamepadBindScreen
+from .keyboard_bind import KeyboardBindScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -36,7 +43,7 @@ class InputPickerScreen(Screen[str]):
 
     BINDINGS: ClassVar = [
         Binding("enter", "choose", "Continue", priority=True),
-        Binding("b", "bind_gamepad", "Rebind pad"),
+        Binding("b", "rebind", "Rebind"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c", "app.help_quit", show=False, system=True),
@@ -50,6 +57,14 @@ class InputPickerScreen(Screen[str]):
             super().__init__()
             self.bindings = bindings
 
+    class KeyboardBindingsChanged(Message):
+        """Posted when the player rebinds the custom keyboard layout."""
+
+        def __init__(self, bindings: dict[str, str]) -> None:
+            """Carry the new ``{slot: key name}`` map."""
+            super().__init__()
+            self.bindings = bindings
+
     DEFAULT_CSS = """
     InputPickerScreen { layout: vertical; }
     InputPickerScreen #warning { padding: 0 2; color: $warning; height: auto; }
@@ -60,10 +75,18 @@ class InputPickerScreen(Screen[str]):
     InputPickerScreen #detail { height: 4; padding: 0 2; color: $text-muted; }
     """
 
-    def __init__(self, layout_key: str | None = None, *, gamepad_bindings: dict[str, str] | None = None) -> None:
-        """Open on ``layout_key``, with ``gamepad_bindings`` on the pad entry."""
+    def __init__(
+        self,
+        layout_key: str | None = None,
+        *,
+        gamepad_bindings: dict[str, str] | None = None,
+        keyboard_bindings: dict[str, str] | None = None,
+    ) -> None:
+        """Open on ``layout_key``, with the player's rebinds on the pad and
+        custom-keyboard entries."""
         super().__init__()
         self._gamepad_bindings = dict(gamepad_bindings or {})
+        self._keyboard_bindings = dict(keyboard_bindings or {})
         self.layouts = self._build_layouts()
         self.terminal = detect()
         self._initial = layout_key
@@ -71,16 +94,27 @@ class InputPickerScreen(Screen[str]):
         self._pad_name: str | None = None
 
     def _build_layouts(self) -> list[ControlLayout]:
-        """Available layouts, with the player's rebinds on the gamepad entry."""
-        return [
-            gamepad_layout(self._gamepad_bindings) if layout.kind is LayoutKind.GAMEPAD else layout
-            for layout in available_layouts()
-        ]
+        """Available layouts, with the player's rebinds applied."""
+        return [self._with_rebinds(layout) for layout in available_layouts()]
+
+    def _with_rebinds(self, layout: ControlLayout) -> ControlLayout:
+        if layout.kind is LayoutKind.GAMEPAD:
+            return gamepad_layout(self._gamepad_bindings)
+        if layout.key == KB_CUSTOM.key:
+            return keyboard_layout(self._keyboard_bindings)
+        return layout
 
     def _gamepad_index(self) -> int | None:
         """Row of the gamepad layout in the picker, or None if it is unavailable."""
         for index, layout in enumerate(self.layouts):
             if layout.kind is LayoutKind.GAMEPAD:
+                return index
+        return None
+
+    def _custom_keyboard_index(self) -> int | None:
+        """Row of the rebindable keyboard layout."""
+        for index, layout in enumerate(self.layouts):
+            if layout.key == KB_CUSTOM.key:
                 return index
         return None
 
@@ -160,25 +194,39 @@ class InputPickerScreen(Screen[str]):
             self._describe()
 
     def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
-        """Only offer the rebind hotkey while the gamepad row is highlighted."""
+        """Only offer the rebind hotkey on a row that can be rebound."""
         del parameters
-        if action != "bind_gamepad":
+        if action != "rebind":
             return True
-        return True if self._highlighted_index() == self._gamepad_index() else None
+        highlighted = self._highlighted_index()
+        return True if highlighted in {self._gamepad_index(), self._custom_keyboard_index()} else None
 
-    def action_bind_gamepad(self) -> None:
-        """Open the attack-button rebind modal for the gamepad layout."""
-        self._ensure_reader()
-        self.app.push_screen(GamepadBindScreen(self._gamepad_bindings, self._reader), self._on_rebind)
+    def action_rebind(self) -> None:
+        """Open the rebind modal for the highlighted row (pad or custom keyboard)."""
+        highlighted = self._highlighted_index()
+        if highlighted == self._gamepad_index():
+            self._ensure_reader()
+            self.app.push_screen(GamepadBindScreen(self._gamepad_bindings, self._reader), self._on_gamepad_rebind)
+        elif highlighted == self._custom_keyboard_index():
+            self.app.push_screen(KeyboardBindScreen(self._keyboard_bindings), self._on_keyboard_rebind)
 
-    def _on_rebind(self, bindings: dict[str, str] | None) -> None:
-        """Apply and remember a map that came back from the rebind modal."""
+    def _on_gamepad_rebind(self, bindings: dict[str, str] | None) -> None:
+        """Apply and remember a pad map that came back from the rebind modal."""
         if bindings is None:
             return
         self._gamepad_bindings = bindings
         self.layouts = self._build_layouts()
         self._describe()
         self.post_message(self.GamepadBindingsChanged(bindings))
+
+    def _on_keyboard_rebind(self, bindings: dict[str, str] | None) -> None:
+        """Apply and remember a keyboard map that came back from the rebind modal."""
+        if bindings is None:
+            return
+        self._keyboard_bindings = bindings
+        self.layouts = self._build_layouts()
+        self._describe()
+        self.post_message(self.KeyboardBindingsChanged(bindings))
 
     def _highlighted_index(self) -> int:
         return self.query_one("#layouts", OptionList).highlighted or 0

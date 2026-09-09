@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 @pytest.fixture
 def config(tmp_path: Path) -> Config:
     """A saved selection that writes back to a throwaway file, never the real one."""
-    return Config(game="sfiii3", character="ken", layout="hitbox", path=tmp_path / "config.json")
+    return Config(game="sfiii3", character="ken", layout="keyboard-left", path=tmp_path / "config.json")
 
 
 async def _open_setup(pilot: Pilot) -> SetupScreen:

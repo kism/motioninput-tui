@@ -98,12 +98,12 @@ def test_rebind_hotkey_is_hidden_off_the_gamepad_row(tmp_path: Path) -> None:
             assert isinstance(picker, InputPickerScreen)
             layouts = picker.query_one("#layouts", OptionList)
             layouts.focus()
-            layouts.highlighted = 0  # a keyboard layout
+            layouts.highlighted = 0  # a keyboard preset, not rebindable
             await pilot.pause()
-            off = picker.check_action("bind_gamepad", ())
+            off = picker.check_action("rebind", ())
             layouts.highlighted = _gamepad_row(picker)
             await pilot.pause()
-            on = picker.check_action("bind_gamepad", ())
+            on = picker.check_action("rebind", ())
             return off, on
 
     off, on = asyncio.run(run())

@@ -33,7 +33,7 @@ def config(tmp_path: Path) -> Config:
     return Config(
         game=DISPLAY_GAME,
         character=sets.STREET_FIGHTER.key,
-        layout="southpaw",
+        layout="keyboard-right",
         path=tmp_path / "config.json",
     )
 
@@ -112,7 +112,9 @@ def test_a_release_puts_a_button_out(config: Config) -> None:
 
 
 def test_the_panel_is_the_one_the_character_names(tmp_path: Path) -> None:
-    config = Config(game=DISPLAY_GAME, character=sets.TEKKEN.key, layout="southpaw", path=tmp_path / "config.json")
+    config = Config(
+        game=DISPLAY_GAME, character=sets.TEKKEN.key, layout="keyboard-right", path=tmp_path / "config.json"
+    )
 
     async def session() -> dict[str, str]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
@@ -127,7 +129,9 @@ def test_the_panel_is_the_one_the_character_names(tmp_path: Path) -> None:
 
 def test_the_neo_geo_slant_setting_rearranges_an_open_panel(tmp_path: Path) -> None:
     """The setting is global, so it has to reach a panel that is already up."""
-    config = Config(game=DISPLAY_GAME, character=sets.NEO_GEO.key, layout="southpaw", path=tmp_path / "config.json")
+    config = Config(
+        game=DISPLAY_GAME, character=sets.NEO_GEO.key, layout="keyboard-right", path=tmp_path / "config.json"
+    )
     row = next(index for index, setting in enumerate(SETTINGS) if setting.attribute == "neo_geo_slant")
 
     async def session() -> tuple[dict[str, str], dict[str, str]]:
