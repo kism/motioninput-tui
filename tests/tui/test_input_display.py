@@ -53,6 +53,20 @@ def test_the_display_is_the_first_game_offered() -> None:
     assert available_games()[0].key == DISPLAY_GAME
 
 
+def test_games_are_menu_ordered_by_series_then_number() -> None:
+    """Display first, then series alphabetically, each in its own game order."""
+    assert [game.key for game in available_games()] == [
+        DISPLAY_GAME,
+        "kof98",
+        "kof2001",
+        "ssvsp",
+        "hsf2",
+        "sfa3",
+        "sfiii3",
+        "usfiv",
+    ]
+
+
 def test_its_characters_are_the_button_sets() -> None:
     """It has no roster; the panels stand in for one."""
     game = load_game(DISPLAY_GAME)

@@ -32,7 +32,6 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         Binding("enter", "select", "Start training", priority=True),
         Binding("escape", "back", "Change input"),
         Binding("ctrl+n", "app.notation", "Notation"),
-        Binding("ctrl+q", "quit", "Quit"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c", "app.help_quit", show=False, system=True),
@@ -90,7 +89,7 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
                 yield SettingsList(self._settings)
             with Vertical():
                 yield Label("Game")
-                yield OptionList(*[game.short_name for game in self.games], id="games")
+                yield OptionList(*[game.name for game in self.games], id="games")
             with Vertical():
                 yield Label("Character")
                 yield OptionList(id="characters")

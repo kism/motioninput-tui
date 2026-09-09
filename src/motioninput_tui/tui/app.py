@@ -1,9 +1,10 @@
 """The Textual application."""
 
 from time import monotonic
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from textual.app import App, SystemCommand
+from textual.binding import Binding
 
 from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
@@ -53,6 +54,10 @@ class MotionInputApp(App[None]):
     CSS = """
     Screen { background: $surface; }
     """
+
+    # Textual's own ctrl+q binding is hidden; re-declare it so the footer on
+    # every screen shows how to quit.
+    BINDINGS: ClassVar = [Binding("ctrl+q", "quit", "Quit", priority=True)]
 
     def __init__(self, config: Config | None = None, *, key_release: bool = True, skip_setup: bool = False) -> None:
         """Set up the app.

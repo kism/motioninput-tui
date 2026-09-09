@@ -27,7 +27,7 @@ class GameSpec:
 
 HSF2 = GameSpec(
     key="hsf2",
-    name="Hyper Street Fighter II: The Anniversary Edition",
+    name="Hyper Street Fighter II",
     short_name="HSF2",
     ruleset=Ruleset(
         motion_window_ms=250,
@@ -113,7 +113,7 @@ SFIII3 = GameSpec(
 
 KOF98 = GameSpec(
     key="kof98",
-    name="The King of Fighters '98: The Slugfest",
+    name="The King of Fighters '98",
     short_name="KoF '98",
     ruleset=Ruleset(
         motion_window_ms=320,
@@ -264,8 +264,10 @@ characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
 
 DISPLAY_GAME = INPUT_DISPLAY.key
 
+# Menu order: the input display first, then by series (alphabetically), then in
+# each series' own numeric / chronological order.
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (INPUT_DISPLAY, HSF2, SFA3, SFIII3, KOF98, KOF2001, SSVSP, USFIV)
+    spec.key: spec for spec in (INPUT_DISPLAY, KOF98, KOF2001, SSVSP, HSF2, SFA3, SFIII3, USFIV)
 }
 DEFAULT_GAME = SFIII3.key
 

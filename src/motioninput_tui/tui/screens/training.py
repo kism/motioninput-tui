@@ -45,7 +45,6 @@ class TrainingScreen(Screen):
         Binding("ctrl+l", "toggle_movelist", "Move list"),
         Binding("ctrl+b", "app.settings", "Settings"),
         Binding("ctrl+n", "app.notation", "Notation"),
-        Binding("ctrl+q", "quit", "Quit"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c", "app.help_quit", show=False, system=True),

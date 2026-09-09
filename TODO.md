@@ -50,11 +50,11 @@ Not sure when the ai got it's information from, but need to see if there is a wa
 
 ## UI
 
-- Add two more keyboard layouts, so the layouts are
-  - wasd
-  - arrow key
-- Set the game names to their nice names, order by series and game order alphabetically/numerically
-- Add ^q hint for quitting
+- Add a custom keyboard option that can be rebound so the options are:
+  - asd space, jkl nm,
+  - jkl space, asd zxc
+  - `<keyboard custom>`
+- Save keybinds and controller binds into a separate config file
 
 ## Publish
 
