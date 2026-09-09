@@ -61,8 +61,6 @@ Not sure when the ai got it's information from, but need to see if there is a wa
 - Published wheel should have the gamepad group
 - Published wheel should only have src/motioninput_tui?
 
-after the user starts one of these moves it should expect them to follow through, the activation should have feedback, and following through the the next phase (or not) should also have feedback
-
 ## Evaluate if pydantic is worth it, modify settings
 
 Will increase the wheel size by a bunch, but its nicer than dataclasses
