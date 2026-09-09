@@ -79,4 +79,8 @@ def available_games() -> list[Game]:
             games.append(load_game(key))
         except GameDataMissingError:
             logger.warning("Skipping %s, no roster data generated yet", key)
+        except OSError, ValueError, KeyError, TypeError:
+            # Unreadable or malformed data is one game missing from the picker,
+            # not a reason to refuse to start. JSONDecodeError is a ValueError.
+            logger.warning("Skipping %s, its roster data could not be read", key, exc_info=True)
     return games

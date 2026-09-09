@@ -482,18 +482,13 @@ class MatchContext:
 
 
 def matches(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
-    """Whether ``spec`` is satisfied by the buffer at the moment of this press.
+    """Whether the motion, buttons and air requirement are all met right now.
 
     A ``mash`` tail is *not* a gate: the motion activates on its own and the
     recogniser tracks the follow-through as a second phase. Standalone
     :attr:`MotionKind.MASH` moves have no ``mash`` tail and are still gated by
     :func:`_match_mash` inside :func:`_match_kind`.
     """
-    return motion_ready(spec, buffer, context)
-
-
-def motion_ready(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
-    """Whether the motion, buttons and air requirement are all met right now."""
     if len(context.pressed & spec.buttons.allowed) < spec.buttons.count:
         return False
     if spec.air and not _match_air(buffer, context.at_ms):

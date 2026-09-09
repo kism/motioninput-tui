@@ -87,7 +87,7 @@ _NF_QUARTER_FORWARD = "\U000f17bf"  # nf-md-arrow_up_right
 _NF_QUARTER_BACK = "\U000f17bd"  # nf-md-arrow_up_left
 _NF_HALF_FORWARD = "\U000f17bb"  # nf-md-arrow_u_up_right
 _NF_HALF_BACK = "\U000f17b9"  # nf-md-arrow_u_up_left
-_NF_DRAGON = ""  # nf-fa-dragon
+_NF_DRAGON = "\ueef8"  # nf-fa-dragon
 
 
 _LETTERS: dict[Direction, str] = {direction: direction.short.upper() for direction in Direction}

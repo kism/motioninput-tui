@@ -68,9 +68,14 @@ class DirectionGate(Static):
     DirectionGate { width: auto; height: auto; padding: 0 2; }
     """
 
-    art: Text = Text()
+    art: Text
     """What is currently drawn. Kept so it can be read back, since a widget's
     rendering is otherwise Textual's business rather than ours."""
+
+    def __init__(self) -> None:
+        """Start blank; :meth:`show` draws it."""
+        super().__init__()
+        self.art = Text()
 
     def show(self, direction: Direction) -> None:
         """Light the cell being held."""
@@ -85,8 +90,13 @@ class ButtonPads(Static):
     ButtonPads { width: auto; height: auto; padding: 0 2; }
     """
 
-    art: Text = Text()
+    art: Text
     """What is currently drawn, as on :class:`DirectionGate`."""
+
+    def __init__(self) -> None:
+        """Start blank; :meth:`show` draws it."""
+        super().__init__()
+        self.art = Text()
 
     def show(self, layout: ControlLayout, held: Iterable[Button]) -> None:
         """Draw the layout's attack positions, lighting the ones held."""

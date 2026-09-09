@@ -8,6 +8,7 @@ side of the screen (so 6 is forward/towards the opponent, 4 is back):
     1 2 3
 """
 
+from dataclasses import dataclass
 from enum import IntEnum, StrEnum
 
 
@@ -141,16 +142,6 @@ class Button(StrEnum):
     B7 = "7"
     B8 = "8"
 
-    @property
-    def is_punch(self) -> bool:
-        """Whether this is one of the three punch buttons."""
-        return self in PUNCHES
-
-    @property
-    def strength(self) -> str:
-        """'L', 'M' or 'H'."""
-        return self.value[0]
-
 
 PUNCHES = frozenset({Button.LP, Button.MP, Button.HP})
 KICKS = frozenset({Button.LK, Button.MK, Button.HK})
@@ -163,21 +154,27 @@ BUTTON_ORDER: tuple[Button, ...] = (Button.LP, Button.MP, Button.HP, Button.LK, 
 """The six the gamepad rebind screen offers, in panel order."""
 
 
+@dataclass(frozen=True, slots=True, repr=False)
 class ButtonRequirement:
     """Which button(s) a move needs, and how many at once.
 
     ``allowed`` is the set of buttons that satisfy the requirement and ``count``
     is how many distinct ones must be pressed together. ``qcf + P`` is
     ``allowed=PUNCHES, count=1``; ``PP`` is ``allowed=PUNCHES, count=2``.
+
+    Frozen so that the :class:`~.motions.MotionSpec` holding it compares and
+    hashes by value like every other model in here.
     """
 
-    __slots__ = ("allowed", "count", "label")
+    allowed: frozenset[Button]
+    count: int = 1
+    label: str = ""
+    """How the requirement is written. Derived from the other two when empty."""
 
-    def __init__(self, allowed: frozenset[Button], count: int = 1, label: str = "") -> None:
-        """Store the button set, how many are needed and a display label."""
-        self.allowed = allowed
-        self.count = count
-        self.label = label or _default_label(allowed, count)
+    def __post_init__(self) -> None:
+        """Fill in the label when the caller did not give one."""
+        if not self.label:
+            object.__setattr__(self, "label", _default_label(self.allowed, self.count))
 
     def __repr__(self) -> str:
         """Debug representation."""

@@ -34,7 +34,7 @@ class TrainingScreen(Screen):
     player changes it, rather than being fixed at construction.
     """
 
-    notation: Notation = DEFAULT_NOTATION
+    notation: Notation
 
     BINDINGS: ClassVar = [
         Binding("escape", "back", "Change character"),
@@ -77,6 +77,7 @@ class TrainingScreen(Screen):
         super().__init__()
         self.session = TrainingSession(game, character, layout, exact_input=exact_input, policy=policy)
         self.terminal = detect()
+        self.notation = DEFAULT_NOTATION
 
     def compose(self) -> ComposeResult:
         """Banner, input strip, activation feed and the move list."""

@@ -291,14 +291,15 @@ GAMEPAD_DEFAULT_BINDINGS: dict[Button, str] = {button: code for code, button in 
 
 
 PAD_ATTACK_CODES: tuple[str, ...] = tuple(_PAD_BUTTON_LABELS)
-"""The pad buttons an attack can be bound to, ``pad:0``..``pad:5``."""
+"""The pad buttons an attack can be bound to: ``pad:0``..``pad:5`` for the face
+and shoulder buttons, ``pad:6``/``pad:7`` for the triggers."""
 
 
 def resolve_gamepad_bindings(bindings: Mapping[str, str] | None = None) -> dict[Button, str]:
     """A full ``{Button: pad code}`` attack map from a stored, partial one.
 
     ``bindings`` is the ``{Button name: pad code}`` map as it sits in the
-    config. Unknown button names and codes outside ``pad:0``..``pad:5`` are
+    config. Unknown button names and codes outside :data:`PAD_ATTACK_CODES` are
     ignored; anything left unset keeps its default. If the result is not a
     one-to-one map (a hand-edited config putting two attacks on one button) the
     default is returned whole, so an attack is never left unreachable.
@@ -418,14 +419,6 @@ class AxisHold:
 
 
 @dataclass(slots=True)
-class PressResult:
-    """What a movement key press meant."""
-
-    started: bool = False
-    """True when this began a new hold rather than refreshing one."""
-
-
-@dataclass(slots=True)
 class HeldAxes:
     """Tracks which movement axes are down, inferring holds from auto-repeat.
 
@@ -448,7 +441,6 @@ class HeldAxes:
     """True once the terminal has reported a key release, so holds are known
     rather than inferred."""
     _expired: dict[Axis, AxisHold] = field(default_factory=dict)
-    _samples: list[int] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """Start from the configured tap window."""
@@ -469,18 +461,18 @@ class HeldAxes:
         self._expired.pop(axis, None)
         return self.holds.pop(axis, None) is not None
 
-    def press(self, axis: Axis, at_ms: int) -> PressResult:
+    def press(self, axis: Axis, at_ms: int) -> None:
         """Register a press or auto-repeat of a movement key."""
         hold = self.holds.get(axis)
         if hold is not None and at_ms - hold.last_ms <= self._window(hold):
-            return self._refresh(hold, at_ms)
+            self._refresh(hold, at_ms)
+            return
 
         pending = 0
         ghost = self._expired.pop(axis, None)
         if ghost is not None and at_ms - ghost.last_ms <= self.timing.bridge_ms:
             pending = at_ms - ghost.first_ms
         self.holds[axis] = AxisHold(first_ms=at_ms, last_ms=at_ms, pending_delay_ms=pending)
-        return PressResult(started=True)
 
     def _observe_repeat_delay(self, delay_ms: int) -> None:
         """Learn the keyboard's initial repeat delay and widen ``tap_ms``.
@@ -490,20 +482,18 @@ class HeldAxes:
         operating system's initial repeat delay rather than the player tapping
         the same key twice.
         """
-        if not delay_ms >= MIN_REPEAT_DELAY_MS or delay_ms <= self.tap_ms:
+        if delay_ms < MIN_REPEAT_DELAY_MS or delay_ms <= self.tap_ms:
             return
-        self._samples.append(delay_ms)
-        del self._samples[:-4]
         self.observed_repeat_delay_ms = max(self.observed_repeat_delay_ms, delay_ms)
         if self.timing.adapt:
             self.tap_ms = min(delay_ms + TAP_MARGIN_MS, self.timing.max_tap_ms)
 
-    def _refresh(self, hold: AxisHold, at_ms: int) -> PressResult:
+    def _refresh(self, hold: AxisHold, at_ms: int) -> None:
         gap = at_ms - hold.last_ms
         hold.last_ms = at_ms
         if gap > self.timing.repeat_gap_ms:
             hold.fast_repeats = 0
-            return PressResult()
+            return
         hold.fast_repeats += 1
         if hold.fast_repeats >= self.timing.repeats_to_confirm and not hold.confirmed:
             # A burst of presses milliseconds apart is auto-repeat, not typing,
@@ -511,7 +501,6 @@ class HeldAxes:
             hold.confirmed = True
             if hold.pending_delay_ms:
                 self._observe_repeat_delay(hold.pending_delay_ms)
-        return PressResult()
 
     def expire(self, at_ms: int) -> bool:
         """Drop axes that have stopped repeating. Returns True if any changed.
@@ -537,11 +526,6 @@ class HeldAxes:
         if left is None or right is None:
             return ""
         return "left" if left.first_ms > right.first_ms else "right"
-
-    def held_since(self, axes: frozenset[Axis]) -> int | None:
-        """When the combination of ``axes`` became complete."""
-        starts = [self.holds[axis].first_ms for axis in axes if axis in self.holds]
-        return max(starts) if starts else None
 
     def clear(self) -> None:
         """Release everything."""

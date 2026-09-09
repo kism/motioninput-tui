@@ -34,6 +34,10 @@ AXIS_DEADZONE = 0.5
 TRIGGER_THRESHOLD = 0.5
 """How far a trigger must be pulled before it counts as a button press."""
 
+RESCAN_MS = 1000
+"""How often to look for a pad while none is open. Enumerating devices is an SDL
+call and the training tick polls at 60Hz, so it is not worth doing every frame."""
+
 AXIS_MAX = 32767
 """SDL reports controller axes as a signed 16-bit value. ``Controller.get_axis``
 returns that raw range, not the -1.0..1.0 that ``Joystick.get_axis`` gives, so
@@ -172,6 +176,7 @@ class GamepadReader:
         self._pygame = load_pygame()
         self._pad: Pad | None = None
         self._held: frozenset[str] = frozenset()
+        self._rescan_at_ms = 0
 
     @property
     def available(self) -> bool:
@@ -200,13 +205,17 @@ class GamepadReader:
             return None
 
     def poll(self, at_ms: int) -> list[tuple[str, bool]]:
-        """Advance pygame and return press/release events since the last poll."""
-        del at_ms  # A gamepad event is exact; there is no timing to learn.
+        """Advance pygame and return press/release events since the last poll.
+
+        ``at_ms`` only paces the search for a pad: a gamepad event is exact, so
+        there is no timing to learn from one.
+        """
         pygame = self._pygame
         if pygame is None:
             return []
         pygame.event.pump()
-        if self._pad is None:
+        if self._pad is None and at_ms >= self._rescan_at_ms:
+            self._rescan_at_ms = at_ms + RESCAN_MS
             self._open()
 
         current: frozenset[str] = frozenset()

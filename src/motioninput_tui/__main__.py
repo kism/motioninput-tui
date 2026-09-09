@@ -9,6 +9,7 @@ from rich import traceback
 from .config import Config, config_path
 from .constants import PROGRAM_NAME, PROGRAM_NAME_WITH_FULL_VERSION, PROGRAM_NAME_WITH_VERSION
 from .controls.layouts import DEFAULT_LAYOUT, available_layouts
+from .engine.recognizer import BufferPolicy
 from .games.loader import GameDataMissingError, available_games, load_game
 from .games.rulesets import GAME_SPECS
 from .terminal import detect, query_support
@@ -162,8 +163,6 @@ def _resolve_selection(config: Config, *, from_cli: bool) -> bool:
 
 def _apply_overrides(config: Config, args: argparse.Namespace) -> None:
     """Let command line arguments win over what was remembered."""
-    from .engine.recognizer import BufferPolicy  # ruff: ignore[import-outside-top-level] - keeps startup light
-
     if args.game:
         config.game = args.game
         # Not the character from whatever game was being played last: whoever
