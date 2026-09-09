@@ -66,3 +66,19 @@ So for Sakura in SFA3 and USFIV Sakura Otoshi triggers on DP forward Kick, but o
 can you also implement this for supers that require mashing a button after activation
 
 after the user starts one of these moves it should expect them to follow through, the activation should have feedback, and following through the the next phase (or not) should also have feedback
+
+## Evaluate if pydantic is worth it, modify settings
+
+Will increase the wheel size by a bunch, but its nicer than dataclasses
+
+Separate input config into a separate file
+
+Store last selected character per-game
+
+## Super activation time per game
+
+- For Mash / tap tap tap supers, the delay between activation starting and mashing needs to be entered as inputs during the cinematic are dropped. Manually measure each game. In a comment for each game state the source whether its guessed or was part of the prompt.
+
+SFA3: TKTKTKTK
+SFIII3: TKTKTKTK
+USFIV: TKTKTKTK
