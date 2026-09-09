@@ -55,13 +55,17 @@ For each numberd release I do the following
 - Register (this will later be a separate file)
   - SFA3
     - Ken
+      - Shouryuu Ken feels too strict
     - Sakura
+      - Shou'ou Ken feels too strict
+      - Sakura Otoshi timing is relaxed
+      - Midare-zakura is impossible? verify on mame
   - SFIII
     - Ken
     - Elana
   - USFIV
     - Ken
-    - Sakura
+    - Sakura (Sakura Otoshi timing is relaxed)
 
 ## Contributing
 
