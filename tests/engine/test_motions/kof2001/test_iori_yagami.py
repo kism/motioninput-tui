@@ -6,7 +6,11 @@ model for a chain, so the whole move stays in the list struck through rather
 than being quietly reduced to its first quarter circle.
 """
 
-from tests.engine.test_motions.harness import QUARTER_CIRCLE_FORWARD_HP
+from tests.engine.test_motions.harness import (
+    HALF_CIRCLE_BACK_FORWARD_HP,
+    QUARTER_CIRCLE_FORWARD_HP,
+    QUARTER_FORWARD_INTO_HALF_BACK_HP,
+)
 
 
 def test_quarter_circle_forward_is_the_fireball(play) -> None:
@@ -21,3 +25,13 @@ def test_a_chained_input_is_listed_but_not_trainable(play) -> None:
     # The plain motions either side of them are unaffected.
     assert moves["108 Shiki: Yami Barai"].trainable
     assert moves["212 Shiki: Kototsuki In"].trainable
+
+
+def test_the_same_roll_as_98_is_still_ya_otome(play) -> None:
+    """The guide is numpad here, so `2363214+P` rather than '98's `qcf,hcb + P`.
+    Both spell one motion sharing its forward, and take the same input."""
+    assert play(QUARTER_FORWARD_INTO_HALF_BACK_HP).moves == ["Kin 1121 Shiki: Ya Otome"]
+
+
+def test_a_half_circle_back_into_forward_is_kuzukaze(play) -> None:
+    assert play(HALF_CIRCLE_BACK_FORWARD_HP).moves == ["Kuzukaze"]

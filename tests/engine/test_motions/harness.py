@@ -186,3 +186,43 @@ HALF_CIRCLE_THROUGH_DOWN_MK: Script = [
     release(DOWN, 180),
     press(MK, 220),
 ]
+
+
+# KoF's compound supers, where the two halves share the direction they meet on:
+# a qcf~hcb rolls through d,df,f,df,d,db,b, and the forward the quarter circle
+# ends on is the one the half circle starts from. The guide writing it
+# ``qcf,hcb`` is shorthand, not an instruction to let go of forward and press it
+# again - doing that would mean passing through neutral mid-motion.
+QUARTER_FORWARD_INTO_HALF_BACK_HP: Script = [
+    press(DOWN, 0),  # d
+    press(FORWARD, 45),  # df
+    release(DOWN, 90),  # f
+    press(DOWN, 135),  # df
+    release(FORWARD, 180),  # d
+    press(BACK, 225),  # db
+    release(DOWN, 270),  # b
+    press(HP, 310),
+]
+
+QUARTER_BACK_INTO_HALF_FORWARD_HP: Script = [
+    press(DOWN, 0),  # d
+    press(BACK, 45),  # db
+    release(DOWN, 90),  # b
+    press(DOWN, 135),  # db
+    release(BACK, 180),  # d
+    press(FORWARD, 225),  # df
+    release(DOWN, 270),  # f
+    press(HP, 310),
+]
+
+# A half circle back with a forward on the end. Here the last forward is a real
+# second press: pressing it while back is still held wins on last-input SOCD.
+HALF_CIRCLE_BACK_FORWARD_HP: Script = [
+    press(FORWARD, 0),  # f
+    press(DOWN, 40),  # df
+    release(FORWARD, 80),  # d
+    press(BACK, 120),  # db
+    release(DOWN, 160),  # b
+    press(FORWARD, 200),  # f
+    press(HP, 240),
+]

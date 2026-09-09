@@ -2,16 +2,13 @@
 
 ## KOF
 
-Why the two KoF games are the least trainable rosters: 63% for `kof98`, 57% for
-`kof2001`, against 78-89% for the Street Fighter games. No whole character is
-missing in either — every skip is something the engine has no model for.
+Why the two KoF games are still the least trainable rosters: 71% for `kof98`,
+63% for `kof2001`, against 74-89% for the others. No whole character is missing
+in either — every skip is something the engine has no model for.
 
 It is not the Neo Geo panel or the author. `ssvsp` is the same panel and the
 same author and reaches 74%, because Samurai Shodown asks for plain motions and
-lists few follow-ups. What follows is specific to how KoF is designed.
-
-Most of it is structural and not worth chasing — it outnumbers the motion gap
-below better than two to one in '98 and nearly three to one in 2001:
+lists few follow-ups. What is left is structural and not worth chasing:
 
 - **Close command throws** (`b/f + C when close`, `N>4/6+C`). The engine has no
   "one direction _or_ the other, plus a single button" throw, so these produce
@@ -23,26 +20,32 @@ below better than two to one in '98 and nearly three to one in 2001:
   move list struck through.
 - **Direction ranges** (`A>1~3+D`) and stance switches (`ABC`), 2001 only.
 
-The one worth doing is **KoF's compound super motions**, which are absent from
-`normalise._MOTION_TABLE` and the engine's `_SEQUENCE_BUILDERS`. Between the two
-games they cost **131 moves**:
+### Compound super motions — done
 
-| motion  | kof98 | kof2001 |
-| ------- | ----- | ------- |
-| qcf~hcb | 18    | 16      |
-| qcb~hcf | 12    | 12      |
-| hcb,f   | 9     | 9       |
-| d,d     | 6     | 6       |
-| others  | 13    | 30      |
+`qcf~hcb`, `qcb~hcf` and `hcb,f` are now `MotionKind.QCF_HCB` / `QCB_HCF` /
+`HCB_F`, worth 76 moves across the two games ('98 63% → 71%, 2001 57% → 63%).
 
-Note the two guides spell the same motion differently — '98 writes qcf~hcb as
-`d,df,f,f,df,d,db,b` (the forward repeated at the join), 2001 as
-`d,df,f,df,d,db,b` (shared) — so the table needs both forms, or the matcher
-needs to tolerate the doubled direction.
+The two halves share the direction they meet on, and the doubled direction the
+'98 numbers used to show was ours, not the guide's: '98 writes `qcf,hcb` and
+`normalise._SHORTHAND` used to expand each shorthand separately, giving
+`d,df,f` + `f,df,d,db,b`. 2001 is numpad and writes `2363214` =
+`d,df,f,df,d,db,b`, sharing the forward. `_expand_shorthand` now walks a whole
+run of shorthands and drops a repeat at the join, so both guides reduce to one
+tuple:
 
-Adding just the top three families would take `kof98` to ~71% and `kof2001` to
-~63%. It is a shared-engine change with its own test surface, hence still here
-rather than done.
+| motion  | canonical tuple    | '98       | 2001      |
+| ------- | ------------------ | --------- | --------- |
+| qcf~hcb | `d,df,f,df,d,db,b` | `qcf,hcb` | `2363214` |
+| qcb~hcf | `d,db,b,db,d,df,f` | `qcb,hcf` | `2141236` |
+| hcb,f   | `f,df,d,db,b,f`    | `hcb,f`   | `632146`  |
+
+Only the join is collapsed, so a literal `d,d` still means two presses.
+`qcf~hcb` and `qcb~hcf` take the doubled window (`_DOUBLE_MOTIONS`) and rank
+just under the x2 supers; `hcb,f` follows `QCF_UF` — one window, one direction
+appended — and has to outrank the plain `hcb` and `qcf` its tail contains.
+
+Still unmodelled, and small: `d,d` (5 moves, all games), `f,f`, `db,f`,
+`b,f,d,df`, and a handful of one-offs.
 
 ## Timings
 

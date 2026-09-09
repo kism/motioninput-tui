@@ -50,6 +50,26 @@ _SHORTHAND: dict[str, str] = {
     "hcb": "f,df,d,db,b",
 }
 
+_SHORTHAND_RUN = re.compile(rf"\b(?:{'|'.join(_SHORTHAND)})(?:\s*,\s*(?:{'|'.join(_SHORTHAND)}))*\b")
+
+
+def _expand_shorthand(match: re.Match[str]) -> str:
+    """Spell out a run of shorthands, sharing the direction two of them meet on.
+
+    KoF's ``qcf,hcb`` is one roll of the stick through
+    ``d,df,f,df,d,db,b``: the forward the quarter circle ends on is the one the
+    half circle starts from. Expanding each shorthand on its own would ask for
+    it twice, which would mean letting go and pressing it again mid-motion.
+    ``qcf,qcf`` and ``hcb,hcb`` meet on different directions and are unaffected.
+    """
+    tokens: list[str] = []
+    for name in re.split(r"\s*,\s*", match.group()):
+        for token in _SHORTHAND[name].split(","):
+            if not tokens or tokens[-1] != token:
+                tokens.append(token)
+    return ",".join(tokens)
+
+
 _WORD_DIRECTIONS: dict[str, str] = {
     "up-back": "ub",
     "up-forward": "uf",
@@ -100,6 +120,9 @@ _MOTION_TABLE: dict[tuple[str, ...], MotionKind] = {
     ("f", "df", "d", "db", "b", "f", "df", "d", "db", "b"): MotionKind.HCB_X2,
     ("d", "df", "f", "d", "df"): MotionKind.QCF_DP,
     ("d", "db", "b", "d", "db"): MotionKind.QCB_RDP,
+    ("d", "df", "f", "df", "d", "db", "b"): MotionKind.QCF_HCB,
+    ("d", "db", "b", "db", "d", "df", "f"): MotionKind.QCB_HCF,
+    ("f", "df", "d", "db", "b", "f"): MotionKind.HCB_F,
 }
 
 _CHARGE_TABLE: dict[tuple[str, ...], MotionKind] = {
@@ -258,8 +281,7 @@ def _strip_noise(text: str) -> str:
     text = re.sub(r"\bor\b", "/", text)  # "Back or Forward", "MP or HP"
     for word, short in _WORD_DIRECTIONS.items():
         text = re.sub(rf"\b{word}\b", short, text)
-    for shorthand, expansion in _SHORTHAND.items():
-        text = re.sub(rf"\b{shorthand}\b", expansion, text)
+    text = _SHORTHAND_RUN.sub(_expand_shorthand, text)
     # Alternatives ("f,d,df / b,d,db") keep only the first option.
     text = re.sub(r"\s+/\s+", " / ", text)
     return re.sub(r"\s+", " ", text).strip(" ,")

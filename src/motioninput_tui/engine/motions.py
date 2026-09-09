@@ -51,6 +51,9 @@ class MotionKind(StrEnum):
     HCB_X2 = "hcb_x2"
     QCF_DP = "qcf_dp"
     QCB_RDP = "qcb_rdp"
+    QCF_HCB = "qcf_hcb"
+    QCB_HCF = "qcb_hcf"
+    HCB_F = "hcb_f"
     QCF_UF = "qcf_uf"
     CHARGE_BF = "charge_bf"
     CHARGE_DU = "charge_du"
@@ -232,6 +235,12 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     MotionKind.QCF_DP: lambda rules: [[*_quarter_forward(rules), (_ONLY_DOWN, False), (_ONLY_DF, False)]],
     MotionKind.QCB_RDP: lambda rules: [[*_quarter_back(rules), (_ONLY_DOWN, False), (_ONLY_DB, False)]],
     MotionKind.QCF_UF: lambda rules: [[*_quarter_forward(rules), (_ONLY_UF, False)]],
+    # KoF's supers join the two halves on a shared direction: qcf~hcb is
+    # d,df,f,df,d,db,b, not d,df,f *then* f,df,d,db,b. Nobody returns to
+    # neutral mid-motion, so the second motion's opening step is dropped.
+    MotionKind.QCF_HCB: lambda rules: [[*_quarter_forward(rules), *_half_back(rules)[1:]]],
+    MotionKind.QCB_HCF: lambda rules: [[*_quarter_back(rules), *_half_forward(rules)[1:]]],
+    MotionKind.HCB_F: lambda rules: [[*_half_back(rules), (_ONLY_F, False)]],
 }
 
 
@@ -249,6 +258,8 @@ _DOUBLE_MOTIONS = frozenset(
         MotionKind.HCB_X2,
         MotionKind.QCF_DP,
         MotionKind.QCB_RDP,
+        MotionKind.QCF_HCB,
+        MotionKind.QCB_HCF,
     }
 )
 

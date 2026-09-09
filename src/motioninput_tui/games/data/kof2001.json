@@ -165,7 +165,19 @@
     {
      "name": "CHAIN DRIVE",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     }
    ]
   },
@@ -336,7 +348,19 @@
     {
      "name": "Bunker Buster",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     },
     {
      "name": "MAXIMA REVENGER",
@@ -492,7 +516,19 @@
     {
      "name": "SONIC SLAUGHTER \"CODE: KW\"",
      "command": "2141236+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2141236+P"
+     }
     }
    ]
   },
@@ -649,7 +685,19 @@
     {
      "name": "HIZOKU OUGI RANBU: DOKUGA",
      "command": "2141236+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2141236+P"
+     }
     },
     {
      "name": "HIZOKU OUGI SENSHU RAKAN SATSU",
@@ -806,7 +854,19 @@
     {
      "name": "URA 108 SHIKI: OROCHI NAGI",
      "command": "2141236+P<H",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2141236+P<H"
+     }
     },
     {
      "name": "524 SHIKI: KAMUKURA",
@@ -1142,12 +1202,36 @@
     {
      "name": "Tenchi Gaeshi",
      "command": "632146+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "632146+P"
+     }
     },
     {
      "name": "Ura Nage",
      "command": "632146+K",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "632146+K"
+     }
     },
     {
      "name": "Nekko Gaeshi",
@@ -1393,7 +1477,19 @@
     {
      "name": "Shingo Kinsei Ore Mushiki",
      "command": "2141236+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2141236+P"
+     }
     },
     {
      "name": "GESHIKI: KAKE HOURIN",
@@ -1528,12 +1624,36 @@
     {
      "name": "Kuzukaze",
      "command": "632146+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "632146+P"
+     }
     },
     {
      "name": "Kin 1121 Shiki: Ya Otome",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     },
     {
      "name": "URA 306 SHIKI: SAIKA",
@@ -1767,7 +1887,19 @@
     {
      "name": "CRAZY PUNCHER",
      "command": "2141236+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2141236+P"
+     }
     }
    ]
   },
@@ -1996,7 +2128,19 @@
     {
      "name": "DOH-TORI-SHICHIMONSATSU",
      "command": "2363214+AC",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "2363214+AC"
+     }
     }
    ]
   },
@@ -2140,7 +2284,19 @@
     {
      "name": "El Diablo Amarillo Ramon",
      "command": "2141236+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2141236+K"
+     }
     },
     {
      "name": "TIGER SPIN",
@@ -2333,7 +2489,19 @@
     {
      "name": "Rebel Spark",
      "command": "2141236+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2141236+K"
+     }
     },
     {
      "name": "V SLASHER",
@@ -2488,12 +2656,36 @@
     {
      "name": "Umanori Vulcan Punch",
      "command": "2141236+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2141236+K"
+     }
     },
     {
      "name": "BARIBARI VULCAN PUNCH",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     }
    ]
   },
@@ -2850,7 +3042,19 @@
     {
      "name": "HEIDERN END",
      "command": "2141236+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2141236+K"
+     }
     }
    ]
   },
@@ -3190,7 +3394,19 @@
     {
      "name": "Zan'ei Ryuusei Ken",
      "command": "2141236+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2141236+P"
+     }
     },
     {
      "name": "CHOU REPPA DAN",
@@ -3554,7 +3770,19 @@
     {
      "name": "M. Splash Rose",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     },
     {
      "name": "M. Dynamite Swing",
@@ -3748,7 +3976,19 @@
     {
      "name": "Ryuuko Ranbu",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     },
     {
      "name": "RYUUKO RANBU",
@@ -3933,7 +4173,19 @@
     {
      "name": "RYUUKO RANBU",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     }
    ]
   },
@@ -4103,7 +4355,19 @@
     {
      "name": "Hyakuretsu Binta",
      "command": "632146+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "632146+K"
+     }
     },
     {
      "name": "Shin! Chou Upper",
@@ -4125,7 +4389,19 @@
     {
      "name": "HIEN HOU'OU KYAKU",
      "command": "2363214+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2363214+K"
+     }
     },
     {
      "name": "YURI CHOU ENBU",
@@ -4303,7 +4579,19 @@
     {
      "name": "RYUUKO RANBU",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     }
    ]
   },
@@ -4464,7 +4752,19 @@
     {
      "name": "ILLUSION DANCE",
      "command": "2363214+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2363214+K"
+     }
     }
    ]
   },
@@ -4705,7 +5005,19 @@
     {
      "name": "CHOU HISSATSU SHINOBI BACHI",
      "command": "2141236+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2141236+K"
+     }
     }
    ]
   },
@@ -4817,12 +5129,36 @@
     {
      "name": "Kake Nage",
      "command": "632146+K",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "632146+K"
+     }
     },
     {
      "name": "Gaburi Yori",
      "command": "632146+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "632146+P"
+     }
     },
     {
      "name": "Ketaguri",
@@ -4994,7 +5330,19 @@
     {
      "name": "Banpaku Kou'en",
      "command": "632146+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "632146+P"
+     }
     },
     {
      "name": "Eikishuhou",
@@ -5009,7 +5357,19 @@
     {
      "name": "DAI TETSUJIN",
      "command": "2363214+K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "2363214+K"
+     }
     },
     {
      "name": "MAJINGA",
@@ -6042,7 +6402,19 @@
     {
      "name": "PSYCHIC 9",
      "command": "632146+AC",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "632146+AC"
+     }
     },
     {
      "name": "Sailor Finish",
@@ -6214,12 +6586,34 @@
     {
      "name": "Shinryuu Seiou Rekkyaku",
      "command": "2363214+B",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "2363214+B"
+     }
     },
     {
      "name": "Shinryuu Tenbu Kyaku",
      "command": "2363214+D",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "2363214+D"
+     }
     },
     {
      "name": "SENKI HAKKEI",
@@ -6881,7 +7275,19 @@
     {
      "name": "Dai Hakai Nage",
      "command": "632146+P",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "632146+P"
+     }
     },
     {
      "name": "Tekkyuu Dai Kaiten",
@@ -6913,7 +7319,19 @@
     {
      "name": "Tekkyuu Dai Bousou",
      "command": "2363214+P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "2363214+P"
+     }
     },
     {
      "name": "TEKKYUU DAI ASSATSU",
@@ -7097,7 +7515,19 @@
     {
      "name": "HOU'OU KYAKU",
      "command": "2141236+BD",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 2,
+       "label": "B+D"
+      },
+      "notation": "2141236+BD"
+     }
     }
    ]
   },
@@ -7575,7 +8005,19 @@
     {
      "name": "BRUTAL GOD PROJECT",
      "command": "2363214+AC",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "2363214+AC"
+     }
     }
    ]
   }

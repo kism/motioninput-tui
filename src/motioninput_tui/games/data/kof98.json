@@ -1,6 +1,6 @@
 {
  "key": "kof98",
- "name": "The King of Fighters '98: The Slugfest",
+ "name": "The King of Fighters '98",
  "source": "references/kof98.txt",
  "characters": [
   {
@@ -230,7 +230,19 @@
     {
      "name": "Ura 108 Shiki: Orochi Nagi",
      "command": "qcb,hcf + P  (hold P to delay)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P  (hold P to delay)"
+     }
     },
     {
      "name": "Saishuu Kessen Ougi \"Mu Shiki\"",
@@ -419,7 +431,19 @@
     {
      "name": "Benimaru Collider",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "Raikou Ken",
@@ -597,12 +621,36 @@
     {
      "name": "Tenchi Gaeshi",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "Ura Nage",
      "command": "hcb,f + K",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb,f + K"
+     }
     },
     {
      "name": "Kumo Tsukami Nage",
@@ -1200,7 +1248,19 @@
     {
      "name": "Bakuretsu Hurricane Tiger Kakato",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     }
    ]
   },
@@ -1341,7 +1401,19 @@
     {
      "name": "Ryuuko Ranbu",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Tenchi Haou Ken",
@@ -1522,7 +1594,19 @@
     {
      "name": "Ryuuko Ranbu",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Muei Senpuu Juudan Kyaku",
@@ -1678,7 +1762,19 @@
     {
      "name": "Hien Hou'ou Kyaku",
      "command": "qcf,hcb + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,hcb + K"
+     }
     },
     {
      "name": "Hien Rekkou",
@@ -1851,7 +1947,20 @@
     {
      "name": "V Slasher",
      "command": "In air, qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "In air, qcf,hcb + P"
+     }
     },
     {
      "name": "Gravity Storm",
@@ -1873,7 +1982,19 @@
     {
      "name": "Rebel Spark",
      "command": "qcb,hcf + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,hcf + K"
+     }
     }
    ]
   },
@@ -1998,12 +2119,36 @@
     {
      "name": "Baribari Bakudan Punch",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Umanori Bakudan Punch",
      "command": "qcb,hcf + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,hcf + K"
+     }
     },
     {
      "name": "Galactica Phantom",
@@ -2571,12 +2716,34 @@
     {
      "name": "Shinryuu Seiou Rekkyaku",
      "command": "qcf,hcb + B",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcf,hcb + B"
+     }
     },
     {
      "name": "Shinryuu Tenbu Kyaku",
      "command": "qcf,hcb + D",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "qcf,hcb + D"
+     }
     },
     {
      "name": "Senki Hakkei",
@@ -2759,7 +2926,19 @@
     {
      "name": "Gou'en Shourai",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     }
    ]
   },
@@ -2893,7 +3072,19 @@
     {
      "name": "Rimen 85 Katsu: Reigi no Ishizue",
      "command": "qcb,hcf + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P"
+     }
     },
     {
      "name": "Rimen 1 Katsu: Sanrai no Fujin",
@@ -3051,7 +3242,19 @@
     {
      "name": "Illusion Dance",
      "command": "qcf,hcb + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,hcb + K"
+     }
     },
     {
      "name": "Silent Flash",
@@ -3260,7 +3463,19 @@
     {
      "name": "Chou Hissatsu Shinobi Bachi",
      "command": "qcb,hcf + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,hcf + K"
+     }
     },
     {
      "name": "Mizudori no Mai",
@@ -3660,7 +3875,19 @@
     {
      "name": "Hou'ou Kyaku",
      "command": "qcf,hcb + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf,hcb + K"
+     }
     }
    ]
   },
@@ -3750,12 +3977,36 @@
     {
      "name": "Dai Hakai Nage",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "Tekkyuu Dai Bousou",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Tekkyuu Dai Assatsu",
@@ -3962,7 +4213,19 @@
     {
      "name": "Bakudan Pachiki",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "Guillotine",
@@ -4225,12 +4488,36 @@
     {
      "name": "Backdrop Real",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "M. Splash Rose",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "M. Dynamite Swing",
@@ -4440,7 +4727,19 @@
     {
      "name": "Chou Kaen Senpuu Kon",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Dai Senpuu",
@@ -4588,7 +4887,7 @@
      "command": "qcb,hcf + P, tap P rapidly",
      "category": "special",
      "motion": {
-      "kind": "mash",
+      "kind": "qcb_hcf",
       "buttons": {
        "allowed": [
         "A",
@@ -4597,6 +4896,7 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "qcb,hcf + P, tap P rapidly"
      }
     },
@@ -5154,17 +5454,53 @@
     {
      "name": "Kuzukaze",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "Kin 1211 Shiki: Ya Otome",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Ura 108 Shiki: Ya Sakazuki",
      "command": "qcb,hcf + P  (hold P to delay)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P  (hold P to delay)"
+     }
     }
    ]
   },
@@ -5271,7 +5607,19 @@
     {
      "name": "Ebony Tears",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Sacrilege",
@@ -5293,7 +5641,19 @@
     {
      "name": "Heaven's Gate",
      "command": "qcb,hcf + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,hcf + K"
+     }
     },
     {
      "name": "Nocturnal Lights",
@@ -5401,7 +5761,19 @@
     {
      "name": "Gore Fest",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "Blackend",
@@ -5620,7 +5992,19 @@
     {
      "name": "Heidern End",
      "command": "qcb,hcf + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb,hcf + K"
+     }
     }
    ]
   },
@@ -5742,7 +6126,19 @@
     {
      "name": "Ryuuko Ranbu",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Shin Kishin Geki",
@@ -5900,7 +6296,19 @@
     {
      "name": "Ura 108 Shiki: Orochi Nagi",
      "command": "qcb,hcf + P  (hold P to delay)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P  (hold P to delay)"
+     }
     },
     {
      "name": "1127 Shiki: Tsumugari",
@@ -6046,7 +6454,19 @@
     {
      "name": "D. Crazy",
      "command": "qcb,hcf + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P"
+     }
     },
     {
      "name": "D. Magnum",
@@ -6536,7 +6956,19 @@
     {
      "name": "Gigantic Pressure",
      "command": "qcf,hcb + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,hcb + P"
+     }
     },
     {
      "name": "Dead End Screamer",
@@ -6726,7 +7158,19 @@
     {
      "name": "Burning Shingo",
      "command": "qcb,hcf + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P"
+     }
     }
    ]
   },
@@ -6833,7 +7277,19 @@
     {
      "name": "Musebu Daichi",
      "command": "When close, hcb,f + P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "When close, hcb,f + P"
+     }
     },
     {
      "name": "Araburu Daichi",
@@ -7179,7 +7635,19 @@
     {
      "name": "Ankoku Orochi Nagi",
      "command": "qcb,hcf + P  (hold P to delay)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb,hcf + P  (hold P to delay)"
+     }
     }
    ]
   }

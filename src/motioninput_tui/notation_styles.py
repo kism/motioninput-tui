@@ -226,6 +226,9 @@ _PARTS: dict[MotionKind, tuple[MotionKind | Direction, ...]] = {
     _K.QCF_DP: (_K.QCF, _K.DP),
     _K.QCB_RDP: (_K.QCB, _K.RDP),
     _K.QCF_UF: (_K.QCF, _D.UP_FORWARD),
+    _K.QCF_HCB: (_K.QCF, _K.HCB),
+    _K.QCB_HCF: (_K.QCB, _K.HCF),
+    _K.HCB_F: (_K.HCB, _D.FORWARD),
 }
 
 _SEQUENCES: dict[MotionKind, tuple[Direction, ...]] = {

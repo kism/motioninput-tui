@@ -9,7 +9,7 @@ model: Claude Sonnet 5
 
 A Neo Geo four-button team fighter; the input quirk it teaches is that SNK
 buffering is generous but there is no dragon-punch shortcut, and its supers use
-compound motions (`qcf,hcb`) the engine does not model.
+compound motions (`qcf,hcb`) that roll through one shared direction.
 
 ## Roster
 
@@ -79,19 +79,21 @@ compound motions (`qcf,hcb`) the engine does not model.
   direction tokens. The guide's casing disambiguates — directions are always
   lower case (`b,d,db`), button letters always upper (`+ D`) — so the remap
   regex is case-sensitive.
-- **Motions not in `normalise._MOTION_TABLE` / `_CHARGE_TABLE`** (skipped):
-  - `qcb,hcf` → `d,db,b,b,db,d,df,f` — ~7 moves (Iori Ya Sakazuki, Leona Rebel
+- **Compound super motions**, since added to `normalise._MOTION_TABLE`. A run
+  of shorthands shares the direction its halves meet on, so these are seven
+  tokens, not eight:
+  - `qcb,hcf` → `d,db,b,db,d,df,f` — 13 moves (Iori Ya Sakazuki, Leona Rebel
     Spark, …)
-  - `qcf,hcb` → `d,df,f,f,df,d,db,b` — ~5 moves (every Ryuuko Ranbu, Ya Otome, …)
-  - `hcb,f` → `f,df,d,db,b,f` — ~2 close command grabs
+  - `qcf,hcb` → `d,df,f,df,d,db,b` — 18 moves (every Ryuuko Ranbu, Ya Otome, …)
+  - `hcb,f` → `f,df,d,db,b,f` — 9 close command grabs
+- **Still not in `normalise._MOTION_TABLE` / `_CHARGE_TABLE`** (skipped):
   - `f,hcf`, `qcb,db,f` (Power Geyser), `d,d`, `db,f` — one or two each
-- **Predicted trainable ≈ 63%** (`347/547`). It is low for three structural
-  reasons, none of them parser bugs:
+- **Trainable 71%** (`386/547`), 63% before the compound motions landed. What
+  is left is structural, none of it parser bugs:
   - **command throws** — every character has two `When close, b / f + C`
     unblockables plus often a running/close grab. The engine has no
     "direction + single button when close" throw, so `normalise` returns
     "no directional or multi-button requirement" (~73 moves).
-  - **compound super motions** above (~17 moves).
   - genuine **follow-ups and stances** (~30 moves), correctly non-trainable.
 
 ## Ruleset rationale

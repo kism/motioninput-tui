@@ -78,3 +78,26 @@ def test_a_bare_mash_keeps_the_ruleset_count_not_the_tail_default() -> None:
     motion = parse_command("Tap P rapidly").motion
     assert motion is not None
     assert motion.mash == 0
+
+
+@pytest.mark.parametrize(
+    ("command", "kind"),
+    [
+        # KoF '98 writes these as shorthand, KoF 2001 as numpad. Both mean one
+        # roll of the stick, sharing the direction the two halves meet on.
+        ("qcf,hcb + P", MotionKind.QCF_HCB),
+        ("d,df,f,df,d,db,b + P", MotionKind.QCF_HCB),
+        ("qcb,hcf + P", MotionKind.QCB_HCF),
+        ("d,db,b,db,d,df,f + P", MotionKind.QCB_HCF),
+        ("hcb,f + P", MotionKind.HCB_F),
+        ("f,df,d,db,b,f + P", MotionKind.HCB_F),
+        # Shorthands that meet on different directions are untouched by the
+        # sharing, and a repeat the guide wrote itself is still two presses.
+        ("qcf,qcf + P", MotionKind.QCF_X2),
+        ("hcb,hcb + P", MotionKind.HCB_X2),
+    ],
+)
+def test_a_run_of_shorthands_shares_the_direction_they_meet_on(command: str, kind: MotionKind) -> None:
+    motion = parse_command(command).motion
+    assert motion is not None
+    assert motion.kind is kind
