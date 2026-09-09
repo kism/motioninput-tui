@@ -59,6 +59,7 @@ For each numberd release I do the following
     - Elana
   - USFIV
     - Ken
+    - Sakura
 
 ## Contributing
 
