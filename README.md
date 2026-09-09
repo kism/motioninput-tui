@@ -8,7 +8,7 @@
 
 A terminal trainer for fighting game motion inputs. Pick a game and a
 character, press inputs, and see which move the game would have given you.
-The same input does different things in different games: hold down and
+The input handling has been tuned per game: hold down and
 double tap forward in 3rd Strike and you get a dragon punch; do it in Super
 Turbo or Alpha 3 and you get nothing.
 
@@ -36,5 +36,5 @@ notation.
 
 Move list guides by:
 
-- Kao Megura / Chris MacDonald [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
+- [Kao Megura / Chris MacDonald](https://gamefaqs.gamespot.com/community/Kao_Megura/contributions/faqs) [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
 - x_MJ_x (Hyper Street Fighter II)
