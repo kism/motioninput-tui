@@ -152,12 +152,45 @@ def parse_command(command: str) -> ParsedCommand:
     kind, hold, reason = _classify(raw, text, buttons)
     if kind is None:
         return ParsedCommand(None, reason)
-    # A real motion with "tap P rapidly" tacked on keeps the motion and gains a
-    # mash tail; a bare "tap P rapidly" is already MotionKind.MASH.
-    mash = _MASH_DEFAULT if kind is not MotionKind.MASH and "rapid" in raw else 0
+    mash, rhythm, mash_button = _follow_through(raw, kind, buttons)
     return ParsedCommand(
-        MotionSpec(kind, buttons, hold=hold, air=_detect_air(raw), mash=mash, notation=command.strip())
+        MotionSpec(
+            kind,
+            buttons,
+            hold=hold,
+            air=_detect_air(raw),
+            mash=mash,
+            mash_rhythm=rhythm,
+            mash_button=mash_button,
+            notation=command.strip(),
+        )
     )
+
+
+_RHYTHM_TAIL = re.compile(r"\btap\s+([pk])((?:\s*,\s*\1\b)+)")
+
+
+def _follow_through(raw: str, kind: MotionKind, buttons: ButtonRequirement) -> tuple[int, bool, str]:
+    """The follow-up phase a motion carries: a rapid mash, or deliberate taps.
+
+    ``qcf,qcf + P, tap P rapidly`` keeps its motion and gains a mash tail; a bare
+    ``tap P rapidly`` is already :attr:`MotionKind.MASH` and gets nothing here.
+    ``f,d,df + K, tap P,P,P`` is the deliberate-tap variant (``mash_rhythm``);
+    the ``p``/``k`` restriction keeps it off ``Tap b,b`` dashes.
+
+    The third field is ``"P"`` / ``"K"`` when the taps are the other button from
+    the motion (Sakura Otoshi is ``+ K`` then ``tap P``), else ``""``.
+    """
+    if kind is MotionKind.MASH:
+        return 0, False, ""
+    if "rapid" in raw:
+        return _MASH_DEFAULT, False, ""
+    tail = _RHYTHM_TAIL.search(raw)
+    if tail is None:
+        return 0, False, ""
+    button = tail.group(1).upper()
+    motion_label = "P" if buttons.label.startswith("P") else "K" if buttons.label.startswith("K") else ""
+    return tail.group(2).count(",") + 1, True, "" if button == motion_label else button
 
 
 def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKind | None, Direction | None, str]:

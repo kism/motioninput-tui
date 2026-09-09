@@ -38,6 +38,25 @@ def test_an_air_super_with_a_mashable_tail_stays_airborne() -> None:
     assert motion.mash == _MASH_DEFAULT
 
 
+def test_a_deliberate_tap_tail_is_a_rhythm_follow_through() -> None:
+    """Sakura Otoshi: dp + K, then three deliberate P taps (not a mash)."""
+    motion = parse_command("f,d,df + K, tap P,P,P").motion
+    assert motion is not None
+    assert motion.kind is MotionKind.DP
+    assert motion.buttons.label == "K"
+    assert motion.mash == _MASH_DEFAULT  # three taps
+    assert motion.mash_rhythm is True
+    assert motion.mash_button == "P"  # the taps are the other button
+
+
+def test_a_rapid_tail_is_not_a_rhythm_one() -> None:
+    motion = parse_command("qcf,qcf + P, tap P rapidly").motion
+    assert motion is not None
+    assert motion.mash == _MASH_DEFAULT
+    assert motion.mash_rhythm is False
+    assert not motion.mash_button
+
+
 @pytest.mark.parametrize(
     "command",
     [

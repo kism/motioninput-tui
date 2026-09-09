@@ -269,10 +269,18 @@ enforce this together, and both are needed:
 
 `BufferPolicy.LOOSE` (`--loose-buffer`, `ctrl+b`) disables both.
 
-A `MotionSpec.mash` tail (from `qcf,qcf + P, tap P rapidly`, defaulting to three
-taps) is the other side of this: while a move's motion is complete but its mash
-is not, `Recognizer._awaiting_mash` holds the press rather than let a lower
-move activate and flush the buffer before the taps land.
+### Two-phase moves
+
+A `MotionSpec.mash` tail (`qcf,qcf + P, tap P rapidly`, or `f,d,df + K,
+tap P,P,P` with `mash_rhythm` — deliberate taps rather than a mash, sometimes on
+a different button, `mash_button`) is *not* a match gate. The motion activates
+on its own — phase 1, a normal `Activation` that counts — and the recogniser
+opens a `FollowUp` (`recognizer.py`) on it. Later taps of the right button
+advance it to `COMPLETE`; `Recognizer.expire_follow_up`, driven from the session
+tick, flips it to `MISSED` once the window passes. The same `FollowUp` object is
+held by the `Activation` in the feed, so `MoveFeed` shows the live prompt and
+the verdict. `_priority` still gives a tail move `+1` so it wins `hits[0]` over
+its tail-less twin.
 
 ### One Super Art at a time
 
@@ -283,10 +291,9 @@ such clash. So `Move.super_art` carries the guide's `I`/`II`/`III` flag (the
 `TrainingSession._live_moves` hands the recogniser only the equipped one.
 `tab` on the trainer cycles them.
 
-This is what makes the clash tractable at all, and it is also why the mash tail
-above stays cheap: with one Super Art equipped nobody has two supers on one
-input, so `_awaiting_mash` only ever holds a press for a move that genuinely
-wants the taps.
+This is what makes the clash tractable at all, and it is also why the two-phase
+tail above stays cheap: with one Super Art equipped nobody has two supers on one
+input, so the follow-up only ever opens for a move that genuinely wants the taps.
 
 `Character.super_arts` is empty for every other game, and the whole mechanism
 turns into a no-op — the filter passes everything and `check_action` hides the

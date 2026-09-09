@@ -5345,6 +5345,9 @@
        "count": 1,
        "label": "K"
       },
+      "mash": 3,
+      "mash_rhythm": true,
+      "mash_button": "P",
       "notation": "f,d,df + K, tap P,P,P"
      }
     },

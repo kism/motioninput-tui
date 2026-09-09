@@ -4,7 +4,7 @@ from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
-from .motions import CHARGE_KINDS, MatchContext, MotionKind, mash_satisfied, matches, motion_ready
+from .motions import CHARGE_KINDS, MatchContext, MotionKind, matches
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -23,6 +23,14 @@ BUTTON_GRACE_MS = 50
 the lesser move on the same motion. Comfortably over
 ``InputBuffer.simultaneous_ms`` (40) so the last button of a genuine ``KKK`` the
 buffer would still coalesce is not fired past."""
+
+RHYTHM_TAP_MIN_GAP_MS = 70
+"""A ``tap P,P,P`` follow-through wants deliberate taps: two closer than this
+count as one mashed press and do not advance the follow-up."""
+
+RHYTHM_TAP_MAX_GAP_MS = 500
+"""...and no longer than this may pass before the follow-up is judged missed.
+Each landed tap pushes the deadline out again."""
 
 # Rough stand-in for a real game's move priority table: the fiddlier the input,
 # the more it should win when several moves match the same press.
@@ -78,6 +86,35 @@ class RecognisableMove(Protocol):
         """Which Super Art equips this move, or "" if it is always available."""
 
 
+class FollowUpStatus(StrEnum):
+    """Where the follow-through of a two-phase move stands."""
+
+    PENDING = "pending"
+    """The motion landed; the taps/mash are still expected."""
+    COMPLETE = "complete"
+    MISSED = "missed"
+    """The player stopped, or moved on, before finishing the follow-through."""
+
+
+@dataclass(slots=True)
+class FollowUp:
+    """The second phase of a move: a mash or a run of deliberate taps.
+
+    Mutable, and the same object is held by both the :class:`Activation` in the
+    feed and :attr:`Recognizer._pending_follow_up`, so the recogniser advancing
+    it shows up in the feed on the next repaint.
+    """
+
+    button_label: str
+    needed: int
+    rhythm: bool
+    buttons: frozenset[Button]
+    deadline_ms: int
+    got: int = 0
+    last_tap_ms: int = 0
+    status: FollowUpStatus = FollowUpStatus.PENDING
+
+
 @dataclass(frozen=True, slots=True)
 class Activation:
     """A move the engine believes the player just performed."""
@@ -86,6 +123,7 @@ class Activation:
     at_ms: int
     buttons: frozenset[Button]
     also_matched: tuple[str, ...] = ()
+    follow_up: FollowUp | None = None
 
     @property
     def name(self) -> str:
@@ -139,6 +177,7 @@ class Recognizer:
     policy: BufferPolicy = BufferPolicy.CONSUME
     _last_fired: dict[str, int] = field(default_factory=dict, init=False)
     _deferred: _Deferred | None = field(default=None, init=False)
+    _pending_follow_up: FollowUp | None = field(default=None, init=False)
 
     def __post_init__(self) -> None:
         """Sort once so evaluation order is stable and priority-first."""
@@ -164,21 +203,33 @@ class Recognizer:
         self._deferred = None
         return self._decide(buffer, held.since_ms, held.pressed, allow_defer=False)
 
+    def expire_follow_up(self, at_ms: int) -> bool:
+        """Mark a follow-through missed once its window has passed. Also from
+        the tick; returns True when the feed needs a repaint."""
+        pending = self._pending_follow_up
+        if pending is None or at_ms < pending.deadline_ms:
+            return False
+        pending.status = FollowUpStatus.MISSED
+        self._pending_follow_up = None
+        return True
+
     def _decide(
         self, buffer: InputBuffer, at_ms: int, pressed: frozenset[Button], *, allow_defer: bool
     ) -> Activation | None:
+        # A move mid follow-through owns the press if it is one of that move's
+        # taps; anything else abandons the follow-through and is handled below.
+        if self._pending_follow_up is not None and self._feed_follow_up(
+            buffer, self._pending_follow_up, pressed, at_ms
+        ):
+            return None
+
         context = MatchContext(self.ruleset, at_ms, pressed, self.decay_ms, loose=self.policy is BufferPolicy.LOOSE)
         hits = [move for move in self._ranked if move.motion is not None and matches(move.motion, buffer, context)]
 
-        # A move that is one mash short of activating, and would outrank
-        # everything that did match, holds the press: firing a lesser move now
-        # would flush the buffer before the player finishes tapping.
-        if self._awaiting_mash(buffer, context, hits):
-            return None
-        # Likewise a move on this same motion that wants more buttons than are
-        # down yet: the rest of a KKK lands a few ms later, and firing the
-        # one-button move now would spend the buffer first. Held to the next
-        # tick rather than re-checked here, since no press comes between.
+        # A move on this same motion that wants more buttons than are down yet:
+        # the rest of a KKK lands a few ms later, and firing the one-button move
+        # now would spend the buffer first. Held to the next tick rather than
+        # re-checked here, since no press comes between.
         if allow_defer and self._awaiting_buttons(buffer, context, hits):
             since = self._deferred.since_ms if self._deferred else at_ms
             self._deferred = _Deferred(since_ms=since, pressed=pressed)
@@ -195,12 +246,49 @@ class Recognizer:
 
         self._spend(buffer, winner, at_ms)
 
+        spec = winner.motion
+        follow_up = self._begin_follow_up(spec, at_ms) if spec is not None and spec.mash else None
         return Activation(
             move=winner,
             at_ms=at_ms,
             buttons=pressed,
             also_matched=tuple(move.name for move in hits[1:4]),
+            follow_up=follow_up,
         )
+
+    def _begin_follow_up(self, spec: MotionSpec, at_ms: int) -> FollowUp:
+        """Open the second phase of a move: expect its taps or its mash."""
+        window = RHYTHM_TAP_MAX_GAP_MS if spec.mash_rhythm else self.ruleset.mash_window_ms
+        follow_up = FollowUp(
+            button_label=spec.follow_up_label,
+            needed=spec.mash,
+            rhythm=spec.mash_rhythm,
+            buttons=spec.follow_up_buttons,
+            deadline_ms=at_ms + window,
+            last_tap_ms=at_ms,
+        )
+        self._pending_follow_up = follow_up
+        return follow_up
+
+    def _feed_follow_up(self, buffer: InputBuffer, pending: FollowUp, pressed: frozenset[Button], at_ms: int) -> bool:
+        """Advance (or end) a pending follow-through. Returns True if the press
+        was one of its taps and belongs to nothing else."""
+        if not pressed & pending.buttons:
+            pending.status = FollowUpStatus.MISSED
+            self._pending_follow_up = None
+            return False
+        if pending.rhythm and at_ms - pending.last_tap_ms < RHYTHM_TAP_MIN_GAP_MS:
+            return True  # a mashed double-tap: eaten, but it does not count
+        pending.got += 1
+        pending.last_tap_ms = at_ms
+        window = RHYTHM_TAP_MAX_GAP_MS if pending.rhythm else self.ruleset.mash_window_ms
+        pending.deadline_ms = at_ms + window
+        if self.policy is BufferPolicy.CONSUME:
+            buffer.consume(at_ms)
+        if pending.got >= pending.needed:
+            pending.status = FollowUpStatus.COMPLETE
+            self._pending_follow_up = None
+        return True
 
     def _awaiting_buttons(self, buffer: InputBuffer, context: MatchContext, hits: list[RecognisableMove]) -> bool:
         """Whether a multi-button move on the just-completed motion is still
@@ -220,25 +308,6 @@ class Recognizer:
             for move in self._ranked
         )
 
-    def _awaiting_mash(self, buffer: InputBuffer, context: MatchContext, hits: list[RecognisableMove]) -> bool:
-        """Whether a mash-tail move is still gathering taps and deserves the press.
-
-        Its motion is complete but its mash is not, and it outranks anything
-        that did match. Holding here keeps the buffer intact for the next tap;
-        under the loose policy nothing is flushed anyway, so there is no need.
-        """
-        if self.policy is BufferPolicy.LOOSE:
-            return False
-        best_hit = _priority(hits[0]) if hits else -1
-        return any(
-            move.motion is not None
-            and move.motion.mash
-            and _priority(move) > best_hit
-            and motion_ready(move.motion, buffer, context)
-            and not mash_satisfied(move.motion, buffer, context)
-            for move in self._ranked
-        )
-
     def _spend(self, buffer: InputBuffer, winner: RecognisableMove, at_ms: int) -> None:
         """Take the inputs that produced a move out of circulation."""
         kind = winner.motion.kind if winner.motion is not None else None
@@ -255,3 +324,4 @@ class Recognizer:
         """Forget recent activations."""
         self._last_fired.clear()
         self._deferred = None
+        self._pending_follow_up = None

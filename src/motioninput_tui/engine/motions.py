@@ -14,6 +14,8 @@ from .notation import (
     DIRECTION_RING,
     DOWN_DIRECTIONS,
     FORWARD_DIRECTIONS,
+    KICKS,
+    PUNCHES,
     UP_DIRECTIONS,
     Button,
     ButtonRequirement,
@@ -66,9 +68,13 @@ CHARGE_KINDS = frozenset({MotionKind.CHARGE_BF, MotionKind.CHARGE_DU, MotionKind
 class MotionSpec:
     """The full input requirement for a move.
 
-    ``mash`` is a follow-up: after the motion activates, the button has to be
-    pressed this many times in quick succession (0 means no mashing). It is how
-    ``qcf,qcf + P, tap P rapidly`` is modelled - the real motion, then a mash.
+    ``mash`` is a follow-up: after the motion activates, a button has to be
+    pressed this many times (0 means none). It is how ``qcf,qcf + P, tap P
+    rapidly`` (a rapid mash) and ``f,d,df + K, tap P,P,P`` (deliberate taps,
+    ``mash_rhythm``) are modelled - the real motion, then a follow-through the
+    recogniser tracks as a second phase. ``mash_button`` is ``"P"`` / ``"K"``
+    when the taps are a different button from the motion (Sakura Otoshi is
+    ``+ K`` then ``tap P``); empty means the same button.
     """
 
     kind: MotionKind
@@ -76,7 +82,23 @@ class MotionSpec:
     hold: Direction | None = None
     air: bool = False
     mash: int = 0
+    mash_rhythm: bool = False
+    mash_button: str = ""
     notation: str = ""
+
+    @property
+    def follow_up_buttons(self) -> frozenset[Button]:
+        """Which buttons the mash / tap follow-through accepts."""
+        if self.mash_button == "P":
+            return PUNCHES
+        if self.mash_button == "K":
+            return KICKS
+        return self.buttons.allowed
+
+    @property
+    def follow_up_label(self) -> str:
+        """How the follow-through button is written."""
+        return self.mash_button or self.buttons.label
 
     def to_dict(self) -> dict[str, object]:
         """Serialise for the generated game data files."""
@@ -87,6 +109,10 @@ class MotionSpec:
             data["air"] = True
         if self.mash:
             data["mash"] = self.mash
+        if self.mash_rhythm:
+            data["mash_rhythm"] = True
+        if self.mash_button:
+            data["mash_button"] = self.mash_button
         if self.notation:
             data["notation"] = self.notation
         return data
@@ -101,6 +127,8 @@ class MotionSpec:
             hold=Direction(hold) if hold is not None else None,
             air=bool(raw.get("air")),
             mash=int(raw.get("mash", 0)),  # ty: ignore[invalid-argument-type]
+            mash_rhythm=bool(raw.get("mash_rhythm")),
+            mash_button=str(raw.get("mash_button", "")),
             notation=str(raw.get("notation", "")),
         )
 
@@ -454,29 +482,23 @@ class MatchContext:
 
 
 def matches(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
-    """Whether ``spec`` is fully satisfied by the buffer at the moment of this press."""
-    return motion_ready(spec, buffer, context) and mash_satisfied(spec, buffer, context)
+    """Whether ``spec`` is satisfied by the buffer at the moment of this press.
+
+    A ``mash`` tail is *not* a gate: the motion activates on its own and the
+    recogniser tracks the follow-through as a second phase. Standalone
+    :attr:`MotionKind.MASH` moves have no ``mash`` tail and are still gated by
+    :func:`_match_mash` inside :func:`_match_kind`.
+    """
+    return motion_ready(spec, buffer, context)
 
 
 def motion_ready(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
-    """Everything a move needs *except* a mashable tail: buttons, air, the motion.
-
-    The recogniser uses this on its own to spot a move that is one mash short of
-    activating, so it can hold the buffer instead of handing the press to a
-    lesser move.
-    """
+    """Whether the motion, buttons and air requirement are all met right now."""
     if len(context.pressed & spec.buttons.allowed) < spec.buttons.count:
         return False
     if spec.air and not _match_air(buffer, context.at_ms):
         return False
     return _match_kind(spec, buffer, context)
-
-
-def mash_satisfied(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:
-    """Whether the ``mash`` tail (if any) has had enough button presses."""
-    if not spec.mash:
-        return True
-    return _mash_hits(spec, buffer, context.ruleset, context.at_ms) >= spec.mash
 
 
 def _match_kind(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> bool:

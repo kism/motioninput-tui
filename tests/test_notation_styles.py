@@ -109,6 +109,13 @@ def test_a_charge_shows_what_is_held() -> None:
     assert DEFAULT.write(MotionSpec(kind=MotionKind.CHARGE_BF, buttons=ANY_KICK)) == "[←] → + K"
 
 
+def test_a_follow_through_is_written_after_the_motion() -> None:
+    rapid = MotionSpec(kind=MotionKind.QCF_X2, buttons=ANY_PUNCH, mash=3)
+    assert DEFAULT.write(rapid) == "↓ ↘ → ×2 + P, mash P"
+    taps = MotionSpec(kind=MotionKind.DP, buttons=ANY_KICK, mash=3, mash_rhythm=True, mash_button="P")
+    assert DEFAULT.write(taps) == "→ ↓ ↘ + K, tap P×3"
+
+
 def test_a_style_with_no_glyph_for_a_kind_spells_it_out() -> None:
     """Paired arrows have nothing for the down-back charge, so it stays written out."""
     paired = Notation({"charge": "paired"})

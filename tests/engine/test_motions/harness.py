@@ -65,6 +65,15 @@ def release(key: str, at_ms: int) -> Event:
     return Event(key=key, at_ms=at_ms, down=False)
 
 
+def taps(key: str, start_ms: int, count: int, *, gap_ms: int = 180) -> Script:
+    """``count`` presses of one key, ``gap_ms`` apart, for a follow-through."""
+    script: Script = []
+    for index in range(count):
+        at = start_ms + index * gap_ms
+        script += [press(key, at), release(key, at + gap_ms // 3)]
+    return script
+
+
 @dataclass(frozen=True, slots=True)
 class Attempt:
     """What the trainer made of a script."""
@@ -84,6 +93,7 @@ def play_as(
     exact_input: bool = True,
     ruleset: Ruleset | None = None,
     super_art: str | None = None,
+    settle_ms: int = 0,
 ) -> Attempt:
     """Run a script against one character, on a clock the test controls.
 
@@ -91,6 +101,8 @@ def play_as(
     settings reach the engine; without one the game's are used as they stand.
     ``super_art`` equips one of 3rd Strike's three, as ``tab`` does in the
     trainer; without one the session starts on the first, as it does live.
+    ``settle_ms`` keeps ticking that long past the last event, for a follow-up
+    window that has to be allowed to expire.
     """
     game = load_game(game_key)
     if ruleset is not None:
@@ -111,7 +123,7 @@ def play_as(
             session.press(event.key, event.at_ms)
         else:
             session.release(event.key, event.at_ms)
-    for _ in range(SETTLE_TICKS):
+    for _ in range(SETTLE_TICKS + settle_ms // TICK_MS):
         now += TICK_MS
         session.tick(now)
     return Attempt(

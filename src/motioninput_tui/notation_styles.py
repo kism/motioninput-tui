@@ -319,7 +319,8 @@ class Notation:
         if spec.air:
             text = f"{text} (air)"
         if spec.mash:
-            text = f"{text}, mash {buttons}"
+            tail = spec.follow_up_label
+            text = f"{text}, tap {tail}×{spec.mash}" if spec.mash_rhythm else f"{text}, mash {tail}"
         return text
 
     def preview(self, family: Family, style: Style) -> str:

@@ -13,7 +13,9 @@ if TYPE_CHECKING:
 class Play(Protocol):
     """Runs a script as the character the calling test file is named after."""
 
-    def __call__(self, script: Script, *, exact_input: bool = True, super_art: str | None = None) -> Attempt:
+    def __call__(
+        self, script: Script, *, exact_input: bool = True, super_art: str | None = None, settle_ms: int = 0
+    ) -> Attempt:
         """Play the script and report what came out."""
         ...
 
@@ -40,7 +42,9 @@ def play(target: tuple[str, str]) -> Play:
     """Run scripts against this file's character without naming them again."""
     game_key, character_key = target
 
-    def _play(script: Script, *, exact_input: bool = True, super_art: str | None = None) -> Attempt:
-        return play_as(game_key, character_key, script, exact_input=exact_input, super_art=super_art)
+    def _play(script: Script, *, exact_input: bool = True, super_art: str | None = None, settle_ms: int = 0) -> Attempt:
+        return play_as(
+            game_key, character_key, script, exact_input=exact_input, super_art=super_art, settle_ms=settle_ms
+        )
 
     return _play
