@@ -1401,7 +1401,19 @@
     {
      "name": "Zankousen",
      "command": "hcb,f + AB",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "hcb,f + AB"
+     }
     },
     {
      "name": "Sake Kougeki",
@@ -4128,7 +4140,19 @@
     {
      "name": "Yuchouka",
      "command": "use all * moves, hcb,f + BC",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "C"
+       ],
+       "count": 2,
+       "label": "B+C"
+      },
+      "notation": "use all * moves, hcb,f + BC"
+     }
     },
     {
      "name": "Aoi",

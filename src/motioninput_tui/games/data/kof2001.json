@@ -4265,19 +4265,7 @@
     {
      "name": "Haou Shoukou Ken",
      "command": "236+H>P",
-     "category": "special",
-     "motion": {
-      "kind": "qcf",
-      "buttons": {
-       "allowed": [
-        "A",
-        "C"
-       ],
-       "count": 1,
-       "label": "P"
-      },
-      "notation": "236+H>P"
-     }
+     "category": "other"
     },
     {
      "name": "Raiou Ken",

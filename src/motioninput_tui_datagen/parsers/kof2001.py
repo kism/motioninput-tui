@@ -20,9 +20,9 @@ prefixes and suffixes are ``N>`` near, ``F>`` at throw range, ``A>`` must be in
 the air, ``T>`` must tap, against optional ``<A`` / ``<T`` / ``<H``.
 
 The mandatory markers are translated (``A>`` becomes an ``In air,`` prefix so
-the air check fires); the optional ones are dropped. ``_`` chains and ``~``
-ranges are left as they are, so they fail to normalise and are reported as
-skipped rather than silently mis-parsed.
+the air check fires); the optional ones are dropped. ``_`` chains, ``~`` ranges
+and ``H>`` held buttons are left as they are, so they fail to normalise and are
+reported as skipped rather than silently mis-parsed.
 
 The Neo Geo panel is A B C D. Commands are translated into the Street Fighter
 dialect ``normalise`` reads and the resulting requirement mapped back by
@@ -64,8 +64,12 @@ _OPTIONAL = re.compile(r"<[AHT]")
 """``<A`` can be used in air, ``<T`` can tap, ``<H`` can hold: all optional, so
 none of them changes the input the move needs."""
 
-_UNMODELLED = re.compile(r"[_~]")
-"""An additional input off the previous move, or a range of directions."""
+_UNMODELLED = re.compile(r"[_~]|H>")
+"""An additional input off the previous move, a range of directions, or a
+button that ``H>`` says must be *held* (as opposed to optional ``<H``). The
+engine treats a button press as momentary, so a held button reads exactly like
+a tapped one: ``236+H>P`` would be indistinguishable from the ``236+P`` beside
+it. Left unmodelled, it keeps the guide's wording and is struck through."""
 
 _REPEATED = re.compile(r"^\((\d+)\)x2$")
 
