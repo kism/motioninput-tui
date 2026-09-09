@@ -52,6 +52,15 @@ OVERRIDES: dict[str, dict[str, str]] = {
         "charlotte-christine-corday": "Charlotte",
         "galford-d-wyler": "Galford",
     },
+    "usfiv": {
+        # The headings carry surnames the in-game lists and the other Capcom
+        # games in this repo do not; ``m-bison`` also loses its conventional
+        # space to ``finish_character``'s title-casing.
+        "dan-hibiki": "Dan",
+        "ken-masters": "Ken",
+        "sakura-kasugano": "Sakura",
+        "m-bison": "M. Bison",
+    },
     "sfiii3": {
         # The 3rd Strike guide uses the Japanese name; the Super Turbo one does
         # not, and a roster that calls the same character two things is worse

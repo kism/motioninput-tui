@@ -38,7 +38,7 @@ class InputDisplayScreen(Screen):
         Binding("ctrl+q", "quit", "Quit"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c,super+c", "app.help_quit", show=False, system=True),
+        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """

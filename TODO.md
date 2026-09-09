@@ -84,3 +84,8 @@ Not sure when the ai got it's information from, but need to see if there is a wa
 
 - Add two more keyboard layouts, regular (wasd) and arrow key southpaw
 - Set the game names to their nice names, order by series and game order alphabetically/numerically
+
+## Publish
+
+- Published wheel should have the gamepad group
+- Published wheel should only have src/motioninput_tui?
