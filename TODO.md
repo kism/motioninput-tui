@@ -84,8 +84,20 @@ Not sure when the ai got it's information from, but need to see if there is a wa
 
 - Add two more keyboard layouts, regular (wasd) and arrow key southpaw
 - Set the game names to their nice names, order by series and game order alphabetically/numerically
+- Add ^q hint for quitting
 
 ## Publish
 
 - Published wheel should have the gamepad group
 - Published wheel should only have src/motioninput_tui?
+
+## SF Air moves
+
+- SFA3/USFIV, quater circle back kick moves that state air, are air optional so these work on the ground too
+  - Sakura - Shunpuu Kyaku
+  - Ken/Ryu/Evil Ryu - Tatsumaki Senpuu Kyaku
+
+## USFIV PPP KKK
+
+- Super moves in usfiv that are triggered by a motion and then PPP / KKK can get eaten
+  - On sakura `↓  ↙  ←  ·  ↓  ↙  ←  ·HK+LK+MK` resolves to "Haru Ichiban" instead of "Haru Ranman"

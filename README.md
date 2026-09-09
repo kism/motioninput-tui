@@ -52,10 +52,12 @@ For each numberd release I do the following
   - This is not frame perfect, I just open 3SX/Mame/whatever and see if it feels the same.
 
 - Register (this will later be a separate file)
+  - SFA3
+    - Ken
   - SFIII
     - Ken
     - Elana
-  - SFA3
+  - USFIV
     - Ken
 
 ## Contributing
