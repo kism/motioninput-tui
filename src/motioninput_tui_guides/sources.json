@@ -55,6 +55,13 @@
       "url": "https://gamefaqs.gamespot.com/neo/919811-samurai-shodown-v-special/faqs/30016",
       "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
       "sha256": "37cb5f4fcc6b603e0866517a0bdc621c2056fcb141eea5b7dfbddfbf764ff67c"
+    },
+    {
+      "key": "usfiv",
+      "name": "Ultimate Street Fighter 4",
+      "url": "https://gamefaqs.gamespot.com/pc/722790-ultra-street-fighter-iv/faqs/70060",
+      "credit": "Move List and Guide (PS3) by THEMCD Damon M. McDaniel",
+      "sha256": "a41d4a21d9828f996436181d7c6ddb790cda0bcdf96faa1e93af7b3615c7e927"
     }
   ]
 }
