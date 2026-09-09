@@ -2,7 +2,7 @@
 
 import re
 import unicodedata
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 from motioninput_tui.engine.motions import MotionKind
 from motioninput_tui.games.models import Category, Character, Move
@@ -67,6 +67,25 @@ def categorise(move_name: str, kind: MotionKind | None, button_count: int) -> st
         return Category.THROW if button_count >= MULTI_BUTTON else Category.OTHER
     named_throw = any(word in move_name.lower() for word in ("throw", "nage"))
     return Category.THROW if named_throw else Category.SPECIAL
+
+
+def super_tail(groups: list[list[Move]]) -> list[Move]:
+    """Flatten blank-line-delimited move groups, tagging the last one as supers.
+
+    Both KoF guides list a character's moves in a fixed order - throws, command
+    attacks, special moves, then the DMs and SDMs - with the DM/SDM block set
+    off by its own blank line and nothing else in the guide marking a super.
+    So that trailing group is taken as the supers: it is the one reliable
+    signal, and it tells Athena's ``632146+AC`` PSYCHIC 9 (a DM) apart from
+    Goro's ``632146+P`` Tenchi Gaeshi (a command grab) where the motion cannot.
+
+    A lone group is left alone - a character with no separate DM block would
+    otherwise read as entirely supers.
+    """
+    real = [group for group in groups if group]
+    if len(real) > 1:
+        real[-1] = [replace(move, category=Category.SUPER) for move in real[-1]]
+    return [move for group in real for move in group]
 
 
 def build_move(name: str, command: str, report: ParseReport, character: str, category: str | None = None) -> Move:

@@ -23,7 +23,14 @@ import re
 from dataclasses import replace
 from typing import TYPE_CHECKING
 
-from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
+from motioninput_tui_datagen.common import (
+    DASHED,
+    ParseReport,
+    build_move,
+    finish_character,
+    split_name_command,
+    super_tail,
+)
 from motioninput_tui_datagen.neogeo import TO_SHORTHAND, to_neo_panel
 
 if TYPE_CHECKING:
@@ -52,18 +59,23 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
 
     name = ""
     title = ""
-    moves: list[Move] = []
+    # The short list runs specials, then a blank line, then the DMs and SDMs;
+    # `super_tail` tags that trailing blank-line group as supers.
+    groups: list[list[Move]] = [[]]
     collecting = False
     skipping = False
+
+    def flush() -> None:
+        character = finish_character(name, title, super_tail(groups), report)
+        if character is not None:
+            characters.append(character)
 
     for index, line in enumerate(lines):
         header = _match_header(lines, index)
         if header is not None:
-            character = finish_character(name, title, moves, report)
-            if character is not None:
-                characters.append(character)
+            flush()
             name, title = header
-            moves = []
+            groups = [[]]
             collecting = False
             skipping = _ALT_VERSION in title
             continue
@@ -79,15 +91,25 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
             collecting = False
             continue
 
-        parts = split_name_command(line)
-        if parts is None:
-            continue
-        moves.append(_neo_move(parts[0], parts[1], report, name))
+        _collect(line, groups, report, name)
 
-    character = finish_character(name, title, moves, report)
-    if character is not None:
-        characters.append(character)
+    flush()
     return characters, report
+
+
+def _collect(line: str, groups: list[list[Move]], report: ParseReport, name: str) -> None:
+    """Add one short-list line to the current group, or open a new group.
+
+    A blank line between two moves starts a fresh group, which is how the DM
+    and SDM block is told from the specials above it.
+    """
+    if not line.strip():
+        if groups[-1]:
+            groups.append([])
+        return
+    parts = split_name_command(line)
+    if parts is not None:
+        groups[-1].append(_neo_move(parts[0], parts[1], report, name))
 
 
 def _neo_move(move_name: str, command: str, report: ParseReport, character: str) -> Move:

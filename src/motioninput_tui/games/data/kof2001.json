@@ -165,7 +165,7 @@
     {
      "name": "CHAIN DRIVE",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -348,7 +348,7 @@
     {
      "name": "Bunker Buster",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -516,7 +516,7 @@
     {
      "name": "SONIC SLAUGHTER \"CODE: KW\"",
      "command": "2141236+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -685,7 +685,7 @@
     {
      "name": "HIZOKU OUGI RANBU: DOKUGA",
      "command": "2141236+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -702,7 +702,7 @@
     {
      "name": "HIZOKU OUGI SENSHU RAKAN SATSU",
      "command": "222+AC",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -854,7 +854,7 @@
     {
      "name": "URA 108 SHIKI: OROCHI NAGI",
      "command": "2141236+P<H",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -871,7 +871,7 @@
     {
      "name": "524 SHIKI: KAMUKURA",
      "command": "N>(62314)x2+AC",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -1304,7 +1304,7 @@
     {
      "name": "Zoku: Kirikabu Gaeshi",
      "command": "_41236+K",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -1477,7 +1477,7 @@
     {
      "name": "Shingo Kinsei Ore Mushiki",
      "command": "2141236+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -1641,7 +1641,7 @@
     {
      "name": "Kin 1121 Shiki: Ya Otome",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -1658,7 +1658,7 @@
     {
      "name": "URA 306 SHIKI: SAIKA",
      "command": "_(236236)x2+AC",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -1887,7 +1887,7 @@
     {
      "name": "CRAZY PUNCHER",
      "command": "2141236+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -2123,12 +2123,12 @@
     {
      "name": "Irimi-Nadazuki",
      "command": "2362314+K",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "DOH-TORI-SHICHIMONSATSU",
      "command": "2363214+AC",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -2284,7 +2284,7 @@
     {
      "name": "El Diablo Amarillo Ramon",
      "command": "2141236+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -2489,7 +2489,7 @@
     {
      "name": "Rebel Spark",
      "command": "2141236+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -2506,7 +2506,7 @@
     {
      "name": "V SLASHER",
      "command": "A>2362314+P",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -2656,7 +2656,7 @@
     {
      "name": "Umanori Vulcan Punch",
      "command": "2141236+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -2673,7 +2673,7 @@
     {
      "name": "BARIBARI VULCAN PUNCH",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -3042,7 +3042,7 @@
     {
      "name": "HEIDERN END",
      "command": "2141236+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -3227,7 +3227,7 @@
     {
      "name": "POWER GEYSER",
      "command": "21416+P",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -3394,7 +3394,7 @@
     {
      "name": "Zan'ei Ryuusei Ken",
      "command": "2141236+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -3411,7 +3411,7 @@
     {
      "name": "CHOU REPPA DAN",
      "command": "21416+K",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -3545,7 +3545,7 @@
     {
      "name": "Bakuretsu Hurricane Tiger Kakato",
      "command": "2362314+P",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Shijou Saikyou no Low Kick",
@@ -3567,7 +3567,7 @@
     {
      "name": "Ougon no Tiger Kick",
      "command": "2369+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_uf",
       "buttons": {
@@ -3770,7 +3770,7 @@
     {
      "name": "M. Splash Rose",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -3787,12 +3787,12 @@
     {
      "name": "M. Dynamite Swing",
      "command": "A,A,6,B,C",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "M. DYNAMITE SWING",
      "command": "A,A,4,B,C",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -3954,7 +3954,7 @@
     {
      "name": "Haou Shoukou Ken",
      "command": "641236+P",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Tenchi Haou Ken",
@@ -3976,7 +3976,7 @@
     {
      "name": "Ryuuko Ranbu",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -3993,7 +3993,7 @@
     {
      "name": "RYUUKO RANBU",
      "command": "236+C_A",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -4151,7 +4151,7 @@
     {
      "name": "Haou Shoukou Ken",
      "command": "641236+P",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Hairyuuga",
@@ -4173,7 +4173,7 @@
     {
      "name": "RYUUKO RANBU",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -4377,7 +4377,7 @@
     {
      "name": "HIEN HOU'OU KYAKU",
      "command": "2363214+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -4394,7 +4394,7 @@
     {
      "name": "YURI CHOU ENBU",
      "command": "A,A,6,B,C",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -4545,7 +4545,7 @@
     {
      "name": "Haou Shikou Ken",
      "command": "641236+P<H",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Shin Kishin Geki",
@@ -4567,7 +4567,7 @@
     {
      "name": "RYUUKO RANBU",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -4735,12 +4735,12 @@
     {
      "name": "Surprise Rose",
      "command": "4632+K",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "ILLUSION DANCE",
      "command": "2363214+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -4993,7 +4993,7 @@
     {
      "name": "CHOU HISSATSU SHINOBI BACHI",
      "command": "2141236+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -5340,12 +5340,12 @@
     {
      "name": "Chou Pai Long",
      "command": "AC_43+C_4+C",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "DAI TETSUJIN",
      "command": "2363214+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -5362,7 +5362,7 @@
     {
      "name": "MAJINGA",
      "command": "(62314)x2+K",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -5762,7 +5762,7 @@
     {
      "name": "MITSUBACHI",
      "command": "(236236)x2+BD",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -5835,17 +5835,17 @@
     {
      "name": "Tsuki...",
      "command": "1632143+P",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Temee mo oucchimae!!",
      "command": "1632143+K",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "CHIKARA GA...KATTE NI...UWAAAA!!",
      "command": "263+ABCD",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -6176,7 +6176,7 @@
     {
      "name": "Royality Test For the Liberalists",
      "command": "4623+K",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -6390,7 +6390,7 @@
     {
      "name": "PSYCHIC 9",
      "command": "632146+AC",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "hcb_f",
       "buttons": {
@@ -6407,17 +6407,17 @@
     {
      "name": "Sailor Finish",
      "command": "_(A,B,C)x2,D,236+P",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Psycho Sword Sword",
      "command": "_(A,B,C)x2,D,623+P",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Fire Sword Finish",
      "command": "_(A,B,C)x2,D,62314+K",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -6574,7 +6574,7 @@
     {
      "name": "Shinryuu Seiou Rekkyaku",
      "command": "2363214+B",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -6590,7 +6590,7 @@
     {
      "name": "Shinryuu Tenbu Kyaku",
      "command": "2363214+D",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -6736,7 +6736,7 @@
     {
      "name": "Gou'en Shourai",
      "command": "2362314+P",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "GOURAN ENPOU",
@@ -7032,7 +7032,7 @@
     {
      "name": "PSYCHO BALL ATTACK 3",
      "command": "641236+AC<H",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -7190,7 +7190,7 @@
     {
      "name": "HOU'OU KYAKU",
      "command": "21416+BD<A",
-     "category": "other"
+     "category": "super"
     }
    ]
   },
@@ -7307,7 +7307,7 @@
     {
      "name": "Tekkyuu Dai Bousou",
      "command": "2363214+P",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {
@@ -7481,7 +7481,7 @@
     {
      "name": "Move Back / Forward",
      "command": "_4/6",
-     "category": "other"
+     "category": "super"
     },
     {
      "name": "Zan! Engetsu Rin",
@@ -7503,7 +7503,7 @@
     {
      "name": "HOU'OU KYAKU",
      "command": "2141236+BD",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcb_hcf",
       "buttons": {
@@ -7976,7 +7976,7 @@
     {
      "name": "Chaos Tide",
      "command": "623+K",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "dp",
       "buttons": {
@@ -7993,7 +7993,7 @@
     {
      "name": "BRUTAL GOD PROJECT",
      "command": "2363214+AC",
-     "category": "special",
+     "category": "super",
      "motion": {
       "kind": "qcf_hcb",
       "buttons": {

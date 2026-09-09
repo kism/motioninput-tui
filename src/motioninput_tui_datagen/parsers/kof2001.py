@@ -33,7 +33,7 @@ import re
 from dataclasses import replace
 from typing import TYPE_CHECKING
 
-from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character
+from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, super_tail
 from motioninput_tui_datagen.neogeo import TO_SHORTHAND, to_neo_panel
 
 if TYPE_CHECKING:
@@ -82,17 +82,19 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
 
     name = ""
     title = ""
-    moves: list[Move] = []
+    # Moves are collected in blank-line-delimited groups; the guide lists the
+    # DMs and SDMs last, so `super_tail` tags that final group as supers.
+    groups: list[list[Move]] = [[]]
     collecting = False
 
     for index, line in enumerate(lines):
         header = _match_header(lines, index)
         if header is not None:
-            character = finish_character(name, title, moves, report)
+            character = finish_character(name, title, super_tail(groups), report)
             if character is not None:
                 characters.append(character)
             name, title = header
-            moves = []
+            groups = [[]]
             collecting = _ALT_VERSION not in line
             continue
 
@@ -104,10 +106,12 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
 
         match = _MOVE.match(line.rstrip())
         if match is None:
+            if not line.strip() and groups[-1]:
+                groups.append([])
             continue
-        moves.append(_neo_move(match.group(2).strip(), match.group(1), report, name))
+        groups[-1].append(_neo_move(match.group(2).strip(), match.group(1), report, name))
 
-    character = finish_character(name, title, moves, report)
+    character = finish_character(name, title, super_tail(groups), report)
     if character is not None:
         characters.append(character)
     return characters, report
