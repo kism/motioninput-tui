@@ -186,7 +186,7 @@ game's button set, laid onto them in order:
 | Panel                 | Row 1    | Row 2    |
 | --------------------- | -------- | -------- |
 | Street Fighter, 6     | LP MP HP | LK MK HK |
-| Mortal Kombat, 5      | HP BL HK | LP LK    |
+| Mortal Kombat, 5      | HP HK BL | LP LK    |
 | Neo Geo, 4            | A B C D  | A B C D  |
 | Neo Geo, arcade slant | C D      | A B      |
 | Tekken, 4             | □ △      | ✕ ○      |

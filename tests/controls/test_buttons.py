@@ -11,7 +11,7 @@ from motioninput_tui.controls.layouts import GAMEPAD, HITBOX, SOUTHPAW, with_but
 
 SOUTHPAW_PANELS = [
     (sets.STREET_FIGHTER, {"a": "LP", "s": "MP", "d": "HP", "z": "LK", "x": "MK", "c": "HK"}),
-    (sets.MORTAL_KOMBAT, {"a": "HP", "s": "BL", "d": "HK", "z": "LP", "x": "LK"}),
+    (sets.MORTAL_KOMBAT, {"a": "HP", "s": "HK", "d": "BL", "z": "LP", "x": "LK"}),
     (sets.NEO_GEO, {"a": "A", "s": "B", "d": "C", "f": "D", "z": "A", "x": "B", "c": "C", "v": "D"}),
     (sets.NEO_GEO_SLANT, {"a": "C", "s": "D", "z": "A", "x": "B"}),
     (sets.TEKKEN, {"a": "□", "s": "△", "z": "✕", "x": "○"}),
@@ -52,7 +52,7 @@ def test_the_neo_geo_binds_both_rows_to_the_same_four() -> None:
 def test_bound_rows_keep_the_panel_shape() -> None:
     """The display draws these, so a short row has to stay a short row."""
     layout = with_buttons(SOUTHPAW, sets.MORTAL_KOMBAT)
-    assert [[button.value for _, button in row] for row in layout.bound_rows()] == [["HP", "BL", "HK"], ["LP", "LK"]]
+    assert [[button.value for _, button in row] for row in layout.bound_rows()] == [["HP", "HK", "BL"], ["LP", "LK"]]
 
 
 def test_the_slant_only_moves_the_neo_geo() -> None:

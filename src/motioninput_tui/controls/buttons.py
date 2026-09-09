@@ -8,7 +8,7 @@ A set is rows of buttons, laid onto the layout's rows of attack keys in order.
 On the southpaw layout, whose attack keys are ``asdf`` over ``zxcv``, that gives:
 
     Street Fighter   asd zxc     LP MP HP over LK MK HK
-    Mortal Kombat    asd zx      HP BL HK over LP LK, the arcade panel
+    Mortal Kombat    asd zx      HP HK BL over LP LK, the modern pad mapping
     Neo Geo          asdf zxcv   A B C D, the same four on both rows
     Neo Geo slant    zx as       A B on the bottom row, C D above them
     Tekken           as zx       □ △ over ✕ ○
@@ -65,10 +65,11 @@ STREET_FIGHTER = ButtonSet(
 MORTAL_KOMBAT = ButtonSet(
     key="mortal-kombat",
     name="Mortal Kombat, 5 button",
-    # The arcade panel puts block between the two high attacks, with the low
-    # ones beneath them, which is why the bottom row is the short one.
-    rows=((_B.HP, _B.BL, _B.HK), (_B.LP, _B.LK)),
-    note="High punch, block, high kick, with the low pair beneath.",
+    # Not the arcade panel: this is how modern Mortal Kombat maps onto a six
+    # button controller, the two heavy attacks and block on top with the light
+    # pair beneath, which is why the bottom row is the short one.
+    rows=((_B.HP, _B.HK, _B.BL), (_B.LP, _B.LK)),
+    note="Heavy punch, heavy kick, block, with the light pair beneath.",
 )
 
 NEO_GEO = ButtonSet(
