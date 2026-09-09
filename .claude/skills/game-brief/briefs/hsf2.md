@@ -3,6 +3,7 @@ game: hsf2
 panel: street-fighter
 closest_parser: hsf2
 predicted_trainable: 86
+model: Claude Sonnet 5
 ---
 # Hyper Street Fighter II: The Anniversary Edition — brief
 

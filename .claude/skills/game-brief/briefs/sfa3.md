@@ -3,6 +3,7 @@ game: sfa3
 panel: street-fighter
 closest_parser: sfa3
 predicted_trainable: 55
+model: Claude Sonnet 5
 ---
 # Street Fighter Alpha 3 — brief
 

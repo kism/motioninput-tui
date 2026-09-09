@@ -2,9 +2,9 @@
 """Check a game brief against the guide and the generated roster.
 
 A brief is analysis, not a copy of the guide, so this cannot diff move lists.
-It checks three things instead:
+It checks these instead:
 
-* every required ``##`` section is present;
+* every required ``##`` section is present, and ``model:`` is in the frontmatter;
 * for a game that has a parser, every character the parser finds in the full
   guide is named somewhere in the brief;
 * for a game whose roster JSON exists, the brief's ``predicted_trainable``
@@ -82,6 +82,12 @@ def check(game: str) -> bool:
         ok = False
     else:
         print("    sections: all present")
+
+    if re.search(r"^model:\s*\S", text, re.MULTILINE):
+        print("    model: named in frontmatter")
+    else:
+        print("    model: not in frontmatter")
+        ok = False
 
     parse = PARSERS.get(game)
     if parse is None:

@@ -54,7 +54,8 @@ environment overrides.
 
 ## What a brief contains
 
-YAML frontmatter (`game`, `panel`, `closest_parser`, `predicted_trainable`)
+YAML frontmatter (`game`, `panel`, `closest_parser`, `predicted_trainable`,
+`model` — the Claude model that wrote the brief, stamped in by `make-brief.sh`)
 then, in order:
 
 * **Roster** — how many characters, which to include, which guide sections to

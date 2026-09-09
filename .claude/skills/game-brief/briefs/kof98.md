@@ -3,6 +3,7 @@ game: kof98
 panel: neo-geo
 closest_parser: sfa3
 predicted_trainable: 63
+model: Claude Sonnet 5
 ---
 # The King of Fighters '98: The Slugfest — brief
 

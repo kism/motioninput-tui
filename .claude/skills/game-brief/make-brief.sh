@@ -54,6 +54,16 @@ find_claude() {
 
 CLAUDE=$(find_claude)
 
+# Marketing name for the frontmatter, from the --model slug the CLI was given.
+model_name() {
+    case "$MODEL" in
+    *sonnet*) echo "Claude Sonnet 5" ;;
+    *opus*) echo "Claude Opus 5" ;;
+    *haiku*) echo "Claude Haiku 4.5" ;;
+    *) echo "$MODEL" ;;
+    esac
+}
+
 # A brief is a plain text completion: no tools, no MCP, no project settings.
 # Without these the nested CLI loads this machine's MCP servers on every call and
 # a 100KB prompt takes minutes instead of seconds.
@@ -225,6 +235,12 @@ brief_for() {
             return 1
         fi
     done
+
+    # Stamp the model into the frontmatter; the CLI is not asked for it because
+    # a model does not reliably know its own release name.
+    if ! grep -qm1 '^model:' "$work/out.md"; then
+        sed -i "0,/^predicted_trainable:.*$/s//&\nmodel: $(model_name)/" "$work/out.md"
+    fi
 
     mkdir -p "$BRIEFS"
     mv "$work/out.md" "$target"

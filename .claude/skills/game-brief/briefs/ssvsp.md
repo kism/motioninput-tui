@@ -3,6 +3,7 @@ game: ssvsp
 panel: neo-geo
 closest_parser: kof98
 predicted_trainable: 78
+model: Claude Sonnet 5
 ---
 # Samurai Shodown V Special / Samurai Spirits Zero Special — brief
 

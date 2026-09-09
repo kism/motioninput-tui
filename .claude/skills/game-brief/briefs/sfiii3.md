@@ -3,6 +3,7 @@ game: sfiii3
 panel: street-fighter
 closest_parser: sfiii3
 predicted_trainable: 88
+model: Claude Sonnet 5
 ---
 # Street Fighter III: 3rd Strike — brief
 

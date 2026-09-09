@@ -3,6 +3,7 @@ game: usfiv
 panel: street-fighter
 closest_parser: sfiii3
 predicted_trainable: 80
+model: Claude Sonnet 5
 ---
 # Ultra Street Fighter IV — brief
 
