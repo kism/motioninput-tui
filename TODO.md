@@ -58,3 +58,11 @@ Not sure when the ai got it's information from, but need to see if there is a wa
 
 - Published wheel should have the gamepad group
 - Published wheel should only have src/motioninput_tui?
+
+## Mash / tap tap tap
+
+So for Sakura in SFA3 and USFIV Sakura Otoshi triggers on DP forward Kick, but once triggered is only useful when pressing P three times rhythmically can you implement this
+
+can you also implement this for supers that require mashing a button after activation
+
+after the user starts one of these moves it should expect them to follow through, the activation should have feedback, and following through the the next phase (or not) should also have feedback
