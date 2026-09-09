@@ -510,7 +510,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K (air)"
      }
     },
@@ -2055,7 +2054,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K (air) [AB]"
      }
     },
@@ -2672,7 +2670,6 @@
        "count": 3,
        "label": "PPP"
       },
-      "air": true,
       "notation": "f,d,df / b,d,db + PPP / KKK (air)"
      }
     },
@@ -3826,7 +3823,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K (air)"
      }
     },
@@ -4224,7 +4220,6 @@
        "count": 3,
        "label": "PPP"
       },
-      "air": true,
       "notation": "Press PPP at any time  (air)"
      }
     },
@@ -4335,7 +4330,6 @@
        "count": 3,
        "label": "KKK"
       },
-      "air": true,
       "notation": "Press KKK at any time  (air)"
      }
     },
@@ -6382,7 +6376,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K (air) [AB]"
      }
     },
@@ -7021,7 +7014,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K (air) [AB]"
      }
     },
@@ -7093,7 +7085,6 @@
        "count": 3,
        "label": "LP+HP+LK"
       },
-      "air": true,
       "notation": "LP,LP,f,LK,HP (air)"
      }
     },
@@ -8081,7 +8072,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K (air) [AB]"
      }
     },
@@ -8514,7 +8504,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K  (air) [AB]"
      }
     },

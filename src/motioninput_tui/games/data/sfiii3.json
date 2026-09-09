@@ -1539,7 +1539,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K  (air)"
      }
     },
@@ -4586,7 +4585,6 @@
        "count": 1,
        "label": "P"
       },
-      "air": true,
       "notation": "qcb + P  (air)"
      }
     },

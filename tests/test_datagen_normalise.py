@@ -38,6 +38,22 @@ def test_an_air_super_with_a_mashable_tail_stays_airborne() -> None:
     assert motion.mash == _MASH_DEFAULT
 
 
+@pytest.mark.parametrize(
+    "command",
+    [
+        "qcb + K  (air)",  # Ryu / Ken / Sakura hurricane kick: ground or air
+        "f,d,df + P  (air)",
+        "qcf + P (can also be done in air)",
+    ],
+)
+def test_the_air_marker_is_not_an_airborne_requirement(command: str) -> None:
+    """Every guide's legend: trailing '(air)' means ground *or* air, so a plain
+    ground input must satisfy it. Only an 'In air,' prefix is a real requirement."""
+    motion = parse_command(command).motion
+    assert motion is not None
+    assert not motion.air
+
+
 def test_a_bare_mash_keeps_the_ruleset_count_not_the_tail_default() -> None:
     """A standalone mash is MotionKind.MASH and carries no per-move count."""
     motion = parse_command("Tap P rapidly").motion

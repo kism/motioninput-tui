@@ -204,12 +204,15 @@ _AIR_PREFIX = re.compile(r"^\s*in (?:the )?air\b")
 
 
 def _detect_air(text: str) -> bool:
-    """Only an explicit '(air)' marker or an 'In air,' prefix means airborne.
+    """Whether a move can only be done airborne.
 
-    Notes such as '(can be done in air in SF2 Turbo and up)' describe an
-    optional air version of a ground move, so they must not count.
+    Only an 'In air,' prefix means that. Every guide's own legend spells out
+    that the trailing '(air)' marker is the opposite: the move works on the
+    ground *or* in the air (Ryu's Tatsumaki, Sakura's Shunpuu Kyaku), so a
+    plain ground input has to match it and it must not carry the flag. Notes
+    such as '(can be done in air in SF2 Turbo and up)' are the same story.
     """
-    return bool(re.search(r"\(\s*air\s*\)", text)) or bool(_AIR_PREFIX.match(text))
+    return bool(_AIR_PREFIX.match(text))
 
 
 def _strip_noise(text: str) -> str:

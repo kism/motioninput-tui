@@ -59,7 +59,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -78,7 +77,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -262,7 +260,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -354,7 +351,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K  (air)"
      }
     },
@@ -607,7 +603,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -785,7 +780,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -804,7 +798,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -1050,7 +1043,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -1069,7 +1061,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -1296,7 +1287,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -1315,7 +1305,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -1479,7 +1468,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -1588,7 +1576,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "Charge b,f + K  (air)"
      }
     },
@@ -1761,7 +1748,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -1959,7 +1945,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -2188,7 +2173,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -2476,7 +2460,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -2667,7 +2650,6 @@
        "count": 3,
        "label": "PPP"
       },
-      "air": true,
       "notation": "Press PPP at any time  (air)"
      }
     },
@@ -2722,7 +2704,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -2813,7 +2794,6 @@
        "count": 3,
        "label": "KKK"
       },
-      "air": true,
       "notation": "Press KKK at any time  (air)"
      }
     },
@@ -2989,7 +2969,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -3343,7 +3322,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -3362,7 +3340,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -3626,7 +3603,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -3681,7 +3657,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K  (air)"
      }
     },
@@ -3837,7 +3812,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -4066,7 +4040,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -4085,7 +4058,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -4442,7 +4414,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -4636,7 +4607,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -4858,7 +4828,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -4936,7 +4905,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K  (air)"
      }
     },
@@ -5108,7 +5076,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -5324,7 +5291,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -5397,7 +5363,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "qcb + K  (air)"
      }
     },
@@ -5530,7 +5495,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -5732,7 +5696,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -5751,7 +5714,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -6011,7 +5973,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -6290,7 +6251,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -6457,7 +6417,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -6476,7 +6435,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -6705,7 +6663,6 @@
        "count": 2,
        "label": "PP"
       },
-      "air": true,
       "notation": "Any direction but u / d + PP  (air)"
      }
     },
@@ -6724,7 +6681,6 @@
        "count": 2,
        "label": "KK"
       },
-      "air": true,
       "notation": "Any direction but u / d + KK  (air)"
      }
     },
@@ -6743,7 +6699,6 @@
        "count": 1,
        "label": "K"
       },
-      "air": true,
       "notation": "Charge b,f + K  (air)"
      }
     },

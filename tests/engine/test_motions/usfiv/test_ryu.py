@@ -6,10 +6,12 @@ Compare `sfiii3/test_ryu.py` (also a DP), and `sfa3/test_ryu.py` /
 """
 
 from tests.engine.test_motions.harness import (
+    BACK,
     DOWN,
     DOWN_DOUBLE_TAP_FORWARD_HP,
     FORWARD,
     HP,
+    LK,
     QUARTER_CIRCLE_FORWARD_HP,
     press,
     release,
@@ -50,6 +52,19 @@ def test_forward_then_down_forward_is_a_dragon_punch(play) -> None:
     """
     script = [press(FORWARD, 0), press(DOWN, 60), press(HP, 110), release(HP, 150)]
     assert play(script).moves == ["Shoryuken"]
+
+
+def test_grounded_quarter_circle_back_kick_is_a_hurricane_kick(play) -> None:
+    """The guide writes Tatsumaki Senpuu Kyaku as 'qcb + K (air)'; the '(air)'
+    marker means ground *or* air, so a grounded qcb + K still comes out."""
+    script = [
+        press(DOWN, 0),
+        press(BACK, 60),
+        release(DOWN, 110),
+        press(LK, 150),
+        release(LK, 190),
+    ]
+    assert play(script).moves == ["Tatsumaki Senpuu Kyaku"]
 
 
 def test_clean_dragon_punch_motion(play) -> None:

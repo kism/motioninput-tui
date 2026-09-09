@@ -2323,7 +2323,6 @@
        "count": 1,
        "label": "P"
       },
-      "air": true,
       "notation": "f,d,df + P  (air)"
      }
     },
@@ -2390,7 +2389,6 @@
        "count": 1,
        "label": "P"
       },
-      "air": true,
       "notation": "hcb,hcb + P, ABCD to cancel  (air)"
      }
     },
