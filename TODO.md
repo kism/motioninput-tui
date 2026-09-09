@@ -48,11 +48,6 @@ rather than done.
 
 Not sure when the ai got it's information from, but need to see if there is a way to get input timing into each game
 
-## Evaluate if pydantic is worth it, modify settings
-
-Will increase the wheel size by a bunch, but its nicer than dataclasses
-
-Store last selected character per-game
 
 ## Super activation time per game
 
