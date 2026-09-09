@@ -10,7 +10,7 @@ engine live in `.claude/skills/game-brief/briefs/` and are committed — they ar
 our notes, not the guide text.
 
 ```bash
-uv sync --extra guides    # curl-cffi and beautifulsoup4, not needed by the trainer
+uv sync --group guides    # curl-cffi and beautifulsoup4, not needed by the trainer
 uv run -m motioninput_tui_guides          # fetch anything missing
 uv run -m motioninput_tui_guides --list
 ```

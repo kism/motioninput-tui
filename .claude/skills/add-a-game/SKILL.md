@@ -46,7 +46,7 @@ name — pick something short and stable.
 ## 2. Fetch it and record the checksum
 
 ```bash
-uv sync --extra guides
+uv sync --group guides
 uv run python -m motioninput_tui_guides --game <key>
 uv run python -m motioninput_tui_guides --checksums
 ```

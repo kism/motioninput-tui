@@ -12,8 +12,7 @@ src/motioninput_tui/
   engine/        Device independent: notation, input buffer, motion matchers,
                  rulesets, the recogniser and a training session.
   controls/      Control layouts, button sets and input sources: keyboard,
-                 plus a gamepad (optional `gamepad` extra) polled from the
-                 training tick.
+                 plus a gamepad polled from the training tick.
   games/         Game metadata, rulesets, move models and the packaged rosters.
   notation_styles.py  How a move's input is *written* (glyphs, letters, emoji);
                  separate from engine/notation.py, which is what a direction *is*.
@@ -105,7 +104,7 @@ of pages they could equally read in a browser.
 each one, and the SHA-256 of the guide the parsers were written against.
 
 ```bash
-uv sync --extra guides                          # curl-cffi and beautifulsoup4
+uv sync --group guides                          # curl-cffi and beautifulsoup4
 uv run -m motioninput_tui_guides                # fetch anything missing
 uv run -m motioninput_tui_guides --list         # catalogue, sizes, checksum state
 uv run -m motioninput_tui_guides --checksums    # SHA-256 of each guide on disk
@@ -125,7 +124,7 @@ staying importable in a development checkout, where the editable install puts
 all of `src/` on the path. That is also why it has no console script: an entry
 point would resolve to a module that a published wheel does not contain.
 
-Its dependencies live in the `guides` extra so the trainer never depends on an
+Its dependencies live in the `guides` group so the trainer never depends on an
 HTTP stack. GameFAQs sits behind Cloudflare, which is why curl-cffi
 (browser-like TLS) is preferred over plain requests. The scraper imports
 `motioninput_tui.utils.logger`; that one-way dependency is fine for a repo tool
@@ -247,7 +246,7 @@ are plain Markdown rather than reStructuredText. Configuration is
 the repository root. Build it locally with:
 
 ```bash
-uv sync --extra docs
+uv sync --group docs
 uv run sphinx-build -b html docs docs/_build/html
 ```
 

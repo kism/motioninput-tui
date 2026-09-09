@@ -37,7 +37,7 @@ changes author is caught rather than silently parsed as if nothing moved.
 Then fetch it and record its checksum:
 
 ```bash
-uv sync --extra guides
+uv sync --group guides
 uv run python -m motioninput_tui_guides --game kof98
 uv run python -m motioninput_tui_guides --checksums   # paste the sha256 into sources.json
 ```

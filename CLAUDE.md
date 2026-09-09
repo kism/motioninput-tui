@@ -20,7 +20,7 @@ code alone.
 ## Commands
 
 ```bash
-uv sync --all-extras            # dev setup; omit --all-extras for prod
+uv sync --all-groups            # dev setup; omit --all-groups for prod
 
 .venv/bin/ruff format .         # format
 .venv/bin/ruff check --fix .    # lint
@@ -64,7 +64,7 @@ one module matching the project name) leaves them out of the wheel; keep it that
 way, and do not give either a console script — run them as
 `python -m motioninput_tui_guides` / `python -m motioninput_tui_datagen`, or via
 `scripts/run-download-guides.sh` / `scripts/run-datagen.sh`. The guides package's
-dependencies live in the `guides` extra (`uv sync --extra guides`); datagen needs
+dependencies live in the `guides` group (`uv sync --group guides`); datagen needs
 nothing beyond the trainer itself. The fetched guides are copyrighted, gitignored,
 and must never be committed or quoted back into the repo; only the parsed rosters
 under `games/data/` are.
@@ -229,8 +229,8 @@ handles this two ways and the distinction runs through several files:
 A gamepad is always exact. `controls/gamepad.py` polls pygame from the training
 tick, diffs the pad's state, and feeds presses and releases through the same
 `KeyboardSource` (in `exact=True` mode) that the keyboard uses — there is no
-separate source. pygame is the optional `gamepad` extra; everything degrades to
-"no gamepad" when it is missing or nothing is plugged in. On macOS pygame only
+separate source. pygame is a base dependency but imported lazily; everything
+degrades to "no gamepad" when it is missing or nothing is plugged in. On macOS pygame only
 sees pads under the real Cocoa video driver, so `_load_pygame` skips the `dummy`
 driver there and sets `SDL_MAC_BACKGROUND_APP` instead.
 

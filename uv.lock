@@ -432,21 +432,19 @@ wheels = [
 
 [[package]]
 name = "motioninput-tui"
-version = "0.0.1"
+version = "0.1.0a1"
 source = { editable = "." }
 dependencies = [
+    { name = "pygame-ce" },
     { name = "rich" },
     { name = "textual" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 docs = [
     { name = "myst-parser" },
     { name = "sphinx" },
     { name = "sphinx-rtd-theme" },
-]
-gamepad = [
-    { name = "pygame-ce" },
 ]
 guides = [
     { name = "beautifulsoup4" },
@@ -465,20 +463,27 @@ type = [
 
 [package.metadata]
 requires-dist = [
-    { name = "beautifulsoup4", marker = "extra == 'guides'", specifier = ">=4.12.0" },
-    { name = "coverage", marker = "extra == 'test'", specifier = ">=7.15.4" },
-    { name = "curl-cffi", marker = "extra == 'guides'", specifier = ">=0.7.0" },
-    { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=4.0.0" },
-    { name = "pygame-ce", marker = "extra == 'gamepad'", specifier = ">=2.5.8" },
-    { name = "pytest", marker = "extra == 'test'", specifier = ">=9.1.1" },
+    { name = "pygame-ce", specifier = ">=2.5.8" },
     { name = "rich", specifier = ">=15.0.0" },
-    { name = "ruff", marker = "extra == 'lint'", specifier = ">=0.16.2" },
-    { name = "sphinx", marker = "extra == 'docs'", specifier = ">=8.1.0" },
-    { name = "sphinx-rtd-theme", marker = "extra == 'docs'", specifier = ">=3.0.0" },
     { name = "textual", specifier = ">=8.2.8" },
-    { name = "ty", marker = "extra == 'type'", specifier = ">=0.0.69" },
 ]
-provides-extras = ["type", "lint", "guides", "gamepad", "docs", "test"]
+
+[package.metadata.requires-dev]
+docs = [
+    { name = "myst-parser", specifier = ">=4.0.0" },
+    { name = "sphinx", specifier = ">=8.1.0" },
+    { name = "sphinx-rtd-theme", specifier = ">=3.0.0" },
+]
+guides = [
+    { name = "beautifulsoup4", specifier = ">=4.12.0" },
+    { name = "curl-cffi", specifier = ">=0.7.0" },
+]
+lint = [{ name = "ruff", specifier = ">=0.16.2" }]
+test = [
+    { name = "coverage", specifier = ">=7.15.4" },
+    { name = "pytest", specifier = ">=9.1.1" },
+]
+type = [{ name = "ty", specifier = ">=0.0.69" }]
 
 [[package]]
 name = "myst-parser"

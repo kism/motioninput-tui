@@ -20,7 +20,7 @@ King of Fighters '98 and 2001, and Samurai Shodown V Special.
 ## Install and run
 
 ```bash
-uv sync --all-extras   # omit --all-extras for a plain install
+uv sync --all-groups   # omit --all-groups for a plain install
 uv run motioninput-tui
 ```
 

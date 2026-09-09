@@ -42,7 +42,7 @@ skipped, charge times, and whether the dragon punch shortcut exists.
 ```bash
 uv venv
 source .venv/bin/activate
-uv sync --all-extras # Omit --all-extras for prod
+uv sync --all-groups # Omit --all-groups for prod
 ```
 
 ### Running the app
@@ -164,8 +164,7 @@ launch, so a saved value would disable exact tracking after switching terminal.
 ## Controls
 
 Chosen on the first screen. Two keyboard presets and a rebindable one, plus a
-gamepad if the `gamepad` extra is installed (`uv sync --extra gamepad`, or
-`--all-extras`).
+gamepad if one is plugged in.
 
 | Layout               | Back / Down / Forward / Up | Attack row 1 | Attack row 2 |
 | -------------------- | -------------------------- | ------------ | ------------ |
