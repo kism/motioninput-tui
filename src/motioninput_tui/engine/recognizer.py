@@ -1,6 +1,6 @@
 """Turns a stream of inputs into a stream of activated moves."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
@@ -17,6 +17,12 @@ if TYPE_CHECKING:
 REPEAT_SUPPRESSION_MS = 120
 """Ignore a re-activation of the same move within this long, so one motion does
 not fire twice as the buffer decays."""
+
+BUTTON_GRACE_MS = 50
+"""How long a press waits for the rest of a multi-button input before it fires
+the lesser move on the same motion. Comfortably over
+``InputBuffer.simultaneous_ms`` (40) so the last button of a genuine ``KKK`` the
+buffer would still coalesce is not fired past."""
 
 # Rough stand-in for a real game's move priority table: the fiddlier the input,
 # the more it should win when several moves match the same press.
@@ -87,6 +93,14 @@ class Activation:
         return self.move.name
 
 
+@dataclass(frozen=True, slots=True)
+class _Deferred:
+    """A press held back to see whether more of a multi-button input arrives."""
+
+    since_ms: int
+    pressed: frozenset[Button]
+
+
 def _priority(move: RecognisableMove) -> int:
     if move.motion is None:
         return -1
@@ -124,6 +138,7 @@ class Recognizer:
     """How long the input device takes to reveal a release. See `motions.matches`."""
     policy: BufferPolicy = BufferPolicy.CONSUME
     _last_fired: dict[str, int] = field(default_factory=dict, init=False)
+    _deferred: _Deferred | None = field(default=None, init=False)
 
     def __post_init__(self) -> None:
         """Sort once so evaluation order is stable and priority-first."""
@@ -135,9 +150,24 @@ class Recognizer:
 
     def evaluate(self, buffer: InputBuffer, at_ms: int, pressed: set[Button]) -> Activation | None:
         """Return the winning move for this press, if any."""
-        context = MatchContext(
-            self.ruleset, at_ms, frozenset(pressed), self.decay_ms, loose=self.policy is BufferPolicy.LOOSE
-        )
+        return self._decide(buffer, at_ms, frozenset(pressed), allow_defer=True)
+
+    def poll(self, buffer: InputBuffer, at_ms: int) -> Activation | None:
+        """Fire a press that was held for more buttons and did not get them.
+
+        Called from the session tick. Once the grace window has passed with no
+        further button, the lesser move on the motion is allowed through.
+        """
+        if self._deferred is None or at_ms - self._deferred.since_ms < BUTTON_GRACE_MS:
+            return None
+        held = self._deferred
+        self._deferred = None
+        return self._decide(buffer, held.since_ms, held.pressed, allow_defer=False)
+
+    def _decide(
+        self, buffer: InputBuffer, at_ms: int, pressed: frozenset[Button], *, allow_defer: bool
+    ) -> Activation | None:
+        context = MatchContext(self.ruleset, at_ms, pressed, self.decay_ms, loose=self.policy is BufferPolicy.LOOSE)
         hits = [move for move in self._ranked if move.motion is not None and matches(move.motion, buffer, context)]
 
         # A move that is one mash short of activating, and would outrank
@@ -145,6 +175,15 @@ class Recognizer:
         # would flush the buffer before the player finishes tapping.
         if self._awaiting_mash(buffer, context, hits):
             return None
+        # Likewise a move on this same motion that wants more buttons than are
+        # down yet: the rest of a KKK lands a few ms later, and firing the
+        # one-button move now would spend the buffer first. Held to the next
+        # tick rather than re-checked here, since no press comes between.
+        if allow_defer and self._awaiting_buttons(buffer, context, hits):
+            since = self._deferred.since_ms if self._deferred else at_ms
+            self._deferred = _Deferred(since_ms=since, pressed=pressed)
+            return None
+        self._deferred = None
         if not hits:
             return None
 
@@ -159,8 +198,26 @@ class Recognizer:
         return Activation(
             move=winner,
             at_ms=at_ms,
-            buttons=frozenset(pressed),
+            buttons=pressed,
             also_matched=tuple(move.name for move in hits[1:4]),
+        )
+
+    def _awaiting_buttons(self, buffer: InputBuffer, context: MatchContext, hits: list[RecognisableMove]) -> bool:
+        """Whether a multi-button move on the just-completed motion is still
+        waiting for the rest of its buttons, and outranks what did match.
+
+        Only fires once at least one of its buttons is down, so an unrelated
+        press is never held.
+        """
+        if self.policy is BufferPolicy.LOOSE:
+            return False
+        best_hit = _priority(hits[0]) if hits else -1
+        return any(
+            move.motion is not None
+            and _priority(move) > best_hit
+            and 0 < len(context.pressed & move.motion.buttons.allowed) < move.motion.buttons.count
+            and matches(move.motion, buffer, replace(context, pressed=context.pressed | move.motion.buttons.allowed))
+            for move in self._ranked
         )
 
     def _awaiting_mash(self, buffer: InputBuffer, context: MatchContext, hits: list[RecognisableMove]) -> bool:
@@ -197,3 +254,4 @@ class Recognizer:
     def reset(self) -> None:
         """Forget recent activations."""
         self._last_fired.clear()
+        self._deferred = None

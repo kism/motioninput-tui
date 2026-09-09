@@ -174,12 +174,19 @@ class TrainingSession:
         self._record_button(update.button, update.direction, now)
         pressed = self.buffer.simultaneous_buttons(now)
         self.recognizer.decay_ms = self.source.decay_ms
-        activation = self.recognizer.evaluate(self.buffer, now, pressed)
-        if activation is not None:
-            self.activations.appendleft(activation)
-            self.total_activations += 1
-            if self.entries:
-                self.entries[-1].activated = activation.name
+        self._apply_activation(self.recognizer.evaluate(self.buffer, now, pressed))
+        return True
+
+    def _apply_activation(self, activation: Activation | None) -> bool:
+        """Record a move the recogniser just produced. Returns True if it did."""
+        if activation is None:
+            return False
+        self.activations.appendleft(activation)
+        self.total_activations += 1
+        for entry in reversed(self.entries):
+            if entry.at_ms <= activation.at_ms:
+                entry.activated = activation.name
+                break
         return True
 
     def release(self, key: str, at_ms: int | None = None) -> bool:
@@ -201,6 +208,9 @@ class TrainingSession:
             self.buffer.set_direction(update.direction, now)
             self._append_entry(update.direction, now)
             changed = True
+        # A press held back for the rest of a multi-button input, whose other
+        # buttons never came: let the lesser move on the motion through now.
+        changed |= self._apply_activation(self.recognizer.poll(self.buffer, now))
         return changed
 
     def _poll_gamepad(self, now: int) -> bool:

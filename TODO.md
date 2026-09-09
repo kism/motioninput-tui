@@ -44,38 +44,6 @@ Adding just the top three families would take `kof98` to ~71% and `kof2001` to
 ~63%. It is a shared-engine change with its own test surface, hence still here
 rather than done.
 
-## Two-button moves lose to one-button moves on the same motion
-
-A move needing two buttons at once cannot come out if the character also has a
-one-button move on the same motion. The recogniser evaluates on every press, so
-the single-button move is already complete when the first of the pair lands: it
-fires and flushes the buffer before the second button arrives.
-
-`_priority` already ranks the two-button move higher, but priority only decides
-between moves matching at the _same_ press, which these never do.
-
-Counts of multi-button moves shadowed this way:
-
-| game    | shadowed |
-| ------- | -------- |
-| ssvsp   | 64       |
-| sfiii3  | 15       |
-| kof2001 | 1        |
-| kof98   | 0        |
-
-It matters most in `ssvsp`, where every character's two Rage supers are
-`qcf + CD` and `qcb + CD` — 64 of its 220 trainable moves. Genjuro's come out
-fine because nothing else of his answers a quarter circle with C alone;
-Haohmaru's lose to his `qcf + C` kick fireball.
-
-The shape is the same as the mash tail already handled in
-`Recognizer._awaiting_mash`: a higher-priority move needs _more_ input, and
-firing the lesser one first spends the buffer. The difference is that the
-second button lands within `InputBuffer.simultaneous_ms` (40ms) rather than
-over several presses, so the fix probably wants the activation deferred to the
-next tick rather than another synchronous check. Shared-engine change, own test
-surface.
-
 ## Timings
 
 Not sure when the ai got it's information from, but need to see if there is a way to get input timing into each game
@@ -90,14 +58,3 @@ Not sure when the ai got it's information from, but need to see if there is a wa
 
 - Published wheel should have the gamepad group
 - Published wheel should only have src/motioninput_tui?
-
-## SF Air moves
-
-- SFA3/USFIV, quater circle back kick moves that state air, are air optional so these work on the ground too
-  - Sakura - Shunpuu Kyaku
-  - Ken/Ryu/Evil Ryu - Tatsumaki Senpuu Kyaku
-
-## USFIV PPP KKK
-
-- Super moves in usfiv that are triggered by a motion and then PPP / KKK can get eaten
-  - On sakura `↓  ↙  ←  ·  ↓  ↙  ←  ·HK+LK+MK` resolves to "Haru Ichiban" instead of "Haru Ranman"

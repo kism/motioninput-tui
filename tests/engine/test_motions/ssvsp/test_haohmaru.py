@@ -11,6 +11,8 @@ from tests.engine.test_motions.harness import (
     DOWN_DOUBLE_TAP_FORWARD_HP,
     FORWARD,
     NEO_A,
+    NEO_C,
+    NEO_D,
     QUARTER_CIRCLE_FORWARD_HP,
     Script,
     press,
@@ -50,3 +52,16 @@ def test_forward_down_downforward_is_the_rising_slash(play) -> None:
 def test_hold_down_double_tap_forward_gives_nothing(play) -> None:
     """SNK has no dragon punch shortcut, so this is nothing here, as in KoF."""
     assert play(DOWN_DOUBLE_TAP_FORWARD_HP).moves == []
+
+
+def test_quarter_circle_with_both_rage_buttons_is_the_super(play) -> None:
+    """C alone on this motion is the fake fireball; C and D together is the Rage
+    super, which must not be eaten by the fake landing on the first button."""
+    script = [
+        press(DOWN, 0),
+        press(FORWARD, 70),
+        release(DOWN, 110),
+        press(NEO_C, 150),
+        press(NEO_D, 158),
+    ]
+    assert play(script).moves == ["Hiougi Tenha Fuujin Zan"]

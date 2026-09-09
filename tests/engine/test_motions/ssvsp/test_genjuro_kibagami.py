@@ -5,10 +5,10 @@ marker for needing a full Rage gauge. The trainer models the input, not the
 meter, so they come out whenever the motion and both buttons do.
 
 Genjuro is the clean case: nothing else of his answers a quarter circle with C
-alone, so the pair is the only thing that can match. Where a character does have
-a single-button move on the same motion it wins the press instead, since it is
-complete the moment the first button lands -- see Haohmaru's kick fireball, and
-the note in TODO.md.
+alone. Where a character does have a single-button move on the same motion, the
+recogniser holds the press for `BUTTON_GRACE_MS` to see whether the rest of the
+pair arrives -- see `test_haohmaru.py`, whose `qcf + C` fireball no longer eats
+the `qcf + CD` Rage super.
 """
 
 from tests.engine.test_motions.harness import DOWN, FORWARD, NEO_A, NEO_C, NEO_D, Script, press, release
