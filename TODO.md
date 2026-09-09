@@ -57,8 +57,6 @@ Not sure when the ai got it's information from, but need to see if there is a wa
 
 Will increase the wheel size by a bunch, but its nicer than dataclasses
 
-Separate input config into a separate file
-
 Store last selected character per-game
 
 ## Super activation time per game
