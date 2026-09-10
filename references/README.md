@@ -32,8 +32,8 @@ seeds. It is what you read before adding a game; the datagen parser is still
 written against the full `<game>.txt`. Make the missing ones with:
 
 ```bash
-./scripts/run-game-briefs.sh           # every guide that lacks one
-./scripts/run-game-briefs.sh sfa3      # just this one
+./scripts/2-game-briefs.sh           # every guide that lacks one
+./scripts/2-game-briefs.sh sfa3      # just this one
 ```
 
 See the

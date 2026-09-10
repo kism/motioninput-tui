@@ -11,42 +11,24 @@ See [Adding a game](adding-a-game.md) to add another title, or
 
 ## Games
 
-| Key       | Game                            | Character source         |
-| --------- | ------------------------------- | ------------------------ |
-| `hsf2`    | Hyper Street Fighter II         | `references/hsf2.txt`    |
-| `sfa3`    | Street Fighter Alpha 3          | `references/sfa3.txt`    |
-| `sfiii3`  | Street Fighter III: 3rd Strike  | `references/sfiii3.txt`  |
-| `kof98`   | The King of Fighters '98        | `references/kof98.txt`   |
-| `kof2001` | The King of Fighters 2001       | `references/kof2001.txt` |
-| `lb2`     | The Last Blade 2                | `references/lb2.txt`     |
-| `ssii`    | Samurai Shodown II              | `references/ssii.txt`    |
-| `ssvsp`   | Samurai Shodown V Special       | `references/ssvsp.txt`   |
-| `usfiv`   | Ultra Street Fighter IV         | `references/usfiv.txt`   |
+Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, Ultra Street
+Fighter IV, The King of Fighters '98 and 2001, Samurai Shodown II and V
+Special, and The Last Blade 2. The picker lists them with a note on what makes
+each one's input handling different.
 
-The five SNK entries are on the Neo Geo's four-button panel rather than the
-Street Fighter six. The two King of Fighters ones have a small trainable share
-(74% and 68%): KoF leans on close-range command throws and long follow-up
-chains, neither of which the engine models.
+Each has its own `Ruleset` describing how forgiving it is — motion windows,
+whether diagonals can be skipped, charge times, whether the dragon punch
+shortcut exists. 3rd Strike's figures come from a decompilation of the game
+rather than from feel; see [Third Strike, from the decompiled
+game](sfiii3-from-the-decomp.md).
 
-The two Samurai Shodown entries are on the same panel but mean something
-different by it. In V Special A and B are the weak and medium slash, A+B the
-strong one, C kicks and D is the dodge; its motions are plainer than KoF's, so
-75% of the move list is trainable. In II, A and B are the two slashes and C and
-D the two kicks — and only 51% of it is trainable, the lowest here, because
-nearly a third of that guide's list is throws written "b or f + button", which
-say nothing about which way to hold.
-
-The Last Blade 2 is the same panel again, and means a third thing by it: A and
-B are the weak and strong slash, C kicks and D is the repel, which is a defence
-and never appears in a move on its own. 68% of it is trainable. Nearly every DM
-is a long single roll (`d,db,b,db,f` or `f,b,db,d,df,f`) that no Street Fighter
-game uses; both are motions of their own in the engine, so they train like
-anything else.
-
-Each game has its own `Ruleset` in
-[`games/rulesets.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/games/rulesets.py)
-describing how forgiving it is: motion windows, whether diagonals can be
-skipped, charge times, and whether the dragon punch shortcut exists.
+Not every listed move is trainable. The Street Fighter rosters run 78-89%; the
+SNK ones are lower — 51% for Samurai Shodown II — because those guides lean on
+command throws written "b or f + button", which say nothing about which way to
+hold, and on long follow-up chains. The rest still appear in the move list,
+struck through. The five SNK games are on the Neo Geo's four-button panel, and
+each means something different by it, which the game's own note explains when
+you highlight it.
 
 ## Run
 
@@ -84,102 +66,65 @@ See [development](development.md) for the rest of the developer setup.
 ### Running the app
 
 ```bash
-motioninput-tui                              # pick everything in the TUI
-motioninput-tui --game sfiii3 --character ryu --layout keyboard-left
-motioninput-tui --list                       # games and characters
+motioninput-tui                              # this is the one you want
+motioninput-tui --list                       # games and characters, then exit
 motioninput-tui --check-terminal             # terminal speed and key release support
-motioninput-tui --no-key-release             # force the auto-repeat fallback
-motioninput-tui --loose-buffer               # let inputs feed more than one move
 motioninput-tui --config path/to/config.json # use a different config file
 ```
+
+That is the whole command line. What to train — the game, the character, the
+layout, the settings — is not on it: you pick those in the app and it remembers
+them, so there is one place they live rather than two that have to agree.
 
 ### Input display
 
 The first entry in the game list is not a game: it draws your panel and lights
 it up as you press, with no moves and nothing to recognise. Its "characters"
-are the button sets below, so pick the one your game uses. Directions are
-cleaned exactly as they are in the trainer, so it is also the quickest way to
-see what your keyboard is really sending.
-
-```text
- ╭───╮ ╭───╮ ╭───╮    ╭─────╮ ╭─────╮ ╭─────╮
- │ ↖ │ │ ↑ │ │ ↗ │    │  LP │ │  MP │ │  HP │
- ╰───╯ ╰───╯ ╰───╯    │  u  │ │  i  │ │  o  │
- ╭───╮ ╭───╮ ╭───╮    ╰─────╯ ╰─────╯ ╰─────╯
- │ ← │ │ · │ │ → │    ╭─────╮ ╭─────╮ ╭─────╮
- ╰───╯ ╰───╯ ╰───╯    │  LK │ │  MK │ │  HK │
- ╭───╮ ╭───╮ ╭───╮    │  j  │ │  k  │ │  l  │
- │ ↙ │ │ ↓ │ │ ↘ │    ╰─────╯ ╰─────╯ ╰─────╯
- ╰───╯ ╰───╯ ╰───╯
-```
+are the button sets, so pick the one your game uses. Directions are cleaned
+exactly as they are in the trainer, so it is the quickest way to see what your
+keyboard is really sending.
 
 ### Picking what to train
 
-The app opens on a full screen input picker: keyboard layout or gamepad, since
-that decides how the trainer reads you rather than what you are training. Press
-`enter` and the next screen has three panes, `tab` between them:
+The app opens on an input picker — keyboard layout or gamepad — because that
+decides how the trainer reads you rather than what you are training. The next
+screen has three panes: your settings, the game whose rules judge you, and the
+character whose move list you want.
 
-| Pane      | What it is                                               |
-| --------- | -------------------------------------------------------- |
-| Settings  | Your own options, which sit above whatever the game says |
-| Game      | Which game's rules to judge your inputs by               |
-| Character | Whose move list to train                                 |
-
-`space` flips the highlighted setting; `enter` moves on from the game pane and
-starts training from either of the others. `esc` goes back to the input picker.
-
-`ctrl+b` in the trainer brings the same settings up over your session, so you
-can change them without leaving it: `space` to flip one, `enter` or `esc` when
-you are done. A change applies immediately; the input buffer is cleared with
-it, since what was in it was read under the old rules.
+`ctrl+b` brings the settings up again during a session. A change applies
+immediately and clears the input buffer with it, since what was in it was read
+under the old rules.
 
 ### Move notation
 
-`ctrl+n`, from the setup screen or the trainer, opens the second menu: how the
-move list and the activation feed write a move's input. Pick a motion on the
-left and a style on the right, where every row is drawn in the style it offers,
-so you can see what your font makes of it before taking it.
+`ctrl+n` chooses how a move's input is written — arrows, letters, numpad, or
+one of several glyph sets. Every row in that menu is drawn in the style it
+offers, so it doubles as a test of what your font can render; the nerd font
+styles in particular are empty boxes without a patched font.
 
-| Motion          | Written as                                                          |
-| --------------- | ------------------------------------------------------------------- |
-| Directions      | `↓ ↘ →`, `D, DF, F`, `236`, `⬇️ ↘️ ➡️`, `2️⃣3️⃣6️⃣`                    |
-| Quarter circles | spelled out, or `⮡ ⮠`, `⮩ ⮨`, `⮱ ⮰`, `⮑ ⮐`, `🔥→`                   |
-| Half circles    | spelled out, or `⋃→`, `◡→`, `🌙→`                                   |
-| Dragon punches  | spelled out, or `𑪼 𑪽`, `𐰁 𐰀`, `龍→`, `龙→`, `竜→`, `𓆈→`, `🐉→`      |
-| Full circles    | `360` `720`, or `⥁`, `⭮`, `🌀`                                      |
-| Charges         | `[←] →`, or `⮀ ⮃`, `🔋→`                                            |
-
-`236` is the numpad, from a player on the left: `236 + P` is a fireball and
-`623 + P` a dragon punch, which is how the notation is written everywhere else.
-
-Every family also offers a nerd font style, directions included (the numpad in
-boxes). Those glyphs live in the private use area, so they are empty boxes
-without a patched font — which the preview will show you.
+`236` is the numpad, counted from a player on the left: `236 + P` is a fireball
+and `623 + P` a dragon punch.
 
 A motion nobody has a glyph for is spelled out in whatever directions are set
-to, and a compound motion follows its parts: a super that is two quarter
+to, and a compound motion follows its parts, so a super that is two quarter
 circles reads `⮩ ×2` once quarter circles are curved arrows. Moves the engine
 has no directional model of keep the reference guide's own wording.
 
-The live input strip is deliberately not part of this. What you actually
-pressed is always arrows, so there is one reading of the display that never
-changes whatever else you pick.
+The live input strip is deliberately not part of this: what you actually
+pressed is always arrows, so one reading of the display never changes whatever
+else you pick.
 
 ### Settings
 
-These are yours, not the games', so they apply whichever game is selected.
+Three toggles, in the setup screen's first pane and under `ctrl+b`, which
+describe themselves as you highlight them. They are yours rather than the
+games', so they apply whichever game is selected.
 
-| Setting              | Default | Off                                    | On                                |
-| -------------------- | ------- | -------------------------------------- | --------------------------------- |
-| Relaxed half circles | on      | A half circle has to pass through down | `b,db,df,f` counts as one         |
-| Neo Geo slant        | off     | A B C D straight across                | A B on the bottom row, C D above  |
-| Loose buffer         | off     | Inputs are spent when a move comes out | One motion can feed several moves |
-
-Relaxed half circles is on by default because of how a hitbox or a keyboard
-actually plays: pressing forward while back is still held goes straight to
-down-forward, so an ordinary half circle never touches straight down at all.
-Turn it off to be made to hit the down. Loose buffer is the same rule
-`--loose-buffer` controls, described under [spending inputs](#spending-inputs).
+Relaxed half circles is the one worth knowing about, and it is on by default
+because of how a hitbox or a keyboard actually plays: pressing forward while
+back is still held goes straight to down-forward, so an ordinary half circle
+never touches straight down at all. Turn it off to be made to hit the down.
+Loose buffer is the rule described under [spending inputs](#spending-inputs).
 
 ### Remembering your last session
 
@@ -189,64 +134,36 @@ are saved to `~/.config/motioninput-tui/config.json` (or under
 settings stick between runs. The character is remembered per game, so switching
 game switches to whoever you were last training on it.
 
-Command line arguments win over what was saved, and `--no-loose-buffer` turns
-the buffer rule back off. Naming a different `--game` on its own opens on that
-game's remembered character. If the file is missing or damaged the defaults are
-used and a fresh one is written.
+Nothing on the command line overrides any of it — `--config` only chooses which
+file to read. If that file is missing or damaged the defaults are used and a
+fresh one is written.
 
 Key release support is _not_ remembered: it is probed per terminal on every
 launch, so a saved value would disable exact tracking after switching terminal.
 
 ## Controls
 
-Chosen on the first screen. Two keyboard presets and a rebindable one, plus a
-gamepad if one is plugged in.
+Chosen on the first screen: two keyboard presets, a rebindable one, and a
+gamepad if one is plugged in. Press `b` on the custom keyboard row or the
+gamepad row to remap it; either map is remembered in the config. Gamepad
+movement stays on the d-pad and left stick and is not rebindable.
 
-| Layout               | Back / Down / Forward / Up | Attack row 1 | Attack row 2 |
-| -------------------- | -------------------------- | ------------ | ------------ |
-| `asd space, jkl nm,` | `a` `s` `d` `space`        | `j k l`      | `n m ,`      |
-| `jkl space, asd zxc` | `j` `k` `l` `space`        | `a s d`      | `z x c`      |
-| Keyboard (custom)    | rebindable                 | rebindable   | rebindable   |
-| Gamepad              | D-pad or left stick        | `X Y RB RT`  | `A B LB LT`  |
+A layout is only *where* the attacks are — six positions, three to a row. What
+those positions mean is the game's button set, laid onto them in order, which
+is why a game with a different panel is a table entry rather than a new layout.
 
-Highlight **Keyboard (custom)** and press `b` to rebind every key — the four
-directions and the six attacks — from its own screen; the map is remembered in
-the config. Every keyboard layout carries only the Street Fighter six, so the
-Neo Geo's fourth button and the eight-button panel are reachable on the gamepad
-alone. Every game in the trainer is a six-button game, so this only shows in the
-input display's wider panels.
+That fits the Street Fighter six and Mortal Kombat's five, but not everything.
+`A B C D` across a three-key row leaves **D** with nowhere to go, so on a
+keyboard the Neo Geo's fourth button cannot be pressed at all. Turning on the
+**Neo Geo slant** setting fixes it — `C D` on the top row, `A B` on the bottom
+— and a gamepad has all four either way. Worth doing if you train KoF or
+Samurai Shodown on a keyboard: 36 trainable moves across those rosters ask for
+D alone. The input display's eight-button panel is short two buttons on a
+keyboard for the same reason.
 
-A layout is only _where_ the attacks are. What those positions mean is the
-game's button set, laid onto them in order:
-
-| Panel                 | Row 1    | Row 2    |
-| --------------------- | -------- | -------- |
-| Street Fighter, 6     | LP MP HP | LK MK HK |
-| Mortal Kombat, 5      | HP HK BL | LP LK    |
-| Neo Geo, 4            | A B C D  | A B C D  |
-| Neo Geo, arcade slant | C D      | A B      |
-| Tekken, 4             | □ △      | ✕ ○      |
-| Eight button          | 1 2 3 4  | 5 6 7 8  |
-
-The Street Fighter games use the six, so that is what a layout carries unless
-something else asks for another set. The Neo Geo is the one panel with two
-arrangements in circulation, so which one you get is a setting: **Neo Geo
-slant** puts A B on the bottom row with C D above, instead of A B C D straight
-across both rows.
-
-The gamepad attack buttons start on the Xbox-style default above; the triggers
-(`LT` `RT`) are free to bind to as well. Highlight the gamepad row in the input
-picker (it names your connected pad) and press `b` to remap them; the map is
-remembered in the config. Movement stays on the d-pad and left stick. Buttons
-are read through SDL's controller database, so any recognised pad works
-regardless of how its firmware numbers them. A pad reports button releases, so
-holds are always exact with one plugged in.
-
-In the trainer: `esc` goes back to the setup screen with the character list
-focused, ready to pick someone else. `tab` equips the next Super Art in 3rd
-Strike, `ctrl+r` clears the buffer, `ctrl+l` toggles the move list, `ctrl+b`
-opens the settings, `ctrl+n` the move notation, and `ctrl+q` or two presses of
-`ctrl+c` quit.
+Pad buttons are read through SDL's controller database, so any recognised pad
+works however its firmware numbers them, and a pad reports releases, so holds
+are always exact with one plugged in.
 
 ## Super Arts
 
@@ -260,9 +177,14 @@ and Hyper Tornado apart.
 Some Super Arts want you to keep tapping after the motion — Sean's Shouryuu
 Cannon is `qcf, qcf + P, tap P rapidly`. Those need the taps as well as the
 motion, so on SA II the two quarter circles alone will not give you the move.
+The super's activation cinematic runs first and the game reads nothing while it
+does, so the taps have to wait it out; the prompt says `wait...` until they will
+count.
 
-No other game here works this way; every super is always available, and `tab`
-does nothing.
+Ultra SF4 works the same way with its two Ultra Combos, which you also pick
+before a match: `tab` cycles I and II, and it is what separates Ryu's Metsu
+Hadouken from his Metsu Shoryuken. In every other game here each super is always
+available and `tab` does nothing.
 
 ## Spending inputs
 
@@ -276,58 +198,31 @@ time limit. The forward you are still holding after a fireball is genuinely
 still held, so without a per-step limit a later down, down-forward would turn
 it into a dragon punch.
 
-`--loose-buffer`, or the loose buffer setting (`ctrl+b` in the trainer), turns
-both off. Inputs are then reused freely and one motion can light up several
-moves at once. No game behaves that way, but it is a useful way to see
-everything your inputs contain.
+The loose buffer setting turns both off. Inputs are then reused freely and one
+motion can light up several moves at once. No game behaves that way, but it is
+a useful way to see everything your inputs contain.
 
-## Terminal choice matters
+## Your terminal matters
 
-Motions are judged on wall clock timing, so a terminal that is slow to paint
-makes clean inputs read as late. The app identifies your terminal on launch and
-warns if it is likely to get in the way.
+Two things about the terminal decide how accurately the trainer can read you,
+and `motioninput-tui --check-terminal` reports both, names the terminals that
+do the job well, and says what yours is doing.
 
-Comfortable: alacritty, ghostty, foot, kitty, wezterm, contour, rio, st.
-Usable: xterm, urxvt, konsole, iTerm2, VTE based terminals, Windows Terminal.
-Expect trouble: Terminal.app, the VS Code integrated terminal, Hyper, Tabby.
-Running under tmux or screen, or over SSH, adds latency on top of whatever
-terminal you are using.
+**Speed.** Motions are judged on wall clock timing, so a terminal slow to paint
+makes clean inputs read as late. Running under tmux or screen, or over SSH,
+adds latency on top of whatever you are using.
 
-## Key releases
+**Key releases.** A plain terminal only ever says a key went *down*, and
+knowing when the player let go of down is the difference between a fireball and
+a dragon punch. The kitty keyboard protocol adds an event type to each key
+report, so releases arrive too; where it is available holds are tracked exactly
+and your keyboard repeat settings stop mattering.
 
-A plain terminal only ever tells you a key went _down_. That is a problem for a
-motion input trainer, because knowing when the player let go of down is the
-difference between a fireball and a dragon punch.
-
-The trainer handles this two ways, and picks the better one available.
-
-### Exact tracking (preferred)
-
-The **kitty keyboard protocol** adds an event type to each key report, so the
-terminal reports releases as well as presses. Where it is available, holds are
-tracked exactly, motions are judged against the games' real timing windows, and
-your keyboard repeat settings stop mattering entirely. The status line says
-`exact key tracking` when this is active.
-
-Supported by Ghostty, Alacritty, WezTerm, kitty, foot, Contour, Rio. Check
-yours with:
-
-```bash
-motioninput-tui --check-terminal
-```
-
-Pass `--no-key-release` to turn it off and use the fallback instead.
-
-### Inferred holds (fallback)
-
-Without release reporting, a held direction has to be deduced from the
-auto-repeat stream. A press counts as held for a short window and auto-repeat
-keeps it alive beyond that. If your operating system waits a long time before
-it starts repeating, that quiet gap is invisible and holds read as taps, which
-mostly hurts charge moves.
-
-The trainer measures your repeat delay as you play, widens its window to match,
-and says so in the status line. To fix it at the source:
+Without it a hold has to be deduced from the auto-repeat stream, which mostly
+hurts charge moves: if your operating system waits a long time before it starts
+repeating, that quiet gap is invisible and holds read as taps. The trainer
+measures the delay as you play and widens its window to match, but it is better
+fixed at the source:
 
 ```bash
 # macOS, then log out and back in
@@ -361,5 +256,6 @@ every game except Hyper Street Fighter II, whose guide is by x_MJ_x.
 
 adding-a-game
 development
+manual-testing
 sfiii3-from-the-decomp
 ```

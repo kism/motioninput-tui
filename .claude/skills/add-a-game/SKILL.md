@@ -40,8 +40,8 @@ user if they have not given one). Add an entry:
 }
 ```
 
-`key` becomes the filename stem, the `--game` value and the test directory
-name — pick something short and stable.
+`key` becomes the filename stem, the guide fetcher's `--game` value and the
+test directory name — pick something short and stable.
 
 ## 2. Fetch it and record the checksum
 
@@ -58,7 +58,7 @@ or the page needs a different one — do not force a bad guide through.
 ## 3. Read the game brief
 
 ```bash
-./scripts/run-game-briefs.sh <key>
+./scripts/2-game-briefs.sh <key>
 ```
 
 If the brief already exists (it is committed), just read it. Otherwise run this

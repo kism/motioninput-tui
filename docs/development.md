@@ -8,6 +8,7 @@ Architecture and the check/test setup. For adding a new game specifically, see
 ```text
 src/motioninput_tui/
   config.py      Last used selection, saved under ~/.config/motioninput-tui/.
+  constants.py   Program name, version and repository URL.
   gamepad_probe.py  `python -m ...gamepad_probe`: dumps a pad's SDL state to /tmp.
   engine/        Device independent: notation, input buffer, motion matchers,
                  rulesets, the recogniser and a training session.
@@ -19,6 +20,7 @@ src/motioninput_tui/
   settings.py    The player's own preferences, layered on top of a game's rules.
   terminal/      Terminal identification, latency warnings, kitty keyboard protocol.
   tui/           Textual screens, widgets, and the release-aware input driver.
+  utils/         The Rich logger every module gets `get_logger` from.
 
 src/motioninput_tui_guides/   Fetches the FAQs from GameFAQs. A sibling package,
                               not a subpackage, so it is not shipped in the wheel.
@@ -66,9 +68,9 @@ codes. A `ButtonSet` (`controls/buttons.py`) is what those positions *mean*,
 also as rows, and `with_buttons` lays one onto the other position by position —
 a game with a different panel is a table entry, not a new layout per keyboard
 arrangement. `Button` holds every game's buttons, but `ALL_BUTTONS` is still
-only the Street Fighter six: it is what a *roster* can ask for, and the
-generated data is Street Fighter, so widening it would change what "any
-button" means in the move lists.
+only the Street Fighter six: that is the one dialect the move list parser reads,
+and a roster on another panel is mapped off it afterwards, so widening it would
+change what "any button" means in every move list at once.
 
 The first game in the list, `display`, has no roster: it is built with its
 characters standing in for the button sets, which is how a panel gets picked

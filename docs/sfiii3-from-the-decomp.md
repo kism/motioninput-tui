@@ -1,8 +1,13 @@
 # Third Strike, from the decompiled game
 
-Every figure in `SFIII3`'s `Ruleset` is read out of the [3s-decomp][decomp]
+Almost every figure in `SFIII3`'s `Ruleset` is read out of the [3s-decomp][decomp]
 project rather than estimated from play or from a guide. This page is how to
 check them, and what the game turned out to do that the trainer had wrong.
+
+Two are not from the decomp and are marked where they appear: `jump_grace_ms`,
+which is a pre-jump estimate, and `super_freeze_ms`, which is the activation
+cinematic counted off in MAME (~50 frames) because it is an animation length
+rather than an input rule and does not live in the command tables.
 
 [decomp]: https://github.com/Vatuu/3s-decomp
 

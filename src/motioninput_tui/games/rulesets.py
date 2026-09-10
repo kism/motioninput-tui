@@ -46,7 +46,7 @@ HSF2 = GameSpec(
         rotation_slack=2,
     ),
     notes=(
-        "Strictest of the three. Motions must be clean and diagonals cannot be skipped.",
+        "The strictest game here. Motions must be clean and diagonals cannot be skipped.",
         "No dragon punch shortcut: holding down and tapping forward gives you nothing.",
         "No negative edge, so releasing a button never triggers a special.",
         "Charges are long, around 55 frames.",
