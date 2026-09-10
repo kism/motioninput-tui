@@ -50,13 +50,36 @@ skipped, charge times, and whether the dragon punch shortcut exists.
 
 ## Run
 
-### Setup
+### Install
+
+Needs Python 3.14 or newer.
+
+```bash
+uv tool install motioninput-tui      # pipx install motioninput-tui
+```
+
+That puts `motioninput-tui` on your PATH, along with `motioninput-tui-probe`
+for dumping what a gamepad is actually sending. To try it without installing,
+`uv tool run motioninput-tui` (or `pipx run motioninput-tui`) does the same in
+one shot.
+
+uv will fetch Python 3.14 itself if you do not have it. pipx builds its
+virtualenv from an interpreter it can already find, so on a system whose
+default Python is older it wants pointing at one:
+`pipx install --python 3.14 motioninput-tui`.
+
+Upgrade with `uv tool upgrade motioninput-tui` (`pipx upgrade`), remove with
+`uv tool uninstall motioninput-tui` (`pipx uninstall`).
+
+### From a clone
 
 ```bash
 uv venv
 source .venv/bin/activate
 uv sync --all-groups # Omit --all-groups for prod
 ```
+
+See [development](development.md) for the rest of the developer setup.
 
 ### Running the app
 

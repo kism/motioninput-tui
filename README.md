@@ -12,17 +12,25 @@ The input handling has been tuned per game: hold down and
 double tap forward in 3rd Strike and you get a dragon punch; do it in Super
 Turbo or Alpha 3 and you get nothing.
 
-Ships with Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, The
-King of Fighters '98 and 2001, and Samurai Shodown V Special.
+Ships with Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, Ultra
+Street Fighter IV, The King of Fighters '98 and 2001, Samurai Shodown II and V
+Special, and The Last Blade 2.
 
 **Full documentation: <https://motioninput-tui.readthedocs.io/>**
 
 ## Install and run
 
-```bash
-uv sync --all-groups   # omit --all-groups for a plain install
-uv run motioninput-tui
-```
+Needs Python 3.14 or newer.
+
+### Install it
+
+`uv tool install motioninput-tui`
+
+or
+
+`pipx install --python 3.14 motioninput-tui` (Specify any version of python 3.14 or newer that you have installed)
+
+Either one puts `motioninput-tui` on your PATH.
 
 See the docs for the full command line reference, controls, settings and move
 notation.
