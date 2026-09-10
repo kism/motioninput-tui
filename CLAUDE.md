@@ -178,6 +178,10 @@ the widget never sees it. A mouse click still toggles, which is why the widget
 keeps handling `OptionSelected` — and stops it, so a host that treats a
 selection on its other lists as a choice cannot act on it too.
 
+The same split holds on every screen: space acts on the highlighted row
+(flips a setting, picks a notation style, arms a rebind) and enter confirms the
+screen, bound with `priority=True` so the `OptionList`'s own enter never fires.
+
 ## Architecture
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`.

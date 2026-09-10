@@ -41,7 +41,7 @@ async def _pick(pilot: Pilot, family: int, style: int) -> None:
     styles.focus()
     styles.highlighted = style
     await pilot.pause()
-    await pilot.press("enter")
+    await pilot.press("space")
     await pilot.pause()
 
 
@@ -73,9 +73,10 @@ def test_picking_a_style_rewrites_the_move_list_and_is_saved(config: Config) -> 
             assert isinstance(trainer, TrainingScreen)
             before = _movelist(trainer)
             await _pick(pilot, family=3, style=3)  # dragon punches, Dragon 龍
-            await pilot.press("escape")
+            await pilot.press("enter")  # done
             await pilot.pause()
             await pilot.pause()
+            assert app.screen is trainer
             return before, _movelist(trainer)
 
     before, after = asyncio.run(session())

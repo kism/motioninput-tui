@@ -43,7 +43,11 @@ class NotationScreen(ModalScreen[None]):
     """Pick how each family of motions is written."""
 
     BINDINGS: ClassVar = [
+        Binding("space", "pick", "Pick"),
         Binding("escape,ctrl+n", "close", "Done"),
+        # Space picks, as it flips a setting, so enter just confirms, as it
+        # does on every screen.
+        Binding("enter", "close", "Done", priority=True, show=False),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c", "app.help_quit", show=False, system=True),
@@ -102,8 +106,14 @@ class NotationScreen(ModalScreen[None]):
         if event.option_list.id == "families":
             self._render_styles()
 
+    def action_pick(self) -> None:
+        """Space: act on the highlighted row of whichever column has focus."""
+        focused = self.focused
+        if isinstance(focused, OptionList):
+            focused.action_select()
+
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
-        """Enter takes a style, or crosses from the motions to them."""
+        """Space or a click takes a style, or crosses from the motions to them."""
         if event.option_list.id == "families":
             self.query_one("#styles", OptionList).focus()
             return
