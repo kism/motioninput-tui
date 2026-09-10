@@ -1,6 +1,6 @@
 [project]
 name = "motioninput-tui"
-version = "0.1.0a2"
+version = "0.1.0"
 description = "A terminal trainer for fighting game motion inputs, tuned per game."
 authors = [{ name = "Kieran Gee", email = "kieran.lost.the.game@gmail.com" }]
 readme = "README.md"
