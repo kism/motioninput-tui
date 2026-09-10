@@ -10,6 +10,8 @@ see ``docs/sfiii3-from-the-decomp.md`` for what the format means.
 
 The decompilation is not vendored here and nothing in the trainer imports this;
 it is the working out behind the numbers, kept so they can be re-derived.
+
+There are many things this program can't fetch due to them being 'on the disc' (character assets)
 """
 
 import re

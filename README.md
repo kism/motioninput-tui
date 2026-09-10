@@ -5,6 +5,8 @@
 [![Test](https://github.com/kism/motioninput-tui/actions/workflows/test.yml/badge.svg)](https://github.com/kism/motioninput-tui/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/kism/motioninput-tui/graph/badge.svg?token=FPGDA0ODT7)](https://codecov.io/gh/kism/motioninput-tui)
 [![Docs](https://readthedocs.org/projects/motioninput-tui/badge/?version=latest)](https://motioninput-tui.readthedocs.io/en/latest/?badge=latest)
+![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fkism%2Fmotioninput-tui%2Frefs%2Fheads%2Fmain%2Fpyproject.toml)
+![PyPI Version](https://img.shields.io/pypi/v/motioninput-tui)
 
 A terminal trainer for fighting game motion inputs. Pick a game and a
 character, press inputs, and see which move the game would have given you.
