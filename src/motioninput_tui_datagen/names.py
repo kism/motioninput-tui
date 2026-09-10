@@ -35,16 +35,42 @@ OVERRIDES: dict[str, dict[str, str]] = {
         "sakura-kasugano": "Sakura",
     },
     "kof98": {
-        # The Real Orochi Team's move names were sounded out from Russian; the
-        # guide's headings are unwieldy and nobody calls them that.
-        "kawa-ita-daichi-no-yashiro": "Orochi Yashiro",
-        "arekuruu-inabikari-no-shermie": "Orochi Shermie",
-        "honoo-no-sadame-no-chris": "Orochi Chris",
+        # The full names are the guide's; these are what the game calls them,
+        # and what the 2001 roster is keyed to below.
+        "leona-heidern": "Leona",
+        "blue-mary-ryan": "Blue Mary",
+        "kim-kaphawn": "Kim Kaphwan",
+        # A typo in the guide's own heading.
+        "yashiro-nansake": "Yashiro Nanakase",
     },
     "kof2001": {
-        # The '98 guide calls her Leona and this one gives her a surname; the
-        # same character keyed two ways across the rosters is worse than either.
+        # This guide gives surnames and spellings the '98 one does not. The same
+        # character keyed two ways across the two rosters is worse than either
+        # choice on its own, so these follow '98.
         "leona-heidern": "Leona",
+        "blue-mary-ryan": "Blue Mary",
+        "kim-kaphawn": "Kim Kaphwan",
+        "may-lee-jinju": "May Lee",
+        # Not in the '98 roster; these are what the games themselves call them.
+        "hinako-shijoh": "Hinako Shijou",
+        "original-zero": "Zero",
+    },
+    "lb2": {
+        # The guide distinguishes his two forms in the heading; the game calls
+        # the unlocked one Awakened Kaede and the other just Kaede.
+        "kaede-awakened": "Awakened Kaede",
+        "kaede-original": "Kaede",
+        # `finish_character` title-cases the guide's shouting headings, which
+        # is right for every name here but this one.
+        "genbu-no-okina": "Genbu no Okina",
+    },
+    "ssii": {
+        # The guide's headings put his names the wrong way round; its own
+        # introduction, and the game, call him Nicotine Caffeine.
+        "caffeine-nicotine": "Nicotine Caffeine",
+        # She is in the SSV Special roster under her full name, and the same
+        # character keyed two ways across two rosters is worse than either.
+        "mizuki": "Mizuki Rashoujin",
     },
     "ssvsp": {
         # The guide's own contents page calls these two what everyone calls

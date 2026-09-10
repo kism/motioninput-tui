@@ -1,55 +1,42 @@
-"""Move categories, and the KoF DM/SDM block in particular.
+"""Move categories, and how each KoF guide says a move is a super.
 
-Both KoF guides list a character's DMs and SDMs as the last blank-line group of
-the move list. `super_tail` is what turns that grouping into `Category.SUPER`,
-so Yuri's ``2363214+K`` HIEN HOU'OU KYAKU reads as a super while her
-``632146+K`` Hyakuretsu Binta, a command grab, stays a special.
+Both guides name the group outright under a `SUPER MOVES` heading, so the
+parsers read the category off the guide and nothing has to be inferred from a
+motion or from where a move sits in a list.
 """
 
 from motioninput_tui.games.loader import load_game
-from motioninput_tui.games.models import Category, Move
-from motioninput_tui_datagen.common import super_tail
+from motioninput_tui.games.models import Category
 
 
-def _move(name: str, command: str) -> Move:
-    return Move(name=name, command=command, category=Category.SPECIAL)
+def test_98_takes_the_category_from_the_guides_own_heading() -> None:
+    """Yuri's DMs sit under `SUPER MOVES`; her fireball does not."""
+    yuri = {move.name: move for move in load_game("kof98").character("yuri-sakazaki").moves}
+    assert yuri["Hien Hou'ou Kyaku"].category == Category.SUPER
+    assert yuri["Hien Rekkou"].category == Category.SUPER
+    assert yuri["Ko ou Ken"].category == Category.SPECIAL
 
 
-def test_super_tail_tags_only_the_last_group() -> None:
-    specials = [_move("Ko'ou Ken", "236+P"), _move("Hyakuretsu Binta", "632146+K")]
-    supers = [_move("Shin! Chou Upper", "236236+K"), _move("HIEN HOU'OU KYAKU", "2363214+K")]
-    result = super_tail([specials, supers])
-    assert [move.category for move in result] == [
-        Category.SPECIAL,
-        Category.SPECIAL,
-        Category.SUPER,
-        Category.SUPER,
+def test_2001_takes_the_category_from_the_guides_own_heading() -> None:
+    """Yuri's two DMs sit under `SUPER MOVES`; her command grab does not."""
+    yuri = {move.name: move for move in load_game("kof2001").character("yuri-sakazaki").moves}
+    assert yuri["Hien Hou'ou Kyaku (DM)"].category == Category.SUPER
+    assert yuri["Hien Hou'ou Kyaku (SDM)"].category == Category.SUPER
+    assert yuri["Hyakuretsu Binta"].category == Category.SPECIAL
+    assert yuri["Ko Ou Ken"].category == Category.SPECIAL
+
+
+def test_neither_kof_roster_leaves_a_move_uncategorised() -> None:
+    """Every move is under one of the four headings, so none falls back to OTHER.
+
+    This is the headline difference from the guides these two replaced, where a
+    third of the 2001 roster had no category the parser could work out.
+    """
+    uncategorised = [
+        (game_key, character.key, move.name)
+        for game_key in ("kof98", "kof2001")
+        for character in load_game(game_key).characters
+        for move in character.moves
+        if move.category == Category.OTHER
     ]
-
-
-def test_super_tail_skips_empty_groups() -> None:
-    result = super_tail([[_move("a", "236+P")], [], [_move("b", "2363214+P")], []])
-    assert [move.category for move in result] == [Category.SPECIAL, Category.SUPER]
-
-
-def test_super_tail_leaves_a_lone_group_alone() -> None:
-    """A character with no separate DM block should not read as all supers."""
-    only = [_move("a", "236+P"), _move("b", "236+K")]
-    assert super_tail([only]) == only
-
-
-def test_kof_desperation_moves_are_supers_in_the_generated_rosters() -> None:
-    yuri = load_game("kof2001").character("yuri-sakazaki")
-    by_name = {move.name: move for move in yuri.moves}
-    assert by_name["HIEN HOU'OU KYAKU"].category == Category.SUPER
-    assert by_name["Shin! Chou Upper"].category == Category.SUPER
-    assert by_name["Hyakuretsu Binta"].category == Category.SPECIAL  # a command grab, one group up
-
-
-def test_a_shared_motion_is_split_by_the_block_it_sits_in() -> None:
-    """``632146`` is Goro's Tenchi Gaeshi (special) and Athena's PSYCHIC 9 (a DM)."""
-    game = load_game("kof2001")
-    goro = {move.name: move for move in game.character("goro-daimon").moves}
-    athena = {move.name: move for move in game.character("athena-asamiya").moves}
-    assert goro["Tenchi Gaeshi"].category == Category.SPECIAL
-    assert athena["PSYCHIC 9"].category == Category.SUPER
+    assert uncategorised == []

@@ -5,6 +5,10 @@ Art can come out, which is the only thing that tells Hadou Burst (SA I),
 Shouryuu Cannon (SA II) and Hyper Tornado (SA III) apart. Shouryuu Cannon is
 also the one with a "tap P rapidly" tail, so on SA II it activates on the motion
 and then wants a follow-through mash.
+
+It is the move the activation freeze was written for: the super's cinematic runs
+first and the game reads nothing while it does, so mashing the instant it comes
+out is dropped and the taps have to wait it out.
 """
 
 from motioninput_tui.engine.recognizer import FollowUpStatus
@@ -19,7 +23,22 @@ TWO_QUARTER_CIRCLES: Script = [*_quarter_circle(0), *_quarter_circle(160)]
 
 DOUBLE_QCF: Script = [*TWO_QUARTER_CIRCLES, press(HP, 340), release(HP, 370)]
 
-DOUBLE_QCF_THEN_MASH: Script = [*DOUBLE_QCF, *taps(HP, 420, 3, gap_ms=90)]
+FREEZE_MS = 833
+"""What ``Ruleset.super_freeze_ms`` is set to for this game, which the tap times
+below are written around. Pinned by a test rather than imported, so that naming
+the game stays the job of this file's path."""
+
+ACTIVATES_AT_MS = 340
+"""When the button press above fires the super, and so when its freeze starts."""
+
+READS_AGAIN_AT_MS = ACTIVATES_AT_MS + FREEZE_MS
+
+# Mashed the moment it comes out, which is the mistake: every one of these taps
+# lands inside the cinematic and the game never sees them.
+DOUBLE_QCF_THEN_EARLY_MASH: Script = [*DOUBLE_QCF, *taps(HP, ACTIVATES_AT_MS + 80, 3, gap_ms=90)]
+
+# The same three taps, waited out and then mashed.
+DOUBLE_QCF_THEN_MASH: Script = [*DOUBLE_QCF, *taps(HP, READS_AGAIN_AT_MS + 50, 3, gap_ms=90)]
 
 
 def test_the_first_super_art_is_equipped_to_start_with(play) -> None:
@@ -42,7 +61,7 @@ def test_shouryuu_cannon_activates_on_the_motion_then_wants_the_mash(play) -> No
 def test_shouryuu_cannon_without_the_mash_still_comes_out_but_is_marked_missed(play) -> None:
     """It used to be complete silence; now the motion counts and the missing
     follow-through is fed back."""
-    tried = play(DOUBLE_QCF, super_art="II", settle_ms=800)
+    tried = play(DOUBLE_QCF, super_art="II", settle_ms=FREEZE_MS + 800)
     assert tried.moves == ["Shouryuu Cannon"]
     assert tried.session.activations[0].follow_up.status is FollowUpStatus.MISSED
 
@@ -50,3 +69,27 @@ def test_shouryuu_cannon_without_the_mash_still_comes_out_but_is_marked_missed(p
 def test_an_unequipped_super_art_cannot_come_out(play) -> None:
     """Mashing on SA I is still Hadou Burst; Shouryuu Cannon is not equipped."""
     assert "Shouryuu Cannon" not in play(DOUBLE_QCF_THEN_MASH, super_art="I").moves
+
+
+def test_the_freeze_this_file_is_written_around_is_the_games_own(play) -> None:
+    """Pins `FREEZE_MS` to the ruleset, so retuning the game fails here rather
+    than quietly moving every tap in this file inside or outside the cinematic."""
+    assert play(DOUBLE_QCF).session.game.ruleset.super_freeze_ms == FREEZE_MS
+
+
+def test_mashing_during_the_cinematic_is_dropped(play) -> None:
+    """The super still comes out - the motion earned it - but the taps made
+    while the screen is frozen never register, so the follow-through is missed
+    exactly as if the player had not mashed at all."""
+    rushed = play(DOUBLE_QCF_THEN_EARLY_MASH, super_art="II", settle_ms=FREEZE_MS + 800)
+    assert rushed.moves == ["Shouryuu Cannon"]
+    follow_up = rushed.session.activations[0].follow_up
+    assert follow_up.got == 0
+    assert follow_up.status is FollowUpStatus.MISSED
+
+
+def test_the_follow_through_window_starts_when_the_cinematic_ends(play) -> None:
+    """Taps this late would be well past a window measured from the press that
+    activated the super; measured from the end of its freeze they are in time."""
+    done = play(DOUBLE_QCF_THEN_MASH, super_art="II")
+    assert done.session.activations[0].follow_up.status is FollowUpStatus.COMPLETE

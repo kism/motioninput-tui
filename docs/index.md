@@ -18,17 +18,30 @@ See [Adding a game](adding-a-game.md) to add another title, or
 | `sfiii3`  | Street Fighter III: 3rd Strike  | `references/sfiii3.txt`  |
 | `kof98`   | The King of Fighters '98        | `references/kof98.txt`   |
 | `kof2001` | The King of Fighters 2001       | `references/kof2001.txt` |
+| `lb2`     | The Last Blade 2                | `references/lb2.txt`     |
+| `ssii`    | Samurai Shodown II              | `references/ssii.txt`    |
 | `ssvsp`   | Samurai Shodown V Special       | `references/ssvsp.txt`   |
+| `usfiv`   | Ultra Street Fighter IV         | `references/usfiv.txt`   |
 
-The last three are on the Neo Geo's four-button panel rather than the Street
-Fighter six. The two King of Fighters entries have the smallest trainable share
-of any game here (63% and 57%): KoF leans on close-range command throws and long
-follow-up chains, neither of which the engine models.
+The five SNK entries are on the Neo Geo's four-button panel rather than the
+Street Fighter six. The two King of Fighters ones have a small trainable share
+(74% and 68%): KoF leans on close-range command throws and long follow-up
+chains, neither of which the engine models.
 
-Samurai Shodown V Special is on the same panel but means something different by
-it — A and B are the weak and medium slash, A+B the strong one, C kicks and D is
-the dodge. Its motions are plainer than KoF's, so 74% of the move list is
-trainable.
+The two Samurai Shodown entries are on the same panel but mean something
+different by it. In V Special A and B are the weak and medium slash, A+B the
+strong one, C kicks and D is the dodge; its motions are plainer than KoF's, so
+75% of the move list is trainable. In II, A and B are the two slashes and C and
+D the two kicks — and only 51% of it is trainable, the lowest here, because
+nearly a third of that guide's list is throws written "b or f + button", which
+say nothing about which way to hold.
+
+The Last Blade 2 is the same panel again, and means a third thing by it: A and
+B are the weak and strong slash, C kicks and D is the repel, which is a defence
+and never appears in a move on its own. 68% of it is trainable. Nearly every DM
+is a long single roll (`d,db,b,db,f` or `f,b,db,d,df,f`) that no Street Fighter
+game uses; both are motions of their own in the engine, so they train like
+anything else.
 
 Each game has its own `Ruleset` in
 [`games/rulesets.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui/games/rulesets.py)
@@ -325,4 +338,5 @@ every game except Hyper Street Fighter II, whose guide is by x_MJ_x.
 
 adding-a-game
 development
+sfiii3-from-the-decomp
 ```

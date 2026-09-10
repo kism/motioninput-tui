@@ -1,152 +1,150 @@
 """Parser for the King of Fighters '98 FAQ.
 
-Each character has a fixed-width "Short Moves List" between two bracketed
-rules, in the same ``qcf + P`` shorthand Alpha 3 uses::
+Each character is a name line, a bio, then four boxed sections::
 
-    ------------------------  [ Short Moves List ]  ------------------------
+                          o----------------------o
+                                SPECIAL MOVES
+                          o----------------------o
 
-    Hatsugane                       When close, b / f + C
-    114 Shiki: Aragami              qcf + A
-    100 Shiki: Oniyaki              f,d,df + P
-    Ura 108 Shiki: Orochi Nagi      qcb,hcf + P  (hold P to delay)
+    114 Shiki Aragami: d, df, f + A
+    100 Shiki Oniyaki: f, d, df + P
 
-The Neo Geo panel is A B C D, not the Street Fighter six the normaliser and
-rosters are written in. Commands are translated to that dialect for parsing
-(A/C are the punches, B/D the kicks) and the resulting button requirement is
-mapped back onto A B C D so it matches what the Neo Geo layout produces.
+so this guide says outright which moves are supers and the blank-line grouping
+``super_tail`` infers it from elsewhere is not needed. Characters are separated
+by ``---`` or a team banner, and the bio is ignored because collection only
+starts at the first section heading.
 
-Only the 40-strong main roster and the Real Orochi Team are taken; the FAQ's
-"Style Character" section is alternate versions of characters already listed.
+The commands themselves are the same dialect the 2001 guide writes, down to the
+``d~u`` charges and the ``(d, df, f)x2`` repeats, so :mod:`neogeo` reads them
+and maps the buttons back onto the Neo Geo's A B C D panel for both.
+
+Only the 41 characters the arcade release selects are taken; the EX section's
+alternate versions of characters already listed are skipped, as is the
+unplayable Omega Rugal.
 """
 
 import re
 from dataclasses import replace
 from typing import TYPE_CHECKING
 
-from motioninput_tui_datagen.common import (
-    DASHED,
-    ParseReport,
-    build_move,
-    finish_character,
-    split_name_command,
-    super_tail,
-)
-from motioninput_tui_datagen.neogeo import TO_SHORTHAND, to_neo_panel
+from motioninput_tui.games.models import Category, Move
+from motioninput_tui_datagen.common import ParseReport, build_move, finish_character
+from motioninput_tui_datagen.neogeo import to_neo_panel, to_shorthand, unmodelled
 
 if TYPE_CHECKING:
-    from motioninput_tui.games.models import Character, Move
+    from motioninput_tui.games.models import Character
 
-# The table of contents lists the heading once too; the movelists are second.
-SECTION_START = "2.  CHARACTER MOVELISTS"
-SECTION_END = "4.  SECRETS AND TRICKS"
+SECTION_END = "CREDITS"
 
-_HEADER = re.compile(r"^\s*([A-Z][A-Z0-9.'! -]{1,40}?)\s{2,}\(([^)]*)\)\s*$")
-_ALT_VERSION = "Style Character"
-_SHORT_LIST = "[ Short Moves List ]"
-_BRACKET_RULE = re.compile(r"^\s*-{3,}\s*\[")
-_SUBTITLE = re.compile(r"^\s*\[.*\]\s*$")
+_BANNER = re.compile(r"^\*{5,}(.+?)\*{5,}$")
+_SEPARATOR = "---"
+# The banner is the character's team. Two need help: one is a typo, and the
+# other names a section this takes only the Real Orochi Team out of.
+_TEAMS = {"PROTAGANIST TEAM": "Hero Team", "EX CHARACTERS": "Real Orochi Team"}
+_WORD = re.compile(r"[\w']+")
 
-# Directions are lower case in this guide (``d,df,f``) and the button letters
-# upper case (``+ C``), so a case-sensitive swap keeps the two apart.
-_BUTTON_LETTER = re.compile(r"(?<![A-Za-z])([ABCDPK])(?![A-Za-z])")
+_HEADINGS = {
+    "THROWS": Category.THROW,
+    "COMMAND MOVES": Category.COMMAND,
+    "SPECIAL MOVES": Category.SPECIAL,
+    "SUPER MOVES": Category.SUPER,
+}
+
+_FOLLOWS_ON = "follows on from the move its name trails"
+
+# Alternate versions of characters already in the roster, plus the boss the
+# guide itself marks as unplayable.
+_ALT_VERSION = re.compile(r"^(EX |95' |Omega )")
+_ASIDE = re.compile(r"\s*\(.*\)\s*$")
 
 
 def parse(text: str) -> tuple[list[Character], ParseReport]:
     """Extract every character and their moves from the KoF '98 FAQ."""
     report = ParseReport()
     characters: list[Character] = []
-    lines = _section(text)
 
     name = ""
-    title = ""
-    # The short list runs specials, then a blank line, then the DMs and SDMs;
-    # `super_tail` tags that trailing blank-line group as supers.
-    groups: list[list[Move]] = [[]]
-    collecting = False
+    team = ""
+    category: Category | None = None
+    moves: list[Move] = []
+    expect_name = False
     skipping = False
 
     def flush() -> None:
-        character = finish_character(name, title, super_tail(groups), report)
+        character = finish_character(name, team, moves, report)
         if character is not None:
             characters.append(character)
 
-    for index, line in enumerate(lines):
-        header = _match_header(lines, index)
-        if header is not None:
+    for line in _section(text):
+        stripped = line.strip()
+        banner = _BANNER.match(stripped)
+        if banner is not None or stripped == _SEPARATOR:
             flush()
-            name, title = header
-            groups = [[]]
-            collecting = False
-            skipping = _ALT_VERSION in title
+            name, moves, category, expect_name, skipping = "", [], None, True, False
+            if banner is not None:
+                team = _team(banner.group(1).strip())
+            continue
+
+        if expect_name and stripped:
+            name = _ASIDE.sub("", stripped)
+            expect_name = False
+            skipping = bool(_ALT_VERSION.match(name))
             continue
 
         if skipping:
             continue
-        if _SHORT_LIST in line:
-            collecting = True
-            continue
-        if not collecting:
-            continue
-        if _BRACKET_RULE.match(line):
-            collecting = False
+
+        if stripped in _HEADINGS:
+            category = _HEADINGS[stripped]
             continue
 
-        _collect(line, groups, report, name)
+        if category is not None and ":" in stripped:
+            moves.append(_move(stripped, category, moves, report, name))
 
     flush()
     return characters, report
 
 
-def _collect(line: str, groups: list[list[Move]], report: ParseReport, name: str) -> None:
-    """Add one short-list line to the current group, or open a new group.
+def _team(banner: str) -> str:
+    """The team name a banner carries, in the casing the roster displays."""
+    return _TEAMS.get(banner, _WORD.sub(lambda word: word.group().capitalize(), banner))
 
-    A blank line between two moves starts a fresh group, which is how the DM
-    and SDM block is told from the specials above it.
+
+def _move(line: str, category: Category, so_far: list[Move], report: ParseReport, character: str) -> Move:
+    """One ``Name: command`` row, in the Neo Geo's own A B C D notation.
+
+    Split on the *last* colon: a move name can carry one of its own, as
+    ``Ura 108 Shiki: Orochinagi: d, db, b, db, d, df, f + P`` does.
     """
-    if not line.strip():
-        if groups[-1]:
-            groups.append([])
-        return
-    parts = split_name_command(line)
-    if parts is not None:
-        groups[-1].append(_neo_move(parts[0], parts[1], report, name))
+    name, _, command = line.rpartition(":")
+    name, command = name.strip(), command.strip()
 
+    reason = _FOLLOWS_ON if _follows_on(name, so_far) else unmodelled(command)
+    if reason:
+        # Kept in the move list, struck through, rather than reduced to
+        # whatever motion happens to be inside it.
+        report.note(character, name, reason)
+        return Move(name=name, command=command, category=category)
 
-def _neo_move(move_name: str, command: str, report: ParseReport, character: str) -> Move:
-    """Build a move from a Neo Geo command, keeping the A B C D notation."""
-    move = build_move(move_name, _BUTTON_LETTER.sub(lambda m: TO_SHORTHAND[m.group(1)], command), report, character)
+    move = build_move(name, to_shorthand(command), report, character, category)
     if move.motion is None:
         return replace(move, command=command)
     return replace(move, command=command, motion=to_neo_panel(move.motion, command))
 
 
+def _follows_on(name: str, so_far: list[Move]) -> bool:
+    """Whether the move a name trails after is one this character already has.
+
+    ``Gliding Buster: Strong Grand Saber: f + D`` is Leona's Grand Saber
+    follow-up, not a command move: splitting on the last colon leaves the
+    parent move's name on the end of this one.
+    """
+    _, colon, tail = name.rpartition(":")
+    return bool(colon) and any(move.name in tail for move in so_far)
+
+
 def _section(text: str) -> list[str]:
     lines = text.splitlines()
-    starts = [i for i, line in enumerate(lines) if SECTION_START in line]
-    start = starts[-1] if starts else 0
-    end = next((i for i in range(start + 1, len(lines)) if SECTION_END in lines[i]), len(lines))
+    start = next((i for i, line in enumerate(lines) if _BANNER.match(line.strip())), 0)
+    end = next((i for i in range(start, len(lines)) if lines[i].strip() == SECTION_END), len(lines))
     return lines[start:end]
-
-
-def _match_header(lines: list[str], index: int) -> tuple[str, str] | None:
-    """A character header is ``NAME  (Team)`` under a dashed rule.
-
-    The main roster closes with a second rule on the next line; the Real Orochi
-    Team slips a ``[ bracketed subtitle ]`` in before that rule.
-    """
-    if index == 0:
-        return None
-    if not DASHED.match(lines[index - 1]):
-        return None
-    below = lines[index + 1 : index + 3]
-    closed = bool(below) and (DASHED.match(below[0]) or (_SUBTITLE.match(below[0]) and _rule_at(below, 1)))
-    if not closed:
-        return None
-    match = _HEADER.match(lines[index].rstrip())
-    if match is None:
-        return None
-    return match.group(1).strip(), match.group(2).strip()
-
-
-def _rule_at(below: list[str], offset: int) -> bool:
-    return len(below) > offset and bool(DASHED.match(below[offset]))

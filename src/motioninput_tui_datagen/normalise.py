@@ -32,6 +32,12 @@ MULTI_BUTTON = 2
 # "tap P rapidly" after a motion never comes with a count, so assume three taps.
 _MASH_DEFAULT = 3
 
+# Something the player *may* do after the move, which does not gate it: Elena's
+# Healing is a plain qcf,qcf + P and the PP only stops it early. "to cancel" and
+# its friends are already noise to _QUALIFIERS; it is the "then" in front of
+# them that would otherwise read as a follow-up condition and drop the move.
+_OPTIONAL_TAIL = re.compile(r",?\s*then\s+[a-z+]+\s+to\s+(?:cancel|delay|fake)\b")
+
 _PARENTHETICAL = re.compile(r"\([^)]*\)")
 _STOCKS = re.compile(r"\bx\s*\(?\s*(max\s+stocks?|\d+)\s*\)?\s*(/\s*\d+)?\s*$")
 _SECONDS = re.compile(r"for\s+\d+\s+secs?\b")
@@ -123,6 +129,8 @@ _MOTION_TABLE: dict[tuple[str, ...], MotionKind] = {
     ("d", "df", "f", "df", "d", "db", "b"): MotionKind.QCF_HCB,
     ("d", "db", "b", "db", "d", "df", "f"): MotionKind.QCB_HCF,
     ("f", "df", "d", "db", "b", "f"): MotionKind.HCB_F,
+    ("d", "db", "b", "db", "f"): MotionKind.QCB_DB_F,
+    ("f", "b", "db", "d", "df", "f"): MotionKind.F_HCF,
 }
 
 _CHARGE_TABLE: dict[tuple[str, ...], MotionKind] = {
@@ -161,7 +169,7 @@ class ParsedCommand:
 
 def parse_command(command: str) -> ParsedCommand:
     """Normalise a move list command into a :class:`MotionSpec`."""
-    raw = command.strip().lower()
+    raw = _OPTIONAL_TAIL.sub("", command.strip().lower())
     if not raw:
         return ParsedCommand(None, "empty")
     if _UNSUPPORTED.search(_PARENTHETICAL.sub(" ", raw)):

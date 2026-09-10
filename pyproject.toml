@@ -1,6 +1,6 @@
 [project]
 name = "motioninput-tui"
-version = "0.1.0a1"
+version = "0.1.0a2"
 description = "A terminal trainer for fighting game motion inputs, tuned per game."
 authors = [{ name = "Kieran Gee", email = "kieran.lost.the.game@gmail.com" }]
 readme = "README.md"
@@ -99,6 +99,10 @@ ignore = [
     # A module of glyphs to pick between: ⋃ really is meant to be a cup, not a U,
     # and ×2 is the multiplication sign the guides use.
     "ambiguous-unicode-character-string",
+]
+"scripts/*.py" = [
+    "print",  # Command line tools; printing is how they report.
+    "implicit-namespace-package",  # Standalone scripts, not a package.
 ]
 ".claude/skills/**/*.py" = [
     "print",  # Skill scripts are command line tools; printing is how they report.

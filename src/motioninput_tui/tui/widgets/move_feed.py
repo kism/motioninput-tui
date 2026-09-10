@@ -63,7 +63,13 @@ class MoveFeed(Static):
                 text.append("  missed", style="yellow")
         elif newest:
             text.append("●" * done + "○" * (needed - done), style="bold yellow")
-            verb = "tap" if follow_up.rhythm else "mash"
-            text.append(f"  {verb} {follow_up.button_label}!", style="bold yellow")
+            if follow_up.frozen:
+                # The activation cinematic is still running and the game is
+                # reading nothing, so prompting for taps would teach the
+                # opposite of what the freeze exists to show.
+                text.append("  wait...", style="bold yellow")
+            else:
+                verb = "tap" if follow_up.rhythm else "mash"
+                text.append(f"  {verb} {follow_up.button_label}!", style="bold yellow")
         else:
             text.append("●" * done + "○" * (needed - done), style="dim yellow")

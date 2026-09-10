@@ -4,6 +4,7 @@ from tests.engine.test_motions.harness import (
     BACK,
     DOWN,
     DOWN_DOUBLE_TAP_FORWARD_HP,
+    FORWARD_INTO_HALF_CIRCLE_FORWARD_HP,
     LK,
     QUARTER_CIRCLE_FORWARD_HP,
     press,
@@ -31,3 +32,11 @@ def test_grounded_quarter_circle_back_kick_is_a_hurricane_kick(play) -> None:
         release(LK, 190),
     ]
     assert play(script).moves == ["Tatsumaki Senpuu Kyaku"]
+
+
+def test_the_snk_forward_into_half_circle_is_only_a_fireball_here(play) -> None:
+    """`f,b,db,d,df,f` is Ryo's Haoh Shou Ko Ken in KoF '98 and nothing in
+    Alpha 3, which reads the end of the roll as a plain quarter circle. In 3rd
+    Strike the very same script is a dragon punch, since that game will take
+    the `d,f` at the end of it as one."""
+    assert play(FORWARD_INTO_HALF_CIRCLE_FORWARD_HP).moves == ["Hadou Ken"]

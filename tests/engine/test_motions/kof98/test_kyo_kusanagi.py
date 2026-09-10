@@ -26,7 +26,7 @@ DRAGON_PUNCH_HP = [
 
 
 def test_quarter_circle_forward_is_dokugami(play) -> None:
-    assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["115 Shiki: Dokugami"]
+    assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["115 Shiki Doku Kami"]
 
 
 def test_hold_down_double_tap_forward_does_nothing(play) -> None:
@@ -35,4 +35,4 @@ def test_hold_down_double_tap_forward_does_nothing(play) -> None:
 
 
 def test_the_full_dragon_punch_motion_is_oniyaki(play) -> None:
-    assert play(DRAGON_PUNCH_HP).moves == ["100 Shiki: Oniyaki"]
+    assert play(DRAGON_PUNCH_HP).moves == ["100 Shiki Oniyaki"]

@@ -1,9 +1,9 @@
-"""KoF 2001, Iori. Chained inputs are listed but cannot come out.
+"""KoF 2001, Iori. The same rolls as '98, under this guide's move names.
 
-The guide writes a rekka as one line with the repeats joined by ``_``, its
-"additional input" marker: Aoi Hana is ``214+P_214+P_214+P``. The trainer has no
-model for a chain, so the whole move stays in the list struck through rather
-than being quietly reduced to its first quarter circle.
+Iori is the cross-check that changing guides did not change what the engine
+recognises: `sfiii3` and `kof98` drive these same scripts, and the motions they
+land on here are the ones '98 gives, only spelled the way Ice Queen Zero writes
+them (`Ya Otome` is listed as `Maiden Masher`, `Kuzukaze` as `Scum Gale`).
 """
 
 from tests.engine.test_motions.harness import (
@@ -14,24 +14,27 @@ from tests.engine.test_motions.harness import (
 
 
 def test_quarter_circle_forward_is_the_fireball(play) -> None:
-    assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["108 Shiki: Yami Barai"]
-
-
-def test_a_chained_input_is_listed_but_not_trainable(play) -> None:
-    moves = {move.name: move for move in play([]).session.character.moves}
-
-    assert not moves["127 Shiki: Aoi Hana"].trainable, "a rekka chain is not one motion"
-    assert not moves["Geshiki: Yumebiki"].trainable, "nor is a repeated command normal"
-    # The plain motions either side of them are unaffected.
-    assert moves["108 Shiki: Yami Barai"].trainable
-    assert moves["212 Shiki: Kototsuki In"].trainable
+    assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["108 Shiki Yami Barai"]
 
 
 def test_the_same_roll_as_98_is_still_ya_otome(play) -> None:
-    """The guide is numpad here, so `2363214+P` rather than '98's `qcf,hcb + P`.
-    Both spell one motion sharing its forward, and take the same input."""
-    assert play(QUARTER_FORWARD_INTO_HALF_BACK_HP).moves == ["Kin 1121 Shiki: Ya Otome"]
+    """`d, df, f, df, d, db, b + P`, one motion sharing the forward its halves
+    meet on. '98 writes it `qcf,hcb + P` and takes the same input."""
+    assert play(QUARTER_FORWARD_INTO_HALF_BACK_HP).moves == ["Maiden Masher (DM)"]
 
 
-def test_a_half_circle_back_into_forward_is_kuzukaze(play) -> None:
-    assert play(HALF_CIRCLE_BACK_FORWARD_HP).moves == ["Kuzukaze"]
+def test_a_half_circle_back_into_forward_is_the_command_grab(play) -> None:
+    assert play(HALF_CIRCLE_BACK_FORWARD_HP).moves == ["Scum Gale"]
+
+
+def test_the_super_moves_section_is_what_makes_a_move_a_super(play) -> None:
+    """Nothing about `d, df, f, df, d, db, b` says DM; the guide's heading does.
+
+    The grab above is the same length of roll and stays a special, which is the
+    distinction the old numpad guide could not express.
+    """
+    moves = {move.name: move for move in play([]).session.character.moves}
+
+    assert moves["Maiden Masher (DM)"].category == "super"
+    assert moves["Scum Gale"].category == "special"
+    assert moves["108 Shiki Yami Barai"].category == "special"

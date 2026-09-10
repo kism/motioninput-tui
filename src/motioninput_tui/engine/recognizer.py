@@ -32,6 +32,12 @@ RHYTHM_TAP_MAX_GAP_MS = 500
 """...and no longer than this may pass before the follow-up is judged missed.
 Each landed tap pushes the deadline out again."""
 
+SUPER_CATEGORY = "super"
+"""The move category an activation cinematic applies to, as a plain string
+because ``engine`` never imports ``games``. It is ``games.models.Category.SUPER``
+by another name, and only supers freeze the screen: a special with a mashable
+tail is read the moment it comes out. See ``Ruleset.super_freeze_ms``."""
+
 # Rough stand-in for a real game's move priority table: the fiddlier the input,
 # the more it should win when several moves match the same press.
 _KIND_PRIORITY: dict[MotionKind, int] = {
@@ -45,6 +51,8 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
     MotionKind.QCB_RDP: 84,
     MotionKind.QCF_HCB: 84,
     MotionKind.QCB_HCF: 84,
+    MotionKind.QCB_DB_F: 84,
+    MotionKind.F_HCF: 84,
     MotionKind.CHARGE_BFBF: 83,
     MotionKind.CHARGE_DB_UF: 83,
     MotionKind.QCF_UF: 70,
@@ -113,6 +121,12 @@ class FollowUp:
     rhythm: bool
     buttons: frozenset[Button]
     deadline_ms: int
+    taps_from_ms: int = 0
+    """When the activation cinematic ends and the game starts reading again.
+    Presses before it are dropped rather than counted or judged missed."""
+    frozen: bool = False
+    """Whether that cinematic is still running, so the feed can say to wait
+    instead of telling the player to mash at a game that is not listening."""
     got: int = 0
     last_tap_ms: int = 0
     status: FollowUpStatus = FollowUpStatus.PENDING
@@ -206,11 +220,20 @@ class Recognizer:
         self._deferred = None
         return self._decide(buffer, held.since_ms, held.pressed, allow_defer=False)
 
-    def expire_follow_up(self, at_ms: int) -> bool:
-        """Mark a follow-through missed once its window has passed. Also from
-        the tick; returns True when the feed needs a repaint."""
+    def advance_follow_up(self, at_ms: int) -> bool:
+        """Move a pending follow-through's clock on. Driven from the session
+        tick; returns True when the feed needs a repaint.
+
+        Two things happen on the clock rather than on a press: the activation
+        cinematic ends, and the window to finish the taps runs out.
+        """
         pending = self._pending_follow_up
-        if pending is None or at_ms < pending.deadline_ms:
+        if pending is None:
+            return False
+        if pending.frozen and at_ms >= pending.taps_from_ms:
+            pending.frozen = False
+            return True
+        if at_ms < pending.deadline_ms:
             return False
         pending.status = FollowUpStatus.MISSED
         self._pending_follow_up = None
@@ -250,7 +273,7 @@ class Recognizer:
         self._spend(buffer, winner, at_ms)
 
         spec = winner.motion
-        follow_up = self._begin_follow_up(spec, at_ms) if spec is not None and spec.mash else None
+        follow_up = self._begin_follow_up(winner, spec, at_ms) if spec is not None and spec.mash else None
         return Activation(
             move=winner,
             at_ms=at_ms,
@@ -259,16 +282,35 @@ class Recognizer:
             follow_up=follow_up,
         )
 
-    def _begin_follow_up(self, spec: MotionSpec, at_ms: int) -> FollowUp:
-        """Open the second phase of a move: expect its taps or its mash."""
-        window = RHYTHM_TAP_MAX_GAP_MS if spec.mash_rhythm else self.ruleset.mash_window_ms
+    @property
+    def _tap_gap_ms(self) -> int:
+        """How long a follow-through waits between taps.
+
+        Zero means the game keeps this the same as the window it counts a mash
+        move's opening presses over, which is how the two were one number
+        before the pair were told apart.
+        """
+        return self.ruleset.mash_tap_gap_ms or self.ruleset.mash_window_ms
+
+    def _begin_follow_up(self, move: RecognisableMove, spec: MotionSpec, at_ms: int) -> FollowUp:
+        """Open the second phase of a move: expect its taps or its mash.
+
+        A super freezes the screen first, so the whole second phase starts from
+        the end of the cinematic rather than from the press that began it -
+        including the gap the rhythm variant wants between deliberate taps.
+        """
+        window = RHYTHM_TAP_MAX_GAP_MS if spec.mash_rhythm else self._tap_gap_ms
+        freeze = self.ruleset.super_freeze_ms if move.category == SUPER_CATEGORY else 0
+        taps_from = at_ms + freeze
         follow_up = FollowUp(
             button_label=spec.follow_up_label,
             needed=spec.mash,
             rhythm=spec.mash_rhythm,
             buttons=spec.follow_up_buttons,
-            deadline_ms=at_ms + window,
-            last_tap_ms=at_ms,
+            deadline_ms=taps_from + window,
+            taps_from_ms=taps_from,
+            frozen=freeze > 0,
+            last_tap_ms=taps_from,
         )
         self._pending_follow_up = follow_up
         return follow_up
@@ -276,6 +318,11 @@ class Recognizer:
     def _feed_follow_up(self, buffer: InputBuffer, pending: FollowUp, pressed: frozenset[Button], at_ms: int) -> bool:
         """Advance (or end) a pending follow-through. Returns True if the press
         was one of its taps and belongs to nothing else."""
+        if at_ms < pending.taps_from_ms:
+            # Still inside the activation cinematic, where the game reads
+            # nothing at all: the press is swallowed whatever it was, and
+            # cannot count towards the taps or be judged as abandoning them.
+            return True
         if not pressed & pending.buttons:
             pending.status = FollowUpStatus.MISSED
             self._pending_follow_up = None
@@ -284,7 +331,7 @@ class Recognizer:
             return True  # a mashed double-tap: eaten, but it does not count
         pending.got += 1
         pending.last_tap_ms = at_ms
-        window = RHYTHM_TAP_MAX_GAP_MS if pending.rhythm else self.ruleset.mash_window_ms
+        window = RHYTHM_TAP_MAX_GAP_MS if pending.rhythm else self._tap_gap_ms
         pending.deadline_ms = at_ms + window
         if self.policy is BufferPolicy.CONSUME:
             buffer.consume(at_ms)

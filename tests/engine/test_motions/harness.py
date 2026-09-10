@@ -226,3 +226,35 @@ HALF_CIRCLE_BACK_FORWARD_HP: Script = [
     press(FORWARD, 200),  # f
     press(HP, 240),
 ]
+
+
+# The two SNK rolls, neither of which Street Fighter has any move on.
+#
+# `d,db,b,db,f` is Terry's Power Geyser: a quarter circle back that turns
+# around on the down-back and carries on to forward. Pressing forward there
+# while down is still held gives a down-forward on the way, which is the one
+# junk state between steps every ruleset here allows.
+QUARTER_BACK_ROLLED_TO_FORWARD_HP: Script = [
+    press(DOWN, 0),  # d
+    press(BACK, 40),  # db
+    release(DOWN, 80),  # b
+    press(DOWN, 120),  # db
+    press(FORWARD, 160),  # df
+    release(DOWN, 200),  # f
+    press(HP, 240),
+]
+
+# `f,b,db,d,df,f` is Ryo's Haoh Shou Ko Ken: a forward tap, then a half circle
+# forward. Pressing back while forward is still held gives back outright on
+# last-input SOCD, so this roll is clean from end to end - and dropping its
+# first event leaves exactly the plain half circle the move has to be told
+# apart from.
+FORWARD_INTO_HALF_CIRCLE_FORWARD_HP: Script = [
+    press(FORWARD, 0),  # f
+    press(BACK, 40),  # b
+    press(DOWN, 80),  # db
+    release(BACK, 120),  # d
+    press(FORWARD, 160),  # df
+    release(DOWN, 200),  # f
+    press(HP, 240),
+]

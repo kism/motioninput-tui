@@ -22,9 +22,9 @@ Add an entry (the existing six are worked examples of the shape):
 ```json
 {
   "key": "kof98",
-  "name": "The King of Fighters '98: The Slugfest",
-  "url": "https://gamefaqs.gamespot.com/arcade/562642-the-king-of-fighters-98-the-slugfest/faqs/185",
-  "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)"
+  "name": "The King of Fighters '98",
+  "url": "https://gamefaqs.gamespot.com/ps/562861-the-king-of-fighters-98/faqs/52561",
+  "credit": "FAQ/Movelist by Ice Queen Zero (Andrea Castillo)"
 }
 ```
 
@@ -122,10 +122,10 @@ is bespoke, but the pieces are shared. Compare the existing dialects first:
   parses shorthand (`qcf,qcf + K`) with a fixed-width ISM column at the start
   of each line.
 * [`kof98.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/parsers/kof98.py)
-  parses shorthand on a non-Street-Fighter panel: it translates `A/B/C/D` to
-  SF notation for `normalise`, then maps the button requirement back onto the
-  real panel (`_neo_buttons`). Copy this when the brief says the panel needs a
-  remap.
+  parses a guide on a non-Street-Fighter panel: `neogeo.py` translates
+  `A/B/C/D` to SF notation for `normalise`, then maps the button requirement
+  back onto the real panel. Copy this when the brief says the panel needs a
+  remap; `kof2001.py` reads the same dialect and shares those helpers.
 
 Both lean on
 [`datagen/common.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/common.py)
@@ -174,6 +174,29 @@ everywhere — `--character`, the saved config, the test directory name. An
 override that matches nobody, or that collides with another character's key,
 logs a warning rather than doing nothing silently.
 
+### Fixing a command the guide has wrong
+
+[`datagen/commands.py`](https://github.com/kism/motioninput-tui/blob/main/src/motioninput_tui_datagen/commands.py)
+is the same mechanism for a move whose *input* the guide gets wrong, keyed by
+the character and move name the roster ends up with:
+
+```python
+OVERRIDES: dict[str, dict[tuple[str, str], str]] = {
+    "sfa3": {("sakura", "Midare-zakura"): "qcf,qcf + K"},
+}
+```
+
+Only for errors checked against the real game. A command the parser cannot model
+is a different problem: that belongs in `normalise`'s tables, or stays
+untrainable and struck through in the move list. A correction that matches no
+move, or that does not itself parse, logs a warning and leaves the guide's
+version alone.
+
+These are the hardest problems in the roster to notice, because nothing looks
+broken — the guide's command parses, the move appears, and it comes out when you
+press it. It is just not the move the game has. Say in a comment what you checked
+it against.
+
 ## 6. Generate and check the roster
 
 ```bash
@@ -185,7 +208,7 @@ This parses every game with a registered parser and writes
 the brief's prediction. The Street Fighter games land around 80-90%; a game can
 be lower for structural reasons the brief should have called out — command
 throws the engine has no model for, compound super motions absent from
-`normalise`'s tables (KoF '98 is 63% for both reasons). The rest are follow-ups,
+`normalise`'s tables (KoF '98 is 74% for both reasons). The rest are follow-ups,
 stances and conditional moves the engine cannot model, shown struck through.
 `--show-skipped` lists what did not parse — scan it: a whole character missing
 is a parser gap, not an unmodellable move.

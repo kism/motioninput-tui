@@ -1,8 +1,13 @@
 """The global settings: what they change in the engine, and how they are stored.
 
 Relaxed half circles is the one that changes matching, so it is checked against
-the same scripts the Elena tests use: one hitbox half circle that never touches
-straight down, and one that rolls cleanly through it.
+two scripts: one hitbox half circle that never touches straight down, and one
+that rolls cleanly through it.
+
+The game under test is Ultra Street Fighter IV rather than Third Strike, which
+is where these started. Third Strike reads a half circle at three points of its
+own accord - `b, any down, f` - so the setting has nothing left to relax there,
+and a test of it run against that game would pass whatever the setting said.
 """
 
 from dataclasses import replace
@@ -18,11 +23,11 @@ from tests.engine.test_motions.harness import (
     play_as,
 )
 
-GAME, CHARACTER, MOVE = "sfiii3", "elena", "Rhino Horn"
+GAME, CHARACTER, MOVE = "usfiv", "elena", "Rhino Horn"
 
 
 def rules(*, relaxed: bool) -> Ruleset:
-    """3rd Strike's rules with the half circle setting either way."""
+    """Ultra Street Fighter IV's rules with the half circle setting either way."""
     return tuned_game(load_game(GAME), Config(lenient_half_circles=relaxed)).ruleset
 
 

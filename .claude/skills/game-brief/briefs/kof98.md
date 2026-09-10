@@ -7,6 +7,13 @@ model: Claude Sonnet 5
 ---
 # The King of Fighters '98: The Slugfest — brief
 
+> **Stale: this brief analyses a guide the trainer no longer uses.** It was
+> written against Kao_Megura's arcade FAQ (`faqs/185`) and its fixed-width
+> `[ Short Moves List ]` blocks. `kof98` is now built from Ice Queen Zero's FAQ
+> (`ps/562861-the-king-of-fighters-98/faqs/52561`), which names its move groups
+> outright under `SUPER MOVES` and friends, and writes commands the same way the
+> 2001 guide does. Redo it with `./scripts/2-game-briefs.sh --force kof98`.
+
 A Neo Geo four-button team fighter; the input quirk it teaches is that SNK
 buffering is generous but there is no dragon-punch shortcut, and its supers use
 compound motions (`qcf,hcb`) that roll through one shared direction.

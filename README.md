@@ -58,14 +58,18 @@ For each numberd release I do the following
       - Shouryuu Ken feels too strict
     - Sakura
       - Shou'ou Ken feels too strict
-      - Sakura Otoshi timing is relaxed
-      - Midare-zakura is impossible? verify on mame
+      - Sakura Otoshi punch timing is relaxed?
   - SFIII
     - Ken
     - Elana
+    - Hugo
+      - I can't do Gigas Breaker
   - USFIV
     - Ken
-    - Sakura (Sakura Otoshi timing is relaxed)
+    - Sakura
+      - Sakura Otoshi timing is relaxed
+  - KOF2001
+    - Yuri Sakazaki
 
 ## Contributing
 

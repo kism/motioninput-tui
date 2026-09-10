@@ -37,17 +37,17 @@
     },
     {
       "key": "kof98",
-      "name": "The King of Fighters '98: The Slugfest",
-      "url": "https://gamefaqs.gamespot.com/arcade/562642-the-king-of-fighters-98-the-slugfest/faqs/185",
-      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
-      "sha256": "4c936e9d2a32c13edd829c267525c89e2894961bd4c4c09ad8a0d8d396731a44"
+      "name": "The King of Fighters '98",
+      "url": "https://gamefaqs.gamespot.com/ps/562861-the-king-of-fighters-98/faqs/52561",
+      "credit": "FAQ/Movelist by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "09b0d05581f1b6af0fcb8d5ddddd601fe9e04c99a76ab95b6f75e8672e0ba2a2"
     },
     {
       "key": "kof2001",
       "name": "The King of Fighters 2001",
-      "url": "https://gamefaqs.gamespot.com/arcade/562729-the-king-of-fighters-2001/faqs/17713",
-      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
-      "sha256": "7997df03ee8246fd107dce1a87b2b611391b38a20f1e662563c3d26ea7843f3e"
+      "url": "https://gamefaqs.gamespot.com/arcade/562729-the-king-of-fighters-2001/faqs/55158",
+      "credit": "FAQ/Move List by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "d5b3d1f883ed2db69d2468245e06e21f23615e04b16c109edb5850d88983b5e0"
     },
     {
       "key": "ssvsp",
@@ -55,6 +55,20 @@
       "url": "https://gamefaqs.gamespot.com/neo/919811-samurai-shodown-v-special/faqs/30016",
       "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
       "sha256": "37cb5f4fcc6b603e0866517a0bdc621c2056fcb141eea5b7dfbddfbf764ff67c"
+    },
+    {
+      "key": "lb2",
+      "name": "The Last Blade 2",
+      "url": "https://gamefaqs.gamespot.com/neogeocd/562851-the-last-blade-2/faqs/63060",
+      "credit": "FAQ/Movelist by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "5d2613bf277ea909d71d70227c46f6fad284d3eec0cb073796ddf0e720d432f5"
+    },
+    {
+      "key": "ssii",
+      "name": "Samurai Shodown II",
+      "url": "https://gamefaqs.gamespot.com/neogeocd/565670-samurai-shodown-ii/faqs/54939",
+      "credit": "FAQ/Movelist by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "381dc191c3cb6e3dd6c9ae0316d8fcb4396922521b8ef6c0420fb3f3a17715f1"
     },
     {
       "key": "usfiv",

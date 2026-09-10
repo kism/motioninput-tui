@@ -6,6 +6,7 @@ from tests.engine.test_motions.harness import (
     FORWARD,
     HALF_CIRCLE_SKIPPING_DOWN_MK,
     HALF_CIRCLE_THROUGH_DOWN_MK,
+    HP,
     MK,
     press,
     release,
@@ -38,3 +39,36 @@ def test_quarter_circle_is_not_a_half_circle(play) -> None:
     """A quarter circle forward has no back in it, so it stays a quarter circle."""
     attempt = play([press(DOWN, 0), press(FORWARD, 70), release(DOWN, 110), press(MK, 150)])
     assert "Rhino Horn" not in attempt.moves
+
+
+def test_a_half_circle_gets_fourteen_frames_a_step(play) -> None:
+    """Half circles are the other place 3rd Strike allows fourteen frames rather
+    than ten, so a leisurely 200ms a step is still a Rhino Horn."""
+    unhurried = [
+        press(BACK, 0),
+        release(BACK, 100),
+        press(DOWN, 200),
+        release(DOWN, 300),
+        press(FORWARD, 400),
+        press(MK, 430),
+    ]
+    assert "Rhino Horn" in play(unhurried).moves
+
+
+def test_healing_is_a_plain_double_quarter_circle(play) -> None:
+    """Her third Super Art is written `qcf,qcf + P, then PP to cancel`, and the
+    cancel is something the player *may* do rather than part of the command.
+    The guide parser used to read the "then" as a follow-up condition and drop
+    the move; `p8_cmd_22` in the decompilation is an ordinary `qcf,qcf` on
+    punch, like every other super in the game.
+    """
+    script = [
+        press(DOWN, 0),
+        press(FORWARD, 40),
+        release(DOWN, 80),
+        release(FORWARD, 120),
+        press(DOWN, 140),
+        press(FORWARD, 180),
+        press(HP, 200),
+    ]
+    assert play(script, super_art="III").moves == ["Healing"]

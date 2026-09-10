@@ -16,8 +16,9 @@ from pathlib import Path
 from motioninput_tui.games.rulesets import GAME_SPECS
 from motioninput_tui.utils.logger import get_logger, setup_logger_cli
 
+from .commands import apply_command_overrides
 from .names import apply_overrides
-from .parsers import hsf2, kof98, kof2001, sfa3, sfiii3, ssvsp, usfiv
+from .parsers import hsf2, kof98, kof2001, lb2, sfa3, sfiii3, ssii, ssvsp, usfiv
 from .roster import write_game
 from .summary import print_summary
 
@@ -29,6 +30,8 @@ PARSERS = {
     "sfiii3": sfiii3.parse,
     "kof98": kof98.parse,
     "kof2001": kof2001.parse,
+    "lb2": lb2.parse,
+    "ssii": ssii.parse,
     "ssvsp": ssvsp.parse,
     "usfiv": usfiv.parse,
 }
@@ -71,7 +74,10 @@ def main() -> int:
             exit_code = 1
             continue
 
-        path = write_game(key, apply_overrides(key, characters))
+        # Names first: a command override is keyed by the character key the
+        # roster ends up with, not the one the guide happened to produce.
+        named = apply_overrides(key, characters)
+        path = write_game(key, apply_command_overrides(key, named, spec.buttons))
         logger.info("%-9s %s -> %s", spec.short_name, report.summary(), path.name)
         if args.show_skipped:
             for skipped in report.skipped:

@@ -91,6 +91,13 @@ def test_a_bare_mash_keeps_the_ruleset_count_not_the_tail_default() -> None:
         ("d,db,b,db,d,df,f + P", MotionKind.QCB_HCF),
         ("hcb,f + P", MotionKind.HCB_F),
         ("f,df,d,db,b,f + P", MotionKind.HCB_F),
+        # The two SNK rolls. `qcb,db,f` turns back on itself and `f,hcf`
+        # taps forward first, so neither reduces to the plain motion inside
+        # it the way a run of shorthands does.
+        ("d,db,b,db,f + P", MotionKind.QCB_DB_F),
+        ("qcb,db,f + P", MotionKind.QCB_DB_F),
+        ("f,b,db,d,df,f + P", MotionKind.F_HCF),
+        ("f,hcf + P", MotionKind.F_HCF),
         # Shorthands that meet on different directions are untouched by the
         # sharing, and a repeat the guide wrote itself is still two presses.
         ("qcf,qcf + P", MotionKind.QCF_X2),

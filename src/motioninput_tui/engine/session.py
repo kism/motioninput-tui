@@ -212,7 +212,7 @@ class TrainingSession:
         # buttons never came: let the lesser move on the motion through now.
         changed |= self._apply_activation(self.recognizer.poll(self.buffer, now))
         # A two-phase move whose follow-through taps never came: mark it missed.
-        changed |= self.recognizer.expire_follow_up(now)
+        changed |= self.recognizer.advance_follow_up(now)
         return changed
 
     def _poll_gamepad(self, now: int) -> bool:

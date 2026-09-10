@@ -12,7 +12,9 @@ from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.models import Move
 from motioninput_tui.notation_styles import DEFAULT, STYLES, Family, Notation
 
-GAMES = ("hsf2", "sfa3", "sfiii3")
+GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lb2")
+"""Two SNK rosters as well, since the rolls their supers are written on do not
+appear in any Street Fighter move list."""
 
 
 def moves_by_kind() -> dict[MotionKind, Move]:
@@ -99,6 +101,16 @@ def test_a_compound_motion_follows_the_styles_of_its_parts() -> None:
     """A super that is a quarter circle and a dragon punch uses both choices."""
     picked = Notation({"quarter": "curved", "dragon": "kanji"})
     assert picked.write(MotionSpec(kind=MotionKind.QCF_DP, buttons=ANY_PUNCH)) == "⮩  龍→ + P"
+
+
+def test_the_snk_rolls_are_written_as_the_parts_they_are_made_of() -> None:
+    """Neither is a motion of its own to look at: one is a quarter circle back
+    that turns around, the other a forward tap before a half circle."""
+    assert DEFAULT.write(MotionSpec(kind=MotionKind.QCB_DB_F, buttons=ANY_PUNCH)) == "↓ ↙ ←  ↙  → + P"
+    assert DEFAULT.write(MotionSpec(kind=MotionKind.F_HCF, buttons=ANY_PUNCH)) == "→  ← ↙ ↓ ↘ → + P"
+    numpad = Notation({"directions": "numpad"})
+    assert numpad.write(MotionSpec(kind=MotionKind.QCB_DB_F, buttons=ANY_PUNCH)) == "214  1  6 + P"
+    assert numpad.write(MotionSpec(kind=MotionKind.F_HCF, buttons=ANY_PUNCH)) == "6  41236 + P"
 
 
 def test_a_motion_done_twice_is_marked_rather_than_repeated() -> None:

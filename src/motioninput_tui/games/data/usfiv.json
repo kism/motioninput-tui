@@ -3709,6 +3709,19 @@
      "name": "Healing",
      "command": "qcf,qcf + PPP, then PPP to cancel",
      "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 3,
+       "label": "PPP"
+      },
+      "notation": "qcf,qcf + PPP, then PPP to cancel"
+     },
      "super_art": "II"
     }
    ]

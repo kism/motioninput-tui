@@ -1,8 +1,9 @@
 """KoF 2001, Leona. Charge moves, which none of the shared scripts exercise.
 
-She is the game's charge character: `2.8+P` and `4.6+P` in the guide's numpad,
-which is down held then up, and back held then forward. The ruleset asks for
-700ms in the held direction, so the short holds below must give nothing.
+She is the game's charge character: the guide writes these `d~u + P` and
+`b~f + P`, its notation for holding a direction briefly before pressing the
+other. The ruleset asks for 700ms in the held direction, so the short holds
+below must give nothing.
 """
 
 from tests.engine.test_motions.harness import BACK, DOWN, FORWARD, HP, UP, Script, press, release
@@ -26,8 +27,8 @@ def test_charging_down_then_up_is_the_moon_slasher(play) -> None:
     assert play(_charge(DOWN, UP, LONG_MS)).moves == ["Moon Slasher"]
 
 
-def test_charging_back_then_forward_is_the_vortex_launcher(play) -> None:
-    assert play(_charge(BACK, FORWARD, LONG_MS)).moves == ["Vortex Launcher"]
+def test_charging_back_then_forward_is_the_baltic_launcher(play) -> None:
+    assert play(_charge(BACK, FORWARD, LONG_MS)).moves == ["Baltic Launcher"]
 
 
 def test_a_short_hold_is_not_a_charge(play) -> None:

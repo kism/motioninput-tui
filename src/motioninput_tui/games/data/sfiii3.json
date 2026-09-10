@@ -1149,6 +1149,19 @@
      "name": "Healing",
      "command": "qcf,qcf + P, then PP to cancel   x1",
      "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf,qcf + P, then PP to cancel   x1"
+     },
      "super_art": "III"
     }
    ]

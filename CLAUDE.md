@@ -28,8 +28,8 @@ uv sync --all-groups            # dev setup; omit --all-groups for prod
 .venv/bin/pytest -q             # tests
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
-./scripts/run-game-briefs.sh    # analyse any guide lacking .claude/skills/game-brief/briefs/<game>.md
-./scripts/run-datagen.sh        # rebuild packaged rosters from references/ (wraps python -m motioninput_tui_datagen)
+./scripts/2-game-briefs.sh      # analyse any guide lacking .claude/skills/game-brief/briefs/<game>.md
+./scripts/4-run-datagen.sh      # rebuild packaged rosters from references/ (wraps python -m motioninput_tui_datagen)
 python -m motioninput_tui_datagen --summary   # per-character move / trainable counts for the data on disk
 
 .venv/bin/pytest tests/test__meta.py::test_repo_url        # a single test
@@ -43,6 +43,8 @@ python -m motioninput_tui.gamepad_probe                    # dump a pad's SDL st
 python -m motioninput_tui --list                           # rosters
 python -m motioninput_tui_datagen --show-skipped           # rebuild rosters, listing moves that would not normalise
 python -m motioninput_tui_guides --list                    # reference guide catalogue
+
+./scripts/decode-3s-commands.py ~/src/3s-decomp [character]   # print 3rd Strike's real command tables
 ```
 
 When adding a game, read its brief at `.claude/skills/game-brief/briefs/<game>.md`
@@ -63,7 +65,7 @@ sibling packages rather than subpackages so `uv_build` (which packages only the
 one module matching the project name) leaves them out of the wheel; keep it that
 way, and do not give either a console script — run them as
 `python -m motioninput_tui_guides` / `python -m motioninput_tui_datagen`, or via
-`scripts/run-download-guides.sh` / `scripts/run-datagen.sh`. The guides package's
+`scripts/1-download-guides.sh` / `scripts/4-run-datagen.sh`. The guides package's
 dependencies live in the `guides` group (`uv sync --group guides`); datagen needs
 nothing beyond the trainer itself. The fetched guides are copyrighted, gitignored,
 and must never be committed or quoted back into the repo; only the parsed rosters
@@ -170,6 +172,14 @@ pass `at_ms` timestamps in. `engine/recognizer.py` takes moves through a
 that direction clean. Preserve this: it is why the matchers can be driven
 deterministically.
 
+`tests/test__meta.py` holds that direction to it: `engine` may not import
+`games` or `tui` at runtime (a `TYPE_CHECKING` import is fine, and
+`engine/session.py` uses one), and no game key may appear in engine code. A
+game's rules reach the matchers as `Ruleset` values, never as a branch. This
+matters most when one game's behaviour is better understood than the rest's -
+see `docs/sfiii3-from-the-decomp.md`, where nine `Ruleset` fields default to
+off precisely so that what is known about one game stays opt-in.
+
 Reading order for the interesting parts: `engine/notation.py` (numpad
 directions, player on the left, so 6 is forward) → `engine/buffer.py` →
 `engine/motions.py` → `engine/ruleset.py` → `engine/recognizer.py` →
@@ -261,7 +271,10 @@ too slow to land.
 
 * `engine/ruleset.py` / `games/rulesets.py` — **game** behaviour. Motion
   windows, whether diagonals can be skipped, charge times, `dp_double_tap`
-  (the headline SF3 difference). Per game.
+  (the headline SF3 difference), `super_freeze_ms`. Per game. Third Strike's
+  figures are the only ones not estimated: they are read out of the
+  decompilation, and `docs/sfiii3-from-the-decomp.md` says where each comes from
+  and what is still open. Do not "tidy" them towards the other games.
 * `controls/layouts.py` `HoldTiming` — **device** behaviour. Nothing to do with
   which game is selected.
 * `settings.py` — the **player's** choice, whichever game is selected.
@@ -289,11 +302,25 @@ tap P,P,P` with `mash_rhythm` — deliberate taps rather than a mash, sometimes 
 a different button, `mash_button`) is *not* a match gate. The motion activates
 on its own — phase 1, a normal `Activation` that counts — and the recogniser
 opens a `FollowUp` (`recognizer.py`) on it. Later taps of the right button
-advance it to `COMPLETE`; `Recognizer.expire_follow_up`, driven from the session
+advance it to `COMPLETE`; `Recognizer.advance_follow_up`, driven from the session
 tick, flips it to `MISSED` once the window passes. The same `FollowUp` object is
 held by the `Activation` in the feed, so `MoveFeed` shows the live prompt and
 the verdict. `_priority` still gives a tail move `+1` so it wins `hits[0]` over
 its tail-less twin.
+
+**A super's tail waits out the cinematic.** `Ruleset.super_freeze_ms` is how
+long the activation freeze runs, and the game reads nothing while it does, so
+the whole second phase — the first tap, the gap the rhythm variant wants, the
+deadline — is measured from the end of it rather than from the press. A press
+inside it is swallowed whatever it was: it cannot count as a tap, and it cannot
+be judged as abandoning them. `advance_follow_up` is also what clears
+`FollowUp.frozen` when the freeze passes, which is how `MoveFeed` knows to say
+`wait...` rather than prompting for taps a frozen game will not read.
+
+This applies to `category == "super"` only. A *special* with a mashable tail
+(Sakura Otoshi, Dee Jay's Machinegun Upper, Kensou's Ryuu Renda) has no
+cinematic and is read at once, which is what `recognizer.SUPER_CATEGORY`
+compares against — a plain string, because `engine` never imports `games`.
 
 ### One Super Art at a time
 
@@ -319,6 +346,37 @@ than neutral. This is a correctness requirement, not a style choice: the
 terminal cannot see you release back as you press forward, so both are held at
 once during ordinary motions. Neutral SOCD makes charge moves impossible.
 
+### Two rotation rules
+
+**Third Strike's is known.** `_match_rotation_cardinals` is `check_6` from the
+decompilation: a set of which of the four cardinals have been seen, compared for
+equality so no diagonal ever counts towards one, in any order. Two timers wipe
+that set — `rotation_cardinal_gap_ms` without the lever resting on a cardinal,
+and `rotation_window_ms` for the turn. A neutral is not special; it only costs
+the time it takes, so four separate taps *are* a 360 if they are quick enough.
+What makes one hard is the pace, and the jump. `rotation_slack` is not read.
+
+`Ruleset.jump_grace_ms` is that jump, and it is not a rotation rule: up is a
+jump input, so `_match_ground` in `motions.py` blocks *every* grounded move for
+`AIR_MEMORY_MS` after one, leaving only the jump's startup frames for the button
+to land in. It mirrors `_match_air`, which is what makes an air move count over
+the same span — exactly one of the two passes at a time, which is the game's own
+`xyz[1].disp.pos <= 0` test. Rotations opt out and judge it per turn, since a
+circle cannot avoid an up.
+
+**Every other game's is reckoned.** `_match_rotation` accumulates how far round
+the ring the stick has travelled rather than demanding all eight directions, so
+a hitbox rolling through four keys gets its diagonals from the overlap and
+counts, and a `NEUTRAL` resets that travel to zero. `rotation_slack` tunes which
+directions may be missed, and 2 is as loose as it should get: at 3 a half circle
+back carried one notch past back is a whole revolution.
+
+The travel model was written to stop the trainer handing out Hugo's Moonsault
+Press too freely, which was the right complaint about the wrong mechanism — 3rd
+Strike's own answer is the pace, not the neutral. It stays for the games there is
+no decompilation to check, and should be replaced per game as data arrives
+rather than tidied to match Third Strike.
+
 ### Rosters are generated and committed
 
 `games/data/*.json` is produced from the guides in `references/` by the
@@ -326,7 +384,7 @@ once during ordinary motions. Neutral SOCD makes charge moves impossible.
 fresh clone has to run `python -m motioninput_tui_guides` first. After changing
 `motioninput_tui_datagen/normalise.py` or a parser in
 `motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
-(or `./scripts/run-datagen.sh`) and commit the JSON. Roughly 80-90% of
+(or `./scripts/4-run-datagen.sh`) and commit the JSON. Roughly 80-90% of
 listed moves become trainable; the rest are follow-ups and conditional moves
 that still appear in the move list, struck through.
 
@@ -336,6 +394,20 @@ Keys are rebuilt from the new name, so an override renames the character
 everywhere, including `--character` and anyone's saved config — which is why
 `__main__` forgets a remembered character that is no longer in the roster
 instead of refusing to start.
+
+`motioninput_tui_datagen/commands.py` is the same idea for a guide that has a
+move's *input* wrong, keyed `(character key, move name)` and applied after
+`names.py` so the key is the one the roster ends up with. The replacement goes
+through the ordinary `parse_command`, so it is written the way a guide would
+write it. Reserve it for outright errors checked against the real game: a
+command the parser merely cannot model belongs in `normalise`'s tables, or stays
+untrainable and struck through.
+
+This is worth more care than a wrong name, because a wrong command does not look
+like a bug. Sakura's Midare-zakura in Alpha 3 is the entry: the guide gives
+`qcf,d,df + K`, which parsed cleanly and came out perfectly well in the trainer —
+it was simply not the move. Only playing the game finds these, so the overrides
+carry a note saying what was checked.
 
 ## Fragile coupling
 
