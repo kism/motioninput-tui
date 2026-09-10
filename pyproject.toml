@@ -1,34 +1,49 @@
 [project]
 name = "motioninput-tui"
-version = "0.0.1"
-description = ""
-authors = []
+version = "0.1.0"
+description = "A terminal trainer for fighting game motion inputs, tuned per game."
+authors = [{ name = "Kieran Gee", email = "kieran.lost.the.game@gmail.com" }]
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.14.0,<4"
-dependencies = ["rich>=15.0.0"]
-
-[project.optional-dependencies]
-type = ["ty>=0.0.69"]
-
-lint = ["ruff>=0.16.2"]
-
-test = [
-    "pytest>=9.1.1",
-    "coverage>=7.15.4",
-    "pytest-mock",
-    "pytest-random-order",
-    "detect-test-pollution",
+dependencies = [
+    "rich>=15.0.0",
+    "textual>=8.2.8",
+    "pygame-ce>=2.5.8",  # Gamepad support, imported only when the gamepad layout is selected.
 ]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Games/Entertainment",
+]
+
+[dependency-groups]
+# Development only; none of these are published as PyPI extras.
+type = ["ty>=0.0.69"]
+lint = ["ruff>=0.16.2"]
+test = ["pytest>=9.1.1", "coverage>=7.15.4"]
+
+# Building the docs/ site. Never imported by the trainer itself.
+docs = ["sphinx>=8.1.0", "myst-parser>=4.0.0", "sphinx-rtd-theme>=3.0.0"]
+
+# Only for fetching reference guides, never imported by the trainer itself.
+guides = ["curl-cffi>=0.7.0", "beautifulsoup4>=4.12.0"]
 
 [project.urls]
 Repository = "https://github.com/kism/motioninput-tui"
+Documentation = "https://motioninput-tui.readthedocs.io/"
 
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
 
 [project.scripts]
-motioninput-tui = "motioninput_tui:__main__.main"
+motioninput-tui = "motioninput_tui.__main__:main"
+motioninput-tui-probe = "motioninput_tui.gamepad_probe:main"
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"
@@ -62,8 +77,10 @@ ignore = [
     "ANN", # Don't care about annotations in tests
     "D",   # Don't care about docstrings in tests
     "DOC", # Don't care about docstrings in tests
+    "TC",  # Test doubles are used at runtime; no need to guard their imports
 
     # Specific rules
+    "no-self-use", # Test doubles mirror a real API, even when a method ignores self
     "assert",    # asserts allowed in tests.
     "private-member-access",  # Accessing private members is needed for testing.
     "implicit-namespace-package",  # __init__.py not needed for PyTest.
@@ -74,6 +91,25 @@ ignore = [
     "blind-except",  # Tests can use BaseException.
     "suspicious-non-cryptographic-random-usage",    # Regular RNG is fine in tests.
     "import-private-name", # Tests can import private members.
+]
+"tests/test_notation_styles.py" = [
+    "ambiguous-unicode-character-string",  # The glyphs are what it is testing.
+]
+"src/motioninput_tui/notation_styles.py" = [
+    # A module of glyphs to pick between: ⋃ really is meant to be a cup, not a U,
+    # and ×2 is the multiplication sign the guides use.
+    "ambiguous-unicode-character-string",
+]
+"scripts/*.py" = [
+    "print",  # Command line tools; printing is how they report.
+    "implicit-namespace-package",  # Standalone scripts, not a package.
+]
+".claude/skills/**/*.py" = [
+    "print",  # Skill scripts are command line tools; printing is how they report.
+    "implicit-namespace-package",  # Standalone scripts, not a package.
+]
+"docs/conf.py" = [
+    "implicit-namespace-package",  # Sphinx config, not part of the motioninput_tui package.
 ]
 
 

@@ -10,6 +10,16 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true
   },
+  // The reference guides under references/ are pasted verbatim from GameFAQs and
+  // checksummed byte for byte, so nothing may touch their whitespace. They are
+  // the only plaintext files in the repo.
+  "[plaintext]": {
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "files.trimTrailingWhitespace": false,
+    "files.trimFinalNewlines": false,
+    "files.insertFinalNewline": false
+  },
   // Language config
   "python.languageServer": "Pylance",
   "python.terminal.activateEnvInCurrentTerminal": true,

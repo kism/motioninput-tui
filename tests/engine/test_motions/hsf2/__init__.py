@@ -1,0 +1,1 @@
+"""Hyper Street Fighter II."""

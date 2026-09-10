@@ -1,0 +1,5 @@
+# What Read the Docs installs to build this site. Kept in sync with the
+# `docs` extra in pyproject.toml, which is for `uv sync --extra docs` locally.
+sphinx>=8.1.0
+myst-parser>=4.0.0
+sphinx-rtd-theme>=3.0.0

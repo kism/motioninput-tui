@@ -1,14 +1,19 @@
-"""The conftest.py file serves as a means of providing fixtures for an entire directory.
+"""Fixtures shared across the whole suite.
 
-Fixtures defined in a conftest.py can be used by any test in that package without needing to import them.
+The motion tests have their own harness and fixtures in
+``tests/engine/test_motions/``, since they all need the same kind of setup.
 """
 
 import pytest
 
-from motioninput_tui.my_cool_object import MyCoolObject
+from motioninput_tui.controls import gamepad
 
 
-@pytest.fixture
-def my_cool_object() -> MyCoolObject:
-    """Fixture for MyCoolObject."""
-    return MyCoolObject("Hello, World!")
+@pytest.fixture(autouse=True)  # ruff: ignore[pytest-fixture-autouse] - a plugged-in pad must never leak into any test
+def _no_real_gamepad(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep the suite off real hardware.
+
+    pygame still loads (so the gamepad layout stays available), but no physical
+    pad is ever opened. Tests that need one re-patch ``_first_controller``.
+    """
+    monkeypatch.setattr(gamepad, "_first_controller", lambda _pygame: None)

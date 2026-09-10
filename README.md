@@ -1,70 +1,85 @@
-# motioninput_tui
+# motioninput-tui
 
 [![Check](https://github.com/kism/motioninput-tui/actions/workflows/check.yml/badge.svg)](https://github.com/kism/motioninput-tui/actions/workflows/check.yml)
 [![CheckType](https://github.com/kism/motioninput-tui/actions/workflows/check_types.yml/badge.svg)](https://github.com/kism/motioninput-tui/actions/workflows/check_types.yml)
 [![Test](https://github.com/kism/motioninput-tui/actions/workflows/test.yml/badge.svg)](https://github.com/kism/motioninput-tui/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/kism/motioninput-tui/graph/badge.svg?token=FPGDA0ODT7)](https://codecov.io/gh/kism/motioninput-tui)
+[![Docs](https://readthedocs.org/projects/motioninput-tui/badge/?version=latest)](https://motioninput-tui.readthedocs.io/en/latest/?badge=latest)
 
-## Prerequisites
+A terminal trainer for fighting game motion inputs. Pick a game and a
+character, press inputs, and see which move the game would have given you.
+The input handling has been tuned per game: hold down and
+double tap forward in 3rd Strike and you get a dragon punch; do it in Super
+Turbo or Alpha 3 and you get nothing.
 
-Install uv and uvx with the installer script <https://docs.astral.sh/uv/getting-started/installation/>
+Ships with Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, The
+King of Fighters '98 and 2001, and Samurai Shodown V Special.
 
-## Run
+**Full documentation: <https://motioninput-tui.readthedocs.io/>**
 
-### Setup
-
-```bash
-uv venv
-source .venv/bin/activate
-uv sync --all-extras # Omit --all-extras for prod
-```
-
-### Running the app
+## Install and run
 
 ```bash
-python -m motioninput_tui
+uv sync --all-groups   # omit --all-groups for a plain install
+uv run motioninput-tui
 ```
 
-## Check/Test
+See the docs for the full command line reference, controls, settings and move
+notation.
 
-### Checking
+## Technical Information and AI Disclaimr
 
-Run `ruff check` or get the vscode ruff extension, the rules are defined in pyproject.toml.
+### How it's created
 
-### Type Checking
+This is my first AI-heavy project, the workflow is
 
-Run `ty`
+- Get claude to add a game based on a gamefaqs guide
+  - sha256 of original guide is verified to avoid possibility of claude editing the reference data
+  - skill to make a briefing of each guide, each brief gets made in the game-brief skill
+  - claude writes a parser for each guide
+    - The moves from the guide are parsed with hard logic, not interpereted by claude
+    - The game logic is interpreted by claude based on the guide
 
-### Testing
+- The game engine has many control layouts and motion inputs that are applied per game
 
-Run `pytest`, It will get its config from pyproject.toml
+### How I ensure code quality
 
-Of course when you start writing your app many of the tests will break. With the comments it serves as a somewhat tutorial on using `pytest`, that being said I am not an expert.
+For each numberd release I do the following
 
-### Workflows
+- Manually read all the changed code from the previous release
 
-The '.github' folder has both a Check and Test workflow.
+- In this register of games/characters I personally test and re-verify
+  - This is not frame perfect, I just open 3SX/Mame/whatever and see if it feels the same.
+  - The tests that claude writes will reflect these, but absolutely needs to be checked by a human
 
-To get the workflow passing badges on your repo, have a look at <https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge>
+- Register (this will later be a separate file)
+  - SFA3
+    - Ken
+      - Shouryuu Ken feels too strict
+    - Sakura
+      - Shou'ou Ken feels too strict
+      - Sakura Otoshi punch timing is relaxed?
+  - SFIII
+    - Ken
+    - Elana
+    - Hugo
+      - I can't do Gigas Breaker
+  - USFIV
+    - Ken
+    - Sakura
+      - Sakura Otoshi timing is relaxed
+  - KOF2001
+    - Yuri Sakazaki
 
-Or if you are not using GitHub you can check out workflow badges from your Git hosting service, or use <https://shields.io/> which pretty much covers everything.
+## Contributing
 
-### Test Coverage
+- [Adding a game](https://motioninput-tui.readthedocs.io/en/latest/adding-a-game.html)
+- [Development setup](https://motioninput-tui.readthedocs.io/en/latest/development.html)
 
-#### Locally
+## Credit
 
-To get code coverage locally, the config is set in 'pyproject.toml', or run with `pytest`
+Move list guides by:
 
-```bash
-python -m http.server -b 127.0.0.1 8000 -d htmlcov
-```
-
-Open the link in your browser and browse into the 'htmlcov' directory.
-
-#### Codecov
-
-The template repo uses codecov to get a badge on the README.md, look at their guides on config that up since it's stripped out of this repo.
-
-## Config
-
-Defaults are defined in config.py, and config loading and validation are handled in there too.
+- [Kao Megura / Chris MacDonald](https://gamefaqs.gamespot.com/community/Kao_Megura/contributions/faqs) [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
+- x_MJ_x (Hyper Street Fighter II)
+- THEMCD / Damon M. McDaniel (Ultimate Street Fighter IV)

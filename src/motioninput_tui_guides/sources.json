@@ -1,0 +1,81 @@
+{
+  "_comment": [
+    "Where each reference guide came from. The guides themselves are copyrighted",
+    "by their authors and may not be redistributed, so references/*.txt is",
+    "gitignored and every user fetches their own copy.",
+    "",
+    "key      short name, also the filename stem under references/",
+    "name     full game name",
+    "url      GameFAQs page for the specific guide the parsers expect",
+    "credit   which guide it is, so the right one is fetched if a page changes",
+    "sha256   hex SHA-256 of the non-condensed references/<key>.txt. The fetcher",
+    "         checks a downloaded or already-present guide against this, so a",
+    "         changed upstream page or a corrupt copy is caught before the",
+    "         parsers run. Refresh it with: uv run python -m motioninput_tui_guides --checksums"
+  ],
+  "guides": [
+    {
+      "key": "hsf2",
+      "name": "Hyper Street Fighter II: The Anniversary Edition",
+      "url": "https://gamefaqs.gamespot.com/ps2/918998-hyper-street-fighter-ii-the-anniversary-edition/faqs/54259",
+      "credit": "Move List and Guide by x_MJ_x",
+      "sha256": "063099357e48019360b3178722776af3b5f26c9442a4bd40b3ceef1f4e2d118b"
+    },
+    {
+      "key": "sfa3",
+      "name": "Street Fighter Alpha 3",
+      "url": "https://gamefaqs.gamespot.com/arcade/564869-street-fighter-alpha-3/faqs/295",
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
+      "sha256": "98e300acd965586673940a1fa77dab83885b69c853982b873c734272a775725f"
+    },
+    {
+      "key": "sfiii3",
+      "name": "Street Fighter III: 3rd Strike",
+      "url": "https://gamefaqs.gamespot.com/arcade/575310-street-fighter-iii-3rd-strike-fight-for-the-future/faqs/451",
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
+      "sha256": "69b472a58ea81874b20c88ebd0494f97ea4b1a84e5ebe5d7a53b85f7d67c9891"
+    },
+    {
+      "key": "kof98",
+      "name": "The King of Fighters '98",
+      "url": "https://gamefaqs.gamespot.com/ps/562861-the-king-of-fighters-98/faqs/52561",
+      "credit": "FAQ/Movelist by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "09b0d05581f1b6af0fcb8d5ddddd601fe9e04c99a76ab95b6f75e8672e0ba2a2"
+    },
+    {
+      "key": "kof2001",
+      "name": "The King of Fighters 2001",
+      "url": "https://gamefaqs.gamespot.com/arcade/562729-the-king-of-fighters-2001/faqs/55158",
+      "credit": "FAQ/Move List by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "d5b3d1f883ed2db69d2468245e06e21f23615e04b16c109edb5850d88983b5e0"
+    },
+    {
+      "key": "ssvsp",
+      "name": "Samurai Shodown V Special",
+      "url": "https://gamefaqs.gamespot.com/neo/919811-samurai-shodown-v-special/faqs/30016",
+      "credit": "Move List and Guide by Kao_Megura (Chris MacDonald)",
+      "sha256": "37cb5f4fcc6b603e0866517a0bdc621c2056fcb141eea5b7dfbddfbf764ff67c"
+    },
+    {
+      "key": "lb2",
+      "name": "The Last Blade 2",
+      "url": "https://gamefaqs.gamespot.com/neogeocd/562851-the-last-blade-2/faqs/63060",
+      "credit": "FAQ/Movelist by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "5d2613bf277ea909d71d70227c46f6fad284d3eec0cb073796ddf0e720d432f5"
+    },
+    {
+      "key": "ssii",
+      "name": "Samurai Shodown II",
+      "url": "https://gamefaqs.gamespot.com/neogeocd/565670-samurai-shodown-ii/faqs/54939",
+      "credit": "FAQ/Movelist by Ice Queen Zero (Andrea Castillo)",
+      "sha256": "381dc191c3cb6e3dd6c9ae0316d8fcb4396922521b8ef6c0420fb3f3a17715f1"
+    },
+    {
+      "key": "usfiv",
+      "name": "Ultra Street Fighter IV",
+      "url": "https://gamefaqs.gamespot.com/pc/722790-ultra-street-fighter-iv/faqs/70060",
+      "credit": "Move List and Guide (PS3) by THEMCD (Damon M. McDaniel)",
+      "sha256": "a41d4a21d9828f996436181d7c6ddb790cda0bcdf96faa1e93af7b3615c7e927"
+    }
+  ]
+}

@@ -1,0 +1,4306 @@
+{
+ "key": "ssvsp",
+ "name": "Samurai Shodown V Special",
+ "source": "references/ssvsp.txt",
+ "characters": [
+  {
+   "key": "basara-kubikiri",
+   "name": "Basara Kubikiri",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Chisashi",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Sorasashi",
+     "command": "qcf + S in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S in air"
+     }
+    },
+    {
+     "name": "Nue Dama",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Kage Sui",
+     "command": "qcb + C (hold)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C (hold)"
+     }
+    },
+    {
+     "name": "Zengo Idou",
+     "command": "_move b / f",
+     "category": "other"
+    },
+    {
+     "name": "Kage Ide",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Tomobiki",
+     "command": "f,d,df + C when near",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C when near"
+     }
+    },
+    {
+     "name": "Kage Damashi: Zenpou Jump",
+     "command": "b,d,db + A",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "b,d,db + A"
+     }
+    },
+    {
+     "name": "Kage Damashi: Suichoku Jump",
+     "command": "b,d,db + B",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "b,d,db + B"
+     }
+    },
+    {
+     "name": "Kage Damashi: Kouhou Jump",
+     "command": "b,d,db + C",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "b,d,db + C"
+     }
+    },
+    {
+     "name": "Kage Damashi: Zenshin",
+     "command": "b,d,db + AB",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "b,d,db + AB"
+     }
+    },
+    {
+     "name": "Kage Damashi: Zenten",
+     "command": "b,d,db + AC",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "b,d,db + AC"
+     }
+    },
+    {
+     "name": "Kage Damashi: Fumikomi",
+     "command": "b,d,db + BC",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "C"
+       ],
+       "count": 2,
+       "label": "B+C"
+      },
+      "notation": "b,d,db + BC"
+     }
+    },
+    {
+     "name": "Kage Damashi: Enbu",
+     "command": "b,d,db + BD",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 2,
+       "label": "B+D"
+      },
+      "notation": "b,d,db + BD"
+     }
+    },
+    {
+     "name": "Sashi Ashi",
+     "command": "d + C in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "d + C in air"
+     }
+    },
+    {
+     "name": "Toukotsu Wari",
+     "command": "db / df + C in air",
+     "category": "other"
+    },
+    {
+     "name": "Kagemai: Yumebiki",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Gokumon",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "charlotte",
+   "name": "Charlotte",
+   "title": "",
+   "moves": [
+    {
+     "name": "Tri-Slash",
+     "command": "qcf + S (hold)",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S (hold)"
+     }
+    },
+    {
+     "name": "Lion Lance",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Bayonette Lunge",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Power Gradiation",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Splash Fount",
+     "command": "f + tap S rapidly",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 6,
+      "mash": 3,
+      "notation": "f + tap S rapidly"
+     }
+    },
+    {
+     "name": "Crystal Rose",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Splash Gradation",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "enja",
+   "name": "Enja",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Rikudou Rekka: Jigoku-dou",
+     "command": "qcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf + A"
+     }
+    },
+    {
+     "name": "Rikudou Rekka: Gakidou",
+     "command": "_qcf + B",
+     "category": "other"
+    },
+    {
+     "name": "Rikudou Rekka: Tendou",
+     "command": "_qcf + C",
+     "category": "other"
+    },
+    {
+     "name": "Enmetsu",
+     "command": "b,d,db + A / B / C",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C"
+       ],
+       "count": 1,
+       "label": "A/B/C"
+      },
+      "notation": "b,d,db + A / B / C"
+     }
+    },
+    {
+     "name": "Guren Kyaku",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Tsuika Kougeki",
+     "command": "_b + any, f + any (xN)",
+     "category": "other"
+    },
+    {
+     "name": "Enja Bakunetsu",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Kakusei Chuushi",
+     "command": "_press ABCD",
+     "category": "other"
+    },
+    {
+     "name": "Sanzendaisen-sekai Zen Shoudo",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "gaira-kafuin",
+   "name": "Gaira Kafuin",
+   "title": "",
+   "moves": [
+    {
+     "name": "Katsu!",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Tsukamuzo~ Kumi-tenjou",
+     "command": "b,d,db + A",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "b,d,db + A"
+     }
+    },
+    {
+     "name": "Tsukamuzo~ Ishi-atama",
+     "command": "b,d,db + B",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "b,d,db + B"
+     }
+    },
+    {
+     "name": "Tsukamuzo~ Shiri-mekuri",
+     "command": "b,d,db + C",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "b,d,db + C"
+     }
+    },
+    {
+     "name": "Jishin Gan",
+     "command": "d,d + A / B / C",
+     "category": "other"
+    },
+    {
+     "name": "Enshin Satsu",
+     "command": "b,uf,u,uf,f + AB when near",
+     "category": "other"
+    },
+    {
+     "name": "Damage Zouka",
+     "command": "_spin 360 rapidly xN",
+     "category": "other"
+    },
+    {
+     "name": "Hyakkan Otoshi",
+     "command": "u + AB in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "hold": 8,
+      "notation": "u + AB in air"
+     }
+    },
+    {
+     "name": "Niou Bakushin Satsu",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Kachiwaruzo-koraa!",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "galford",
+   "name": "Galford",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Plasma Blade",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Strike Heads",
+     "command": "f,d,df + S when near",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S when near"
+     }
+    },
+    {
+     "name": "Rush Dog",
+     "command": "qcb + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcb + A"
+     }
+    },
+    {
+     "name": "Machine Gun Dog",
+     "command": "qcb + B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcb + B"
+     }
+    },
+    {
+     "name": "Replica Dog",
+     "command": "qcb + AB",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "qcb + AB"
+     }
+    },
+    {
+     "name": "Overhead Crash",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Replica Attack: Head",
+     "command": "hcb + AC",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "hcb + AC"
+     }
+    },
+    {
+     "name": "Replica Attack: Rear",
+     "command": "hcb + BC",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "C"
+       ],
+       "count": 2,
+       "label": "B+C"
+      },
+      "notation": "hcb + BC"
+     }
+    },
+    {
+     "name": "Imitate Replica: Head",
+     "command": "f,b,f,b,f,b,d + AC when hit",
+     "category": "other"
+    },
+    {
+     "name": "Imitate Replica: Rear",
+     "command": "f,b,f,b,f,b,d + BC when hit",
+     "category": "other"
+    },
+    {
+     "name": "Stardust Drop",
+     "command": "a-u + C when near in air",
+     "category": "other"
+    },
+    {
+     "name": "Double Mega Strike Heads: Head",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Double Mega Strike Heads: Rear",
+     "command": "qcf + BC",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "C"
+       ],
+       "count": 2,
+       "label": "B+C"
+      },
+      "notation": "qcf + BC"
+     }
+    },
+    {
+     "name": "Zetsu - Heaven's Wolf - Bad Fang",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "gaoh-hinowanokami-kyougoku",
+   "name": "Gaoh Hinowanokami Kyougoku",
+   "title": "",
+   "moves": [
+    {
+     "name": "Imi Kagura",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Ibushi Miyabe",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Kabuto Goma",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Kurogane Kudaki",
+     "command": "f,d,df + C",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C"
+     }
+    },
+    {
+     "name": "Oboro Bayashi",
+     "command": "f + tap S rapidly",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 6,
+      "mash": 3,
+      "notation": "f + tap S rapidly"
+     }
+    },
+    {
+     "name": "Naraku Boe",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Yomi Yashiro",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "genjuro-kibagami",
+   "name": "Genjuro Kibagami",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sanren Satsu: Kiba",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Sanren Satsu: Tsuno",
+     "command": "_qcf / qcb + S",
+     "category": "other"
+    },
+    {
+     "name": "Sanren Stasu: Rin",
+     "command": "_qcf / qcb + S",
+     "category": "other"
+    },
+    {
+     "name": "Ura Ouka: Ayame",
+     "command": "qcb + S (hold if blocked)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S (hold if blocked)"
+     }
+    },
+    {
+     "name": "Touha Kouyoku Jin",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Shizuku Jin",
+     "command": "f,d,df + C when near",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C when near"
+     }
+    },
+    {
+     "name": "Hyakki Satsu",
+     "command": "b,d,db + S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S"
+     }
+    },
+    {
+     "name": "Gokou Zan",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Fudajimai",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "hanzo-hattori",
+   "name": "Hanzo Hattori",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Ninpou Baku'en Ryuu",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Reppuu Shuriken",
+     "command": "qcf + S in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S in air"
+     }
+    },
+    {
+     "name": "Ninpou Shizune",
+     "command": "d,d + S",
+     "category": "other"
+    },
+    {
+     "name": "Ninpou Enbu",
+     "command": "b,d,db + any",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "count": 1,
+       "label": "A/B/C/D"
+      },
+      "notation": "b,d,db + any"
+     }
+    },
+    {
+     "name": "Mozu Otoshi",
+     "command": "f,d,df + S when near",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S when near"
+     }
+    },
+    {
+     "name": "Mozu Otoshi -Hayate-",
+     "command": "Mozu Otoshi while dashing",
+     "category": "other"
+    },
+    {
+     "name": "Ninpou Utsusemi Tenbu",
+     "command": "hcb + AC",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "hcb + AC"
+     }
+    },
+    {
+     "name": "Ninpou Utsusemi Chizan",
+     "command": "hcb + BC",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "C"
+       ],
+       "count": 2,
+       "label": "B+C"
+      },
+      "notation": "hcb + BC"
+     }
+    },
+    {
+     "name": "Migawari no Jutsu: Hotoke",
+     "command": "f,b,f,b,f,b,d + AC when hit",
+     "category": "other"
+    },
+    {
+     "name": "Migawari no Jutsu: Oni",
+     "command": "f,b,f,b,f,b,d + BC when hit",
+     "category": "other"
+    },
+    {
+     "name": "Kuuten Geki",
+     "command": "a-u + C when near in air",
+     "category": "other"
+    },
+    {
+     "name": "Shin Mozu Otoshi",
+     "command": "qcf + CD when near",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD when near"
+     }
+    },
+    {
+     "name": "Kinki: Mozu Kudaki",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "haohmaru",
+   "name": "Haohmaru",
+   "title": "",
+   "moves": [
+    {
+     "name": "Ougi Senpuu Retsu Zan",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Ougi Senpuu Retsu Zan (Fake)",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Ougi Resshin Zan",
+     "command": "b,d,db + S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S"
+     }
+    },
+    {
+     "name": "Ougi Kogetsu Zan",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Ougi Shippuu Kogetsu Zan",
+     "command": "f,d,df + S while dashing",
+     "category": "other"
+    },
+    {
+     "name": "Zankousen",
+     "command": "hcb,f + AB",
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "hcb,f + AB"
+     }
+    },
+    {
+     "name": "Sake Kougeki",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Hiougi Tenha Fuujin Zan",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Tenha Seiou Zan",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "jubei-yagyu",
+   "name": "Jubei Yagyu",
+   "title": "",
+   "moves": [
+    {
+     "name": "Kattotsu Suigetsu Tou",
+     "command": "qcf + A / B",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + A / B"
+     }
+    },
+    {
+     "name": "Retsu Suigetsu Tou",
+     "command": "qcf + AB",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "qcf + AB"
+     }
+    },
+    {
+     "name": "Nikkaku Ratou",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Hassou Happa",
+     "command": "f + tap S rapidly",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 6,
+      "mash": 3,
+      "notation": "f + tap S rapidly"
+     }
+    },
+    {
+     "name": "Yagyu Shingan Tou: Suigetsu",
+     "command": "qcb + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcb + A"
+     }
+    },
+    {
+     "name": "Yagyu Shingan Tou: Souha",
+     "command": "qcb + B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcb + B"
+     }
+    },
+    {
+     "name": "Yagyu Shingan Tou: Tenra",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Zetsu Suigetsu Tou",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Yagyu Shin'in-ryuu Hiden: Muni Raten",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "kazuki-kazama",
+   "name": "Kazuki Kazama",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Shounetsu Kon: Saien Nashi",
+     "command": "qcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf + A"
+     }
+    },
+    {
+     "name": "Shounetsu Kon: Saien Ittsu",
+     "command": "qcf + B",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcf + B"
+     }
+    },
+    {
+     "name": "Shounetsu Kon: Saien Futatsu",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Shounetsu Kon: Saien Mittsu",
+     "command": "qcf + AB",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "qcf + AB"
+     }
+    },
+    {
+     "name": "Dai Bakusatsu: Saien Nashi",
+     "command": "f,d,df + A",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "f,d,df + A"
+     }
+    },
+    {
+     "name": "Dai Bakusatsu: Saien Ittsu",
+     "command": "f,d,df + B",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "f,d,df + B"
+     }
+    },
+    {
+     "name": "Dai Bakusatsu: Saien Futatsu",
+     "command": "f,d,df + C",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C"
+     }
+    },
+    {
+     "name": "Dai Bakusatsu: Saien Mittsu",
+     "command": "f,d,df + AB",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "f,d,df + AB"
+     }
+    },
+    {
+     "name": "Enmetsu",
+     "command": "b,d,db + A / B / C",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C"
+       ],
+       "count": 1,
+       "label": "A/B/C"
+      },
+      "notation": "b,d,db + A / B / C"
+     }
+    },
+    {
+     "name": "Saien",
+     "command": "qcb + C (x3)",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C (x3)"
+     }
+    },
+    {
+     "name": "Homura Gaeshi",
+     "command": "_press AC when knocked down",
+     "category": "other"
+    },
+    {
+     "name": "Boubaku: Kaen Geki",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Kyougeki, Hidaruma Dai Tosshin",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "kusaregedo-youkai",
+   "name": "Kusaregedo Youkai",
+   "title": "",
+   "moves": [
+    {
+     "name": "Akuryou Yobi",
+     "command": "qcf + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf + A"
+     }
+    },
+    {
+     "name": "Ieki Haki",
+     "command": "qcb + A / B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + A / B"
+     }
+    },
+    {
+     "name": "Niku Mochiage",
+     "command": "b,d,db + C",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "b,d,db + C"
+     }
+    },
+    {
+     "name": "Gedo no Rakuin Oshi",
+     "command": "f,b,d,n,u + C when near",
+     "category": "other"
+    },
+    {
+     "name": "Doro Nage",
+     "command": "df,hcb,b,d,db + BC",
+     "category": "other"
+    },
+    {
+     "name": "Tobi Zutsuki",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Gedo no Emono Gari",
+     "command": "f,uf,u,ub,b,db,d,n,u + CD when near",
+     "category": "super"
+    },
+    {
+     "name": "Gedo no Banzan",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "kyoshiro-senryo",
+   "name": "Kyoshiro Senryo",
+   "title": "",
+   "moves": [
+    {
+     "name": "Oo Tsunami",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Choubi Jishi",
+     "command": "qcb + A / B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + A / B"
+     }
+    },
+    {
+     "name": "Choubi Jishi: Ranshin",
+     "command": "qcb + AB",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "qcb + AB"
+     }
+    },
+    {
+     "name": "Gama Jigoku",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Kaen Kyokubu",
+     "command": "b,d,db + S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S"
+     }
+    },
+    {
+     "name": "Kaiten Kyokubu",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Chikemuri Kuruwa",
+     "command": "d + S in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 2,
+      "notation": "d + S in air"
+     }
+    },
+    {
+     "name": "Aragotoshi Kyoshiro \"Ketsuniku no Mai\"",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Dokudanjou \"Oni no Mai\"",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "liu-yunfei",
+   "name": "Liu Yunfei",
+   "title": "",
+   "moves": [
+    {
+     "name": "Ten'i Daihou",
+     "command": "qcf + A / B",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + A / B"
+     }
+    },
+    {
+     "name": "Tenki Shichiyou: Tsuki",
+     "command": "qcb + A",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcb + A"
+     }
+    },
+    {
+     "name": "Tenki Shichiyou: Hi",
+     "command": "qcb + B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcb + B"
+     }
+    },
+    {
+     "name": "Tenki Shichiyou: Mizu",
+     "command": "qcf / qcb + A in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "qcf / qcb + A in air"
+     }
+    },
+    {
+     "name": "Tenki Shichiyou: Ki",
+     "command": "qcf / qcb + B in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcf / qcb + B in air"
+     }
+    },
+    {
+     "name": "Tenki Shichiyou: Kon",
+     "command": "qcf / qcb + C in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf / qcb + C in air"
+     }
+    },
+    {
+     "name": "Tenki Shichiyou: Do",
+     "command": "qcf / qcb + D in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "qcf / qcb + D in air"
+     }
+    },
+    {
+     "name": "Tenki Shichiyou: Nichi",
+     "command": "Press AC in air",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "Press AC in air"
+     }
+    },
+    {
+     "name": "Tenmou Konji: Zenpou",
+     "command": "qcf / qcb + AB in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "qcf / qcb + AB in air"
+     }
+    },
+    {
+     "name": "Tenmou Konji: Kouhou",
+     "command": "qcf / qcb + CD in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf / qcb + CD in air"
+     }
+    },
+    {
+     "name": "Tenkoku Houra",
+     "command": "f,d,df + C when near",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C when near"
+     }
+    },
+    {
+     "name": "Tensatsu Daisai",
+     "command": "_qcf + AB anytime afterward",
+     "category": "other"
+    },
+    {
+     "name": "Tensui Choukan",
+     "command": "a-u + C when near in air",
+     "category": "other"
+    },
+    {
+     "name": "Tenkai Unri",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Tenbatsu Soumon",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "mina-majikina",
+   "name": "Mina Majikina",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Jikyuu Shin",
+     "command": "Charge b,f + S",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "Charge b,f + S"
+     }
+    },
+    {
+     "name": "Tenkyuu Shin",
+     "command": "Charge b,f + C",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Charge b,f + C"
+     }
+    },
+    {
+     "name": "Shinimabui no Nageki",
+     "command": "f,d,df + S",
+     "category": "throw",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Sungan no Sasoi",
+     "command": "b,d,db + A (x3)",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "b,d,db + A (x3)"
+     }
+    },
+    {
+     "name": "Sungan no Mukae",
+     "command": "_b,d,db + B (x3)",
+     "category": "other"
+    },
+    {
+     "name": "Chanpuru, kocchi-oide",
+     "command": "qcb + B",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "qcb + B"
+     }
+    },
+    {
+     "name": "Chanpuru, oyasumi-nasai",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Kajifuchi",
+     "command": "d + C in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "d + C in air"
+     }
+    },
+    {
+     "name": "Umichimun no Ikari",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Niruya-Kanaya no Jubaku",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "mizuki-rashoujin",
+   "name": "Mizuki Rashoujin",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Juka Soudan",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Magauta Tsumabiki",
+     "command": "qcf + AB",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "qcf + AB"
+     }
+    },
+    {
+     "name": "Haki Inmetsu Jin",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Jashin Kyoumei",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Gashin Kyoumei Kon",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Shinma Messatsu Jin",
+     "command": "f,d,df + C",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C"
+     }
+    },
+    {
+     "name": "Makai Tensei",
+     "command": "b,d,db + S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S"
+     }
+    },
+    {
+     "name": "Tenchi Makyou Jin",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Kyoumashi Engoku",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "nakoruru",
+   "name": "Nakoruru",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Rera Mutsube",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Annu Mutsube",
+     "command": "b,db,d + S",
+     "category": "other"
+    },
+    {
+     "name": "Kamui Rimse",
+     "command": "b,d,db + S,S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "b,d,db + S,S"
+     }
+    },
+    {
+     "name": "Amube Yatoro",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Taka ni tsukamaru",
+     "command": "qcb + C, move freely",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C, move freely"
+     }
+    },
+    {
+     "name": "Taka tsukamari kougeki",
+     "command": "_press S",
+     "category": "other"
+    },
+    {
+     "name": "Taka ni oriru",
+     "command": "_press C or dir. + C",
+     "category": "other"
+    },
+    {
+     "name": "Kamui Mutsube",
+     "command": "_press BC",
+     "category": "other"
+    },
+    {
+     "name": "Yatoro Pok",
+     "command": "_qcf + S",
+     "category": "other"
+    },
+    {
+     "name": "Rera Kishima Tek",
+     "command": "a-u + C when near in air",
+     "category": "other"
+    },
+    {
+     "name": "Kamui Fumu Kesupu",
+     "command": "d + C in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "d + C in air"
+     }
+    },
+    {
+     "name": "Apehuchi Kamui Rimse",
+     "command": "df,qcb,f,d,df + BC",
+     "category": "other"
+    },
+    {
+     "name": "Elerush Kamui Rimse",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Turuse Sanpe Kiku Mutsube",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "rasetsumaru",
+   "name": "Rasetsumaru",
+   "title": "",
+   "moves": [
+    {
+     "name": "Senpuu Retsu Zan: Setsu",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Senpuu Ha",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Nagi Yaiba",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Gouha",
+     "command": "f,d,df + C",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C"
+     }
+    },
+    {
+     "name": "Shitatari",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Tenha Dankuu Retsu Zan",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Zoubu Eguri",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "rera",
+   "name": "Rera",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Ookami ni noru",
+     "command": "qcb + C, move freely",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C, move freely"
+     }
+    },
+    {
+     "name": "Ookami nori kougeki",
+     "command": "_press S (air)",
+     "category": "other"
+    },
+    {
+     "name": "Ookami ni oriru",
+     "command": "_press C or dir. + C (air)",
+     "category": "other"
+    },
+    {
+     "name": "Mer Shikite",
+     "command": "_b,db,d + S",
+     "category": "other"
+    },
+    {
+     "name": "Kanto Shikite",
+     "command": "_f,d,df + S",
+     "category": "other"
+    },
+    {
+     "name": "Imer Shikite",
+     "command": "_qcf + S in air",
+     "category": "other"
+    },
+    {
+     "name": "Bunshin Kougeki",
+     "command": "a-d-u + C from * move (air)",
+     "category": "other"
+    },
+    {
+     "name": "Rera Kishima Tek",
+     "command": "a-u + C when near in air",
+     "category": "other"
+    },
+    {
+     "name": "Kamui Fumu Kesupu",
+     "command": "d + C in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "d + C in air"
+     }
+    },
+    {
+     "name": "Nubeki Kamui Shikite",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Irusuka Emush Newa Shikite",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "rimururu",
+   "name": "Rimururu",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Rupush Kuare (Nishi)",
+     "command": "qcf + A / B",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + A / B"
+     }
+    },
+    {
+     "name": "Rupush Kuare (Toitoi)",
+     "command": "qcf + AB",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "qcf + AB"
+     }
+    },
+    {
+     "name": "Konru Mem",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Konru Nonno",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Kamui Shituki",
+     "command": "b,d,db + S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S"
+     }
+    },
+    {
+     "name": "Upun Op",
+     "command": "f + tap S rapidly",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 6,
+      "mash": 3,
+      "notation": "f + tap S rapidly"
+     }
+    },
+    {
+     "name": "Konru Shirar",
+     "command": "d + S at apex of jump",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 2,
+      "notation": "d + S at apex of jump"
+     }
+    },
+    {
+     "name": "Nidan Jump",
+     "command": "_press ub~uf",
+     "category": "other"
+    },
+    {
+     "name": "Rupush Kamui Waysan-Pekoru (Atama)",
+     "command": "AC while dashing",
+     "category": "other"
+    },
+    {
+     "name": "Rupush Kamui Waysan-Pekoru (Ashi)",
+     "command": "BC while dashing",
+     "category": "other"
+    },
+    {
+     "name": "Rupush Kamui Waysan-Pekoru Ruyanpe (Atama)",
+     "command": "AC while dashing",
+     "category": "super"
+    },
+    {
+     "name": "Rupush Kamui Waysan-Pekoru Ruyanpe (Ashi)",
+     "command": "BC while dashing",
+     "category": "super"
+    },
+    {
+     "name": "Rupush Kamui Emush (Toitoi)",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Konru Sutu Poro",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "shizumaru-hisame",
+   "name": "Shizumaru Hisame",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Hitou-ryuu: Kirisame Jin",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Hitou-ryuu: Hisame Gaeshi",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Hitou-ryuu: Samidare Giri",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Hitou-ryuu: Baiu Ensatsu Jin",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Hitou-ryuu: Shigure",
+     "command": "d + C in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "d + C in air"
+     }
+    },
+    {
+     "name": "Hitou-ryuu: Kosame",
+     "command": "u + S at apex of jump",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 8,
+      "notation": "u + S at apex of jump"
+     }
+    },
+    {
+     "name": "Hitou-ryuu: Raiu",
+     "command": "_press A / B",
+     "category": "other"
+    },
+    {
+     "name": "Zengo Idou / Chakuchi",
+     "command": "_move b / f / d",
+     "category": "other"
+    },
+    {
+     "name": "Ichidan: Kyouraku Zan",
+     "command": "Hold any for 1.5 sec.",
+     "category": "other"
+    },
+    {
+     "name": "Nidan: Amanagare Kyouraku Zan",
+     "command": "Hold any for 3.5 sec.",
+     "category": "other"
+    },
+    {
+     "name": "Sandan: Amanagare Kyouraku Zan",
+     "command": "Hold any for 6.5 sec.",
+     "category": "other"
+    },
+    {
+     "name": "Yondan: Shin Amanagare Kyouraku Zan",
+     "command": "Hold any for 20.5 sec.",
+     "category": "other"
+    },
+    {
+     "name": "Hitou-ryuu Amanagare Ressatsu Jin",
+     "command": "Hold any, release when hit",
+     "category": "other"
+    },
+    {
+     "name": "Hitou-ryuu Kinjite: Bouu Kyoufuu Zan",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Oni no Kioku: Mugen Hou",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sogetsu-kazama",
+   "name": "Sogetsu Kazama",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Fuzuki",
+     "command": "qcf + A / B / C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C"
+       ],
+       "count": 1,
+       "label": "A/B/C"
+      },
+      "notation": "qcf + A / B / C"
+     }
+    },
+    {
+     "name": "Fuzuki Sousui",
+     "command": "_hold button, press dir.",
+     "category": "other"
+    },
+    {
+     "name": "Gekkou",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Tsuki-gakure",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Shouha: Fuugetsu Zan",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Kotsuki: Suikyou no Jin",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "suija",
+   "name": "Suija",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Shougetsu",
+     "command": "db,qcf + S in air",
+     "category": "other"
+    },
+    {
+     "name": "Engetsu",
+     "command": "f,d,df + S in air",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S in air"
+     }
+    },
+    {
+     "name": "Kuuchuu Idou",
+     "command": "_press in any dir.",
+     "category": "other"
+    },
+    {
+     "name": "Getsurin Ha",
+     "command": "b,d,db + S in air",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S in air"
+     }
+    },
+    {
+     "name": "Shizuki",
+     "command": "qcb + S in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S in air"
+     }
+    },
+    {
+     "name": "Tenshou: Suichuu Ha",
+     "command": "qcf + CD in air",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD in air"
+     }
+    },
+    {
+     "name": "Byoudou-katsu Shinseinaru Sabaki",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "tam-tam",
+   "name": "Tam Tam",
+   "title": "",
+   "moves": [
+    {
+     "name": "Moora Moora",
+     "command": "qcf + A / B",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + A / B"
+     }
+    },
+    {
+     "name": "Gaburu Gaburu",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Ahau Gaburu",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Paguna Dios",
+     "command": "b,d,db + S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S"
+     }
+    },
+    {
+     "name": "Paguna Paguna",
+     "command": "f + tap S rapidly",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 6,
+      "mash": 3,
+      "notation": "f + tap S rapidly"
+     }
+    },
+    {
+     "name": "Magnas Dios Zarl",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Ahau Casteegar",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "tokisada-shiro-amakusa",
+   "name": "Tokisada Shiro Amakusa",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sankaku Tobi",
+     "command": "uf~df near a wall in air",
+     "category": "other"
+    },
+    {
+     "name": "Shiryou Ha",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Tenshou Fuu'ou Jin",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Oumagatoki (Mae)",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Oumagatoki (Ushiro)",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Kairetsu Shou",
+     "command": "f,d,df + C",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C"
+     }
+    },
+    {
+     "name": "Nanji, anten nyuumetsu seyo",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Ankoku Otoshi",
+     "command": "_press S",
+     "category": "other"
+    },
+    {
+     "name": "Chuushi",
+     "command": "_press C",
+     "category": "other"
+    },
+    {
+     "name": "Kyoumei Jussatsu Jin",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Nanji, sange seyo.  Ware, metsuzai sen.",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ukyo-tachibana",
+   "name": "Ukyo Tachibana",
+   "title": "",
+   "moves": [
+    {
+     "name": "Hiken Sasameyuki",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Hiken Sasameyuki (Fake)",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Hiken Tsubame Gaeshi",
+     "command": "db,qcf + S in air",
+     "category": "other"
+    },
+    {
+     "name": "Zanzou Fumikomi Giri",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Tsubame Rokuren",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Musou Zankou-ka",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "yoshitora-tokugawa",
+   "name": "Yoshitora Tokugawa",
+   "title": "",
+   "moves": [
+    {
+     "name": "Ichi no Tachi: Nadeshiko",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Ni no Tachi: Shirayuri",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "San no Tachi: Botan",
+     "command": "qcf + S in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S in air"
+     }
+    },
+    {
+     "name": "Yon no Tachi: Tsubaki",
+     "command": "b,d,db + S",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,d,db + S"
+     }
+    },
+    {
+     "name": "Go no Tachi: Asagao",
+     "command": "qcb + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcb + S"
+     }
+    },
+    {
+     "name": "Roku no Tachi: Yuugao",
+     "command": "f,d,df + C when near",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "f,d,df + C when near"
+     }
+    },
+    {
+     "name": "Yuchouka",
+     "command": "use all * moves, hcb,f + BC",
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "C"
+       ],
+       "count": 2,
+       "label": "B+C"
+      },
+      "notation": "use all * moves, hcb,f + BC"
+     }
+    },
+    {
+     "name": "Aoi",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Hyakka-ryouran",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  },
+  {
+   "key": "zankuro-minazuki",
+   "name": "Zankuro Minazuki",
+   "title": "",
+   "moves": [
+    {
+     "name": "Mugen-ryuu Shippuu Zan",
+     "command": "qcf + S",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "qcf + S"
+     }
+    },
+    {
+     "name": "Mugen-ryuu Muhou Ken",
+     "command": "qcf + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcf + C"
+     }
+    },
+    {
+     "name": "Mugen-ryuu Tenhou Zan",
+     "command": "f,d,df + S",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "f,d,df + S"
+     }
+    },
+    {
+     "name": "Mugen-ryuu Fudou",
+     "command": "qcb + C",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "qcb + C"
+     }
+    },
+    {
+     "name": "Mugen-ryuu Tenchuu",
+     "command": "_if it reverses an attack",
+     "category": "other"
+    },
+    {
+     "name": "Mugen-ryuu Mugen Hou",
+     "command": "qcf + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcf + CD"
+     }
+    },
+    {
+     "name": "Mugen-ryuu Gokui, Musou Ken",
+     "command": "qcb + CD",
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 2,
+       "label": "C+D"
+      },
+      "notation": "qcb + CD"
+     }
+    }
+   ]
+  }
+ ]
+}

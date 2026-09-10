@@ -214,3 +214,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Reference guides fetched from GameFAQs. Copyright their authors and not
+# redistributable, so never commit them. Fetch your own with: motioninput-tui-guides
+# (The analysis briefs under .claude/skills/game-brief/briefs/ are committed:
+# they are our notes, not the guide text.)
+references/*.txt
+
+# Nerd font glyph lookup, downloaded when adding notation styles.
+# https://github.com/ryanoasis/nerd-fonts/blob/master/glyphnames.json
+glyphnames.json

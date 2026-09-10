@@ -1,0 +1,20 @@
+{
+  "extraKnownMarketplaces": {
+    "astral-sh": {
+      "source": {
+        "source": "github",
+        "repo": "astral-sh/claude-code-plugins"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "astral@astral-sh": true,
+    "ponytail@ponytail": true
+  }
+}
