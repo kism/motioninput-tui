@@ -1,17 +1,25 @@
 """Startup decisions made before the interface takes over the terminal."""
 
 import json
+import re
 import sys
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
 
 from motioninput_tui.__main__ import main
+from motioninput_tui.games.loader import GameDataMissingError
 
 if TYPE_CHECKING:
-    from pathlib import Path
-
     from motioninput_tui.config import Config
+
+ARGPARSE_USAGE_ERROR = 2
+"""What argparse exits with when it does not recognise an option."""
+
+
+def _raise_missing(_key: str) -> None:
+    raise GameDataMissingError(Path("games/data/sfiii3.json"))
 
 
 @pytest.fixture
@@ -60,20 +68,46 @@ def test_a_remembered_character_who_has_gone_is_forgotten(saved, launched, monke
     assert launched[0].game == "sfiii3"
 
 
-def test_an_unknown_character_asked_for_on_the_command_line_is_an_error(saved, launched, monkeypatch) -> None:
-    path = saved()
-    monkeypatch.setattr(
-        sys, "argv", ["motioninput-tui", "--config", str(path), "--game", "sfiii3", "--character", "ken-masters"]
-    )
+def test_missing_game_data_stops_the_app_starting(saved, launched, monkeypatch) -> None:
+    """The one selection problem there is no falling back from: a character can
+    be dropped and the picker opens, but an absent roster leaves nothing to do."""
+    path = saved(game="sfiii3", character="ken")
+    monkeypatch.setattr("motioninput_tui.__main__.load_game", _raise_missing)
 
+    monkeypatch.setattr(sys, "argv", ["motioninput-tui", "--config", str(path)])
     assert main() == 1
     assert launched == []
 
 
-def test_a_game_on_the_command_line_reopens_its_own_character(saved, launched, monkeypatch) -> None:
-    """--game alone picks up that game's remembered character, not the last game's."""
-    path = saved(game="hsf2", character="ryu", characters={"hsf2": "ryu", "sfiii3": "ken"})
-    monkeypatch.setattr(sys, "argv", ["motioninput-tui", "--config", str(path), "--game", "sfiii3"])
+@pytest.mark.parametrize("flag", ["--game", "--character", "--layout", "--loose-buffer", "--no-key-release"])
+def test_what_to_train_is_not_a_command_line_option(flag: str, saved, monkeypatch) -> None:
+    """These all used to exist and were removed: the config file is the one place
+    the selection lives, so there is no second way to say it and no precedence
+    rule between them. Argparse rejects an unknown option rather than ignoring
+    it, so anyone still passing one is told, not quietly given the defaults."""
+    path = saved(game="sfiii3", character="ken")
+    monkeypatch.setattr(sys, "argv", ["motioninput-tui", "--config", str(path), flag, "sfiii3"])
 
-    assert main() == 0
-    assert launched[0].character == "ken"
+    with pytest.raises(SystemExit) as exit_info:
+        main()
+    assert exit_info.value.code == ARGPARSE_USAGE_ERROR
+
+
+def test_the_whole_command_line_is_these_five(capsys, monkeypatch) -> None:
+    """A guard on the surface itself, since flags regrow one convenience at a
+    time. Anything added here is a deliberate decision to reopen that door."""
+    monkeypatch.setattr(sys, "argv", ["motioninput-tui", "--help"])
+    with pytest.raises(SystemExit):
+        main()
+
+    usage = capsys.readouterr().out.split("Fighting game")[0]
+    # Every option argparse prints, taken from inside the usage brackets so the
+    # program's own name cannot be mistaken for one.
+    assert set(re.findall(r"\[(-{1,2}[a-z][a-z-]*)", usage)) == {
+        "-h",
+        "--config",
+        "--list",
+        "--check-terminal",
+        "--version",
+        "-v",
+    }

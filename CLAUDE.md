@@ -17,6 +17,25 @@ setup, and `docs/adding-a-game.md` for adding a new title — also available as
 the `add-a-game` skill. This file covers what is hard to discover from the
 code alone.
 
+## Writing documentation
+
+Keep it short, and do not write what the program already says.
+
+The app documents itself: every screen has a `Footer` listing its keys, the
+setup pane and the `ctrl+b` modal print each setting's name, state and
+`Setting.detail`, the `ctrl+n` menu draws every notation style as its own
+preview, and the pickers list the games, characters and layouts. Anything in
+that list belongs in the code that renders it, not in `docs/` — a table of
+settings or glyphs in Markdown is a second copy that goes stale silently and
+tells a reader nothing they would not see by pressing the key.
+
+Documentation is for what the app cannot show: why a game's rules differ, what
+the config file remembers and where it lives, gotchas the interface has no room
+to explain, and anything about the terminal or the operating system that has to
+be fixed outside the program. Prefer a sentence to a table and a paragraph to a
+section. If a change makes a doc longer, check whether it should instead make
+the app clearer.
+
 ## Commands
 
 ```bash
@@ -28,6 +47,7 @@ uv sync --all-groups            # dev setup; omit --all-groups for prod
 .venv/bin/pytest -q             # tests
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
+.venv/bin/python .claude/skills/prepare-release/check-docs.py   # docs + in-app text, before a release
 ./scripts/2-game-briefs.sh      # analyse any guide lacking .claude/skills/game-brief/briefs/<game>.md
 ./scripts/4-run-datagen.sh      # rebuild packaged rosters from references/ (wraps python -m motioninput_tui_datagen)
 python -m motioninput_tui_datagen --summary   # per-character move / trainable counts for the data on disk
@@ -37,7 +57,6 @@ python -m motioninput_tui_datagen --summary   # per-character move / trainable c
 .venv/bin/pytest tests/engine/test_motions/sfiii3          # one game's motion tests
 
 python -m motioninput_tui                                  # run it
-python -m motioninput_tui --game sfiii3 --character ryu    # skip the pickers
 python -m motioninput_tui --check-terminal                 # speed + key release support
 python -m motioninput_tui.gamepad_probe                    # dump a pad's SDL state to /tmp (ctrl+c to stop)
 python -m motioninput_tui --list                           # rosters
@@ -94,6 +113,13 @@ of separate game/character/layout arguments.
 
 Key release support is deliberately not persisted; it is probed per terminal
 each launch.
+
+The config file is the *only* place the selection lives. The command line is
+`--config`, `--list`, `--check-terminal`, `--version` and `-v`: `--game`,
+`--character`, `--layout`, `--loose-buffer` and `--no-key-release` were all
+removed, because a flag and a remembered value saying different things needs a
+precedence rule, and none of them earned one. `tests/test_cli.py` guards the
+surface, so re-adding one is a deliberate act rather than a drift.
 
 Setting `OptionList.highlighted` queues a highlight event, and an OptionList
 also posts one for index 0 when options are added. `SetupScreen` and
@@ -195,9 +221,10 @@ a new layout per keyboard arrangement. A button appearing in both rows of a set
 is how the Neo Geo binds `asdf` and `zxcv` to the same four.
 
 `Button` therefore holds every game's buttons, but `ALL_BUTTONS` is still only
-the Street Fighter six: it is what a *roster* can ask for, and the generated
-data is Street Fighter. Widening it would change what "any button" means in the
-move lists.
+the Street Fighter six: that is the one dialect `normalise` parses into, and a
+roster on another panel has its requirements mapped off it afterwards by
+`datagen/neogeo.py`. Widening it would change what "any button" means in every
+move list at once.
 
 Layouts are built carrying the six, so `app._panel_for` only lays a set on when
 it is not that one — which is also what keeps a rebound gamepad from being
@@ -241,22 +268,24 @@ tick, diffs the pad's state, and feeds presses and releases through the same
 `KeyboardSource` (in `exact=True` mode) that the keyboard uses — there is no
 separate source. pygame is a base dependency but imported lazily; everything
 degrades to "no gamepad" when it is missing or nothing is plugged in. On macOS pygame only
-sees pads under the real Cocoa video driver, so `_load_pygame` skips the `dummy`
+sees pads under the real Cocoa video driver, so `load_pygame` skips the `dummy`
 driver there and sets `SDL_MAC_BACKGROUND_APP` instead.
 
 **Read the pad through SDL's game-controller API, not raw joystick buttons.**
 `_first_controller` opens a `pygame._sdl2.controller.Controller`, so
-`codes_from_pad` reads `CONTROLLER_BUTTON_A`/`X`/… and SDL's controller
-database maps each pad's real (often bizarre) button numbering onto the
-Xbox-style layout. Reading `joystick.get_button(0..5)` is what made most of the
+`codes_from_pad` reads `SDL_GameControllerButton` values — spelled out as the
+`_BUTTON_A`/`_BUTTON_X`/… constants at the top of the file rather than taken
+from pygame, which keeps it a plain function the tests can drive — and SDL's
+controller database maps each pad's real (often bizarre) button numbering onto
+the Xbox-style layout. Reading `joystick.get_button(0..5)` is what made most of the
 buttons dead. Tests drive `codes_from_pad` with a `FakePad`; a root autouse
 fixture stubs `_first_controller` so a plugged-in pad never leaks in.
 
 The eight attack codes (`pad:0`-`pad:5` face/shoulder, `pad:6`/`pad:7`
 triggers) start on a fixed Xbox-style default (`GAMEPAD_DEFAULT_BINDINGS` in
-`controls/layouts.py`, six of the eight). `b` on the setup screen's gamepad row
-opens `tui/screens/gamepad_bind.py` to remap them; `SetupScreen` also renames
-that row after the connected pad. The map is stored in `config.json` as
+`controls/layouts.py`, six of the eight). `b` on the input picker's gamepad row
+opens `tui/screens/gamepad_bind.py` to remap them; `InputPickerScreen` also
+renames that row after the connected pad. The map is stored in `config.json` as
 `gamepad_bindings` (`{button name: pad code}`) and applied by `gamepad_layout()`,
 which falls back to the default whole rather than leave an attack unreachable.
 Movement (d-pad + left stick) is not rebindable.
@@ -293,7 +322,7 @@ enforce this together, and both are needed:
   holding after a fireball survives the flush, and without a per-step limit a
   later `d, df` would turn it into a dragon punch.
 
-`BufferPolicy.LOOSE` (`--loose-buffer`, `ctrl+b`) disables both.
+`BufferPolicy.LOOSE` (the loose buffer setting, `ctrl+b`) disables both.
 
 ### Two-phase moves
 
@@ -324,20 +353,28 @@ compares against — a plain string, because `engine` never imports `games`.
 
 ### One Super Art at a time
 
-3rd Strike equips one Super Art of three, and 17 of its 20 characters have two
-or three supers on the identical `qcf,qcf + P` — no other game here has a single
-such clash. So `Move.super_art` carries the guide's `I`/`II`/`III` flag (the
-`sfiii3` parser already matched it, it was just being thrown away) and
+3rd Strike equips one Super Art of three, and 18 of its 20 characters have two
+or three supers on one identical motion and button — 14 of them on `qcf,qcf + P`
+alone. Other games do have the odd pair (four characters in KoF '98, two in
+2001, two in USFIV, Akuma in Alpha 3), but nothing on this scale and nothing
+with a mechanism to tell them apart. So `Move.super_art` carries the guide's
+`I`/`II`/`III` flag (the `sfiii3` parser already matched it, it was just being
+thrown away) and
 `TrainingSession._live_moves` hands the recogniser only the equipped one.
 `tab` on the trainer cycles them.
 
 This is what makes the clash tractable at all, and it is also why the two-phase
 tail above stays cheap: with one Super Art equipped nobody has two supers on one
-input, so the follow-up only ever opens for a move that genuinely wants the taps.
+input — Akuma comes closest, with a ground and an air super under both SA I and
+SA III, and the `air` flag separates those — so the follow-up only ever opens
+for a move that genuinely wants the taps.
 
-`Character.super_arts` is empty for every other game, and the whole mechanism
-turns into a no-op — the filter passes everything and `check_action` hides the
-`tab` binding.
+Ultra SF4 uses the same field for its two Ultra Combos, which are picked before
+a match the same way: `Character.super_arts` is `("I", "II")` there, and Metsu
+Hadouken and Metsu Shoryuken are the pair it separates. Everywhere else — and
+for Gill, the one 3rd Strike character without a choice — `super_arts` is empty
+and the mechanism turns into a no-op: the filter passes everything and
+`check_action` hides the `tab` binding.
 
 ### SOCD is last-input priority, deliberately
 
@@ -384,16 +421,19 @@ rather than tidied to match Third Strike.
 fresh clone has to run `python -m motioninput_tui_guides` first. After changing
 `motioninput_tui_datagen/normalise.py` or a parser in
 `motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
-(or `./scripts/4-run-datagen.sh`) and commit the JSON. Roughly 80-90% of
-listed moves become trainable; the rest are follow-ups and conditional moves
-that still appear in the move list, struck through.
+(or `./scripts/4-run-datagen.sh`) and commit the JSON. The Street Fighter
+rosters land around 80-90% trainable; the SNK ones are lower (51% for Samurai
+Shodown II, 68-74% for the rest) because those guides lean on command throws
+written `b or f + button` and on long follow-up chains. The remainder are
+follow-ups and conditional moves that still appear in the move list, struck
+through. `--summary` prints the per-character breakdown.
 
 The guides disagree about character names, so `motioninput_tui_datagen/names.py` maps the key a
 guide produced to the name to use instead, per game (`ken-masters` → `Ken`).
 Keys are rebuilt from the new name, so an override renames the character
-everywhere, including `--character` and anyone's saved config — which is why
-`__main__` forgets a remembered character that is no longer in the roster
-instead of refusing to start.
+everywhere, including anyone's saved config — which is why `__main__` forgets a
+remembered character that is no longer in the roster instead of refusing to
+start.
 
 `motioninput_tui_datagen/commands.py` is the same idea for a guide that has a
 move's *input* wrong, keyed `(character key, move name)` and applied after

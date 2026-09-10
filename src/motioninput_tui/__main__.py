@@ -8,10 +8,7 @@ from rich import traceback
 
 from .config import Config, config_path
 from .constants import PROGRAM_NAME, PROGRAM_NAME_WITH_FULL_VERSION, PROGRAM_NAME_WITH_VERSION
-from .controls.layouts import DEFAULT_LAYOUT, available_layouts
-from .engine.recognizer import BufferPolicy
 from .games.loader import GameDataMissingError, available_games, load_game
-from .games.rulesets import GAME_SPECS
 from .terminal import detect, query_support
 from .utils.logger import get_logger, setup_logger_cli
 
@@ -20,27 +17,15 @@ logger = get_logger(__name__)
 
 
 def _get_args() -> argparse.Namespace:
+    """The whole command line.
+
+    What to train is not here: the game, the character, the layout and the
+    settings all live in the config file, which the pickers write as you use
+    them. Duplicating them as flags meant two ways to say the same thing and a
+    precedence rule between them. What is left either says *which* config file
+    to read, or prints something and exits without one.
+    """
     parser = argparse.ArgumentParser(prog=PROGRAM_NAME, description="Fighting game motion input trainer.")
-    parser.add_argument("--game", choices=sorted(GAME_SPECS), help="Skip the game picker.")
-    parser.add_argument("--character", help="Skip the character picker. Needs --game.")
-    parser.add_argument(
-        "--layout",
-        choices=sorted(layout.key for layout in available_layouts()),
-        default=None,
-        help=f"Control layout (default: last used, or {DEFAULT_LAYOUT}).",
-    )
-    parser.add_argument(
-        "--no-key-release",
-        action="store_true",
-        help="Do not ask the terminal for key release reporting; infer holds from auto-repeat instead.",
-    )
-    parser.add_argument(
-        "--loose-buffer",
-        action=argparse.BooleanOptionalAction,
-        default=None,
-        help="Do not spend inputs when a move comes out, so one motion can feed several moves. "
-        "Not how the games behave; it is also in the trainer's settings, ctrl+b. Default: last used.",
-    )
     parser.add_argument(
         "--config",
         type=Path,
@@ -100,14 +85,8 @@ def main() -> int:
     if args.list:
         return _print_roster()
 
-    if args.character and not args.game:
-        logger.error("--character needs --game as well")
-        return 2
-
     config = Config.load(args.config)
-    _apply_overrides(config, args)
-
-    if not _resolve_selection(config, from_cli=bool(args.character)):
+    if not _resolve_selection(config):
         return 1
 
     info = detect()
@@ -116,7 +95,7 @@ def main() -> int:
 
     # Ask before the interface takes over the terminal, so holds are tracked
     # exactly from the very first keystroke rather than from the first release.
-    key_release = False if args.no_key_release else bool(query_support())
+    key_release = bool(query_support())
     if key_release:
         logger.debug("Terminal reports key releases; holds will be tracked exactly")
     else:
@@ -124,22 +103,18 @@ def main() -> int:
 
     from .tui import MotionInputApp  # ruff: ignore[import-outside-top-level] - importing textual is slow, only do it when running the app
 
-    MotionInputApp(
-        config,
-        key_release=key_release,
-        skip_setup=bool(args.game and args.character),
-    ).run()
+    MotionInputApp(config, key_release=key_release).run()
     return 0
 
 
-def _resolve_selection(config: Config, *, from_cli: bool) -> bool:
-    """Check the selection against the rosters. False means do not start.
+def _resolve_selection(config: Config) -> bool:
+    """Check the remembered selection against the rosters. False means do not start.
 
     A remembered character can simply be gone: rosters are regenerated, and a
-    name override in ``motioninput_tui_datagen/names.py`` renames the key with the character.
-    That is no reason to refuse to start, so the selection is dropped and the
-    picker opens on it instead. A character named on the command line is
-    different, and still gets an error.
+    name override in ``motioninput_tui_datagen/names.py`` renames the key with
+    the character. That is no reason to refuse to start, so the selection is
+    dropped and the picker opens on it instead. Missing game *data* is a
+    different matter, and there is nothing to fall back to.
     """
     if not config.game:
         return True
@@ -153,26 +128,9 @@ def _resolve_selection(config: Config, *, from_cli: bool) -> bool:
     try:
         config.character = game.character(config.character).key
     except KeyError as exc:
-        if from_cli:
-            logger.error("%s", exc)  # ruff: ignore[error-instead-of-exception] - a traceback helps nobody here
-            return False
         logger.info("Forgetting the saved character, it is not in the roster any more: %s", exc)
         config.character = None
     return True
-
-
-def _apply_overrides(config: Config, args: argparse.Namespace) -> None:
-    """Let command line arguments win over what was remembered."""
-    if args.game:
-        config.game = args.game
-        # Not the character from whatever game was being played last: whoever
-        # was last trained on this one. --character always wins, and cannot be
-        # given without --game.
-        config.character = args.character or config.characters.get(args.game)
-    if args.layout:
-        config.layout = args.layout
-    if args.loose_buffer is not None:
-        config.buffer_policy = BufferPolicy.LOOSE if args.loose_buffer else BufferPolicy.CONSUME
 
 
 if __name__ == "__main__":

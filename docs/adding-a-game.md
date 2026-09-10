@@ -28,8 +28,8 @@ Add an entry (the existing six are worked examples of the shape):
 }
 ```
 
-`key` is the short name used everywhere else (the filename stem, the `--game`
-value, the test directory). `url` is the specific FAQ the parser will be
+`key` is the short name used everywhere else (the filename stem, the guide
+fetcher's `--game` value, the test directory). `url` is the specific FAQ the parser will be
 written against — GameFAQs often has several move-list FAQs for one game, and
 they are not interchangeable. `credit` records which one, so a page that
 changes author is caught rather than silently parsed as if nothing moved.
@@ -59,7 +59,7 @@ a predicted trainable rate, a proposed `Ruleset`, and motion-test seeds. Make it
 if it does not exist yet:
 
 ```bash
-./scripts/run-game-briefs.sh kof98
+./scripts/2-game-briefs.sh kof98
 ```
 
 That is a single `claude -p` pass over the full guide, so run it in the
@@ -170,7 +170,7 @@ OVERRIDES: dict[str, dict[str, str]] = {
 ```
 
 Keys are rebuilt from the new name, so an override renames the character
-everywhere — `--character`, the saved config, the test directory name. An
+everywhere — the saved config, the test directory name. An
 override that matches nobody, or that collides with another character's key,
 logs a warning rather than doing nothing silently.
 

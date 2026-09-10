@@ -23,9 +23,9 @@ author's work. Keep whole `| Move | Input |` tables out.
 ## Making them
 
 ```bash
-./scripts/run-game-briefs.sh              # every guide that lacks a brief, then verify
-./scripts/run-game-briefs.sh sfa3 kof98   # just these
-./scripts/run-game-briefs.sh --force sfa3 # redo one that exists
+./scripts/2-game-briefs.sh              # every guide that lacks a brief, then verify
+./scripts/2-game-briefs.sh sfa3 kof98   # just these
+./scripts/2-game-briefs.sh --force sfa3 # redo one that exists
 ```
 
 That fetches any missing guides, then runs the two steps below and passes its

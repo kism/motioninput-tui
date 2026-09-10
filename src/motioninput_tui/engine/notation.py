@@ -146,9 +146,11 @@ class Button(StrEnum):
 PUNCHES = frozenset({Button.LP, Button.MP, Button.HP})
 KICKS = frozenset({Button.LK, Button.MK, Button.HK})
 ALL_BUTTONS = PUNCHES | KICKS
-"""Every button a *roster* can ask for. The generated data is Street Fighter,
-so this is the six, not every member of the enum: widening it would change what
-``any button`` means in the move lists."""
+"""Every button "any button" can mean. ``normalise`` reads one dialect, the
+Street Fighter six, and a roster on another panel is mapped off these afterwards
+by ``datagen/neogeo.py`` -- so this stays the six rather than every member of the
+enum. Widening it would change what ``any button`` means in every move list at
+once, the Neo Geo ones included."""
 
 BUTTON_ORDER: tuple[Button, ...] = (Button.LP, Button.MP, Button.HP, Button.LK, Button.MK, Button.HK)
 """The six the gamepad rebind screen offers, in panel order."""

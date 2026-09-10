@@ -20,10 +20,6 @@ Special, and The Last Blade 2.
 
 ## Install and run
 
-Needs Python 3.14 or newer.
-
-### Install it
-
 `uv tool install motioninput-tui`
 
 or
@@ -35,7 +31,7 @@ Either one puts `motioninput-tui` on your PATH.
 See the docs for the full command line reference, controls, settings and move
 notation.
 
-## Technical Information and AI Disclaimr
+## Technical information and AI disclaimer
 
 ### How it's created
 
@@ -52,32 +48,11 @@ This is my first AI-heavy project, the workflow is
 
 ### How I ensure code quality
 
-For each numberd release I do the following
-
-- Manually read all the changed code from the previous release
-
-- In this register of games/characters I personally test and re-verify
-  - This is not frame perfect, I just open 3SX/Mame/whatever and see if it feels the same.
-  - The tests that claude writes will reflect these, but absolutely needs to be checked by a human
-
-- Register (this will later be a separate file)
-  - SFA3
-    - Ken
-      - Shouryuu Ken feels too strict
-    - Sakura
-      - Shou'ou Ken feels too strict
-      - Sakura Otoshi punch timing is relaxed?
-  - SFIII
-    - Ken
-    - Elana
-    - Hugo
-      - I can't do Gigas Breaker
-  - USFIV
-    - Ken
-    - Sakura
-      - Sakura Otoshi timing is relaxed
-  - KOF2001
-    - Yuri Sakazaki
+Every numbered release, I read all the code changed since the last one, and
+play a register of games and characters in the real game and in the trainer to
+check they still feel the same. See
+[Manual testing](https://motioninput-tui.readthedocs.io/en/latest/manual-testing.html)
+for the register and what the check involves.
 
 ## Contributing
 

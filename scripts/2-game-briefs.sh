@@ -16,7 +16,7 @@ if [[ $# -eq 0 ]]; then
 Note: with no arguments this writes a brief for every guide that lacks one, each
 a claude CLI pass over the full guide. You only need that when adding a game, or
 when a guide changed. Existing briefs are left alone; to redo one, name it:
-run-game-briefs.sh --force <game>.
+2-game-briefs.sh --force <game>.
 WARN
     if [[ -t 0 ]]; then
         read -r -p "Continue? [y/N] " reply || reply=""
