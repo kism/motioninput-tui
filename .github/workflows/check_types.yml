@@ -25,7 +25,7 @@ jobs:
         uses: astral-sh/setup-uv@v10.0.1
 
       - name: Install the project
-        run: uv sync --group type --group test
+        run: uv sync --group type --group test --group guides
 
       - name: Check types with ty
         run: .venv/bin/ty check .
