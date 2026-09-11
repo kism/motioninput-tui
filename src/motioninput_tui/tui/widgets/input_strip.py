@@ -35,6 +35,9 @@ class Bracket(NamedTuple):
     end_ms: int
 
 
+MOTION_ROWS = 3
+"""Lines of motions a screen lays over its history."""
+
 TRAIL_STYLES: dict[Outcome, str] = {
     Outcome.LIVE: "bold",
     Outcome.EXECUTED: "bold green",
@@ -114,9 +117,8 @@ class InputStrip(Static):
 
     DEFAULT_CSS = """
     InputStrip {
-        height: 3;
+        height: auto;
         padding: 1 1 0 1;
-        border-bottom: solid $panel;
         content-align: left middle;
     }
     """

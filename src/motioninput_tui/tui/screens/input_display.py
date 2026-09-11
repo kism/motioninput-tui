@@ -24,7 +24,7 @@ from motioninput_tui.engine.session import Outcome, TrainingSession
 from motioninput_tui.games.loader import INPUT_DISPLAY
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.notation_styles import MOTION_NAMES, MOTION_SHORTHANDS
-from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
+from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
@@ -37,9 +37,6 @@ if TYPE_CHECKING:
     from motioninput_tui.notation_styles import Notation
 
 TICK_HZ = 60
-
-MOTION_ROWS = 3
-"""Lines of motions over the history."""
 
 NAME_GAP = 3
 """Cells between a motion and its name: wider than the gap inside a compound motion."""
@@ -98,7 +95,6 @@ class InputDisplayScreen(Screen):
         padding: 0 1;
         scrollbar-size-vertical: 1;
     }
-    InputDisplayScreen InputStrip { height: auto; border-bottom: none; }
     """
 
     def __init__(

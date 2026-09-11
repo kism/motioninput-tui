@@ -92,7 +92,8 @@ def test_picking_a_style_rewrites_the_move_list_and_is_saved(config: Config) -> 
 
 
 def test_the_input_strip_stays_arrows_whatever_the_moves_are_written_in(config: Config) -> None:
-    """Letters for the move list must not change what your own inputs look like."""
+    """Letters for the move list, and for the motion rows over the history, must not change what your own inputs
+    look like."""
 
     async def session() -> tuple[str, str]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
@@ -106,12 +107,13 @@ def test_the_input_strip_stays_arrows_whatever_the_moves_are_written_in(config: 
             for key in ("s", "d"):
                 await pilot.press(key)
             await pilot.pause()
-            return _movelist(trainer), str(trainer.query_one("#strip", InputStrip).render())
+            # The last line is the inputs; any motion rows over them follow the notation.
+            return _movelist(trainer), str(trainer.query_one("#strip", InputStrip).render()).split("\n")[-1]
 
-    movelist, strip = asyncio.run(session())
+    movelist, inputs = asyncio.run(session())
     assert "D, DF, F + P" in movelist
-    assert "↓" in strip
-    assert "D, DF" not in strip
+    assert "↓" in inputs
+    assert "D, DF" not in inputs
 
 
 def test_a_remembered_notation_is_used_from_the_start(tmp_path: Path) -> None:

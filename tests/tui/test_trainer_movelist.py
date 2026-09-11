@@ -9,10 +9,11 @@ from textual.widgets import Static
 
 from motioninput_tui.config import Config
 from motioninput_tui.tui import MotionInputApp
-from motioninput_tui.tui.screens.training import TrainingScreen
+from motioninput_tui.tui.screens.training import MOVELIST_MODES, TrainingScreen
 from motioninput_tui.tui.widgets.input_strip import InputStrip
 from motioninput_tui.tui.widgets.movelist import LIT_ROW, MoveList
 from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -83,11 +84,11 @@ def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config
                 _movelist(trainer),
                 _lit(trainer.query_one(DirectionGate).art),
                 _lit(trainer.query_one(ButtonPads).art),
-                str(trainer.query_one("#pads InputStrip", InputStrip).render()),
+                str(trainer.query_one("#strip", InputStrip).render()),
             )
 
     body, stick, buttons, history = asyncio.run(session())
-    assert "→LP" in history  # the history beside the panel, not just the hidden one
+    assert "→LP" in history  # the history under the panel
     assert "↓ ↘ → + P" in body.plain  # Hadou Ken as the trainer writes it
     assert "qcf + P" in body.plain  # and as the guide does
     assert not any("strike" in str(span.style) for span in body.spans)
@@ -96,41 +97,42 @@ def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config
     assert "LP" in buttons
 
 
-def test_the_panels_history_is_full_width_as_soon_as_it_is_shown(config: Config) -> None:
-    """Hidden, it trims to nothing; shown, it must redraw without waiting for a key."""
+def test_the_history_and_the_status_span_the_screen_whatever_the_move_list_is_doing(config: Config) -> None:
+    """Beside, full screen or hidden, both stay along the bottom, as on the input display."""
 
+    async def session() -> list[tuple[int, int]]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            seen = []
+            for _ in MOVELIST_MODES:
+                # Inferred holds are worth a word, so the status has something to show.
+                status = trainer.query_one(StatusBar)
+                assert status.display
+                seen.append((trainer.query_one("#strip", InputStrip).region.width, status.region.width))
+                await pilot.press("ctrl+l")
+                await pilot.pause()
+            return seen
+
+    assert asyncio.run(session()) == [(120, 120)] * len(MOVELIST_MODES)
+
+
+def test_the_history_lays_the_motion_over_the_inputs_that_made_it(config: Config) -> None:
     async def session() -> str:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
-            await pilot.press("s", "d", "j")  # down, down-forward + LP: wider than a hidden strip keeps
-            # Let the holds lapse first, or their redraw would hide a missing one.
-            await pilot.pause(trainer.session.hold_window_ms / 1000 + 0.1)
-            await pilot.press("ctrl+l")
-            await pilot.pause()
-            await pilot.pause()
-            return str(trainer.query_one("#pads InputStrip", InputStrip).render())
-
-    assert "↓" in asyncio.run(session())
-
-
-def test_the_panel_lays_the_motion_over_the_inputs_that_made_it(config: Config) -> None:
-    async def session() -> str:
-        app = MotionInputApp(config, key_release=False, skip_setup=True)
-        async with app.run_test(size=(120, 40)) as pilot:
-            await pilot.pause()
-            trainer = app.screen
-            assert isinstance(trainer, TrainingScreen)
-            await pilot.press("ctrl+l")
             await pilot.press("a")  # back, long enough ago to be no part of a motion,
             trainer.handle_release("a")  # so the quarter circle does not start the strip
             await pilot.pause(1)
             await pilot.press("s", "d")  # down, down-forward...
             trainer.handle_release("s")  # ...forward: a quarter circle
             await pilot.pause(0.05)  # a few ticks, which is what paints it
-            return str(trainer.query_one("#panel-strip", InputStrip).render())
+            return str(trainer.query_one("#strip", InputStrip).render())
 
     *motions, inputs = asyncio.run(session()).split("\n")
     assert inputs.index("↓") > 0
@@ -146,7 +148,6 @@ def test_motions_stay_drawn_ending_in_what_became_of_them(config: Config) -> Non
             await pilot.pause()
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
-            await pilot.press("ctrl+l")
             await pilot.press("s", "a")
             trainer.handle_release("s")
             trainer.handle_release("a")
@@ -155,7 +156,7 @@ def test_motions_stay_drawn_ending_in_what_became_of_them(config: Config) -> Non
             trainer.handle_release("s")
             await pilot.press("j")  # LP
             await pilot.pause(0.05)
-            content = trainer.query_one("#panel-strip", InputStrip).content
+            content = trainer.query_one("#strip", InputStrip).content
             assert isinstance(content, Text)
             return content
 
@@ -178,14 +179,13 @@ def test_a_move_with_no_motion_puts_a_green_mark_over_the_input_it_came_out_on(c
             await pilot.pause()
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
-            await pilot.press("ctrl+l")
             await pilot.press("a")  # something first, so the mark is not at column 0
             trainer.handle_release("a")
             await pilot.pause(0.3)
             await pilot.press("d", "k")  # forward + MP
             trainer.handle_release("d")
             await pilot.pause(0.05)
-            content = trainer.query_one("#panel-strip", InputStrip).content
+            content = trainer.query_one("#strip", InputStrip).content
             assert isinstance(content, Text)
             return content
 

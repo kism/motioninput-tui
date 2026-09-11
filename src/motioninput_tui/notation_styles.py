@@ -73,8 +73,8 @@ class Style:
             family out, which is how each one offers numpad of its own.
         separator: What goes between them. Numpad notation runs them together
             as ``236``, letters want ``D, DF, F``, arrows want the space.
-        mark: :attr:`Family.MARK` only: what the trainer's full-screen history
-            puts over a move that came out needing no motion, a throw or a
+        mark: :attr:`Family.MARK` only: what the motion rows over the input
+            history put over a move that came out needing no motion, a throw or a
             command normal, and over each tap a mash tail counted.
     """
 

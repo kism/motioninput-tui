@@ -12,7 +12,7 @@ from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.terminal import detect
-from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
+from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.move_feed import MoveFeed, append_follow_up
 from motioninput_tui.tui.widgets.movelist import MoveList
 from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
@@ -34,10 +34,6 @@ MOVELIST_MODES = ("beside", "full", "hidden")
 
 LIT_S = 0.5
 """How long the last move to come out stays lit in the move list, in seconds."""
-
-BRACKET_ROWS = 7
-"""Lines of motions over the full-screen panel's history: the stick's nine rows,
-less the inputs and the one under them."""
 
 
 class TrainingScreen(Screen):
@@ -72,12 +68,9 @@ class TrainingScreen(Screen):
     #left { width: 1fr; }
     #feed-title { padding: 0 1; text-style: bold; }
     #pads { height: auto; display: none; border-top: solid $panel; }
-    /* As tall as the stick, three rows of three-line boxes, with the inputs
-       level with its bottom row, the motions stacked over them and a mash
-       prompt under them. */
-    #history { width: 1fr; height: 9; align-vertical: bottom; }
-    #history InputStrip { height: auto; padding: 0 1; border-bottom: none; }
-    #mash { height: 1; padding: 0 2 0 1; text-align: right; }
+    /* As tall as the stick, three rows of three-line boxes, with the prompt
+       level with its bottom row. */
+    #mash { width: 1fr; height: 9; padding: 0 2 0 1; content-align: right bottom; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
@@ -108,25 +101,24 @@ class TrainingScreen(Screen):
         self._unlight: Timer | None = None
 
     def compose(self) -> ComposeResult:
-        """Banner, input strip, activation feed and the move list."""
+        """The feed beside the move list, over the input history and the status, as the input display lays out."""
         yield Static(id="banner")
         if self.terminal.should_warn:
             yield Static(Text(f"⚠ {self.terminal.warning()}"), id="warning")
         with Horizontal(id="body"):
             with Vertical(id="left"):
-                yield InputStrip(id="strip")
                 yield Static("Activated moves", id="feed-title")
                 yield MoveFeed(id="feed")
-                yield StatusBar(id="status")
             yield MoveList(id="movelist")
-        # The live panel and its own input history, under a full-screen move
-        # list that hides the left pane, with the motions the stick has made.
+        # The live panel, under a full-screen move list that hides the feed,
+        # with the newest move's follow-through beside it in the feed's place.
         with Horizontal(id="pads"):
             yield DirectionGate()
             yield ButtonPads()
-            with Vertical(id="history"):
-                yield InputStrip(id="panel-strip")
-                yield Static(id="mash")
+            yield Static(id="mash")
+        # Outside the panes, so the history has the whole width to fill.
+        yield InputStrip(id="strip")
+        yield StatusBar(id="status")
         yield Footer()
 
     def on_mount(self) -> None:
@@ -177,19 +169,9 @@ class TrainingScreen(Screen):
         if self.session.tick():
             self._refresh()
 
-    def _paint_history(self) -> None:
-        """The full-screen panel's input history, with the trail of motions laid over the inputs that made them.
-
-        Newest nearest the inputs. One a press would have beaten is struck, and
-        a finished one is green if a move came out on it, dim if not. Under
-        them, the newest move's follow-through, if it wants taps or a mash.
-        """
-        if self.movelist_mode != "full":
-            return
+    def _paint_mash(self) -> None:
+        """The newest move's follow-through, if it wants taps or a mash, for when the feed is hidden."""
         session = self.session
-        brackets = trail_brackets(session.trail, self.notation)
-        strip = self.query_one("#panel-strip", InputStrip)
-        strip.show(session.entries, session.direction, brackets, bracket_rows=BRACKET_ROWS)
         mash = Text()
         latest = session.activations[0] if session.activations else None
         if latest is not None and latest.follow_up is not None:
@@ -222,8 +204,13 @@ class TrainingScreen(Screen):
 
     def _refresh(self) -> None:
         session = self.session
-        self.query_one("#strip", InputStrip).show(session.entries, session.direction)
-        self._paint_history()
+        # The motions the stick has made laid over the inputs that made them,
+        # as the input display does.
+        brackets = trail_brackets(session.trail, self.notation)
+        self.query_one("#strip", InputStrip).show(
+            session.entries, session.direction, brackets, bracket_rows=MOTION_ROWS
+        )
+        self._paint_mash()
         self.query_one(MoveFeed).show(session.activations, self.notation)
         self.query_one(DirectionGate).show(session.direction, self.notation)
         self.query_one(ButtonPads).show(session.layout, session.held)
@@ -275,15 +262,14 @@ class TrainingScreen(Screen):
     def action_cycle_movelist(self) -> None:
         """Step the move list on: beside the trainer, the whole screen, hidden.
 
-        Full screen swaps the input strip for the live button panel, so what
-        is pressed stays visible while the list is being read.
+        Full screen swaps the activation feed for the live button panel, so
+        what is pressed stays visible while the list is being read. The input
+        history and the status stay where they are, under whichever it is.
         """
         self.movelist_mode = MOVELIST_MODES[(MOVELIST_MODES.index(self.movelist_mode) + 1) % len(MOVELIST_MODES)]
         self.set_class(self.movelist_mode == "full", "-movelist-full")
         self.set_class(self.movelist_mode == "hidden", "-movelist-hidden")
         self._paint_movelist()
-        # A strip trims its history to its width, which is nothing while hidden.
-        self.call_after_refresh(self._refresh)
 
     def action_back(self) -> None:
         """Return to the setup screen."""

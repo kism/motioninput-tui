@@ -154,7 +154,7 @@ no `MotionSpec`, and `MotionKind.ANY`, keep the guide's own wording.
 
 The live input strip never consults it: what the player pressed is always
 arrows, deliberately, so one reading of the display never changes. The motion
-rows the full-screen panel and the input display draw over their history do,
+rows the trainer and the input display draw over their history do,
 since they name motions rather than record presses, and so does the stick on
 the live panel, whose boxes are labelled in the direction style.
 
