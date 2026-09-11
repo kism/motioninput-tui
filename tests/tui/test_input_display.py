@@ -104,7 +104,12 @@ def test_the_motions_live_now_are_lit_in_the_list(config: Config) -> None:
             assert isinstance(screen, InputDisplayScreen)
 
             def lit() -> list[str]:
-                return [str(label.content) for label in screen.query("#motions .-live").results(Static)]
+                labels = screen.query("#motions Static").results(Static)
+                return [
+                    label.content.plain
+                    for label in labels
+                    if isinstance(label.content, Text) and label.content.style == LIT
+                ]
 
             await pilot.press("k", "l")  # southpaw down, down-forward...
             screen.handle_release("k")  # ...forward

@@ -23,7 +23,7 @@ from motioninput_tui.engine.session import Outcome, TrainingSession
 from motioninput_tui.games.loader import INPUT_DISPLAY
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
-from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -61,8 +61,6 @@ class InputDisplayScreen(Screen):
     InputDisplayScreen { layout: vertical; }
     InputDisplayScreen #banner { height: auto; padding: 0 1; background: $panel; }
     InputDisplayScreen #motions { border: round $panel; padding: 0 1; }
-    /* Lit as the panel lights what is held. */
-    InputDisplayScreen #motions .-live { color: black; background: green; text-style: bold; }
     InputDisplayScreen #panel-area { height: 1fr; align: center middle; }
     InputDisplayScreen #panel { width: auto; height: auto; }
     InputDisplayScreen InputStrip { height: auto; border-bottom: none; }
@@ -91,6 +89,8 @@ class InputDisplayScreen(Screen):
         order = list(MotionKind)
         self.motions = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
         """Every motion the game has, once each, in the order the engine lists them."""
+        self._written: list[str] = []
+        """The same, in the player's notation."""
 
     @override
     def compose(self) -> ComposeResult:
@@ -127,19 +127,18 @@ class InputDisplayScreen(Screen):
         self.query_one("#banner", Static).update(text)
 
     def _paint_motions(self) -> None:
-        """Write the motion list in the player's notation, in columns as wide as the widest."""
+        """Put the motion list into the player's notation, in columns as wide as the widest."""
         grid = self.query_one("#motions", ItemGrid)
-        written = [self.notation.write_kind(kind) for kind in self.motions]
-        grid.min_column_width = max(map(cell_len, written), default=0) + MOTION_GAP
-        for label, text in zip(grid.query(Static), written, strict=True):
-            label.update(text)
+        self._written = [self.notation.write_kind(kind) for kind in self.motions]
+        grid.min_column_width = max(map(cell_len, self._written), default=0) + MOTION_GAP
         grid.refresh(layout=True)
 
     def _light_motions(self) -> None:
-        """Light every motion in the list that a press now would bring out."""
+        """Write the motion list, lit as the panel lights what is held where a press now would bring one out."""
         live = {motion.kind for motion in self.session.trail if motion.outcome is Outcome.LIVE}
-        for label, kind in zip(self.query_one("#motions", ItemGrid).query(Static), self.motions, strict=True):
-            label.set_class(kind in live, "-live")
+        labels = self.query_one("#motions", ItemGrid).query(Static)
+        for label, kind, written in zip(labels, self.motions, self._written, strict=True):
+            label.update(Text(written, style=LIT if kind in live else ""))
 
     def apply_panel(self, layout: ControlLayout, buttons: ButtonSet) -> None:
         """Take a rearranged panel, from the settings, without leaving it."""
