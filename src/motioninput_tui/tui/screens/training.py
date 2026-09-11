@@ -85,7 +85,7 @@ class TrainingScreen(Screen):
        prompt under them. */
     #history { width: 1fr; height: 9; align-vertical: bottom; }
     #history InputStrip { height: auto; padding: 0 1; border-bottom: none; }
-    #mash { height: 1; padding: 0 1; text-align: right; }
+    #mash { height: 1; padding: 0 2 0 1; text-align: right; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
