@@ -383,8 +383,14 @@ class TrainingSession:
         self.total_activations = 0
 
     def _append_entry(self, direction: Direction, at_ms: int) -> None:
-        # Collapse a run of empty neutrals rather than filling the strip with them.
         previous = self.entries[-1] if self.entries else None
+        # Gone the millisecond it came, so never held; see InputBuffer.set_direction.
+        if previous is not None and previous.at_ms == at_ms and not previous.buttons and previous.activated is None:
+            self.entries.pop()
+            previous = self.entries[-1] if self.entries else None
+            if previous is not None and previous.direction is direction:
+                return
+        # Collapse a run of empty neutrals rather than filling the strip with them.
         if (
             direction is Direction.NEUTRAL
             and previous is not None

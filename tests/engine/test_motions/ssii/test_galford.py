@@ -20,9 +20,9 @@ from tests.engine.test_motions.harness import (
     press,
 )
 
-# The shared half circle into forward, minus its forward and its button: the
-# directions up to the back are a plain half circle back.
-_ROLL = HALF_CIRCLE_BACK_FORWARD_HP[:-2]
+# The shared half circle into forward, minus letting go of back for its forward,
+# and its button: the directions up to the back are a plain half circle back.
+_ROLL = HALF_CIRCLE_BACK_FORWARD_HP[:-3]
 
 HALF_CIRCLE_BACK_CHORD: Script = [*_ROLL, press(NEO_B, 240), press(NEO_C, 248), press(NEO_D, 256)]
 HALF_CIRCLE_BACK_FORWARD_KICK: Script = [*HALF_CIRCLE_BACK_FORWARD_HP[:-1], press(NEO_D, 240)]

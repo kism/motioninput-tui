@@ -118,7 +118,10 @@ def test_a_live_motion_is_pale_and_one_a_move_came_out_on_is_lit_then_goes_out(c
             def qcf() -> object:
                 return next(style for _, name, style in _motion_rows(screen) if name == MOTION_NAMES[MotionKind.QCF])
 
-            await pilot.press("k", "l")  # southpaw down, down-forward...
+            await pilot.press("k")  # southpaw down,
+            await pilot.pause(0.01)  # apart, or down goes the millisecond it came
+            await pilot.press("l")  # down-forward...
+            await pilot.pause(0.01)
             screen.handle_release("k")  # ...forward
             await pilot.pause(0.05)
             seen = [qcf()]
@@ -268,7 +271,10 @@ def test_what_the_stick_made_is_drawn_over_the_history(config: Config) -> None:
             await pilot.pause()
             screen = app.screen
             assert isinstance(screen, InputDisplayScreen)
-            await pilot.press("k", "l")  # southpaw down, down-forward...
+            await pilot.press("k")  # southpaw down,
+            await pilot.pause(0.01)  # apart, or down goes the millisecond it came
+            await pilot.press("l")  # down-forward...
+            await pilot.pause(0.01)
             screen.handle_release("k")  # ...forward
             await pilot.press("a")  # LP
             await pilot.pause(0.05)

@@ -91,11 +91,11 @@ It reaches into Textual internals in two places: the escape sequence written in
 guarded and fall back to inferred holds. Textual is pinned; check this file
 after a Textual upgrade.
 
-`direction_from_axes` resolves simultaneous left+right by newest-wins rather
-than neutral. That is a correctness requirement rather than a style choice: the
-terminal cannot see the player release back as they press forward, so both are
-held at once during ordinary motions, and neutral SOCD makes charge moves
-impossible.
+A keyboard's SOCD is neutral, as on GP2040-CE, but only when the terminal
+reports releases. Where holds are inferred, `direction_from_axes` resolves
+left+right by newest-wins instead: that terminal cannot see the player release
+back as they press forward, so both look held during ordinary motions, and
+neutral there would make charge moves impossible.
 
 ## Reference guides
 

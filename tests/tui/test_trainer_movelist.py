@@ -147,9 +147,13 @@ def test_the_history_lays_the_motion_over_the_inputs_that_made_it(config: Config
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
             await pilot.press("a")  # back, long enough ago to be no part of a motion,
+            await pilot.pause(0.01)  # apart, or back goes the millisecond it came
             trainer.handle_release("a")  # so the quarter circle does not start the strip
             await pilot.pause(1)
-            await pilot.press("s", "d")  # down, down-forward...
+            await pilot.press("s")  # down,
+            await pilot.pause(0.01)  # apart, or down goes the millisecond it came
+            await pilot.press("d")  # down-forward...
+            await pilot.pause(0.01)
             trainer.handle_release("s")  # ...forward: a quarter circle
             await pilot.pause(0.05)  # a few ticks, which is what paints it
             return str(trainer.query_one("#strip", InputStrip).render())
@@ -168,11 +172,18 @@ def test_motions_stay_drawn_ending_in_what_became_of_them(config: Config) -> Non
             await pilot.pause()
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
-            await pilot.press("s", "a")
+            await pilot.press("s")
+            await pilot.pause(0.01)  # apart, or down goes the millisecond it came
+            await pilot.press("a")
+            await pilot.pause(0.01)
             trainer.handle_release("s")
+            await pilot.pause(0.01)
             trainer.handle_release("a")
             await pilot.pause(1)  # long enough to lapse
-            await pilot.press("s", "d")
+            await pilot.press("s")
+            await pilot.pause(0.01)
+            await pilot.press("d")
+            await pilot.pause(0.01)
             trainer.handle_release("s")
             await pilot.press("j")  # LP
             await pilot.pause(0.05)
@@ -200,6 +211,7 @@ def test_a_move_with_no_motion_puts_a_green_mark_over_the_input_it_came_out_on(c
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
             await pilot.press("a")  # something first, so the mark is not at column 0
+            await pilot.pause(0.01)  # apart, or back goes the millisecond it came
             trainer.handle_release("a")
             await pilot.pause(0.3)
             await pilot.press("d", "k")  # forward + MP

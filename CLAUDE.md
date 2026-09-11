@@ -392,12 +392,21 @@ for Gill, the one 3rd Strike character without a choice — `super_arts` is empt
 and the mechanism turns into a no-op: the filter passes everything and
 `check_action` hides the `tab` binding.
 
-### SOCD is last-input priority, deliberately
+### SOCD is neutral on a keyboard, and only where releases are reported
 
-`direction_from_axes` resolves simultaneous left+right by newest-wins rather
-than neutral. This is a correctness requirement, not a style choice: the
-terminal cannot see you release back as you press forward, so both are held at
-once during ordinary motions. Neutral SOCD makes charge moves impossible.
+A keyboard whose terminal reports releases cancels opposite cardinals, as
+GP2040-CE's SOCD neutral does: left, down and right together are down. Where
+holds are inferred, `direction_from_axes` falls back to newest-wins for
+left+right, and up beats down. That fallback is a correctness requirement, not a style choice: that
+terminal cannot see you release back as you press forward, so both look held
+during ordinary motions, and neutral there would make charge moves impossible.
+A pad is not cleaned: its d-pad cannot hold both ways, so newest-wins only
+settles the stick against the d-pad.
+
+`InputBuffer.set_direction` (and the strip) drops a direction replaced in the
+millisecond it arrived, since a controller is read all at once. That is what
+lets a test script swap back for forward with a release and a press at the
+same moment, rather than detouring through down or neutral.
 
 ### Two rotation rules
 
