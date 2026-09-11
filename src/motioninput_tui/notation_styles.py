@@ -297,16 +297,16 @@ MOTION_SHORTHANDS: dict[MotionKind, str] = {
     _K.HCB_F: "HCB, F",
     _K.QCB_DB_F: "QCB, DB, F",
     _K.F_HCF: "F, HCF",
-    _K.F_DF_D: "F, DF, D",
-    _K.B_DB_D: "B, DB, D",
+    _K.F_DF_D: "632",  # This doesn't have a better name
+    _K.B_DB_D: "412",  # This doesn't have a better name
     _K.QCF_UF: "QCF, UF",
     _K.CHARGE_BF: "[B], F",
     _K.CHARGE_DU: "[D], U",
     _K.CHARGE_BFBF: "[B], F, B, F",
     _K.CHARGE_DB_UF: "[DB], DF, DB, UF",
     _K.CHARGE_DB_F: "[DB], F",
-    _K.ROTATE_360: "360",
-    _K.ROTATE_720: "720",
+    _K.ROTATE_360: "360°",
+    _K.ROTATE_720: "720°",
 }
 """The same, as the community abbreviates them."""
 
