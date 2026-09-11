@@ -22,19 +22,25 @@ if TYPE_CHECKING:
 _ORDER = (Category.SUPER, Category.SPECIAL, Category.COMMAND, Category.THROW, Category.MOVEMENT, Category.OTHER)
 
 NAME_WIDTH = 23
-COMMAND_WIDTH = 21
+"""The narrowest the names get beside the trainer, when the screen has no room to spare."""
 SUPER_ART_WIDTH = 5
 """Room for ``III`` plus the marker on the equipped one, and a trailing space."""
+
+MIN_WIDTH = 52
+"""The narrowest the list gets beside the trainer, however little room there is."""
+FRAME = 4
+"""What the list adds around its rows: the border on its left, a cell of padding
+each side, and the scrollbar."""
 
 LIT_ROW = f"{LIT} not dim not strike"
 """The row of the move that just came out, lit like a held button on the panel."""
 
 
-def _fit(command: str) -> str:
-    """Trim a written command down to something that fits the panel."""
-    if len(command) > COMMAND_WIDTH:
-        return command[: COMMAND_WIDTH - 1] + "…"
-    return command
+def _clip(text: str, width: int) -> str:
+    """Cut ``text`` down to ``width`` cells, marking the cut."""
+    if cell_len(text) > width:
+        return text[: width - 1] + "…"
+    return text
 
 
 def _pad(text: str, width: int) -> str:
@@ -62,6 +68,7 @@ class MoveList(VerticalScroll):
     """Every move for a character, grouped, with untrainable ones dimmed."""
 
     DEFAULT_CSS = """
+    /* Until the first paint sizes it to its rows; see _fit_width. */
     MoveList {
         width: 52;
         border-left: solid $panel;
@@ -100,6 +107,7 @@ class MoveList(VerticalScroll):
             by_category.setdefault(move.category, []).append((move, written))
         name_width = max((cell_len(move.name) for move, _ in rows), default=0) + 2
         command_width = max((cell_len(written) for move, written in rows if written != move.command), default=0) + 2
+        name_width = self._fit_width(name_width, command_width, full=full)
 
         text = Text(no_wrap=True, overflow="ellipsis")
         if full:
@@ -120,8 +128,9 @@ class MoveList(VerticalScroll):
                     text.append(_pad(written, command_width))
                     text.append(move.command if written != move.command else "", style="dim")
                 else:
-                    text.append(f"{move.name[:NAME_WIDTH]:<{NAME_WIDTH + 1}}", style=style)
-                    text.append(_fit(written), style="dim")
+                    # An input too long for the list is cut where the list ends.
+                    text.append(_pad(_clip(move.name, name_width - 1), name_width), style=style)
+                    text.append(written, style="dim")
                 if move is lit:
                     text.stylize(LIT_ROW, start)
                 text.append("\n")
@@ -134,3 +143,19 @@ class MoveList(VerticalScroll):
                 style="dim italic",
             )
         self.query_one("#movelist-body", Static).update(text)
+
+    def _fit_width(self, name_width: int, command_width: int, *, full: bool) -> int:
+        """Size the list, and say how wide its names may be.
+
+        Full screen, the screen's own CSS spreads it across the width. Beside
+        the trainer it is as wide as its rows, up to half the screen and never
+        below ``MIN_WIDTH``; short of that the names give way first, since the
+        input is what is read.
+        """
+        if full:
+            self.styles.clear_rule("width")
+            return name_width
+        rows = SUPER_ART_WIDTH + name_width + command_width
+        room = max(min(rows, self.app.size.width // 2 - FRAME), MIN_WIDTH - FRAME)
+        self.styles.width = room + FRAME
+        return max(min(name_width, room - SUPER_ART_WIDTH - command_width), NAME_WIDTH + 1)

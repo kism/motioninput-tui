@@ -8,10 +8,11 @@ from rich.text import Text
 from textual.widgets import Static
 
 from motioninput_tui.config import Config
+from motioninput_tui.games.loader import load_game
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.training import MOVELIST_MODES, TrainingScreen
 from motioninput_tui.tui.widgets.input_strip import InputStrip
-from motioninput_tui.tui.widgets.movelist import LIT_ROW, MoveList
+from motioninput_tui.tui.widgets.movelist import LIT_ROW, MIN_WIDTH, MoveList
 from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
@@ -215,6 +216,28 @@ def test_a_move_with_no_motion_puts_a_green_mark_over_the_input_it_came_out_on(c
         history.plain[span.start : span.end].startswith("!") and str(span.style) == "bold green"
         for span in history.spans
     )
+
+
+def test_beside_the_trainer_the_move_list_grows_up_to_half_the_screen(tmp_path: Path) -> None:
+    """Q's longest move name is cut to fit the narrowest list, and read whole once there is room."""
+    config = Config(game="sfiii3", character="q", layout="keyboard-left", path=tmp_path / "config.json")
+    longest = max((move.name for move in load_game("sfiii3").character("q").moves), key=len)
+
+    async def session(width: int) -> tuple[int, str]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(width, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            return trainer.query_one(MoveList).region.width, _movelist(trainer).plain
+
+    narrow_screen, wide_screen = 100, 200
+    narrow_width, narrow = asyncio.run(session(narrow_screen))
+    wide_width, wide = asyncio.run(session(wide_screen))
+    assert narrow_width == MIN_WIDTH
+    assert longest not in narrow
+    assert MIN_WIDTH < wide_width <= wide_screen // 2
+    assert longest in wide
 
 
 def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:

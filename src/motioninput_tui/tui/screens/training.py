@@ -159,6 +159,10 @@ class TrainingScreen(Screen):
         if move is not None:
             self._unlight = self.set_timer(LIT_S, lambda: self._light(None))
 
+    def on_resize(self) -> None:
+        """Resize the move list with the screen, since beside the trainer it may take up to half."""
+        self._paint_movelist()
+
     def _tick(self) -> None:
         if self.session.tick():
             self._refresh()
