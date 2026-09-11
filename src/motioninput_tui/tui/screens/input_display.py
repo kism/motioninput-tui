@@ -24,14 +24,16 @@ from motioninput_tui.games.loader import INPUT_DISPLAY
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.notation_styles import MOTION_NAMES, MOTION_SHORTHANDS
 from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
-from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate, LivePanel
+from motioninput_tui.tui.widgets.panel import LIT, LIT_S, ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
+    from textual.timer import Timer
 
     from motioninput_tui.controls.buttons import ButtonSet
     from motioninput_tui.controls.layouts import ControlLayout
+    from motioninput_tui.engine.recognizer import Activation
     from motioninput_tui.games.models import Game
     from motioninput_tui.notation_styles import Notation
 
@@ -39,6 +41,9 @@ TICK_HZ = 60
 
 NAME_GAP = 3
 """Cells between a motion and its name: wider than the gap inside a compound motion."""
+
+LIVE = "black on dark_sea_green"
+"""A motion a press would still bring out: paler than ``LIT``, which is kept for one that came out."""
 
 
 class Writing(NamedTuple):
@@ -107,6 +112,9 @@ class InputDisplayScreen(Screen):
         self.panel = buttons
         self.notation = DEFAULT_NOTATION
         self.writing = WRITINGS[0]
+        self.lit_kind: MotionKind | None = None
+        self._latest: Activation | None = None
+        self._unlight: Timer | None = None
         order = list(MotionKind)
         self.motions = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
         """Every motion the game has, once each, in the order the engine lists them."""
@@ -142,7 +150,7 @@ class InputDisplayScreen(Screen):
         self.query_one("#banner", Static).update(text)
 
     def _paint_motions(self) -> None:
-        """Every motion and its name, lit as the panel lights what is held where a press now would bring it out.
+        """Every motion and its name: pale while a press would bring it out, lit a moment once one has.
 
         A table, so that in a narrow pane a long name wraps under itself rather than being cut off.
         """
@@ -153,8 +161,21 @@ class InputDisplayScreen(Screen):
         table.add_column(no_wrap=True)
         table.add_column()
         for kind, text, name in zip(self.motions, written, names, strict=True):
-            table.add_row(text, name, style=LIT if kind in live else None)
+            style = LIT if kind is self.lit_kind else LIVE if kind in live else None
+            table.add_row(text, name, style=style)
         self.query_one("#motion-list", Static).update(table)
+
+    def _light(self, kind: MotionKind | None) -> None:
+        """Light the motion a move just came out on, as the trainer lights the move, and put it out after ``LIT_S``.
+
+        A fresh one takes over with a fresh timer, so a stale timer never puts it out early.
+        """
+        if self._unlight is not None:
+            self._unlight.stop()
+        self.lit_kind = kind
+        if kind is not None:
+            self._unlight = self.set_timer(LIT_S, lambda: self._light(None))
+        self._paint_motions()
 
     def apply_panel(self, layout: ControlLayout, buttons: ButtonSet) -> None:
         """Take a rearranged panel, from the settings, without leaving it."""
@@ -219,6 +240,11 @@ class InputDisplayScreen(Screen):
         self.query_one(ButtonPads).show(session.layout, session.held)
         brackets = trail_brackets(session.trail, self.written_in)
         self.query_one(InputStrip).show(session.entries, direction, brackets, bracket_rows=MOTION_ROWS)
+        latest = session.activations[0] if session.activations else None
+        if latest is not self._latest:
+            self._latest = latest
+            motion = latest.move.motion if latest is not None else None
+            self._light(motion.kind if motion is not None else None)
         self._paint_motions()
         self.query_one(StatusBar).show(session)
 

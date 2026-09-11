@@ -26,6 +26,8 @@ if TYPE_CHECKING:
     from motioninput_tui.notation_styles import Notation
 
 LIT = "bold black on green"
+LIT_S = 0.5
+"""How long a move that came out stays lit in a list of moves, in seconds."""
 IDLE = "dim"
 GAP = " "
 

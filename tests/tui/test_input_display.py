@@ -23,10 +23,10 @@ from motioninput_tui.games.loader import INPUT_DISPLAY, available_games, load_ga
 from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, Notation
 from motioninput_tui.settings import SETTINGS
 from motioninput_tui.tui import MotionInputApp
-from motioninput_tui.tui.screens.input_display import InputDisplayScreen
+from motioninput_tui.tui.screens.input_display import LIVE, InputDisplayScreen
 from motioninput_tui.tui.screens.settings import SettingsScreen
 from motioninput_tui.tui.widgets.input_strip import InputStrip
-from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.panel import LIT, LIT_S, ButtonPads, DirectionGate
 from motioninput_tui.tui.widgets.settings_list import SettingsList
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
@@ -80,12 +80,12 @@ def test_the_input_display_knows_every_motion_in_the_game() -> None:
         assert all(move.motion is not None and move.motion.buttons == any_button for move in display.moves)
 
 
-def _motion_rows(screen: InputDisplayScreen) -> list[tuple[str, str, bool]]:
-    """Each row of the motion list: the motion as written, its name, and whether it is lit."""
+def _motion_rows(screen: InputDisplayScreen) -> list[tuple[str, str, object]]:
+    """Each row of the motion list: the motion as written, its name, and its style."""
     table = screen.query_one("#motion-list", Static).content
     assert isinstance(table, Table)
     motions, names = ([str(cell) for cell in column.cells] for column in table.columns)
-    return [(motion, name, row.style == LIT) for motion, name, row in zip(motions, names, table.rows, strict=True)]
+    return [(motion, name, row.style) for motion, name, row in zip(motions, names, table.rows, strict=True)]
 
 
 def test_every_motion_the_game_has_is_listed_with_its_name(config: Config) -> None:
@@ -105,26 +105,30 @@ def test_every_motion_the_game_has_is_listed_with_its_name(config: Config) -> No
     assert asyncio.run(session()) == [(DEFAULT.write_kind(kind), MOTION_NAMES[kind]) for kind in kinds]
 
 
-def test_the_motions_live_now_are_lit_in_the_list(config: Config) -> None:
-    """Lit while a press would still bring one out, and out again once one has."""
+def test_a_live_motion_is_pale_and_one_a_move_came_out_on_is_lit_then_goes_out(config: Config) -> None:
+    """Pale while a press would still bring one out, the trainer's green for a moment once one has."""
 
-    async def session() -> tuple[list[str], list[str]]:
+    async def session() -> list[object]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             screen = app.screen
             assert isinstance(screen, InputDisplayScreen)
+
+            def qcf() -> object:
+                return next(style for _, name, style in _motion_rows(screen) if name == MOTION_NAMES[MotionKind.QCF])
+
             await pilot.press("k", "l")  # southpaw down, down-forward...
             screen.handle_release("k")  # ...forward
             await pilot.pause(0.05)
-            live = [name for _, name, lit in _motion_rows(screen) if lit]
+            seen = [qcf()]
             await pilot.press("a")  # LP brings it out
             await pilot.pause(0.05)
-            return live, [name for _, name, lit in _motion_rows(screen) if lit]
+            seen.append(qcf())
+            await pilot.pause(LIT_S + 0.1)
+            return [*seen, qcf()]
 
-    live, spent = asyncio.run(session())
-    assert MOTION_NAMES[MotionKind.QCF] in live
-    assert MOTION_NAMES[MotionKind.QCF] not in spent
+    assert asyncio.run(session()) == [LIVE, LIT, None]
 
 
 def test_ctrl_l_steps_through_spelled_out_and_shorthand(config: Config) -> None:

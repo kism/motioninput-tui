@@ -15,7 +15,7 @@ from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.move_feed import MoveFeed, append_follow_up
 from motioninput_tui.tui.widgets.movelist import MoveList
-from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate, LivePanel
+from motioninput_tui.tui.widgets.panel import LIT_S, ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
@@ -31,9 +31,6 @@ TICK_HZ = 60
 
 MOVELIST_MODES = ("beside", "full", "hidden")
 """What ctrl+l steps through, starting from the first."""
-
-LIT_S = 0.5
-"""How long the last move to come out stays lit in the move list, in seconds."""
 
 
 class TrainingScreen(Screen):
