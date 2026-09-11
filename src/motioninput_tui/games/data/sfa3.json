@@ -395,7 +395,7 @@
      "command": "qcf,uf + P",
      "category": "special",
      "motion": {
-      "kind": "qcf_uf",
+      "kind": "tk",
       "buttons": {
        "allowed": [
         "HP",
@@ -3451,7 +3451,7 @@
      "command": "qcf,uf + K",
      "category": "special",
      "motion": {
-      "kind": "qcf_uf",
+      "kind": "tk",
       "buttons": {
        "allowed": [
         "HK",

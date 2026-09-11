@@ -59,7 +59,6 @@ class MotionKind(StrEnum):
     F_HCF = "f_hcf"
     F_DF_D = "f_df_d"
     B_DB_D = "b_db_d"
-    QCF_UF = "qcf_uf"
     CHARGE_BF = "charge_bf"
     CHARGE_DU = "charge_du"
     CHARGE_BFBF = "charge_bfbf"
@@ -305,16 +304,16 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     MotionKind.HCB: lambda rules: [_half_back(rules)],
     MotionKind.DP: _dragon_punch_options,
     MotionKind.RDP: _reverse_dragon_punch_options,
-    MotionKind.TIGER_KNEE: lambda _: [
-        [Step(_ONLY_DOWN), Step(_ONLY_DF, skippable=True), Step(_ONLY_F, skippable=True), Step(_ONLY_UF)]
-    ],
+    # A quarter circle carried on to up-forward, however the guide writes it: a
+    # leading db is where the quarter circle may start anyway. Whether its
+    # diagonal may be skipped is the game's lenient_diagonals, as for any other.
+    MotionKind.TIGER_KNEE: lambda rules: [[*_quarter_forward(rules), Step(_ONLY_UF)]],
     MotionKind.QCF_X2: lambda rules: [[*_quarter_forward(rules), *_doubled_tail(_quarter_forward(rules), rules)]],
     MotionKind.QCB_X2: lambda rules: [[*_quarter_back(rules), *_doubled_tail(_quarter_back(rules), rules)]],
     MotionKind.HCF_X2: lambda rules: [[*_half_forward(rules), *_doubled_tail(_half_forward(rules), rules)]],
     MotionKind.HCB_X2: lambda rules: [[*_half_back(rules), *_doubled_tail(_half_back(rules), rules)]],
     MotionKind.QCF_DP: lambda rules: [[*_quarter_forward(rules), Step(_ONLY_DOWN), Step(_ONLY_DF)]],
     MotionKind.QCB_RDP: lambda rules: [[*_quarter_back(rules), Step(_ONLY_DOWN), Step(_ONLY_DB)]],
-    MotionKind.QCF_UF: lambda rules: [[*_quarter_forward(rules), Step(_ONLY_UF)]],
     # KoF's supers join the two halves on a shared direction: qcf~hcb is
     # d,df,f,df,d,db,b, not d,df,f *then* f,df,d,db,b. Nobody returns to
     # neutral mid-motion, so the second motion's opening step is dropped.

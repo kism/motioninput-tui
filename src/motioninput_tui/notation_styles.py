@@ -268,7 +268,6 @@ _PARTS: dict[MotionKind, tuple[MotionKind | Direction, ...]] = {
     _K.HCB_X2: (_K.HCB, _K.HCB),
     _K.QCF_DP: (_K.QCF, _K.DP),
     _K.QCB_RDP: (_K.QCB, _K.RDP),
-    _K.QCF_UF: (_K.QCF, _D.UP_FORWARD),
     _K.QCF_HCB: (_K.QCF, _K.HCB),
     _K.QCB_HCF: (_K.QCB, _K.HCF),
     _K.HCB_F: (_K.HCB, _D.FORWARD),
@@ -297,7 +296,6 @@ MOTION_NAMES: dict[MotionKind, str] = {
     _K.F_HCF: "Forward, half circle forward",
     _K.F_DF_D: "Forward, down-forward, down",
     _K.B_DB_D: "Back, down-back, down",
-    _K.QCF_UF: "Quarter circle forward, up-forward",
     _K.CHARGE_BF: "Charge back, forward",
     _K.CHARGE_DU: "Charge down, up",
     _K.CHARGE_BFBF: "Charge back, forward, back, forward",
@@ -329,7 +327,6 @@ MOTION_SHORTHANDS: dict[MotionKind, str] = {
     _K.F_HCF: "F, HCF",
     _K.F_DF_D: "632",  # This doesn't have a better name
     _K.B_DB_D: "412",  # This doesn't have a better name
-    _K.QCF_UF: "QCF, UF",
     _K.CHARGE_BF: "[B], F",
     _K.CHARGE_DU: "[D], U",
     _K.CHARGE_BFBF: "[B], F, B, F",

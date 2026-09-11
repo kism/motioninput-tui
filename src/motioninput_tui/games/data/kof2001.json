@@ -2356,7 +2356,7 @@
      "command": "d, df, f, uf + K",
      "category": "super",
      "motion": {
-      "kind": "qcf_uf",
+      "kind": "tk",
       "buttons": {
        "allowed": [
         "B",
