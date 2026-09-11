@@ -102,7 +102,7 @@ def test_the_input_strip_stays_arrows_whatever_the_moves_are_written_in(config: 
             for key in ("s", "d"):
                 await pilot.press(key)
             await pilot.pause()
-            return _movelist(trainer), str(trainer.query_one(InputStrip).render())
+            return _movelist(trainer), str(trainer.query_one("#strip", InputStrip).render())
 
     movelist, strip = asyncio.run(session())
     assert "D, DF, F + P" in movelist

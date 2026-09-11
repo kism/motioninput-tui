@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, ClassVar
 
 from rich.text import Text
 from textual.binding import Binding
-from textual.containers import Center, Horizontal, Vertical
+from textual.containers import Horizontal, Vertical
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
@@ -68,7 +68,8 @@ class TrainingScreen(Screen):
     #feed-title { padding: 0 1; text-style: bold; }
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     #pads { height: auto; display: none; border-top: solid $panel; }
-    #pads Horizontal { width: auto; height: auto; }
+    /* Level with the stick, three rows of three-line boxes. */
+    #pads InputStrip { width: 1fr; height: 9; padding: 0 1; border-bottom: none; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
@@ -110,10 +111,12 @@ class TrainingScreen(Screen):
                 yield MoveFeed(id="feed")
                 yield Static(id="status")
             yield MoveList(id="movelist")
-        # The live panel, under a full-screen move list that hides the strip.
-        with Center(id="pads"), Horizontal():
+        # The live panel and its own input history, under a full-screen move
+        # list that hides the left pane.
+        with Horizontal(id="pads"):
             yield DirectionGate()
             yield ButtonPads()
+            yield InputStrip()
         yield Footer()
 
     def on_mount(self) -> None:
@@ -189,7 +192,8 @@ class TrainingScreen(Screen):
 
     def _refresh(self) -> None:
         session = self.session
-        self.query_one(InputStrip).show(session.entries, session.direction)
+        for strip in self.query(InputStrip):  # the left pane's, and the full-screen panel's
+            strip.show(session.entries, session.direction)
         self.query_one(MoveFeed).show(session.activations, self.notation)
         self.query_one(DirectionGate).show(session.direction)
         self.query_one(ButtonPads).show(session.layout, session.held)
@@ -264,6 +268,8 @@ class TrainingScreen(Screen):
         self.set_class(self.movelist_mode == "full", "-movelist-full")
         self.set_class(self.movelist_mode == "hidden", "-movelist-hidden")
         self._paint_movelist()
+        # A strip trims its history to its width, which is nothing while hidden.
+        self.call_after_refresh(self._refresh)
 
     def action_back(self) -> None:
         """Return to the setup screen."""

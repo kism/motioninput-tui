@@ -10,6 +10,7 @@ from textual.widgets import Static
 from motioninput_tui.config import Config
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.training import TrainingScreen
+from motioninput_tui.tui.widgets.input_strip import InputStrip
 from motioninput_tui.tui.widgets.movelist import LIT_ROW, MoveList
 from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
 
@@ -69,7 +70,7 @@ def test_ctrl_l_cycles_beside_full_hidden(config: Config) -> None:
 
 
 def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config: Config) -> None:
-    async def session() -> tuple[Text, list[str], list[str]]:
+    async def session() -> tuple[Text, list[str], list[str], str]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
@@ -82,15 +83,37 @@ def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config
                 _movelist(trainer),
                 _lit(trainer.query_one(DirectionGate).art),
                 _lit(trainer.query_one(ButtonPads).art),
+                str(trainer.query_one("#pads InputStrip", InputStrip).render()),
             )
 
-    body, stick, buttons = asyncio.run(session())
+    body, stick, buttons, history = asyncio.run(session())
+    assert "→LP" in history  # the history beside the panel, not just the hidden one
     assert "↓ ↘ → + P" in body.plain  # Hadou Ken as the trainer writes it
     assert "qcf + P" in body.plain  # and as the guide does
     assert not any("strike" in str(span.style) for span in body.spans)
     assert "struck through" not in body.plain
     assert stick == ["→"]
     assert "LP" in buttons
+
+
+def test_the_panels_history_is_full_width_as_soon_as_it_is_shown(config: Config) -> None:
+    """Hidden, it trims to nothing; shown, it must redraw without waiting for a key."""
+
+    async def session() -> str:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            await pilot.press("s", "d", "j")  # down, down-forward + LP: wider than a hidden strip keeps
+            # Let the holds lapse first, or their redraw would hide a missing one.
+            await pilot.pause(trainer.session.hold_window_ms / 1000 + 0.1)
+            await pilot.press("ctrl+l")
+            await pilot.pause()
+            await pilot.pause()
+            return str(trainer.query_one("#pads InputStrip", InputStrip).render())
+
+    assert "↓" in asyncio.run(session())
 
 
 def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
