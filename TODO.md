@@ -16,3 +16,4 @@ Maybe change measurements to frames? Then pytest can 3x or 4x speed?
 
 ## Make the game internal names mame accurate
 
+## Change live display depending on button notation type

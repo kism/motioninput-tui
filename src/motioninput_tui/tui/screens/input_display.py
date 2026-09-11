@@ -26,6 +26,7 @@ from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.notation_styles import MOTION_NAMES, MOTION_SHORTHANDS
 from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -98,7 +99,6 @@ class InputDisplayScreen(Screen):
         scrollbar-size-vertical: 1;
     }
     InputDisplayScreen InputStrip { height: auto; border-bottom: none; }
-    InputDisplayScreen #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     """
 
     def __init__(
@@ -138,7 +138,7 @@ class InputDisplayScreen(Screen):
                 yield Static(id="motion-list")
         # Outside the panes, so the history has the whole width to fill.
         yield InputStrip(id="strip")
-        yield Static(id="status")
+        yield StatusBar(id="status")
         yield Footer()
 
     def on_mount(self) -> None:
@@ -243,15 +243,7 @@ class InputDisplayScreen(Screen):
         brackets = trail_brackets(session.trail, self.written_in)
         self.query_one(InputStrip).show(session.entries, direction, brackets, bracket_rows=MOTION_ROWS)
         self._paint_motions()
-
-        status = Text()
-        if session.gamepad_waiting:
-            status.append("   no gamepad detected — plug one in", style="yellow")
-        elif session.exact_input:
-            pass
-        else:
-            status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="yellow")
-        self.query_one("#status", Static).update(status)
+        self.query_one(StatusBar).show(session)
 
     def action_reset(self) -> None:
         """Clear the history and go back to neutral."""

@@ -16,6 +16,7 @@ from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.move_feed import MoveFeed, append_follow_up
 from motioninput_tui.tui.widgets.movelist import MoveList
 from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -70,7 +71,6 @@ class TrainingScreen(Screen):
     #body { height: 1fr; }
     #left { width: 1fr; }
     #feed-title { padding: 0 1; text-style: bold; }
-    #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     #pads { height: auto; display: none; border-top: solid $panel; }
     /* As tall as the stick, three rows of three-line boxes, with the inputs
        level with its bottom row, the motions stacked over them and a mash
@@ -117,7 +117,7 @@ class TrainingScreen(Screen):
                 yield InputStrip(id="strip")
                 yield Static("Activated moves", id="feed-title")
                 yield MoveFeed(id="feed")
-                yield Static(id="status")
+                yield StatusBar(id="status")
             yield MoveList(id="movelist")
         # The live panel and its own input history, under a full-screen move
         # list that hides the left pane, with the motions the stick has made.
@@ -232,23 +232,7 @@ class TrainingScreen(Screen):
             self._latest = latest
             self._light(latest.move if latest is not None else None)
 
-        status = Text()
-        plural = "" if session.total_activations == 1 else "s"
-        status.append(f"{session.total_activations} move{plural} from {session.total_inputs} inputs")
-        if session.gamepad_waiting:
-            status.append("   no gamepad detected — plug one in", style="yellow")
-        elif session.exact_input:
-            pass
-        else:
-            status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
-        if session.policy is BufferPolicy.LOOSE:
-            status.append("   loose buffer: inputs are reused between moves", style="yellow")
-        if session.ruleset.lenient_half_circles:
-            status.append("   relaxed half circles", style="yellow")
-        advice = session.keyboard_advice
-        if advice:
-            status.append(f"\n⚠ {advice}", style="yellow")
-        self.query_one("#status", Static).update(status)
+        self.query_one(StatusBar).show(session)
 
     def apply_notation(self, notation: Notation) -> None:
         """Take the notation moves are written in, before or during a session."""

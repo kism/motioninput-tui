@@ -54,7 +54,7 @@ class Config:
     back to the character as well."""
     layout: str = DEFAULT_LAYOUT
     buffer_policy: BufferPolicy = BufferPolicy.CONSUME
-    lenient_half_circles: bool = True
+    lenient_half_circles: bool = False
     """Whether a half circle may skip straight down. See
     :mod:`motioninput_tui.settings`."""
     neo_geo_slant: bool = False
@@ -110,7 +110,7 @@ class Config:
             characters=_valid_characters(raw.get("characters")),
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
-            lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=True),
+            lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=False),
             neo_geo_slant=_valid_flag(raw.get("neo_geo_slant"), default=False),
             notation=_valid_notation(raw.get("notation")),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),

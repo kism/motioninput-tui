@@ -121,10 +121,11 @@ Three toggles, in the setup screen's first pane and under `ctrl+b`, which
 describe themselves as you highlight them. They are yours rather than the
 games', so they apply whichever game is selected.
 
-Relaxed half circles is the one worth knowing about, and it is on by default
-because of how a hitbox or a keyboard actually plays: pressing forward while
-back is still held goes straight to down-forward, so an ordinary half circle
-never touches straight down at all. Turn it off to be made to hit the down.
+Relaxed half circles is the one worth knowing about. It is off by default, so a
+half circle has to hit straight down, which a hitbox or a keyboard often does
+not: pressing forward while back is still held goes straight to down-forward,
+so an ordinary half circle never touches straight down at all. Turn it on if
+that is how you play.
 Loose buffer is the rule described under [spending inputs](#spending-inputs).
 
 ### Remembering your last session

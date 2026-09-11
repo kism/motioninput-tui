@@ -58,18 +58,18 @@ def test_a_replaced_keyboard_layout_migrates(tmp_path: Path) -> None:
 
 def test_settings_round_trip(tmp_path: Path) -> None:
     path = tmp_path / "config.json"
-    Config(lenient_half_circles=False, path=path).save()
-    assert Config.load(path).lenient_half_circles is False
+    Config(lenient_half_circles=True, path=path).save()
+    assert Config.load(path).lenient_half_circles is True
 
 
 def test_a_malformed_setting_falls_back_to_its_default(tmp_path: Path) -> None:
     path = tmp_path / "config.json"
     path.write_text(json.dumps({"lenient_half_circles": "sure"}))
-    assert Config.load(path).lenient_half_circles is True
+    assert Config.load(path).lenient_half_circles is False
 
 
-def test_settings_default_to_relaxed(tmp_path: Path) -> None:
-    assert Config.load(tmp_path / "missing.json").lenient_half_circles is True
+def test_half_circles_default_to_strict(tmp_path: Path) -> None:
+    assert Config.load(tmp_path / "missing.json").lenient_half_circles is False
 
 
 def test_notation_round_trips(tmp_path: Path) -> None:
