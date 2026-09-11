@@ -10,14 +10,16 @@ history whoever's move it would be.
 
 from typing import TYPE_CHECKING, ClassVar, override
 
+from rich.cells import cell_len
 from rich.text import Text
 from textual.binding import Binding
-from textual.containers import Center, Horizontal
+from textual.containers import Center, Horizontal, ItemGrid
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
+from motioninput_tui.engine.motions import MotionKind
 from motioninput_tui.engine.recognizer import BufferPolicy
-from motioninput_tui.engine.session import TrainingSession
+from motioninput_tui.engine.session import Outcome, TrainingSession
 from motioninput_tui.games.loader import INPUT_DISPLAY
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
@@ -35,6 +37,9 @@ TICK_HZ = 60
 
 MOTION_ROWS = 3
 """Lines of motions over the history."""
+
+MOTION_GAP = 3
+"""Cells between one column of the motion list and the next."""
 
 
 class InputDisplayScreen(Screen):
@@ -55,6 +60,9 @@ class InputDisplayScreen(Screen):
     DEFAULT_CSS = """
     InputDisplayScreen { layout: vertical; }
     InputDisplayScreen #banner { height: auto; padding: 0 1; background: $panel; }
+    InputDisplayScreen #motions { border: round $panel; padding: 0 1; }
+    /* Lit as the panel lights what is held. */
+    InputDisplayScreen #motions .-live { color: black; background: green; text-style: bold; }
     InputDisplayScreen #panel-area { height: 1fr; align: center middle; }
     InputDisplayScreen #panel { width: auto; height: auto; }
     InputDisplayScreen InputStrip { height: auto; border-bottom: none; }
@@ -80,11 +88,17 @@ class InputDisplayScreen(Screen):
         self.session = TrainingSession(game, display, layout, exact_input=exact_input, policy=policy)
         self.panel = buttons
         self.notation = DEFAULT_NOTATION
+        order = list(MotionKind)
+        self.motions = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
+        """Every motion the game has, once each, in the order the engine lists them."""
 
     @override
     def compose(self) -> ComposeResult:
-        """The gate and the buttons side by side, over the input history."""
+        """The game's motions, then the gate and the buttons side by side, over the input history."""
         yield Static(id="banner")
+        motions = ItemGrid(*(Static() for _ in self.motions), id="motions")
+        motions.border_title = "Motions"
+        yield motions
         with Center(id="panel-area"), Horizontal(id="panel"):
             yield DirectionGate()
             yield ButtonPads()
@@ -97,6 +111,7 @@ class InputDisplayScreen(Screen):
         self.title = f"{self.session.game.short_name} · Input display"
         self.sub_title = self.session.layout.name
         self._paint_banner()
+        self._paint_motions()
         self._refresh()
         self.set_interval(1 / TICK_HZ, self._tick)
         self.focus()
@@ -111,6 +126,21 @@ class InputDisplayScreen(Screen):
         text.append(f"\nMove {session.layout.movement_help()}   Attack {session.layout.attack_help()}", style="dim")
         self.query_one("#banner", Static).update(text)
 
+    def _paint_motions(self) -> None:
+        """Write the motion list in the player's notation, in columns as wide as the widest."""
+        grid = self.query_one("#motions", ItemGrid)
+        written = [self.notation.write_kind(kind) for kind in self.motions]
+        grid.min_column_width = max(map(cell_len, written), default=0) + MOTION_GAP
+        for label, text in zip(grid.query(Static), written, strict=True):
+            label.update(text)
+        grid.refresh(layout=True)
+
+    def _light_motions(self) -> None:
+        """Light every motion in the list that a press now would bring out."""
+        live = {motion.kind for motion in self.session.trail if motion.outcome is Outcome.LIVE}
+        for label, kind in zip(self.query_one("#motions", ItemGrid).query(Static), self.motions, strict=True):
+            label.set_class(kind in live, "-live")
+
     def apply_panel(self, layout: ControlLayout, buttons: ButtonSet) -> None:
         """Take a rearranged panel, from the settings, without leaving it."""
         self.panel = buttons
@@ -123,6 +153,7 @@ class InputDisplayScreen(Screen):
         """Take the notation the motions are written in, before or during a session."""
         self.notation = notation
         if self.is_mounted:
+            self._paint_motions()
             self._refresh()
 
     def apply_settings(self, game: Game, policy: BufferPolicy) -> None:
@@ -163,6 +194,7 @@ class InputDisplayScreen(Screen):
         self.query_one(ButtonPads).show(session.layout, session.held)
         brackets = trail_brackets(session.trail, self.notation)
         self.query_one(InputStrip).show(session.entries, direction, brackets, bracket_rows=MOTION_ROWS)
+        self._light_motions()
 
         status = Text()
         status.append(f"{direction.glyph} {int(direction)} {direction.short}", style="bold")

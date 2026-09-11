@@ -24,13 +24,14 @@ if TYPE_CHECKING:
 
 logger = get_logger(__name__)
 
-HISTORY_LENGTH = 40
-"""How many input entries the strip remembers."""
+HISTORY_LENGTH = 160
+"""How many input entries the strip remembers: at three cells or more apiece,
+enough to fill a terminal nearly 500 columns wide."""
 
 ACTIVATION_LENGTH = 12
 """How many activated moves to keep in the feed."""
 
-TRAIL_LENGTH = 24
+TRAIL_LENGTH = 96
 """How many motions the trail remembers, which is more than the strip has room to show."""
 
 
