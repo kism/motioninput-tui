@@ -8,7 +8,7 @@ the line. Its moves are every motion in the game on any button (see
 history whoever's move it would be.
 """
 
-from typing import TYPE_CHECKING, ClassVar, override
+from typing import TYPE_CHECKING, ClassVar, NamedTuple, override
 
 from rich.cells import cell_len
 from rich.table import Table
@@ -23,7 +23,7 @@ from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.engine.session import Outcome, TrainingSession
 from motioninput_tui.games.loader import INPUT_DISPLAY
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
-from motioninput_tui.notation_styles import MOTION_NAMES
+from motioninput_tui.notation_styles import MOTION_NAMES, MOTION_SHORTHANDS
 from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
 
@@ -48,6 +48,24 @@ MOTIONS_FRAME = 5
 each side, and a one-cell scrollbar for a list taller than the pane."""
 
 
+class Writing(NamedTuple):
+    """One way ctrl+l writes the motion list."""
+
+    title: str
+    spelled_out: bool
+    """Directions spelled out, rather than in the player's notation."""
+    names: dict[MotionKind, str]
+
+
+WRITINGS = (
+    Writing("Motions", spelled_out=False, names=MOTION_NAMES),
+    Writing("Motions, spelled out", spelled_out=True, names=MOTION_NAMES),
+    Writing("Motions, shorthand", spelled_out=False, names=MOTION_SHORTHANDS),
+    Writing("Motions, spelled out, shorthand", spelled_out=True, names=MOTION_SHORTHANDS),
+)
+"""What ctrl+l steps through, starting from the first."""
+
+
 class InputDisplayScreen(Screen):
     """Draws the panel live beside the game's motions, over the input history."""
 
@@ -58,7 +76,7 @@ class InputDisplayScreen(Screen):
         Binding("ctrl+r", "reset", "Reset"),
         Binding("ctrl+b", "app.settings", "Settings"),
         Binding("ctrl+n", "app.notation", "Notation"),
-        Binding("ctrl+l", "toggle_spelled_out", "Spell out"),
+        Binding("ctrl+l", "cycle_writing", "Writing"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c", "app.help_quit", show=False, system=True),
@@ -102,8 +120,7 @@ class InputDisplayScreen(Screen):
         self.session = TrainingSession(game, display, layout, exact_input=exact_input, policy=policy)
         self.panel = buttons
         self.notation = DEFAULT_NOTATION
-        self.spelling_out = False
-        """Whether ctrl+l has the motions spelled out rather than in the player's notation."""
+        self.writing = WRITINGS[0]
         order = list(MotionKind)
         self.motions = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
         """Every motion the game has, once each, in the order the engine lists them."""
@@ -117,7 +134,7 @@ class InputDisplayScreen(Screen):
                 yield DirectionGate()
                 yield ButtonPads()
             with VerticalScroll(id="motions") as motions:
-                motions.border_title = "Motions"
+                motions.border_title = self.writing.title
                 yield Static(id="motion-list")
         # Outside the panes, so the history has the whole width to fill.
         yield InputStrip(id="strip")
@@ -150,7 +167,7 @@ class InputDisplayScreen(Screen):
         """
         live = {motion.kind for motion in self.session.trail if motion.outcome is Outcome.LIVE}
         written = [self.written_in.write_kind(kind) for kind in self.motions]
-        names = [MOTION_NAMES[kind] for kind in self.motions]
+        names = [self.writing.names[kind] for kind in self.motions]
         # Sized here rather than left to auto: rich measures a table to the width
         # it is offered, which in a pane sized to its content is nothing.
         unwrapped = max(map(cell_len, written), default=0) + NAME_GAP + max(map(cell_len, names), default=0)
@@ -172,14 +189,13 @@ class InputDisplayScreen(Screen):
 
     @property
     def written_in(self) -> Notation:
-        """The notation the motions are written in: the player's, or spelled out while ctrl+l says so."""
-        return self.notation.spelled_out() if self.spelling_out else self.notation
+        """The notation the motions are written in: the player's, or spelled out, as ctrl+l has it."""
+        return self.notation.spelled_out() if self.writing.spelled_out else self.notation
 
-    def action_toggle_spelled_out(self) -> None:
-        """Switch the motions between the player's notation and the directions spelled out."""
-        self.spelling_out = not self.spelling_out
-        motions = self.query_one("#motions", VerticalScroll)
-        motions.border_title = "Motions, spelled out" if self.spelling_out else "Motions"
+    def action_cycle_writing(self) -> None:
+        """Step the motions on: the player's notation, spelled out, then both again with shorthand names."""
+        self.writing = WRITINGS[(WRITINGS.index(self.writing) + 1) % len(WRITINGS)]
+        self.query_one("#motions", VerticalScroll).border_title = self.writing.title
         self._refresh()
 
     def apply_notation(self, notation: Notation) -> None:

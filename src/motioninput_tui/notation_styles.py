@@ -281,6 +281,38 @@ MOTION_NAMES: dict[MotionKind, str] = {
 }
 """What each motion is called, in words, whatever notation it is written in."""
 
+MOTION_SHORTHANDS: dict[MotionKind, str] = {
+    _K.QCF: "QCF",
+    _K.QCB: "QCB",
+    _K.HCF: "HCF",
+    _K.HCB: "HCB",
+    _K.DP: "DP",
+    _K.RDP: "RDP",
+    _K.TIGER_KNEE: "TK",
+    _K.QCF_X2: "QCF, QCF",
+    _K.QCB_X2: "QCB, QCB",
+    _K.HCF_X2: "HCF, HCF",
+    _K.HCB_X2: "HCB, HCB",
+    _K.QCF_DP: "QCF, DP",
+    _K.QCB_RDP: "QCB, RDP",
+    _K.QCF_HCB: "QCF, HCB",
+    _K.QCB_HCF: "QCB, HCF",
+    _K.HCB_F: "HCB, F",
+    _K.QCB_DB_F: "QCB, DB, F",
+    _K.F_HCF: "F, HCF",
+    _K.F_DF_D: "F, DF, D",
+    _K.B_DB_D: "B, DB, D",
+    _K.QCF_UF: "QCF, UF",
+    _K.CHARGE_BF: "[B], F",
+    _K.CHARGE_DU: "[D], U",
+    _K.CHARGE_BFBF: "[B], F, B, F",
+    _K.CHARGE_DB_UF: "[DB], DF, DB, UF",
+    _K.CHARGE_DB_F: "[DB], F",
+    _K.ROTATE_360: "360",
+    _K.ROTATE_720: "720",
+}
+"""The same, as the community abbreviates them."""
+
 _SEQUENCES: dict[MotionKind, tuple[Direction, ...]] = {
     _K.QCF: (_D.DOWN, _D.DOWN_FORWARD, _D.FORWARD),
     _K.QCB: (_D.DOWN, _D.DOWN_BACK, _D.BACK),

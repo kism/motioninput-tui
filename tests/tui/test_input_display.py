@@ -126,10 +126,10 @@ def test_the_motions_live_now_are_lit_in_the_list(config: Config) -> None:
     assert MOTION_NAMES[MotionKind.QCF] not in spent
 
 
-def test_ctrl_l_spells_the_motions_out_and_back(config: Config) -> None:
-    """Between the notation the player picked and the directions spelled out."""
+def test_ctrl_l_steps_through_spelled_out_and_shorthand(config: Config) -> None:
+    """The notation the player picked, then spelled out, then both again with shorthand names."""
 
-    async def session() -> list[str]:
+    async def session() -> list[tuple[str, str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
@@ -137,13 +137,20 @@ def test_ctrl_l_spells_the_motions_out_and_back(config: Config) -> None:
             assert isinstance(screen, InputDisplayScreen)
             screen.apply_notation(Notation({"quarter": "curved"}))
             seen = []
-            for _ in range(3):
-                seen.append(_motion_rows(screen)[0][0])  # the quarter circle forward, first in the list
+            for _ in range(5):
+                motion, name, _ = _motion_rows(screen)[0]  # the quarter circle forward, first in the list
+                seen.append((motion, name))
                 await pilot.press("ctrl+l")
                 await pilot.pause()
             return seen
 
-    assert asyncio.run(session()) == ["⮩", "↓ ↘ →", "⮩"]
+    assert asyncio.run(session()) == [
+        ("⮩", "Quarter circle forward"),
+        ("↓ ↘ →", "Quarter circle forward"),
+        ("⮩", "QCF"),
+        ("↓ ↘ →", "QCF"),
+        ("⮩", "Quarter circle forward"),
+    ]
 
 
 def test_what_is_held_is_lit(config: Config) -> None:

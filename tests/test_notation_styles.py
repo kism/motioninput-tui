@@ -11,7 +11,7 @@ from motioninput_tui.engine.notation import ANY_KICK, ANY_PUNCH, Direction
 from motioninput_tui.engine.recognizer import NOT_MOTIONS
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.models import Move
-from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, STYLES, Family, Notation
+from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, MOTION_SHORTHANDS, STYLES, Family, Notation
 
 GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lb2")
 """Two SNK rosters as well, since the rolls their supers are written on do not
@@ -158,6 +158,7 @@ def test_spelled_out_keeps_the_directions_and_drops_the_glyphs() -> None:
 def test_every_motion_has_a_name() -> None:
     """The input display lists each one by name; throws, holds and mashes are not motions."""
     assert MOTION_NAMES.keys() == set(MotionKind) - NOT_MOTIONS
+    assert MOTION_SHORTHANDS.keys() == MOTION_NAMES.keys()
 
 
 def test_the_button_mark_is_a_bang_unless_another_is_picked() -> None:
