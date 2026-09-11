@@ -41,9 +41,12 @@ def _place(bracket: Bracket, columns: Sequence[tuple[int, int, int]]) -> _Placed
     """Where a bracket goes: over the inputs it covers, or wider if its label is.
 
     ``columns`` is each input's moment, and the columns it starts and ends at.
-    None for a bracket whose inputs have scrolled out of the strip.
+    A bracket that falls between two inputs, as a button joining the direction
+    already held does, goes over the one before. None for a bracket whose
+    inputs have scrolled out of the strip.
     """
     inside = [(start, end) for at_ms, start, end in columns if bracket.start_ms <= at_ms <= bracket.end_ms]
+    inside = inside or [(start, end) for at_ms, start, end in columns if at_ms <= bracket.start_ms][-1:]
     if not inside:
         return None
     left = inside[0][0]

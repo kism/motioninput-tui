@@ -196,6 +196,8 @@ class TrainingScreen(Screen):
         strip.show(session.entries, session.direction, brackets, bracket_rows=BRACKET_ROWS)
 
     def _bracket(self, motion: TrailMotion) -> Bracket:
+        if motion.kind is None:  # A move that needed no motion, a throw say, marked where it came out.
+            return Bracket("!", TRAIL_STYLES[Outcome.EXECUTED], motion.start_ms, motion.end_ms)
         style = TRAIL_STYLES[motion.outcome]
         if motion.beaten and motion.outcome is not Outcome.EXECUTED:
             style = "dim strike"

@@ -165,6 +165,39 @@ def test_motions_stay_drawn_ending_in_what_became_of_them(config: Config) -> Non
     assert any(text.startswith("↓ ↘ →") and style == "bold green" for text, style in drawn)
 
 
+def test_a_move_with_no_motion_puts_a_green_mark_over_the_input_it_came_out_on(config: Config) -> None:
+    """Sakotsu Wari, f + MP: no motion to draw, so the moment it came out is marked instead.
+
+    A command normal rather than a throw, since the pilot's two keys land too
+    far apart to be one press; `sfiii3/test_ryu.py` has the throw.
+    """
+
+    async def session() -> Text:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            await pilot.press("ctrl+l")
+            await pilot.press("a")  # something first, so the mark is not at column 0
+            trainer.handle_release("a")
+            await pilot.pause(0.3)
+            await pilot.press("d", "k")  # forward + MP
+            trainer.handle_release("d")
+            await pilot.pause(0.05)
+            content = trainer.query_one("#panel-strip", InputStrip).content
+            assert isinstance(content, Text)
+            return content
+
+    history = asyncio.run(session())
+    *motions, inputs = history.plain.split("\n")
+    assert motions[-1].index("!") == inputs.index("MP") - 1  # over the direction glyph the button follows
+    assert any(
+        history.plain[span.start : span.end].startswith("!") and str(span.style) == "bold green"
+        for span in history.spans
+    )
+
+
 def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
     async def session() -> tuple[str, list[str], list[str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)

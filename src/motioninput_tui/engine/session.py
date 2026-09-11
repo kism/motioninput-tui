@@ -64,7 +64,8 @@ class Outcome(StrEnum):
 class TrailMotion:
     """A motion the stick made, the inputs it spans, and what became of it."""
 
-    kind: MotionKind
+    kind: MotionKind | None
+    """None for a move that came out needing no motion, such as a throw or a command normal."""
     start_ms: int
     end_ms: int
     beaten: bool = False
@@ -223,9 +224,13 @@ class TrainingSession:
         self.activations.appendleft(activation)
         self.total_activations += 1
         spec = activation.move.motion
+        spent = False
         for motion in self.trail:
             if spec is not None and motion.outcome is Outcome.LIVE and motion.kind is spec.kind:
                 motion.outcome = Outcome.EXECUTED
+                spent = True
+        if not spent:  # A throw, a command normal: no motion to mark, so mark the moment.
+            self.trail.append(TrailMotion(None, activation.at_ms, activation.at_ms, outcome=Outcome.EXECUTED))
         for entry in reversed(self.entries):
             if entry.at_ms <= activation.at_ms:
                 entry.activated = activation.name
