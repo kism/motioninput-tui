@@ -15,7 +15,7 @@ from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.move_feed import MoveFeed, append_follow_up
 from motioninput_tui.tui.widgets.movelist import MoveList
-from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
@@ -53,6 +53,7 @@ class TrainingScreen(Screen):
         Binding("tab", "next_super_art", "Super art", priority=True),
         Binding("ctrl+r", "reset", "Reset buffer"),
         Binding("ctrl+l", "cycle_movelist", "Move list"),
+        Binding("ctrl+p", "toggle_panel", "Live input"),
         Binding("ctrl+b", "app.settings", "Settings"),
         Binding("ctrl+n", "app.notation", "Notation"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
@@ -67,11 +68,9 @@ class TrainingScreen(Screen):
     #body { height: 1fr; }
     #left { width: 1fr; }
     #feed-title { padding: 0 1; text-style: bold; }
-    #pads { height: auto; display: none; border-top: solid $panel; }
-    /* As tall as the stick, three rows of three-line boxes, with the prompt
-       level with its bottom row. */
-    #mash { width: 1fr; height: 9; padding: 0 2 0 1; content-align: right bottom; }
-    TrainingScreen.-movelist-full #pads { display: block; }
+    /* Under the history, for when a full-screen move list hides the feed. */
+    #mash { display: none; height: 1; padding: 0 2 0 1; text-align: right; }
+    TrainingScreen.-movelist-full #mash { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
     TrainingScreen.-movelist-hidden #movelist { display: none; }
@@ -110,14 +109,9 @@ class TrainingScreen(Screen):
                 yield Static("Activated moves", id="feed-title")
                 yield MoveFeed(id="feed")
             yield MoveList(id="movelist")
-        # The live panel, under a full-screen move list that hides the feed,
-        # with the newest move's follow-through beside it in the feed's place.
-        with Horizontal(id="pads"):
-            yield DirectionGate()
-            yield ButtonPads()
-            yield Static(id="mash")
-        # Outside the panes, so the history has the whole width to fill.
-        yield InputStrip(id="strip")
+        # The stick and the buttons with the history beside them, as on the
+        # input display, and under the history the newest move's follow-through.
+        yield LivePanel(Static(id="mash"))
         yield StatusBar(id="status")
         yield Footer()
 
@@ -262,14 +256,18 @@ class TrainingScreen(Screen):
     def action_cycle_movelist(self) -> None:
         """Step the move list on: beside the trainer, the whole screen, hidden.
 
-        Full screen swaps the activation feed for the live button panel, so
-        what is pressed stays visible while the list is being read. The input
-        history and the status stay where they are, under whichever it is.
+        Full screen hides the activation feed, so the newest move's
+        follow-through is prompted under the history instead. The live panel
+        and the status stay along the bottom whichever it is.
         """
         self.movelist_mode = MOVELIST_MODES[(MOVELIST_MODES.index(self.movelist_mode) + 1) % len(MOVELIST_MODES)]
         self.set_class(self.movelist_mode == "full", "-movelist-full")
         self.set_class(self.movelist_mode == "hidden", "-movelist-hidden")
         self._paint_movelist()
+
+    def action_toggle_panel(self) -> None:
+        """Show or hide the stick and the buttons beside the history."""
+        self.query_one(LivePanel).toggle()
 
     def action_back(self) -> None:
         """Return to the setup screen."""

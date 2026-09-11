@@ -9,12 +9,17 @@ from typing import TYPE_CHECKING
 
 from rich.cells import cell_len
 from rich.text import Text
+from textual.containers import Horizontal, Vertical
 from textual.widgets import Static
 
 from motioninput_tui.engine.notation import Direction
+from motioninput_tui.tui.widgets.input_strip import InputStrip
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Sequence
+
+    from textual.app import ComposeResult
+    from textual.widget import Widget
 
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.engine.notation import Button
@@ -101,6 +106,43 @@ class DirectionGate(Static):
         )
         self.art = _stack(rows)
         self.update(self.art)
+
+
+class LivePanel(Horizontal):
+    """The stick and the buttons, lit as you press, with the input history beside them.
+
+    Every training screen has one along its bottom. Whatever is passed in goes
+    under the history, which is where the trainer prompts a follow-through.
+    :meth:`toggle` hides the stick and the buttons, giving the history the
+    whole width.
+    """
+
+    DEFAULT_CSS = """
+    LivePanel { height: auto; border-top: solid $panel; }
+    /* As tall as the stick, three rows of three-line boxes, with the inputs
+       level with its bottom row and the motions stacked over them. */
+    LivePanel #history { width: 1fr; height: 9; align-vertical: bottom; }
+    LivePanel #history InputStrip { padding: 0 1; }
+    LivePanel.-stick-hidden DirectionGate, LivePanel.-stick-hidden ButtonPads { display: none; }
+    LivePanel.-stick-hidden #history { height: auto; }
+    """
+
+    def __init__(self, *under_history: Widget) -> None:
+        """Take what goes under the history, if anything."""
+        super().__init__()
+        self._under_history = under_history
+
+    def compose(self) -> ComposeResult:
+        """The stick, the buttons, then the history filling the rest."""
+        yield DirectionGate()
+        yield ButtonPads()
+        with Vertical(id="history"):
+            yield InputStrip(id="strip")
+            yield from self._under_history
+
+    def toggle(self) -> None:
+        """Show or hide the stick and the buttons."""
+        self.toggle_class("-stick-hidden")
 
 
 def _lean(label: str, column: int) -> str:

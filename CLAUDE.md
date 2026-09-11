@@ -257,8 +257,8 @@ builds rather than one from a guide (`INPUT_DISPLAY` is its key): its moves are
 every motion in the game, on any of the game's buttons and without their
 follow-throughs, so a press on whatever the stick made brings it out.
 `InputDisplayScreen` runs a real `TrainingSession` (so SOCD and holds behave
-exactly as in the trainer), draws the game's panel, and lays the session's
-trail over its history as the full-screen move list does. `datagen --summary`
+exactly as in the trainer), and has the trainer's bottom row, a `LivePanel`:
+the stick and the buttons beside the history, with the session's trail over it. `datagen --summary`
 leaves it out of the counts. A panel is only reached through a game played on
 it, so the Mortal Kombat, Tekken and eight button sets are defined but offered
 nowhere. The Neo Geo's two arrangements are a global setting rather than two

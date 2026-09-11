@@ -35,8 +35,9 @@ class Bracket(NamedTuple):
     end_ms: int
 
 
-MOTION_ROWS = 3
-"""Lines of motions a screen lays over its history."""
+MOTION_ROWS = 7
+"""Lines of motions a screen lays over its history: the stick's nine rows it
+sits beside, less the inputs and the one under them. Only those in use are drawn."""
 
 TRAIL_STYLES: dict[Outcome, str] = {
     Outcome.LIVE: "bold",

@@ -200,6 +200,23 @@ def test_the_stick_is_labelled_in_the_direction_style_letters_leaning_the_way_th
     assert lit == ["DF"]
 
 
+def test_ctrl_p_hides_the_stick_and_the_buttons_and_brings_them_back(config: Config) -> None:
+    async def session() -> list[bool]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            screen = app.screen
+            assert isinstance(screen, InputDisplayScreen)
+            seen = []
+            for _ in range(3):
+                seen.append(screen.query_one(ButtonPads).display)
+                await pilot.press("ctrl+p")
+                await pilot.pause()
+            return seen
+
+    assert asyncio.run(session()) == [True, False, True]
+
+
 def test_what_is_held_is_lit(config: Config) -> None:
     async def session() -> tuple[list[str], list[str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)

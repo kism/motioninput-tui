@@ -10,11 +10,10 @@ history whoever's move it would be.
 
 from typing import TYPE_CHECKING, ClassVar, NamedTuple, override
 
-from rich.cells import cell_len
 from rich.table import Table
 from rich.text import Text
 from textual.binding import Binding
-from textual.containers import Center, Horizontal, VerticalScroll
+from textual.containers import VerticalScroll
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
@@ -25,7 +24,7 @@ from motioninput_tui.games.loader import INPUT_DISPLAY
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.notation_styles import MOTION_NAMES, MOTION_SHORTHANDS
 from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
-from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
@@ -40,10 +39,6 @@ TICK_HZ = 60
 
 NAME_GAP = 3
 """Cells between a motion and its name: wider than the gap inside a compound motion."""
-
-MOTIONS_FRAME = 5
-"""What the motion pane adds around its list: a border and a cell of padding
-each side, and a one-cell scrollbar for a list taller than the pane."""
 
 
 class Writing(NamedTuple):
@@ -65,7 +60,7 @@ WRITINGS = (
 
 
 class InputDisplayScreen(Screen):
-    """Draws the panel live beside the game's motions, over the input history."""
+    """The game's motions over the live panel: the stick, the buttons and the history beside them."""
 
     notation: Notation
 
@@ -75,6 +70,7 @@ class InputDisplayScreen(Screen):
         Binding("ctrl+b", "app.settings", "Settings"),
         Binding("ctrl+n", "app.notation", "Notation"),
         Binding("ctrl+l", "cycle_writing", "Writing"),
+        Binding("ctrl+p", "toggle_panel", "Live input"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c", "app.help_quit", show=False, system=True),
@@ -83,13 +79,7 @@ class InputDisplayScreen(Screen):
     DEFAULT_CSS = """
     InputDisplayScreen { layout: vertical; }
     InputDisplayScreen #banner { height: auto; padding: 0 1; background: $panel; }
-    InputDisplayScreen #body { height: 1fr; }
-    /* The panel keeps the width it needs, and the motions take at most 40%,
-       which leaves it that from 80 columns up; past that, names wrap. */
-    InputDisplayScreen #panel-area { width: 1fr; min-width: 48; height: 1fr; align: center middle; }
-    InputDisplayScreen #panel { width: auto; height: auto; }
     InputDisplayScreen #motions {
-        max-width: 40%;
         height: 1fr;
         border: round $panel;
         padding: 0 1;
@@ -123,17 +113,12 @@ class InputDisplayScreen(Screen):
 
     @override
     def compose(self) -> ComposeResult:
-        """The gate and the buttons beside the game's motions, over the input history."""
+        """The game's motions over the live panel and the status, as the trainer lays out."""
         yield Static(id="banner")
-        with Horizontal(id="body"):
-            with Center(id="panel-area"), Horizontal(id="panel"):
-                yield DirectionGate()
-                yield ButtonPads()
-            with VerticalScroll(id="motions") as motions:
-                motions.border_title = self.writing.title
-                yield Static(id="motion-list")
-        # Outside the panes, so the history has the whole width to fill.
-        yield InputStrip(id="strip")
+        with VerticalScroll(id="motions") as motions:
+            motions.border_title = self.writing.title
+            yield Static(id="motion-list")
+        yield LivePanel()
         yield StatusBar(id="status")
         yield Footer()
 
@@ -164,10 +149,6 @@ class InputDisplayScreen(Screen):
         live = {motion.kind for motion in self.session.trail if motion.outcome is Outcome.LIVE}
         written = [self.written_in.write_kind(kind) for kind in self.motions]
         names = [self.writing.names[kind] for kind in self.motions]
-        # Sized here rather than left to auto: rich measures a table to the width
-        # it is offered, which in a pane sized to its content is nothing.
-        unwrapped = max(map(cell_len, written), default=0) + NAME_GAP + max(map(cell_len, names), default=0)
-        self.query_one("#motions", VerticalScroll).styles.width = unwrapped + MOTIONS_FRAME
         table = Table.grid(padding=(0, NAME_GAP))
         table.add_column(no_wrap=True)
         table.add_column()
@@ -245,6 +226,10 @@ class InputDisplayScreen(Screen):
         """Clear the history and go back to neutral."""
         self.session.reset()
         self._refresh()
+
+    def action_toggle_panel(self) -> None:
+        """Show or hide the stick and the buttons beside the history."""
+        self.query_one(LivePanel).toggle()
 
     def action_back(self) -> None:
         """Return to the setup screen."""

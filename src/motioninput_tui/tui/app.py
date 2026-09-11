@@ -57,6 +57,9 @@ class MotionInputApp(App[None]):
     """
 
     TITLE = PROGRAM_NAME_WITH_VERSION
+    # Textual's palette takes ctrl+p with priority over every screen, and ctrl+p
+    # is the training screens' live input toggle.
+    COMMAND_PALETTE_BINDING = "ctrl+k"
     CSS = """
     Screen { background: $surface; }
     """

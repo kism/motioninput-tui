@@ -12,7 +12,7 @@ from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.training import MOVELIST_MODES, TrainingScreen
 from motioninput_tui.tui.widgets.input_strip import InputStrip
 from motioninput_tui.tui.widgets.movelist import LIT_ROW, MoveList
-from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
+from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
 
 if TYPE_CHECKING:
@@ -55,7 +55,7 @@ def test_ctrl_l_cycles_beside_full_hidden(config: Config) -> None:
                     (
                         trainer.query_one(MoveList).display,
                         trainer.query_one("#left").display,
-                        trainer.query_one("#pads").display,
+                        trainer.query_one("#mash").display,
                     )
                 )
                 await pilot.press("ctrl+l")
@@ -64,7 +64,7 @@ def test_ctrl_l_cycles_beside_full_hidden(config: Config) -> None:
 
     assert asyncio.run(session()) == [
         (True, True, False),  # beside the trainer
-        (True, False, True),  # the whole screen, over the live panel
+        (True, False, True),  # the whole screen, the follow-through prompted under the history
         (False, True, False),  # hidden
         (True, True, False),
     ]
@@ -97,7 +97,7 @@ def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config
     assert "LP" in buttons
 
 
-def test_the_history_and_the_status_span_the_screen_whatever_the_move_list_is_doing(config: Config) -> None:
+def test_the_live_panel_and_the_status_span_the_screen_whatever_the_move_list_is_doing(config: Config) -> None:
     """Beside, full screen or hidden, both stay along the bottom, as on the input display."""
 
     async def session() -> list[tuple[int, int]]:
@@ -111,12 +111,31 @@ def test_the_history_and_the_status_span_the_screen_whatever_the_move_list_is_do
                 # Inferred holds are worth a word, so the status has something to show.
                 status = trainer.query_one(StatusBar)
                 assert status.display
-                seen.append((trainer.query_one("#strip", InputStrip).region.width, status.region.width))
+                seen.append((trainer.query_one(LivePanel).region.width, status.region.width))
                 await pilot.press("ctrl+l")
                 await pilot.pause()
             return seen
 
     assert asyncio.run(session()) == [(120, 120)] * len(MOVELIST_MODES)
+
+
+def test_ctrl_p_hides_the_stick_and_the_buttons_and_gives_the_history_their_room(config: Config) -> None:
+    async def session() -> list[tuple[bool, int]]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            seen = []
+            for _ in range(3):
+                seen.append((trainer.query_one(DirectionGate).display, trainer.query_one("#strip").region.width))
+                await pilot.press("ctrl+p")
+                await pilot.pause()
+            return seen
+
+    (shown, beside), (hidden, alone), (back, beside_again) = asyncio.run(session())
+    assert (shown, hidden, back) == (True, False, True)
+    assert alone > beside == beside_again
 
 
 def test_the_history_lays_the_motion_over_the_inputs_that_made_it(config: Config) -> None:
