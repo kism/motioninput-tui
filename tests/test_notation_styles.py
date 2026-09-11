@@ -145,6 +145,13 @@ def test_an_unmodelled_move_keeps_the_guides_own_words() -> None:
     assert DEFAULT.write_move(move) == "Back or Forward + press all Kicks"
 
 
+def test_the_button_mark_is_a_bang_unless_another_is_picked() -> None:
+    """What the trainer's history puts over a throw or a counted tap."""
+    assert DEFAULT.mark == "!"
+    assert Notation({"mark": "emoji"}).mark == "✅"
+    assert Notation({"mark": "gone"}).mark == "!"
+
+
 def test_a_style_that_is_gone_falls_back_rather_than_failing() -> None:
     stale = Notation({"quarter": "sharpie", "nonsense": "whatever"})
     assert stale.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "↓ ↘ → + P"

@@ -145,7 +145,7 @@ plus a line in `tuned_game`. Nothing in the interface needs touching.
 
 `notation_styles.py` is how a move's input is *written*, as opposed to
 `engine/notation.py`, which is what a direction *is*. A `Notation` holds one
-`Style` per `Family` (directions, quarter, half, dragon, rotate, charge) and
+`Style` per `Family` (directions, quarter, half, dragon, rotate, charge, mark) and
 writes a `MotionSpec` by parts: each part is either a glyph the player picked
 for its family or the directions spelled out, so a compound motion follows its
 parts' styles for free. A style with no glyph for a kind spells that kind out,
@@ -153,13 +153,17 @@ which is what makes the first style of every family the plain one. Moves with
 no `MotionSpec`, and `MotionKind.ANY`, keep the guide's own wording.
 
 The live input strip never consults it: what the player pressed is always
-arrows, deliberately, so one reading of the display never changes.
+arrows, deliberately, so one reading of the display never changes. The motion
+rows the full-screen panel draws over its history do, since they name motions
+rather than record presses.
 
 Adding a style is a row in `STYLES` — nothing else, since the config validator
 takes its vocabulary from that table and the menu previews whatever is in it. A
 `Family.DIRECTIONS` style carries a direction table and a separator instead of
 glyphs, which is how numpad (`236`, the `Direction` enum's own values, joined by
-nothing) and the emoji and nerd font variants are written.
+nothing) and the emoji and nerd font variants are written. A `Family.MARK` style
+is not a motion at all: it carries one `mark`, what those motion rows put over
+a throw, a command normal or a counted mash tap.
 
 Nerd font codepoints come from `glyphnames.json` in the nerd-fonts repository,
 downloaded rather than committed (it is gitignored). Every one in the source is

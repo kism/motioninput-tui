@@ -37,6 +37,8 @@ class Family(StrEnum):
     DRAGON = "dragon"
     ROTATE = "rotate"
     CHARGE = "charge"
+    MARK = "mark"
+    """Not a motion: what marks a button that did something on its own."""
 
 
 FAMILY_NAMES: dict[Family, str] = {
@@ -46,6 +48,7 @@ FAMILY_NAMES: dict[Family, str] = {
     Family.DRAGON: "Dragon punches",
     Family.ROTATE: "Full circles",
     Family.CHARGE: "Charges",
+    Family.MARK: "Button marks",
 }
 
 
@@ -64,6 +67,9 @@ class Style:
         separator: :attr:`Family.DIRECTIONS` only: what goes between them.
             Numpad notation runs them together as ``236``, letters want
             ``D, DF, F``, arrows want the space.
+        mark: :attr:`Family.MARK` only: what the trainer's full-screen history
+            puts over a move that came out needing no motion, a throw or a
+            command normal, and over each tap a mash tail counted.
     """
 
     key: str
@@ -71,6 +77,7 @@ class Style:
     glyphs: Mapping[MotionKind, str] = field(default_factory=dict)
     directions: Mapping[Direction, str] = field(default_factory=dict)
     separator: str = " "
+    mark: str = ""
 
     def write_direction(self, direction: Direction) -> str:
         """One direction, drawn this way."""
@@ -199,6 +206,14 @@ STYLES: dict[Family, tuple[Style, ...]] = {
             glyphs={_K.CHARGE_BF: "🔋→", _K.CHARGE_DU: "🔋↑", _K.CHARGE_BFBF: "🔋→ ← →"},
         ),
     ),
+    Family.MARK: (
+        Style(key="bang", name="Exclamation", mark="!"),
+        Style(key="heavy-check", name="Heavy check", mark="✔"),
+        Style(key="check", name="Check", mark="✓"),
+        Style(key="emoji", name="Emoji check", mark="✅"),
+        Style(key="ballot", name="Ballot box", mark="☑"),
+        Style(key="light-check", name="Light check", mark="🗸"),
+    ),
 }
 
 _KIND_FAMILY: dict[MotionKind, Family] = {
@@ -303,6 +318,11 @@ class Notation:
                 return style
         return STYLES[family][0]
 
+    @property
+    def mark(self) -> str:
+        """What marks a button that did something on its own. See :attr:`Style.mark`."""
+        return self.style(Family.MARK).mark
+
     def with_style(self, family: Family, style: Style) -> Notation:
         """The same choices with one family changed, for previewing it."""
         return Notation({**self.choices, family.value: style.key})
@@ -337,6 +357,8 @@ class Notation:
         trial = self.with_style(family, style)
         if family is Family.DIRECTIONS:
             return trial.directions(_SAMPLE_DIRECTIONS)
+        if family is Family.MARK:
+            return trial.mark
         return "   ".join(trial.write_part(kind) for kind in _PREVIEWS[family])
 
     def directions(self, sequence: tuple[Direction, ...]) -> str:

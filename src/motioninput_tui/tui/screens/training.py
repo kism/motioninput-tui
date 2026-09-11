@@ -206,8 +206,8 @@ class TrainingScreen(Screen):
         self.query_one("#mash", Static).update(mash)
 
     def _bracket(self, motion: TrailMotion) -> Bracket:
-        if motion.kind is None:  # A move that needed no motion, a throw say, marked where it came out.
-            return Bracket("!", TRAIL_STYLES[Outcome.EXECUTED], motion.start_ms, motion.end_ms)
+        if motion.kind is None:  # A throw, say, or a counted tap: marked where it happened.
+            return Bracket(self.notation.mark, TRAIL_STYLES[Outcome.EXECUTED], motion.start_ms, motion.end_ms)
         style = TRAIL_STYLES[motion.outcome]
         if motion.beaten and motion.outcome is not Outcome.EXECUTED:
             style = "dim strike"
