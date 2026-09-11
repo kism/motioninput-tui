@@ -165,9 +165,13 @@ Run `ty`.
 
 ### Testing
 
-Run `pytest`; it gets its config from `pyproject.toml`.
+Run `pytest`; it gets its config from `pyproject.toml`. Add `-n auto` to spread
+the run over every core with pytest-xdist; the Textual screen tests are nearly
+all of the time and parallelise well. Coverage runs serially, since
+`coverage run` does not follow xdist's workers.
 
 ```bash
+pytest -n auto                                     # everything, in parallel
 pytest tests/test__meta.py::test_repo_url          # a single test
 pytest -k logger                                   # by name
 pytest tests/engine/test_motions/sfiii3            # one game

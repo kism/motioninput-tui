@@ -44,7 +44,7 @@ uv sync --all-groups            # dev setup; omit --all-groups for prod
 .venv/bin/ruff format .         # format
 .venv/bin/ruff check --fix .    # lint
 .venv/bin/ty check .            # type check
-.venv/bin/pytest -q             # tests
+.venv/bin/pytest -q -n auto     # tests, in parallel (xdist); coverage stays serial
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
 .venv/bin/python .claude/skills/prepare-release/check-docs.py   # docs + in-app text, before a release
