@@ -58,6 +58,7 @@ class InputDisplayScreen(Screen):
         Binding("ctrl+r", "reset", "Reset"),
         Binding("ctrl+b", "app.settings", "Settings"),
         Binding("ctrl+n", "app.notation", "Notation"),
+        Binding("ctrl+l", "toggle_spelled_out", "Spell out"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
         # from the key panel; ctrl+c stays as the quit shortcut.
         Binding("ctrl+c", "app.help_quit", show=False, system=True),
@@ -101,6 +102,8 @@ class InputDisplayScreen(Screen):
         self.session = TrainingSession(game, display, layout, exact_input=exact_input, policy=policy)
         self.panel = buttons
         self.notation = DEFAULT_NOTATION
+        self.spelling_out = False
+        """Whether ctrl+l has the motions spelled out rather than in the player's notation."""
         order = list(MotionKind)
         self.motions = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
         """Every motion the game has, once each, in the order the engine lists them."""
@@ -146,7 +149,7 @@ class InputDisplayScreen(Screen):
         A table, so that in a narrow pane a long name wraps under itself rather than being cut off.
         """
         live = {motion.kind for motion in self.session.trail if motion.outcome is Outcome.LIVE}
-        written = [self.notation.write_kind(kind) for kind in self.motions]
+        written = [self.written_in.write_kind(kind) for kind in self.motions]
         names = [MOTION_NAMES[kind] for kind in self.motions]
         # Sized here rather than left to auto: rich measures a table to the width
         # it is offered, which in a pane sized to its content is nothing.
@@ -166,6 +169,18 @@ class InputDisplayScreen(Screen):
         if self.is_mounted:
             self._paint_banner()
             self._refresh()
+
+    @property
+    def written_in(self) -> Notation:
+        """The notation the motions are written in: the player's, or spelled out while ctrl+l says so."""
+        return self.notation.spelled_out() if self.spelling_out else self.notation
+
+    def action_toggle_spelled_out(self) -> None:
+        """Switch the motions between the player's notation and the directions spelled out."""
+        self.spelling_out = not self.spelling_out
+        motions = self.query_one("#motions", VerticalScroll)
+        motions.border_title = "Motions, spelled out" if self.spelling_out else "Motions"
+        self._refresh()
 
     def apply_notation(self, notation: Notation) -> None:
         """Take the notation the motions are written in, before or during a session."""
@@ -209,7 +224,7 @@ class InputDisplayScreen(Screen):
         direction = session.direction
         self.query_one(DirectionGate).show(direction)
         self.query_one(ButtonPads).show(session.layout, session.held)
-        brackets = trail_brackets(session.trail, self.notation)
+        brackets = trail_brackets(session.trail, self.written_in)
         self.query_one(InputStrip).show(session.entries, direction, brackets, bracket_rows=MOTION_ROWS)
         self._paint_motions()
 

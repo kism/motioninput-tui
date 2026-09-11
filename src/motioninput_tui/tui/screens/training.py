@@ -238,13 +238,13 @@ class TrainingScreen(Screen):
         if session.gamepad_waiting:
             status.append("   no gamepad detected — plug one in", style="yellow")
         elif session.exact_input:
-            status.append("   exact input tracking", style="dim green")
+            pass
         else:
             status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
         if session.policy is BufferPolicy.LOOSE:
             status.append("   loose buffer: inputs are reused between moves", style="yellow")
         if not session.ruleset.lenient_half_circles:
-            status.append("   strict half circles: the down must be hit", style="yellow")
+            status.append("   strict half circles", style="yellow")
         advice = session.keyboard_advice
         if advice:
             status.append(f"\n⚠ {advice}", style="yellow")

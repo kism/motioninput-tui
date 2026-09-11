@@ -359,6 +359,13 @@ class Notation:
         """The same choices with one family changed, for previewing it."""
         return Notation({**self.choices, family.value: style.key})
 
+    def spelled_out(self) -> Notation:
+        """The same directions and mark, with every motion spelled out rather than drawn as a glyph.
+
+        The first style of every other family is the plain one, which is what leaving it out picks.
+        """
+        return Notation({family.value: self.style(family).key for family in (Family.DIRECTIONS, Family.MARK)})
+
     def write_move(self, move: RecognisableMove) -> str:
         """How this move's input is written.
 

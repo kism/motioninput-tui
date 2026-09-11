@@ -16,8 +16,3 @@ Maybe change measurements to frames? Then pytest can 3x or 4x speed?
 
 ## Make the game internal names mame accurate
 
-## Replace the input display "game", make it the first 'character' of each game
-
-- The input tracker on the input display should have the new motion feed
-- Every motion that the game has should be registered
-

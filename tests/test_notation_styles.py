@@ -146,6 +146,15 @@ def test_an_unmodelled_move_keeps_the_guides_own_words() -> None:
     assert DEFAULT.write_move(move) == "Back or Forward + press all Kicks"
 
 
+def test_spelled_out_keeps_the_directions_and_drops_the_glyphs() -> None:
+    """The input display's ctrl+l: the same arrows or numbers, and no shorthand for whole motions."""
+    picked = Notation({"directions": "numpad", "quarter": "curved", "mark": "emoji"})
+    assert picked.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⮩ + P"
+    spelled = picked.spelled_out()
+    assert spelled.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "236 + P"
+    assert spelled.mark == "✅"
+
+
 def test_every_motion_has_a_name() -> None:
     """The input display lists each one by name; throws, holds and mashes are not motions."""
     assert MOTION_NAMES.keys() == set(MotionKind) - NOT_MOTIONS

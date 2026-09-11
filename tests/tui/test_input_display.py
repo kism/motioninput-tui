@@ -20,7 +20,7 @@ from motioninput_tui.engine.motions import MotionKind
 from motioninput_tui.engine.notation import ButtonRequirement
 from motioninput_tui.engine.recognizer import NOT_MOTIONS
 from motioninput_tui.games.loader import INPUT_DISPLAY, available_games, load_game
-from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES
+from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, Notation
 from motioninput_tui.settings import SETTINGS
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.input_display import InputDisplayScreen
@@ -124,6 +124,26 @@ def test_the_motions_live_now_are_lit_in_the_list(config: Config) -> None:
     live, spent = asyncio.run(session())
     assert MOTION_NAMES[MotionKind.QCF] in live
     assert MOTION_NAMES[MotionKind.QCF] not in spent
+
+
+def test_ctrl_l_spells_the_motions_out_and_back(config: Config) -> None:
+    """Between the notation the player picked and the directions spelled out."""
+
+    async def session() -> list[str]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            screen = app.screen
+            assert isinstance(screen, InputDisplayScreen)
+            screen.apply_notation(Notation({"quarter": "curved"}))
+            seen = []
+            for _ in range(3):
+                seen.append(_motion_rows(screen)[0][0])  # the quarter circle forward, first in the list
+                await pilot.press("ctrl+l")
+                await pilot.pause()
+            return seen
+
+    assert asyncio.run(session()) == ["⮩", "↓ ↘ →", "⮩"]
 
 
 def test_what_is_held_is_lit(config: Config) -> None:
