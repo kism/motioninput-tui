@@ -243,8 +243,8 @@ class TrainingScreen(Screen):
             status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
         if session.policy is BufferPolicy.LOOSE:
             status.append("   loose buffer: inputs are reused between moves", style="yellow")
-        if not session.ruleset.lenient_half_circles:
-            status.append("   strict half circles", style="yellow")
+        if session.ruleset.lenient_half_circles:
+            status.append("   relaxed half circles", style="yellow")
         advice = session.keyboard_advice
         if advice:
             status.append(f"\n⚠ {advice}", style="yellow")
