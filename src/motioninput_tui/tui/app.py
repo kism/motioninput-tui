@@ -1,5 +1,6 @@
 """The Textual application."""
 
+import logging
 from time import monotonic
 from typing import TYPE_CHECKING, ClassVar
 
@@ -20,16 +21,14 @@ from motioninput_tui.controls.layouts import (
 from motioninput_tui.games.loader import INPUT_DISPLAY, load_game
 from motioninput_tui.notation_styles import Notation
 from motioninput_tui.settings import current as current_settings
-from motioninput_tui.utils.logger import get_logger
 
 from .keyboard_driver import KeyRelease, ReleaseAwareDriver
 from .screens.input_display import InputDisplayScreen
 from .screens.input_picker import InputPickerScreen
-from .screens.notation import NotationScreen
 from .screens.settings import SettingsScreen
 from .screens.setup import SetupScreen
 from .screens.training import TrainingScreen
-from .widgets.settings_list import SettingsList  # ruff: ignore[typing-only-first-party-import] - Textual evaluates the on_settings_list_changed annotation at runtime
+from .widgets.settings_list import SettingsList
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -41,7 +40,7 @@ if TYPE_CHECKING:
     from motioninput_tui.engine.recognizer import BufferPolicy
     from motioninput_tui.games.models import Game
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 QUIT_CONFIRM_WINDOW_S = 2.0
 """How long a first ctrl+c counts for, before a second one quits."""
@@ -119,14 +118,15 @@ class MotionInputApp(App[None]):
         self._remember(keyboard_bindings=event.bindings)
 
     def action_settings(self) -> None:
-        """Open the settings over whatever is running. The trainer's ctrl+b."""
-        self.push_screen(SettingsScreen(current_settings(self.config)))
+        """Open the settings and the notation over whatever is running. ctrl+b.
 
-    def action_notation(self) -> None:
-        """Open the notation menu over whatever is running. ctrl+n."""
-        self.push_screen(NotationScreen(self.config.notation))
+        Over a session it is headed by that game's notes, the one place they are shown.
+        """
+        sessions = (screen for screen in self.screen_stack if isinstance(screen, TrainingScreen | InputDisplayScreen))
+        game = next((screen.session.game for screen in sessions), None)
+        self.push_screen(SettingsScreen(current_settings(self.config), self.config.notation, game=game))
 
-    def on_notation_screen_changed(self, event: NotationScreen.Changed) -> None:
+    def on_settings_screen_notation_changed(self, event: SettingsScreen.NotationChanged) -> None:
         """Remember how moves are to be written, and rewrite any on screen."""
         self._remember(notation=event.choices)
         for screen in self.screen_stack:
@@ -146,6 +146,8 @@ class MotionInputApp(App[None]):
                 screen.apply_settings(self.config.buffer_policy)
             if isinstance(screen, InputDisplayScreen):  # the Neo Geo slant rearranges the panel it draws
                 screen.apply_panel(*self._panel_for(screen.session.game, screen.session.layout.key))
+            if isinstance(screen, SetupScreen):  # its own pane, when the change was made in the menu over it
+                screen.query_one(SettingsList).set_values(event.values)
 
     def on_key_release(self, event: KeyRelease) -> None:
         """Route a key release to the trainer.

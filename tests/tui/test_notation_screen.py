@@ -1,4 +1,4 @@
-"""The notation menu: picking a style rewrites the move list and is remembered.
+"""The notation, in the settings menu: picking a style rewrites the move list and is remembered.
 
 The live input strip is checked here too, since the whole point of leaving it
 out of the menu is that what you pressed always reads the same way.
@@ -13,7 +13,7 @@ from textual.widgets import OptionList, Static
 from motioninput_tui.config import Config
 from motioninput_tui.notation_styles import FAMILY_NAMES, STYLES, Family
 from motioninput_tui.tui import MotionInputApp
-from motioninput_tui.tui.screens.notation import NotationScreen
+from motioninput_tui.tui.screens.settings import SettingsScreen
 from motioninput_tui.tui.screens.training import TrainingScreen
 from motioninput_tui.tui.widgets.input_strip import InputStrip
 
@@ -29,14 +29,16 @@ def config(tmp_path: Path) -> Config:
     return Config(game="sfiii3", character="ryu", layout="keyboard-left", path=tmp_path / "config.json")
 
 
-async def _pick(pilot: Pilot, family: int, style: int) -> None:
+async def _pick(pilot: Pilot, family: Family, style: int) -> None:
     """Open the menu and take one style, the way a player would."""
-    await pilot.press("ctrl+n")
+    await pilot.press("ctrl+b")
     await pilot.pause()
     await pilot.pause()
     screen = pilot.app.screen
-    assert isinstance(screen, NotationScreen)
-    screen.query_one("#families", OptionList).highlighted = family
+    assert isinstance(screen, SettingsScreen)
+    # Looked up rather than counted, so a family added to the menu cannot move it.
+    # The first section is the toggles.
+    screen.query_one("#sections", OptionList).highlighted = list(FAMILY_NAMES).index(family) + 1
     await pilot.pause()
     styles = screen.query_one("#styles", OptionList)
     styles.focus()
@@ -50,17 +52,20 @@ def _movelist(screen: TrainingScreen) -> str:
     return str(screen.query_one("#movelist-body", Static).render())
 
 
-def test_ctrl_n_opens_the_notation_menu(config: Config) -> None:
-    async def session() -> str:
+def test_the_notation_is_a_section_of_the_settings_menu(config: Config) -> None:
+    """Left out to the sections, down to directions, right into its styles, and space takes one."""
+
+    async def session() -> None:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test() as pilot:
             await pilot.pause()
-            await pilot.press("ctrl+n")
-            await pilot.pause()
-            await pilot.pause()
-            return type(app.screen).__name__
+            for key in ("ctrl+b", "left", "down", "right", "down", "space"):
+                await pilot.press(key)
+                await pilot.pause()
+                await pilot.pause()
 
-    assert asyncio.run(session()) == "NotationScreen"
+    asyncio.run(session())
+    assert config.notation == {"directions": "letters"}
 
 
 def test_picking_a_style_rewrites_the_move_list_and_is_saved(config: Config) -> None:
@@ -73,10 +78,8 @@ def test_picking_a_style_rewrites_the_move_list_and_is_saved(config: Config) -> 
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
             before = _movelist(trainer)
-            # Looked up rather than counted, so a family added to the menu cannot move it.
-            dragon = list(FAMILY_NAMES).index(Family.DRAGON)
             kanji = [style.key for style in STYLES[Family.DRAGON]].index("kanji")
-            await _pick(pilot, family=dragon, style=kanji)  # dragon punches, Dragon 龍
+            await _pick(pilot, family=Family.DRAGON, style=kanji)  # Dragon 龍
             await pilot.press("enter")  # done
             await pilot.pause()
             await pilot.pause()
@@ -101,7 +104,7 @@ def test_the_input_strip_stays_arrows_whatever_the_moves_are_written_in(config: 
             await pilot.pause()
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
-            await _pick(pilot, family=0, style=1)  # directions, Letters
+            await _pick(pilot, family=Family.DIRECTIONS, style=1)  # Letters
             await pilot.press("escape")
             await pilot.pause()
             for key in ("s", "d"):

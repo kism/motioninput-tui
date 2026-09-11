@@ -32,7 +32,7 @@ class SetupScreen(AppScreen["tuple[str, str] | None"]):
     BINDINGS: ClassVar = [
         Binding("escape", "back", "Change input"),
         Binding("enter", "select", "Start training", priority=True),
-        Binding("ctrl+n", "app.notation", "Notation"),
+        Binding("ctrl+b", "app.settings", "Settings"),
     ]
 
     DEFAULT_CSS = """
@@ -187,18 +187,14 @@ class SetupScreen(AppScreen["tuple[str, str] | None"]):
         return game, roster[character_index].key
 
     def _describe(self) -> None:
-        """Explain the highlighted setting, then the highlighted game."""
+        """Explain the highlighted setting. A game's notes wait for the settings menu over its session."""
         text = Text()
         pane = self.query_one(SettingsList)
         setting = pane.highlighted_setting
         if setting is not None:
             state = "on" if pane.is_on(setting) else "off"
             text.append(f"{setting.name}: {state}\n", style="bold")
-            text.append(f"{setting.detail}\n")
-        selection = self._selection()
-        if selection is not None:
-            game, _ = selection
-            text.append(f"{game.name}: {game.notes[0] if game.notes else ''}", style="italic")
+            text.append(setting.detail)
         self.query_one("#detail", Static).update(text)
 
     def action_start(self) -> None:

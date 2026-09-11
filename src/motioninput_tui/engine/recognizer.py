@@ -239,10 +239,6 @@ class Recognizer:
             reverse=True,
         )
 
-    def evaluate(self, buffer: InputBuffer, at_ms: int, pressed: set[Button]) -> Activation | None:
-        """Return the winning move for this press, if any."""
-        return self._decide(buffer, at_ms, frozenset(pressed), allow_defer=True)
-
     def poll(self, buffer: InputBuffer, at_ms: int) -> Activation | None:
         """Fire a press that was held for more buttons and did not get them.
 
@@ -253,7 +249,7 @@ class Recognizer:
             return None
         held = self._deferred
         self._deferred = None
-        return self._decide(buffer, held.since_ms, held.pressed, allow_defer=False)
+        return self.decide(buffer, held.since_ms, held.pressed, allow_defer=False)
 
     def live_motions(self, buffer: InputBuffer, at_ms: int) -> list[LiveMotion]:
         """The motions a press right now would complete, strongest first.
@@ -295,9 +291,10 @@ class Recognizer:
         self._pending_follow_up = None
         return True
 
-    def _decide(
-        self, buffer: InputBuffer, at_ms: int, pressed: frozenset[Button], *, allow_defer: bool
+    def decide(
+        self, buffer: InputBuffer, at_ms: int, pressed: frozenset[Button], *, allow_defer: bool = True
     ) -> Activation | None:
+        """Return the winning move for this press, if any."""
         # A move mid follow-through owns the press if it is one of that move's
         # taps; anything else abandons the follow-through and is handled below.
         if self._pending_follow_up is not None and self._feed_follow_up(

@@ -11,6 +11,7 @@ are guarded, and if either stops working the trainer simply falls back to
 inferring holds from auto-repeat.
 """
 
+import logging
 import sys
 from typing import TYPE_CHECKING
 
@@ -19,12 +20,11 @@ from textual._xterm_parser import XTermParser  # ruff: ignore[import-private-nam
 from textual.drivers.linux_driver import LinuxDriver
 
 from motioninput_tui.terminal.kitty import EventType, set_flags, split_event_type
-from motioninput_tui.utils.logger import get_logger
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 _PARSER_ATTR = "XTermParser"
 

@@ -102,39 +102,11 @@ _NF_QUARTER_FORWARD_DOWN = "\U000f17a9"  # nf-md-arrow_right_bottom
 _NF_QUARTER_BACK_DOWN = "\U000f17a5"  # nf-md-arrow_left_bottom
 _NF_HALF_FORWARD = "\U000f17bb"  # nf-md-arrow_u_up_right
 _NF_HALF_BACK = "\U000f17b9"  # nf-md-arrow_u_up_left
-_NF_DRAGON = "\ueef8"  # nf-fa-dragon
 _NF_TIGER_KNEE = "\uf148"  # nf-fa-arrow_turn_up
 
 
 _LETTERS: dict[Direction, str] = {direction: direction.short.upper() for direction in Direction}
 _NUMPAD: dict[Direction, str] = {direction: str(int(direction)) for direction in Direction}
-_KEYCAPS: dict[Direction, str] = {direction: f"{int(direction)}\ufe0f\u20e3" for direction in Direction}
-"""The numpad as keycap emoji, ``2️⃣3️⃣6️⃣``."""
-
-_EMOJI_ARROWS: dict[Direction, str] = {
-    _D.DOWN_BACK: "↙️",
-    _D.DOWN: "⬇️",
-    _D.DOWN_FORWARD: "↘️",
-    _D.BACK: "⬅️",
-    _D.FORWARD: "➡️",
-    _D.UP_BACK: "↖️",
-    _D.UP: "⬆️",
-    _D.UP_FORWARD: "↗️",
-}
-
-# nf-md-numeric_1_box to nf-md-numeric_9_box, which is the numpad in boxes.
-_NF_DIGIT_BOXES = (
-    "\U000f03a4",
-    "\U000f03a7",
-    "\U000f03aa",
-    "\U000f03ad",
-    "\U000f03b1",
-    "\U000f03b3",
-    "\U000f03b6",
-    "\U000f03b9",
-    "\U000f03bc",
-)
-_NERD_NUMPAD: dict[Direction, str] = {direction: _NF_DIGIT_BOXES[int(direction) - 1] for direction in Direction}
 
 _NF_ROTATE = "\U000f1999"  # nf-md-rotate_360
 _NF_LEFT_RIGHT = "\U000f0e73"  # nf-md-arrow_left_right

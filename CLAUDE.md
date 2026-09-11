@@ -22,9 +22,10 @@ code alone.
 Keep it short, and do not write what the program already says.
 
 The app documents itself: every screen has a `Footer` listing its keys, the
-setup pane and the `ctrl+b` modal print each setting's name, state and
-`Setting.detail`, the `ctrl+n` menu draws every notation style as its own
-preview, and the pickers list the games, characters and layouts. Anything in
+setup pane and the `ctrl+b` menu print each setting's name, state and
+`Setting.detail`, the same menu draws every notation style as its own preview
+and, over a session, heads itself with the game's notes, and the pickers list
+the games, characters and layouts. Anything in
 that list belongs in the code that renders it, not in `docs/` — a table of
 settings or glyphs in Markdown is a second copy that goes stale silently and
 tells a reader nothing they would not see by pressing the key.
@@ -173,10 +174,12 @@ commented with the glyph name it came from, so it can be checked against a fresh
 copy.
 
 `tui/widgets/settings_list.py` is the toggles themselves, shared by the setup
-screen's pane and the trainer's `ctrl+b` modal. It posts `SettingsList.Changed`,
+screen's pane and the `ctrl+b` menu. It posts `SettingsList.Changed`,
 which bubbles past both to `MotionInputApp.on_settings_list_changed`: that saves
 it and, if a session is running, hands the buffer policy to its
 `apply_settings` so the change lands mid-session rather than at the next one.
+The menu can open over the setup screen, so the same handler pushes the values
+back into that pane with `set_values`, or it would be left showing the old ones.
 
 Space toggles, not enter: enter belongs to the screen the list sits on (start
 training, or close the modal), so both hosts bind it with `priority=True` and
@@ -192,10 +195,12 @@ screen, bound with `priority=True` so the `OptionList`'s own enter never fires.
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`.
 
-The screens run input picker → setup → trainer, with two modals over them:
-`ctrl+b` for the settings and `ctrl+n` for the move notation, both opened by an
-action on the app (`app.settings`, `app.notation`) so any screen can offer them
-and the app, which owns the config, is the one that saves what comes back. The input picker is on its own
+The screens run input picker → setup → trainer, with one modal over them:
+`ctrl+b`, the settings and the move notation as sections of one menu, opened by
+an action on the app (`app.settings`) so any screen can offer it and the app,
+which owns the config, is the one that saves what comes back. Over a session the
+app hands it that game, and its notes head the menu; they are shown nowhere
+else. The input picker is on its own
 because the device decides how the trainer reads you, not what you are training;
 it owns the gamepad detection and the `b` rebind modal. The setup screen is the
 three panes of what to train: settings, game, character. Escape steps back one

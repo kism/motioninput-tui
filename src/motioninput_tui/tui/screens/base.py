@@ -47,7 +47,6 @@ class SessionScreen(AppScreen):
         Binding("ctrl+r", "reset", "Reset"),
         Binding("ctrl+k", "toggle_panel", "Live input"),
         Binding("ctrl+b", "app.settings", "Settings"),
-        Binding("ctrl+n", "app.notation", "Notation"),
     ]
 
     def action_toggle_panel(self) -> None:

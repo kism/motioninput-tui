@@ -1,6 +1,7 @@
 """Loading rosters from the generated data files."""
 
 import json
+import logging
 from dataclasses import replace
 from functools import cache
 from pathlib import Path
@@ -8,7 +9,6 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.notation import ButtonRequirement
 from motioninput_tui.engine.recognizer import NOT_MOTIONS
-from motioninput_tui.utils.logger import get_logger
 
 from .models import Category, Character, Game, Move
 from .rulesets import GAME_SPECS, get_spec
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
     from motioninput_tui.controls.buttons import ButtonSet
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 DATA_DIR = Path(__file__).parent / "data"
 

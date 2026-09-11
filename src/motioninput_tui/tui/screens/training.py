@@ -122,9 +122,8 @@ class TrainingScreen(SessionScreen):
         if session.super_art:
             text.append(f"  ·  Super Art {session.super_art}", style="bold magenta")
             text.append("  tab to change", style="dim")
-        text.append(f"\nMove {session.layout.movement_help()}   Attack {session.layout.attack_help()}\n", style="dim")
-        for note in session.game.notes:
-            text.append(f"• {note}\n", style="italic dim")
+        # The game's notes are not here: they head the settings menu, ctrl+b.
+        text.append(f"\nMove {session.layout.movement_help()}   Attack {session.layout.attack_help()}", style="dim")
         self.query_one("#banner", Static).update(text)
 
     def _paint_movelist(self) -> None:

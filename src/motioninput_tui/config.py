@@ -8,6 +8,7 @@ logged and ignored rather than interrupting a training session.
 """
 
 import json
+import logging
 import os
 import re
 import tempfile
@@ -17,9 +18,8 @@ from pathlib import Path
 from .controls.layouts import DEFAULT_LAYOUT, KEYBOARD_DEFAULT_BINDINGS, LAYOUTS
 from .engine.recognizer import BufferPolicy
 from .notation_styles import STYLES
-from .utils.logger import get_logger
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 APP_DIR_NAME = "motioninput-tui"
 CONFIG_FILENAME = "config.json"

@@ -225,7 +225,7 @@ def check_duplication() -> None:
         if sum(name in joined for name in names) >= 2:  # ruff: ignore[magic-value-comparison] - two rows is enough to be a table
             look(doc, "a table lists the settings; the setup pane and ctrl+b already describe each one")
         if sum(name in joined for name in style_names) >= 2:  # ruff: ignore[magic-value-comparison] - two rows is enough to be a table
-            look(doc, "a table lists notation styles; the ctrl+n menu previews every one of them")
+            look(doc, "a table lists notation styles; the ctrl+b menu previews every one of them")
         if len(set(re.findall(r"`ctrl\+[a-z]`", text))) >= 4:  # ruff: ignore[magic-value-comparison] - two rows is enough to be a table
             look(doc, "several ctrl+ bindings are listed; every screen has a Footer showing them")
 

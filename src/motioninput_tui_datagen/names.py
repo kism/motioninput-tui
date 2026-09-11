@@ -12,17 +12,16 @@ override changes ``--character`` and the saved config, so it is worth doing at
 the point the roster is generated rather than papering over it later.
 """
 
+import logging
 from dataclasses import replace
 from typing import TYPE_CHECKING
-
-from motioninput_tui.utils.logger import get_logger
 
 from .common import character_key
 
 if TYPE_CHECKING:
     from motioninput_tui.games.models import Character
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 OVERRIDES: dict[str, dict[str, str]] = {
     "sfa3": {

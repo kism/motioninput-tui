@@ -1,6 +1,7 @@
 """Main entrypoint."""
 
 import argparse
+import logging
 import sys
 from pathlib import Path
 
@@ -10,10 +11,10 @@ from .config import Config, config_path
 from .constants import PROGRAM_NAME, PROGRAM_NAME_WITH_FULL_VERSION, PROGRAM_NAME_WITH_VERSION
 from .games.loader import GameDataMissingError, available_games, load_game
 from .terminal import detect, query_support
-from .utils.logger import get_logger, setup_logger_cli
+from .utils.logger import setup_logger_cli
 
 traceback.install(extra_lines=2)
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def _get_args() -> argparse.Namespace:

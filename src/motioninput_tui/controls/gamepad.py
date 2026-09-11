@@ -16,17 +16,16 @@ the pad's state and returns press and release events keyed by the same binding
 codes the :data:`~.layouts.GAMEPAD` layout uses (``pad:left``, ``pad:0`` ...).
 """
 
+import logging
 import os
 import sys
 from typing import TYPE_CHECKING, Protocol
-
-from motioninput_tui.utils.logger import get_logger
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
     from types import ModuleType
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 AXIS_DEADZONE = 0.5
 """How far the stick must move off centre before it counts as a direction."""

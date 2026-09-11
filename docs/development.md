@@ -20,7 +20,7 @@ src/motioninput_tui/
   settings.py    The player's own preferences, layered on top of a game's rules.
   terminal/      Terminal identification, latency warnings, kitty keyboard protocol.
   tui/           Textual screens, widgets, and the release-aware input driver.
-  utils/         The Rich logger every module gets `get_logger` from.
+  utils/         The Rich console logging the command lines set up.
 
 src/motioninput_tui_guides/   Fetches the FAQs from GameFAQs. A sibling package,
                               not a subpackage, so it is not shipped in the wheel.
@@ -54,10 +54,10 @@ Without it, inferred holds would make every motion look too slow to land.
 
 ## Screens and layouts
 
-The screens run input picker → setup → trainer, with two modals over them:
-`ctrl+b` for settings and `ctrl+n` for move notation, both opened by an action
-on the app (`app.settings`, `app.notation`) so any screen can offer them and
-the app — which owns the config — is the one that saves what comes back.
+The screens run input picker → setup → trainer, with one modal over them:
+`ctrl+b`, the settings and the move notation, opened by an action on the app
+(`app.settings`) so any screen can offer it and the app — which owns the config
+— is the one that saves what comes back.
 Escape steps back one screen; each screen dismisses and the app pushes the
 next, so the stack never grows.
 

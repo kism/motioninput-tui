@@ -92,14 +92,15 @@ decides how the trainer reads you rather than what you are training. The next
 screen has three panes: your settings, the game whose rules judge you, and the
 character whose move list you want.
 
-`ctrl+b` brings the settings up again during a session. A change applies
-immediately and clears the input buffer with it, since what was in it was read
-under the old rules.
+`ctrl+b` brings the settings up again during a session, headed by the notes on
+how that game's rules differ from the rest. A change applies immediately and
+clears the input buffer with it, since what was in it was read under the old
+rules.
 
 ### Move notation
 
-`ctrl+n` chooses how a move's input is written — arrows, letters, numpad, or
-one of several glyph sets. Every row in that menu is drawn in the style it
+The same `ctrl+b` menu chooses how a move's input is written — arrows, letters,
+numpad, or one of several glyph sets. Every row in it is drawn in the style it
 offers, so it doubles as a test of what your font can render; the nerd font
 styles in particular are empty boxes without a patched font.
 

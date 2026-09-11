@@ -7,12 +7,12 @@ eyeball what changed:
     python -m motioninput_tui_datagen --summary
 """
 
+import logging
 from collections import Counter
 
 from motioninput_tui.games.loader import INPUT_DISPLAY, available_games
-from motioninput_tui.utils.logger import get_logger
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def _pct(part: int, whole: int) -> int:

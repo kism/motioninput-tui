@@ -1,5 +1,6 @@
 """A training session: one game, one character, one control layout."""
 
+import logging
 import time
 from collections import deque
 from dataclasses import dataclass, field
@@ -8,7 +9,6 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.controls.layouts import LayoutKind, repeat_delay_advice
 from motioninput_tui.controls.source import KeyboardSource
-from motioninput_tui.utils.logger import get_logger
 
 from .buffer import InputBuffer
 from .notation import Button, Direction
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from .motions import MotionKind
     from .recognizer import LiveMotion
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 HISTORY_LENGTH = 160
 """How many input entries the strip remembers: at three cells or more apiece,
@@ -215,7 +215,7 @@ class TrainingSession:
         self._follow_motions(now)  # onto the trail before the press can spend them
         follow_up = self.activations[0].follow_up if self.activations else None
         taps = follow_up.got if follow_up is not None else 0
-        self._apply_activation(self.recognizer.evaluate(self.buffer, now, pressed))
+        self._apply_activation(self.recognizer.decide(self.buffer, now, frozenset(pressed)))
         if follow_up is not None and follow_up.got > taps:  # a tap the follow-through counted
             self.trail.append(TrailMotion(None, now, now, outcome=Outcome.EXECUTED))
         return True
