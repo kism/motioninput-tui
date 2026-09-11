@@ -9,7 +9,7 @@ from textual.screen import Screen
 from textual.widgets import Footer, Static
 
 from motioninput_tui.engine.recognizer import BufferPolicy
-from motioninput_tui.engine.session import TrainingSession
+from motioninput_tui.engine.session import Outcome, TrainingSession
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import Bracket, InputStrip
@@ -22,7 +22,8 @@ if TYPE_CHECKING:
     from textual.timer import Timer
 
     from motioninput_tui.controls.layouts import ControlLayout
-    from motioninput_tui.engine.recognizer import Activation, LiveMotion, RecognisableMove
+    from motioninput_tui.engine.recognizer import Activation, RecognisableMove
+    from motioninput_tui.engine.session import TrailMotion
     from motioninput_tui.games.models import Character, Game
     from motioninput_tui.notation_styles import Notation
 
@@ -33,6 +34,17 @@ MOVELIST_MODES = ("beside", "full", "hidden")
 
 LIT_S = 0.5
 """How long the last move to come out stays lit in the move list, in seconds."""
+
+BRACKET_ROWS = 7
+"""Lines of motions over the full-screen panel's history: the stick's nine rows,
+less the inputs and the one under them."""
+
+TRAIL_LOOK: dict[Outcome, tuple[str, str]] = {
+    Outcome.LIVE: ("", "bold"),
+    Outcome.EXECUTED: ("!", "bold green"),
+    Outcome.MISSED: ("?", "dim"),
+}
+"""How a trail motion's label ends, and its style, by what became of it."""
 
 
 class TrainingScreen(Screen):
@@ -68,8 +80,9 @@ class TrainingScreen(Screen):
     #feed-title { padding: 0 1; text-style: bold; }
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     #pads { height: auto; display: none; border-top: solid $panel; }
-    /* Level with the stick, three rows of three-line boxes. */
-    #history { width: 1fr; height: 9; align-vertical: middle; }
+    /* As tall as the stick, three rows of three-line boxes, with the inputs
+       level with its bottom row and the motions stacked over them. */
+    #history { width: 1fr; height: 9; align-vertical: bottom; padding-bottom: 1; }
     #history InputStrip { height: auto; padding: 0 1; border-bottom: none; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
@@ -99,7 +112,6 @@ class TrainingScreen(Screen):
         self.lit_move: RecognisableMove | None = None
         self._latest: Activation | None = None
         self._unlight: Timer | None = None
-        self._live_shown: list[LiveMotion] | None = None
 
     def compose(self) -> ComposeResult:
         """Banner, input strip, activation feed and the move list."""
@@ -169,31 +181,25 @@ class TrainingScreen(Screen):
     def _tick(self) -> None:
         if self.session.tick():
             self._refresh()
-        else:
-            self._paint_history()
 
-    def _paint_history(self, *, force: bool = False) -> None:
-        """The panel's input history, with what a press now would complete drawn over it.
+    def _paint_history(self) -> None:
+        """The full-screen panel's input history, with the trail of motions laid over the inputs that made them.
 
-        Each motion is laid over the inputs that made it: the one a press would
-        give nearest them, the ones it would beat above, struck. Painted from
-        the tick as well, since a motion's window runs out with no input to say
-        so. Only the full-screen panel shows it, so only that pays.
+        Newest nearest the inputs. One a press would have beaten is struck, and
+        a finished one ends ``!`` if a move came out on it, ``?`` if not.
         """
         if self.movelist_mode != "full":
             return
         session = self.session
-        live = session.live_motions()
-        if live == self._live_shown and not force:
-            return
-        self._live_shown = live
-        brackets = [
-            Bracket(
-                self.notation.write_kind(motion.kind), "dim strike" if index else "bold", motion.start_ms, motion.end_ms
-            )
-            for index, motion in enumerate(live)
-        ]
-        self.query_one("#panel-strip", InputStrip).show(session.entries, session.direction, brackets[::-1])
+        brackets = [self._bracket(motion) for motion in reversed(session.trail)]
+        strip = self.query_one("#panel-strip", InputStrip)
+        strip.show(session.entries, session.direction, brackets, bracket_rows=BRACKET_ROWS)
+
+    def _bracket(self, motion: TrailMotion) -> Bracket:
+        suffix, style = TRAIL_LOOK[motion.outcome]
+        if motion.beaten and motion.outcome is not Outcome.EXECUTED:
+            style = "dim strike"
+        return Bracket(f"{self.notation.write_kind(motion.kind)}{suffix}", style, motion.start_ms, motion.end_ms)
 
     def on_key(self, event) -> None:  # ruff: ignore[missing-type-function-argument] - textual.events.Key
         """Feed every key press to the session before Textual sees it."""
@@ -221,7 +227,7 @@ class TrainingScreen(Screen):
     def _refresh(self) -> None:
         session = self.session
         self.query_one("#strip", InputStrip).show(session.entries, session.direction)
-        self._paint_history(force=True)
+        self._paint_history()
         self.query_one(MoveFeed).show(session.activations, self.notation)
         self.query_one(DirectionGate).show(session.direction)
         self.query_one(ButtonPads).show(session.layout, session.held)

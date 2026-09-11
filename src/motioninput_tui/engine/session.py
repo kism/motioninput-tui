@@ -3,6 +3,7 @@
 import time
 from collections import deque
 from dataclasses import dataclass, field
+from enum import StrEnum
 from typing import TYPE_CHECKING
 
 from motioninput_tui.controls.layouts import LayoutKind, repeat_delay_advice
@@ -18,6 +19,7 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.games.models import Character, Game, Move
 
+    from .motions import MotionKind
     from .recognizer import LiveMotion
 
 logger = get_logger(__name__)
@@ -27,6 +29,9 @@ HISTORY_LENGTH = 40
 
 ACTIVATION_LENGTH = 12
 """How many activated moves to keep in the feed."""
+
+TRAIL_LENGTH = 24
+"""How many motions the trail remembers, which is more than the strip has room to show."""
 
 
 def monotonic_ms() -> int:
@@ -42,6 +47,29 @@ class InputEntry:
     at_ms: int
     buttons: list[Button] = field(default_factory=list)
     activated: str | None = None
+
+
+class Outcome(StrEnum):
+    """What became of a motion the stick made."""
+
+    LIVE = "live"
+    """A press now would still complete it."""
+    EXECUTED = "executed"
+    """A move came out on it."""
+    MISSED = "missed"
+    """It went - lapsed, spent by another move, or outgrown - with nothing coming out on it."""
+
+
+@dataclass(slots=True)
+class TrailMotion:
+    """A motion the stick made, the inputs it spans, and what became of it."""
+
+    kind: MotionKind
+    start_ms: int
+    end_ms: int
+    beaten: bool = False
+    """Whether something stronger was live alongside it when last seen, so a press would have given that instead."""
+    outcome: Outcome = Outcome.LIVE
 
 
 class TrainingSession:
@@ -84,6 +112,8 @@ class TrainingSession:
         self.recognizer = Recognizer(self._live_moves(), self.ruleset, policy=policy)
         self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
+        self.trail: deque[TrailMotion] = deque(maxlen=TRAIL_LENGTH)
+        """Every motion the stick has made, oldest first, whether or not anything came of it."""
         self.total_inputs = 0
         self.total_activations = 0
         self.held: dict[Button, int] = {}
@@ -182,6 +212,7 @@ class TrainingSession:
         self._record_button(update.button, update.direction, now)
         pressed = self.buffer.simultaneous_buttons(now)
         self.recognizer.decay_ms = self.source.decay_ms
+        self._follow_motions(now)  # onto the trail before the press can spend them
         self._apply_activation(self.recognizer.evaluate(self.buffer, now, pressed))
         return True
 
@@ -191,6 +222,10 @@ class TrainingSession:
             return False
         self.activations.appendleft(activation)
         self.total_activations += 1
+        spec = activation.move.motion
+        for motion in self.trail:
+            if spec is not None and motion.outcome is Outcome.LIVE and motion.kind is spec.kind:
+                motion.outcome = Outcome.EXECUTED
         for entry in reversed(self.entries):
             if entry.at_ms <= activation.at_ms:
                 entry.activated = activation.name
@@ -219,6 +254,7 @@ class TrainingSession:
             self.buffer.set_direction(update.direction, now)
             self._append_entry(update.direction, now)
             changed = True
+        changed |= self._follow_motions(now)
         # A press held back for the rest of a multi-button input, whose other
         # buttons never came: let the lesser move on the motion through now.
         changed |= self._apply_activation(self.recognizer.poll(self.buffer, now))
@@ -257,6 +293,32 @@ class TrainingSession:
         # As press does, or a keyboard's inferred holds are judged on stale timing.
         self.recognizer.decay_ms = self.source.decay_ms
         return self.recognizer.live_motions(self.buffer, now)
+
+    def _follow_motions(self, now: int) -> bool:
+        """Bring the trail up to date with what the stick has made. True if it changed.
+
+        A trail motion stays live while the same motion, begun at the same
+        moment, is still live. When it goes it is missed, unless a move came
+        out on it first, which :meth:`_apply_activation` marks as it happens.
+        """
+        live = {(motion.kind, motion.start_ms): (index, motion) for index, motion in enumerate(self.live_motions(now))}
+        changed = False
+        for motion in self.trail:
+            if motion.outcome is not Outcome.LIVE:
+                continue
+            seen = live.pop((motion.kind, motion.start_ms), None)
+            if seen is None:
+                motion.outcome = Outcome.MISSED
+                changed = True
+                continue
+            index, current = seen
+            if (motion.end_ms, motion.beaten) != (current.end_ms, index > 0):
+                motion.end_ms, motion.beaten = current.end_ms, index > 0
+                changed = True
+        for index, current in live.values():
+            self.trail.append(TrailMotion(current.kind, current.start_ms, current.end_ms, beaten=index > 0))
+            changed = True
+        return changed
 
     @property
     def policy(self) -> BufferPolicy:
@@ -306,6 +368,7 @@ class TrainingSession:
         self.recognizer.reset()
         self.entries.clear()
         self.activations.clear()
+        self.trail.clear()
         self.total_inputs = 0
         self.total_activations = 0
 

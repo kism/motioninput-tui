@@ -16,6 +16,7 @@ to hand over every time.
 
 from motioninput_tui.engine.motions import MotionKind
 from motioninput_tui.engine.recognizer import LiveMotion
+from motioninput_tui.engine.session import Outcome
 from tests.engine.test_motions.harness import BACK, DOWN, FORWARD, HP, LK, UP, Script, press, release
 
 
@@ -95,6 +96,32 @@ def test_the_live_readout_puts_the_circle_over_the_half_circle_inside_it(play) -
         LiveMotion(MotionKind.QCB, 80, 160),
     ]
     assert rolled.live_motions(320) == []
+
+
+def test_the_trail_keeps_the_circle_that_came_out_and_what_it_beat(play) -> None:
+    """What stays drawn over the history once the press is made.
+
+    The 360 a move came out on is executed. The half circle and the quarter
+    circle inside it were beaten by it, and went with nothing coming out on
+    them, so they stay too, as missed.
+    """
+    trail = play(ROLLED_CIRCLE).session.trail
+    assert [(motion.kind, motion.outcome, motion.beaten) for motion in trail] == [
+        (MotionKind.HCB, Outcome.MISSED, True),
+        (MotionKind.QCB, Outcome.MISSED, True),
+        (MotionKind.ROTATE_360, Outcome.EXECUTED, False),
+    ]
+
+
+def test_a_circle_pressed_too_late_stays_on_the_trail_as_missed(play) -> None:
+    """The same roll as `test_finishing_the_circle_and_then_pressing_is_a_jump`: all of it goes unanswered."""
+    dawdled: Script = [*_rolled_circle(0), press(HP, 300), release(UP, 340)]
+    trail = play(dawdled).session.trail
+    assert [(motion.kind, motion.outcome) for motion in trail] == [
+        (MotionKind.HCB, Outcome.MISSED),
+        (MotionKind.QCB, Outcome.MISSED),
+        (MotionKind.ROTATE_360, Outcome.MISSED),
+    ]
 
 
 def test_tapping_the_four_keys_quickly_is_the_moonsault_press(play) -> None:

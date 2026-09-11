@@ -137,6 +137,31 @@ def test_the_panel_lays_the_motion_over_the_inputs_that_made_it(config: Config) 
     assert motions[-1].index("↓ ↘ →") == inputs.index("↓")
 
 
+def test_motions_stay_drawn_ending_in_what_became_of_them(config: Config) -> None:
+    """? on a quarter circle back left to lapse, ! on a quarter circle forward a Hadou Ken came out on."""
+
+    async def session() -> str:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            await pilot.press("ctrl+l")
+            await pilot.press("s", "a")
+            trainer.handle_release("s")
+            trainer.handle_release("a")
+            await pilot.pause(1)  # long enough to lapse
+            await pilot.press("s", "d")
+            trainer.handle_release("s")
+            await pilot.press("j")  # LP
+            await pilot.pause(0.05)
+            return str(trainer.query_one("#panel-strip", InputStrip).render())
+
+    history = asyncio.run(session())
+    assert "↓ ↙ ←?" in history
+    assert "↓ ↘ →!" in history
+
+
 def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
     async def session() -> tuple[str, list[str], list[str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
