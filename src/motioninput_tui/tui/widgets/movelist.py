@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, override
 
+from rich.cells import cell_len
 from rich.text import Text
 from textual.containers import VerticalScroll
 from textual.widgets import Static
@@ -31,6 +32,11 @@ def _fit(command: str) -> str:
     return command
 
 
+def _pad(text: str, width: int) -> str:
+    """Pad to ``width`` terminal cells, which ``len`` miscounts for kanji."""
+    return text + " " * (width - cell_len(text))
+
+
 def _super_art_marker(super_art: str, *, equipped: bool) -> str:
     """The gutter each row starts in: blank, or the Super Art it belongs to."""
     if not super_art:
@@ -55,36 +61,52 @@ class MoveList(VerticalScroll):
         """Hold a single Static that we repaint wholesale."""
         yield Static(id="movelist-body")
 
-    def show(self, character: Character, notation: Notation, super_art: str = "") -> None:
+    def show(self, character: Character, notation: Notation, super_art: str = "", *, full: bool = False) -> None:
         """Render this character's move list, written in ``notation``.
 
         ``super_art`` is the equipped one: the others stay listed for reference
         but are dimmed, since they cannot come out.
-        """
-        text = Text(no_wrap=True, overflow="ellipsis")
-        by_category: dict[str, list[Move]] = {}
-        for move in character.moves:
-            by_category.setdefault(move.category, []).append(move)
 
+        ``full`` is the whole-screen view: nothing struck through, columns as
+        wide as their longest entry, and the guide's own wording beside the
+        rewritten input wherever the two differ.
+        """
+        rows = [(move, notation.write_move(move)) for move in character.moves]
+        by_category: dict[str, list[tuple[Move, str]]] = {}
+        for move, written in rows:
+            by_category.setdefault(move.category, []).append((move, written))
+        name_width = max((cell_len(move.name) for move, _ in rows), default=0) + 2
+        command_width = max((cell_len(written) for move, written in rows if written != move.command), default=0) + 2
+
+        text = Text(no_wrap=True, overflow="ellipsis")
+        if full:
+            header = f"{' ' * SUPER_ART_WIDTH}{_pad('Move', name_width)}{_pad('Input', command_width)}Guide\n\n"
+            text.append(header, style="dim")
         for category in _ORDER:
             moves = by_category.get(category)
             if not moves:
                 continue
             text.append(f"{category.upper()}\n", style="bold underline")
-            for move in moves:
+            for move, written in moves:
                 equipped = not move.super_art or move.super_art == super_art
                 style = CATEGORY_STYLES.get(move.category, "white")
-                if not move.trainable:
+                if not move.trainable and not full:
                     style = "dim strike"
                 elif not equipped:
                     style = "dim"
                 text.append(_super_art_marker(move.super_art, equipped=equipped), style=style)
-                text.append(f"{move.name[:NAME_WIDTH]:<{NAME_WIDTH + 1}}", style=style)
-                text.append(f"{_fit(notation.write_move(move))}\n", style="dim")
+                if full:
+                    text.append(_pad(move.name, name_width), style=style)
+                    text.append(_pad(written, command_width))
+                    text.append(move.command if written != move.command else "", style="dim")
+                else:
+                    text.append(f"{move.name[:NAME_WIDTH]:<{NAME_WIDTH + 1}}", style=style)
+                    text.append(_fit(written), style="dim")
+                text.append("\n")
             text.append("\n")
 
         untrainable = sum(1 for move in character.moves if not move.trainable)
-        if untrainable:
+        if untrainable and not full:
             text.append(
                 f"{untrainable} struck through need context the trainer has no model of\n",
                 style="dim italic",

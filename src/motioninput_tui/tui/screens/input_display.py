@@ -13,7 +13,7 @@ from textual.containers import Center, Horizontal
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
-from motioninput_tui.engine.session import TrainingSession, monotonic_ms
+from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.tui.widgets.input_strip import InputStrip
 from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
 
@@ -22,7 +22,6 @@ if TYPE_CHECKING:
 
     from motioninput_tui.controls.buttons import ButtonSet
     from motioninput_tui.controls.layouts import ControlLayout
-    from motioninput_tui.engine.notation import Button
     from motioninput_tui.games.models import Character, Game
 
 TICK_HZ = 60
@@ -67,9 +66,6 @@ class InputDisplayScreen(Screen):
         self.session = TrainingSession(game, character, layout, exact_input=exact_input)
         self.character = character
         self.panel = buttons
-        self._held: dict[Button, int] = {}
-        """Buttons down, and when they went down. A terminal that reports
-        releases empties this properly; without one they lapse like a hold."""
 
     @override
     def compose(self) -> ComposeResult:
@@ -104,7 +100,6 @@ class InputDisplayScreen(Screen):
         """Take a rearranged panel, from the settings, without leaving it."""
         self.panel = buttons
         self.session.rebind(layout)
-        self._held.clear()
         if self.is_mounted:
             self._paint_banner()
             self._refresh()
@@ -115,9 +110,6 @@ class InputDisplayScreen(Screen):
             return
         event.stop()
         event.prevent_default()
-        button = self.session.layout.attacks.get(event.key)
-        if button is not None:
-            self._held[button] = monotonic_ms()
         self.session.press(event.key)
         self._refresh()
 
@@ -125,56 +117,23 @@ class InputDisplayScreen(Screen):
         """Called by the app when the terminal reports a key going back up."""
         if key not in self.session.layout.bindings:
             return
-        button = self.session.layout.attacks.get(key)
-        if button is not None:
-            self._held.pop(button, None)
         self.session.release(key)
         self._refresh()
 
     def on_app_blur(self) -> None:
         """Drop everything held when the terminal loses focus."""
-        self.session.source.reset()
-        if self.session.gamepad is not None:
-            self.session.gamepad.reset()
-        self._held.clear()
+        self.session.drop_holds()
         self._refresh()
 
     def _tick(self) -> None:
-        changed = self.session.tick()
-        if self._expire_buttons():
-            changed = True
-        if changed:
+        if self.session.tick():
             self._refresh()
-
-    def _expire_buttons(self) -> bool:
-        """Let held buttons lapse when the terminal cannot report releases."""
-        if self.session.exact_input or not self._held:
-            return False
-        cutoff = monotonic_ms() - self.session.hold_window_ms
-        lapsed = [button for button, at_ms in self._held.items() if at_ms < cutoff]
-        for button in lapsed:
-            del self._held[button]
-        return bool(lapsed)
-
-    def _held_buttons(self) -> set[Button]:
-        """Every attack button held right now, from the keyboard or the pad.
-
-        Keyboard holds are tracked in ``_held`` (inferred, so they lapse); a
-        gamepad reports releases, so its held buttons are read straight off the
-        reader each frame.
-        """
-        down = set(self._held)
-        gamepad = self.session.gamepad
-        if gamepad is not None:
-            attacks = self.session.layout.attacks
-            down.update(attacks[code] for code in gamepad.held_codes if code in attacks)
-        return down
 
     def _refresh(self) -> None:
         session = self.session
         direction = session.direction
         self.query_one(DirectionGate).show(direction)
-        self.query_one(ButtonPads).show(session.layout, self._held_buttons())
+        self.query_one(ButtonPads).show(session.layout, session.held)
         self.query_one(InputStrip).show(session.entries, direction)
 
         status = Text()
@@ -191,7 +150,6 @@ class InputDisplayScreen(Screen):
     def action_reset(self) -> None:
         """Clear the history and go back to neutral."""
         self.session.reset()
-        self._held.clear()
         self._refresh()
 
     def action_back(self) -> None:

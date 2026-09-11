@@ -84,6 +84,9 @@ class TrainingSession:
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
         self.total_inputs = 0
         self.total_activations = 0
+        self.held: dict[Button, int] = {}
+        """Attack buttons down, and when they went down. A device that reports
+        releases empties this properly; without one they lapse like a hold."""
         logger.debug(
             "Session: %s / %s / %s, %d trainable moves",
             game.short_name,
@@ -158,6 +161,9 @@ class TrainingSession:
     def press(self, key: str, at_ms: int | None = None) -> bool:
         """Feed a key press in. Returns True when the display should redraw."""
         now = monotonic_ms() if at_ms is None else at_ms
+        button = self.layout.attacks.get(key)
+        if button is not None:
+            self.held[button] = now
         update = self.source.press(key, now)
         if update is None:
             return False
@@ -192,9 +198,11 @@ class TrainingSession:
     def release(self, key: str, at_ms: int | None = None) -> bool:
         """Feed a key release in. Returns True when the display should redraw."""
         now = monotonic_ms() if at_ms is None else at_ms
+        button = self.layout.attacks.get(key)
+        let_go = button is not None and self.held.pop(button, None) is not None
         update = self.source.release(key, now)
         if update is None or not update.direction_changed:
-            return False
+            return let_go
         self.buffer.set_direction(update.direction, now)
         self._append_entry(update.direction, now)
         return True
@@ -203,6 +211,7 @@ class TrainingSession:
         """Poll the gamepad and expire holds. Returns True if the display changed."""
         now = monotonic_ms() if at_ms is None else at_ms
         changed = self._poll_gamepad(now)
+        changed |= self._lapse_held(now)
         update = self.source.tick(now)
         if update is not None and update.direction_changed:
             self.buffer.set_direction(update.direction, now)
@@ -229,6 +238,16 @@ class TrainingSession:
             # the engine itself treats as a no-op (buttons are momentary).
             changed = True
         return changed
+
+    def _lapse_held(self, now: int) -> bool:
+        """Let held buttons lapse when the device cannot report releases."""
+        if self.source.exact_holds or not self.held:
+            return False
+        cutoff = now - self.hold_window_ms
+        lapsed = [button for button, at_ms in self.held.items() if at_ms < cutoff]
+        for button in lapsed:
+            del self.held[button]
+        return bool(lapsed)
 
     @property
     def policy(self) -> BufferPolicy:
@@ -260,12 +279,21 @@ class TrainingSession:
         self.buffer.clear()
         self.recognizer.reset()
 
-    def reset(self) -> None:
-        """Clear everything and go back to neutral."""
-        self.buffer.clear()
+    def drop_holds(self) -> None:
+        """Let go of everything held, for when releases stop arriving.
+
+        A gamepad is unaffected by terminal focus, so it just re-asserts
+        whatever it is holding on the next poll.
+        """
         self.source.reset()
         if self.gamepad is not None:
             self.gamepad.reset()
+        self.held.clear()
+
+    def reset(self) -> None:
+        """Clear everything and go back to neutral."""
+        self.buffer.clear()
+        self.drop_holds()
         self.recognizer.reset()
         self.entries.clear()
         self.activations.clear()

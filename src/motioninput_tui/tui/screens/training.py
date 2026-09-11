@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, ClassVar
 
 from rich.text import Text
 from textual.binding import Binding
-from textual.containers import Horizontal, Vertical
+from textual.containers import Center, Horizontal, Vertical
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
@@ -15,6 +15,7 @@ from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import InputStrip
 from motioninput_tui.tui.widgets.move_feed import MoveFeed
 from motioninput_tui.tui.widgets.movelist import MoveList
+from motioninput_tui.tui.widgets.panel import ButtonPads
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -24,6 +25,9 @@ if TYPE_CHECKING:
     from motioninput_tui.notation_styles import Notation
 
 TICK_HZ = 60
+
+MOVELIST_MODES = ("beside", "full", "hidden")
+"""What ctrl+l steps through, starting from the first."""
 
 
 class TrainingScreen(Screen):
@@ -42,7 +46,7 @@ class TrainingScreen(Screen):
         # for a game with Super Arts; see check_action.
         Binding("tab", "next_super_art", "Super art", priority=True),
         Binding("ctrl+r", "reset", "Reset buffer"),
-        Binding("ctrl+l", "toggle_movelist", "Move list"),
+        Binding("ctrl+l", "cycle_movelist", "Move list"),
         Binding("ctrl+b", "app.settings", "Settings"),
         Binding("ctrl+n", "app.notation", "Notation"),
         # Nothing here takes text input, so drop Screen's copy/paste bindings
@@ -58,6 +62,11 @@ class TrainingScreen(Screen):
     #left { width: 1fr; }
     #feed-title { padding: 0 1; text-style: bold; }
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
+    #pads { height: auto; display: none; border-top: solid $panel; }
+    TrainingScreen.-movelist-full #pads { display: block; }
+    TrainingScreen.-movelist-full #left { display: none; }
+    TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
+    TrainingScreen.-movelist-hidden #movelist { display: none; }
     """
 
     def __init__(
@@ -78,6 +87,7 @@ class TrainingScreen(Screen):
         self.session = TrainingSession(game, character, layout, exact_input=exact_input, policy=policy)
         self.terminal = detect()
         self.notation = DEFAULT_NOTATION
+        self.movelist_mode = MOVELIST_MODES[0]
 
     def compose(self) -> ComposeResult:
         """Banner, input strip, activation feed and the move list."""
@@ -91,6 +101,9 @@ class TrainingScreen(Screen):
                 yield MoveFeed(id="feed")
                 yield Static(id="status")
             yield MoveList(id="movelist")
+        # The live panel, under a full-screen move list that hides the strip.
+        with Center(id="pads"):
+            yield ButtonPads()
         yield Footer()
 
     def on_mount(self) -> None:
@@ -120,7 +133,9 @@ class TrainingScreen(Screen):
         self.query_one("#banner", Static).update(text)
 
     def _paint_movelist(self) -> None:
-        self.query_one(MoveList).show(self.session.character, self.notation, self.session.super_art)
+        session = self.session
+        full = self.movelist_mode == "full"
+        self.query_one(MoveList).show(session.character, self.notation, session.super_art, full=full)
 
     def _tick(self) -> None:
         if self.session.tick():
@@ -146,15 +161,14 @@ class TrainingScreen(Screen):
         still held would otherwise stick. A gamepad is unaffected by focus, so
         it just re-asserts whatever it is holding on the next poll.
         """
-        self.session.source.reset()
-        if self.session.gamepad is not None:
-            self.session.gamepad.reset()
+        self.session.drop_holds()
         self._refresh()
 
     def _refresh(self) -> None:
         session = self.session
         self.query_one(InputStrip).show(session.entries, session.direction)
         self.query_one(MoveFeed).show(session.activations, self.notation)
+        self.query_one(ButtonPads).show(session.layout, session.held)
 
         status = Text()
         plural = "" if session.total_activations == 1 else "s"
@@ -212,10 +226,16 @@ class TrainingScreen(Screen):
         self.session.reset()
         self._refresh()
 
-    def action_toggle_movelist(self) -> None:
-        """Show or hide the reference move list."""
-        movelist = self.query_one(MoveList)
-        movelist.display = not movelist.display
+    def action_cycle_movelist(self) -> None:
+        """Step the move list on: beside the trainer, the whole screen, hidden.
+
+        Full screen swaps the input strip for the live button panel, so what
+        is pressed stays visible while the list is being read.
+        """
+        self.movelist_mode = MOVELIST_MODES[(MOVELIST_MODES.index(self.movelist_mode) + 1) % len(MOVELIST_MODES)]
+        self.set_class(self.movelist_mode == "full", "-movelist-full")
+        self.set_class(self.movelist_mode == "hidden", "-movelist-hidden")
+        self._paint_movelist()
 
     def action_back(self) -> None:
         """Return to the setup screen."""
