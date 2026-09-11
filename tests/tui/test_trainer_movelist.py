@@ -240,6 +240,28 @@ def test_beside_the_trainer_the_move_list_grows_up_to_half_the_screen(tmp_path: 
     assert longest in wide
 
 
+def test_the_move_list_never_wraps_and_makes_room_for_the_guides_own_words(tmp_path: Path) -> None:
+    """Alpha 3 Akuma's command grabs keep the guide's wording, longer than any input the trainer writes."""
+    config = Config(game="sfa3", character="akuma", layout="keyboard-left", path=tmp_path / "config.json")
+    wording = "Perform Gou Sai with K w/ foe in air"
+
+    async def session(width: int) -> tuple[int, int, list[str]]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(width, 60)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            body = trainer.query_one("#movelist-body", Static)
+            drawn = ["".join(segment.text for segment in line) for line in body.render_lines(body.region.reset_offset)]
+            return body.virtual_size.height, _movelist(trainer).plain.count("\n") + 1, drawn
+
+    narrow_height, narrow_lines, _ = asyncio.run(session(100))
+    wide_height, wide_lines, drawn = asyncio.run(session(300))
+    assert narrow_height == narrow_lines  # cut short rather than wrapped
+    assert wide_height == wide_lines
+    assert any(wording in line for line in drawn)
+
+
 def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
     async def session() -> tuple[str, list[str], list[str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)

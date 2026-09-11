@@ -75,6 +75,9 @@ class MoveList(VerticalScroll):
         padding: 0 1;
         scrollbar-size-vertical: 1;
     }
+    /* A row never wraps: one too long for the list is cut where the list ends.
+       Textual goes by this rather than a rich Text's own no_wrap. */
+    MoveList #movelist-body { text-wrap: nowrap; text-overflow: ellipsis; }
     """
 
     @override
@@ -107,9 +110,12 @@ class MoveList(VerticalScroll):
             by_category.setdefault(move.category, []).append((move, written))
         name_width = max((cell_len(move.name) for move, _ in rows), default=0) + 2
         command_width = max((cell_len(written) for move, written in rows if written != move.command), default=0) + 2
-        name_width = self._fit_width(name_width, command_width, full=full)
+        # Beside the trainer every input shares the one column, the guide's own
+        # words included where the trainer has nothing better to write.
+        widest_input = max((cell_len(written) for _, written in rows), default=0)
+        name_width = self._fit_width(name_width, widest_input, full=full)
 
-        text = Text(no_wrap=True, overflow="ellipsis")
+        text = Text()
         if full:
             header = f"{' ' * SUPER_ART_WIDTH}{_pad('Move', name_width)}{_pad('Input', command_width)}Guide\n\n"
             text.append(header, style="dim")
