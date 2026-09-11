@@ -56,6 +56,14 @@ def test_a_replaced_keyboard_layout_migrates(tmp_path: Path) -> None:
     assert Config.load(path).layout == "keyboard-right"
 
 
+def test_a_game_renamed_to_its_mame_set_migrates(tmp_path: Path) -> None:
+    """The remembered character comes along with the game."""
+    path = tmp_path / "config.json"
+    path.write_text(json.dumps({"game": "ssii", "characters": {"ssii": "galford", "lb2": "yuki"}}))
+    config = Config.load(path)
+    assert (config.game, config.characters) == ("samsho2", {"samsho2": "galford", "lastbld2": "yuki"})
+
+
 def test_settings_round_trip(tmp_path: Path) -> None:
     path = tmp_path / "config.json"
     Config(neo_geo_slant=True, path=path).save()

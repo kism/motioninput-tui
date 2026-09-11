@@ -55,7 +55,7 @@ OVERRIDES: dict[str, dict[str, str]] = {
         "hinako-shijoh": "Hinako Shijou",
         "original-zero": "Zero",
     },
-    "lb2": {
+    "lastbld2": {
         # The guide distinguishes his two forms in the heading; the game calls
         # the unlocked one Awakened Kaede and the other just Kaede.
         "kaede-awakened": "Awakened Kaede",
@@ -64,7 +64,7 @@ OVERRIDES: dict[str, dict[str, str]] = {
         # is right for every name here but this one.
         "genbu-no-okina": "Genbu no Okina",
     },
-    "ssii": {
+    "samsho2": {
         # The guide's headings put his names the wrong way round; its own
         # introduction, and the game, call him Nicotine Caffeine.
         "caffeine-nicotine": "Nicotine Caffeine",
@@ -72,7 +72,7 @@ OVERRIDES: dict[str, dict[str, str]] = {
         # character keyed two ways across two rosters is worse than either.
         "mizuki": "Mizuki Rashoujin",
     },
-    "ssvsp": {
+    "samsh5sp": {
         # The guide's own contents page calls these two what everyone calls
         # them; only the movelist headings give them in full.
         "charlotte-christine-corday": "Charlotte",

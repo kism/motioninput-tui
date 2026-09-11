@@ -107,7 +107,8 @@ nothing, and existing files are being cleaned of it.
 and the pad / custom-keyboard rebinds in `~/.config/motioninput-tui/config.json`
 (honouring `XDG_CONFIG_HOME`). It is best-effort throughout: a missing, corrupt
 or unwritable file logs and falls back to defaults rather than raising.
-`_LAYOUT_ALIASES` migrates a pre-rework `hitbox` / `southpaw` layout on load. `Config` doubles as the app's starting
+`_LAYOUT_ALIASES` migrates a pre-rework `hitbox` / `southpaw` layout on load,
+and `_GAME_ALIASES` a game from before the keys became MAME set names. `Config` doubles as the app's starting
 selection and its persistence, which is why `MotionInputApp` takes one instead
 of separate game/character/layout arguments.
 

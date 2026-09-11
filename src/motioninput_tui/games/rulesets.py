@@ -231,7 +231,7 @@ KOF2001 = GameSpec(
 )
 
 LB2 = GameSpec(
-    key="lb2",
+    key="lastbld2",
     name="The Last Blade 2",
     short_name="Last Blade 2",
     ruleset=Ruleset(
@@ -260,12 +260,12 @@ LB2 = GameSpec(
         "Only Washizuka and Lee Rekka charge; everyone else is motion-only.",
         "The DMs and SDMs want a full meter and the right mode, neither of which the trainer models.",
     ),
-    reference="references/lb2.txt",
+    reference="references/lastbld2.txt",
     buttons=NEO_GEO,
 )
 
 SSII = GameSpec(
-    key="ssii",
+    key="samsho2",
     name="Samurai Shodown II",
     short_name="SSII",
     ruleset=Ruleset(
@@ -295,12 +295,12 @@ SSII = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The POW moves need a full meter, which the trainer does not model - only the input.",
     ),
-    reference="references/ssii.txt",
+    reference="references/samsho2.txt",
     buttons=NEO_GEO,
 )
 
 SSVSP = GameSpec(
-    key="ssvsp",
+    key="samsh5sp",
     name="Samurai Shodown V Special",
     short_name="SSV Special",
     ruleset=Ruleset(
@@ -329,7 +329,7 @@ SSVSP = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The supers need a full Rage gauge, which the trainer does not model - only the input.",
     ),
-    reference="references/ssvsp.txt",
+    reference="references/samsh5sp.txt",
     buttons=NEO_GEO,
 )
 

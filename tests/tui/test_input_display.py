@@ -55,9 +55,9 @@ def test_games_are_menu_ordered_by_series_then_number() -> None:
     assert [game.key for game in available_games()] == [
         "kof98",
         "kof2001",
-        "lb2",
-        "ssii",
-        "ssvsp",
+        "lastbld2",
+        "samsho2",
+        "samsh5sp",
         "hsf2",
         "sfa3",
         "sfiii3",

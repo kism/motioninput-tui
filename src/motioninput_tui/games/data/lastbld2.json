@@ -1,7 +1,7 @@
 {
- "key": "lb2",
+ "key": "lastbld2",
  "name": "The Last Blade 2",
- "source": "references/lb2.txt",
+ "source": "references/lastbld2.txt",
  "characters": [
   {
    "key": "awakened-kaede",

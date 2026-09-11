@@ -79,9 +79,9 @@ def test_a_correction_that_matches_nothing_warns(caplog: pytest.LogCaptureFixtur
 def test_a_neo_geo_roster_keeps_its_own_panel(monkeypatch: pytest.MonkeyPatch) -> None:
     """The engine matches buttons by identity, so a correction on a Neo Geo game
     has to come back as A B C D and not the Street Fighter six it was parsed as."""
-    monkeypatch.setitem(OVERRIDES, "lb2", {("yuki", "HyouJin"): "qcf + K"})
+    monkeypatch.setitem(OVERRIDES, "lastbld2", {("yuki", "HyouJin"): "qcf + K"})
     corrected = apply_command_overrides(
-        "lb2", [Character(key="yuki", name="Yuki", title="", moves=(_move("HyouJin", "d, df, f + A"),))], NEO_GEO
+        "lastbld2", [Character(key="yuki", name="Yuki", title="", moves=(_move("HyouJin", "d, df, f + A"),))], NEO_GEO
     )
     motion = corrected[0].moves[0].motion
     assert motion is not None

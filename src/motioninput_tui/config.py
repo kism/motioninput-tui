@@ -102,7 +102,7 @@ class Config:
             logger.warning("Ignoring config at %s: expected an object", target)
             return cls(path=target)
         return cls(
-            game=_optional_str(raw.get("game")),
+            game=_valid_game(raw.get("game")),
             character=_optional_str(raw.get("character")),
             characters=_valid_characters(raw.get("characters")),
             layout=_valid_layout(raw.get("layout")),
@@ -167,6 +167,17 @@ _LAYOUT_ALIASES = {"hitbox": "keyboard-left", "southpaw": "keyboard-right"}
 """The keyboard layouts that were replaced, mapped to their nearest successor so
 a config from before the change still opens somewhere sensible."""
 
+_GAME_ALIASES = {"lb2": "lastbld2", "ssii": "samsho2", "ssvsp": "samsh5sp"}
+"""Games renamed to their MAME set names, so a config from before comes back to
+the same game, and to the same character in it."""
+
+
+def _valid_game(value: object) -> str | None:
+    game = _optional_str(value)
+    if game is None:
+        return None
+    return _GAME_ALIASES.get(game, game)
+
 
 def _valid_layout(value: object) -> str:
     # An unavailable layout (gamepad without the extra installed) falls back,
@@ -195,7 +206,7 @@ def _valid_characters(value: object) -> dict[str, str]:
     if not isinstance(value, dict):
         return {}
     return {
-        game: character
+        _GAME_ALIASES.get(game, game): character
         for game, character in value.items()
         if isinstance(game, str) and game and isinstance(character, str) and character
     }

@@ -13,7 +13,7 @@ from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.models import Move
 from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, MOTION_SHORTHANDS, STYLES, Family, Notation
 
-GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lb2")
+GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lastbld2")
 """Two SNK rosters as well, since the rolls their supers are written on do not
 appear in any Street Fighter move list."""
 

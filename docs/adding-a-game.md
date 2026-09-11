@@ -29,7 +29,9 @@ Add an entry (the existing six are worked examples of the shape):
 ```
 
 `key` is the short name used everywhere else (the filename stem, the guide
-fetcher's `--game` value, the test directory). `url` is the specific FAQ the parser will be
+fetcher's `--game` value, the test directory): the game's MAME set name, the
+zip MAME runs it from (`samsho2`, `lastbld2`), or a short name of your own for a
+game MAME does not run. `url` is the specific FAQ the parser will be
 written against — GameFAQs often has several move-list FAQs for one game, and
 they are not interchangeable. `credit` records which one, so a page that
 changes author is caught rather than silently parsed as if nothing moved.
@@ -142,9 +144,9 @@ Register it:
 
 ```python
 # datagen/parsers/__init__.py  — add the new module here
-from . import hsf2, kof98, kof2001, sfa3, sfiii3, ssvsp
+from . import hsf2, kof98, kof2001, sfa3, sfiii3, samsh5sp
 
-__all__ = ["hsf2", "kof98", "kof2001", "sfa3", "sfiii3", "ssvsp"]
+__all__ = ["hsf2", "kof98", "kof2001", "sfa3", "sfiii3", "samsh5sp"]
 
 # datagen/__main__.py  — and register it in the PARSERS mapping
 PARSERS = {
@@ -153,7 +155,7 @@ PARSERS = {
     "sfiii3": sfiii3.parse,
     "kof98": kof98.parse,
     "kof2001": kof2001.parse,
-    "ssvsp": ssvsp.parse,
+    "samsh5sp": samsh5sp.parse,
 }
 ```
 
