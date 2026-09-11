@@ -248,9 +248,9 @@ class InputDisplayScreen(Screen):
         if session.gamepad_waiting:
             status.append("   no gamepad detected — plug one in", style="yellow")
         elif session.exact_input:
-            status.append("   exact input tracking", style="dim green")
+            pass
         else:
-            status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
+            status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="yellow")
         self.query_one("#status", Static).update(status)
 
     def action_reset(self) -> None:
