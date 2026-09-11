@@ -161,7 +161,9 @@ Adding a style is a row in `STYLES` — nothing else, since the config validator
 takes its vocabulary from that table and the menu previews whatever is in it. A
 `Family.DIRECTIONS` style carries a direction table and a separator instead of
 glyphs, which is how numpad (`236`, the `Direction` enum's own values, joined by
-nothing) and the emoji and nerd font variants are written. A `Family.MARK` style
+nothing) and the emoji and nerd font variants are written. A motion family's
+style can carry a direction table too, and then spells just that family out in
+it: that is each family's Numpad, the same `Style` Directions offers. A `Family.MARK` style
 is not a motion at all: it carries one `mark`, what those motion rows put over
 a throw, a command normal or a counted mash tap.
 
