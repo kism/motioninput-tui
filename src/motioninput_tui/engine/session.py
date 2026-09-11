@@ -18,6 +18,8 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.games.models import Character, Game, Move
 
+    from .motions import MotionKind
+
 logger = get_logger(__name__)
 
 HISTORY_LENGTH = 40
@@ -248,6 +250,13 @@ class TrainingSession:
         for button in lapsed:
             del self.held[button]
         return bool(lapsed)
+
+    def live_motions(self, at_ms: int | None = None) -> list[MotionKind]:
+        """The character's motions a button pressed now would complete, strongest first."""
+        now = monotonic_ms() if at_ms is None else at_ms
+        # As press does, or a keyboard's inferred holds are judged on stale timing.
+        self.recognizer.decay_ms = self.source.decay_ms
+        return self.recognizer.live_motions(self.buffer, now)
 
     @property
     def policy(self) -> BufferPolicy:

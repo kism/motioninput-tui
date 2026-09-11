@@ -14,6 +14,7 @@ the ground instead, which is what a real 360 feels like and what the trainer use
 to hand over every time.
 """
 
+from motioninput_tui.engine.motions import MotionKind
 from tests.engine.test_motions.harness import BACK, DOWN, FORWARD, HP, LK, UP, Script, press, release
 
 
@@ -71,6 +72,20 @@ DOUBLE_CIRCLE: Script = [
 def test_a_rolled_circle_is_the_moonsault_press(play) -> None:
     """It has a quarter circle back inside it, so the 360 has to outrank one."""
     assert play(ROLLED_CIRCLE).moves == ["Moonsault Press"]
+
+
+def test_the_live_readout_puts_the_circle_over_the_half_circle_inside_it(play) -> None:
+    """What the trainer's full-screen panel lists: what a press would complete, at each moment.
+
+    Rolled as far as back, the half circle heads the list. Carried on to up, the
+    360 takes over, and the half circle it passed through stays beneath it,
+    beaten. Keep holding up and Hugo has jumped, so nothing grounded is left.
+    """
+    half = play(_rolled_circle(0)[:5]).session  # f, df, d, db, b
+    assert half.live_motions(170) == [MotionKind.HCB, MotionKind.QCB]
+    rolled = play(_rolled_circle(0)).session
+    assert rolled.live_motions(260) == [MotionKind.ROTATE_360, MotionKind.HCB, MotionKind.QCB]
+    assert rolled.live_motions(320) == []
 
 
 def test_tapping_the_four_keys_quickly_is_the_moonsault_press(play) -> None:

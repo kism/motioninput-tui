@@ -75,6 +75,10 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
 }
 
 
+_NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH})
+"""Kinds with no stick motion to watch: a bare button, a held direction, a mash."""
+
+
 @runtime_checkable
 class RecognisableMove(Protocol):
     """The bit of a move the engine cares about."""
@@ -222,6 +226,26 @@ class Recognizer:
         held = self._deferred
         self._deferred = None
         return self._decide(buffer, held.since_ms, held.pressed, allow_defer=False)
+
+    def live_motions(self, buffer: InputBuffer, at_ms: int) -> list[MotionKind]:
+        """The motions a press right now would complete, strongest first.
+
+        Every button counts as down, so this reads the stick alone, and one of
+        a motion's moves matching is enough to list it. The moves are already
+        ranked, so the first match of each kind comes out in priority order:
+        the head of the list is what a press would give, and the rest are what
+        it would beat.
+        """
+        loose = self.policy is BufferPolicy.LOOSE
+        found: list[MotionKind] = []
+        for move in self._ranked:
+            spec = move.motion
+            if spec is None or spec.kind in _NOT_MOTIONS or spec.kind in found:
+                continue
+            context = MatchContext(self.ruleset, at_ms, spec.buttons.allowed, self.decay_ms, loose=loose)
+            if matches(spec, buffer, context):
+                found.append(spec.kind)
+        return found
 
     def advance_follow_up(self, at_ms: int) -> bool:
         """Move a pending follow-through's clock on. Driven from the session

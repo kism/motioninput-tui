@@ -116,6 +116,22 @@ def test_the_panels_history_is_full_width_as_soon_as_it_is_shown(config: Config)
     assert "↓" in asyncio.run(session())
 
 
+def test_the_panel_names_the_motion_the_stick_has_made(config: Config) -> None:
+    async def session() -> str:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            await pilot.press("ctrl+l")
+            await pilot.press("s", "d")  # down, down-forward...
+            trainer.handle_release("s")  # ...forward: a quarter circle
+            await pilot.pause(0.05)  # a few ticks, which is what paints it
+            return str(trainer.query_one("#motions", Static).render())
+
+    assert asyncio.run(session()).startswith("↓ ↘ →")
+
+
 def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
     async def session() -> tuple[str, list[str], list[str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)

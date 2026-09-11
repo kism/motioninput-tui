@@ -69,7 +69,9 @@ class TrainingScreen(Screen):
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     #pads { height: auto; display: none; border-top: solid $panel; }
     /* Level with the stick, three rows of three-line boxes. */
-    #pads InputStrip { width: 1fr; height: 9; padding: 0 1; border-bottom: none; }
+    #history { width: 1fr; height: 9; align-vertical: middle; }
+    #history InputStrip { height: 1; padding: 0 1; border-bottom: none; }
+    #motions { height: 1; padding: 0 1; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
@@ -98,6 +100,7 @@ class TrainingScreen(Screen):
         self.lit_move: RecognisableMove | None = None
         self._latest: Activation | None = None
         self._unlight: Timer | None = None
+        self._motions_shown = ""
 
     def compose(self) -> ComposeResult:
         """Banner, input strip, activation feed and the move list."""
@@ -112,11 +115,13 @@ class TrainingScreen(Screen):
                 yield Static(id="status")
             yield MoveList(id="movelist")
         # The live panel and its own input history, under a full-screen move
-        # list that hides the left pane.
+        # list that hides the left pane, with the motions the stick has made.
         with Horizontal(id="pads"):
             yield DirectionGate()
             yield ButtonPads()
-            yield InputStrip()
+            with Vertical(id="history"):
+                yield Static(id="motions")
+                yield InputStrip()
         yield Footer()
 
     def on_mount(self) -> None:
@@ -166,6 +171,23 @@ class TrainingScreen(Screen):
     def _tick(self) -> None:
         if self.session.tick():
             self._refresh()
+        if self.movelist_mode == "full":
+            self._paint_motions()
+
+    def _paint_motions(self) -> None:
+        """The motions a press now would complete: the winner, then what it beats, struck.
+
+        Painted from the tick, since a motion's window runs out with no input
+        to say so. Only the full-screen panel shows it, so only that pays.
+        """
+        text = Text()
+        for index, kind in enumerate(self.session.live_motions()):
+            if index:
+                text.append("  ")
+            text.append(self.notation.write_kind(kind), style="dim strike" if index else "bold")
+        if text.plain != self._motions_shown:
+            self._motions_shown = text.plain
+            self.query_one("#motions", Static).update(text)
 
     def on_key(self, event) -> None:  # ruff: ignore[missing-type-function-argument] - textual.events.Key
         """Feed every key press to the session before Textual sees it."""

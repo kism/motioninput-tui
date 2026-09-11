@@ -350,8 +350,11 @@ class Notation:
             return "" if spec.hold is None else self.directions((spec.hold,))
         if spec.kind is MotionKind.ANY:
             return ""
-        parts = _PARTS.get(spec.kind, (spec.kind,))
-        written = [self.write_part(part) for part in parts]
+        return self.write_kind(spec.kind)
+
+    def write_kind(self, kind: MotionKind) -> str:
+        """A motion on its own, with no buttons, as the trainer's live readout names it."""
+        written = [self.write_part(part) for part in _PARTS.get(kind, (kind,))]
         if len(written) == REPEATED and written[0] == written[1]:
             return f"{written[0]} {REPEAT_MARK}"
         return PART_GAP.join(written)
