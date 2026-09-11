@@ -214,7 +214,11 @@ class TrainingSession:
         pressed = self.buffer.simultaneous_buttons(now)
         self.recognizer.decay_ms = self.source.decay_ms
         self._follow_motions(now)  # onto the trail before the press can spend them
+        follow_up = self.activations[0].follow_up if self.activations else None
+        taps = follow_up.got if follow_up is not None else 0
         self._apply_activation(self.recognizer.evaluate(self.buffer, now, pressed))
+        if follow_up is not None and follow_up.got > taps:  # a tap the follow-through counted
+            self.trail.append(TrailMotion(None, now, now, outcome=Outcome.EXECUTED))
         return True
 
     def _apply_activation(self, activation: Activation | None) -> bool:

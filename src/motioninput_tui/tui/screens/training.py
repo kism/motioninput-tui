@@ -13,7 +13,7 @@ from motioninput_tui.engine.session import Outcome, TrainingSession
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import Bracket, InputStrip
-from motioninput_tui.tui.widgets.move_feed import MoveFeed
+from motioninput_tui.tui.widgets.move_feed import MoveFeed, append_follow_up
 from motioninput_tui.tui.widgets.movelist import MoveList
 from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
 
@@ -81,9 +81,11 @@ class TrainingScreen(Screen):
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     #pads { height: auto; display: none; border-top: solid $panel; }
     /* As tall as the stick, three rows of three-line boxes, with the inputs
-       level with its bottom row and the motions stacked over them. */
-    #history { width: 1fr; height: 9; align-vertical: bottom; padding-bottom: 1; }
+       level with its bottom row, the motions stacked over them and a mash
+       prompt under them. */
+    #history { width: 1fr; height: 9; align-vertical: bottom; }
     #history InputStrip { height: auto; padding: 0 1; border-bottom: none; }
+    #mash { height: 1; padding: 0 1; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
@@ -132,6 +134,7 @@ class TrainingScreen(Screen):
             yield ButtonPads()
             with Vertical(id="history"):
                 yield InputStrip(id="panel-strip")
+                yield Static(id="mash")
         yield Footer()
 
     def on_mount(self) -> None:
@@ -186,7 +189,8 @@ class TrainingScreen(Screen):
         """The full-screen panel's input history, with the trail of motions laid over the inputs that made them.
 
         Newest nearest the inputs. One a press would have beaten is struck, and
-        a finished one is green if a move came out on it, dim if not.
+        a finished one is green if a move came out on it, dim if not. Under
+        them, the newest move's follow-through, if it wants taps or a mash.
         """
         if self.movelist_mode != "full":
             return
@@ -194,6 +198,12 @@ class TrainingScreen(Screen):
         brackets = [self._bracket(motion) for motion in reversed(session.trail)]
         strip = self.query_one("#panel-strip", InputStrip)
         strip.show(session.entries, session.direction, brackets, bracket_rows=BRACKET_ROWS)
+        mash = Text()
+        latest = session.activations[0] if session.activations else None
+        if latest is not None and latest.follow_up is not None:
+            mash.append(f"{latest.name}  ", style="bold")
+            append_follow_up(mash, latest.follow_up, newest=True)
+        self.query_one("#mash", Static).update(mash)
 
     def _bracket(self, motion: TrailMotion) -> Bracket:
         if motion.kind is None:  # A move that needed no motion, a throw say, marked where it came out.

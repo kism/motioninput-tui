@@ -20,3 +20,4 @@ Maybe change measurements to frames? Then pytest can 3x or 4x speed?
 
 - The input tracker on the input display should have the new motion feed
 - Every motion that the game has should be registered
+
