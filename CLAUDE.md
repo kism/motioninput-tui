@@ -145,7 +145,7 @@ plus a line in `tuned_game`. Nothing in the interface needs touching.
 
 `notation_styles.py` is how a move's input is *written*, as opposed to
 `engine/notation.py`, which is what a direction *is*. A `Notation` holds one
-`Style` per `Family` (directions, quarter, quarter_down, half, dragon, rotate, charge, mark) and
+`Style` per `Family` (directions, quarter, quarter_down, half, dragon, tiger, rotate, charge, mark) and
 writes a `MotionSpec` by parts: each part is either a glyph the player picked
 for its family or the directions spelled out, so a compound motion follows its
 parts' styles for free. A style with no glyph for a kind spells that kind out,

@@ -96,6 +96,15 @@ def test_a_family_can_be_numpad_while_the_rest_are_arrows() -> None:
     assert picked.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "→ ↓ ↘ + P"
 
 
+def test_a_tiger_knee_has_its_own_styles() -> None:
+    """Spelled out as the diagonal it ends on until a tiger is picked."""
+    spec = MotionSpec(kind=MotionKind.TIGER_KNEE, buttons=ANY_KICK)
+    assert DEFAULT.write(spec) == "↓ ↘ → ↗ + K"
+    assert Notation({"tiger": "numpad"}).write(spec) == "2369 + K"
+    assert Notation({"tiger": "emoji"}).write(spec) == "🐯 + K"
+    assert Notation({"tiger": "initials"}).write(spec) == "TK + K"
+
+
 def test_every_motion_family_offers_numpad() -> None:
     """Bar the full circles, which are 360 and 720 however they are spelled."""
     offered = {family for family, styles in STYLES.items() if any(style.key == "numpad" for style in styles)}

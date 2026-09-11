@@ -37,6 +37,7 @@ class Family(StrEnum):
     """A quarter of the circle run the other way round, ending on down: 632 and 412."""
     HALF = "half"
     DRAGON = "dragon"
+    TIGER = "tiger"
     ROTATE = "rotate"
     CHARGE = "charge"
     MARK = "mark"
@@ -49,6 +50,7 @@ FAMILY_NAMES: dict[Family, str] = {
     Family.QUARTER_DOWN: "632, 412",
     Family.HALF: "Half circles",
     Family.DRAGON: "Dragon punches",
+    Family.TIGER: "Tiger knees",
     Family.ROTATE: "Full circles",
     Family.CHARGE: "Charges",
     Family.MARK: "Button marks",
@@ -101,6 +103,7 @@ _NF_QUARTER_BACK_DOWN = "\U000f17a5"  # nf-md-arrow_left_bottom
 _NF_HALF_FORWARD = "\U000f17bb"  # nf-md-arrow_u_up_right
 _NF_HALF_BACK = "\U000f17b9"  # nf-md-arrow_u_up_left
 _NF_DRAGON = "\ueef8"  # nf-fa-dragon
+_NF_TIGER_KNEE = "\uf148"  # nf-fa-arrow_turn_up
 
 
 _LETTERS: dict[Direction, str] = {direction: direction.short.upper() for direction in Direction}
@@ -185,6 +188,15 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(key="japanese", name="Dragon 竜", glyphs=_beast("竜")),
         Style(key="emoji", name="Emoji dragon", glyphs=_beast("🐉")),
     ),
+    Family.TIGER: (
+        Style(key="spelled", name="Spelled out"),
+        _NUMPAD_STYLE,
+        Style(key="nerd", name="Nerd font", glyphs={_K.TIGER_KNEE: _NF_TIGER_KNEE}),
+        Style(key="emoji", name="Emoji tiger face", glyphs={_K.TIGER_KNEE: "🐯"}),
+        Style(key="emoji-tiger", name="Emoji tiger", glyphs={_K.TIGER_KNEE: "🐅"}),
+        Style(key="kanji", name="Tiger 䖎", glyphs={_K.TIGER_KNEE: "䖎"}),
+        Style(key="initials", name="Initials", glyphs={_K.TIGER_KNEE: "TK"}),
+    ),
     Family.ROTATE: (
         Style(key="spelled", name="Spelled out"),
         Style(key="open", name="Open circles", glyphs={_K.ROTATE_360: "⥁", _K.ROTATE_720: "⥁ ⥁"}),
@@ -237,6 +249,7 @@ _KIND_FAMILY: dict[MotionKind, Family] = {
     _K.HCB: Family.HALF,
     _K.DP: Family.DRAGON,
     _K.RDP: Family.DRAGON,
+    _K.TIGER_KNEE: Family.TIGER,
     _K.ROTATE_360: Family.ROTATE,
     _K.ROTATE_720: Family.ROTATE,
     _K.CHARGE_BF: Family.CHARGE,
@@ -355,6 +368,7 @@ _PREVIEWS: dict[Family, tuple[MotionKind, ...]] = {
     Family.QUARTER_DOWN: (_K.F_DF_D, _K.B_DB_D),
     Family.HALF: (_K.HCF, _K.HCB),
     Family.DRAGON: (_K.DP, _K.RDP),
+    Family.TIGER: (_K.TIGER_KNEE,),
     Family.ROTATE: (_K.ROTATE_360, _K.ROTATE_720),
     Family.CHARGE: (_K.CHARGE_BF, _K.CHARGE_DU),
 }
