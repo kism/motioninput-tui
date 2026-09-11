@@ -76,7 +76,7 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
 }
 
 
-_NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH})
+NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH})
 """Kinds with no stick motion to watch: a bare button, a held direction, a mash."""
 
 
@@ -270,7 +270,7 @@ class Recognizer:
         found: list[LiveMotion] = []
         for move in self._ranked:
             spec = move.motion
-            if spec is None or spec.kind in _NOT_MOTIONS or any(live.kind is spec.kind for live in found):
+            if spec is None or spec.kind in NOT_MOTIONS or any(live.kind is spec.kind for live in found):
                 continue
             context = MatchContext(self.ruleset, at_ms, spec.buttons.allowed, self.decay_ms, loose=loose)
             if matches(spec, buffer, context):

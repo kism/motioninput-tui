@@ -8,11 +8,13 @@ from rich.text import Text
 from textual.widgets import Static
 
 from motioninput_tui.engine.notation import Direction
+from motioninput_tui.engine.session import Outcome
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Sequence
 
-    from motioninput_tui.engine.session import InputEntry
+    from motioninput_tui.engine.session import InputEntry, TrailMotion
+    from motioninput_tui.notation_styles import Notation
 
 CATEGORY_STYLES: dict[str, str] = {
     "super": "bold magenta",
@@ -31,6 +33,32 @@ class Bracket(NamedTuple):
     style: str
     start_ms: int
     end_ms: int
+
+
+TRAIL_STYLES: dict[Outcome, str] = {
+    Outcome.LIVE: "bold",
+    Outcome.EXECUTED: "bold green",
+    Outcome.MISSED: "dim",
+}
+"""How a trail motion is drawn, by what became of it."""
+
+
+def trail_brackets(trail: Sequence[TrailMotion], notation: Notation) -> list[Bracket]:
+    """A session's trail of motions, newest first so it packs nearest the inputs.
+
+    One a press would have beaten is struck, and a finished one is green if a
+    move came out on it, dim if not.
+    """
+    return [_trail_bracket(motion, notation) for motion in reversed(trail)]
+
+
+def _trail_bracket(motion: TrailMotion, notation: Notation) -> Bracket:
+    if motion.kind is None:  # A throw, say, or a counted tap: marked where it happened.
+        return Bracket(notation.mark, TRAIL_STYLES[Outcome.EXECUTED], motion.start_ms, motion.end_ms)
+    style = TRAIL_STYLES[motion.outcome]
+    if motion.beaten and motion.outcome is not Outcome.EXECUTED:
+        style = "dim strike"
+    return Bracket(notation.write_kind(motion.kind), style, motion.start_ms, motion.end_ms)
 
 
 type _Placed = tuple[int, int, Bracket]

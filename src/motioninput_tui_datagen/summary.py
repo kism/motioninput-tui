@@ -9,7 +9,7 @@ eyeball what changed:
 
 from collections import Counter
 
-from motioninput_tui.games.loader import available_games
+from motioninput_tui.games.loader import INPUT_DISPLAY, available_games
 from motioninput_tui.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -25,7 +25,7 @@ def print_summary() -> int:
 
     grand_chars = grand_moves = grand_trainable = 0
     for game in games:
-        characters = game.characters
+        characters = [character for character in game.characters if character.key != INPUT_DISPLAY]
         moves = sum(len(character.moves) for character in characters)
         trainable = sum(len(character.trainable_moves) for character in characters)
         categories = Counter(move.category for character in characters for move in character.moves)

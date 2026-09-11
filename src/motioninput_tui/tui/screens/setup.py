@@ -14,7 +14,7 @@ from textual.containers import Horizontal, Vertical
 from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
-from motioninput_tui.games.loader import available_games
+from motioninput_tui.games.loader import INPUT_DISPLAY, available_games
 from motioninput_tui.tui.widgets.settings_list import SettingsList
 
 if TYPE_CHECKING:
@@ -217,8 +217,8 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
 
 
 def _ordered_characters(game: Game) -> list[Character]:
-    """The roster as the character list shows it: alphabetical by display name."""
-    return sorted(game.characters, key=lambda character: character.name.casefold())
+    """The roster as the character list shows it: the input display, then alphabetical by display name."""
+    return sorted(game.characters, key=lambda character: (character.key != INPUT_DISPLAY, character.name.casefold()))
 
 
 def _index_of(keys: list[str], wanted: str | None) -> int:

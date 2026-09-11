@@ -1,18 +1,29 @@
 """Loading rosters from the generated data files."""
 
 import json
+from dataclasses import replace
 from functools import cache
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from motioninput_tui.controls.buttons import BUTTON_SETS
+from motioninput_tui.engine.notation import ButtonRequirement
+from motioninput_tui.engine.recognizer import NOT_MOTIONS
 from motioninput_tui.utils.logger import get_logger
 
-from .models import Character, Game
-from .rulesets import DISPLAY_GAME, GAME_SPECS, GameSpec, get_spec
+from .models import Category, Character, Game, Move
+from .rulesets import GAME_SPECS, get_spec
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+
+    from motioninput_tui.controls.buttons import ButtonSet
 
 logger = get_logger(__name__)
 
 DATA_DIR = Path(__file__).parent / "data"
+
+INPUT_DISPLAY = "input-display"
+"""The key of the character every roster opens with: the input display."""
 
 
 class GameDataMissingError(FileNotFoundError):
@@ -25,10 +36,8 @@ class GameDataMissingError(FileNotFoundError):
 
 @cache
 def load_game(key: str) -> Game:
-    """Load a game and its roster. Cached, since the data never changes."""
+    """Load a game and its roster, the input display first. Cached, since the data never changes."""
     spec = get_spec(key)
-    if spec.key == DISPLAY_GAME:
-        return _display_game(spec)
     path = DATA_DIR / f"{spec.key}.json"
     if not path.is_file():
         raise GameDataMissingError(path)
@@ -44,31 +53,38 @@ def load_game(key: str) -> Game:
         short_name=spec.short_name,
         ruleset=spec.ruleset,
         buttons=spec.buttons,
-        characters=characters,
+        characters=(_input_display(characters, spec.buttons), *characters),
         notes=spec.notes,
         source=spec.reference,
     )
 
 
-def _display_game(spec: GameSpec) -> Game:
-    """The input display, whose characters are the button sets.
+def _input_display(roster: Iterable[Character], buttons: ButtonSet) -> Character:
+    """The input display, as a character whose moves are every motion in the roster.
 
-    It has no roster to load, and nothing to recognise. Standing it up as a
-    game is what lets it be picked with the same two lists as everything else,
-    with the panel where the character goes.
+    Each is taken on any of the game's buttons and without its follow-through,
+    so a press on whatever the stick has made brings it out: the display shows
+    the motions, not whose move they are. Throws, holds and mashes are not
+    motions, and are left out.
     """
-    characters = tuple(
-        Character(key=button_set.key, name=button_set.name, title=button_set.note) for button_set in BUTTON_SETS
+    any_button = ButtonRequirement(frozenset(buttons.buttons))
+    motions = dict.fromkeys(
+        replace(move.motion, buttons=any_button, mash=0, mash_rhythm=False, mash_button="", notation="")
+        for character in roster
+        for move in character.moves
+        if move.motion is not None and move.motion.kind not in NOT_MOTIONS
     )
-    return Game(
-        key=spec.key,
-        name=spec.name,
-        short_name=spec.short_name,
-        ruleset=spec.ruleset,
-        buttons=spec.buttons,
-        characters=characters,
-        notes=spec.notes,
+    moves = tuple(
+        Move(
+            # Named for the air as well, since the recogniser tells moves apart by name.
+            name=f"{spec.kind.value}{' air' if spec.air else ''}",
+            command=spec.kind.value,
+            category=Category.SPECIAL,
+            motion=spec,
+        )
+        for spec in motions
     )
+    return Character(key=INPUT_DISPLAY, name="Input display", title="every motion in the game", moves=moves)
 
 
 def available_games() -> list[Game]:

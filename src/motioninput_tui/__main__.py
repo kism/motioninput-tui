@@ -65,12 +65,7 @@ def _print_roster() -> int:
     for game in available_games():
         logger.info("%s - %s", game.key, game.name)
         for character in game.characters:
-            # The input display's "characters" are button sets, with no moves
-            # to count, so they say what they are instead.
-            if character.moves:
-                logger.info("    %-22s %d trainable moves", character.key, len(character.trainable_moves))
-            else:
-                logger.info("    %-22s %s", character.key, character.name)
+            logger.info("    %-22s %d trainable moves", character.key, len(character.trainable_moves))
     return 0
 
 
@@ -113,8 +108,9 @@ def _resolve_selection(config: Config) -> bool:
     A remembered character can simply be gone: rosters are regenerated, and a
     name override in ``motioninput_tui_datagen/names.py`` renames the key with
     the character. That is no reason to refuse to start, so the selection is
-    dropped and the picker opens on it instead. Missing game *data* is a
-    different matter, and there is nothing to fall back to.
+    dropped and the picker opens on it instead. So is a game that is gone, as
+    the input display is, which was a game before it was a character. Missing
+    game *data* is a different matter, and there is nothing to fall back to.
     """
     if not config.game:
         return True
@@ -123,6 +119,10 @@ def _resolve_selection(config: Config) -> bool:
     except GameDataMissingError as exc:
         logger.error("%s", exc)  # ruff: ignore[error-instead-of-exception] - a traceback helps nobody here
         return False
+    except KeyError as exc:
+        logger.info("Forgetting the saved game, it is not one there is any more: %s", exc)
+        config.game = config.character = None
+        return True
     if not config.character:
         return True
     try:

@@ -9,10 +9,10 @@ from textual.screen import Screen
 from textual.widgets import Footer, Static
 
 from motioninput_tui.engine.recognizer import BufferPolicy
-from motioninput_tui.engine.session import Outcome, TrainingSession
+from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.terminal import detect
-from motioninput_tui.tui.widgets.input_strip import Bracket, InputStrip
+from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.move_feed import MoveFeed, append_follow_up
 from motioninput_tui.tui.widgets.movelist import MoveList
 from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
@@ -23,7 +23,6 @@ if TYPE_CHECKING:
 
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.engine.recognizer import Activation, RecognisableMove
-    from motioninput_tui.engine.session import TrailMotion
     from motioninput_tui.games.models import Character, Game
     from motioninput_tui.notation_styles import Notation
 
@@ -38,13 +37,6 @@ LIT_S = 0.5
 BRACKET_ROWS = 7
 """Lines of motions over the full-screen panel's history: the stick's nine rows,
 less the inputs and the one under them."""
-
-TRAIL_STYLES: dict[Outcome, str] = {
-    Outcome.LIVE: "bold",
-    Outcome.EXECUTED: "bold green",
-    Outcome.MISSED: "dim",
-}
-"""How a trail motion is drawn, by what became of it."""
 
 
 class TrainingScreen(Screen):
@@ -195,7 +187,7 @@ class TrainingScreen(Screen):
         if self.movelist_mode != "full":
             return
         session = self.session
-        brackets = [self._bracket(motion) for motion in reversed(session.trail)]
+        brackets = trail_brackets(session.trail, self.notation)
         strip = self.query_one("#panel-strip", InputStrip)
         strip.show(session.entries, session.direction, brackets, bracket_rows=BRACKET_ROWS)
         mash = Text()
@@ -204,14 +196,6 @@ class TrainingScreen(Screen):
             mash.append(f"{latest.name}  ", style="bold")
             append_follow_up(mash, latest.follow_up, newest=True)
         self.query_one("#mash", Static).update(mash)
-
-    def _bracket(self, motion: TrailMotion) -> Bracket:
-        if motion.kind is None:  # A throw, say, or a counted tap: marked where it happened.
-            return Bracket(self.notation.mark, TRAIL_STYLES[Outcome.EXECUTED], motion.start_ms, motion.end_ms)
-        style = TRAIL_STYLES[motion.outcome]
-        if motion.beaten and motion.outcome is not Outcome.EXECUTED:
-            style = "dim strike"
-        return Bracket(self.notation.write_kind(motion.kind), style, motion.start_ms, motion.end_ms)
 
     def on_key(self, event) -> None:  # ruff: ignore[missing-type-function-argument] - textual.events.Key
         """Feed every key press to the session before Textual sees it."""

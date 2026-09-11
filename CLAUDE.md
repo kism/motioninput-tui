@@ -154,8 +154,8 @@ no `MotionSpec`, and `MotionKind.ANY`, keep the guide's own wording.
 
 The live input strip never consults it: what the player pressed is always
 arrows, deliberately, so one reading of the display never changes. The motion
-rows the full-screen panel draws over its history do, since they name motions
-rather than record presses.
+rows the full-screen panel and the input display draw over their history do,
+since they name motions rather than record presses.
 
 Adding a style is a row in `STYLES` — nothing else, since the config validator
 takes its vocabulary from that table and the menu previews whatever is in it. A
@@ -249,12 +249,17 @@ turns them back into glyphs for display. `HITBOX` / `SOUTHPAW` stay as module
 constants — the four-key reference layouts the engine test harness and
 `tests/controls/test_buttons.py` are written against — but are out of `LAYOUTS`.
 
-The first game in the list, `display`, has no roster: `loader._display_game`
-builds it, and its characters *are* the button sets, which is how a panel gets
-picked with the same two lists as everything else. `InputDisplayScreen` runs a
-real `TrainingSession` (so SOCD and holds behave exactly as in the trainer) and
-draws the panel instead of recognising anything. The Neo Geo's two arrangements
-are a global setting rather than two entries, applied by `buttons.arrangement`.
+Every roster opens with the input display, a character `loader._input_display`
+builds rather than one from a guide (`INPUT_DISPLAY` is its key): its moves are
+every motion in the game, on any of the game's buttons and without their
+follow-throughs, so a press on whatever the stick made brings it out.
+`InputDisplayScreen` runs a real `TrainingSession` (so SOCD and holds behave
+exactly as in the trainer), draws the game's panel, and lays the session's
+trail over its history as the full-screen move list does. `datagen --summary`
+leaves it out of the counts. A panel is only reached through a game played on
+it, so the Mortal Kombat, Tekken and eight button sets are defined but offered
+nowhere. The Neo Geo's two arrangements are a global setting rather than two
+entries, applied by `buttons.arrangement`.
 
 ### Two input models
 

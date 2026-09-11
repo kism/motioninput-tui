@@ -78,11 +78,12 @@ them, so there is one place they live rather than two that have to agree.
 
 ### Input display
 
-The first entry in the game list is not a game: it draws your panel and lights
-it up as you press, with no moves and nothing to recognise. Its "characters"
-are the button sets, so pick the one your game uses. Directions are cleaned
-exactly as they are in the trainer, so it is the quickest way to see what your
-keyboard is really sending.
+Every game's character list opens with **Input display**: the game's panel, lit
+up as you press, with every motion the game has drawn over your input history
+as you make it, whoever's move it would be. A motion goes green when a button
+brings it out and dim when it lapses. Directions are cleaned exactly as they
+are in the trainer, so it is the quickest way to see what your keyboard is
+really sending.
 
 ### Picking what to train
 
@@ -152,14 +153,13 @@ A layout is only *where* the attacks are — six positions, three to a row. What
 those positions mean is the game's button set, laid onto them in order, which
 is why a game with a different panel is a table entry rather than a new layout.
 
-That fits the Street Fighter six and Mortal Kombat's five, but not everything.
+That fits the Street Fighter six, but not the Neo Geo.
 `A B C D` across a three-key row leaves **D** with nowhere to go, so on a
 keyboard the Neo Geo's fourth button cannot be pressed at all. Turning on the
 **Neo Geo slant** setting fixes it — `C D` on the top row, `A B` on the bottom
 — and a gamepad has all four either way. Worth doing if you train KoF or
 Samurai Shodown on a keyboard: 36 trainable moves across those rosters ask for
-D alone. The input display's eight-button panel is short two buttons on a
-keyboard for the same reason.
+D alone.
 
 Pad buttons are read through SDL's controller database, so any recognised pad
 works however its firmware numbers them, and a pad reports releases, so holds

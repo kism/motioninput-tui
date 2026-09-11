@@ -72,11 +72,11 @@ only the Street Fighter six: that is the one dialect the move list parser reads,
 and a roster on another panel is mapped off it afterwards, so widening it would
 change what "any button" means in every move list at once.
 
-The first game in the list, `display`, has no roster: it is built with its
-characters standing in for the button sets, which is how a panel gets picked
-with the same two lists as everything else. It runs a real `TrainingSession`
-(so SOCD cleaning and hold inference behave exactly as in the trainer) and
-draws the panel instead of recognising anything.
+Every roster opens with an input display, a character the loader builds rather
+than one from a guide: its moves are every motion in the roster, on any of the
+game's buttons. It runs a real `TrainingSession` (so SOCD cleaning and hold
+inference behave exactly as in the trainer), draws the game's panel, and lays
+the motions the stick made over its history.
 
 ## The release-aware driver
 

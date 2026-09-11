@@ -371,27 +371,10 @@ USFIV = GameSpec(
     reference="references/usfiv.txt",
 )
 
-INPUT_DISPLAY = GameSpec(
-    key="display",
-    name="Input display",
-    short_name="Inputs",
-    # Nothing is recognised here, so the rules never come into it.
-    ruleset=Ruleset(),
-    notes=(
-        "No moves and no rules: whatever you press is drawn as you press it.",
-        "Pick the panel you want laid out; the keys come from your layout.",
-    ),
-    reference="",
-)
-"""A game only in so far as it is picked like one: it has no roster, and its
-characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
-
-DISPLAY_GAME = INPUT_DISPLAY.key
-
-# Menu order: the input display first, then by series (alphabetically), then in
-# each series' own numeric / chronological order.
+# Menu order: by series (alphabetically), then in each series' own numeric /
+# chronological order.
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (INPUT_DISPLAY, KOF98, KOF2001, LB2, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
+    spec.key: spec for spec in (KOF98, KOF2001, LB2, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
 }
 DEFAULT_GAME = SFIII3.key
 
