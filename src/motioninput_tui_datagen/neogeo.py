@@ -69,6 +69,10 @@ choice have to be translated here -- left to ``normalise``, an untranslated
 ``B`` is not a button token at all and the move silently narrows to the first
 option."""
 
+_MASHED = re.compile(r"^\s*([ABCDPK]{1,4})(?=\s+(?:rapidly|repeatedly)\b)")
+"""``C rapidly``: a mash, whose button has no ``+`` in front of it for
+:data:`_BUTTONS` to find."""
+
 _DIRECTION = r"(?:ub|uf|db|df|[bfdun])"
 _CHARGED = re.compile(rf"\b({_DIRECTION})~({_DIRECTION})\b")
 """The guides' charge notation, ``d~u`` for "hold down briefly then press up".
@@ -99,7 +103,7 @@ def to_shorthand(command: str) -> str:
         text = f"In air, {_TRAILING_AIR.sub('', text)}"
     text = _CHARGED.sub(lambda match: f"Charge {match.group(1)},{match.group(2)}", text)
     text = _REPEATED.sub(lambda match: f"{match.group(1)},{match.group(1)}", text)
-    return _BUTTONS.sub(_buttons, text)
+    return _MASHED.sub(_buttons, _BUTTONS.sub(_buttons, text))
 
 
 def _buttons(match: re.Match[str]) -> str:

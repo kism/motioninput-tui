@@ -2072,7 +2072,19 @@
     {
      "name": "Zaneiken",
      "command": "db~f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "charge_db_f",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "db~f + P"
+     }
     },
     {
      "name": "Gadankou",
@@ -2252,7 +2264,19 @@
     {
      "name": "Bakuretsu",
      "command": "P repeatedly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P repeatedly"
+     }
     },
     {
      "name": "Bakuretsu Finisher",
@@ -3373,7 +3397,19 @@
     {
      "name": "Hien Shippuu Kyaku",
      "command": "db~f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "charge_db_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "db~f + K"
+     }
     },
     {
      "name": "Mouko Burai Gan",
@@ -3703,7 +3739,19 @@
     {
      "name": "Vulcan Punch",
      "command": "P repeatedly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P repeatedly"
+     }
     },
     {
      "name": "Super Argentine Backbreaker",

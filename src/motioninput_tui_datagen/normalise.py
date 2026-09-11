@@ -32,6 +32,9 @@ MULTI_BUTTON = 2
 # "tap P rapidly" after a motion never comes with a count, so assume three taps.
 _MASH_DEFAULT = 3
 
+# "rapidly" everywhere, and "repeatedly" in the KoF guides.
+_MASHING = re.compile(r"rapid|repeatedly")
+
 # Something the player *may* do after the move, which does not gate it: Elena's
 # Healing is a plain qcf,qcf + P and the PP only stops it early. "to cancel" and
 # its friends are already noise to _QUALIFIERS; it is the "then" in front of
@@ -131,10 +134,13 @@ _MOTION_TABLE: dict[tuple[str, ...], MotionKind] = {
     ("f", "df", "d", "db", "b", "f"): MotionKind.HCB_F,
     ("d", "db", "b", "db", "f"): MotionKind.QCB_DB_F,
     ("f", "b", "db", "d", "df", "f"): MotionKind.F_HCF,
+    ("f", "df", "d"): MotionKind.F_DF_D,
+    ("b", "db", "d"): MotionKind.B_DB_D,
 }
 
 _CHARGE_TABLE: dict[tuple[str, ...], MotionKind] = {
     ("b", "f"): MotionKind.CHARGE_BF,
+    ("db", "f"): MotionKind.CHARGE_DB_F,
     ("d", "u"): MotionKind.CHARGE_DU,
     ("b", "f", "b", "f"): MotionKind.CHARGE_BFBF,
     ("db", "df", "db", "uf"): MotionKind.CHARGE_DB_UF,
@@ -214,7 +220,7 @@ def _follow_through(raw: str, kind: MotionKind, buttons: ButtonRequirement) -> t
     """
     if kind is MotionKind.MASH:
         return 0, False, ""
-    if "rapid" in raw:
+    if _MASHING.search(raw):
         return _MASH_DEFAULT, False, ""
     tail = _RHYTHM_TAIL.search(raw)
     if tail is None:
@@ -237,7 +243,7 @@ def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKi
 
     # "Tap P rapidly" on its own is a mash. "qcf,qcf + P, tap P rapidly" is a
     # real motion with a mashable tail for extra hits, and matched just above.
-    if "rapid" in raw:
+    if _MASHING.search(raw):
         return MotionKind.MASH, None, ""
 
     return None, None, reason

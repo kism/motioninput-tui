@@ -208,7 +208,7 @@ This parses every game with a registered parser and writes
 the brief's prediction. The Street Fighter games land around 80-90%; a game can
 be lower for structural reasons the brief should have called out — command
 throws the engine has no model for, compound super motions absent from
-`normalise`'s tables (KoF '98 is 74% for both reasons). The rest are follow-ups,
+`normalise`'s tables (KoF '98 is 75% for both reasons). The rest are follow-ups,
 stances and conditional moves the engine cannot model, shown struck through.
 `--show-skipped` lists what did not parse — scan it: a whole character missing
 is a parser gap, not an unmodellable move.

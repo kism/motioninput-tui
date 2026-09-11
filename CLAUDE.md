@@ -426,8 +426,8 @@ fresh clone has to run `python -m motioninput_tui_guides` first. After changing
 `motioninput_tui_datagen/normalise.py` or a parser in
 `motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
 (or `./scripts/4-run-datagen.sh`) and commit the JSON. The Street Fighter
-rosters land around 80-90% trainable; the SNK ones are lower (51% for Samurai
-Shodown II, 68-74% for the rest) because those guides lean on command throws
+rosters land around 80-90% trainable; the SNK ones are lower (52% for Samurai
+Shodown II, 68-75% for the rest) because those guides lean on command throws
 written `b or f + button` and on long follow-up chains. The remainder are
 follow-ups and conditional moves that still appear in the move list, struck
 through. `--summary` prints the per-character breakdown.

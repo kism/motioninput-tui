@@ -214,6 +214,7 @@ _KIND_FAMILY: dict[MotionKind, Family] = {
     _K.CHARGE_DU: Family.CHARGE,
     _K.CHARGE_BFBF: Family.CHARGE,
     _K.CHARGE_DB_UF: Family.CHARGE,
+    _K.CHARGE_DB_F: Family.CHARGE,
 }
 
 # Compound motions borrow their parts' styles rather than having their own, so
@@ -241,6 +242,8 @@ _SEQUENCES: dict[MotionKind, tuple[Direction, ...]] = {
     _K.DP: (_D.FORWARD, _D.DOWN, _D.DOWN_FORWARD),
     _K.RDP: (_D.BACK, _D.DOWN, _D.DOWN_BACK),
     _K.TIGER_KNEE: (_D.DOWN, _D.DOWN_FORWARD, _D.FORWARD, _D.UP_FORWARD),
+    _K.F_DF_D: (_D.FORWARD, _D.DOWN_FORWARD, _D.DOWN),
+    _K.B_DB_D: (_D.BACK, _D.DOWN_BACK, _D.DOWN),
 }
 
 # A charge is a direction held, then the ones tapped after letting it go.
@@ -249,6 +252,7 @@ _CHARGES: dict[MotionKind, tuple[Direction, tuple[Direction, ...]]] = {
     _K.CHARGE_DU: (_D.DOWN, (_D.UP,)),
     _K.CHARGE_BFBF: (_D.BACK, (_D.FORWARD, _D.BACK, _D.FORWARD)),
     _K.CHARGE_DB_UF: (_D.DOWN_BACK, (_D.DOWN_FORWARD, _D.DOWN_BACK, _D.UP_FORWARD)),
+    _K.CHARGE_DB_F: (_D.DOWN_BACK, (_D.FORWARD,)),
 }
 
 _ROTATIONS: dict[MotionKind, str] = {_K.ROTATE_360: "360", _K.ROTATE_720: "720"}

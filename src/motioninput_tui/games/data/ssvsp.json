@@ -2696,7 +2696,19 @@
     {
      "name": "Annu Mutsube",
      "command": "b,db,d + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b,db,d + S"
+     }
     },
     {
      "name": "Kamui Rimse",

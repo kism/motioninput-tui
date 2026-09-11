@@ -22,8 +22,8 @@ shortcut exists. 3rd Strike's figures come from a decompilation of the game
 rather than from feel; see [Third Strike, from the decompiled
 game](sfiii3-from-the-decomp.md).
 
-Not every listed move is trainable. The Street Fighter rosters run 78-89%; the
-SNK ones are lower — 51% for Samurai Shodown II — because those guides lean on
+Not every listed move is trainable. The Street Fighter rosters run 79-89%; the
+SNK ones are lower — 52% for Samurai Shodown II — because those guides lean on
 command throws written "b or f + button", which say nothing about which way to
 hold, and on long follow-up chains. The rest still appear in the move list,
 struck through. The five SNK games are on the Neo Geo's four-button panel, and

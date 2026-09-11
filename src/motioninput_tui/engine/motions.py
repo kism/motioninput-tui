@@ -57,17 +57,28 @@ class MotionKind(StrEnum):
     HCB_F = "hcb_f"
     QCB_DB_F = "qcb_db_f"
     F_HCF = "f_hcf"
+    F_DF_D = "f_df_d"
+    B_DB_D = "b_db_d"
     QCF_UF = "qcf_uf"
     CHARGE_BF = "charge_bf"
     CHARGE_DU = "charge_du"
     CHARGE_BFBF = "charge_bfbf"
     CHARGE_DB_UF = "charge_db_uf"
+    CHARGE_DB_F = "charge_db_f"
     ROTATE_360 = "rotate_360"
     ROTATE_720 = "rotate_720"
     MASH = "mash"
 
 
-CHARGE_KINDS = frozenset({MotionKind.CHARGE_BF, MotionKind.CHARGE_DU, MotionKind.CHARGE_BFBF, MotionKind.CHARGE_DB_UF})
+CHARGE_KINDS = frozenset(
+    {
+        MotionKind.CHARGE_BF,
+        MotionKind.CHARGE_DU,
+        MotionKind.CHARGE_BFBF,
+        MotionKind.CHARGE_DB_UF,
+        MotionKind.CHARGE_DB_F,
+    }
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -317,6 +328,10 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     # circle, which is the special these supers sit above in the move list.
     MotionKind.QCB_DB_F: lambda rules: [[*_quarter_back(rules), Step(_ONLY_DB), Step(_ONLY_F)]],
     MotionKind.F_HCF: lambda rules: [[Step(_ONLY_F), *_half_forward(rules)]],
+    # A quarter circle run the other way, ending on down rather than leaving it:
+    # Zangief's Banishing Flat is f,df,d.
+    MotionKind.F_DF_D: lambda rules: [[Step(_ONLY_F), Step(_ONLY_DF, rules.lenient_diagonals), Step(_ONLY_DOWN)]],
+    MotionKind.B_DB_D: lambda rules: [[Step(_ONLY_B), Step(_ONLY_DB, rules.lenient_diagonals), Step(_ONLY_DOWN)]],
 }
 
 
@@ -494,6 +509,9 @@ _CHARGE_DEFINITIONS: dict[MotionKind, tuple[frozenset[Direction], list[Step]]] =
         frozenset({_D.DOWN_BACK, _D.DOWN}),
         [Step(_ONLY_DF), Step(_ONLY_DB), Step(frozenset({_D.UP_FORWARD, _D.UP}))],
     ),
+    # Written db~f by every guide that has one, so the charge is down-back
+    # itself; a plain back charge is CHARGE_BF.
+    MotionKind.CHARGE_DB_F: (_ONLY_DB, [Step(FORWARD_DIRECTIONS)]),
 }
 
 
