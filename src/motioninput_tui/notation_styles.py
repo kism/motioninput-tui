@@ -151,9 +151,6 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(key="arrows", name="Arrows"),
         Style(key="letters", name="Letters", directions=_LETTERS, separator=", "),
         _NUMPAD_STYLE,
-        Style(key="emoji", name="Emoji arrows", directions=_EMOJI_ARROWS),
-        Style(key="keycaps", name="Emoji numpad", directions=_KEYCAPS, separator=""),
-        Style(key="nerd", name="Nerd numpad", directions=_NERD_NUMPAD, separator=""),
     ),
     Family.QUARTER: (
         Style(key="spelled", name="Spelled out"),
@@ -177,7 +174,6 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(key="cup", name="Cup", glyphs={_K.HCF: "⋃→", _K.HCB: "⋃←"}),
         Style(key="arc", name="Arc", glyphs={_K.HCF: "◡→", _K.HCB: "◡←"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.HCF: _NF_HALF_FORWARD, _K.HCB: _NF_HALF_BACK}),
-        Style(key="emoji", name="Emoji moon", glyphs={_K.HCF: "🌙→", _K.HCB: "🌙←"}),
     ),
     Family.DRAGON: (
         Style(key="spelled", name="Spelled out"),
@@ -187,8 +183,6 @@ STYLES: dict[Family, tuple[Style, ...]] = {
         Style(key="kanji", name="Dragon 龍", glyphs=_beast("龍")),
         Style(key="simplified", name="Dragon 龙", glyphs=_beast("龙")),
         Style(key="japanese", name="Dragon 竜", glyphs=_beast("竜")),
-        Style(key="hieroglyph", name="Serpent 𓆈", glyphs=_beast("𓆈")),
-        Style(key="nerd", name="Nerd font", glyphs=_beast(_NF_DRAGON)),
         Style(key="emoji", name="Emoji dragon", glyphs=_beast("🐉")),
     ),
     Family.ROTATE: (
@@ -200,7 +194,6 @@ STYLES: dict[Family, tuple[Style, ...]] = {
             name="Nerd font",
             glyphs={_K.ROTATE_360: _NF_ROTATE, _K.ROTATE_720: f"{_NF_ROTATE} {_NF_ROTATE}"},
         ),
-        Style(key="emoji", name="Emoji cyclone", glyphs={_K.ROTATE_360: "🌀", _K.ROTATE_720: "🌀 🌀"}),
     ),
     Family.CHARGE: (
         Style(key="spelled", name="Spelled out"),
