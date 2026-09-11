@@ -148,10 +148,7 @@ STYLES: dict[Family, tuple[Style, ...]] = {
     ),
     Family.QUARTER: (
         Style(key="spelled", name="Spelled out"),
-        Style(key="elbow", name="Elbow arrows", glyphs={_K.QCF: "⮡", _K.QCB: "⮠"}),
-        Style(key="curved", name="Curved arrows", glyphs={_K.QCF: "⮩", _K.QCB: "⮨"}),
-        Style(key="ribbon", name="Ribbon arrows", glyphs={_K.QCF: "⮱", _K.QCB: "⮰"}),
-        Style(key="return", name="Return arrows", glyphs={_K.QCF: "⮑", _K.QCB: "⮐"}),
+        Style(key="elbow", name="Arrow with tip", glyphs={_K.QCF: "⬏", _K.QCB: "⬑"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.QCF: _NF_QUARTER_FORWARD, _K.QCB: _NF_QUARTER_BACK}),
         Style(key="emoji", name="Emoji fireball", glyphs={_K.QCF: "🔥→", _K.QCB: "🔥←"}),
     ),
