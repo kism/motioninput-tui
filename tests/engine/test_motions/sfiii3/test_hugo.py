@@ -15,6 +15,7 @@ to hand over every time.
 """
 
 from motioninput_tui.engine.motions import MotionKind
+from motioninput_tui.engine.recognizer import LiveMotion
 from tests.engine.test_motions.harness import BACK, DOWN, FORWARD, HP, LK, UP, Script, press, release
 
 
@@ -80,11 +81,19 @@ def test_the_live_readout_puts_the_circle_over_the_half_circle_inside_it(play) -
     Rolled as far as back, the half circle heads the list. Carried on to up, the
     360 takes over, and the half circle it passed through stays beneath it,
     beaten. Keep holding up and Hugo has jumped, so nothing grounded is left.
+
+    Each spans the directions it was made of, which is what lays it over them
+    in the input history: the 360 from forward round to up, the half circle
+    from forward to back, the quarter circle inside it from down.
     """
-    half = play(_rolled_circle(0)[:5]).session  # f, df, d, db, b
-    assert half.live_motions(170) == [MotionKind.HCB, MotionKind.QCB]
-    rolled = play(_rolled_circle(0)).session
-    assert rolled.live_motions(260) == [MotionKind.ROTATE_360, MotionKind.HCB, MotionKind.QCB]
+    half = play(_rolled_circle(0)[:5]).session  # f at 0, df, d at 80, db, b at 160
+    assert half.live_motions(170) == [LiveMotion(MotionKind.HCB, 0, 160), LiveMotion(MotionKind.QCB, 80, 160)]
+    rolled = play(_rolled_circle(0)).session  # ... ub at 200, u at 240
+    assert rolled.live_motions(260) == [
+        LiveMotion(MotionKind.ROTATE_360, 0, 240),
+        LiveMotion(MotionKind.HCB, 0, 160),
+        LiveMotion(MotionKind.QCB, 80, 160),
+    ]
     assert rolled.live_motions(320) == []
 
 

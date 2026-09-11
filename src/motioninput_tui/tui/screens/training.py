@@ -12,7 +12,7 @@ from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.engine.session import TrainingSession
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
 from motioninput_tui.terminal import detect
-from motioninput_tui.tui.widgets.input_strip import InputStrip
+from motioninput_tui.tui.widgets.input_strip import Bracket, InputStrip
 from motioninput_tui.tui.widgets.move_feed import MoveFeed
 from motioninput_tui.tui.widgets.movelist import MoveList
 from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from textual.timer import Timer
 
     from motioninput_tui.controls.layouts import ControlLayout
-    from motioninput_tui.engine.recognizer import Activation, RecognisableMove
+    from motioninput_tui.engine.recognizer import Activation, LiveMotion, RecognisableMove
     from motioninput_tui.games.models import Character, Game
     from motioninput_tui.notation_styles import Notation
 
@@ -70,8 +70,7 @@ class TrainingScreen(Screen):
     #pads { height: auto; display: none; border-top: solid $panel; }
     /* Level with the stick, three rows of three-line boxes. */
     #history { width: 1fr; height: 9; align-vertical: middle; }
-    #history InputStrip { height: 1; padding: 0 1; border-bottom: none; }
-    #motions { height: 1; padding: 0 1; }
+    #history InputStrip { height: auto; padding: 0 1; border-bottom: none; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
@@ -100,7 +99,7 @@ class TrainingScreen(Screen):
         self.lit_move: RecognisableMove | None = None
         self._latest: Activation | None = None
         self._unlight: Timer | None = None
-        self._motions_shown = ""
+        self._live_shown: list[LiveMotion] | None = None
 
     def compose(self) -> ComposeResult:
         """Banner, input strip, activation feed and the move list."""
@@ -120,8 +119,7 @@ class TrainingScreen(Screen):
             yield DirectionGate()
             yield ButtonPads()
             with Vertical(id="history"):
-                yield Static(id="motions")
-                yield InputStrip()
+                yield InputStrip(id="panel-strip")
         yield Footer()
 
     def on_mount(self) -> None:
@@ -171,23 +169,31 @@ class TrainingScreen(Screen):
     def _tick(self) -> None:
         if self.session.tick():
             self._refresh()
-        if self.movelist_mode == "full":
-            self._paint_motions()
+        else:
+            self._paint_history()
 
-    def _paint_motions(self) -> None:
-        """The motions a press now would complete: the winner, then what it beats, struck.
+    def _paint_history(self, *, force: bool = False) -> None:
+        """The panel's input history, with what a press now would complete drawn over it.
 
-        Painted from the tick, since a motion's window runs out with no input
-        to say so. Only the full-screen panel shows it, so only that pays.
+        Each motion is laid over the inputs that made it: the one a press would
+        give nearest them, the ones it would beat above, struck. Painted from
+        the tick as well, since a motion's window runs out with no input to say
+        so. Only the full-screen panel shows it, so only that pays.
         """
-        text = Text()
-        for index, kind in enumerate(self.session.live_motions()):
-            if index:
-                text.append("  ")
-            text.append(self.notation.write_kind(kind), style="dim strike" if index else "bold")
-        if text.plain != self._motions_shown:
-            self._motions_shown = text.plain
-            self.query_one("#motions", Static).update(text)
+        if self.movelist_mode != "full":
+            return
+        session = self.session
+        live = session.live_motions()
+        if live == self._live_shown and not force:
+            return
+        self._live_shown = live
+        brackets = [
+            Bracket(
+                self.notation.write_kind(motion.kind), "dim strike" if index else "bold", motion.start_ms, motion.end_ms
+            )
+            for index, motion in enumerate(live)
+        ]
+        self.query_one("#panel-strip", InputStrip).show(session.entries, session.direction, brackets[::-1])
 
     def on_key(self, event) -> None:  # ruff: ignore[missing-type-function-argument] - textual.events.Key
         """Feed every key press to the session before Textual sees it."""
@@ -214,8 +220,8 @@ class TrainingScreen(Screen):
 
     def _refresh(self) -> None:
         session = self.session
-        for strip in self.query(InputStrip):  # the left pane's, and the full-screen panel's
-            strip.show(session.entries, session.direction)
+        self.query_one("#strip", InputStrip).show(session.entries, session.direction)
+        self._paint_history(force=True)
         self.query_one(MoveFeed).show(session.activations, self.notation)
         self.query_one(DirectionGate).show(session.direction)
         self.query_one(ButtonPads).show(session.layout, session.held)
