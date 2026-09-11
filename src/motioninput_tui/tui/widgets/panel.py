@@ -7,6 +7,7 @@ of the corner of your eye while your hands are busy.
 
 from typing import TYPE_CHECKING
 
+from rich.cells import cell_len
 from rich.text import Text
 from textual.widgets import Static
 
@@ -81,19 +82,22 @@ class DirectionGate(Static):
     def show(self, direction: Direction, notation: Notation) -> None:
         """Light the cell being held, every cell labelled in the player's direction style.
 
-        A label leans the way its cell points, the left column's to the left
-        and the right column's to the right, so the two letters of ``DF`` sit
-        in a box three wide without reading as the middle one's.
+        A style with labels wider than one cell, as letters are, leans each the
+        way its cell points, the left column's to the left and the right
+        column's to the right, so the two letters of ``DF`` sit in a box three
+        wide without reading as the middle one's. One-wide labels stay centred.
         """
+        labels = [[notation.directions((cell,)) for cell in row] for row in GATE]
+        lean = any(cell_len(label) > 1 for row in labels for label in row)
         rows = (
             boxes(
                 [
-                    ((_lean(notation.directions((cell,)), column),), cell is direction)
-                    for column, cell in enumerate(row)
+                    ((_lean(label, column) if lean else label,), cell is direction)
+                    for column, (cell, label) in enumerate(zip(row, row_labels, strict=True))
                 ],
                 DIRECTION_WIDTH,
             )
-            for row in GATE
+            for row, row_labels in zip(GATE, labels, strict=True)
         )
         self.art = _stack(rows)
         self.update(self.art)

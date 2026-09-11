@@ -177,22 +177,24 @@ def test_the_status_bar_is_only_there_when_something_needs_saying(tmp_path: Path
     assert asyncio.run(session(key_release=True)) == (False, "")
 
 
-def test_the_stick_is_labelled_in_the_direction_style_leaning_the_way_it_points(config: Config) -> None:
-    """Letters are two wide in a box three wide, so each sits against the side it names."""
+def test_the_stick_is_labelled_in_the_direction_style_letters_leaning_the_way_they_point(config: Config) -> None:
+    """Letters are two wide in a box three wide, so each sits against the side it names; arrows stay centred."""
 
-    async def session() -> tuple[list[str], list[str]]:
+    async def session() -> tuple[list[str], list[str], list[str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             screen = app.screen
             assert isinstance(screen, InputDisplayScreen)
+            gate = screen.query_one(DirectionGate)
+            arrows = gate.art.plain.split("\n")
             screen.apply_notation(Notation({"directions": "letters"}))
             await pilot.press("k", "l")  # southpaw down, then forward: down-forward
             await pilot.pause()
-            gate = screen.query_one(DirectionGate)
-            return gate.art.plain.split("\n"), _lit(gate.art)
+            return arrows, gate.art.plain.split("\n"), _lit(gate.art)
 
-    lines, lit = asyncio.run(session())
+    arrows, lines, lit = asyncio.run(session())
+    assert "│ ↙ │ │ ↓ │ │ ↘ │" in arrows
     assert "│UB │ │ U │ │ UF│" in lines
     assert "│DB │ │ D │ │ DF│" in lines
     assert lit == ["DF"]
