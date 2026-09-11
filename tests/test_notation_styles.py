@@ -98,13 +98,14 @@ def test_a_glyph_replaces_the_directions() -> None:
     assert elbow.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬏ + P"
 
 
-def test_a_quarter_circle_ending_on_down_follows_the_quarter_circles() -> None:
-    """f, df, d is the same quarter of the circle run the other way round."""
-    quadrant = Notation({"quarter": "quadrant"})
-    assert quadrant.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "◶↓ + K"
-    assert quadrant.write(MotionSpec(kind=MotionKind.B_DB_D, buttons=ANY_KICK)) == "◵↓ + K"
-    elbow = Notation({"quarter": "elbow"})  # nothing for it, so spelled out
-    assert elbow.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "→ ↘ ↓ + K"
+def test_632_and_412_are_set_apart_from_the_quarter_circles() -> None:
+    """The same quarter of the circle run the other way round, which reads as a different motion."""
+    down = Notation({"quarter_down": "quadrant"})
+    assert down.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "◶↓ + K"
+    assert down.write(MotionSpec(kind=MotionKind.B_DB_D, buttons=ANY_KICK)) == "◵↓ + K"
+    assert down.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_KICK)) == "↓ ↘ → + K"
+    quarters = Notation({"quarter": "quadrant"})
+    assert quarters.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "→ ↘ ↓ + K"
 
 
 def test_a_compound_motion_follows_the_styles_of_its_parts() -> None:
@@ -186,5 +187,5 @@ def test_previewing_a_style_leaves_the_other_families_alone() -> None:
     """Only the family being previewed changes, so a row shows one decision."""
     picked = Notation({"dragon": "kanji"})
     quadrant = next(style for style in STYLES[Family.QUARTER] if style.key == "quadrant")
-    assert picked.preview(Family.QUARTER, quadrant) == "◶→   ◵←   ◶↓   ◵↓"
+    assert picked.preview(Family.QUARTER, quadrant) == "◶→   ◵←"
     assert picked.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "龍→ + P"

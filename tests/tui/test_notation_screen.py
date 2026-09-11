@@ -11,6 +11,7 @@ import pytest
 from textual.widgets import OptionList, Static
 
 from motioninput_tui.config import Config
+from motioninput_tui.notation_styles import FAMILY_NAMES, STYLES, Family
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.notation import NotationScreen
 from motioninput_tui.tui.screens.training import TrainingScreen
@@ -72,7 +73,10 @@ def test_picking_a_style_rewrites_the_move_list_and_is_saved(config: Config) -> 
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
             before = _movelist(trainer)
-            await _pick(pilot, family=3, style=3)  # dragon punches, Dragon 龍
+            # Looked up rather than counted, so a family added to the menu cannot move it.
+            dragon = list(FAMILY_NAMES).index(Family.DRAGON)
+            kanji = [style.key for style in STYLES[Family.DRAGON]].index("kanji")
+            await _pick(pilot, family=dragon, style=kanji)  # dragon punches, Dragon 龍
             await pilot.press("enter")  # done
             await pilot.pause()
             await pilot.pause()
