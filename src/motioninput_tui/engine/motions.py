@@ -578,32 +578,36 @@ def _match_rotation_cardinals(turns: int, buffer: InputBuffer, ruleset: Ruleset,
     ``jump_grace_ms``: the up the circle cannot do without is also a
     jump, so the button has to arrive while the jump is still starting.
 
+    A held cardinal is seen again every frame it is held, so the turn is timed
+    from the last moment the stalest of the four was held, not from when it
+    started: walking forward into a circle costs nothing.
+
     ponytail: the game's thirty-two frame budget is a free running bucket rather
     than a window opened by the player, so straddling its boundary fails a turn
-    that was quick enough. Modelled here as a budget that starts at the first
-    cardinal and restarts when it lapses, since the trainer has no frame clock
-    to share the game's phase and losing a good 360 to luck teaches nothing.
+    that was quick enough. Modelled here as the best window the player could
+    have had, since the trainer has no frame clock to share the game's phase and
+    losing a good 360 to luck teaches nothing.
     """
     window = ruleset.rotation_window_ms
     gap_ms = ruleset.rotation_cardinal_gap_ms
     states = buffer.directions_since(at_ms - window * turns)
-    collected: set[Direction] = set()
+    seen: dict[Direction, DirectionState] = {}  # The latest state of each cardinal.
     turns_done = 0
-    opened_ms = 0
     left_cardinal_ms: int | None = None
     for state in states:
         if state.direction not in _CARDINALS:
             continue
-        lapsed = left_cardinal_ms is not None and state.start_ms - left_cardinal_ms > gap_ms
-        if collected and (lapsed or state.start_ms - opened_ms > window):
-            collected = set()
-        if not collected:
-            opened_ms = state.start_ms
-        collected.add(state.direction)
+        if left_cardinal_ms is not None and state.start_ms - left_cardinal_ms > gap_ms:
+            seen = {}
+        seen[state.direction] = state
         left_cardinal_ms = state.end_ms if state.end_ms is not None else at_ms
-        if collected != _CARDINALS:
+        if len(seen) < len(_CARDINALS):
             continue
-        collected = set()
+        stalest_ms = min(at_ms if held.end_ms is None else held.end_ms for held in seen.values())
+        if state.start_ms - stalest_ms > window:
+            continue  # Too slow as it stands; a fresher cardinal may yet bring it inside.
+        opened_ms = min(held.start_ms for held in seen.values())
+        seen = {}
         if turns_done + 1 < turns:
             turns_done += 1
         elif not _jumped_away(states, opened_ms, ruleset.jump_grace_ms, at_ms):

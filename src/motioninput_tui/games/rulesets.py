@@ -150,9 +150,12 @@ SFIII3 = GameSpec(
         rotation_window_ms=533,  # `check_6` w_int: 32 frames, one turn.
         rotation_cardinal_gap_ms=233,  # Its free1: 14 frames without a cardinal wipes the set.
         # `check_special_attack` runs before `check_jump_ready` each frame and only while
-        # grounded, so the up a circle needs is a jump the frame after it is read. Four
-        # pre-jump frames is the estimate here - the tables say nothing about it.
-        jump_grace_ms=67,
+        # grounded, so the up a circle needs is a jump the frame after it is read. The
+        # tables say nothing about how long pre-jump lasts, so this is Hugo in the
+        # game's training mode: a button six frames after the up-back is still a
+        # Moonsault Press, nine frames on he has jumped. Seven, as seven and eight
+        # are unmeasured.
+        jump_grace_ms=117,
         rotation_slack=2,  # Unread while the rule above is in force.
     ),
     notes=(

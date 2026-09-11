@@ -5,7 +5,7 @@ project rather than estimated from play or from a guide. This page is how to
 check them, and what the game turned out to do that the trainer had wrong.
 
 Two are not from the decomp and are marked where they appear: `jump_grace_ms`,
-which is a pre-jump estimate, and `super_freeze_ms`, which is the activation
+which is pre-jump measured in the game's training mode, and `super_freeze_ms`, which is the activation
 cinematic counted off in MAME (~50 frames) because it is an animation length
 rather than an input rule and does not live in the command tables.
 
@@ -72,7 +72,7 @@ At 60fps. Every one of these is uniform across the roster unless noted.
 | Charge release to direction | 10 | 167 | the step after it |
 | 360 | 32 | 533 | `check_6` `w_int` |
 | 360, gap between cardinals | 14 | 233 | `check_6` `free1` |
-| 360, up to button before the jump | 4 | 67 | pre-jump, **estimated** |
+| 360, up to button before the jump | 7 | 117 | pre-jump, **measured**, Hugo |
 | Mash, presses needed, of one button | - | - | 5, `check_4` |
 | Mash, window those presses fall in | 99 | 1650 | `check_4` `w_int` |
 | Dash, gap between taps | 6 | 100 | `pc_cmd_00` |
@@ -125,7 +125,9 @@ One simplification, marked in the source: the game's 32-frame budget is a
 free-running bucket rather than a window the player opens, so a turn quick
 enough can still fail by straddling a boundary. The trainer has no frame clock
 sharing the game's phase, and losing a good 360 to luck teaches nothing, so the
-budget starts at the first cardinal instead.
+budget is the best window the player could have had. A held cardinal is re-set
+every frame, so it is timed from the last moment it was held: walking forward
+into a circle costs nothing.
 
 **What actually makes a 360 hard is that up is a jump.** The command tables have
 nothing to say here - the four rotation commands set `w_dead` to zero, so the
@@ -141,7 +143,10 @@ Pre-jump keeps `check_special_attack` alive - `nm_16000`, the jump-ready
 routine, calls it too - which is why a 360 comes out at all from standing. Its
 length is the one figure here that is *not* read off the game: it lives in
 per-character animation data the decomp does not carry, so `jump_grace_ms` is
-set from four pre-jump frames and is a knob to turn if that proves wrong. Before
+measured instead, on Hugo in training mode: the button six frames after the
+up-back is still a Moonsault Press, and nine frames on he has jumped. It is set
+to seven, since seven and eight are unmeasured. An earlier guess of four frames
+was well short of that. Before
 this the trainer gave a leisurely roll round the gate a Moonsault Press every
 time, which is the single biggest reason a 360 felt free here and rare in the
 arcade.

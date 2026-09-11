@@ -61,6 +61,24 @@ ALMOST_A_CIRCLE: Script = [
     press(HP, 240),
 ]
 
+
+def _frames(count: int) -> int:
+    return round(count * 1000 / 60)
+
+
+# Measured in the game's training mode, counting from the up-back the roll reaches
+# at 200. Up-back five frames, up one, then the button: a Moonsault Press.
+PRESSED_ON_FRAME_SIX: Script = [*_rolled_circle(0)[:6], release(BACK, 200 + _frames(5)), press(HP, 200 + _frames(6))]
+
+# Up-back six, up two, neutral one, then up with the button: Hugo has jumped.
+PRESSED_ON_FRAME_NINE: Script = [
+    *_rolled_circle(0)[:6],
+    release(BACK, 200 + _frames(6)),
+    release(UP, 200 + _frames(8)),
+    press(UP, 200 + _frames(9)),
+    press(HP, 200 + _frames(9)),
+]
+
 # Two revolutions without a break, for the super.
 DOUBLE_CIRCLE: Script = [
     *_rolled_circle(0),
@@ -114,9 +132,8 @@ def test_the_trail_keeps_the_circle_that_came_out_and_what_it_beat(play) -> None
 
 
 def test_a_circle_pressed_too_late_stays_on_the_trail_as_missed(play) -> None:
-    """The same roll as `test_finishing_the_circle_and_then_pressing_is_a_jump`: all of it goes unanswered."""
-    dawdled: Script = [*_rolled_circle(0), press(HP, 300), release(UP, 340)]
-    trail = play(dawdled).session.trail
+    """The same roll as `test_pressing_nine_frames_after_the_up_back_is_a_jump`: all of it goes unanswered."""
+    trail = play(PRESSED_ON_FRAME_NINE).session.trail
     assert [(motion.kind, motion.outcome) for motion in trail] == [
         (MotionKind.HCB, Outcome.MISSED),
         (MotionKind.QCB, Outcome.MISSED),
@@ -138,6 +155,12 @@ def test_tapping_the_four_keys_quickly_is_the_moonsault_press(play) -> None:
     produces the down-back in the middle.
     """
     assert play(TAPPED_CIRCLE).moves == ["Moonsault Press"]
+
+
+def test_walking_forward_into_the_circle_is_the_moonsault_press(play) -> None:
+    """Forward held long before the roll still counts: `check_6` re-sets its bit every frame it is held."""
+    walked: Script = [press(FORWARD, 0), *_rolled_circle(600)[1:], press(HP, 860), release(UP, 920)]
+    assert play(walked).moves == ["Moonsault Press"]
 
 
 def test_tapping_the_four_keys_slowly_is_nothing(play) -> None:
@@ -179,21 +202,24 @@ def test_one_revolution_is_not_the_gigas_breaker(play) -> None:
     assert "Gigas Breaker" not in play(ROLLED_CIRCLE, super_art="I").moves
 
 
-def test_finishing_the_circle_and_then_pressing_is_a_jump(play) -> None:
-    """The same roll with the button a few frames later than `ROLLED_CIRCLE`.
+def test_pressing_six_frames_after_the_up_back_is_the_moonsault_press(play) -> None:
+    """Hugo's pre-jump is still on the ground, and still reading specials."""
+    assert play(PRESSED_ON_FRAME_SIX).moves == ["Moonsault Press"]
 
-    The circle is complete and quick enough, and the game still gives nothing:
+
+def test_pressing_nine_frames_after_the_up_back_is_a_jump(play) -> None:
+    """The circle is complete and quick enough, and the game still gives nothing.
+
     `check_special_attack` runs before `check_jump_ready` and only while Hugo is
-    on the ground, so the up-back at 200 starts a jump that the button at 300 is
-    far too late for. This is the difference between a 360 that lands every time
-    in a trainer and one that lands half the time in the arcade.
+    on the ground, so the up-back at 200 starts a jump that the button nine
+    frames later is too late for. This is the difference between a 360 that
+    lands every time in a trainer and one that lands half the time in the arcade.
 
     Nothing means nothing. The quarter circle back inside the roll must not pay
     out a Giant Palm Bomber as a consolation prize either - Hugo is in the air,
     and the air is not where any of this happens.
     """
-    dawdled: Script = [*_rolled_circle(0), press(HP, 300), release(UP, 340)]
-    assert play(dawdled).moves == []
+    assert play(PRESSED_ON_FRAME_NINE).moves == []
 
 
 def test_a_half_circle_that_overshoots_to_up_back_is_a_jump(play) -> None:
@@ -210,8 +236,8 @@ def test_a_half_circle_that_overshoots_to_up_back_is_a_jump(play) -> None:
         release(FORWARD, 100),
         press(BACK, 140),
         release(DOWN, 180),
-        press(UP, 220),  # up-back, since back is still held: the jump starts here
-        press(LK, 300),
+        press(UP, 190),  # up-back, since back is still held: the jump starts here
+        press(LK, 340),
     ]
     assert play(overshot).moves == []
 
@@ -224,6 +250,6 @@ def test_the_same_half_circle_stopping_at_back_is_the_ultra_throw(play) -> None:
         release(FORWARD, 100),
         press(BACK, 140),
         release(DOWN, 180),
-        press(LK, 220),
+        press(LK, 340),
     ]
     assert play(clean).moves == ["Ultra Throw"]
