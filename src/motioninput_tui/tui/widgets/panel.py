@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.engine.notation import Button
+    from motioninput_tui.notation_styles import Notation
 
 LIT = "bold black on green"
 IDLE = "dim"
@@ -77,10 +78,34 @@ class DirectionGate(Static):
         super().__init__()
         self.art = Text()
 
-    def show(self, direction: Direction) -> None:
-        """Light the cell being held."""
-        self.art = _stack(boxes([((cell.glyph,), cell is direction) for cell in row], DIRECTION_WIDTH) for row in GATE)
+    def show(self, direction: Direction, notation: Notation) -> None:
+        """Light the cell being held, every cell labelled in the player's direction style.
+
+        A label leans the way its cell points, the left column's to the left
+        and the right column's to the right, so the two letters of ``DF`` sit
+        in a box three wide without reading as the middle one's.
+        """
+        rows = (
+            boxes(
+                [
+                    ((_lean(notation.directions((cell,)), column),), cell is direction)
+                    for column, cell in enumerate(row)
+                ],
+                DIRECTION_WIDTH,
+            )
+            for row in GATE
+        )
+        self.art = _stack(rows)
         self.update(self.art)
+
+
+def _lean(label: str, column: int) -> str:
+    """``label`` pushed to the side of its box that the column points at; the middle one stays centred."""
+    if column == 0:
+        return label.ljust(DIRECTION_WIDTH)
+    if column == len(GATE[0]) - 1:
+        return label.rjust(DIRECTION_WIDTH)
+    return label
 
 
 class ButtonPads(Static):

@@ -225,7 +225,7 @@ class TrainingScreen(Screen):
         self.query_one("#strip", InputStrip).show(session.entries, session.direction)
         self._paint_history()
         self.query_one(MoveFeed).show(session.activations, self.notation)
-        self.query_one(DirectionGate).show(session.direction)
+        self.query_one(DirectionGate).show(session.direction, self.notation)
         self.query_one(ButtonPads).show(session.layout, session.held)
         latest = session.activations[0] if session.activations else None
         if latest is not self._latest:

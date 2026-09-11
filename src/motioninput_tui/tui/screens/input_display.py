@@ -238,7 +238,7 @@ class InputDisplayScreen(Screen):
     def _refresh(self) -> None:
         session = self.session
         direction = session.direction
-        self.query_one(DirectionGate).show(direction)
+        self.query_one(DirectionGate).show(direction, self.notation)
         self.query_one(ButtonPads).show(session.layout, session.held)
         brackets = trail_brackets(session.trail, self.written_in)
         self.query_one(InputStrip).show(session.entries, direction, brackets, bracket_rows=MOTION_ROWS)

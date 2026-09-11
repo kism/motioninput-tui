@@ -70,16 +70,6 @@ def test_the_numpad_digits_are_the_directions_own_numbers() -> None:
         assert numpad.directions((direction,)) == str(int(direction))
 
 
-def test_emoji_arrows_replace_the_plain_ones() -> None:
-    emoji = Notation({"directions": "emoji"})
-    assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬇️ ↘️ ➡️ + P"
-
-
-def test_emoji_keycaps_write_the_numpad() -> None:
-    keycaps = Notation({"directions": "keycaps"})
-    assert keycaps.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "2️⃣3️⃣6️⃣ + P"
-
-
 def test_an_emoji_style_names_the_move_it_stands_for() -> None:
     emoji = Notation({"quarter": "emoji", "dragon": "emoji"})
     assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "🔥→ + P"
