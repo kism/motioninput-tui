@@ -21,6 +21,8 @@ from motioninput_tui.controls.layouts import (
     resolve_keyboard_bindings,
 )
 
+from .base import AppScreen
+
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
@@ -31,7 +33,7 @@ _SLOT_LABELS = {"left": "back", "down": "down", "right": "forward", "up": "up"}
 """The movement axes read as fighting-game directions in the list."""
 
 
-class KeyboardBindScreen(ModalScreen["dict[str, str] | None"]):
+class KeyboardBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[str, str] | None"]):
     """Pick a slot, press a key, done."""
 
     BINDINGS: ClassVar = [
@@ -40,9 +42,6 @@ class KeyboardBindScreen(ModalScreen["dict[str, str] | None"]):
         Binding("escape", "close", "Done"),
         Binding("enter", "close", "Done", priority=True, show=False),
         Binding("r", "reset", "Defaults"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """

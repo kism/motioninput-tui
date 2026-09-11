@@ -48,20 +48,13 @@ class Ruleset:
         half_circle_three_points: Whether a half circle is checked at three
             points only - the start, any down, and the end - rather than at all
             five, so that it reads as ``b, (d|db|df), f`` with the diagonals
-            never named. It subsumes ``lenient_half_circles``, since the single
-            down step already accepts a diagonal.
+            never named. Otherwise the down has to be hit, which a keyboard's
+            neutral SOCD makes of adding forward to down-back.
         double_motion_drops_tail: Whether the second half of a doubled motion
             stops one step short, the button standing in for the direction that
             would have ended it - ``qcf,qcf`` read as ``d, df, f, d, df``, which
             is why a super can come out of a hitbox that never reaches the last
             forward.
-        lenient_half_circles: Whether the down of a half circle may be db or df
-            rather than straight down, so b,db,df,f counts as one. Adding
-            forward while back is still held goes straight to df, so an
-            ordinary hitbox half circle never touches down at all. Unlike the
-            rest of this class it is the player's choice rather than the game's:
-            :mod:`motioninput_tui.settings` folds it in on top of the game's
-            own rules.
         charge_ms: How long a charge direction must be held.
         charge_reset_ms: How much time off the charge direction the game will
             forgive before the charge so far is forgotten. Non-zero makes the
@@ -141,7 +134,6 @@ class Ruleset:
     lenient_diagonals: bool = False
     half_circle_three_points: bool = False
     double_motion_drops_tail: bool = False
-    lenient_half_circles: bool = True
     charge_ms: int = 900
     charge_reset_ms: int = 0
     charge_release_ms: int = 200

@@ -95,9 +95,7 @@ class TrainingSession:
         ``exact_input`` says the terminal reports key releases, so holds are
         tracked exactly from the first keystroke rather than after the first
         release has proved it. ``policy`` decides whether the inputs that
-        produced a move are spent. The game's rules are taken as they come:
-        the player's settings are folded into them beforehand by
-        :func:`motioninput_tui.settings.tuned_game`.
+        produced a move are spent.
         """
         self.game = game
         self.character = character
@@ -346,16 +344,11 @@ class TrainingSession:
         self.source.layout = layout
         self.reset()
 
-    def retune(self, game: Game, policy: BufferPolicy) -> None:
-        """Take changed rules mid-session, without losing the session.
+    def retune(self, policy: BufferPolicy) -> None:
+        """Take a changed buffer policy mid-session, without losing the session.
 
-        The buffer goes with them: what is in it was read under the old rules,
-        and a half circle that has just stopped counting as one should not be
-        left sitting there ready to come out.
+        The buffer goes with it: what is in it was kept, or spent, under the old one.
         """
-        self.game = game
-        self.ruleset = game.ruleset
-        self.recognizer.ruleset = game.ruleset
         self.recognizer.policy = policy
         self.buffer.clear()
         self.recognizer.reset()

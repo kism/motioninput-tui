@@ -120,7 +120,7 @@ def test_the_live_panel_and_the_status_span_the_screen_whatever_the_move_list_is
     assert asyncio.run(session()) == [(120, 120)] * len(MOVELIST_MODES)
 
 
-def test_ctrl_p_hides_the_stick_and_the_buttons_and_gives_the_history_their_room(config: Config) -> None:
+def test_ctrl_k_hides_the_stick_and_the_buttons_and_gives_the_history_their_room(config: Config) -> None:
     async def session() -> list[tuple[bool, int]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(120, 40)) as pilot:
@@ -130,7 +130,7 @@ def test_ctrl_p_hides_the_stick_and_the_buttons_and_gives_the_history_their_room
             seen = []
             for _ in range(3):
                 seen.append((trainer.query_one(DirectionGate).display, trainer.query_one("#strip").region.width))
-                await pilot.press("ctrl+p")
+                await pilot.press("ctrl+k")
                 await pilot.pause()
             return seen
 

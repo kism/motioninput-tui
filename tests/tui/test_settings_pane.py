@@ -56,24 +56,26 @@ def test_toggling_a_setting_saves_it(config: Config) -> None:
             setup = await _open_setup(pilot)
             settings = setup.query_one(SettingsList)
             assert settings.has_focus
-            assert settings.highlighted == _row("lenient_half_circles") == 0
+            assert settings.highlighted == _row("neo_geo_slant") == 0
             await pilot.press("space")
             await pilot.pause()
 
     asyncio.run(session())
-    assert config.lenient_half_circles is True
+    assert config.neo_geo_slant is True
     assert config.path is not None
-    assert '"lenient_half_circles": true' in config.path.read_text()
+    assert '"neo_geo_slant": true' in config.path.read_text()
 
 
 def test_the_trainer_starts_with_the_setting_applied(config: Config) -> None:
-    """Turning the relaxation on has to reach the recogniser, not just the file."""
+    """Turning the loose buffer on has to reach the recogniser, not just the file."""
 
-    async def session() -> bool:
+    async def session() -> BufferPolicy:
         app = MotionInputApp(config, key_release=False)
         async with app.run_test() as pilot:
             setup = await _open_setup(pilot)
-            await pilot.press("space")  # relaxed half circles on
+            setup.query_one(SettingsList).highlighted = _row("loose_buffer")
+            await pilot.pause()
+            await pilot.press("space")  # loose buffer on
             await pilot.pause()
             setup.query_one("#characters", OptionList).focus()
             await pilot.pause()
@@ -81,15 +83,15 @@ def test_the_trainer_starts_with_the_setting_applied(config: Config) -> None:
             await pilot.pause()
             await pilot.pause()
             assert isinstance(app.screen, TrainingScreen)
-            return app.screen.session.ruleset.lenient_half_circles
+            return app.screen.session.policy
 
-    assert asyncio.run(session()) is True
+    assert asyncio.run(session()) is BufferPolicy.LOOSE
 
 
 def test_a_saved_setting_comes_back_on(tmp_path: Path) -> None:
     """The pane opens on what was saved, so the toggle is not one way."""
     path = tmp_path / "config.json"
-    Config(lenient_half_circles=True, path=path).save()
+    Config(neo_geo_slant=True, path=path).save()
     reloaded = Config.load(path)
 
     async def session() -> str:
@@ -118,35 +120,7 @@ def test_ctrl_b_opens_the_settings_over_the_trainer(config: Config) -> None:
 
 
 def test_a_setting_toggled_over_the_trainer_applies_to_the_session(config: Config) -> None:
-    """The session in progress takes the new rules, rather than the next one."""
-
-    async def session() -> tuple[bool, bool]:
-        app = MotionInputApp(config, key_release=False, skip_setup=True)
-        async with app.run_test() as pilot:
-            await pilot.pause()
-            trainer = app.screen
-            assert isinstance(trainer, TrainingScreen)
-            before = trainer.session.ruleset.lenient_half_circles
-
-            await pilot.press("ctrl+b")
-            await pilot.pause()
-            await pilot.pause()
-            assert isinstance(app.screen, SettingsScreen)
-            assert app.screen.query_one(SettingsList).highlighted == 0  # relaxed half circles
-            await pilot.press("space")
-            await pilot.pause()
-            await pilot.press("escape")
-            await pilot.pause()
-            await pilot.pause()
-            return before, trainer.session.ruleset.lenient_half_circles
-
-    before, after = asyncio.run(session())
-    assert (before, after) == (False, True)
-    assert config.lenient_half_circles is True
-
-
-def test_the_buffer_rule_still_toggles_from_there(config: Config) -> None:
-    """It was ctrl+b's only job before, so it has to still be reachable."""
+    """The session in progress takes the loose buffer, rather than the next one."""
 
     async def session() -> BufferPolicy:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
@@ -184,7 +158,7 @@ def test_enter_starts_training_rather_than_toggling(config: Config) -> None:
             return type(app.screen).__name__
 
     assert asyncio.run(session()) == "TrainingScreen"
-    assert config.lenient_half_circles is False  # left alone
+    assert config.neo_geo_slant is False  # left alone
 
 
 def test_enter_closes_the_settings_modal(config: Config) -> None:
@@ -204,4 +178,4 @@ def test_enter_closes_the_settings_modal(config: Config) -> None:
             return type(app.screen).__name__
 
     assert asyncio.run(session()) == "TrainingScreen"
-    assert config.lenient_half_circles is False  # not flipped on the way out
+    assert config.neo_geo_slant is False  # not flipped on the way out

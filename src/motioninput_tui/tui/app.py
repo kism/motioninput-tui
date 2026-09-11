@@ -20,7 +20,6 @@ from motioninput_tui.controls.layouts import (
 from motioninput_tui.games.loader import INPUT_DISPLAY, load_game
 from motioninput_tui.notation_styles import Notation
 from motioninput_tui.settings import current as current_settings
-from motioninput_tui.settings import tuned_game
 from motioninput_tui.utils.logger import get_logger
 
 from .keyboard_driver import KeyRelease, ReleaseAwareDriver
@@ -57,9 +56,6 @@ class MotionInputApp(App[None]):
     """
 
     TITLE = PROGRAM_NAME_WITH_VERSION
-    # Textual's palette takes ctrl+p with priority over every screen, and ctrl+p
-    # is the training screens' live input toggle.
-    COMMAND_PALETTE_BINDING = "ctrl+k"
     CSS = """
     Screen { background: $surface; }
     """
@@ -147,7 +143,7 @@ class MotionInputApp(App[None]):
         self._remember(**event.values)
         for screen in self.screen_stack:
             if isinstance(screen, TrainingScreen | InputDisplayScreen):
-                screen.apply_settings(tuned_game(screen.session.game, self.config), self.config.buffer_policy)
+                screen.apply_settings(self.config.buffer_policy)
             if isinstance(screen, InputDisplayScreen):  # the Neo Geo slant rearranges the panel it draws
                 screen.apply_panel(*self._panel_for(screen.session.game, screen.session.layout.key))
 
@@ -223,7 +219,7 @@ class MotionInputApp(App[None]):
         return layout, buttons
 
     def _start(self, game_key: str, character_key: str, layout_key: str) -> None:
-        game = tuned_game(load_game(game_key), self.config)
+        game = load_game(game_key)
         character = game.character(character_key)
         layout, buttons = self._panel_for(game, layout_key)
         self._remember(game=game.key, character=character.key, layout=layout.key)

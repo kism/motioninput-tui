@@ -162,14 +162,8 @@ def test_ctrl_l_steps_through_spelled_out_and_shorthand(config: Config) -> None:
 
 
 def test_the_status_bar_is_only_there_when_something_needs_saying(tmp_path: Path) -> None:
-    """Inferred holds are worth a warning; exact input with strict half circles leaves nothing to say."""
-    config = Config(
-        game="sfiii3",
-        character=INPUT_DISPLAY,
-        layout="keyboard-right",
-        lenient_half_circles=False,
-        path=tmp_path / "config.json",
-    )
+    """Inferred holds are worth a warning; exact input leaves nothing to say."""
+    config = Config(game="sfiii3", character=INPUT_DISPLAY, layout="keyboard-right", path=tmp_path / "config.json")
 
     async def session(*, key_release: bool) -> tuple[bool, str]:
         app = MotionInputApp(config, key_release=key_release, skip_setup=True)
@@ -207,7 +201,7 @@ def test_the_stick_is_labelled_in_the_direction_style_letters_leaning_the_way_th
     assert lit == ["DF"]
 
 
-def test_ctrl_p_hides_the_stick_and_the_buttons_and_brings_them_back(config: Config) -> None:
+def test_ctrl_k_hides_the_stick_and_the_buttons_and_brings_them_back(config: Config) -> None:
     async def session() -> list[bool]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(100, 30)) as pilot:
@@ -217,7 +211,7 @@ def test_ctrl_p_hides_the_stick_and_the_buttons_and_brings_them_back(config: Con
             seen = []
             for _ in range(3):
                 seen.append(screen.query_one(ButtonPads).display)
-                await pilot.press("ctrl+p")
+                await pilot.press("ctrl+k")
                 await pilot.pause()
             return seen
 

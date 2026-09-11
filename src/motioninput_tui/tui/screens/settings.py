@@ -1,9 +1,8 @@
 """The settings as a modal, for changing them without leaving a session.
 
-The same settings as the setup screen's pane, on the same widget, so the buffer
-rule and the half circle rule are in one place rather than one being a hotkey
-and the other a screen. The app applies whatever comes back to the session
-already running.
+The same settings as the setup screen's pane, on the same widget, so every
+setting is in one place rather than one being a hotkey and the rest a screen.
+The app applies whatever comes back to the session already running.
 """
 
 from typing import TYPE_CHECKING, ClassVar, override
@@ -16,22 +15,21 @@ from textual.widgets import Footer, Label, OptionList
 
 from motioninput_tui.tui.widgets.settings_list import SettingsList
 
+from .base import AppScreen
+
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
     from textual.app import ComposeResult
 
 
-class SettingsScreen(ModalScreen[None]):
+class SettingsScreen(AppScreen[None], ModalScreen[None]):
     """Toggle settings over whatever is underneath, then escape out."""
 
     BINDINGS: ClassVar = [
         Binding("escape,ctrl+b", "close", "Done"),
         # Space flips a setting, so enter has nothing else to mean here.
         Binding("enter", "close", "Done", priority=True, show=False),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """

@@ -166,9 +166,8 @@ QUARTER_CIRCLE_FORWARD_HP: Script = [
 
 # Back, then add down, then swap back for forward in one go, so down-forward
 # follows down-back and a plain down never appears. (Adding forward with back
-# still held would give down: a keyboard's SOCD is neutral.) This is an ordinary
-# hitbox half circle, and whether it counts as one is the player's "relaxed
-# half circles" setting rather than anything the games disagree on.
+# still held would give down: a keyboard's SOCD is neutral.) 3rd Strike reads a
+# half circle at three points, so any down will do there; elsewhere this misses.
 HALF_CIRCLE_SKIPPING_DOWN_MK: Script = [
     press(BACK, 0),
     press(DOWN, 60),

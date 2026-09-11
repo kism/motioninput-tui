@@ -27,8 +27,6 @@ class StatusBar(Static):
             notes.append(f"inferred holds, {session.hold_window_ms}ms window")
         if session.policy is BufferPolicy.LOOSE:
             notes.append("loose buffer: inputs are reused between moves")
-        if session.ruleset.lenient_half_circles:
-            notes.append("relaxed half circles")
         lines = ["   ".join(notes)] if notes else []
         if session.keyboard_advice:
             lines.append(f"⚠ {session.keyboard_advice}")

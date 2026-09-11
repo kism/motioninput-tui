@@ -133,13 +133,11 @@ is set there too, since the character list has no options until then.
 device's timings. Each one is a `Setting` naming a **boolean attribute of
 `Config`**, which is what lets the settings pane read and write them by name
 without knowing what any of them mean; `buffer_policy` is an enum, so
-`Config.loose_buffer` bridges it. `tuned_game` folds the ones that change
-matching into the game's ruleset, so everything downstream still just reads
-`game.ruleset` and nothing else has to know the player has a say in it.
+`Config.loose_buffer` bridges it. None of them changes how a game's inputs are
+matched: that is the game's `Ruleset`.
 
 Adding one: a boolean field on `Config` (loaded through `_valid_flag`, saved in
-`save`), an entry in `SETTINGS`, and, if it changes matching, a `Ruleset` field
-plus a line in `tuned_game`. Nothing in the interface needs touching.
+`save`) and an entry in `SETTINGS`. Nothing in the interface needs touching.
 
 ### Move notation
 
@@ -176,8 +174,8 @@ copy.
 `tui/widgets/settings_list.py` is the toggles themselves, shared by the setup
 screen's pane and the trainer's `ctrl+b` modal. It posts `SettingsList.Changed`,
 which bubbles past both to `MotionInputApp.on_settings_list_changed`: that saves
-it and, if a session is running, calls `TrainingScreen.apply_settings` so the
-change lands mid-session rather than at the next one.
+it and, if a session is running, hands the buffer policy to its
+`apply_settings` so the change lands mid-session rather than at the next one.
 
 Space toggles, not enter: enter belongs to the screen the list sits on (start
 training, or close the modal), so both hosts bind it with `priority=True` and
@@ -323,8 +321,6 @@ too slow to land.
 * `controls/layouts.py` `HoldTiming` — **device** behaviour. Nothing to do with
   which game is selected.
 * `settings.py` — the **player's** choice, whichever game is selected.
-  `lenient_half_circles` lives on `Ruleset` because that is what the matchers
-  read, but its value comes from the player, not the game.
 
 ### Spending inputs
 

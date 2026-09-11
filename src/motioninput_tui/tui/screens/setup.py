@@ -11,11 +11,12 @@ from typing import TYPE_CHECKING, ClassVar
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
-from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
 from motioninput_tui.games.loader import INPUT_DISPLAY, available_games
 from motioninput_tui.tui.widgets.settings_list import SettingsList
+
+from .base import AppScreen
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -25,16 +26,13 @@ if TYPE_CHECKING:
     from motioninput_tui.games.models import Character, Game
 
 
-class SetupScreen(Screen["tuple[str, str] | None"]):
+class SetupScreen(AppScreen["tuple[str, str] | None"]):
     """Choose what to train. Dismisses with (game, character), or None to go back."""
 
     BINDINGS: ClassVar = [
-        Binding("enter", "select", "Start training", priority=True),
         Binding("escape", "back", "Change input"),
+        Binding("enter", "select", "Start training", priority=True),
         Binding("ctrl+n", "app.notation", "Notation"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """

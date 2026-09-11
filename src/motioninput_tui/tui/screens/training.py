@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING, ClassVar
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
-from textual.screen import Screen
 from textual.widgets import Footer, Static
 
 from motioninput_tui.engine.recognizer import BufferPolicy
@@ -17,6 +16,8 @@ from motioninput_tui.tui.widgets.move_feed import MoveFeed, append_follow_up
 from motioninput_tui.tui.widgets.movelist import MoveList
 from motioninput_tui.tui.widgets.panel import LIT_S, ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
+
+from .base import SessionScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -33,7 +34,7 @@ MOVELIST_MODES = ("beside", "full", "hidden")
 """What ctrl+l steps through, starting from the first."""
 
 
-class TrainingScreen(Screen):
+class TrainingScreen(SessionScreen):
     """Reads raw key presses and renders what the engine made of them.
 
     The notation the move list and the feed are written in is set with
@@ -44,18 +45,10 @@ class TrainingScreen(Screen):
     notation: Notation
 
     BINDINGS: ClassVar = [
-        Binding("escape", "back", "Change character"),
         # Priority, or Textual moves focus to the move list instead. Only shown
         # for a game with Super Arts; see check_action.
         Binding("tab", "next_super_art", "Super art", priority=True),
-        Binding("ctrl+r", "reset", "Reset buffer"),
         Binding("ctrl+l", "cycle_movelist", "Move list"),
-        Binding("ctrl+p", "toggle_panel", "Live input"),
-        Binding("ctrl+b", "app.settings", "Settings"),
-        Binding("ctrl+n", "app.notation", "Notation"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """
@@ -82,11 +75,7 @@ class TrainingScreen(Screen):
         exact_input: bool = False,
         policy: BufferPolicy = BufferPolicy.CONSUME,
     ) -> None:
-        """Start a session for this game, character and layout.
-
-        The game's rules arrive already tuned to the player's settings; see
-        :func:`motioninput_tui.settings.tuned_game`.
-        """
+        """Start a session for this game, character and layout."""
         super().__init__()
         self.session = TrainingSession(game, character, layout, exact_input=exact_input, policy=policy)
         self.terminal = detect()
@@ -223,9 +212,9 @@ class TrainingScreen(Screen):
             self._paint_movelist()
             self._refresh()
 
-    def apply_settings(self, game: Game, policy: BufferPolicy) -> None:
-        """Take rules the player changed mid-session, from the settings modal."""
-        self.session.retune(game, policy)
+    def apply_settings(self, policy: BufferPolicy) -> None:
+        """Take a buffer policy the player changed mid-session, from the settings modal."""
+        self.session.retune(policy)
         self._refresh()
 
     def check_action(self, action: str, parameters: tuple[object, ...]) -> bool | None:
@@ -265,11 +254,3 @@ class TrainingScreen(Screen):
         self.set_class(self.movelist_mode == "full", "-movelist-full")
         self.set_class(self.movelist_mode == "hidden", "-movelist-hidden")
         self._paint_movelist()
-
-    def action_toggle_panel(self) -> None:
-        """Show or hide the stick and the buttons beside the history."""
-        self.query_one(LivePanel).toggle()
-
-    def action_back(self) -> None:
-        """Return to the setup screen."""
-        self.dismiss(None)

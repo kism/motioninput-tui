@@ -44,9 +44,7 @@ Three kinds of tuning constant sit in adjacent modules and are easy to confuse:
   `dp_double_tap`. Per game.
 * `controls/layouts.py` `HoldTiming` holds **device** behaviour. It has nothing
   to do with which game is selected.
-* `settings.py` holds the **player's** own choices, layered on top of whichever
-  game is selected — `lenient_half_circles` lives on `Ruleset` because that is
-  what the matchers read, but its value comes from the player, not the game.
+* `settings.py` holds the **player's** own choices, whichever game is selected.
 
 `decay_ms` bridges the two input models: how long the device takes to reveal
 that a direction was released. Zero when the terminal reports releases,

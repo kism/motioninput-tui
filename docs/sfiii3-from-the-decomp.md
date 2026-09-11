@@ -104,10 +104,8 @@ not looser.
 
 **Half circles are read at three points.** `f, (d|db|df), b` - the diagonals are
 never named and the middle step is an OR-mask, so any down will do. Eleven
-tables use this shape against four that spell all four directions out. This is
-looser than the trainer's "relaxed half circles" setting, and it is the game's
-own behaviour rather than the player's choice, which is why that setting now
-does nothing in Third Strike.
+tables use this shape against four that spell all four directions out. It is
+why a half circle that skips straight down counts here and nowhere else.
 
 **A super's second quarter circle stops early.** `qcf,qcf` is `d, df, f, d, df`
 - the button lands in place of the forward that would have ended it. Sixty of

@@ -14,7 +14,6 @@ from rich.table import Table
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import VerticalScroll
-from textual.screen import Screen
 from textual.widgets import Footer, Static
 
 from motioninput_tui.engine.motions import MotionKind
@@ -26,6 +25,8 @@ from motioninput_tui.notation_styles import MOTION_NAMES, MOTION_SHORTHANDS
 from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.panel import LIT, LIT_S, ButtonPads, DirectionGate, LivePanel
 from motioninput_tui.tui.widgets.status_bar import StatusBar
+
+from .base import SessionScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
@@ -64,22 +65,12 @@ WRITINGS = (
 """What ctrl+l steps through, starting from the first."""
 
 
-class InputDisplayScreen(Screen):
+class InputDisplayScreen(SessionScreen):
     """The game's motions over the live panel: the stick, the buttons and the history beside them."""
 
     notation: Notation
 
-    BINDINGS: ClassVar = [
-        Binding("escape", "back", "Change character"),
-        Binding("ctrl+r", "reset", "Reset"),
-        Binding("ctrl+b", "app.settings", "Settings"),
-        Binding("ctrl+n", "app.notation", "Notation"),
-        Binding("ctrl+l", "cycle_writing", "Writing"),
-        Binding("ctrl+p", "toggle_panel", "Live input"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
-    ]
+    BINDINGS: ClassVar = [Binding("ctrl+l", "cycle_writing", "Writing")]
 
     DEFAULT_CSS = """
     InputDisplayScreen { layout: vertical; }
@@ -202,9 +193,9 @@ class InputDisplayScreen(Screen):
         if self.is_mounted:
             self._refresh()
 
-    def apply_settings(self, game: Game, policy: BufferPolicy) -> None:
-        """Take rules the player changed mid-session, from the settings modal."""
-        self.session.retune(game, policy)
+    def apply_settings(self, policy: BufferPolicy) -> None:
+        """Take a buffer policy the player changed mid-session, from the settings modal."""
+        self.session.retune(policy)
         if self.is_mounted:
             self._refresh()
 
@@ -252,11 +243,3 @@ class InputDisplayScreen(Screen):
         """Clear the history and go back to neutral."""
         self.session.reset()
         self._refresh()
-
-    def action_toggle_panel(self) -> None:
-        """Show or hide the stick and the buttons beside the history."""
-        self.query_one(LivePanel).toggle()
-
-    def action_back(self) -> None:
-        """Return to the setup screen."""
-        self.dismiss(None)

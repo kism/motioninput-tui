@@ -21,6 +21,8 @@ from motioninput_tui.controls.layouts import (
 )
 from motioninput_tui.engine.notation import BUTTON_ORDER, Button
 
+from .base import AppScreen
+
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
@@ -29,7 +31,7 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.gamepad import GamepadReader
 
 
-class GamepadBindScreen(ModalScreen["dict[str, str] | None"]):
+class GamepadBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[str, str] | None"]):
     """Pick an attack, press a pad button, done."""
 
     BINDINGS: ClassVar = [
@@ -37,9 +39,6 @@ class GamepadBindScreen(ModalScreen["dict[str, str] | None"]):
         Binding("escape", "close", "Done"),
         Binding("enter", "close", "Done", priority=True, show=False),
         Binding("r", "reset", "Defaults"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """

@@ -20,6 +20,8 @@ from motioninput_tui.engine.motions import MotionKind, MotionSpec
 from motioninput_tui.engine.notation import ANY_KICK, ANY_PUNCH
 from motioninput_tui.notation_styles import FAMILY_NAMES, STYLES, Family, Notation
 
+from .base import AppScreen
+
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
@@ -39,7 +41,7 @@ _SAMPLES: tuple[tuple[str, MotionSpec], ...] = (
 STYLE_NAME_WIDTH = 16
 
 
-class NotationScreen(ModalScreen[None]):
+class NotationScreen(AppScreen[None], ModalScreen[None]):
     """Pick how each family of motions is written."""
 
     BINDINGS: ClassVar = [
@@ -48,9 +50,6 @@ class NotationScreen(ModalScreen[None]):
         # Space picks, as it flips a setting, so enter just confirms, as it
         # does on every screen.
         Binding("enter", "close", "Done", priority=True, show=False),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     class Changed(Message):

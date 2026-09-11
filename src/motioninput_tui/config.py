@@ -54,9 +54,6 @@ class Config:
     back to the character as well."""
     layout: str = DEFAULT_LAYOUT
     buffer_policy: BufferPolicy = BufferPolicy.CONSUME
-    lenient_half_circles: bool = False
-    """Whether a half circle may skip straight down. See
-    :mod:`motioninput_tui.settings`."""
     neo_geo_slant: bool = False
     """Whether the Neo Geo's four buttons are arranged as the arcade slants
     them. See :mod:`motioninput_tui.controls.buttons`."""
@@ -110,7 +107,6 @@ class Config:
             characters=_valid_characters(raw.get("characters")),
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
-            lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=False),
             neo_geo_slant=_valid_flag(raw.get("neo_geo_slant"), default=False),
             notation=_valid_notation(raw.get("notation")),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
@@ -129,7 +125,6 @@ class Config:
             "characters": self.characters,
             "layout": self.layout,
             "buffer_policy": str(self.buffer_policy),
-            "lenient_half_circles": self.lenient_half_circles,
             "neo_geo_slant": self.neo_geo_slant,
             "notation": self.notation,
             "gamepad_bindings": self.gamepad_bindings,
