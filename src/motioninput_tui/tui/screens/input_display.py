@@ -11,9 +11,10 @@ history whoever's move it would be.
 from typing import TYPE_CHECKING, ClassVar, override
 
 from rich.cells import cell_len
+from rich.table import Table
 from rich.text import Text
 from textual.binding import Binding
-from textual.containers import Center, Horizontal, ItemGrid
+from textual.containers import Center, Horizontal, VerticalScroll
 from textual.screen import Screen
 from textual.widgets import Footer, Static
 
@@ -22,6 +23,7 @@ from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.engine.session import Outcome, TrainingSession
 from motioninput_tui.games.loader import INPUT_DISPLAY
 from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
+from motioninput_tui.notation_styles import MOTION_NAMES
 from motioninput_tui.tui.widgets.input_strip import InputStrip, trail_brackets
 from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
 
@@ -38,12 +40,16 @@ TICK_HZ = 60
 MOTION_ROWS = 3
 """Lines of motions over the history."""
 
-MOTION_GAP = 3
-"""Cells between one column of the motion list and the next."""
+NAME_GAP = 3
+"""Cells between a motion and its name: wider than the gap inside a compound motion."""
+
+MOTIONS_FRAME = 5
+"""What the motion pane adds around its list: a border and a cell of padding
+each side, and a one-cell scrollbar for a list taller than the pane."""
 
 
 class InputDisplayScreen(Screen):
-    """Draws the panel live: the gate, the buttons, and the input history under the motions it made."""
+    """Draws the panel live beside the game's motions, over the input history."""
 
     notation: Notation
 
@@ -60,9 +66,18 @@ class InputDisplayScreen(Screen):
     DEFAULT_CSS = """
     InputDisplayScreen { layout: vertical; }
     InputDisplayScreen #banner { height: auto; padding: 0 1; background: $panel; }
-    InputDisplayScreen #motions { border: round $panel; padding: 0 1; }
-    InputDisplayScreen #panel-area { height: 1fr; align: center middle; }
+    InputDisplayScreen #body { height: 1fr; }
+    /* The panel keeps the width it needs, and the motions take at most 40%,
+       which leaves it that from 80 columns up; past that, names wrap. */
+    InputDisplayScreen #panel-area { width: 1fr; min-width: 48; height: 1fr; align: center middle; }
     InputDisplayScreen #panel { width: auto; height: auto; }
+    InputDisplayScreen #motions {
+        max-width: 40%;
+        height: 1fr;
+        border: round $panel;
+        padding: 0 1;
+        scrollbar-size-vertical: 1;
+    }
     InputDisplayScreen InputStrip { height: auto; border-bottom: none; }
     InputDisplayScreen #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     """
@@ -89,19 +104,19 @@ class InputDisplayScreen(Screen):
         order = list(MotionKind)
         self.motions = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
         """Every motion the game has, once each, in the order the engine lists them."""
-        self._written: list[str] = []
-        """The same, in the player's notation."""
 
     @override
     def compose(self) -> ComposeResult:
-        """The game's motions, then the gate and the buttons side by side, over the input history."""
+        """The gate and the buttons beside the game's motions, over the input history."""
         yield Static(id="banner")
-        motions = ItemGrid(*(Static() for _ in self.motions), id="motions")
-        motions.border_title = "Motions"
-        yield motions
-        with Center(id="panel-area"), Horizontal(id="panel"):
-            yield DirectionGate()
-            yield ButtonPads()
+        with Horizontal(id="body"):
+            with Center(id="panel-area"), Horizontal(id="panel"):
+                yield DirectionGate()
+                yield ButtonPads()
+            with VerticalScroll(id="motions") as motions:
+                motions.border_title = "Motions"
+                yield Static(id="motion-list")
+        # Outside the panes, so the history has the whole width to fill.
         yield InputStrip(id="strip")
         yield Static(id="status")
         yield Footer()
@@ -111,7 +126,6 @@ class InputDisplayScreen(Screen):
         self.title = f"{self.session.game.short_name} · Input display"
         self.sub_title = self.session.layout.name
         self._paint_banner()
-        self._paint_motions()
         self._refresh()
         self.set_interval(1 / TICK_HZ, self._tick)
         self.focus()
@@ -127,18 +141,23 @@ class InputDisplayScreen(Screen):
         self.query_one("#banner", Static).update(text)
 
     def _paint_motions(self) -> None:
-        """Put the motion list into the player's notation, in columns as wide as the widest."""
-        grid = self.query_one("#motions", ItemGrid)
-        self._written = [self.notation.write_kind(kind) for kind in self.motions]
-        grid.min_column_width = max(map(cell_len, self._written), default=0) + MOTION_GAP
-        grid.refresh(layout=True)
+        """Every motion and its name, lit as the panel lights what is held where a press now would bring it out.
 
-    def _light_motions(self) -> None:
-        """Write the motion list, lit as the panel lights what is held where a press now would bring one out."""
+        A table, so that in a narrow pane a long name wraps under itself rather than being cut off.
+        """
         live = {motion.kind for motion in self.session.trail if motion.outcome is Outcome.LIVE}
-        labels = self.query_one("#motions", ItemGrid).query(Static)
-        for label, kind, written in zip(labels, self.motions, self._written, strict=True):
-            label.update(Text(written, style=LIT if kind in live else ""))
+        written = [self.notation.write_kind(kind) for kind in self.motions]
+        names = [MOTION_NAMES[kind] for kind in self.motions]
+        # Sized here rather than left to auto: rich measures a table to the width
+        # it is offered, which in a pane sized to its content is nothing.
+        unwrapped = max(map(cell_len, written), default=0) + NAME_GAP + max(map(cell_len, names), default=0)
+        self.query_one("#motions", VerticalScroll).styles.width = unwrapped + MOTIONS_FRAME
+        table = Table.grid(padding=(0, NAME_GAP))
+        table.add_column(no_wrap=True)
+        table.add_column()
+        for kind, text, name in zip(self.motions, written, names, strict=True):
+            table.add_row(text, name, style=LIT if kind in live else None)
+        self.query_one("#motion-list", Static).update(table)
 
     def apply_panel(self, layout: ControlLayout, buttons: ButtonSet) -> None:
         """Take a rearranged panel, from the settings, without leaving it."""
@@ -152,7 +171,6 @@ class InputDisplayScreen(Screen):
         """Take the notation the motions are written in, before or during a session."""
         self.notation = notation
         if self.is_mounted:
-            self._paint_motions()
             self._refresh()
 
     def apply_settings(self, game: Game, policy: BufferPolicy) -> None:
@@ -193,7 +211,7 @@ class InputDisplayScreen(Screen):
         self.query_one(ButtonPads).show(session.layout, session.held)
         brackets = trail_brackets(session.trail, self.notation)
         self.query_one(InputStrip).show(session.entries, direction, brackets, bracket_rows=MOTION_ROWS)
-        self._light_motions()
+        self._paint_motions()
 
         status = Text()
         status.append(f"{direction.glyph} {int(direction)} {direction.short}", style="bold")

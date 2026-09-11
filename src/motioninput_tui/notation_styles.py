@@ -249,6 +249,38 @@ _PARTS: dict[MotionKind, tuple[MotionKind | Direction, ...]] = {
     _K.F_HCF: (_D.FORWARD, _K.HCF),
 }
 
+MOTION_NAMES: dict[MotionKind, str] = {
+    _K.QCF: "Quarter circle forward",
+    _K.QCB: "Quarter circle back",
+    _K.HCF: "Half circle forward",
+    _K.HCB: "Half circle back",
+    _K.DP: "Dragon punch",
+    _K.RDP: "Reverse dragon punch",
+    _K.TIGER_KNEE: "Tiger knee",
+    _K.QCF_X2: "Double quarter circle forward",
+    _K.QCB_X2: "Double quarter circle back",
+    _K.HCF_X2: "Double half circle forward",
+    _K.HCB_X2: "Double half circle back",
+    _K.QCF_DP: "Quarter circle forward, dragon punch",
+    _K.QCB_RDP: "Quarter circle back, reverse dragon punch",
+    _K.QCF_HCB: "Quarter circle forward, half circle back",
+    _K.QCB_HCF: "Quarter circle back, half circle forward",
+    _K.HCB_F: "Half circle back, forward",
+    _K.QCB_DB_F: "Quarter circle back, down-back, forward",
+    _K.F_HCF: "Forward, half circle forward",
+    _K.F_DF_D: "Forward, down-forward, down",
+    _K.B_DB_D: "Back, down-back, down",
+    _K.QCF_UF: "Quarter circle forward, up-forward",
+    _K.CHARGE_BF: "Charge back, forward",
+    _K.CHARGE_DU: "Charge down, up",
+    _K.CHARGE_BFBF: "Charge back, forward, back, forward",
+    _K.CHARGE_DB_UF: "Charge down-back, down-forward, down-back, up-forward",
+    _K.CHARGE_DB_F: "Charge down-back, forward",
+    _K.ROTATE_360: "Full circle",
+    _K.ROTATE_720: "Two full circles",
+}
+"""What each motion is called, in words, whatever notation it is written in."""
+
 _SEQUENCES: dict[MotionKind, tuple[Direction, ...]] = {
     _K.QCF: (_D.DOWN, _D.DOWN_FORWARD, _D.FORWARD),
     _K.QCB: (_D.DOWN, _D.DOWN_BACK, _D.BACK),

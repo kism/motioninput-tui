@@ -8,9 +8,10 @@ import pytest
 
 from motioninput_tui.engine.motions import MotionKind, MotionSpec
 from motioninput_tui.engine.notation import ANY_KICK, ANY_PUNCH, Direction
+from motioninput_tui.engine.recognizer import NOT_MOTIONS
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.models import Move
-from motioninput_tui.notation_styles import DEFAULT, STYLES, Family, Notation
+from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, STYLES, Family, Notation
 
 GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lb2")
 """Two SNK rosters as well, since the rolls their supers are written on do not
@@ -143,6 +144,11 @@ def test_an_unmodelled_move_keeps_the_guides_own_words() -> None:
     """There is no motion to draw, and the wording is all the player has."""
     move = Move(name="Hop", command="Back or Forward + press all Kicks (ST only)", motion=None)
     assert DEFAULT.write_move(move) == "Back or Forward + press all Kicks"
+
+
+def test_every_motion_has_a_name() -> None:
+    """The input display lists each one by name; throws, holds and mashes are not motions."""
+    assert MOTION_NAMES.keys() == set(MotionKind) - NOT_MOTIONS
 
 
 def test_the_button_mark_is_a_bang_unless_another_is_picked() -> None:

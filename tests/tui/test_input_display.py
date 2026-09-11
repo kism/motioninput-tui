@@ -10,15 +10,17 @@ import asyncio
 from typing import TYPE_CHECKING
 
 import pytest
+from rich.table import Table
 from rich.text import Text
 from textual.widgets import OptionList, Static
 
 from motioninput_tui.config import Config
 from motioninput_tui.controls import gamepad
+from motioninput_tui.engine.motions import MotionKind
 from motioninput_tui.engine.notation import ButtonRequirement
 from motioninput_tui.engine.recognizer import NOT_MOTIONS
 from motioninput_tui.games.loader import INPUT_DISPLAY, available_games, load_game
-from motioninput_tui.notation_styles import DEFAULT
+from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES
 from motioninput_tui.settings import SETTINGS
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.input_display import InputDisplayScreen
@@ -77,20 +79,29 @@ def test_the_input_display_knows_every_motion_in_the_game() -> None:
         assert all(move.motion is not None and move.motion.buttons == any_button for move in display.moves)
 
 
-def test_every_motion_the_game_has_is_listed(config: Config) -> None:
-    """Once each, air or not, in the notation the player picked."""
+def _motion_rows(screen: InputDisplayScreen) -> list[tuple[str, str, bool]]:
+    """Each row of the motion list: the motion as written, its name, and whether it is lit."""
+    table = screen.query_one("#motion-list", Static).content
+    assert isinstance(table, Table)
+    motions, names = ([str(cell) for cell in column.cells] for column in table.columns)
+    return [(motion, name, row.style == LIT) for motion, name, row in zip(motions, names, table.rows, strict=True)]
 
-    async def session() -> list[str]:
+
+def test_every_motion_the_game_has_is_listed_with_its_name(config: Config) -> None:
+    """Once each, air or not, in the notation the player picked, and named."""
+
+    async def session() -> list[tuple[str, str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             screen = app.screen
             assert isinstance(screen, InputDisplayScreen)
-            return [str(label.content) for label in screen.query("#motions Static").results(Static)]
+            return [(motion, name) for motion, name, _ in _motion_rows(screen)]
 
     display = load_game("sfiii3").character(INPUT_DISPLAY)
-    kinds = {move.motion.kind for move in display.moves if move.motion is not None}
-    assert sorted(asyncio.run(session())) == sorted(DEFAULT.write_kind(kind) for kind in kinds)
+    order = list(MotionKind)
+    kinds = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
+    assert asyncio.run(session()) == [(DEFAULT.write_kind(kind), MOTION_NAMES[kind]) for kind in kinds]
 
 
 def test_the_motions_live_now_are_lit_in_the_list(config: Config) -> None:
@@ -102,26 +113,17 @@ def test_the_motions_live_now_are_lit_in_the_list(config: Config) -> None:
             await pilot.pause()
             screen = app.screen
             assert isinstance(screen, InputDisplayScreen)
-
-            def lit() -> list[str]:
-                labels = screen.query("#motions Static").results(Static)
-                return [
-                    label.content.plain
-                    for label in labels
-                    if isinstance(label.content, Text) and label.content.style == LIT
-                ]
-
             await pilot.press("k", "l")  # southpaw down, down-forward...
             screen.handle_release("k")  # ...forward
             await pilot.pause(0.05)
-            live = lit()
+            live = [name for _, name, lit in _motion_rows(screen) if lit]
             await pilot.press("a")  # LP brings it out
             await pilot.pause(0.05)
-            return live, lit()
+            return live, [name for _, name, lit in _motion_rows(screen) if lit]
 
     live, spent = asyncio.run(session())
-    assert "↓ ↘ →" in live
-    assert "↓ ↘ →" not in spent
+    assert MOTION_NAMES[MotionKind.QCF] in live
+    assert MOTION_NAMES[MotionKind.QCF] not in spent
 
 
 def test_what_is_held_is_lit(config: Config) -> None:
