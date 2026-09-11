@@ -138,9 +138,9 @@ def test_the_panel_lays_the_motion_over_the_inputs_that_made_it(config: Config) 
 
 
 def test_motions_stay_drawn_ending_in_what_became_of_them(config: Config) -> None:
-    """? on a quarter circle back left to lapse, ! on a quarter circle forward a Hadou Ken came out on."""
+    """Dim for a quarter circle back left to lapse, green for a quarter circle forward a Hadou Ken came out on."""
 
-    async def session() -> str:
+    async def session() -> Text:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
@@ -155,11 +155,14 @@ def test_motions_stay_drawn_ending_in_what_became_of_them(config: Config) -> Non
             trainer.handle_release("s")
             await pilot.press("j")  # LP
             await pilot.pause(0.05)
-            return str(trainer.query_one("#panel-strip", InputStrip).render())
+            content = trainer.query_one("#panel-strip", InputStrip).content
+            assert isinstance(content, Text)
+            return content
 
     history = asyncio.run(session())
-    assert "↓ ↙ ←?" in history
-    assert "↓ ↘ →!" in history
+    drawn = [(history.plain[span.start : span.end], str(span.style)) for span in history.spans]
+    assert any(text.startswith("↓ ↙ ←") and style == "dim" for text, style in drawn)
+    assert any(text.startswith("↓ ↘ →") and style == "bold green" for text, style in drawn)
 
 
 def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:

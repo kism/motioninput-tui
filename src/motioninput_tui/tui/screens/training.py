@@ -39,12 +39,12 @@ BRACKET_ROWS = 7
 """Lines of motions over the full-screen panel's history: the stick's nine rows,
 less the inputs and the one under them."""
 
-TRAIL_LOOK: dict[Outcome, tuple[str, str]] = {
-    Outcome.LIVE: ("", "bold"),
-    Outcome.EXECUTED: ("!", "bold green"),
-    Outcome.MISSED: ("?", "dim"),
+TRAIL_STYLES: dict[Outcome, str] = {
+    Outcome.LIVE: "bold",
+    Outcome.EXECUTED: "bold green",
+    Outcome.MISSED: "dim",
 }
-"""How a trail motion's label ends, and its style, by what became of it."""
+"""How a trail motion is drawn, by what became of it."""
 
 
 class TrainingScreen(Screen):
@@ -186,7 +186,7 @@ class TrainingScreen(Screen):
         """The full-screen panel's input history, with the trail of motions laid over the inputs that made them.
 
         Newest nearest the inputs. One a press would have beaten is struck, and
-        a finished one ends ``!`` if a move came out on it, ``?`` if not.
+        a finished one is green if a move came out on it, dim if not.
         """
         if self.movelist_mode != "full":
             return
@@ -196,10 +196,10 @@ class TrainingScreen(Screen):
         strip.show(session.entries, session.direction, brackets, bracket_rows=BRACKET_ROWS)
 
     def _bracket(self, motion: TrailMotion) -> Bracket:
-        suffix, style = TRAIL_LOOK[motion.outcome]
+        style = TRAIL_STYLES[motion.outcome]
         if motion.beaten and motion.outcome is not Outcome.EXECUTED:
             style = "dim strike"
-        return Bracket(f"{self.notation.write_kind(motion.kind)}{suffix}", style, motion.start_ms, motion.end_ms)
+        return Bracket(self.notation.write_kind(motion.kind), style, motion.start_ms, motion.end_ms)
 
     def on_key(self, event) -> None:  # ruff: ignore[missing-type-function-argument] - textual.events.Key
         """Feed every key press to the session before Textual sees it."""
