@@ -10,8 +10,8 @@ from textual.widgets import Static
 from motioninput_tui.config import Config
 from motioninput_tui.tui import MotionInputApp
 from motioninput_tui.tui.screens.training import TrainingScreen
-from motioninput_tui.tui.widgets.movelist import MoveList
-from motioninput_tui.tui.widgets.panel import LIT, ButtonPads
+from motioninput_tui.tui.widgets.movelist import LIT_ROW, MoveList
+from motioninput_tui.tui.widgets.panel import LIT, ButtonPads, DirectionGate
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -21,6 +21,23 @@ if TYPE_CHECKING:
 def config(tmp_path: Path) -> Config:
     """Ryu on the left-hand keyboard, written to a throwaway file."""
     return Config(game="sfiii3", character="ryu", layout="keyboard-left", path=tmp_path / "config.json")
+
+
+def _lit(art: Text) -> list[str]:
+    """The labels inside the panel's lit boxes, borders dropped."""
+    labels = (art.plain[span.start : span.end].strip("│╭╮╰╯─ ") for span in art.spans if span.style == LIT)
+    return [label for label in labels if label]
+
+
+def _movelist(trainer: TrainingScreen) -> Text:
+    body = trainer.query_one("#movelist-body", Static).content
+    assert isinstance(body, Text)
+    return body
+
+
+def _lit_rows(trainer: TrainingScreen) -> list[str]:
+    body = _movelist(trainer)
+    return [body.plain[span.start : span.end] for span in body.spans if span.style == LIT_ROW]
 
 
 def test_ctrl_l_cycles_beside_full_hidden(config: Config) -> None:
@@ -52,24 +69,45 @@ def test_ctrl_l_cycles_beside_full_hidden(config: Config) -> None:
 
 
 def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config: Config) -> None:
-    async def session() -> tuple[Text, list[str]]:
+    async def session() -> tuple[Text, list[str], list[str]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
             await pilot.press("ctrl+l")
-            await pilot.press("j")  # LP
+            await pilot.press("d", "j")  # forward, LP
             await pilot.pause()
-            body = trainer.query_one("#movelist-body", Static).content
-            assert isinstance(body, Text)
-            art = trainer.query_one(ButtonPads).art
-            lit = [art.plain[span.start : span.end].strip("│╭╮╰╯─ ") for span in art.spans if span.style == LIT]
-            return body, [label for label in lit if label]
+            return (
+                _movelist(trainer),
+                _lit(trainer.query_one(DirectionGate).art),
+                _lit(trainer.query_one(ButtonPads).art),
+            )
 
-    body, lit = asyncio.run(session())
+    body, stick, buttons = asyncio.run(session())
     assert "↓ ↘ → + P" in body.plain  # Hadou Ken as the trainer writes it
     assert "qcf + P" in body.plain  # and as the guide does
     assert not any("strike" in str(span.style) for span in body.spans)
     assert "struck through" not in body.plain
-    assert "LP" in lit
+    assert stick == ["→"]
+    assert "LP" in buttons
+
+
+def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
+    async def session() -> tuple[str, list[str], list[str]]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            await pilot.press("d", "k")  # forward + MP
+            await pilot.pause()
+            lit = _lit_rows(trainer)
+            await pilot.pause(0.6)
+            return trainer.session.activations[0].name, lit, _lit_rows(trainer)
+
+    name, lit, later = asyncio.run(session())
+    assert name == "Sakotsu Wari"
+    assert len(lit) == 1
+    assert "Sakotsu Wari" in lit[0]
+    assert later == []

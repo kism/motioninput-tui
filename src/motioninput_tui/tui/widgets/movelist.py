@@ -10,10 +10,12 @@ from textual.widgets import Static
 from motioninput_tui.games.models import Category
 
 from .input_strip import CATEGORY_STYLES
+from .panel import LIT
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
 
+    from motioninput_tui.engine.recognizer import RecognisableMove
     from motioninput_tui.games.models import Character, Move
     from motioninput_tui.notation_styles import Notation
 
@@ -23,6 +25,9 @@ NAME_WIDTH = 23
 COMMAND_WIDTH = 21
 SUPER_ART_WIDTH = 5
 """Room for ``III`` plus the marker on the equipped one, and a trailing space."""
+
+LIT_ROW = f"{LIT} not dim not strike"
+"""The row of the move that just came out, lit like a held button on the panel."""
 
 
 def _fit(command: str) -> str:
@@ -44,6 +49,15 @@ def _super_art_marker(super_art: str, *, equipped: bool) -> str:
     return f"{'▸' if equipped else ' '}{super_art:<3} "
 
 
+def _row_style(move: Move, *, equipped: bool, full: bool) -> str:
+    """Struck through if untrainable (but never full screen), dim if its Super Art is not equipped."""
+    if not move.trainable and not full:
+        return "dim strike"
+    if not equipped:
+        return "dim"
+    return CATEGORY_STYLES.get(move.category, "white")
+
+
 class MoveList(VerticalScroll):
     """Every move for a character, grouped, with untrainable ones dimmed."""
 
@@ -61,11 +75,20 @@ class MoveList(VerticalScroll):
         """Hold a single Static that we repaint wholesale."""
         yield Static(id="movelist-body")
 
-    def show(self, character: Character, notation: Notation, super_art: str = "", *, full: bool = False) -> None:
+    def show(
+        self,
+        character: Character,
+        notation: Notation,
+        super_art: str = "",
+        *,
+        full: bool = False,
+        lit: RecognisableMove | None = None,
+    ) -> None:
         """Render this character's move list, written in ``notation``.
 
         ``super_art`` is the equipped one: the others stay listed for reference
-        but are dimmed, since they cannot come out.
+        but are dimmed, since they cannot come out. ``lit`` is the move that
+        just did, whose row is lit.
 
         ``full`` is the whole-screen view: nothing struck through, columns as
         wide as their longest entry, and the guide's own wording beside the
@@ -89,11 +112,8 @@ class MoveList(VerticalScroll):
             text.append(f"{category.upper()}\n", style="bold underline")
             for move, written in moves:
                 equipped = not move.super_art or move.super_art == super_art
-                style = CATEGORY_STYLES.get(move.category, "white")
-                if not move.trainable and not full:
-                    style = "dim strike"
-                elif not equipped:
-                    style = "dim"
+                style = _row_style(move, equipped=equipped, full=full)
+                start = len(text)
                 text.append(_super_art_marker(move.super_art, equipped=equipped), style=style)
                 if full:
                     text.append(_pad(move.name, name_width), style=style)
@@ -102,6 +122,8 @@ class MoveList(VerticalScroll):
                 else:
                     text.append(f"{move.name[:NAME_WIDTH]:<{NAME_WIDTH + 1}}", style=style)
                     text.append(_fit(written), style="dim")
+                if move is lit:
+                    text.stylize(LIT_ROW, start)
                 text.append("\n")
             text.append("\n")
 

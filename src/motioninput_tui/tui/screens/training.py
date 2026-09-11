@@ -15,12 +15,14 @@ from motioninput_tui.terminal import detect
 from motioninput_tui.tui.widgets.input_strip import InputStrip
 from motioninput_tui.tui.widgets.move_feed import MoveFeed
 from motioninput_tui.tui.widgets.movelist import MoveList
-from motioninput_tui.tui.widgets.panel import ButtonPads
+from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
+    from textual.timer import Timer
 
     from motioninput_tui.controls.layouts import ControlLayout
+    from motioninput_tui.engine.recognizer import Activation, RecognisableMove
     from motioninput_tui.games.models import Character, Game
     from motioninput_tui.notation_styles import Notation
 
@@ -28,6 +30,9 @@ TICK_HZ = 60
 
 MOVELIST_MODES = ("beside", "full", "hidden")
 """What ctrl+l steps through, starting from the first."""
+
+LIT_S = 0.5
+"""How long the last move to come out stays lit in the move list, in seconds."""
 
 
 class TrainingScreen(Screen):
@@ -63,6 +68,7 @@ class TrainingScreen(Screen):
     #feed-title { padding: 0 1; text-style: bold; }
     #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
     #pads { height: auto; display: none; border-top: solid $panel; }
+    #pads Horizontal { width: auto; height: auto; }
     TrainingScreen.-movelist-full #pads { display: block; }
     TrainingScreen.-movelist-full #left { display: none; }
     TrainingScreen.-movelist-full #movelist { width: 1fr; border-left: none; }
@@ -88,6 +94,9 @@ class TrainingScreen(Screen):
         self.terminal = detect()
         self.notation = DEFAULT_NOTATION
         self.movelist_mode = MOVELIST_MODES[0]
+        self.lit_move: RecognisableMove | None = None
+        self._latest: Activation | None = None
+        self._unlight: Timer | None = None
 
     def compose(self) -> ComposeResult:
         """Banner, input strip, activation feed and the move list."""
@@ -102,7 +111,8 @@ class TrainingScreen(Screen):
                 yield Static(id="status")
             yield MoveList(id="movelist")
         # The live panel, under a full-screen move list that hides the strip.
-        with Center(id="pads"):
+        with Center(id="pads"), Horizontal():
+            yield DirectionGate()
             yield ButtonPads()
         yield Footer()
 
@@ -135,7 +145,20 @@ class TrainingScreen(Screen):
     def _paint_movelist(self) -> None:
         session = self.session
         full = self.movelist_mode == "full"
-        self.query_one(MoveList).show(session.character, self.notation, session.super_art, full=full)
+        self.query_one(MoveList).show(session.character, self.notation, session.super_art, full=full, lit=self.lit_move)
+
+    def _light(self, move: RecognisableMove | None) -> None:
+        """Light ``move`` in the move list, and put it out again after ``LIT_S``.
+
+        A move coming out while another is lit takes over, with a fresh timer,
+        so a stale one can never put the new move out early.
+        """
+        if self._unlight is not None:
+            self._unlight.stop()
+        self.lit_move = move
+        self._paint_movelist()
+        if move is not None:
+            self._unlight = self.set_timer(LIT_S, lambda: self._light(None))
 
     def _tick(self) -> None:
         if self.session.tick():
@@ -168,7 +191,12 @@ class TrainingScreen(Screen):
         session = self.session
         self.query_one(InputStrip).show(session.entries, session.direction)
         self.query_one(MoveFeed).show(session.activations, self.notation)
+        self.query_one(DirectionGate).show(session.direction)
         self.query_one(ButtonPads).show(session.layout, session.held)
+        latest = session.activations[0] if session.activations else None
+        if latest is not self._latest:
+            self._latest = latest
+            self._light(latest.move if latest is not None else None)
 
         status = Text()
         plural = "" if session.total_activations == 1 else "s"
