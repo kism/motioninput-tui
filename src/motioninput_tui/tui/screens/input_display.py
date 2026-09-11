@@ -245,8 +245,6 @@ class InputDisplayScreen(Screen):
         self._paint_motions()
 
         status = Text()
-        status.append(f"{direction.glyph} {int(direction)} {direction.short}", style="bold")
-        status.append(f"   {session.total_inputs} inputs")
         if session.gamepad_waiting:
             status.append("   no gamepad detected — plug one in", style="yellow")
         elif session.exact_input:
