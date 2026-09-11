@@ -92,6 +92,8 @@ _K = MotionKind
 # out: if the row is a box, that font is not installed.
 _NF_QUARTER_FORWARD = "\U000f17bf"  # nf-md-arrow_up_right
 _NF_QUARTER_BACK = "\U000f17bd"  # nf-md-arrow_up_left
+_NF_QUARTER_FORWARD_DOWN = "\U000f17a9"  # nf-md-arrow_right_bottom
+_NF_QUARTER_BACK_DOWN = "\U000f17a5"  # nf-md-arrow_left_bottom
 _NF_HALF_FORWARD = "\U000f17bb"  # nf-md-arrow_u_up_right
 _NF_HALF_BACK = "\U000f17b9"  # nf-md-arrow_u_up_left
 _NF_DRAGON = "\ueef8"  # nf-fa-dragon
@@ -149,7 +151,21 @@ STYLES: dict[Family, tuple[Style, ...]] = {
     Family.QUARTER: (
         Style(key="spelled", name="Spelled out"),
         Style(key="elbow", name="Arrow with tip", glyphs={_K.QCF: "⬏", _K.QCB: "⬑"}),
-        Style(key="nerd", name="Nerd font", glyphs={_K.QCF: _NF_QUARTER_FORWARD, _K.QCB: _NF_QUARTER_BACK}),
+        Style(
+            key="quadrant",
+            name="Quadrant",
+            glyphs={_K.QCF: "◶→", _K.QCB: "◵←", _K.F_DF_D: "◶↓", _K.B_DB_D: "◵↓"},
+        ),
+        Style(
+            key="nerd",
+            name="Nerd font",
+            glyphs={
+                _K.QCF: _NF_QUARTER_FORWARD,
+                _K.QCB: _NF_QUARTER_BACK,
+                _K.F_DF_D: _NF_QUARTER_FORWARD_DOWN,
+                _K.B_DB_D: _NF_QUARTER_BACK_DOWN,
+            },
+        ),
         Style(key="emoji", name="Emoji fireball", glyphs={_K.QCF: "🔥→", _K.QCB: "🔥←"}),
     ),
     Family.HALF: (
@@ -216,6 +232,9 @@ STYLES: dict[Family, tuple[Style, ...]] = {
 _KIND_FAMILY: dict[MotionKind, Family] = {
     _K.QCF: Family.QUARTER,
     _K.QCB: Family.QUARTER,
+    # The same quarter of the circle run the other way round, ending on down.
+    _K.F_DF_D: Family.QUARTER,
+    _K.B_DB_D: Family.QUARTER,
     _K.HCF: Family.HALF,
     _K.HCB: Family.HALF,
     _K.DP: Family.DRAGON,
@@ -334,7 +353,7 @@ _CHARGES: dict[MotionKind, tuple[Direction, tuple[Direction, ...]]] = {
 _ROTATIONS: dict[MotionKind, str] = {_K.ROTATE_360: "360", _K.ROTATE_720: "720"}
 
 _PREVIEWS: dict[Family, tuple[MotionKind, ...]] = {
-    Family.QUARTER: (_K.QCF, _K.QCB),
+    Family.QUARTER: (_K.QCF, _K.QCB, _K.F_DF_D, _K.B_DB_D),
     Family.HALF: (_K.HCF, _K.HCB),
     Family.DRAGON: (_K.DP, _K.RDP),
     Family.ROTATE: (_K.ROTATE_360, _K.ROTATE_720),

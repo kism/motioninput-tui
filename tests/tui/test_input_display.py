@@ -135,7 +135,7 @@ def test_ctrl_l_steps_through_spelled_out_and_shorthand(config: Config) -> None:
             await pilot.pause()
             screen = app.screen
             assert isinstance(screen, InputDisplayScreen)
-            screen.apply_notation(Notation({"quarter": "curved"}))
+            screen.apply_notation(Notation({"quarter": "elbow"}))
             seen = []
             for _ in range(5):
                 motion, name, _ = _motion_rows(screen)[0]  # the quarter circle forward, first in the list
@@ -145,11 +145,11 @@ def test_ctrl_l_steps_through_spelled_out_and_shorthand(config: Config) -> None:
             return seen
 
     assert asyncio.run(session()) == [
-        ("⮩", "Quarter circle forward"),
+        ("⬏", "Quarter circle forward"),
         ("↓ ↘ →", "Quarter circle forward"),
-        ("⮩", "QCF"),
+        ("⬏", "QCF"),
         ("↓ ↘ →", "QCF"),
-        ("⮩", "Quarter circle forward"),
+        ("⬏", "Quarter circle forward"),
     ]
 
 

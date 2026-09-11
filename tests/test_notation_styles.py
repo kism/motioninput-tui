@@ -94,14 +94,23 @@ def test_style_keys_are_unique_within_a_family() -> None:
 
 
 def test_a_glyph_replaces_the_directions() -> None:
-    curved = Notation({"quarter": "curved"})
-    assert curved.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⮩ + P"
+    elbow = Notation({"quarter": "elbow"})
+    assert elbow.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬏ + P"
+
+
+def test_a_quarter_circle_ending_on_down_follows_the_quarter_circles() -> None:
+    """f, df, d is the same quarter of the circle run the other way round."""
+    quadrant = Notation({"quarter": "quadrant"})
+    assert quadrant.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "◶↓ + K"
+    assert quadrant.write(MotionSpec(kind=MotionKind.B_DB_D, buttons=ANY_KICK)) == "◵↓ + K"
+    elbow = Notation({"quarter": "elbow"})  # nothing for it, so spelled out
+    assert elbow.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "→ ↘ ↓ + K"
 
 
 def test_a_compound_motion_follows_the_styles_of_its_parts() -> None:
     """A super that is a quarter circle and a dragon punch uses both choices."""
-    picked = Notation({"quarter": "curved", "dragon": "kanji"})
-    assert picked.write(MotionSpec(kind=MotionKind.QCF_DP, buttons=ANY_PUNCH)) == "⮩  龍→ + P"
+    picked = Notation({"quarter": "elbow", "dragon": "kanji"})
+    assert picked.write(MotionSpec(kind=MotionKind.QCF_DP, buttons=ANY_PUNCH)) == "⬏  龍→ + P"
 
 
 def test_the_snk_rolls_are_written_as_the_parts_they_are_made_of() -> None:
@@ -148,8 +157,8 @@ def test_an_unmodelled_move_keeps_the_guides_own_words() -> None:
 
 def test_spelled_out_keeps_the_directions_and_drops_the_glyphs() -> None:
     """The input display's ctrl+l: the same arrows or numbers, and no shorthand for whole motions."""
-    picked = Notation({"directions": "numpad", "quarter": "curved", "mark": "emoji"})
-    assert picked.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⮩ + P"
+    picked = Notation({"directions": "numpad", "quarter": "elbow", "mark": "emoji"})
+    assert picked.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬏ + P"
     spelled = picked.spelled_out()
     assert spelled.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "236 + P"
     assert spelled.mark == "✅"
@@ -176,6 +185,6 @@ def test_a_style_that_is_gone_falls_back_rather_than_failing() -> None:
 def test_previewing_a_style_leaves_the_other_families_alone() -> None:
     """Only the family being previewed changes, so a row shows one decision."""
     picked = Notation({"dragon": "kanji"})
-    quarter = STYLES[Family.QUARTER][1]
-    assert picked.preview(Family.QUARTER, quarter) == "⮡   ⮠"
+    quadrant = next(style for style in STYLES[Family.QUARTER] if style.key == "quadrant")
+    assert picked.preview(Family.QUARTER, quadrant) == "◶→   ◵←   ◶↓   ◵↓"
     assert picked.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "龍→ + P"

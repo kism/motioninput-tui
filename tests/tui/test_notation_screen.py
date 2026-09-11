@@ -115,7 +115,7 @@ def test_a_remembered_notation_is_used_from_the_start(tmp_path: Path) -> None:
         game="sfiii3",
         character="ryu",
         layout="keyboard-left",
-        notation={"quarter": "curved"},
+        notation={"quarter": "elbow"},
         path=tmp_path / "config.json",
     )
 
@@ -127,4 +127,4 @@ def test_a_remembered_notation_is_used_from_the_start(tmp_path: Path) -> None:
             assert isinstance(screen, TrainingScreen)
             return _movelist(screen)
 
-    assert "⮩ + P" in asyncio.run(session())  # Hadou Ken
+    assert "⬏ + P" in asyncio.run(session())  # Hadou Ken
