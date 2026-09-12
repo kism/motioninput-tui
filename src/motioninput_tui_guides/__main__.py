@@ -8,15 +8,16 @@ shipped in the wheel. It is a development tool for regenerating roster data.
 """
 
 import argparse
+import logging
 import sys
 from pathlib import Path
 
-from motioninput_tui.utils.logger import get_logger, setup_logger_cli
+from motioninput_tui.utils.logger import setup_logger_cli
 
 from .catalog import DEFAULT_DEST, CatalogError, Guide, get_guide, load_guides, sha256_file
 from .fetch import DEFAULT_DELAY_S, DEFAULT_TIMEOUT_S, MissingDependencyError, Status, fetch_all
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def _get_args() -> argparse.Namespace:

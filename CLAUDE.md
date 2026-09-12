@@ -22,9 +22,10 @@ code alone.
 Keep it short, and do not write what the program already says.
 
 The app documents itself: every screen has a `Footer` listing its keys, the
-setup pane and the `ctrl+b` modal print each setting's name, state and
-`Setting.detail`, the `ctrl+n` menu draws every notation style as its own
-preview, and the pickers list the games, characters and layouts. Anything in
+setup pane and the `ctrl+b` menu print each setting's name, state and
+`Setting.detail`, the same menu draws every notation style as its own preview
+and, over a session, heads itself with the game's notes, and the pickers list
+the games, characters and layouts. Anything in
 that list belongs in the code that renders it, not in `docs/` — a table of
 settings or glyphs in Markdown is a second copy that goes stale silently and
 tells a reader nothing they would not see by pressing the key.
@@ -44,7 +45,7 @@ uv sync --all-groups            # dev setup; omit --all-groups for prod
 .venv/bin/ruff format .         # format
 .venv/bin/ruff check --fix .    # lint
 .venv/bin/ty check .            # type check
-.venv/bin/pytest -q             # tests
+.venv/bin/pytest -q -n auto     # tests, in parallel (xdist); coverage stays serial
 ./scripts/run-ci-local.sh       # ty + ruff + pytest, what CI runs
 ./scripts/run-coverage.sh       # coverage run + html + report
 .venv/bin/python .claude/skills/prepare-release/check-docs.py   # docs + in-app text, before a release
@@ -107,7 +108,8 @@ nothing, and existing files are being cleaned of it.
 and the pad / custom-keyboard rebinds in `~/.config/motioninput-tui/config.json`
 (honouring `XDG_CONFIG_HOME`). It is best-effort throughout: a missing, corrupt
 or unwritable file logs and falls back to defaults rather than raising.
-`_LAYOUT_ALIASES` migrates a pre-rework `hitbox` / `southpaw` layout on load. `Config` doubles as the app's starting
+`_LAYOUT_ALIASES` migrates a pre-rework `hitbox` / `southpaw` layout on load,
+and `_GAME_ALIASES` a game from before the keys became MAME set names. `Config` doubles as the app's starting
 selection and its persistence, which is why `MotionInputApp` takes one instead
 of separate game/character/layout arguments.
 
@@ -133,19 +135,17 @@ is set there too, since the character list has no options until then.
 device's timings. Each one is a `Setting` naming a **boolean attribute of
 `Config`**, which is what lets the settings pane read and write them by name
 without knowing what any of them mean; `buffer_policy` is an enum, so
-`Config.loose_buffer` bridges it. `tuned_game` folds the ones that change
-matching into the game's ruleset, so everything downstream still just reads
-`game.ruleset` and nothing else has to know the player has a say in it.
+`Config.loose_buffer` bridges it. None of them changes how a game's inputs are
+matched: that is the game's `Ruleset`.
 
 Adding one: a boolean field on `Config` (loaded through `_valid_flag`, saved in
-`save`), an entry in `SETTINGS`, and, if it changes matching, a `Ruleset` field
-plus a line in `tuned_game`. Nothing in the interface needs touching.
+`save`) and an entry in `SETTINGS`. Nothing in the interface needs touching.
 
 ### Move notation
 
 `notation_styles.py` is how a move's input is *written*, as opposed to
 `engine/notation.py`, which is what a direction *is*. A `Notation` holds one
-`Style` per `Family` (directions, quarter, half, dragon, rotate, charge) and
+`Style` per `Family` (directions, quarter, quarter_down, half, dragon, tiger, rotate, charge, mark) and
 writes a `MotionSpec` by parts: each part is either a glyph the player picked
 for its family or the directions spelled out, so a compound motion follows its
 parts' styles for free. A style with no glyph for a kind spells that kind out,
@@ -153,13 +153,20 @@ which is what makes the first style of every family the plain one. Moves with
 no `MotionSpec`, and `MotionKind.ANY`, keep the guide's own wording.
 
 The live input strip never consults it: what the player pressed is always
-arrows, deliberately, so one reading of the display never changes.
+arrows, deliberately, so one reading of the display never changes. The motion
+rows the trainer and the input display draw over their history do,
+since they name motions rather than record presses, and so does the stick on
+the live panel, whose boxes are labelled in the direction style.
 
 Adding a style is a row in `STYLES` — nothing else, since the config validator
 takes its vocabulary from that table and the menu previews whatever is in it. A
 `Family.DIRECTIONS` style carries a direction table and a separator instead of
 glyphs, which is how numpad (`236`, the `Direction` enum's own values, joined by
-nothing) and the emoji and nerd font variants are written.
+nothing) and the emoji and nerd font variants are written. A motion family's
+style can carry a direction table too, and then spells just that family out in
+it: that is each family's Numpad, the same `Style` Directions offers. A `Family.MARK` style
+is not a motion at all: it carries one `mark`, what those motion rows put over
+a throw, a command normal or a counted mash tap.
 
 Nerd font codepoints come from `glyphnames.json` in the nerd-fonts repository,
 downloaded rather than committed (it is gitignored). Every one in the source is
@@ -167,10 +174,12 @@ commented with the glyph name it came from, so it can be checked against a fresh
 copy.
 
 `tui/widgets/settings_list.py` is the toggles themselves, shared by the setup
-screen's pane and the trainer's `ctrl+b` modal. It posts `SettingsList.Changed`,
+screen's pane and the `ctrl+b` menu. It posts `SettingsList.Changed`,
 which bubbles past both to `MotionInputApp.on_settings_list_changed`: that saves
-it and, if a session is running, calls `TrainingScreen.apply_settings` so the
-change lands mid-session rather than at the next one.
+it and, if a session is running, hands the buffer policy to its
+`apply_settings` so the change lands mid-session rather than at the next one.
+The menu can open over the setup screen, so the same handler pushes the values
+back into that pane with `set_values`, or it would be left showing the old ones.
 
 Space toggles, not enter: enter belongs to the screen the list sits on (start
 training, or close the modal), so both hosts bind it with `priority=True` and
@@ -178,14 +187,20 @@ the widget never sees it. A mouse click still toggles, which is why the widget
 keeps handling `OptionSelected` — and stops it, so a host that treats a
 selection on its other lists as a choice cannot act on it too.
 
+The same split holds on every screen: space acts on the highlighted row
+(flips a setting, picks a notation style, arms a rebind) and enter confirms the
+screen, bound with `priority=True` so the `OptionList`'s own enter never fires.
+
 ## Architecture
 
 Dependencies point one way: `engine` ← `controls` ← `games` ← `tui`.
 
-The screens run input picker → setup → trainer, with two modals over them:
-`ctrl+b` for the settings and `ctrl+n` for the move notation, both opened by an
-action on the app (`app.settings`, `app.notation`) so any screen can offer them
-and the app, which owns the config, is the one that saves what comes back. The input picker is on its own
+The screens run input picker → setup → trainer, with one modal over them:
+`ctrl+b`, the settings and the move notation as sections of one menu, opened by
+an action on the app (`app.settings`) so any screen can offer it and the app,
+which owns the config, is the one that saves what comes back. Over a session the
+app hands it that game, and its notes head the menu; they are shown nowhere
+else. The input picker is on its own
 because the device decides how the trainer reads you, not what you are training;
 it owns the gamepad detection and the `b` rebind modal. The setup screen is the
 three panes of what to train: settings, game, character. Escape steps back one
@@ -241,12 +256,17 @@ turns them back into glyphs for display. `HITBOX` / `SOUTHPAW` stay as module
 constants — the four-key reference layouts the engine test harness and
 `tests/controls/test_buttons.py` are written against — but are out of `LAYOUTS`.
 
-The first game in the list, `display`, has no roster: `loader._display_game`
-builds it, and its characters *are* the button sets, which is how a panel gets
-picked with the same two lists as everything else. `InputDisplayScreen` runs a
-real `TrainingSession` (so SOCD and holds behave exactly as in the trainer) and
-draws the panel instead of recognising anything. The Neo Geo's two arrangements
-are a global setting rather than two entries, applied by `buttons.arrangement`.
+Every roster opens with the input display, a character `loader._input_display`
+builds rather than one from a guide (`INPUT_DISPLAY` is its key): its moves are
+every motion in the game, on any of the game's buttons and without their
+follow-throughs, so a press on whatever the stick made brings it out.
+`InputDisplayScreen` runs a real `TrainingSession` (so SOCD and holds behave
+exactly as in the trainer), and has the trainer's bottom row, a `LivePanel`:
+the stick and the buttons beside the history, with the session's trail over it. `datagen --summary`
+leaves it out of the counts. A panel is only reached through a game played on
+it, so the Mortal Kombat, Tekken and eight button sets are defined but offered
+nowhere. The Neo Geo's two arrangements are a global setting rather than two
+entries, applied by `buttons.arrangement`.
 
 ### Two input models
 
@@ -307,8 +327,6 @@ too slow to land.
 * `controls/layouts.py` `HoldTiming` — **device** behaviour. Nothing to do with
   which game is selected.
 * `settings.py` — the **player's** choice, whichever game is selected.
-  `lenient_half_circles` lives on `Ruleset` because that is what the matchers
-  read, but its value comes from the player, not the game.
 
 ### Spending inputs
 
@@ -376,12 +394,21 @@ for Gill, the one 3rd Strike character without a choice — `super_arts` is empt
 and the mechanism turns into a no-op: the filter passes everything and
 `check_action` hides the `tab` binding.
 
-### SOCD is last-input priority, deliberately
+### SOCD is neutral on a keyboard, and only where releases are reported
 
-`direction_from_axes` resolves simultaneous left+right by newest-wins rather
-than neutral. This is a correctness requirement, not a style choice: the
-terminal cannot see you release back as you press forward, so both are held at
-once during ordinary motions. Neutral SOCD makes charge moves impossible.
+A keyboard whose terminal reports releases cancels opposite cardinals, as
+GP2040-CE's SOCD neutral does: left, down and right together are down. Where
+holds are inferred, `direction_from_axes` falls back to newest-wins for
+left+right, and up beats down. That fallback is a correctness requirement, not a style choice: that
+terminal cannot see you release back as you press forward, so both look held
+during ordinary motions, and neutral there would make charge moves impossible.
+A pad is not cleaned: its d-pad cannot hold both ways, so newest-wins only
+settles the stick against the d-pad.
+
+`InputBuffer.set_direction` (and the strip) drops a direction replaced in the
+millisecond it arrived, since a controller is read all at once. That is what
+lets a test script swap back for forward with a release and a press at the
+same moment, rather than detouring through down or neutral.
 
 ### Two rotation rules
 
@@ -422,8 +449,8 @@ fresh clone has to run `python -m motioninput_tui_guides` first. After changing
 `motioninput_tui_datagen/normalise.py` or a parser in
 `motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
 (or `./scripts/4-run-datagen.sh`) and commit the JSON. The Street Fighter
-rosters land around 80-90% trainable; the SNK ones are lower (51% for Samurai
-Shodown II, 68-74% for the rest) because those guides lean on command throws
+rosters land around 80-90% trainable; the SNK ones are lower (52% for Samurai
+Shodown II, 68-75% for the rest) because those guides lean on command throws
 written `b or f + button` and on long follow-up chains. The remainder are
 follow-ups and conditional moves that still appear in the move list, struck
 through. `--summary` prints the per-character breakdown.

@@ -7,18 +7,27 @@ of the corner of your eye while your hands are busy.
 
 from typing import TYPE_CHECKING
 
+from rich.cells import cell_len
 from rich.text import Text
+from textual.containers import Horizontal, Vertical
 from textual.widgets import Static
 
 from motioninput_tui.engine.notation import Direction
+from motioninput_tui.tui.widgets.input_strip import InputStrip
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Sequence
 
+    from textual.app import ComposeResult
+    from textual.widget import Widget
+
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.engine.notation import Button
+    from motioninput_tui.notation_styles import Notation
 
 LIT = "bold black on green"
+LIT_S = 0.5
+"""How long a move that came out stays lit in a list of moves, in seconds."""
 IDLE = "dim"
 GAP = " "
 
@@ -77,10 +86,74 @@ class DirectionGate(Static):
         super().__init__()
         self.art = Text()
 
-    def show(self, direction: Direction) -> None:
-        """Light the cell being held."""
-        self.art = _stack(boxes([((cell.glyph,), cell is direction) for cell in row], DIRECTION_WIDTH) for row in GATE)
+    def show(self, direction: Direction, notation: Notation) -> None:
+        """Light the cell being held, every cell labelled in the player's direction style.
+
+        A style with labels wider than one cell, as letters are, leans each the
+        way its cell points, the left column's to the left and the right
+        column's to the right, so the two letters of ``DF`` sit in a box three
+        wide without reading as the middle one's. One-wide labels stay centred.
+        """
+        labels = [[notation.directions((cell,)) for cell in row] for row in GATE]
+        lean = any(cell_len(label) > 1 for row in labels for label in row)
+        rows = (
+            boxes(
+                [
+                    ((_lean(label, column) if lean else label,), cell is direction)
+                    for column, (cell, label) in enumerate(zip(row, row_labels, strict=True))
+                ],
+                DIRECTION_WIDTH,
+            )
+            for row, row_labels in zip(GATE, labels, strict=True)
+        )
+        self.art = _stack(rows)
         self.update(self.art)
+
+
+class LivePanel(Horizontal):
+    """The stick and the buttons, lit as you press, with the input history beside them.
+
+    Every training screen has one along its bottom. Whatever is passed in goes
+    under the history, which is where the trainer prompts a follow-through.
+    :meth:`toggle` hides the stick and the buttons, giving the history the
+    whole width.
+    """
+
+    DEFAULT_CSS = """
+    LivePanel { height: auto; border-top: solid $panel; }
+    /* As tall as the stick, three rows of three-line boxes, with the inputs
+       level with its bottom row and the motions stacked over them. */
+    LivePanel #history { width: 1fr; height: 9; align-vertical: bottom; }
+    LivePanel #history InputStrip { padding: 0 1; }
+    LivePanel.-stick-hidden DirectionGate, LivePanel.-stick-hidden ButtonPads { display: none; }
+    LivePanel.-stick-hidden #history { height: auto; }
+    """
+
+    def __init__(self, *under_history: Widget) -> None:
+        """Take what goes under the history, if anything."""
+        super().__init__()
+        self._under_history = under_history
+
+    def compose(self) -> ComposeResult:
+        """The stick, the buttons, then the history filling the rest."""
+        yield DirectionGate()
+        yield ButtonPads()
+        with Vertical(id="history"):
+            yield InputStrip(id="strip")
+            yield from self._under_history
+
+    def toggle(self) -> None:
+        """Show or hide the stick and the buttons."""
+        self.toggle_class("-stick-hidden")
+
+
+def _lean(label: str, column: int) -> str:
+    """``label`` pushed to the side of its box that the column points at; the middle one stays centred."""
+    if column == 0:
+        return label.ljust(DIRECTION_WIDTH)
+    if column == len(GATE[0]) - 1:
+        return label.rjust(DIRECTION_WIDTH)
+    return label
 
 
 class ButtonPads(Static):

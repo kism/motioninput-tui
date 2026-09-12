@@ -1,7 +1,7 @@
 {
- "key": "ssii",
+ "key": "samsho2",
  "name": "Samurai Shodown II",
- "source": "references/ssii.txt",
+ "source": "references/samsho2.txt",
  "characters": [
   {
    "key": "haohmaru",
@@ -1048,7 +1048,19 @@
     {
      "name": "Annu Mutsube",
      "command": "b, db, d + Slash",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "b, db, d + Slash"
+     }
     },
     {
      "name": "LeLa Mutsube",
@@ -1172,8 +1184,8 @@
      "category": "throw"
     },
     {
-     "name": "Kubinage: unarmed,",
-     "command": "b or f + D or CD",
+     "name": "Kubinage",
+     "command": "unarmed, : b or f + D or CD",
      "category": "throw"
     },
     {
@@ -2223,7 +2235,18 @@
     {
      "name": "Kuroko Hachigoku Tama Senbei Shuriken",
      "command": "db~f + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "charge_db_f",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "db~f + A"
+     }
     },
     {
      "name": "Kuroko Hachigoku Tama Bakurai Hou",
@@ -2314,7 +2337,18 @@
     {
      "name": "Kuroko Gekira",
      "command": "C rapidly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "C rapidly"
+     }
     },
     {
      "name": "Kuroko Gi Ha Nage",

@@ -12,7 +12,6 @@ from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Vertical
 from textual.message import Message
-from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
 from motioninput_tui.controls.layouts import (
@@ -24,6 +23,7 @@ from motioninput_tui.controls.layouts import (
 )
 from motioninput_tui.terminal import detect
 
+from .base import AppScreen
 from .gamepad_bind import GamepadBindScreen
 from .keyboard_bind import KeyboardBindScreen
 
@@ -34,7 +34,7 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.layouts import ControlLayout
 
 
-class InputPickerScreen(Screen[str]):
+class InputPickerScreen(AppScreen[str]):
     """Pick a control layout. Dismisses with its key.
 
     There is nothing behind this screen to go back to, so it has no escape
@@ -44,9 +44,6 @@ class InputPickerScreen(Screen[str]):
     BINDINGS: ClassVar = [
         Binding("enter", "choose", "Continue", priority=True),
         Binding("b", "rebind", "Rebind"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     class GamepadBindingsChanged(Message):

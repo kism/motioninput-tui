@@ -164,13 +164,14 @@ QUARTER_CIRCLE_FORWARD_HP: Script = [
     press(HP, 150),
 ]
 
-# Back, then add down, then add forward. Pressing forward while back is still
-# held gives down-forward straight away, so a plain down never appears. This is
-# an ordinary hitbox half circle, and whether it counts as one is the player's
-# "relaxed half circles" setting rather than anything the games disagree on.
+# Back, then add down, then swap back for forward in one go, so down-forward
+# follows down-back and a plain down never appears. (Adding forward with back
+# still held would give down: a keyboard's SOCD is neutral.) 3rd Strike reads a
+# half circle at three points, so any down will do there; elsewhere this misses.
 HALF_CIRCLE_SKIPPING_DOWN_MK: Script = [
     press(BACK, 0),
     press(DOWN, 60),
+    release(BACK, 120),
     press(FORWARD, 120),
     release(DOWN, 180),
     release(BACK, 185),
@@ -216,13 +217,15 @@ QUARTER_BACK_INTO_HALF_FORWARD_HP: Script = [
 ]
 
 # A half circle back with a forward on the end. Here the last forward is a real
-# second press: pressing it while back is still held wins on last-input SOCD.
+# second press, with back let go as it goes down: on the keyboard's neutral
+# SOCD, forward with back still held would be neutral.
 HALF_CIRCLE_BACK_FORWARD_HP: Script = [
     press(FORWARD, 0),  # f
     press(DOWN, 40),  # df
     release(FORWARD, 80),  # d
     press(BACK, 120),  # db
     release(DOWN, 160),  # b
+    release(BACK, 200),
     press(FORWARD, 200),  # f
     press(HP, 240),
 ]
@@ -231,26 +234,27 @@ HALF_CIRCLE_BACK_FORWARD_HP: Script = [
 # The two SNK rolls, neither of which Street Fighter has any move on.
 #
 # `d,db,b,db,f` is Terry's Power Geyser: a quarter circle back that turns
-# around on the down-back and carries on to forward. Pressing forward there
-# while down is still held gives a down-forward on the way, which is the one
-# junk state between steps every ruleset here allows.
+# around on the down-back and carries on to forward. Swapping back for forward
+# there while down is still held gives a down-forward on the way, which is the
+# one junk state between steps every ruleset here allows.
 QUARTER_BACK_ROLLED_TO_FORWARD_HP: Script = [
     press(DOWN, 0),  # d
     press(BACK, 40),  # db
     release(DOWN, 80),  # b
     press(DOWN, 120),  # db
+    release(BACK, 160),
     press(FORWARD, 160),  # df
     release(DOWN, 200),  # f
     press(HP, 240),
 ]
 
 # `f,b,db,d,df,f` is Ryo's Haoh Shou Ko Ken: a forward tap, then a half circle
-# forward. Pressing back while forward is still held gives back outright on
-# last-input SOCD, so this roll is clean from end to end - and dropping its
-# first event leaves exactly the plain half circle the move has to be told
-# apart from.
+# forward. Forward is let go as back goes down, so this roll is clean from end
+# to end - and dropping its first two events leaves exactly the plain half
+# circle the move has to be told apart from.
 FORWARD_INTO_HALF_CIRCLE_FORWARD_HP: Script = [
     press(FORWARD, 0),  # f
+    release(FORWARD, 40),
     press(BACK, 40),  # b
     press(DOWN, 80),  # db
     release(BACK, 120),  # d

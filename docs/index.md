@@ -22,8 +22,8 @@ shortcut exists. 3rd Strike's figures come from a decompilation of the game
 rather than from feel; see [Third Strike, from the decompiled
 game](sfiii3-from-the-decomp.md).
 
-Not every listed move is trainable. The Street Fighter rosters run 78-89%; the
-SNK ones are lower — 51% for Samurai Shodown II — because those guides lean on
+Not every listed move is trainable. The Street Fighter rosters run 79-89%; the
+SNK ones are lower — 52% for Samurai Shodown II — because those guides lean on
 command throws written "b or f + button", which say nothing about which way to
 hold, and on long follow-up chains. The rest still appear in the move list,
 struck through. The five SNK games are on the Neo Geo's four-button panel, and
@@ -78,11 +78,12 @@ them, so there is one place they live rather than two that have to agree.
 
 ### Input display
 
-The first entry in the game list is not a game: it draws your panel and lights
-it up as you press, with no moves and nothing to recognise. Its "characters"
-are the button sets, so pick the one your game uses. Directions are cleaned
-exactly as they are in the trainer, so it is the quickest way to see what your
-keyboard is really sending.
+Every game's character list opens with **Input display**: the game's panel, lit
+up as you press, with every motion the game has drawn over your input history
+as you make it, whoever's move it would be. A motion goes green when a button
+brings it out and dim when it lapses. Directions are cleaned exactly as they
+are in the trainer, so it is the quickest way to see what your keyboard is
+really sending.
 
 ### Picking what to train
 
@@ -91,14 +92,15 @@ decides how the trainer reads you rather than what you are training. The next
 screen has three panes: your settings, the game whose rules judge you, and the
 character whose move list you want.
 
-`ctrl+b` brings the settings up again during a session. A change applies
-immediately and clears the input buffer with it, since what was in it was read
-under the old rules.
+`ctrl+b` brings the settings up again during a session, headed by the notes on
+how that game's rules differ from the rest. A change applies immediately and
+clears the input buffer with it, since what was in it was read under the old
+rules.
 
 ### Move notation
 
-`ctrl+n` chooses how a move's input is written — arrows, letters, numpad, or
-one of several glyph sets. Every row in that menu is drawn in the style it
+The same `ctrl+b` menu chooses how a move's input is written — arrows, letters,
+numpad, or one of several glyph sets. Every row in it is drawn in the style it
 offers, so it doubles as a test of what your font can render; the nerd font
 styles in particular are empty boxes without a patched font.
 
@@ -116,14 +118,9 @@ else you pick.
 
 ### Settings
 
-Three toggles, in the setup screen's first pane and under `ctrl+b`, which
+Two toggles, in the setup screen's first pane and under `ctrl+b`, which
 describe themselves as you highlight them. They are yours rather than the
 games', so they apply whichever game is selected.
-
-Relaxed half circles is the one worth knowing about, and it is on by default
-because of how a hitbox or a keyboard actually plays: pressing forward while
-back is still held goes straight to down-forward, so an ordinary half circle
-never touches straight down at all. Turn it off to be made to hit the down.
 Loose buffer is the rule described under [spending inputs](#spending-inputs).
 
 ### Remembering your last session
@@ -152,14 +149,13 @@ A layout is only *where* the attacks are — six positions, three to a row. What
 those positions mean is the game's button set, laid onto them in order, which
 is why a game with a different panel is a table entry rather than a new layout.
 
-That fits the Street Fighter six and Mortal Kombat's five, but not everything.
+That fits the Street Fighter six, but not the Neo Geo.
 `A B C D` across a three-key row leaves **D** with nowhere to go, so on a
 keyboard the Neo Geo's fourth button cannot be pressed at all. Turning on the
 **Neo Geo slant** setting fixes it — `C D` on the top row, `A B` on the bottom
 — and a gamepad has all four either way. Worth doing if you train KoF or
-Samurai Shodown on a keyboard: 36 trainable moves across those rosters ask for
-D alone. The input display's eight-button panel is short two buttons on a
-keyboard for the same reason.
+Samurai Shodown on a keyboard: a few dozen trainable moves across those rosters
+ask for D alone.
 
 Pad buttons are read through SDL's controller database, so any recognised pad
 works however its firmware numbers them, and a pad reports releases, so holds
@@ -248,7 +244,10 @@ no elevated privileges, and it keeps working over SSH.
 
 Move list guides by Kao Megura / Chris MacDonald
 (<https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/>) for
-every game except Hyper Street Fighter II, whose guide is by x_MJ_x.
+Alpha 3, 3rd Strike and Samurai Shodown V Special; Ice Queen Zero / Andrea
+Castillo for both King of Fighters, Samurai Shodown II and The Last Blade 2;
+x_MJ_x for Hyper Street Fighter II; and THEMCD / Damon M. McDaniel for Ultra
+Street Fighter IV.
 
 ```{toctree}
 :hidden:

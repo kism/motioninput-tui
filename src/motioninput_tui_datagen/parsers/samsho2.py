@@ -64,7 +64,8 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
 
 def _slash_move(line: str, category: Category, report: ParseReport, character: str) -> Move:
     """One ``Name: command`` row, in the Neo Geo's own A B C D notation."""
-    name, _, command = line.rpartition(":")
+    # The first colon: Hanzo's Kubinage has a stray second one after its condition.
+    name, _, command = line.partition(":")
     name, command = name.strip(), command.strip()
     if _POW in name:
         category = Category.SUPER

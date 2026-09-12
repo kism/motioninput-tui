@@ -1,90 +1,129 @@
-"""The input display: no game, no moves, just what the device is doing.
+"""The input display: the game's panel, and every motion the game has.
 
-It runs on the same :class:`~motioninput_tui.engine.session.TrainingSession` as
-the trainer, so directions are cleaned and holds inferred exactly as they are
-when a move is on the line. Nothing is recognised; the panel is drawn instead.
+It is the first character of every roster, and runs on the same
+:class:`~motioninput_tui.engine.session.TrainingSession` as the trainer, so
+directions are cleaned and holds inferred exactly as they are when a move is on
+the line. Its moves are every motion in the game on any button (see
+:mod:`motioninput_tui.games.loader`), so what the stick makes is drawn over the
+history whoever's move it would be.
 """
 
-from typing import TYPE_CHECKING, ClassVar, override
+from typing import TYPE_CHECKING, ClassVar, NamedTuple, override
 
+from rich.table import Table
 from rich.text import Text
 from textual.binding import Binding
-from textual.containers import Center, Horizontal
-from textual.screen import Screen
+from textual.containers import VerticalScroll
 from textual.widgets import Footer, Static
 
-from motioninput_tui.engine.session import TrainingSession, monotonic_ms
-from motioninput_tui.tui.widgets.input_strip import InputStrip
-from motioninput_tui.tui.widgets.panel import ButtonPads, DirectionGate
+from motioninput_tui.engine.motions import MotionKind
+from motioninput_tui.engine.recognizer import BufferPolicy
+from motioninput_tui.engine.session import Outcome, TrainingSession
+from motioninput_tui.games.loader import INPUT_DISPLAY
+from motioninput_tui.notation_styles import DEFAULT as DEFAULT_NOTATION
+from motioninput_tui.notation_styles import MOTION_NAMES, MOTION_SHORTHANDS
+from motioninput_tui.tui.widgets.input_strip import MOTION_ROWS, InputStrip, trail_brackets
+from motioninput_tui.tui.widgets.panel import LIT, LIT_S, ButtonPads, DirectionGate, LivePanel
+from motioninput_tui.tui.widgets.status_bar import StatusBar
+
+from .base import SessionScreen
 
 if TYPE_CHECKING:
     from textual.app import ComposeResult
+    from textual.timer import Timer
 
     from motioninput_tui.controls.buttons import ButtonSet
     from motioninput_tui.controls.layouts import ControlLayout
-    from motioninput_tui.engine.notation import Button
-    from motioninput_tui.games.models import Character, Game
+    from motioninput_tui.engine.recognizer import Activation
+    from motioninput_tui.games.models import Game
+    from motioninput_tui.notation_styles import Notation
 
 TICK_HZ = 60
 
+NAME_GAP = 3
+"""Cells between a motion and its name: wider than the gap inside a compound motion."""
 
-class InputDisplayScreen(Screen):
-    """Draws the panel live: the gate, the buttons, and the input history."""
+LIVE = "black on dark_sea_green"
+"""A motion a press would still bring out: paler than ``LIT``, which is kept for one that came out."""
 
-    BINDINGS: ClassVar = [
-        Binding("escape", "back", "Change panel"),
-        Binding("ctrl+r", "reset", "Reset"),
-        Binding("ctrl+b", "app.settings", "Settings"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
-    ]
+
+class Writing(NamedTuple):
+    """One way ctrl+l writes the motion list."""
+
+    title: str
+    spelled_out: bool
+    """Directions spelled out, rather than in the player's notation."""
+    names: dict[MotionKind, str]
+
+
+WRITINGS = (
+    Writing("Motions", spelled_out=False, names=MOTION_NAMES),
+    Writing("Motions, spelled out", spelled_out=True, names=MOTION_NAMES),
+    Writing("Motions, shorthand", spelled_out=False, names=MOTION_SHORTHANDS),
+    Writing("Motions, spelled out, shorthand", spelled_out=True, names=MOTION_SHORTHANDS),
+)
+"""What ctrl+l steps through, starting from the first."""
+
+
+class InputDisplayScreen(SessionScreen):
+    """The game's motions over the live panel: the stick, the buttons and the history beside them."""
+
+    notation: Notation
+
+    BINDINGS: ClassVar = [Binding("ctrl+l", "cycle_writing", "Writing")]
 
     DEFAULT_CSS = """
     InputDisplayScreen { layout: vertical; }
     InputDisplayScreen #banner { height: auto; padding: 0 1; background: $panel; }
-    InputDisplayScreen #panel-area { height: 1fr; align: center middle; }
-    InputDisplayScreen #panel { width: auto; height: auto; }
-    InputDisplayScreen InputStrip { border-bottom: none; }
-    InputDisplayScreen #status { height: auto; padding: 0 1; color: $text-muted; border-top: solid $panel; }
+    InputDisplayScreen #motions {
+        height: 1fr;
+        border: round $panel;
+        padding: 0 1;
+        scrollbar-size-vertical: 1;
+    }
     """
 
     def __init__(
         self,
         game: Game,
-        character: Character,
         layout: ControlLayout,
         buttons: ButtonSet,
         *,
         exact_input: bool = False,
+        policy: BufferPolicy = BufferPolicy.CONSUME,
     ) -> None:
-        """Set a session up for this panel.
+        """Set a session up on the game's input display.
 
-        ``character`` is the button set as it was picked; ``buttons`` is that
-        set as the settings arrange it, which is what actually gets drawn.
+        ``buttons`` is the game's set as the settings arrange it, which is what
+        actually gets drawn.
         """
         super().__init__()
-        self.session = TrainingSession(game, character, layout, exact_input=exact_input)
-        self.character = character
+        display = game.character(INPUT_DISPLAY)
+        self.session = TrainingSession(game, display, layout, exact_input=exact_input, policy=policy)
         self.panel = buttons
-        self._held: dict[Button, int] = {}
-        """Buttons down, and when they went down. A terminal that reports
-        releases empties this properly; without one they lapse like a hold."""
+        self.notation = DEFAULT_NOTATION
+        self.writing = WRITINGS[0]
+        self.lit_kind: MotionKind | None = None
+        self._latest: Activation | None = None
+        self._unlight: Timer | None = None
+        order = list(MotionKind)
+        self.motions = sorted({move.motion.kind for move in display.moves if move.motion is not None}, key=order.index)
+        """Every motion the game has, once each, in the order the engine lists them."""
 
     @override
     def compose(self) -> ComposeResult:
-        """The gate and the buttons side by side, over the input history."""
+        """The game's motions over the live panel and the status, as the trainer lays out."""
         yield Static(id="banner")
-        with Center(id="panel-area"), Horizontal(id="panel"):
-            yield DirectionGate()
-            yield ButtonPads()
-        yield InputStrip(id="strip")
-        yield Static(id="status")
+        with VerticalScroll(id="motions") as motions:
+            motions.border_title = self.writing.title
+            yield Static(id="motion-list")
+        yield LivePanel()
+        yield StatusBar(id="status")
         yield Footer()
 
     def on_mount(self) -> None:
         """Paint the chrome and start the tick that expires holds."""
-        self.title = f"Input display · {self.panel.name}"
+        self.title = f"{self.session.game.short_name} · Input display"
         self.sub_title = self.session.layout.name
         self._paint_banner()
         self._refresh()
@@ -94,19 +133,70 @@ class InputDisplayScreen(Screen):
     def _paint_banner(self) -> None:
         session = self.session
         text = Text()
-        text.append(self.panel.name, style="bold")
+        text.append(session.game.name, style="bold")
+        text.append(f"  ·  {self.panel.name}", style="bold cyan")
         if self.panel.note:
             text.append(f"  {self.panel.note}", style="dim italic")
         text.append(f"\nMove {session.layout.movement_help()}   Attack {session.layout.attack_help()}", style="dim")
         self.query_one("#banner", Static).update(text)
 
+    def _paint_motions(self) -> None:
+        """Every motion and its name: pale while a press would bring it out, lit a moment once one has.
+
+        A table, so that in a narrow pane a long name wraps under itself rather than being cut off.
+        """
+        live = {motion.kind for motion in self.session.trail if motion.outcome is Outcome.LIVE}
+        written = [self.written_in.write_kind(kind) for kind in self.motions]
+        names = [self.writing.names[kind] for kind in self.motions]
+        table = Table.grid(padding=(0, NAME_GAP))
+        table.add_column(no_wrap=True)
+        table.add_column()
+        for kind, text, name in zip(self.motions, written, names, strict=True):
+            style = LIT if kind is self.lit_kind else LIVE if kind in live else None
+            table.add_row(text, name, style=style)
+        self.query_one("#motion-list", Static).update(table)
+
+    def _light(self, kind: MotionKind | None) -> None:
+        """Light the motion a move just came out on, as the trainer lights the move, and put it out after ``LIT_S``.
+
+        A fresh one takes over with a fresh timer, so a stale timer never puts it out early.
+        """
+        if self._unlight is not None:
+            self._unlight.stop()
+        self.lit_kind = kind
+        if kind is not None:
+            self._unlight = self.set_timer(LIT_S, lambda: self._light(None))
+        self._paint_motions()
+
     def apply_panel(self, layout: ControlLayout, buttons: ButtonSet) -> None:
         """Take a rearranged panel, from the settings, without leaving it."""
         self.panel = buttons
         self.session.rebind(layout)
-        self._held.clear()
         if self.is_mounted:
             self._paint_banner()
+            self._refresh()
+
+    @property
+    def written_in(self) -> Notation:
+        """The notation the motions are written in: the player's, or spelled out, as ctrl+l has it."""
+        return self.notation.spelled_out() if self.writing.spelled_out else self.notation
+
+    def action_cycle_writing(self) -> None:
+        """Step the motions on: the player's notation, spelled out, then both again with shorthand names."""
+        self.writing = WRITINGS[(WRITINGS.index(self.writing) + 1) % len(WRITINGS)]
+        self.query_one("#motions", VerticalScroll).border_title = self.writing.title
+        self._refresh()
+
+    def apply_notation(self, notation: Notation) -> None:
+        """Take the notation the motions are written in, before or during a session."""
+        self.notation = notation
+        if self.is_mounted:
+            self._refresh()
+
+    def apply_settings(self, policy: BufferPolicy) -> None:
+        """Take a buffer policy the player changed mid-session, from the settings modal."""
+        self.session.retune(policy)
+        if self.is_mounted:
             self._refresh()
 
     def on_key(self, event) -> None:  # ruff: ignore[missing-type-function-argument] - textual.events.Key
@@ -115,9 +205,6 @@ class InputDisplayScreen(Screen):
             return
         event.stop()
         event.prevent_default()
-        button = self.session.layout.attacks.get(event.key)
-        if button is not None:
-            self._held[button] = monotonic_ms()
         self.session.press(event.key)
         self._refresh()
 
@@ -125,75 +212,34 @@ class InputDisplayScreen(Screen):
         """Called by the app when the terminal reports a key going back up."""
         if key not in self.session.layout.bindings:
             return
-        button = self.session.layout.attacks.get(key)
-        if button is not None:
-            self._held.pop(button, None)
         self.session.release(key)
         self._refresh()
 
     def on_app_blur(self) -> None:
         """Drop everything held when the terminal loses focus."""
-        self.session.source.reset()
-        if self.session.gamepad is not None:
-            self.session.gamepad.reset()
-        self._held.clear()
+        self.session.drop_holds()
         self._refresh()
 
     def _tick(self) -> None:
-        changed = self.session.tick()
-        if self._expire_buttons():
-            changed = True
-        if changed:
+        if self.session.tick():
             self._refresh()
-
-    def _expire_buttons(self) -> bool:
-        """Let held buttons lapse when the terminal cannot report releases."""
-        if self.session.exact_input or not self._held:
-            return False
-        cutoff = monotonic_ms() - self.session.hold_window_ms
-        lapsed = [button for button, at_ms in self._held.items() if at_ms < cutoff]
-        for button in lapsed:
-            del self._held[button]
-        return bool(lapsed)
-
-    def _held_buttons(self) -> set[Button]:
-        """Every attack button held right now, from the keyboard or the pad.
-
-        Keyboard holds are tracked in ``_held`` (inferred, so they lapse); a
-        gamepad reports releases, so its held buttons are read straight off the
-        reader each frame.
-        """
-        down = set(self._held)
-        gamepad = self.session.gamepad
-        if gamepad is not None:
-            attacks = self.session.layout.attacks
-            down.update(attacks[code] for code in gamepad.held_codes if code in attacks)
-        return down
 
     def _refresh(self) -> None:
         session = self.session
         direction = session.direction
-        self.query_one(DirectionGate).show(direction)
-        self.query_one(ButtonPads).show(session.layout, self._held_buttons())
-        self.query_one(InputStrip).show(session.entries, direction)
-
-        status = Text()
-        status.append(f"{direction.glyph} {int(direction)} {direction.short}", style="bold")
-        status.append(f"   {session.total_inputs} inputs")
-        if session.gamepad_waiting:
-            status.append("   no gamepad detected — plug one in", style="yellow")
-        elif session.exact_input:
-            status.append("   exact input tracking", style="dim green")
-        else:
-            status.append(f"   inferred holds, {session.hold_window_ms}ms window", style="dim")
-        self.query_one("#status", Static).update(status)
+        self.query_one(DirectionGate).show(direction, self.notation)
+        self.query_one(ButtonPads).show(session.layout, session.held)
+        brackets = trail_brackets(session.trail, self.written_in)
+        self.query_one(InputStrip).show(session.entries, direction, brackets, bracket_rows=MOTION_ROWS)
+        latest = session.activations[0] if session.activations else None
+        if latest is not self._latest:
+            self._latest = latest
+            motion = latest.move.motion if latest is not None else None
+            self._light(motion.kind if motion is not None else None)
+        self._paint_motions()
+        self.query_one(StatusBar).show(session)
 
     def action_reset(self) -> None:
         """Clear the history and go back to neutral."""
         self.session.reset()
-        self._held.clear()
         self._refresh()
-
-    def action_back(self) -> None:
-        """Return to the setup screen."""
-        self.dismiss(None)

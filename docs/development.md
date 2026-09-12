@@ -20,7 +20,7 @@ src/motioninput_tui/
   settings.py    The player's own preferences, layered on top of a game's rules.
   terminal/      Terminal identification, latency warnings, kitty keyboard protocol.
   tui/           Textual screens, widgets, and the release-aware input driver.
-  utils/         The Rich logger every module gets `get_logger` from.
+  utils/         The Rich console logging the command lines set up.
 
 src/motioninput_tui_guides/   Fetches the FAQs from GameFAQs. A sibling package,
                               not a subpackage, so it is not shipped in the wheel.
@@ -44,9 +44,7 @@ Three kinds of tuning constant sit in adjacent modules and are easy to confuse:
   `dp_double_tap`. Per game.
 * `controls/layouts.py` `HoldTiming` holds **device** behaviour. It has nothing
   to do with which game is selected.
-* `settings.py` holds the **player's** own choices, layered on top of whichever
-  game is selected — `lenient_half_circles` lives on `Ruleset` because that is
-  what the matchers read, but its value comes from the player, not the game.
+* `settings.py` holds the **player's** own choices, whichever game is selected.
 
 `decay_ms` bridges the two input models: how long the device takes to reveal
 that a direction was released. Zero when the terminal reports releases,
@@ -56,10 +54,10 @@ Without it, inferred holds would make every motion look too slow to land.
 
 ## Screens and layouts
 
-The screens run input picker → setup → trainer, with two modals over them:
-`ctrl+b` for settings and `ctrl+n` for move notation, both opened by an action
-on the app (`app.settings`, `app.notation`) so any screen can offer them and
-the app — which owns the config — is the one that saves what comes back.
+The screens run input picker → setup → trainer, with one modal over them:
+`ctrl+b`, the settings and the move notation, opened by an action on the app
+(`app.settings`) so any screen can offer it and the app — which owns the config
+— is the one that saves what comes back.
 Escape steps back one screen; each screen dismisses and the app pushes the
 next, so the stack never grows.
 
@@ -72,11 +70,11 @@ only the Street Fighter six: that is the one dialect the move list parser reads,
 and a roster on another panel is mapped off it afterwards, so widening it would
 change what "any button" means in every move list at once.
 
-The first game in the list, `display`, has no roster: it is built with its
-characters standing in for the button sets, which is how a panel gets picked
-with the same two lists as everything else. It runs a real `TrainingSession`
-(so SOCD cleaning and hold inference behave exactly as in the trainer) and
-draws the panel instead of recognising anything.
+Every roster opens with an input display, a character the loader builds rather
+than one from a guide: its moves are every motion in the roster, on any of the
+game's buttons. It runs a real `TrainingSession` (so SOCD cleaning and hold
+inference behave exactly as in the trainer), draws the game's panel, and lays
+the motions the stick made over its history.
 
 ## The release-aware driver
 
@@ -91,11 +89,11 @@ It reaches into Textual internals in two places: the escape sequence written in
 guarded and fall back to inferred holds. Textual is pinned; check this file
 after a Textual upgrade.
 
-`direction_from_axes` resolves simultaneous left+right by newest-wins rather
-than neutral. That is a correctness requirement rather than a style choice: the
-terminal cannot see the player release back as they press forward, so both are
-held at once during ordinary motions, and neutral SOCD makes charge moves
-impossible.
+A keyboard's SOCD is neutral, as on GP2040-CE, but only when the terminal
+reports releases. Where holds are inferred, `direction_from_axes` resolves
+left+right by newest-wins instead: that terminal cannot see the player release
+back as they press forward, so both look held during ordinary motions, and
+neutral there would make charge moves impossible.
 
 ## Reference guides
 
@@ -165,9 +163,13 @@ Run `ty`.
 
 ### Testing
 
-Run `pytest`; it gets its config from `pyproject.toml`.
+Run `pytest`; it gets its config from `pyproject.toml`. Add `-n auto` to spread
+the run over every core with pytest-xdist; the Textual screen tests are nearly
+all of the time and parallelise well. Coverage runs serially, since
+`coverage run` does not follow xdist's workers.
 
 ```bash
+pytest -n auto                                     # everything, in parallel
 pytest tests/test__meta.py::test_repo_url          # a single test
 pytest -k logger                                   # by name
 pytest tests/engine/test_motions/sfiii3            # one game

@@ -6,8 +6,8 @@ description: Check the documentation and the app's own on-screen text before a n
 # Preparing a release: documentation and in-app text
 
 The app is the documentation. Every screen has a `Footer` listing its keys, the
-setup pane and the `ctrl+b` modal print each setting's name, state and
-`Setting.detail`, the `ctrl+n` menu draws every notation style as its own
+setup pane and the `ctrl+b` menu print each setting's name, state and
+`Setting.detail`, the same menu draws every notation style as its own
 preview, and the pickers list the games with `GameSpec.notes[0]` under them.
 
 Two things follow, and they are what this check is for. The app's own strings

@@ -21,6 +21,8 @@ from motioninput_tui.controls.layouts import (
 )
 from motioninput_tui.engine.notation import BUTTON_ORDER, Button
 
+from .base import AppScreen
+
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
@@ -29,15 +31,14 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.gamepad import GamepadReader
 
 
-class GamepadBindScreen(ModalScreen["dict[str, str] | None"]):
+class GamepadBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[str, str] | None"]):
     """Pick an attack, press a pad button, done."""
 
     BINDINGS: ClassVar = [
+        Binding("space", "arm", "Rebind"),
         Binding("escape", "close", "Done"),
+        Binding("enter", "close", "Done", priority=True, show=False),
         Binding("r", "reset", "Defaults"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """
@@ -96,11 +97,15 @@ class GamepadBindScreen(ModalScreen["dict[str, str] | None"]):
         elif self._armed is not None:
             text = Text(f"Press a button on the pad for {self._armed.value}…", style="cyan")
         else:
-            text = Text("enter to rebind · esc when done")
+            text = Text("space to rebind · enter when done")
         self.query_one("#hint", Label).update(text)
 
     def on_option_list_option_selected(self, _event: OptionList.OptionSelected) -> None:
-        """Enter on a row arms it (or disarms it) for the next pad button."""
+        """A click arms a row, the same as space."""
+        self.action_arm()
+
+    def action_arm(self) -> None:
+        """Space: arm the highlighted row (or disarm it) for the next pad button."""
         if self._reader is None or not self._reader.connected:
             return
         target = self._current()

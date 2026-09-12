@@ -10,19 +10,20 @@ the guides fetched by ``python -m motioninput_tui_guides``.
 """
 
 import argparse
+import logging
 import sys
 from pathlib import Path
 
 from motioninput_tui.games.rulesets import GAME_SPECS
-from motioninput_tui.utils.logger import get_logger, setup_logger_cli
+from motioninput_tui.utils.logger import setup_logger_cli
 
 from .commands import apply_command_overrides
 from .names import apply_overrides
-from .parsers import hsf2, kof98, kof2001, lb2, sfa3, sfiii3, ssii, ssvsp, usfiv
+from .parsers import hsf2, kof98, kof2001, lastbld2, samsh5sp, samsho2, sfa3, sfiii3, usfiv
 from .roster import write_game
 from .summary import print_summary
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 PARSERS = {
     "hsf2": hsf2.parse,
@@ -30,9 +31,9 @@ PARSERS = {
     "sfiii3": sfiii3.parse,
     "kof98": kof98.parse,
     "kof2001": kof2001.parse,
-    "lb2": lb2.parse,
-    "ssii": ssii.parse,
-    "ssvsp": ssvsp.parse,
+    "lastbld2": lastbld2.parse,
+    "samsho2": samsho2.parse,
+    "samsh5sp": samsh5sp.parse,
     "usfiv": usfiv.parse,
 }
 

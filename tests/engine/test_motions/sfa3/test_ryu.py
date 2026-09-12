@@ -34,9 +34,7 @@ def test_grounded_quarter_circle_back_kick_is_a_hurricane_kick(play) -> None:
     assert play(script).moves == ["Tatsumaki Senpuu Kyaku"]
 
 
-def test_the_snk_forward_into_half_circle_is_only_a_fireball_here(play) -> None:
-    """`f,b,db,d,df,f` is Ryo's Haoh Shou Ko Ken in KoF '98 and nothing in
-    Alpha 3, which reads the end of the roll as a plain quarter circle. In 3rd
-    Strike the very same script is a dragon punch, since that game will take
-    the `d,f` at the end of it as one."""
-    assert play(FORWARD_INTO_HALF_CIRCLE_FORWARD_HP).moves == ["Hadou Ken"]
+def test_the_snk_forward_into_half_circle_is_only_the_half_circle_here(play) -> None:
+    """`f,b,db,d,df,f` is Ryo's Haoh Shou Ko Ken in KoF '98. Alpha 3 has no move
+    on the leading forward, so the roll is only the half circle it ends in."""
+    assert play(FORWARD_INTO_HALF_CIRCLE_FORWARD_HP).moves == ["Shakunetsu Hadou Ken"]

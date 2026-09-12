@@ -45,31 +45,34 @@ class MoveFeed(Static):
             text.append(f"{move.name:<30}", style=style)
             text.append(f"{notation.write_move(move):<28}", style="dim")
             if activation.follow_up is not None:
-                self._append_follow_up(text, activation.follow_up, newest=index == 0)
+                append_follow_up(text, activation.follow_up, newest=index == 0)
             elif activation.also_matched:
                 text.append(f"also: {', '.join(activation.also_matched)}", style="dim italic")
             text.append("\n")
         self.update(text)
 
-    @staticmethod
-    def _append_follow_up(text: Text, follow_up: FollowUp, *, newest: bool) -> None:
-        """The second-phase prompt or verdict for a two-phase move."""
-        done, needed = follow_up.got, follow_up.needed
-        if follow_up.status is FollowUpStatus.COMPLETE:
-            text.append("✓" * needed, style="bold green")
-        elif follow_up.status is FollowUpStatus.MISSED:
-            text.append("✓" * done + "·" * (needed - done), style="yellow")
-            if newest:
-                text.append("  missed", style="yellow")
-        elif newest:
-            text.append("●" * done + "○" * (needed - done), style="bold yellow")
-            if follow_up.frozen:
-                # The activation cinematic is still running and the game is
-                # reading nothing, so prompting for taps would teach the
-                # opposite of what the freeze exists to show.
-                text.append("  wait...", style="bold yellow")
-            else:
-                verb = "tap" if follow_up.rhythm else "mash"
-                text.append(f"  {verb} {follow_up.button_label}!", style="bold yellow")
+
+def append_follow_up(text: Text, follow_up: FollowUp, *, newest: bool) -> None:
+    """The second-phase prompt or verdict for a two-phase move.
+
+    Shared with the trainer's full-screen panel, which hides this feed.
+    """
+    done, needed = follow_up.got, follow_up.needed
+    if follow_up.status is FollowUpStatus.COMPLETE:
+        text.append("✓" * needed, style="bold green")
+    elif follow_up.status is FollowUpStatus.MISSED:
+        text.append("✓" * done + "·" * (needed - done), style="yellow")
+        if newest:
+            text.append("  missed", style="yellow")
+    elif newest:
+        text.append("●" * done + "○" * (needed - done), style="bold yellow")
+        if follow_up.frozen:
+            # The activation cinematic is still running and the game is
+            # reading nothing, so prompting for taps would teach the
+            # opposite of what the freeze exists to show.
+            text.append("  wait...", style="bold yellow")
         else:
-            text.append("●" * done + "○" * (needed - done), style="dim yellow")
+            verb = "tap" if follow_up.rhythm else "mash"
+            text.append(f"  {verb} {follow_up.button_label}!", style="bold yellow")
+    else:
+        text.append("●" * done + "○" * (needed - done), style="dim yellow")

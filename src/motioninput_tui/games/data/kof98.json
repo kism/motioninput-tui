@@ -2275,7 +2275,19 @@
     {
      "name": "Vulcan Punch",
      "command": "P repeatedly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P repeatedly"
+     }
     },
     {
      "name": "Super Argentine Backbreaker*",
@@ -3862,7 +3874,19 @@
     {
      "name": "Tekkyuu Daikaiten",
      "command": "P repeatedly (ABCD to cancel)",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P repeatedly (ABCD to cancel)"
+     }
     },
     {
      "name": "Tekkyuu Funsai Geki",
@@ -4896,6 +4920,7 @@
        "count": 1,
        "label": "P"
       },
+      "mash": 3,
       "notation": "close, (f, df, d, db, b)x2 + P repeatedly (up to 4 Levels)"
      }
     }
@@ -5255,12 +5280,34 @@
     {
      "name": "Senpuu Kon",
      "command": "A repeatedly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "A repeatedly"
+     }
     },
     {
      "name": "Shuutenren Hakon",
      "command": "C repeatedly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "C repeatedly"
+     }
     },
     {
      "name": "Karyuu Tsuigeki Kon",
@@ -6266,7 +6313,19 @@
     {
      "name": "Hien Shippuu Kyaku",
      "command": "db~f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "charge_db_f",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "db~f + K"
+     }
     },
     {
      "name": "Mouko Murai Gan",

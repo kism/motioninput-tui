@@ -16,11 +16,11 @@ written the way the trainer shows it. The replacement is parsed by the ordinary
 would use and gains nothing the parser cannot already read.
 """
 
+import logging
 from dataclasses import replace
 from typing import TYPE_CHECKING
 
 from motioninput_tui.controls.buttons import NEO_GEO
-from motioninput_tui.utils.logger import get_logger
 
 from .common import categorise
 from .neogeo import neo_buttons
@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.buttons import ButtonSet
     from motioninput_tui.games.models import Character, Move
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 OVERRIDES: dict[str, dict[tuple[str, str], str]] = {
     "sfa3": {

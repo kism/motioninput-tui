@@ -21,6 +21,8 @@ from motioninput_tui.controls.layouts import (
     resolve_keyboard_bindings,
 )
 
+from .base import AppScreen
+
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
@@ -31,15 +33,15 @@ _SLOT_LABELS = {"left": "back", "down": "down", "right": "forward", "up": "up"}
 """The movement axes read as fighting-game directions in the list."""
 
 
-class KeyboardBindScreen(ModalScreen["dict[str, str] | None"]):
+class KeyboardBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[str, str] | None"]):
     """Pick a slot, press a key, done."""
 
     BINDINGS: ClassVar = [
+        # An armed row takes space as a key: on_key sees it before this does.
+        Binding("space", "arm", "Rebind"),
         Binding("escape", "close", "Done"),
+        Binding("enter", "close", "Done", priority=True, show=False),
         Binding("r", "reset", "Defaults"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
     ]
 
     DEFAULT_CSS = """
@@ -94,11 +96,15 @@ class KeyboardBindScreen(ModalScreen["dict[str, str] | None"]):
         if self._armed is not None:
             text = Text(f"Press a key for {_SLOT_LABELS.get(self._armed, self._armed)}…", style="cyan")
         else:
-            text = Text("enter to rebind · esc when done")
+            text = Text("space to rebind · enter when done")
         self.query_one("#hint", Label).update(text)
 
     def on_option_list_option_selected(self, _event: OptionList.OptionSelected) -> None:
-        """Enter on a row arms it (or disarms it) for the next key."""
+        """A click arms a row, the same as space."""
+        self.action_arm()
+
+    def action_arm(self) -> None:
+        """Space: arm the highlighted row (or disarm it) for the next key."""
         target = self._current()
         self._armed = None if target == self._armed else target
         self._render_rows()

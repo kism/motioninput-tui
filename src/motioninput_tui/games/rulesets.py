@@ -150,9 +150,12 @@ SFIII3 = GameSpec(
         rotation_window_ms=533,  # `check_6` w_int: 32 frames, one turn.
         rotation_cardinal_gap_ms=233,  # Its free1: 14 frames without a cardinal wipes the set.
         # `check_special_attack` runs before `check_jump_ready` each frame and only while
-        # grounded, so the up a circle needs is a jump the frame after it is read. Four
-        # pre-jump frames is the estimate here - the tables say nothing about it.
-        jump_grace_ms=67,
+        # grounded, so the up a circle needs is a jump the frame after it is read. The
+        # tables say nothing about how long pre-jump lasts, so this is Hugo in the
+        # game's training mode: a button six frames after the up-back is still a
+        # Moonsault Press, nine frames on he has jumped. Seven, as seven and eight
+        # are unmeasured.
+        jump_grace_ms=117,
         rotation_slack=2,  # Unread while the rule above is in force.
     ),
     notes=(
@@ -231,7 +234,7 @@ KOF2001 = GameSpec(
 )
 
 LB2 = GameSpec(
-    key="lb2",
+    key="lastbld2",
     name="The Last Blade 2",
     short_name="Last Blade 2",
     ruleset=Ruleset(
@@ -260,12 +263,12 @@ LB2 = GameSpec(
         "Only Washizuka and Lee Rekka charge; everyone else is motion-only.",
         "The DMs and SDMs want a full meter and the right mode, neither of which the trainer models.",
     ),
-    reference="references/lb2.txt",
+    reference="references/lastbld2.txt",
     buttons=NEO_GEO,
 )
 
 SSII = GameSpec(
-    key="ssii",
+    key="samsho2",
     name="Samurai Shodown II",
     short_name="SSII",
     ruleset=Ruleset(
@@ -295,12 +298,12 @@ SSII = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The POW moves need a full meter, which the trainer does not model - only the input.",
     ),
-    reference="references/ssii.txt",
+    reference="references/samsho2.txt",
     buttons=NEO_GEO,
 )
 
 SSVSP = GameSpec(
-    key="ssvsp",
+    key="samsh5sp",
     name="Samurai Shodown V Special",
     short_name="SSV Special",
     ruleset=Ruleset(
@@ -329,7 +332,7 @@ SSVSP = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The supers need a full Rage gauge, which the trainer does not model - only the input.",
     ),
-    reference="references/ssvsp.txt",
+    reference="references/samsh5sp.txt",
     buttons=NEO_GEO,
 )
 
@@ -371,27 +374,10 @@ USFIV = GameSpec(
     reference="references/usfiv.txt",
 )
 
-INPUT_DISPLAY = GameSpec(
-    key="display",
-    name="Input display",
-    short_name="Inputs",
-    # Nothing is recognised here, so the rules never come into it.
-    ruleset=Ruleset(),
-    notes=(
-        "No moves and no rules: whatever you press is drawn as you press it.",
-        "Pick the panel you want laid out; the keys come from your layout.",
-    ),
-    reference="",
-)
-"""A game only in so far as it is picked like one: it has no roster, and its
-characters are the button sets. See :mod:`motioninput_tui.games.loader`."""
-
-DISPLAY_GAME = INPUT_DISPLAY.key
-
-# Menu order: the input display first, then by series (alphabetically), then in
-# each series' own numeric / chronological order.
+# Menu order: by series (alphabetically), then in each series' own numeric /
+# chronological order.
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (INPUT_DISPLAY, KOF98, KOF2001, LB2, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
+    spec.key: spec for spec in (KOF98, KOF2001, LB2, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
 }
 DEFAULT_GAME = SFIII3.key
 

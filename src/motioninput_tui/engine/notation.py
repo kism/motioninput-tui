@@ -95,11 +95,14 @@ _AXES_TO_DIRECTION: dict[tuple[bool, bool, bool, bool], Direction] = {
 def direction_from_axes(*, left: bool, right: bool, down: bool, up: bool, last_horizontal: str = "") -> Direction:
     """Resolve four cardinal holds into a single direction.
 
-    Simultaneous opposite cardinals are cleaned the way a modern hitbox does:
-    the newer horizontal input wins, and up beats down. Last-input priority
-    matters here rather than being a stylistic choice, because a terminal
-    cannot see the player let go of back as they press forward, so left and
-    right are routinely held at once during a perfectly ordinary motion.
+    Simultaneous opposite cardinals that reach here are cleaned last-input
+    first: the newer horizontal input wins, and up beats down. (A keyboard that
+    reports releases never sends any; its source cancels them first, see
+    :class:`~motioninput_tui.controls.source.KeyboardSource`.) Last-input
+    priority matters rather than being a stylistic choice, because a terminal
+    that reports no releases cannot see the player let go of back as they press
+    forward, so left and right are routinely held at once during a perfectly
+    ordinary motion.
     """
     if left and right:
         left = last_horizontal == "left"
