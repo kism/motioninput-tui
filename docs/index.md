@@ -154,8 +154,8 @@ That fits the Street Fighter six, but not the Neo Geo.
 keyboard the Neo Geo's fourth button cannot be pressed at all. Turning on the
 **Neo Geo slant** setting fixes it — `C D` on the top row, `A B` on the bottom
 — and a gamepad has all four either way. Worth doing if you train KoF or
-Samurai Shodown on a keyboard: 36 trainable moves across those rosters ask for
-D alone.
+Samurai Shodown on a keyboard: a few dozen trainable moves across those rosters
+ask for D alone.
 
 Pad buttons are read through SDL's controller database, so any recognised pad
 works however its firmware numbers them, and a pad reports releases, so holds
@@ -244,7 +244,10 @@ no elevated privileges, and it keeps working over SSH.
 
 Move list guides by Kao Megura / Chris MacDonald
 (<https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/>) for
-every game except Hyper Street Fighter II, whose guide is by x_MJ_x.
+Alpha 3, 3rd Strike and Samurai Shodown V Special; Ice Queen Zero / Andrea
+Castillo for both King of Fighters, Samurai Shodown II and The Last Blade 2;
+x_MJ_x for Hyper Street Fighter II; and THEMCD / Damon M. McDaniel for Ultra
+Street Fighter IV.
 
 ```{toctree}
 :hidden:
