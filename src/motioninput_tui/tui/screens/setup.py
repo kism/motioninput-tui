@@ -11,11 +11,12 @@ from typing import TYPE_CHECKING, ClassVar
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
-from textual.screen import Screen
 from textual.widgets import Footer, Header, Label, OptionList, Static
 
-from motioninput_tui.games.loader import available_games
+from motioninput_tui.games.loader import INPUT_DISPLAY, available_games
 from motioninput_tui.tui.widgets.settings_list import SettingsList
+
+from .base import AppScreen
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -25,16 +26,13 @@ if TYPE_CHECKING:
     from motioninput_tui.games.models import Character, Game
 
 
-class SetupScreen(Screen["tuple[str, str] | None"]):
+class SetupScreen(AppScreen["tuple[str, str] | None"]):
     """Choose what to train. Dismisses with (game, character), or None to go back."""
 
     BINDINGS: ClassVar = [
-        Binding("enter", "select", "Start training", priority=True),
         Binding("escape", "back", "Change input"),
-        Binding("ctrl+n", "app.notation", "Notation"),
-        # Nothing here takes text input, so drop Screen's copy/paste bindings
-        # from the key panel; ctrl+c stays as the quit shortcut.
-        Binding("ctrl+c", "app.help_quit", show=False, system=True),
+        Binding("enter", "select", "Start training", priority=True),
+        Binding("ctrl+b", "app.settings", "Settings"),
     ]
 
     DEFAULT_CSS = """
@@ -189,18 +187,14 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
         return game, roster[character_index].key
 
     def _describe(self) -> None:
-        """Explain the highlighted setting, then the highlighted game."""
+        """Explain the highlighted setting. A game's notes wait for the settings menu over its session."""
         text = Text()
         pane = self.query_one(SettingsList)
         setting = pane.highlighted_setting
         if setting is not None:
             state = "on" if pane.is_on(setting) else "off"
             text.append(f"{setting.name}: {state}\n", style="bold")
-            text.append(f"{setting.detail}\n")
-        selection = self._selection()
-        if selection is not None:
-            game, _ = selection
-            text.append(f"{game.name}: {game.notes[0] if game.notes else ''}", style="italic")
+            text.append(setting.detail)
         self.query_one("#detail", Static).update(text)
 
     def action_start(self) -> None:
@@ -217,8 +211,8 @@ class SetupScreen(Screen["tuple[str, str] | None"]):
 
 
 def _ordered_characters(game: Game) -> list[Character]:
-    """The roster as the character list shows it: alphabetical by display name."""
-    return sorted(game.characters, key=lambda character: character.name.casefold())
+    """The roster as the character list shows it: the input display, then alphabetical by display name."""
+    return sorted(game.characters, key=lambda character: (character.key != INPUT_DISPLAY, character.name.casefold()))
 
 
 def _index_of(keys: list[str], wanted: str | None) -> int:

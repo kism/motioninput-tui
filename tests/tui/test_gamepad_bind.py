@@ -68,13 +68,13 @@ def test_rebinding_an_attack_persists_it(tmp_path: Path, fake_pad: FakeReader) -
             assert isinstance(bind, GamepadBindScreen)
             bind.query_one("#binds", OptionList).highlighted = 2  # HP
             await pilot.pause()
-            await pilot.press("enter")  # arm HP
+            await pilot.press("space")  # arm HP
             await pilot.pause()
             assert bind._armed is not None
             fake_pad.press("pad:1")  # B on an Xbox pad
             bind._poll()  # what the poll interval does, but without the timing race
             await pilot.pause()
-            await pilot.press("escape")  # done
+            await pilot.press("enter")  # done
             await pilot.pause()
             await pilot.pause()
         return config

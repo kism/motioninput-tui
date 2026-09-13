@@ -1,5 +1,6 @@
 """Turns a stream of inputs into a stream of activated moves."""
 
+from collections import deque
 from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
@@ -9,7 +10,7 @@ from .motions import CHARGE_KINDS, MatchContext, MotionKind, matches
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-    from .buffer import InputBuffer
+    from .buffer import DirectionState, InputBuffer
     from .motions import MotionSpec
     from .notation import Button
     from .ruleset import Ruleset
@@ -55,21 +56,55 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
     MotionKind.F_HCF: 84,
     MotionKind.CHARGE_BFBF: 83,
     MotionKind.CHARGE_DB_UF: 83,
-    MotionKind.QCF_UF: 70,
     MotionKind.HCB_F: 70,
     MotionKind.TIGER_KNEE: 68,
     MotionKind.HCF: 65,
     MotionKind.HCB: 65,
     MotionKind.DP: 60,
     MotionKind.RDP: 60,
+    MotionKind.CHARGE_DB_F: 56,
     MotionKind.CHARGE_BF: 55,
     MotionKind.CHARGE_DU: 55,
+    MotionKind.F_DF_D: 55,
+    MotionKind.B_DB_D: 55,
     MotionKind.QCF: 50,
     MotionKind.QCB: 50,
     MotionKind.MASH: 40,
     MotionKind.HOLD: 20,
     MotionKind.ANY: 10,
 }
+
+
+NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH})
+"""Kinds with no stick motion to watch: a bare button, a held direction, a mash."""
+
+
+@dataclass(frozen=True, slots=True)
+class LiveMotion:
+    """A motion a press right now would complete, and the inputs that made it."""
+
+    kind: MotionKind
+    start_ms: int
+    """When the first direction it used was reached."""
+    end_ms: int
+    """When the last direction it used was reached."""
+
+
+def _span(spec: MotionSpec, buffer: InputBuffer, context: MatchContext) -> tuple[int, int]:
+    """When the first and last directions a matching motion used were reached.
+
+    The matchers only say whether a motion is there, so this asks again of
+    shorter histories: the latest state it can still start from, then the
+    earliest it can already finish on. Only call it on a motion that matches.
+    """
+    states = list(buffer.directions)
+
+    def still_matches(chosen: list[DirectionState]) -> bool:
+        return matches(spec, replace(buffer, directions=deque(chosen)), context)
+
+    first = next(k for k in reversed(range(len(states))) if still_matches(states[k:]))
+    last = next(e for e in range(first, len(states)) if still_matches(states[first : e + 1]))
+    return states[first].start_ms, states[last].start_ms
 
 
 @runtime_checkable
@@ -204,10 +239,6 @@ class Recognizer:
             reverse=True,
         )
 
-    def evaluate(self, buffer: InputBuffer, at_ms: int, pressed: set[Button]) -> Activation | None:
-        """Return the winning move for this press, if any."""
-        return self._decide(buffer, at_ms, frozenset(pressed), allow_defer=True)
-
     def poll(self, buffer: InputBuffer, at_ms: int) -> Activation | None:
         """Fire a press that was held for more buttons and did not get them.
 
@@ -218,7 +249,28 @@ class Recognizer:
             return None
         held = self._deferred
         self._deferred = None
-        return self._decide(buffer, held.since_ms, held.pressed, allow_defer=False)
+        return self.decide(buffer, held.since_ms, held.pressed, allow_defer=False)
+
+    def live_motions(self, buffer: InputBuffer, at_ms: int) -> list[LiveMotion]:
+        """The motions a press right now would complete, strongest first.
+
+        Every button counts as down, so this reads the stick alone, and one of
+        a motion's moves matching is enough to list it. The moves are already
+        ranked, so the first match of each kind comes out in priority order:
+        the head of the list is what a press would give, and the rest are what
+        it would beat. Each carries when the inputs that made it began and
+        ended, so it can be laid over them.
+        """
+        loose = self.policy is BufferPolicy.LOOSE
+        found: list[LiveMotion] = []
+        for move in self._ranked:
+            spec = move.motion
+            if spec is None or spec.kind in NOT_MOTIONS or any(live.kind is spec.kind for live in found):
+                continue
+            context = MatchContext(self.ruleset, at_ms, spec.buttons.allowed, self.decay_ms, loose=loose)
+            if matches(spec, buffer, context):
+                found.append(LiveMotion(spec.kind, *_span(spec, buffer, context)))
+        return found
 
     def advance_follow_up(self, at_ms: int) -> bool:
         """Move a pending follow-through's clock on. Driven from the session
@@ -239,9 +291,10 @@ class Recognizer:
         self._pending_follow_up = None
         return True
 
-    def _decide(
-        self, buffer: InputBuffer, at_ms: int, pressed: frozenset[Button], *, allow_defer: bool
+    def decide(
+        self, buffer: InputBuffer, at_ms: int, pressed: frozenset[Button], *, allow_defer: bool = True
     ) -> Activation | None:
+        """Return the winning move for this press, if any."""
         # A move mid follow-through owns the press if it is one of that move's
         # taps; anything else abandons the follow-through and is handled below.
         if self._pending_follow_up is not None and self._feed_follow_up(

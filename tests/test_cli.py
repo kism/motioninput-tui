@@ -68,6 +68,15 @@ def test_a_remembered_character_who_has_gone_is_forgotten(saved, launched, monke
     assert launched[0].game == "sfiii3"
 
 
+def test_a_remembered_game_that_has_gone_is_forgotten(saved, launched, monkeypatch) -> None:
+    """The input display was a game once, and a config written then still names it."""
+    path = saved(game="display", character="street-fighter")
+    monkeypatch.setattr(sys, "argv", ["motioninput-tui", "--config", str(path)])
+
+    assert main() == 0
+    assert (launched[0].game, launched[0].character) == (None, None)
+
+
 def test_missing_game_data_stops_the_app_starting(saved, launched, monkeypatch) -> None:
     """The one selection problem there is no falling back from: a character can
     be dropped and the picker opens, but an absent roster leaves nothing to do."""

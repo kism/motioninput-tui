@@ -1,5 +1,5 @@
 ---
-game: ssii
+game: samsho2
 panel: neo-geo
 closest_parser: kof98
 predicted_trainable: 45

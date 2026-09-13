@@ -782,7 +782,20 @@
     {
      "name": "Glow Hand",
      "command": "F, DF, D + any Punch (ST only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "f_df_d",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F, DF, D + any Punch (ST only)"
+     }
     },
     {
      "name": "Final Atomic Buster",

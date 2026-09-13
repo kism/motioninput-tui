@@ -66,5 +66,6 @@ for the register and what the check involves.
 Move list guides by:
 
 - [Kao Megura / Chris MacDonald](https://gamefaqs.gamespot.com/community/Kao_Megura/contributions/faqs) [Rest In Peace](https://web.archive.org/web/20040520095719/http://cgfm2.emuviews.com/).
+- Ice Queen Zero / Andrea Castillo (The King of Fighters '98 and 2001, Samurai Shodown II, The Last Blade 2)
 - x_MJ_x (Hyper Street Fighter II)
-- THEMCD / Damon M. McDaniel (Ultimate Street Fighter IV)
+- THEMCD / Damon M. McDaniel (Ultra Street Fighter IV)

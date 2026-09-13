@@ -5,10 +5,12 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.notation import Button, Direction, direction_from_axes
 
-from .layouts import DEFAULT_TIMING, Axis, HeldAxes, HoldTiming
+from .layouts import DEFAULT_TIMING, Axis, HeldAxes, HoldTiming, LayoutKind
 
 if TYPE_CHECKING:
     from .layouts import ControlLayout
+
+_OPPOSITES = (frozenset({Axis.LEFT, Axis.RIGHT}), frozenset({Axis.UP, Axis.DOWN}))
 
 
 @dataclass(frozen=True, slots=True)
@@ -113,6 +115,13 @@ class KeyboardSource:
 
     def _update(self, button: Button | None) -> SourceUpdate:
         held = self._axes.held()
+        # GP2040-CE's SOCD neutral, so left, down and right together are down.
+        # Only a keyboard whose releases are known: a pad's d-pad cannot hold
+        # both ways, and with no releases a held pair is a guess.
+        if self.layout.kind is LayoutKind.KEYBOARD and self._axes.exact:
+            for pair in _OPPOSITES:
+                if pair <= held:
+                    held -= pair
         direction = direction_from_axes(
             left=Axis.LEFT in held,
             right=Axis.RIGHT in held,

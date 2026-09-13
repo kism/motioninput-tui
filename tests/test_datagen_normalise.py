@@ -8,6 +8,7 @@ motion, not a mash - the tail is decoration.
 import pytest
 
 from motioninput_tui.engine.motions import MotionKind
+from motioninput_tui_datagen.neogeo import to_neo_panel, to_shorthand
 from motioninput_tui_datagen.normalise import _MASH_DEFAULT, parse_command
 
 
@@ -108,3 +109,28 @@ def test_a_run_of_shorthands_shares_the_direction_they_meet_on(command: str, kin
     motion = parse_command(command).motion
     assert motion is not None
     assert motion.kind is kind
+
+
+@pytest.mark.parametrize(
+    ("command", "kind"),
+    [
+        ("F, DF, D + any Punch", MotionKind.F_DF_D),  # Zangief's Banishing Flat
+        ("b,db,d + K", MotionKind.B_DB_D),  # Sodom's Tengu Walking
+        ("Charge db,f + K", MotionKind.CHARGE_DB_F),  # Vega's Scarlet Terror
+        ("Charge b,f + K", MotionKind.CHARGE_BF),
+        ("P repeatedly", MotionKind.MASH),  # Clark's Vulcan Punch
+    ],
+)
+def test_shapes_the_guides_share(command: str, kind: MotionKind) -> None:
+    motion = parse_command(command).motion
+    assert motion is not None
+    assert motion.kind is kind
+
+
+def test_a_neo_geo_mash_keeps_its_button() -> None:
+    """Kuroko's ``C rapidly`` has no ``+`` for the button translation to find."""
+    command = "C rapidly"
+    motion = parse_command(to_shorthand(command)).motion
+    assert motion is not None
+    assert motion.kind is MotionKind.MASH
+    assert to_neo_panel(motion, command).buttons.label == "C"

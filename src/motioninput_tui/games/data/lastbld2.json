@@ -1,7 +1,7 @@
 {
- "key": "lb2",
+ "key": "lastbld2",
  "name": "The Last Blade 2",
- "source": "references/lb2.txt",
+ "source": "references/lastbld2.txt",
  "characters": [
   {
    "key": "awakened-kaede",
@@ -292,7 +292,20 @@
     {
      "name": "Taitou Hogetsu",
      "command": "b, db, d  + A or B or C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C"
+       ],
+       "count": 1,
+       "label": "A/B/C"
+      },
+      "notation": "b, db, d  + A or B or C"
+     }
     },
     {
      "name": "Kassatsu Izayoi Gekka (DM)",
@@ -918,7 +931,18 @@
     {
      "name": "Ibisha Anaguma",
      "command": "A rapidly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "mash",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "A rapidly"
+     }
     },
     {
      "name": "Anaguma no Fudoshi Nugi",

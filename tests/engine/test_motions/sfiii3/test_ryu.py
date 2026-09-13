@@ -3,11 +3,14 @@
 Compare `sfa3/test_ryu.py` and `hsf2/test_ryu.py`, which play the same script.
 """
 
+from motioninput_tui.engine.session import Outcome
 from tests.engine.test_motions.harness import (
     DOWN,
     DOWN_DOUBLE_TAP_FORWARD_HP,
     FORWARD,
     HP,
+    LK,
+    LP,
     QUARTER_BACK_ROLLED_TO_FORWARD_HP,
     QUARTER_CIRCLE_FORWARD_HP,
     press,
@@ -17,6 +20,13 @@ from tests.engine.test_motions.harness import (
 
 def test_quarter_circle_forward_is_a_fireball(play) -> None:
     assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["Hadou Ken"]
+
+
+def test_a_throw_is_kept_on_the_trail_with_no_motion(play) -> None:
+    """Nothing the stick drew, so the trail keeps the moment it came out, for the history to mark."""
+    attempt = play([press(LP, 100), press(LK, 110)])
+    assert attempt.moves == ["Seoi Nage"]
+    assert [(motion.kind, motion.outcome) for motion in attempt.session.trail] == [(None, Outcome.EXECUTED)]
 
 
 def test_hold_down_double_tap_forward_is_a_dragon_punch(play) -> None:

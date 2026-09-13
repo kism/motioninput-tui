@@ -8,6 +8,7 @@ logged and ignored rather than interrupting a training session.
 """
 
 import json
+import logging
 import os
 import re
 import tempfile
@@ -17,9 +18,8 @@ from pathlib import Path
 from .controls.layouts import DEFAULT_LAYOUT, KEYBOARD_DEFAULT_BINDINGS, LAYOUTS
 from .engine.recognizer import BufferPolicy
 from .notation_styles import STYLES
-from .utils.logger import get_logger
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 APP_DIR_NAME = "motioninput-tui"
 CONFIG_FILENAME = "config.json"
@@ -54,9 +54,6 @@ class Config:
     back to the character as well."""
     layout: str = DEFAULT_LAYOUT
     buffer_policy: BufferPolicy = BufferPolicy.CONSUME
-    lenient_half_circles: bool = True
-    """Whether a half circle may skip straight down. See
-    :mod:`motioninput_tui.settings`."""
     neo_geo_slant: bool = False
     """Whether the Neo Geo's four buttons are arranged as the arcade slants
     them. See :mod:`motioninput_tui.controls.buttons`."""
@@ -105,12 +102,11 @@ class Config:
             logger.warning("Ignoring config at %s: expected an object", target)
             return cls(path=target)
         return cls(
-            game=_optional_str(raw.get("game")),
+            game=_valid_game(raw.get("game")),
             character=_optional_str(raw.get("character")),
             characters=_valid_characters(raw.get("characters")),
             layout=_valid_layout(raw.get("layout")),
             buffer_policy=_valid_policy(raw.get("buffer_policy")),
-            lenient_half_circles=_valid_flag(raw.get("lenient_half_circles"), default=True),
             neo_geo_slant=_valid_flag(raw.get("neo_geo_slant"), default=False),
             notation=_valid_notation(raw.get("notation")),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
@@ -129,7 +125,6 @@ class Config:
             "characters": self.characters,
             "layout": self.layout,
             "buffer_policy": str(self.buffer_policy),
-            "lenient_half_circles": self.lenient_half_circles,
             "neo_geo_slant": self.neo_geo_slant,
             "notation": self.notation,
             "gamepad_bindings": self.gamepad_bindings,
@@ -172,6 +167,17 @@ _LAYOUT_ALIASES = {"hitbox": "keyboard-left", "southpaw": "keyboard-right"}
 """The keyboard layouts that were replaced, mapped to their nearest successor so
 a config from before the change still opens somewhere sensible."""
 
+_GAME_ALIASES = {"lb2": "lastbld2", "ssii": "samsho2", "ssvsp": "samsh5sp"}
+"""Games renamed to their MAME set names, so a config from before comes back to
+the same game, and to the same character in it."""
+
+
+def _valid_game(value: object) -> str | None:
+    game = _optional_str(value)
+    if game is None:
+        return None
+    return _GAME_ALIASES.get(game, game)
+
 
 def _valid_layout(value: object) -> str:
     # An unavailable layout (gamepad without the extra installed) falls back,
@@ -200,7 +206,7 @@ def _valid_characters(value: object) -> dict[str, str]:
     if not isinstance(value, dict):
         return {}
     return {
-        game: character
+        _GAME_ALIASES.get(game, game): character
         for game, character in value.items()
         if isinstance(game, str) and game and isinstance(character, str) and character
     }

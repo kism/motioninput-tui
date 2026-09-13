@@ -1,5 +1,6 @@
 """The Textual application."""
 
+import logging
 from time import monotonic
 from typing import TYPE_CHECKING, ClassVar
 
@@ -8,7 +9,7 @@ from textual.binding import Binding
 
 from motioninput_tui.config import Config
 from motioninput_tui.constants import PROGRAM_NAME_WITH_VERSION
-from motioninput_tui.controls.buttons import DEFAULT_SET, arrangement, get_set
+from motioninput_tui.controls.buttons import DEFAULT_SET, arrangement
 from motioninput_tui.controls.layouts import (
     KB_CUSTOM,
     LayoutKind,
@@ -17,21 +18,17 @@ from motioninput_tui.controls.layouts import (
     keyboard_layout,
     with_buttons,
 )
-from motioninput_tui.games.loader import load_game
-from motioninput_tui.games.rulesets import DISPLAY_GAME
+from motioninput_tui.games.loader import INPUT_DISPLAY, load_game
 from motioninput_tui.notation_styles import Notation
 from motioninput_tui.settings import current as current_settings
-from motioninput_tui.settings import tuned_game
-from motioninput_tui.utils.logger import get_logger
 
 from .keyboard_driver import KeyRelease, ReleaseAwareDriver
 from .screens.input_display import InputDisplayScreen
 from .screens.input_picker import InputPickerScreen
-from .screens.notation import NotationScreen
 from .screens.settings import SettingsScreen
 from .screens.setup import SetupScreen
 from .screens.training import TrainingScreen
-from .widgets.settings_list import SettingsList  # ruff: ignore[typing-only-first-party-import] - Textual evaluates the on_settings_list_changed annotation at runtime
+from .widgets.settings_list import SettingsList
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -41,9 +38,9 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.buttons import ButtonSet
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.engine.recognizer import BufferPolicy
-    from motioninput_tui.games.models import Character, Game
+    from motioninput_tui.games.models import Game
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 QUIT_CONFIRM_WINDOW_S = 2.0
 """How long a first ctrl+c counts for, before a second one quits."""
@@ -121,18 +118,19 @@ class MotionInputApp(App[None]):
         self._remember(keyboard_bindings=event.bindings)
 
     def action_settings(self) -> None:
-        """Open the settings over whatever is running. The trainer's ctrl+b."""
-        self.push_screen(SettingsScreen(current_settings(self.config)))
+        """Open the settings and the notation over whatever is running. ctrl+b.
 
-    def action_notation(self) -> None:
-        """Open the notation menu over whatever is running. ctrl+n."""
-        self.push_screen(NotationScreen(self.config.notation))
+        Over a session it is headed by that game's notes, the one place they are shown.
+        """
+        sessions = (screen for screen in self.screen_stack if isinstance(screen, TrainingScreen | InputDisplayScreen))
+        game = next((screen.session.game for screen in sessions), None)
+        self.push_screen(SettingsScreen(current_settings(self.config), self.config.notation, game=game))
 
-    def on_notation_screen_changed(self, event: NotationScreen.Changed) -> None:
+    def on_settings_screen_notation_changed(self, event: SettingsScreen.NotationChanged) -> None:
         """Remember how moves are to be written, and rewrite any on screen."""
         self._remember(notation=event.choices)
         for screen in self.screen_stack:
-            if isinstance(screen, TrainingScreen):
+            if isinstance(screen, TrainingScreen | InputDisplayScreen):
                 screen.apply_notation(Notation(event.choices))
 
     def on_settings_list_changed(self, event: SettingsList.Changed) -> None:
@@ -144,11 +142,12 @@ class MotionInputApp(App[None]):
         """
         self._remember(**event.values)
         for screen in self.screen_stack:
-            if isinstance(screen, TrainingScreen):
-                screen.apply_settings(tuned_game(screen.session.game, self.config), self.config.buffer_policy)
-            elif isinstance(screen, InputDisplayScreen):
-                session = screen.session
-                screen.apply_panel(*self._panel_for(session.game, screen.character, session.layout.key))
+            if isinstance(screen, TrainingScreen | InputDisplayScreen):
+                screen.apply_settings(self.config.buffer_policy)
+            if isinstance(screen, InputDisplayScreen):  # the Neo Geo slant rearranges the panel it draws
+                screen.apply_panel(*self._panel_for(screen.session.game, screen.session.layout.key))
+            if isinstance(screen, SetupScreen):  # its own pane, when the change was made in the menu over it
+                screen.query_one(SettingsList).set_values(event.values)
 
     def on_key_release(self, event: KeyRelease) -> None:
         """Route a key release to the trainer.
@@ -204,17 +203,8 @@ class MotionInputApp(App[None]):
             on_done,
         )
 
-    def _buttons_for(self, game: Game, character: Character) -> ButtonSet:
-        """The panel to play this on.
-
-        Every game names its own set; the input display is the one where the
-        player picks it, which is what its characters are.
-        """
-        chosen = get_set(character.key) if game.key == DISPLAY_GAME else game.buttons
-        return arrangement(chosen, slanted_neo_geo=self.config.neo_geo_slant)
-
-    def _panel_for(self, game: Game, character: Character, layout_key: str) -> tuple[ControlLayout, ButtonSet]:
-        """The layout with this game's buttons on its attack positions.
+    def _panel_for(self, game: Game, layout_key: str) -> tuple[ControlLayout, ButtonSet]:
+        """The layout with this game's buttons on its attack positions, arranged as the player wants them.
 
         Every layout already carries the Street Fighter six, rebinds included,
         so only another set has to be laid out; that also keeps a rebound pad
@@ -225,27 +215,26 @@ class MotionInputApp(App[None]):
             layout = gamepad_layout(self.config.gamepad_bindings or None)
         elif layout.key == KB_CUSTOM.key:
             layout = keyboard_layout(self.config.keyboard_bindings or None)
-        buttons = self._buttons_for(game, character)
+        buttons = arrangement(game.buttons, slanted_neo_geo=self.config.neo_geo_slant)
         if buttons is not DEFAULT_SET:
             layout = with_buttons(layout, buttons)
         return layout, buttons
 
     def _start(self, game_key: str, character_key: str, layout_key: str) -> None:
-        game = tuned_game(load_game(game_key), self.config)
+        game = load_game(game_key)
         character = game.character(character_key)
-        layout, buttons = self._panel_for(game, character, layout_key)
+        layout, buttons = self._panel_for(game, layout_key)
         self._remember(game=game.key, character=character.key, layout=layout.key)
 
         def on_done(_result: None) -> None:
             # Leaving is nearly always about picking someone, or something, else.
             self._open_setup(focus_characters=True)
 
-        if game.key == DISPLAY_GAME:
-            display = InputDisplayScreen(game, character, layout, buttons, exact_input=self._key_release)
-            self.push_screen(display, on_done)
-            return
-
         policy: BufferPolicy = self.config.buffer_policy
-        screen = TrainingScreen(game, character, layout, exact_input=self._key_release, policy=policy)
+        screen: TrainingScreen | InputDisplayScreen
+        if character.key == INPUT_DISPLAY:
+            screen = InputDisplayScreen(game, layout, buttons, exact_input=self._key_release, policy=policy)
+        else:
+            screen = TrainingScreen(game, character, layout, exact_input=self._key_release, policy=policy)
         screen.apply_notation(Notation(self.config.notation))
         self.push_screen(screen, on_done)

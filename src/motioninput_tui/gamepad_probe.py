@@ -12,6 +12,7 @@ datestamped copy of the whole session, named after the pad, is written to
 
 import argparse
 import contextlib
+import logging
 import re
 import sys
 import time
@@ -21,7 +22,7 @@ from typing import TYPE_CHECKING, Protocol
 
 from .constants import PROGRAM_NAME
 from .controls.gamepad import AXIS_DEADZONE, AXIS_MAX, TRIGGER_THRESHOLD, codes_from_pad, load_pygame
-from .utils.logger import get_logger, setup_logger_cli
+from .utils.logger import setup_logger_cli
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Mapping
@@ -29,7 +30,7 @@ if TYPE_CHECKING:
 
     from .controls.gamepad import Pad
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class RawJoystick(Protocol):

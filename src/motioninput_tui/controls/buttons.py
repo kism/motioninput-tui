@@ -30,8 +30,7 @@ class ButtonSet:
     """The attack buttons of one game's panel, in rows.
 
     Attributes:
-        key: What is saved in the config, and the pseudo-character key the
-            input display is picked with.
+        key: What :func:`get_set` looks it up by.
         name: What the pickers call it.
         rows: Buttons in panel order, top row first. A row is laid onto the
             matching row of the layout's attack keys, so a row longer than the
@@ -107,8 +106,10 @@ BUTTON_SETS: tuple[ButtonSet, ...] = (
     TEKKEN,
     EIGHT_BUTTON,
 )
-"""The sets offered in the pickers. The Neo Geo slant is not among them: it is
-the same set differently arranged, and :func:`arrangement` chooses it."""
+"""Every set bar the Neo Geo slant, which is the same set differently arranged
+and chosen by :func:`arrangement`. A panel is only ever reached through a game
+that is played on it, so Mortal Kombat, Tekken and the eight button panel are
+waiting for one."""
 
 DEFAULT_SET = STREET_FIGHTER
 

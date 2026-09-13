@@ -33,19 +33,27 @@ class Family(StrEnum):
 
     DIRECTIONS = "directions"
     QUARTER = "quarter"
+    QUARTER_DOWN = "quarter_down"
+    """A quarter of the circle run the other way round, ending on down: 632 and 412."""
     HALF = "half"
     DRAGON = "dragon"
+    TIGER = "tiger"
     ROTATE = "rotate"
     CHARGE = "charge"
+    MARK = "mark"
+    """Not a motion: what marks a button that did something on its own."""
 
 
 FAMILY_NAMES: dict[Family, str] = {
     Family.DIRECTIONS: "Directions",
     Family.QUARTER: "Quarter circles",
+    Family.QUARTER_DOWN: "632, 412",
     Family.HALF: "Half circles",
     Family.DRAGON: "Dragon punches",
+    Family.TIGER: "Tiger knees",
     Family.ROTATE: "Full circles",
     Family.CHARGE: "Charges",
+    Family.MARK: "Button marks",
 }
 
 
@@ -59,11 +67,15 @@ class Style:
         glyphs: The writing for each motion kind. A kind that is missing is
             spelled out as directions instead, which is what makes the first
             style of every family the plain one.
-        directions: :attr:`Family.DIRECTIONS` only: how to draw each direction.
-            A direction that is missing falls back to its arrow.
-        separator: :attr:`Family.DIRECTIONS` only: what goes between them.
-            Numpad notation runs them together as ``236``, letters want
-            ``D, DF, F``, arrows want the space.
+        directions: How to draw each direction; one that is missing falls back
+            to its arrow. On a :attr:`Family.DIRECTIONS` style it is how every
+            motion is spelled out. On a motion family's it spells just that
+            family out, which is how each one offers numpad of its own.
+        separator: What goes between them. Numpad notation runs them together
+            as ``236``, letters want ``D, DF, F``, arrows want the space.
+        mark: :attr:`Family.MARK` only: what the motion rows over the input
+            history put over a move that came out needing no motion, a throw or a
+            command normal, and over each tap a mash tail counted.
     """
 
     key: str
@@ -71,6 +83,7 @@ class Style:
     glyphs: Mapping[MotionKind, str] = field(default_factory=dict)
     directions: Mapping[Direction, str] = field(default_factory=dict)
     separator: str = " "
+    mark: str = ""
 
     def write_direction(self, direction: Direction) -> str:
         """One direction, drawn this way."""
@@ -85,44 +98,22 @@ _K = MotionKind
 # out: if the row is a box, that font is not installed.
 _NF_QUARTER_FORWARD = "\U000f17bf"  # nf-md-arrow_up_right
 _NF_QUARTER_BACK = "\U000f17bd"  # nf-md-arrow_up_left
+_NF_QUARTER_FORWARD_DOWN = "\U000f17a9"  # nf-md-arrow_right_bottom
+_NF_QUARTER_BACK_DOWN = "\U000f17a5"  # nf-md-arrow_left_bottom
 _NF_HALF_FORWARD = "\U000f17bb"  # nf-md-arrow_u_up_right
 _NF_HALF_BACK = "\U000f17b9"  # nf-md-arrow_u_up_left
-_NF_DRAGON = "\ueef8"  # nf-fa-dragon
+_NF_TIGER_KNEE = "\uf148"  # nf-fa-arrow_turn_up
 
 
 _LETTERS: dict[Direction, str] = {direction: direction.short.upper() for direction in Direction}
 _NUMPAD: dict[Direction, str] = {direction: str(int(direction)) for direction in Direction}
-_KEYCAPS: dict[Direction, str] = {direction: f"{int(direction)}\ufe0f\u20e3" for direction in Direction}
-"""The numpad as keycap emoji, ``2️⃣3️⃣6️⃣``."""
-
-_EMOJI_ARROWS: dict[Direction, str] = {
-    _D.DOWN_BACK: "↙️",
-    _D.DOWN: "⬇️",
-    _D.DOWN_FORWARD: "↘️",
-    _D.BACK: "⬅️",
-    _D.FORWARD: "➡️",
-    _D.UP_BACK: "↖️",
-    _D.UP: "⬆️",
-    _D.UP_FORWARD: "↗️",
-}
-
-# nf-md-numeric_1_box to nf-md-numeric_9_box, which is the numpad in boxes.
-_NF_DIGIT_BOXES = (
-    "\U000f03a4",
-    "\U000f03a7",
-    "\U000f03aa",
-    "\U000f03ad",
-    "\U000f03b1",
-    "\U000f03b3",
-    "\U000f03b6",
-    "\U000f03b9",
-    "\U000f03bc",
-)
-_NERD_NUMPAD: dict[Direction, str] = {direction: _NF_DIGIT_BOXES[int(direction) - 1] for direction in Direction}
 
 _NF_ROTATE = "\U000f1999"  # nf-md-rotate_360
 _NF_LEFT_RIGHT = "\U000f0e73"  # nf-md-arrow_left_right
 _NF_UP_DOWN = "\U000f0e79"  # nf-md-arrow_up_down
+
+_NUMPAD_STYLE = Style(key="numpad", name="Numpad", directions=_NUMPAD, separator="")
+"""Every direction as numpad, or, picked for one family, just that family's motions."""
 
 
 def _beast(glyph: str) -> dict[MotionKind, str]:
@@ -134,37 +125,49 @@ STYLES: dict[Family, tuple[Style, ...]] = {
     Family.DIRECTIONS: (
         Style(key="arrows", name="Arrows"),
         Style(key="letters", name="Letters", directions=_LETTERS, separator=", "),
-        Style(key="numpad", name="Numpad", directions=_NUMPAD, separator=""),
-        Style(key="emoji", name="Emoji arrows", directions=_EMOJI_ARROWS),
-        Style(key="keycaps", name="Emoji numpad", directions=_KEYCAPS, separator=""),
-        Style(key="nerd", name="Nerd numpad", directions=_NERD_NUMPAD, separator=""),
+        _NUMPAD_STYLE,
     ),
     Family.QUARTER: (
         Style(key="spelled", name="Spelled out"),
-        Style(key="elbow", name="Elbow arrows", glyphs={_K.QCF: "⮡", _K.QCB: "⮠"}),
-        Style(key="curved", name="Curved arrows", glyphs={_K.QCF: "⮩", _K.QCB: "⮨"}),
-        Style(key="ribbon", name="Ribbon arrows", glyphs={_K.QCF: "⮱", _K.QCB: "⮰"}),
-        Style(key="return", name="Return arrows", glyphs={_K.QCF: "⮑", _K.QCB: "⮐"}),
+        _NUMPAD_STYLE,
+        Style(key="elbow", name="Arrow with tip", glyphs={_K.QCF: "⬏", _K.QCB: "⬑"}),
+        Style(key="quadrant", name="Quadrant", glyphs={_K.QCF: "◶→", _K.QCB: "◵←"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.QCF: _NF_QUARTER_FORWARD, _K.QCB: _NF_QUARTER_BACK}),
         Style(key="emoji", name="Emoji fireball", glyphs={_K.QCF: "🔥→", _K.QCB: "🔥←"}),
     ),
+    Family.QUARTER_DOWN: (
+        Style(key="spelled", name="Spelled out"),
+        _NUMPAD_STYLE,
+        Style(key="quadrant", name="Quadrant", glyphs={_K.F_DF_D: "◶↓", _K.B_DB_D: "◵↓"}),
+        Style(
+            key="nerd", name="Nerd font", glyphs={_K.F_DF_D: _NF_QUARTER_FORWARD_DOWN, _K.B_DB_D: _NF_QUARTER_BACK_DOWN}
+        ),
+    ),
     Family.HALF: (
         Style(key="spelled", name="Spelled out"),
+        _NUMPAD_STYLE,
         Style(key="cup", name="Cup", glyphs={_K.HCF: "⋃→", _K.HCB: "⋃←"}),
         Style(key="arc", name="Arc", glyphs={_K.HCF: "◡→", _K.HCB: "◡←"}),
         Style(key="nerd", name="Nerd font", glyphs={_K.HCF: _NF_HALF_FORWARD, _K.HCB: _NF_HALF_BACK}),
-        Style(key="emoji", name="Emoji moon", glyphs={_K.HCF: "🌙→", _K.HCB: "🌙←"}),
     ),
     Family.DRAGON: (
         Style(key="spelled", name="Spelled out"),
+        _NUMPAD_STYLE,
         Style(key="canadian", name="Canadian Syllabics", glyphs={_K.DP: "𑪼", _K.RDP: "𑪽"}),
         Style(key="turkic", name="Old Turkic", glyphs={_K.DP: "𐰁", _K.RDP: "𐰀"}),
         Style(key="kanji", name="Dragon 龍", glyphs=_beast("龍")),
         Style(key="simplified", name="Dragon 龙", glyphs=_beast("龙")),
         Style(key="japanese", name="Dragon 竜", glyphs=_beast("竜")),
-        Style(key="hieroglyph", name="Serpent 𓆈", glyphs=_beast("𓆈")),
-        Style(key="nerd", name="Nerd font", glyphs=_beast(_NF_DRAGON)),
         Style(key="emoji", name="Emoji dragon", glyphs=_beast("🐉")),
+    ),
+    Family.TIGER: (
+        Style(key="spelled", name="Spelled out"),
+        _NUMPAD_STYLE,
+        Style(key="nerd", name="Nerd font", glyphs={_K.TIGER_KNEE: _NF_TIGER_KNEE}),
+        Style(key="emoji", name="Emoji tiger face", glyphs={_K.TIGER_KNEE: "🐯"}),
+        Style(key="emoji-tiger", name="Emoji tiger", glyphs={_K.TIGER_KNEE: "🐅"}),
+        Style(key="kanji", name="Tiger 䖎", glyphs={_K.TIGER_KNEE: "䖎"}),
+        Style(key="initials", name="Initials", glyphs={_K.TIGER_KNEE: "TK"}),
     ),
     Family.ROTATE: (
         Style(key="spelled", name="Spelled out"),
@@ -175,10 +178,10 @@ STYLES: dict[Family, tuple[Style, ...]] = {
             name="Nerd font",
             glyphs={_K.ROTATE_360: _NF_ROTATE, _K.ROTATE_720: f"{_NF_ROTATE} {_NF_ROTATE}"},
         ),
-        Style(key="emoji", name="Emoji cyclone", glyphs={_K.ROTATE_360: "🌀", _K.ROTATE_720: "🌀 🌀"}),
     ),
     Family.CHARGE: (
         Style(key="spelled", name="Spelled out"),
+        _NUMPAD_STYLE,
         Style(
             key="paired",
             name="Paired arrows",
@@ -199,21 +202,33 @@ STYLES: dict[Family, tuple[Style, ...]] = {
             glyphs={_K.CHARGE_BF: "🔋→", _K.CHARGE_DU: "🔋↑", _K.CHARGE_BFBF: "🔋→ ← →"},
         ),
     ),
+    Family.MARK: (
+        Style(key="bang", name="Exclamation", mark="!"),
+        Style(key="heavy-check", name="Heavy check", mark="✔"),
+        Style(key="check", name="Check", mark="✓"),
+        Style(key="emoji", name="Emoji check", mark="✅"),
+        Style(key="ballot", name="Ballot box", mark="☑"),
+        Style(key="light-check", name="Light check", mark="🗸"),
+    ),
 }
 
 _KIND_FAMILY: dict[MotionKind, Family] = {
     _K.QCF: Family.QUARTER,
     _K.QCB: Family.QUARTER,
+    _K.F_DF_D: Family.QUARTER_DOWN,
+    _K.B_DB_D: Family.QUARTER_DOWN,
     _K.HCF: Family.HALF,
     _K.HCB: Family.HALF,
     _K.DP: Family.DRAGON,
     _K.RDP: Family.DRAGON,
+    _K.TIGER_KNEE: Family.TIGER,
     _K.ROTATE_360: Family.ROTATE,
     _K.ROTATE_720: Family.ROTATE,
     _K.CHARGE_BF: Family.CHARGE,
     _K.CHARGE_DU: Family.CHARGE,
     _K.CHARGE_BFBF: Family.CHARGE,
     _K.CHARGE_DB_UF: Family.CHARGE,
+    _K.CHARGE_DB_F: Family.CHARGE,
 }
 
 # Compound motions borrow their parts' styles rather than having their own, so
@@ -225,13 +240,74 @@ _PARTS: dict[MotionKind, tuple[MotionKind | Direction, ...]] = {
     _K.HCB_X2: (_K.HCB, _K.HCB),
     _K.QCF_DP: (_K.QCF, _K.DP),
     _K.QCB_RDP: (_K.QCB, _K.RDP),
-    _K.QCF_UF: (_K.QCF, _D.UP_FORWARD),
     _K.QCF_HCB: (_K.QCF, _K.HCB),
     _K.QCB_HCF: (_K.QCB, _K.HCF),
     _K.HCB_F: (_K.HCB, _D.FORWARD),
     _K.QCB_DB_F: (_K.QCB, _D.DOWN_BACK, _D.FORWARD),
     _K.F_HCF: (_D.FORWARD, _K.HCF),
 }
+
+MOTION_NAMES: dict[MotionKind, str] = {
+    _K.QCF: "Quarter circle forward",
+    _K.QCB: "Quarter circle back",
+    _K.HCF: "Half circle forward",
+    _K.HCB: "Half circle back",
+    _K.DP: "Dragon punch",
+    _K.RDP: "Reverse dragon punch",
+    _K.TIGER_KNEE: "Tiger knee",
+    _K.QCF_X2: "Double quarter circle forward",
+    _K.QCB_X2: "Double quarter circle back",
+    _K.HCF_X2: "Double half circle forward",
+    _K.HCB_X2: "Double half circle back",
+    _K.QCF_DP: "Quarter circle forward, dragon punch",
+    _K.QCB_RDP: "Quarter circle back, reverse dragon punch",
+    _K.QCF_HCB: "Quarter circle forward, half circle back",
+    _K.QCB_HCF: "Quarter circle back, half circle forward",
+    _K.HCB_F: "Half circle back, forward",
+    _K.QCB_DB_F: "Quarter circle back, down-back, forward",
+    _K.F_HCF: "Forward, half circle forward",
+    _K.F_DF_D: "Forward, down-forward, down",
+    _K.B_DB_D: "Back, down-back, down",
+    _K.CHARGE_BF: "Charge back, forward",
+    _K.CHARGE_DU: "Charge down, up",
+    _K.CHARGE_BFBF: "Charge back, forward, back, forward",
+    _K.CHARGE_DB_UF: "Charge down-back, down-forward, down-back, up-forward",
+    _K.CHARGE_DB_F: "Charge down-back, forward",
+    _K.ROTATE_360: "Full circle",
+    _K.ROTATE_720: "Two full circles",
+}
+"""What each motion is called, in words, whatever notation it is written in."""
+
+MOTION_SHORTHANDS: dict[MotionKind, str] = {
+    _K.QCF: "QCF",
+    _K.QCB: "QCB",
+    _K.HCF: "HCF",
+    _K.HCB: "HCB",
+    _K.DP: "DP",
+    _K.RDP: "RDP",
+    _K.TIGER_KNEE: "TK",
+    _K.QCF_X2: "QCF, QCF",
+    _K.QCB_X2: "QCB, QCB",
+    _K.HCF_X2: "HCF, HCF",
+    _K.HCB_X2: "HCB, HCB",
+    _K.QCF_DP: "QCF, DP",
+    _K.QCB_RDP: "QCB, RDP",
+    _K.QCF_HCB: "QCF, HCB",
+    _K.QCB_HCF: "QCB, HCF",
+    _K.HCB_F: "HCB, F",
+    _K.QCB_DB_F: "QCB, DB, F",
+    _K.F_HCF: "F, HCF",
+    _K.F_DF_D: "632",  # This doesn't have a better name
+    _K.B_DB_D: "412",  # This doesn't have a better name
+    _K.CHARGE_BF: "[B], F",
+    _K.CHARGE_DU: "[D], U",
+    _K.CHARGE_BFBF: "[B], F, B, F",
+    _K.CHARGE_DB_UF: "[DB], DF, DB, UF",
+    _K.CHARGE_DB_F: "[DB], F",
+    _K.ROTATE_360: "360°",
+    _K.ROTATE_720: "720°",
+}
+"""The same, as the community abbreviates them."""
 
 _SEQUENCES: dict[MotionKind, tuple[Direction, ...]] = {
     _K.QCF: (_D.DOWN, _D.DOWN_FORWARD, _D.FORWARD),
@@ -241,6 +317,8 @@ _SEQUENCES: dict[MotionKind, tuple[Direction, ...]] = {
     _K.DP: (_D.FORWARD, _D.DOWN, _D.DOWN_FORWARD),
     _K.RDP: (_D.BACK, _D.DOWN, _D.DOWN_BACK),
     _K.TIGER_KNEE: (_D.DOWN, _D.DOWN_FORWARD, _D.FORWARD, _D.UP_FORWARD),
+    _K.F_DF_D: (_D.FORWARD, _D.DOWN_FORWARD, _D.DOWN),
+    _K.B_DB_D: (_D.BACK, _D.DOWN_BACK, _D.DOWN),
 }
 
 # A charge is a direction held, then the ones tapped after letting it go.
@@ -249,14 +327,17 @@ _CHARGES: dict[MotionKind, tuple[Direction, tuple[Direction, ...]]] = {
     _K.CHARGE_DU: (_D.DOWN, (_D.UP,)),
     _K.CHARGE_BFBF: (_D.BACK, (_D.FORWARD, _D.BACK, _D.FORWARD)),
     _K.CHARGE_DB_UF: (_D.DOWN_BACK, (_D.DOWN_FORWARD, _D.DOWN_BACK, _D.UP_FORWARD)),
+    _K.CHARGE_DB_F: (_D.DOWN_BACK, (_D.FORWARD,)),
 }
 
 _ROTATIONS: dict[MotionKind, str] = {_K.ROTATE_360: "360", _K.ROTATE_720: "720"}
 
 _PREVIEWS: dict[Family, tuple[MotionKind, ...]] = {
     Family.QUARTER: (_K.QCF, _K.QCB),
+    Family.QUARTER_DOWN: (_K.F_DF_D, _K.B_DB_D),
     Family.HALF: (_K.HCF, _K.HCB),
     Family.DRAGON: (_K.DP, _K.RDP),
+    Family.TIGER: (_K.TIGER_KNEE,),
     Family.ROTATE: (_K.ROTATE_360, _K.ROTATE_720),
     Family.CHARGE: (_K.CHARGE_BF, _K.CHARGE_DU),
 }
@@ -299,9 +380,21 @@ class Notation:
                 return style
         return STYLES[family][0]
 
+    @property
+    def mark(self) -> str:
+        """What marks a button that did something on its own. See :attr:`Style.mark`."""
+        return self.style(Family.MARK).mark
+
     def with_style(self, family: Family, style: Style) -> Notation:
         """The same choices with one family changed, for previewing it."""
         return Notation({**self.choices, family.value: style.key})
+
+    def spelled_out(self) -> Notation:
+        """The same directions and mark, with every motion spelled out rather than drawn as a glyph.
+
+        The first style of every other family is the plain one, which is what leaving it out picks.
+        """
+        return Notation({family.value: self.style(family).key for family in (Family.DIRECTIONS, Family.MARK)})
 
     def write_move(self, move: RecognisableMove) -> str:
         """How this move's input is written.
@@ -333,11 +426,14 @@ class Notation:
         trial = self.with_style(family, style)
         if family is Family.DIRECTIONS:
             return trial.directions(_SAMPLE_DIRECTIONS)
+        if family is Family.MARK:
+            return trial.mark
         return "   ".join(trial.write_part(kind) for kind in _PREVIEWS[family])
 
-    def directions(self, sequence: tuple[Direction, ...]) -> str:
-        """A run of directions in the chosen direction style."""
-        style = self.style(Family.DIRECTIONS)
+    def directions(self, sequence: tuple[Direction, ...], style: Style | None = None) -> str:
+        """A run of directions in the chosen direction style, or in ``style`` when one is given."""
+        if style is None:
+            style = self.style(Family.DIRECTIONS)
         return style.separator.join(style.write_direction(direction) for direction in sequence)
 
     def _motion(self, spec: MotionSpec) -> str:
@@ -346,8 +442,11 @@ class Notation:
             return "" if spec.hold is None else self.directions((spec.hold,))
         if spec.kind is MotionKind.ANY:
             return ""
-        parts = _PARTS.get(spec.kind, (spec.kind,))
-        written = [self.write_part(part) for part in parts]
+        return self.write_kind(spec.kind)
+
+    def write_kind(self, kind: MotionKind) -> str:
+        """A motion on its own, with no buttons, as the trainer's live readout names it."""
+        written = [self.write_part(part) for part in _PARTS.get(kind, (kind,))]
         if len(written) == REPEATED and written[0] == written[1]:
             return f"{written[0]} {REPEAT_MARK}"
         return PART_GAP.join(written)
@@ -358,21 +457,24 @@ class Notation:
             return self.directions((part,))
         family = _KIND_FAMILY.get(part)
         if family is not None:
-            glyph = self.style(family).glyphs.get(part)
+            style = self.style(family)
+            glyph = style.glyphs.get(part)
             if glyph:
                 return glyph
+            if style.directions:  # spelled out in directions of the family's own, as its Numpad is
+                return self._spelled(part, style)
         return self._spelled(part)
 
-    def _spelled(self, kind: MotionKind) -> str:
-        """A motion written out as the directions it is made of."""
+    def _spelled(self, kind: MotionKind, style: Style | None = None) -> str:
+        """A motion written out as the directions it is made of, in ``style``'s if one is given."""
         charge = _CHARGES.get(kind)
         if charge is not None:
             hold, release = charge
-            return f"[{self.directions((hold,))}] {self.directions(release)}"
+            return f"[{self.directions((hold,), style)}] {self.directions(release, style)}"
         rotation = _ROTATIONS.get(kind)
         if rotation is not None:
             return rotation
-        return self.directions(_SEQUENCES.get(kind, ()))
+        return self.directions(_SEQUENCES.get(kind, ()), style)
 
 
 DEFAULT = Notation()

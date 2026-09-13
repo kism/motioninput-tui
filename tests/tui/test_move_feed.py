@@ -4,7 +4,7 @@ from rich.text import Text
 
 from motioninput_tui.engine.notation import KICKS
 from motioninput_tui.engine.recognizer import FollowUp, FollowUpStatus
-from motioninput_tui.tui.widgets.move_feed import MoveFeed
+from motioninput_tui.tui.widgets.move_feed import append_follow_up
 
 
 def _render(status: FollowUpStatus, got: int, *, newest: bool, rhythm: bool = True) -> str:
@@ -12,7 +12,7 @@ def _render(status: FollowUpStatus, got: int, *, newest: bool, rhythm: bool = Tr
         button_label="P", needed=3, rhythm=rhythm, buttons=KICKS, deadline_ms=0, got=got, status=status
     )
     text = Text()
-    MoveFeed._append_follow_up(text, follow_up, newest=newest)
+    append_follow_up(text, follow_up, newest=newest)
     return text.plain
 
 

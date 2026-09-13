@@ -1,5 +1,5 @@
 ---
-game: ssvsp
+game: samsh5sp
 panel: neo-geo
 closest_parser: kof98
 predicted_trainable: 78

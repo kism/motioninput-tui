@@ -93,3 +93,20 @@ def test_the_follow_through_window_starts_when_the_cinematic_ends(play) -> None:
     activated the super; measured from the end of its freeze they are in time."""
     done = play(DOUBLE_QCF_THEN_MASH, super_art="II")
     assert done.session.activations[0].follow_up.status is FollowUpStatus.COMPLETE
+
+
+def test_each_counted_tap_is_kept_on_the_trail(play) -> None:
+    """The trail marks every tap the follow-through took, where it was pressed,
+    for the input history to show alongside the super's own motion."""
+    done = play(DOUBLE_QCF_THEN_MASH, super_art="II")
+    follow_up = done.session.activations[0].follow_up
+    tapped = [event.at_ms for event in DOUBLE_QCF_THEN_MASH if event.down and event.key == HP][1:]
+    marks = [motion.start_ms for motion in done.session.trail if motion.kind is None]
+    assert follow_up.got == follow_up.needed
+    assert marks == tapped[: follow_up.got]
+
+
+def test_taps_the_cinematic_swallowed_leave_no_mark(play) -> None:
+    """Nor does the press that fired the super: that one is its motion's."""
+    rushed = play(DOUBLE_QCF_THEN_EARLY_MASH, super_art="II", settle_ms=FREEZE_MS + 800)
+    assert not any(motion.kind is None for motion in rushed.session.trail)

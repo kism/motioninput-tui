@@ -30,7 +30,7 @@ Anything noted under a character is an open discrepancy, not a fixed one.
 - **SFIII: 3rd Strike**
   - Ken
   - Elena
-  - Hugo — I can't do Gigas Breaker
+  - Hugo
 - **USFIV**
   - Ken
   - Sakura — Sakura Otoshi timing is relaxed

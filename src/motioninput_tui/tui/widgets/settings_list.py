@@ -58,6 +58,11 @@ class SettingsList(OptionList):
         """Whether ``setting`` is currently on."""
         return self._values[setting.attribute]
 
+    def set_values(self, values: Mapping[str, bool]) -> None:
+        """Take values changed elsewhere, such as in the settings menu over this list."""
+        self._values = dict(values)
+        self._render_rows()
+
     def action_toggle_setting(self) -> None:
         """Space: flip the highlighted row.
 

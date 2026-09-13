@@ -9,8 +9,8 @@ done while walking forward would come out a super.
 
 from tests.engine.test_motions.harness import FORWARD_INTO_HALF_CIRCLE_FORWARD_HP
 
-# The same roll without its opening tap, which is a plain half circle forward.
-HALF_CIRCLE_FORWARD_HP = FORWARD_INTO_HALF_CIRCLE_FORWARD_HP[1:]
+# The same roll without its opening tap, press and release, which is a plain half circle forward.
+HALF_CIRCLE_FORWARD_HP = FORWARD_INTO_HALF_CIRCLE_FORWARD_HP[2:]
 
 
 def test_a_forward_then_a_half_circle_is_the_haoh_shou_ko_ken(play) -> None:

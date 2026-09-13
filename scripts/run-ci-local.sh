@@ -18,4 +18,4 @@ ruff format
 ruff check --fix
 
 print_heading "PyTest"
-pytest -q --tb=short
+pytest -q --tb=short -n auto

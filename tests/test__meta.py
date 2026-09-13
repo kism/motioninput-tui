@@ -82,7 +82,7 @@ def test_game_keys_agree() -> None:
 # that binds a Game to a session, so it needs the names, and an annotation
 # cannot change what the matchers do. A runtime import could.
 ENGINE = Path("src/motioninput_tui/engine")
-GAME_KEYS = ("sfiii3", "hsf2", "sfa3", "kof98", "kof2001", "usfiv", "ssii", "ssvsp", "lb2")
+GAME_KEYS = ("sfiii3", "hsf2", "sfa3", "kof98", "kof2001", "usfiv", "samsho2", "samsh5sp", "lastbld2")
 
 
 def type_checking_only(tree: ast.AST) -> set[int]:

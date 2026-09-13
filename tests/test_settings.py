@@ -1,55 +1,8 @@
-"""The global settings: what they change in the engine, and how they are stored.
-
-Relaxed half circles is the one that changes matching, so it is checked against
-two scripts: one hitbox half circle that never touches straight down, and one
-that rolls cleanly through it.
-
-The game under test is Ultra Street Fighter IV rather than Third Strike, which
-is where these started. Third Strike reads a half circle at three points of its
-own accord - `b, any down, f` - so the setting has nothing left to relax there,
-and a test of it run against that game would pass whatever the setting said.
-"""
-
-from dataclasses import replace
+"""The global settings: each a boolean on the config, which is how the pane reads and writes them."""
 
 from motioninput_tui.config import Config
 from motioninput_tui.engine.recognizer import BufferPolicy
-from motioninput_tui.engine.ruleset import Ruleset
-from motioninput_tui.games.loader import load_game
-from motioninput_tui.settings import SETTINGS, current, tuned_game
-from tests.engine.test_motions.harness import (
-    HALF_CIRCLE_SKIPPING_DOWN_MK,
-    HALF_CIRCLE_THROUGH_DOWN_MK,
-    play_as,
-)
-
-GAME, CHARACTER, MOVE = "usfiv", "elena", "Rhino Horn"
-
-
-def rules(*, relaxed: bool) -> Ruleset:
-    """Ultra Street Fighter IV's rules with the half circle setting either way."""
-    return tuned_game(load_game(GAME), Config(lenient_half_circles=relaxed)).ruleset
-
-
-def test_relaxed_half_circles_take_one_that_skips_the_down() -> None:
-    relaxed = rules(relaxed=True)
-    assert MOVE in play_as(GAME, CHARACTER, HALF_CIRCLE_SKIPPING_DOWN_MK, ruleset=relaxed).moves
-
-
-def test_strict_half_circles_want_the_down() -> None:
-    assert MOVE not in play_as(GAME, CHARACTER, HALF_CIRCLE_SKIPPING_DOWN_MK, ruleset=rules(relaxed=False)).moves
-
-
-def test_strict_half_circles_still_take_a_clean_one() -> None:
-    """Turning the relaxation off must not make the real motion unusable."""
-    assert MOVE in play_as(GAME, CHARACTER, HALF_CIRCLE_THROUGH_DOWN_MK, ruleset=rules(relaxed=False)).moves
-
-
-def test_tuning_leaves_the_rest_of_the_game_alone() -> None:
-    """Only the player's own settings may differ from what the game says."""
-    game = load_game(GAME)
-    tuned = tuned_game(game, Config(lenient_half_circles=False))
-    assert tuned == replace(game, ruleset=replace(game.ruleset, lenient_half_circles=False))
+from motioninput_tui.settings import SETTINGS, current
 
 
 def test_loose_buffer_reads_and_writes_the_policy() -> None:

@@ -395,7 +395,7 @@
      "command": "qcf,uf + P",
      "category": "special",
      "motion": {
-      "kind": "qcf_uf",
+      "kind": "tk",
       "buttons": {
        "allowed": [
         "HP",
@@ -1813,7 +1813,20 @@
     {
      "name": "Bad Spray",
      "command": "b,db,d + P  (reversal only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "b,db,d + P  (reversal only)"
+     }
     },
     {
      "name": "Tokushu Koudou: Knife Hiroi",
@@ -2233,7 +2246,20 @@
     {
      "name": "Yoga Escape",
      "command": "b,db,d + K  (reversal only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b,db,d + K  (reversal only)"
+     }
     },
     {
      "name": "Yoga Teleport",
@@ -3425,7 +3451,7 @@
      "command": "qcf,uf + K",
      "category": "special",
      "motion": {
-      "kind": "qcf_uf",
+      "kind": "tk",
       "buttons": {
        "allowed": [
         "HK",
@@ -5594,12 +5620,38 @@
     {
      "name": "Kouten Okiagari",
      "command": "f,df,d + P  (reversal only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "f_df_d",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f,df,d + P  (reversal only)"
+     }
     },
     {
      "name": "Tengu Walking",
      "command": "b,db,d + K  (reversal only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b,db,d + K  (reversal only)"
+     }
     },
     {
      "name": "Tengu Walking",
@@ -5741,7 +5793,20 @@
     {
      "name": "Scarlet Terror",
      "command": "Charge db,f + K",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_db_f",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,f + K"
+     }
     },
     {
      "name": "Sky High Claw",

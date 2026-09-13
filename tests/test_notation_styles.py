@@ -8,11 +8,12 @@ import pytest
 
 from motioninput_tui.engine.motions import MotionKind, MotionSpec
 from motioninput_tui.engine.notation import ANY_KICK, ANY_PUNCH, Direction
+from motioninput_tui.engine.recognizer import NOT_MOTIONS
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.models import Move
-from motioninput_tui.notation_styles import DEFAULT, STYLES, Family, Notation
+from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, MOTION_SHORTHANDS, STYLES, Family, Notation
 
-GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lb2")
+GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lastbld2")
 """Two SNK rosters as well, since the rolls their supers are written on do not
 appear in any Street Fighter move list."""
 
@@ -69,16 +70,6 @@ def test_the_numpad_digits_are_the_directions_own_numbers() -> None:
         assert numpad.directions((direction,)) == str(int(direction))
 
 
-def test_emoji_arrows_replace_the_plain_ones() -> None:
-    emoji = Notation({"directions": "emoji"})
-    assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬇️ ↘️ ➡️ + P"
-
-
-def test_emoji_keycaps_write_the_numpad() -> None:
-    keycaps = Notation({"directions": "keycaps"})
-    assert keycaps.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "2️⃣3️⃣6️⃣ + P"
-
-
 def test_an_emoji_style_names_the_move_it_stands_for() -> None:
     emoji = Notation({"quarter": "emoji", "dragon": "emoji"})
     assert emoji.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "🔥→ + P"
@@ -93,14 +84,47 @@ def test_style_keys_are_unique_within_a_family() -> None:
 
 
 def test_a_glyph_replaces_the_directions() -> None:
-    curved = Notation({"quarter": "curved"})
-    assert curved.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⮩ + P"
+    elbow = Notation({"quarter": "elbow"})
+    assert elbow.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬏ + P"
+
+
+def test_a_family_can_be_numpad_while_the_rest_are_arrows() -> None:
+    """236 for the quarter circles and the charges, and everything else still spelled out in arrows."""
+    picked = Notation({"quarter": "numpad", "charge": "numpad"})
+    assert picked.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "236 + P"
+    assert picked.write(MotionSpec(kind=MotionKind.CHARGE_BF, buttons=ANY_KICK)) == "[4] 6 + K"
+    assert picked.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "→ ↓ ↘ + P"
+
+
+def test_a_tiger_knee_has_its_own_styles() -> None:
+    """Spelled out as the diagonal it ends on until a tiger is picked."""
+    spec = MotionSpec(kind=MotionKind.TIGER_KNEE, buttons=ANY_KICK)
+    assert DEFAULT.write(spec) == "↓ ↘ → ↗ + K"
+    assert Notation({"tiger": "numpad"}).write(spec) == "2369 + K"
+    assert Notation({"tiger": "emoji"}).write(spec) == "🐯 + K"
+    assert Notation({"tiger": "initials"}).write(spec) == "TK + K"
+
+
+def test_every_motion_family_offers_numpad() -> None:
+    """Bar the full circles, which are 360 and 720 however they are spelled."""
+    offered = {family for family, styles in STYLES.items() if any(style.key == "numpad" for style in styles)}
+    assert offered == set(Family) - {Family.ROTATE, Family.MARK}
+
+
+def test_632_and_412_are_set_apart_from_the_quarter_circles() -> None:
+    """The same quarter of the circle run the other way round, which reads as a different motion."""
+    down = Notation({"quarter_down": "quadrant"})
+    assert down.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "◶↓ + K"
+    assert down.write(MotionSpec(kind=MotionKind.B_DB_D, buttons=ANY_KICK)) == "◵↓ + K"
+    assert down.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_KICK)) == "↓ ↘ → + K"
+    quarters = Notation({"quarter": "quadrant"})
+    assert quarters.write(MotionSpec(kind=MotionKind.F_DF_D, buttons=ANY_KICK)) == "→ ↘ ↓ + K"
 
 
 def test_a_compound_motion_follows_the_styles_of_its_parts() -> None:
     """A super that is a quarter circle and a dragon punch uses both choices."""
-    picked = Notation({"quarter": "curved", "dragon": "kanji"})
-    assert picked.write(MotionSpec(kind=MotionKind.QCF_DP, buttons=ANY_PUNCH)) == "⮩  龍→ + P"
+    picked = Notation({"quarter": "elbow", "dragon": "kanji"})
+    assert picked.write(MotionSpec(kind=MotionKind.QCF_DP, buttons=ANY_PUNCH)) == "⬏  龍→ + P"
 
 
 def test_the_snk_rolls_are_written_as_the_parts_they_are_made_of() -> None:
@@ -145,6 +169,28 @@ def test_an_unmodelled_move_keeps_the_guides_own_words() -> None:
     assert DEFAULT.write_move(move) == "Back or Forward + press all Kicks"
 
 
+def test_spelled_out_keeps_the_directions_and_drops_the_glyphs() -> None:
+    """The input display's ctrl+l: the same arrows or numbers, and no shorthand for whole motions."""
+    picked = Notation({"directions": "numpad", "quarter": "elbow", "mark": "emoji"})
+    assert picked.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "⬏ + P"
+    spelled = picked.spelled_out()
+    assert spelled.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "236 + P"
+    assert spelled.mark == "✅"
+
+
+def test_every_motion_has_a_name() -> None:
+    """The input display lists each one by name; throws, holds and mashes are not motions."""
+    assert MOTION_NAMES.keys() == set(MotionKind) - NOT_MOTIONS
+    assert MOTION_SHORTHANDS.keys() == MOTION_NAMES.keys()
+
+
+def test_the_button_mark_is_a_bang_unless_another_is_picked() -> None:
+    """What the trainer's history puts over a throw or a counted tap."""
+    assert DEFAULT.mark == "!"
+    assert Notation({"mark": "emoji"}).mark == "✅"
+    assert Notation({"mark": "gone"}).mark == "!"
+
+
 def test_a_style_that_is_gone_falls_back_rather_than_failing() -> None:
     stale = Notation({"quarter": "sharpie", "nonsense": "whatever"})
     assert stale.write(MotionSpec(kind=MotionKind.QCF, buttons=ANY_PUNCH)) == "↓ ↘ → + P"
@@ -153,6 +199,6 @@ def test_a_style_that_is_gone_falls_back_rather_than_failing() -> None:
 def test_previewing_a_style_leaves_the_other_families_alone() -> None:
     """Only the family being previewed changes, so a row shows one decision."""
     picked = Notation({"dragon": "kanji"})
-    quarter = STYLES[Family.QUARTER][1]
-    assert picked.preview(Family.QUARTER, quarter) == "⮡   ⮠"
+    quadrant = next(style for style in STYLES[Family.QUARTER] if style.key == "quadrant")
+    assert picked.preview(Family.QUARTER, quadrant) == "◶→   ◵←"
     assert picked.write(MotionSpec(kind=MotionKind.DP, buttons=ANY_PUNCH)) == "龍→ + P"

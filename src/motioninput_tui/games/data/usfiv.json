@@ -9172,7 +9172,20 @@
     {
      "name": "Scarlet Terror",
      "command": "Charge db,f + K [AB]",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_db_f",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,f + K [AB]"
+     }
     },
     {
      "name": "Sky High Claw",

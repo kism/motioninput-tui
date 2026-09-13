@@ -1,13 +1,14 @@
 """A training session: one game, one character, one control layout."""
 
+import logging
 import time
 from collections import deque
 from dataclasses import dataclass, field
+from enum import StrEnum
 from typing import TYPE_CHECKING
 
 from motioninput_tui.controls.layouts import LayoutKind, repeat_delay_advice
 from motioninput_tui.controls.source import KeyboardSource
-from motioninput_tui.utils.logger import get_logger
 
 from .buffer import InputBuffer
 from .notation import Button, Direction
@@ -18,13 +19,20 @@ if TYPE_CHECKING:
     from motioninput_tui.controls.layouts import ControlLayout
     from motioninput_tui.games.models import Character, Game, Move
 
-logger = get_logger(__name__)
+    from .motions import MotionKind
+    from .recognizer import LiveMotion
 
-HISTORY_LENGTH = 40
-"""How many input entries the strip remembers."""
+logger = logging.getLogger(__name__)
+
+HISTORY_LENGTH = 160
+"""How many input entries the strip remembers: at three cells or more apiece,
+enough to fill a terminal nearly 500 columns wide."""
 
 ACTIVATION_LENGTH = 12
 """How many activated moves to keep in the feed."""
+
+TRAIL_LENGTH = 96
+"""How many motions the trail remembers, which is more than the strip has room to show."""
 
 
 def monotonic_ms() -> int:
@@ -40,6 +48,30 @@ class InputEntry:
     at_ms: int
     buttons: list[Button] = field(default_factory=list)
     activated: str | None = None
+
+
+class Outcome(StrEnum):
+    """What became of a motion the stick made."""
+
+    LIVE = "live"
+    """A press now would still complete it."""
+    EXECUTED = "executed"
+    """A move came out on it."""
+    MISSED = "missed"
+    """It went - lapsed, spent by another move, or outgrown - with nothing coming out on it."""
+
+
+@dataclass(slots=True)
+class TrailMotion:
+    """A motion the stick made, the inputs it spans, and what became of it."""
+
+    kind: MotionKind | None
+    """None for a move that came out needing no motion, such as a throw or a command normal."""
+    start_ms: int
+    end_ms: int
+    beaten: bool = False
+    """Whether something stronger was live alongside it when last seen, so a press would have given that instead."""
+    outcome: Outcome = Outcome.LIVE
 
 
 class TrainingSession:
@@ -63,9 +95,7 @@ class TrainingSession:
         ``exact_input`` says the terminal reports key releases, so holds are
         tracked exactly from the first keystroke rather than after the first
         release has proved it. ``policy`` decides whether the inputs that
-        produced a move are spent. The game's rules are taken as they come:
-        the player's settings are folded into them beforehand by
-        :func:`motioninput_tui.settings.tuned_game`.
+        produced a move are spent.
         """
         self.game = game
         self.character = character
@@ -82,8 +112,13 @@ class TrainingSession:
         self.recognizer = Recognizer(self._live_moves(), self.ruleset, policy=policy)
         self.entries: deque[InputEntry] = deque(maxlen=HISTORY_LENGTH)
         self.activations: deque[Activation] = deque(maxlen=ACTIVATION_LENGTH)
+        self.trail: deque[TrailMotion] = deque(maxlen=TRAIL_LENGTH)
+        """Every motion the stick has made, oldest first, whether or not anything came of it."""
         self.total_inputs = 0
         self.total_activations = 0
+        self.held: dict[Button, int] = {}
+        """Attack buttons down, and when they went down. A device that reports
+        releases empties this properly; without one they lapse like a hold."""
         logger.debug(
             "Session: %s / %s / %s, %d trainable moves",
             game.short_name,
@@ -158,6 +193,9 @@ class TrainingSession:
     def press(self, key: str, at_ms: int | None = None) -> bool:
         """Feed a key press in. Returns True when the display should redraw."""
         now = monotonic_ms() if at_ms is None else at_ms
+        button = self.layout.attacks.get(key)
+        if button is not None:
+            self.held[button] = now
         update = self.source.press(key, now)
         if update is None:
             return False
@@ -174,7 +212,12 @@ class TrainingSession:
         self._record_button(update.button, update.direction, now)
         pressed = self.buffer.simultaneous_buttons(now)
         self.recognizer.decay_ms = self.source.decay_ms
-        self._apply_activation(self.recognizer.evaluate(self.buffer, now, pressed))
+        self._follow_motions(now)  # onto the trail before the press can spend them
+        follow_up = self.activations[0].follow_up if self.activations else None
+        taps = follow_up.got if follow_up is not None else 0
+        self._apply_activation(self.recognizer.decide(self.buffer, now, frozenset(pressed)))
+        if follow_up is not None and follow_up.got > taps:  # a tap the follow-through counted
+            self.trail.append(TrailMotion(None, now, now, outcome=Outcome.EXECUTED))
         return True
 
     def _apply_activation(self, activation: Activation | None) -> bool:
@@ -183,6 +226,14 @@ class TrainingSession:
             return False
         self.activations.appendleft(activation)
         self.total_activations += 1
+        spec = activation.move.motion
+        spent = False
+        for motion in self.trail:
+            if spec is not None and motion.outcome is Outcome.LIVE and motion.kind is spec.kind:
+                motion.outcome = Outcome.EXECUTED
+                spent = True
+        if not spent:  # A throw, a command normal: no motion to mark, so mark the moment.
+            self.trail.append(TrailMotion(None, activation.at_ms, activation.at_ms, outcome=Outcome.EXECUTED))
         for entry in reversed(self.entries):
             if entry.at_ms <= activation.at_ms:
                 entry.activated = activation.name
@@ -192,9 +243,11 @@ class TrainingSession:
     def release(self, key: str, at_ms: int | None = None) -> bool:
         """Feed a key release in. Returns True when the display should redraw."""
         now = monotonic_ms() if at_ms is None else at_ms
+        button = self.layout.attacks.get(key)
+        let_go = button is not None and self.held.pop(button, None) is not None
         update = self.source.release(key, now)
         if update is None or not update.direction_changed:
-            return False
+            return let_go
         self.buffer.set_direction(update.direction, now)
         self._append_entry(update.direction, now)
         return True
@@ -203,11 +256,13 @@ class TrainingSession:
         """Poll the gamepad and expire holds. Returns True if the display changed."""
         now = monotonic_ms() if at_ms is None else at_ms
         changed = self._poll_gamepad(now)
+        changed |= self._lapse_held(now)
         update = self.source.tick(now)
         if update is not None and update.direction_changed:
             self.buffer.set_direction(update.direction, now)
             self._append_entry(update.direction, now)
             changed = True
+        changed |= self._follow_motions(now)
         # A press held back for the rest of a multi-button input, whose other
         # buttons never came: let the lesser move on the motion through now.
         changed |= self._apply_activation(self.recognizer.poll(self.buffer, now))
@@ -230,6 +285,49 @@ class TrainingSession:
             changed = True
         return changed
 
+    def _lapse_held(self, now: int) -> bool:
+        """Let held buttons lapse when the device cannot report releases."""
+        if self.source.exact_holds or not self.held:
+            return False
+        cutoff = now - self.hold_window_ms
+        lapsed = [button for button, at_ms in self.held.items() if at_ms < cutoff]
+        for button in lapsed:
+            del self.held[button]
+        return bool(lapsed)
+
+    def live_motions(self, at_ms: int | None = None) -> list[LiveMotion]:
+        """The character's motions a button pressed now would complete, strongest first."""
+        now = monotonic_ms() if at_ms is None else at_ms
+        # As press does, or a keyboard's inferred holds are judged on stale timing.
+        self.recognizer.decay_ms = self.source.decay_ms
+        return self.recognizer.live_motions(self.buffer, now)
+
+    def _follow_motions(self, now: int) -> bool:
+        """Bring the trail up to date with what the stick has made. True if it changed.
+
+        A trail motion stays live while the same motion, begun at the same
+        moment, is still live. When it goes it is missed, unless a move came
+        out on it first, which :meth:`_apply_activation` marks as it happens.
+        """
+        live = {(motion.kind, motion.start_ms): (index, motion) for index, motion in enumerate(self.live_motions(now))}
+        changed = False
+        for motion in self.trail:
+            if motion.outcome is not Outcome.LIVE:
+                continue
+            seen = live.pop((motion.kind, motion.start_ms), None)
+            if seen is None:
+                motion.outcome = Outcome.MISSED
+                changed = True
+                continue
+            index, current = seen
+            if (motion.end_ms, motion.beaten) != (current.end_ms, index > 0):
+                motion.end_ms, motion.beaten = current.end_ms, index > 0
+                changed = True
+        for index, current in live.values():
+            self.trail.append(TrailMotion(current.kind, current.start_ms, current.end_ms, beaten=index > 0))
+            changed = True
+        return changed
+
     @property
     def policy(self) -> BufferPolicy:
         """Whether inputs are spent when a move comes out."""
@@ -246,35 +344,46 @@ class TrainingSession:
         self.source.layout = layout
         self.reset()
 
-    def retune(self, game: Game, policy: BufferPolicy) -> None:
-        """Take changed rules mid-session, without losing the session.
+    def retune(self, policy: BufferPolicy) -> None:
+        """Take a changed buffer policy mid-session, without losing the session.
 
-        The buffer goes with them: what is in it was read under the old rules,
-        and a half circle that has just stopped counting as one should not be
-        left sitting there ready to come out.
+        The buffer goes with it: what is in it was kept, or spent, under the old one.
         """
-        self.game = game
-        self.ruleset = game.ruleset
-        self.recognizer.ruleset = game.ruleset
         self.recognizer.policy = policy
         self.buffer.clear()
         self.recognizer.reset()
 
-    def reset(self) -> None:
-        """Clear everything and go back to neutral."""
-        self.buffer.clear()
+    def drop_holds(self) -> None:
+        """Let go of everything held, for when releases stop arriving.
+
+        A gamepad is unaffected by terminal focus, so it just re-asserts
+        whatever it is holding on the next poll.
+        """
         self.source.reset()
         if self.gamepad is not None:
             self.gamepad.reset()
+        self.held.clear()
+
+    def reset(self) -> None:
+        """Clear everything and go back to neutral."""
+        self.buffer.clear()
+        self.drop_holds()
         self.recognizer.reset()
         self.entries.clear()
         self.activations.clear()
+        self.trail.clear()
         self.total_inputs = 0
         self.total_activations = 0
 
     def _append_entry(self, direction: Direction, at_ms: int) -> None:
-        # Collapse a run of empty neutrals rather than filling the strip with them.
         previous = self.entries[-1] if self.entries else None
+        # Gone the millisecond it came, so never held; see InputBuffer.set_direction.
+        if previous is not None and previous.at_ms == at_ms and not previous.buttons and previous.activated is None:
+            self.entries.pop()
+            previous = self.entries[-1] if self.entries else None
+            if previous is not None and previous.direction is direction:
+                return
+        # Collapse a run of empty neutrals rather than filling the strip with them.
         if (
             direction is Direction.NEUTRAL
             and previous is not None

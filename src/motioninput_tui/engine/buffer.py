@@ -53,11 +53,24 @@ class InputBuffer:
     buttons: deque[ButtonPress] = field(default_factory=deque)
 
     def set_direction(self, direction: Direction, at_ms: int) -> bool:
-        """Record the currently held direction. Returns True if it changed."""
-        if self.directions and self.directions[-1].direction == direction and self.directions[-1].is_current:
-            return False
+        """Record the currently held direction. Returns True if it changed.
+
+        A direction replaced in the millisecond it arrived was never held: a
+        controller is read all at once, so no poll could have seen it. It is
+        dropped, which is what makes letting go of back and pressing forward in
+        one go a single change rather than a detour through down or neutral.
+        One a button was pressed in was read with it, so it stays.
+        """
         if self.directions and self.directions[-1].is_current:
-            self.directions[-1].end_ms = at_ms
+            last = self.directions[-1]
+            if last.direction == direction:
+                return False
+            pressed_in = bool(self.buttons) and self.buttons[-1].at_ms == at_ms
+            if last.start_ms == at_ms and len(self.directions) > 1 and not pressed_in:
+                self.directions.pop()
+                self.directions[-1].end_ms = None
+                return self.set_direction(direction, at_ms)
+            last.end_ms = at_ms
         self.directions.append(DirectionState(direction, at_ms))
         self._trim(at_ms)
         return True

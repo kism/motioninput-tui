@@ -10,13 +10,12 @@ in the wheel, and its dependencies live in a separate extra. Install them with
 ``uv sync --extra guides``.
 """
 
+import logging
 import time
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
-
-from motioninput_tui.utils.logger import get_logger
 
 from .catalog import DEFAULT_DEST, canonical_text
 
@@ -26,7 +25,7 @@ if TYPE_CHECKING:
 
     from .catalog import Guide
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 HTTP_OK = 200
 

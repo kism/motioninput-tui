@@ -1,5 +1,5 @@
 ---
-game: lb2
+game: lastbld2
 panel: neo-geo
 closest_parser: kof98
 predicted_trainable: 54
@@ -62,7 +62,7 @@ LB2 sits between `SFA3` and `SFIII3` and leans `SFA3`, tracking its `KOF98` sibl
 
 - `dp_double_tap = False` — SNK; the DP is `f,d,df` and nothing else.
 - `dp_skip_down = False` — same.
-- `lenient_diagonals = True` — SNK buffering; `d,f` reads as a quarter circle (matches `kof98`, `ssii`, `ssvsp`).
+- `lenient_diagonals = True` — SNK buffering; `d,f` reads as a quarter circle (matches `kof98`, `samsho2`, `samsh5sp`).
 - `charge_ms = 850` — Washizuka's `b~f` / `d~u`; interpolated to the `kof98` value. **Exact LB2 charge frames not confirmed** — flag for verification.
 - `charge_release_ms = 220` — as `kof98`.
 - `negative_edge = True` — KoF-era SNK MVS title; this field is display-only (the terminal can't see releases). **Low confidence** — could be `False` like the Samurai Shodown pair.

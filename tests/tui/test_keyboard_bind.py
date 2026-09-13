@@ -39,13 +39,13 @@ def test_rebinding_a_key_persists_it(tmp_path: Path) -> None:
             bind = app.screen
             assert isinstance(bind, KeyboardBindScreen)
             bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("HP")
-            await pilot.press("enter")  # arm HP
+            await pilot.press("space")  # arm HP
             await pilot.pause()
             assert bind._armed == "HP"
             await pilot.press(";")  # bind HP to semicolon
             await pilot.pause()
             assert bind._armed is None
-            await pilot.press("escape")  # done
+            await pilot.press("enter")  # done
             await pilot.pause()
             await pilot.pause()
         return config
@@ -71,7 +71,7 @@ def test_binding_a_used_key_swaps_the_two() -> None:
             bind = app.screen
             assert isinstance(bind, KeyboardBindScreen)
             bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("LP")
-            await pilot.press("enter")
+            await pilot.press("space")
             await pilot.press("k")  # k currently belongs to MP
             await pilot.pause()
             return dict(bind._keys)
@@ -79,3 +79,26 @@ def test_binding_a_used_key_swaps_the_two() -> None:
     keys = asyncio.run(run())
     assert keys["LP"] == "k"
     assert keys["MP"] == "j"  # took LP's old key
+
+
+def test_space_arms_a_row_and_can_then_be_bound_itself() -> None:
+    config = Config(layout="keyboard-custom")
+
+    async def run() -> dict[str, str]:
+        app = MotionInputApp(config, key_release=False)
+        async with app.run_test() as pilot:
+            await pilot.pause()
+            await pilot.pause()
+            _open_rebind(app)
+            await pilot.pause()
+            await pilot.press("b")
+            await pilot.pause()
+            bind = app.screen
+            assert isinstance(bind, KeyboardBindScreen)
+            bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("LK")
+            await pilot.press("space")  # arm LK
+            await pilot.press("space")  # bind it to space
+            await pilot.pause()
+            return dict(bind._keys)
+
+    assert asyncio.run(run())["LK"] == "space"
