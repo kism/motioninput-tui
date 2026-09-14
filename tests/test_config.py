@@ -57,6 +57,14 @@ def test_keyboard_bindings_saved_under_the_street_fighter_names_move_to_their_pl
     assert resolve_keyboard_bindings(bindings)["top4"] == "l"  # semicolon's new default gives way
 
 
+def test_the_move_list_view_round_trips_and_an_unknown_one_is_the_first(tmp_path: Path) -> None:
+    path = tmp_path / "config.json"
+    Config(movelist="full", path=path).save()
+    assert Config.load(path).movelist == "full"
+    path.write_text(json.dumps({"movelist": "sideways"}))
+    assert Config.load(path).movelist == "beside"
+
+
 def test_a_replaced_keyboard_layout_migrates(tmp_path: Path) -> None:
     """A config from before the keyboard layouts changed still opens somewhere."""
     path = tmp_path / "config.json"

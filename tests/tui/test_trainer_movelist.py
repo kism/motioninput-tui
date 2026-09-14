@@ -292,3 +292,41 @@ def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
     assert len(lit) == 1
     assert "Sakotsu Wari" in lit[0]
     assert later == []
+
+
+def test_the_move_list_opens_as_it_was_left_through_the_menus_across_runs_and_games(config: Config) -> None:
+    """ctrl+l's view is saved as it changes, once for every game."""
+
+    async def session() -> tuple[str, bool]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            await pilot.press("ctrl+l", "ctrl+l")  # the whole screen
+            await pilot.press("escape")  # out to the setup screen
+            await pilot.pause()
+            await pilot.pause()
+            await pilot.press("enter")  # and back into training
+            await pilot.pause()
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            return trainer.movelist_mode, trainer.query_one("#left").display
+
+    mode, feed_shown = asyncio.run(session())
+    assert mode == "full"
+    assert not feed_shown
+    assert config.path is not None
+
+    saved = Config.load(config.path)
+    assert saved.movelist == "full"
+    saved.game, saved.character = "kof98", "kyo-kusanagi"
+
+    async def reopened() -> str:
+        app = MotionInputApp(saved, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            return trainer.movelist_mode
+
+    assert asyncio.run(reopened()) == "full"

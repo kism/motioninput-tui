@@ -125,11 +125,12 @@ Loose buffer is the rule described under [spending inputs](#spending-inputs).
 
 ### Remembering your last session
 
-The game, character, layout, settings, notation and buffer rule you last used
-are saved to `~/.config/motioninput-tui/config.json` (or under
+The game, character, layout, settings, notation, buffer rule and move list view
+you last used are saved to `~/.config/motioninput-tui/config.json` (or under
 `$XDG_CONFIG_HOME` if set), so the pickers open where you left off and your
 settings stick between runs. The character is remembered per game, so switching
-game switches to whoever you were last training on it.
+game switches to whoever you were last training on it; the move list view is
+one for every game.
 
 Nothing on the command line overrides any of it — `--config` only chooses which
 file to read. If that file is missing or damaged the defaults are used and a

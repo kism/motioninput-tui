@@ -5,8 +5,10 @@ from typing import TYPE_CHECKING, ClassVar, override
 from rich.text import Text
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
+from textual.message import Message
 from textual.widgets import Footer, Static
 
+from motioninput_tui.config import MOVELIST_MODES
 from motioninput_tui.engine.notation import Direction
 from motioninput_tui.engine.recognizer import BufferPolicy
 from motioninput_tui.engine.session import TrainingSession, monotonic_ms
@@ -33,9 +35,6 @@ if TYPE_CHECKING:
 
 TICK_HZ = 60
 
-MOVELIST_MODES = ("beside", "hidden", "full")
-"""What ctrl+l steps through, starting from the first."""
-
 LEAD_MS = 300
 """A moment of stillness before a playback starts, to get the eyes onto the stick."""
 
@@ -55,6 +54,14 @@ class TrainingScreen(SessionScreen):
     """
 
     notation: Notation
+
+    class MovelistChanged(Message):
+        """ctrl+l stepped the move list on, for the app to remember for every game."""
+
+        def __init__(self, mode: str) -> None:
+            """Carry the view it is on now, one of ``MOVELIST_MODES``."""
+            super().__init__()
+            self.mode = mode
 
     BINDINGS: ClassVar = [
         # Priority, or Textual moves focus to the move list instead. Only shown
@@ -102,6 +109,8 @@ class TrainingScreen(SessionScreen):
         self.terminal = detect()
         self.notation = DEFAULT_NOTATION
         self.movelist_mode = MOVELIST_MODES[0]
+        """The view the move list is in. The app sets the player's last one
+        before the screen is pushed, as it does the notation."""
         self.lit_move: RecognisableMove | None = None
         self.picking = False
         """Whether ctrl+o has the arrows and enter picking a move, full screen."""
@@ -136,6 +145,7 @@ class TrainingScreen(SessionScreen):
         self.title = f"{session.game.short_name} · {session.character.name}"
         self.sub_title = session.layout.name
         self._paint_banner()
+        self._apply_movelist_mode()
         self._paint_movelist()
         self._paint_playback()
         self._refresh()
@@ -337,13 +347,18 @@ class TrainingScreen(SessionScreen):
         along the bottom whichever it is.
         """
         self.movelist_mode = MOVELIST_MODES[(MOVELIST_MODES.index(self.movelist_mode) + 1) % len(MOVELIST_MODES)]
-        self.set_class(self.movelist_mode == "full", "-movelist-full")
-        self.set_class(self.movelist_mode == "hidden", "-movelist-hidden")
+        self._apply_movelist_mode()
+        self.post_message(self.MovelistChanged(self.movelist_mode))
         self.picking = False
         self._stop_playback()
         self.refresh_bindings()
         self._paint_movelist()
         self._paint_playback()
+
+    def _apply_movelist_mode(self) -> None:
+        """Lay the screen out for the move list's view; the CSS does the rest."""
+        self.set_class(self.movelist_mode == "full", "-movelist-full")
+        self.set_class(self.movelist_mode == "hidden", "-movelist-hidden")
 
     def action_pick(self) -> None:
         """Start or stop picking a move to play back, which takes the arrows and enter while it lasts."""
