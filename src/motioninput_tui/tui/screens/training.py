@@ -393,10 +393,12 @@ class TrainingScreen(SessionScreen):
         self._refresh()
 
     def _hand_back(self) -> None:
-        """The player pressed something: the panel is theirs again, and nothing stays picked."""
+        """The player pressed something: the panel is theirs again, and picking stops.
+
+        The cursor stays where it was, unmarked, for ctrl+o to pick up from.
+        """
         self._stop_playback()
         if self.picking:
-            self.cursor = None
             self.action_pick()
 
     def _stop_playback(self) -> None:

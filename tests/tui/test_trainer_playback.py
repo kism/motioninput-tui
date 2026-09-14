@@ -37,10 +37,12 @@ def test_enter_plays_the_picked_move_back_and_a_key_hands_the_panel_back(tmp_pat
             landed = trainer.playback is not None and trainer.playback.landed
             caption = str(trainer.query_one("#playback", Static).render())
             played = str(trainer.query_one("#strip", InputStrip).render())
-            await pilot.press("d")  # forward: the player's again, and nothing picked
+            await pilot.press("d")  # forward: the player's again, and picking stops
             await pilot.pause()
             assert not trainer.picking
-            assert trainer.cursor is None
+            await pilot.press("ctrl+o")  # back where it was
+            assert trainer.cursor is not None
+            assert trainer.cursor.name == "Hadou Ken"
             return (
                 beside,
                 picked,
