@@ -322,7 +322,7 @@ _SEQUENCES: dict[MotionKind, tuple[Direction, ...]] = {
 }
 
 # A charge is a direction held, then the ones tapped after letting it go.
-_CHARGES: dict[MotionKind, tuple[Direction, tuple[Direction, ...]]] = {
+CHARGES: dict[MotionKind, tuple[Direction, tuple[Direction, ...]]] = {
     _K.CHARGE_BF: (_D.BACK, (_D.FORWARD,)),
     _K.CHARGE_DU: (_D.DOWN, (_D.UP,)),
     _K.CHARGE_BFBF: (_D.BACK, (_D.FORWARD, _D.BACK, _D.FORWARD)),
@@ -467,7 +467,7 @@ class Notation:
 
     def _spelled(self, kind: MotionKind, style: Style | None = None) -> str:
         """A motion written out as the directions it is made of, in ``style``'s if one is given."""
-        charge = _CHARGES.get(kind)
+        charge = CHARGES.get(kind)
         if charge is not None:
             hold, release = charge
             return f"[{self.directions((hold,), style)}] {self.directions(release, style)}"
@@ -479,3 +479,18 @@ class Notation:
 
 DEFAULT = Notation()
 """Arrows, everything spelled out. What the trainer looks like unchanged."""
+
+
+def motion_path(kind: MotionKind) -> tuple[Direction, ...]:
+    """The directions a motion is made of, in order, as it is spelled out.
+
+    A compound motion's parts run on into each other, sharing the direction
+    they meet on, as ``qcf,hcb`` does. Empty for a charge or a rotation, which
+    are not one run of directions.
+    """
+    path: list[Direction] = []
+    for part in _PARTS.get(kind, (kind,)):
+        for direction in (part,) if isinstance(part, Direction) else _SEQUENCES.get(part, ()):
+            if not path or path[-1] is not direction:
+                path.append(direction)
+    return tuple(path)

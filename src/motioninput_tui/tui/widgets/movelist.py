@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, override
 from rich.cells import cell_len
 from rich.text import Text
 from textual.containers import VerticalScroll
+from textual.geometry import Region
 from textual.widgets import Static
 
 from motioninput_tui.games.models import Category
@@ -35,6 +36,9 @@ each side, and the scrollbar."""
 LIT_ROW = f"{LIT} not dim not strike"
 """The row of the move that just came out, lit like a held button on the panel."""
 
+CURSOR_ROW = "reverse"
+"""The row of the move picked for playback, full screen."""
+
 
 def _clip(text: str, width: int) -> str:
     """Cut ``text`` down to ``width`` cells, marking the cut."""
@@ -64,8 +68,29 @@ def _row_style(move: Move, *, equipped: bool, full: bool) -> str:
     return CATEGORY_STYLES.get(move.category, "white")
 
 
+def _highlight(move: Move, *, lit: RecognisableMove | None, cursor: RecognisableMove | None) -> str:
+    """Lit for the move that just came out, over marked for the one picked; nothing for the rest."""
+    if move is lit:
+        return LIT_ROW
+    if move is cursor:
+        return CURSOR_ROW
+    return ""
+
+
+def listed(character: Character) -> list[Move]:
+    """The character's moves in the order the list draws them."""
+    return [move for category in _ORDER for move in character.moves if move.category == category]
+
+
 class MoveList(VerticalScroll):
     """Every move for a character, grouped, with untrainable ones dimmed."""
+
+    can_focus = False
+    """Scrolled by the wheel or by the cursor, so the arrow keys stay the trainer's."""
+
+    cursor: RecognisableMove | None = None
+    """The move picked for playback, whose row is marked, and scrolled to whenever it moves."""
+    _revealed: RecognisableMove | None = None
 
     DEFAULT_CSS = """
     /* Until the first paint sizes it to its rows; see _fit_width. */
@@ -116,6 +141,7 @@ class MoveList(VerticalScroll):
         name_width = self._fit_width(name_width, widest_input, full=full)
 
         text = Text()
+        cursor_line: int | None = None
         if full:
             header = f"{' ' * SUPER_ART_WIDTH}{_pad('Move', name_width)}{_pad('Input', command_width)}Guide\n\n"
             text.append(header, style="dim")
@@ -137,8 +163,9 @@ class MoveList(VerticalScroll):
                     # An input too long for the list is cut where the list ends.
                     text.append(_pad(_clip(move.name, name_width - 1), name_width), style=style)
                     text.append(written, style="dim")
-                if move is lit:
-                    text.stylize(LIT_ROW, start)
+                if move is self.cursor:
+                    cursor_line = text.plain.count("\n")
+                text.stylize(_highlight(move, lit=lit, cursor=self.cursor), start)
                 text.append("\n")
             text.append("\n")
 
@@ -149,6 +176,13 @@ class MoveList(VerticalScroll):
                 style="dim italic",
             )
         self.query_one("#movelist-body", Static).update(text)
+        self._reveal(cursor_line)
+
+    def _reveal(self, line: int | None) -> None:
+        """Scroll the cursor's row into view when it has moved, and leave the scrolling alone otherwise."""
+        if self.cursor is not self._revealed and line is not None:
+            self.call_after_refresh(self.scroll_to_region, Region(0, line, 1, 1), animate=False)
+        self._revealed = self.cursor
 
     def _fit_width(self, name_width: int, command_width: int, *, full: bool) -> int:
         """Size the list, and say how wide its names may be.

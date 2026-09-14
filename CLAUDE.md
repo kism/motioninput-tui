@@ -246,12 +246,17 @@ it is not that one — which is also what keeps a rebound gamepad from being
 flattened back to its defaults, since the rebind screen only knows those six.
 
 The picker offers two keyboard presets (`KB_LEFT` / `KB_RIGHT`) and a
-`KB_CUSTOM` whose keys — all four directions and the six attacks — are set from
+`KB_CUSTOM` whose keys — all four directions and the eight attacks — are set from
 `tui/screens/keyboard_bind.py` (`b` on that row), stored as
 `config.keyboard_bindings` (`{slot: key name}`) and applied by
 `keyboard_layout()`, exactly parallel to `gamepad_bindings` / `gamepad_layout`.
-`resolve_keyboard_bindings` falls back to the default map whole if two slots
-collide. Key names are Textual's (`comma`, `semicolon`, `space`); `friendly_key`
+Every keyboard has four attack keys a row, the widest panel a game here has
+(the Neo Geo straight across), so the custom attack slots are named for where
+they sit, `top1`..`bottom4`, not what they mean; `config`'s
+`_KEYBOARD_SLOT_ALIASES` moves a rebind saved under the old `LP`..`HK` onto
+them. `resolve_keyboard_bindings` swaps a slot left at its default with a chosen
+one that took its key, as the rebind screen does, and falls back to the default
+map whole if two chosen slots collide. Key names are Textual's (`comma`, `semicolon`, `space`); `friendly_key`
 turns them back into glyphs for display. `HITBOX` / `SOUTHPAW` stay as module
 constants — the four-key reference layouts the engine test harness and
 `tests/controls/test_buttons.py` are written against — but are out of `LAYOUTS`.
@@ -368,6 +373,27 @@ This applies to `category == "super"` only. A *special* with a mashable tail
 (Sakura Otoshi, Dee Jay's Machinegun Upper, Kensou's Ryuu Renda) has no
 cinematic and is read at once, which is what `recognizer.SUPER_CATEGORY`
 compares against — a plain string, because `engine` never imports `games`.
+
+### Playback
+
+The full-screen move list plays a move back on the live panel, picked in a mode
+ctrl+o toggles so the arrows and enter are never taken from a layout otherwise,
+and `playback.py` does not model any game's timing to do it: it asks the engine.
+The move is scripted at the key level and run through a `TrainingSession` of
+its own at a range of step paces, the slowest that still lands is found by
+halving, and the pace played is halfway between a frame a step and that - as
+much room to be early as late. So a playback is proof, not a claim, and a
+ruleset change retimes every one for free. `Run.advance` ticks on a fixed grid
+however it is called, which is what makes the playback on screen the one the
+search proved.
+
+An air move waits out `jump_grace_ms` before its motion, or its ground twin
+wins, which makes the search's pass/fail not quite monotone in the pace: keep
+anything with a *minimum* delay out of the searched step. A move no pace
+brings out (a twin on one input, an air move in a game without a jump grace)
+is played anyway and captioned with what the trainer gives instead. The
+session is built as a keyboard layout even on a pad, or it opens a second
+reader onto the real one.
 
 ### One Super Art at a time
 
