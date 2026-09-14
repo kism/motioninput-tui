@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 
 TICK_HZ = 60
 
-MOVELIST_MODES = ("beside", "full", "hidden")
+MOVELIST_MODES = ("beside", "hidden", "full")
 """What ctrl+l steps through, starting from the first."""
 
 
@@ -243,7 +243,7 @@ class TrainingScreen(SessionScreen):
         self._refresh()
 
     def action_cycle_movelist(self) -> None:
-        """Step the move list on: beside the trainer, the whole screen, hidden.
+        """Step the move list on: beside the trainer, hidden, the whole screen.
 
         Full screen hides the activation feed, so the newest move's
         follow-through is prompted under the history instead. The live panel
