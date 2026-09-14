@@ -26,6 +26,9 @@ def test_enter_plays_the_picked_move_back_and_a_key_hands_the_panel_back(tmp_pat
             await pilot.press("ctrl+l", "ctrl+l")  # full screen
             await pilot.press("down", "enter")  # not picking, so neither is picking's
             beside = trainer.playback is None and trainer.cursor is None
+            await pilot.press("ctrl+o", "escape")  # escape stops picking rather than leaving
+            assert app.screen is trainer
+            assert not trainer.picking
             await pilot.press("ctrl+o")  # pick
             await pilot.press("down", "down", "down")  # past the three supers
             picked = trainer.cursor.name if trainer.cursor is not None else ""
@@ -34,12 +37,10 @@ def test_enter_plays_the_picked_move_back_and_a_key_hands_the_panel_back(tmp_pat
             landed = trainer.playback is not None and trainer.playback.landed
             caption = str(trainer.query_one("#playback", Static).render())
             played = str(trainer.query_one("#strip", InputStrip).render())
-            await pilot.press("d")  # forward: the player's again
+            await pilot.press("d")  # forward: the player's again, and nothing picked
             await pilot.pause()
-            await pilot.press("escape")  # done picking, still on the trainer
-            await pilot.pause()
-            assert app.screen is trainer
             assert not trainer.picking
+            assert trainer.cursor is None
             return (
                 beside,
                 picked,

@@ -223,7 +223,7 @@ class TrainingScreen(SessionScreen):
         inputs = self.session.total_inputs
         changed = self.session.tick()
         if self.session.total_inputs != inputs:  # a pad, which comes in here rather than through on_key
-            self._stop_playback()
+            self._hand_back()
         if self.playback is not None:
             changed |= self.playback.advance(monotonic_ms() - self._playback_from)
         if changed:
@@ -246,7 +246,7 @@ class TrainingScreen(SessionScreen):
         if event.key in self.session.layout.bindings:
             event.stop()
             event.prevent_default()
-            self._stop_playback()
+            self._hand_back()
             if self.session.press(event.key):
                 self._refresh()
 
@@ -391,6 +391,13 @@ class TrainingScreen(SessionScreen):
         self._playback_from = monotonic_ms() + LEAD_MS
         self._paint_playback()
         self._refresh()
+
+    def _hand_back(self) -> None:
+        """The player pressed something: the panel is theirs again, and nothing stays picked."""
+        self._stop_playback()
+        if self.picking:
+            self.cursor = None
+            self.action_pick()
 
     def _stop_playback(self) -> None:
         """Hand the panel back to the player, without lighting their last move again."""
