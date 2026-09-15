@@ -10,7 +10,7 @@ from dataclasses import dataclass, field, replace
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from motioninput_tui.engine.notation import BUTTON_ORDER, Button
+from motioninput_tui.engine.notation import Button
 
 from .buttons import DEFAULT_SET, ButtonSet
 
@@ -160,15 +160,17 @@ SOUTHPAW = ControlLayout(
     attack_rows=SOUTHPAW_ROWS,
 )
 
-# The keyboard layouts a player actually picks: the Street Fighter six on three
-# keys a hand, one hand on movement and the other on the attacks below it.
-KB_LEFT_ROWS = (("j", "k", "l"), ("n", "m", "comma"))
-KB_RIGHT_ROWS = (("a", "s", "d"), ("z", "x", "c"))
+# The keyboard layouts a player actually picks: one hand on movement and the
+# other on four attack keys a row. Four is the widest panel a game here has,
+# the Neo Geo's straight across, and eight in all is room for whatever comes
+# next; the Street Fighter six leave the fourth pair free.
+KB_LEFT_ROWS = (("j", "k", "l", "semicolon"), ("n", "m", "comma", "full_stop"))
+KB_RIGHT_ROWS = (("a", "s", "d", "f"), ("z", "x", "c", "v"))
 
 KB_LEFT = ControlLayout(
     key="keyboard-left",
-    name="asd space, jkl nm,",
-    description="Left hand a s d space to move. Attacks j k l over n m ,.",
+    name="asd space, jkl; nm,.",
+    description="Left hand a s d space to move. Attacks j k l ; over n m , .",
     movement={"a": Axis.LEFT, "s": Axis.DOWN, "d": Axis.RIGHT, "space": Axis.UP},
     attacks=lay_out(KB_LEFT_ROWS, DEFAULT_SET),
     attack_rows=KB_LEFT_ROWS,
@@ -176,8 +178,8 @@ KB_LEFT = ControlLayout(
 
 KB_RIGHT = ControlLayout(
     key="keyboard-right",
-    name="jkl space, asd zxc",
-    description="Right hand j k l space to move. Attacks a s d over z x c.",
+    name="jkl space, asdf zxcv",
+    description="Right hand j k l space to move. Attacks a s d f over z x c v.",
     movement={"j": Axis.LEFT, "k": Axis.DOWN, "l": Axis.RIGHT, "space": Axis.UP},
     attacks=lay_out(KB_RIGHT_ROWS, DEFAULT_SET),
     attack_rows=KB_RIGHT_ROWS,
@@ -192,27 +194,33 @@ KB_CUSTOM = ControlLayout(
     attack_rows=KB_LEFT_ROWS,
 )
 
+ATTACK_SLOTS: tuple[tuple[str, ...], ...] = (
+    ("top1", "top2", "top3", "top4"),
+    ("bottom1", "bottom2", "bottom3", "bottom4"),
+)
+"""The custom layout's attack keys, named for where they sit rather than what
+they mean, since a game's panel is laid onto them as onto any layout's rows."""
+
 KEYBOARD_SLOTS: tuple[str, ...] = (
     Axis.LEFT.value,
     Axis.DOWN.value,
     Axis.RIGHT.value,
     Axis.UP.value,
-    *(button.name for button in BUTTON_ORDER),
+    *(slot for row in ATTACK_SLOTS for slot in row),
 )
 """The rebindable slots of the custom keyboard layout, in the order the rebind
-screen lists them: the four movement axes, then the six attacks."""
+screen lists them: the four movement axes, then the attack keys row by row."""
 
 KEYBOARD_DEFAULT_BINDINGS: dict[str, str] = {
     Axis.LEFT.value: "a",
     Axis.DOWN.value: "s",
     Axis.RIGHT.value: "d",
     Axis.UP.value: "space",
-    "LP": "j",
-    "MP": "k",
-    "HP": "l",
-    "LK": "n",
-    "MK": "m",
-    "HK": "comma",
+    **{
+        slot: key
+        for slots, keys in zip(ATTACK_SLOTS, KB_LEFT_ROWS, strict=True)
+        for slot, key in zip(slots, keys, strict=True)
+    },
 }
 """What the custom layout starts from: the same keys as ``KB_LEFT``,
 ``{slot: key name}``."""
@@ -221,16 +229,22 @@ KEYBOARD_DEFAULT_BINDINGS: dict[str, str] = {
 def resolve_keyboard_bindings(bindings: Mapping[str, str] | None = None) -> dict[str, str]:
     """A full ``{slot: key name}`` map from a stored, partial one.
 
-    Unknown slots and empty values are ignored; anything left unset keeps its
-    default. If two slots end up on one key the default is returned whole, so a
-    movement direction or an attack is never left unreachable.
+    Unknown slots and empty values are ignored. A slot left unset keeps its
+    default key, unless the player has put another slot on it, when the two
+    swap, as they do on the rebind screen: that is how a map saved before the
+    layout grew meets the new slots' defaults. If two slots still end up on one
+    key the default is returned whole, so nothing is left unreachable.
     """
-    resolved = dict(KEYBOARD_DEFAULT_BINDINGS)
-    resolved.update(
-        (slot, key)
+    chosen = {
+        slot: key
         for slot, key in (bindings or {}).items()
         if slot in KEYBOARD_DEFAULT_BINDINGS and isinstance(key, str) and key
-    )
+    }
+    taken_by = {key: slot for slot, key in chosen.items()}
+    resolved = {**KEYBOARD_DEFAULT_BINDINGS, **chosen}
+    for slot, key in KEYBOARD_DEFAULT_BINDINGS.items():
+        if slot not in chosen and key in taken_by:
+            resolved[slot] = KEYBOARD_DEFAULT_BINDINGS[taken_by[key]]
     if len(set(resolved.values())) != len(resolved):
         return dict(KEYBOARD_DEFAULT_BINDINGS)
     return resolved
@@ -242,10 +256,7 @@ def keyboard_layout(bindings: Mapping[str, str] | None = None) -> ControlLayout:
     if resolved == KEYBOARD_DEFAULT_BINDINGS:
         return KB_CUSTOM
     movement = {resolved[axis.value]: axis for axis in (Axis.LEFT, Axis.DOWN, Axis.RIGHT, Axis.UP)}
-    rows = (
-        (resolved["LP"], resolved["MP"], resolved["HP"]),
-        (resolved["LK"], resolved["MK"], resolved["HK"]),
-    )
+    rows = tuple(tuple(resolved[slot] for slot in row) for row in ATTACK_SLOTS)
     return replace(KB_CUSTOM, movement=movement, attacks=lay_out(rows, DEFAULT_SET), attack_rows=rows)
 
 

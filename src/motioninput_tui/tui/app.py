@@ -117,6 +117,10 @@ class MotionInputApp(App[None]):
         """Remember the custom keyboard rebinds the player just made."""
         self._remember(keyboard_bindings=event.bindings)
 
+    def on_training_screen_movelist_changed(self, event: TrainingScreen.MovelistChanged) -> None:
+        """Remember the trainer's move list view, one for every game."""
+        self._remember(movelist=event.mode)
+
     def action_settings(self) -> None:
         """Open the settings and the notation over whatever is running. ctrl+b.
 
@@ -236,5 +240,6 @@ class MotionInputApp(App[None]):
             screen = InputDisplayScreen(game, layout, buttons, exact_input=self._key_release, policy=policy)
         else:
             screen = TrainingScreen(game, character, layout, exact_input=self._key_release, policy=policy)
+            screen.movelist_mode = self.config.movelist
         screen.apply_notation(Notation(self.config.notation))
         self.push_screen(screen, on_done)

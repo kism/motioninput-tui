@@ -125,11 +125,12 @@ Loose buffer is the rule described under [spending inputs](#spending-inputs).
 
 ### Remembering your last session
 
-The game, character, layout, settings, notation and buffer rule you last used
-are saved to `~/.config/motioninput-tui/config.json` (or under
+The game, character, layout, settings, notation, buffer rule and move list view
+you last used are saved to `~/.config/motioninput-tui/config.json` (or under
 `$XDG_CONFIG_HOME` if set), so the pickers open where you left off and your
 settings stick between runs. The character is remembered per game, so switching
-game switches to whoever you were last training on it.
+game switches to whoever you were last training on it; the move list view is
+one for every game.
 
 Nothing on the command line overrides any of it — `--config` only chooses which
 file to read. If that file is missing or damaged the defaults are used and a
@@ -145,17 +146,16 @@ gamepad if one is plugged in. Press `b` on the custom keyboard row or the
 gamepad row to remap it; either map is remembered in the config. Gamepad
 movement stays on the d-pad and left stick and is not rebindable.
 
-A layout is only *where* the attacks are — six positions, three to a row. What
+A layout is only *where* the attacks are — eight positions, four to a row. What
 those positions mean is the game's button set, laid onto them in order, which
 is why a game with a different panel is a table entry rather than a new layout.
+The Street Fighter six leave the fourth key of each row free; the Neo Geo's
+`A B C D` fill a row, and again the row below, unless the **Neo Geo slant**
+setting puts `C D` over `A B` as the arcade panel does.
 
-That fits the Street Fighter six, but not the Neo Geo.
-`A B C D` across a three-key row leaves **D** with nowhere to go, so on a
-keyboard the Neo Geo's fourth button cannot be pressed at all. Turning on the
-**Neo Geo slant** setting fixes it — `C D` on the top row, `A B` on the bottom
-— and a gamepad has all four either way. Worth doing if you train KoF or
-Samurai Shodown on a keyboard: a few dozen trainable moves across those rosters
-ask for D alone.
+A custom keyboard saved when it had six attack keys keeps them. If one of your
+rebinds is already on a new fourth-column key's default, the two swap, as
+rebinding on the screen does.
 
 Pad buttons are read through SDL's controller database, so any recognised pad
 works however its firmware numbers them, and a pad reports releases, so holds

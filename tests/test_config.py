@@ -4,6 +4,7 @@ import json
 from typing import TYPE_CHECKING
 
 from motioninput_tui.config import Config
+from motioninput_tui.controls.layouts import resolve_keyboard_bindings
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -37,14 +38,31 @@ def test_gamepad_bindings_default_to_empty(tmp_path: Path) -> None:
 
 def test_keyboard_bindings_round_trip(tmp_path: Path) -> None:
     path = tmp_path / "config.json"
-    Config(keyboard_bindings={"HP": "semicolon", "up": "w"}, path=path).save()
-    assert Config.load(path).keyboard_bindings == {"HP": "semicolon", "up": "w"}
+    Config(keyboard_bindings={"top3": "semicolon", "up": "w"}, path=path).save()
+    assert Config.load(path).keyboard_bindings == {"top3": "semicolon", "up": "w"}
 
 
 def test_malformed_keyboard_bindings_are_dropped(tmp_path: Path) -> None:
     path = tmp_path / "config.json"
-    path.write_text(json.dumps({"keyboard_bindings": {"HP": "j", "nonsense": "q", "MP": "", "LK": 4}}))
-    assert Config.load(path).keyboard_bindings == {"HP": "j"}
+    path.write_text(json.dumps({"keyboard_bindings": {"top3": "j", "nonsense": "q", "top2": "", "bottom1": 4}}))
+    assert Config.load(path).keyboard_bindings == {"top3": "j"}
+
+
+def test_keyboard_bindings_saved_under_the_street_fighter_names_move_to_their_places(tmp_path: Path) -> None:
+    """From when the custom keyboard had six attack slots, LP to HK, rather than eight by position."""
+    path = tmp_path / "config.json"
+    path.write_text(json.dumps({"keyboard_bindings": {"HP": "semicolon", "LK": "z", "up": "w"}}))
+    bindings = Config.load(path).keyboard_bindings
+    assert bindings == {"top3": "semicolon", "bottom1": "z", "up": "w"}
+    assert resolve_keyboard_bindings(bindings)["top4"] == "l"  # semicolon's new default gives way
+
+
+def test_the_move_list_view_round_trips_and_an_unknown_one_is_the_first(tmp_path: Path) -> None:
+    path = tmp_path / "config.json"
+    Config(movelist="full", path=path).save()
+    assert Config.load(path).movelist == "full"
+    path.write_text(json.dumps({"movelist": "sideways"}))
+    assert Config.load(path).movelist == "beside"
 
 
 def test_a_replaced_keyboard_layout_migrates(tmp_path: Path) -> None:
