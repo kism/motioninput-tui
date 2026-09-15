@@ -76,6 +76,21 @@ def test_beats_are_the_directions_and_the_button_as_they_are_pressed() -> None:
     ]
 
 
+def test_a_720_is_two_270s_as_a_leverless_does_it() -> None:
+    """Forward round to up, twice, up snapping straight back to forward: all four cardinals each time."""
+    game, _, _, timing = _plan("sfiii3", "hugo", "Gigas Breaker")
+    circle = [
+        Direction.FORWARD,
+        Direction.DOWN_FORWARD,
+        Direction.DOWN,
+        Direction.DOWN_BACK,
+        Direction.BACK,
+        Direction.UP_BACK,
+        Direction.UP,
+    ]
+    assert [beat for _, beat in beats(timing, _layout(game)) if isinstance(beat, Direction)] == circle * 2
+
+
 def test_a_move_no_timing_brings_out_says_what_comes_out_instead() -> None:
     """Gill's Cryo-kinesis is Pyro-kinesis from the other side, and the trainer has no sides."""
     *_, timing = _plan("sfiii3", "gill", "Cryo-kinesis")

@@ -69,10 +69,12 @@ _AXES: dict[Direction, frozenset[Axis]] = {
 }
 _DIRECTIONS = {axes: direction for direction, axes in _AXES.items()}
 
-# From forward round through down, finishing on up: the up is a jump, so the
-# button has to follow it at once, and ending there puts it last.
+# Forward round through down to up: a 270, which passes over all four cardinals
+# and ends on the up, a jump, so the button follows it at once. A 720 is two of
+# them, the stick snapping from up straight back to forward between, as it is
+# done on a leverless: the cardinals are what counts, not a second full turn.
 _CIRCLE = (_D.FORWARD, _D.DOWN_FORWARD, _D.DOWN, _D.DOWN_BACK, _D.BACK, _D.UP_BACK, _D.UP)
-_ROTATIONS = {MotionKind.ROTATE_360: _CIRCLE, MotionKind.ROTATE_720: (*_CIRCLE, _D.UP_FORWARD, *_CIRCLE)}
+_ROTATIONS = {MotionKind.ROTATE_360: _CIRCLE, MotionKind.ROTATE_720: (*_CIRCLE, *_CIRCLE)}
 
 
 @dataclass(frozen=True, slots=True)
