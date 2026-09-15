@@ -326,8 +326,10 @@ SSVSP = GameSpec(
         rotation_slack=2,
     ),
     notes=(
-        "Neo Geo panel, but not a Neo Geo brawler: A and B are the weak and medium slash,",
-        "A+B the strong one, C kicks and D is the dodge button.",
+        (
+            "Neo Geo panel, but not a Neo Geo brawler: A and B are the weak and medium slash, "
+            "A+B the strong one, C kicks and D is the dodge button."
+        ),
         "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The supers need a full Rage gauge, which the trainer does not model - only the input.",
