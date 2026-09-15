@@ -38,11 +38,11 @@ def test_rebinding_a_key_persists_it(tmp_path: Path) -> None:
             await pilot.pause()
             bind = app.screen
             assert isinstance(bind, KeyboardBindScreen)
-            bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("HP")
-            await pilot.press("space")  # arm HP
+            bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("top3")
+            await pilot.press("space")  # arm top3
             await pilot.pause()
-            assert bind._armed == "HP"
-            await pilot.press(";")  # bind HP to semicolon
+            assert bind._armed == "top3"
+            await pilot.press(";")  # bind top3 to semicolon, which top4 had
             await pilot.pause()
             assert bind._armed is None
             await pilot.press("enter")  # done
@@ -51,9 +51,10 @@ def test_rebinding_a_key_persists_it(tmp_path: Path) -> None:
         return config
 
     result = asyncio.run(run())
-    assert result.keyboard_bindings["HP"] == "semicolon"
+    assert result.keyboard_bindings["top3"] == "semicolon"
+    assert result.keyboard_bindings["top4"] == "l"  # swapped
     assert result.path is not None
-    assert '"HP": "semicolon"' in result.path.read_text()
+    assert '"top3": "semicolon"' in result.path.read_text()
 
 
 def test_binding_a_used_key_swaps_the_two() -> None:
@@ -70,15 +71,15 @@ def test_binding_a_used_key_swaps_the_two() -> None:
             await pilot.pause()
             bind = app.screen
             assert isinstance(bind, KeyboardBindScreen)
-            bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("LP")
+            bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("top1")
             await pilot.press("space")
-            await pilot.press("k")  # k currently belongs to MP
+            await pilot.press("k")  # k currently belongs to top2
             await pilot.pause()
             return dict(bind._keys)
 
     keys = asyncio.run(run())
-    assert keys["LP"] == "k"
-    assert keys["MP"] == "j"  # took LP's old key
+    assert keys["top1"] == "k"
+    assert keys["top2"] == "j"  # took top1's old key
 
 
 def test_space_arms_a_row_and_can_then_be_bound_itself() -> None:
@@ -95,10 +96,10 @@ def test_space_arms_a_row_and_can_then_be_bound_itself() -> None:
             await pilot.pause()
             bind = app.screen
             assert isinstance(bind, KeyboardBindScreen)
-            bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("LK")
-            await pilot.press("space")  # arm LK
+            bind.query_one("#binds", OptionList).highlighted = KEYBOARD_SLOTS.index("bottom1")
+            await pilot.press("space")  # arm bottom1
             await pilot.press("space")  # bind it to space
             await pilot.pause()
             return dict(bind._keys)
 
-    assert asyncio.run(run())["LK"] == "space"
+    assert asyncio.run(run())["bottom1"] == "space"

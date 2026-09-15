@@ -1,4 +1,4 @@
-"""ctrl+l steps the move list: beside the trainer, the whole screen, gone."""
+"""ctrl+l steps the move list: beside the trainer, gone, the whole screen."""
 
 import asyncio
 from typing import TYPE_CHECKING
@@ -43,7 +43,7 @@ def _lit_rows(trainer: TrainingScreen) -> list[str]:
     return [body.plain[span.start : span.end] for span in body.spans if span.style == LIT_ROW]
 
 
-def test_ctrl_l_cycles_beside_full_hidden(config: Config) -> None:
+def test_ctrl_l_cycles_beside_hidden_full(config: Config) -> None:
     async def session() -> list[tuple[bool, bool, bool]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
         async with app.run_test(size=(120, 40)) as pilot:
@@ -65,8 +65,8 @@ def test_ctrl_l_cycles_beside_full_hidden(config: Config) -> None:
 
     assert asyncio.run(session()) == [
         (True, True, False),  # beside the trainer
-        (True, False, True),  # the whole screen, the follow-through prompted under the history
         (False, True, False),  # hidden
+        (True, False, True),  # the whole screen, the follow-through prompted under the history
         (True, True, False),
     ]
 
@@ -78,7 +78,7 @@ def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config
             await pilot.pause()
             trainer = app.screen
             assert isinstance(trainer, TrainingScreen)
-            await pilot.press("ctrl+l")
+            await pilot.press("ctrl+l", "ctrl+l")  # past hidden to full screen
             await pilot.press("d", "j")  # forward, LP
             await pilot.pause()
             return (
@@ -99,7 +99,7 @@ def test_full_screen_gives_the_guides_words_unstruck_and_lights_the_panel(config
 
 
 def test_the_live_panel_and_the_status_span_the_screen_whatever_the_move_list_is_doing(config: Config) -> None:
-    """Beside, full screen or hidden, both stay along the bottom, as on the input display."""
+    """Beside, hidden or full screen, both stay along the bottom, as on the input display."""
 
     async def session() -> list[tuple[int, int]]:
         app = MotionInputApp(config, key_release=False, skip_setup=True)
@@ -292,3 +292,41 @@ def test_the_move_that_came_out_is_lit_then_goes_out(config: Config) -> None:
     assert len(lit) == 1
     assert "Sakotsu Wari" in lit[0]
     assert later == []
+
+
+def test_the_move_list_opens_as_it_was_left_through_the_menus_across_runs_and_games(config: Config) -> None:
+    """ctrl+l's view is saved as it changes, once for every game."""
+
+    async def session() -> tuple[str, bool]:
+        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            await pilot.press("ctrl+l", "ctrl+l")  # the whole screen
+            await pilot.press("escape")  # out to the setup screen
+            await pilot.pause()
+            await pilot.pause()
+            await pilot.press("enter")  # and back into training
+            await pilot.pause()
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            return trainer.movelist_mode, trainer.query_one("#left").display
+
+    mode, feed_shown = asyncio.run(session())
+    assert mode == "full"
+    assert not feed_shown
+    assert config.path is not None
+
+    saved = Config.load(config.path)
+    assert saved.movelist == "full"
+    saved.game, saved.character = "kof98", "kyo-kusanagi"
+
+    async def reopened() -> str:
+        app = MotionInputApp(saved, key_release=False, skip_setup=True)
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            trainer = app.screen
+            assert isinstance(trainer, TrainingScreen)
+            return trainer.movelist_mode
+
+    assert asyncio.run(reopened()) == "full"

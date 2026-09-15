@@ -2,7 +2,8 @@
 
 Opened with ``b`` from the layout picker when the "Keyboard (custom)" row is
 selected. Unlike the gamepad, movement is rebindable here too: the four axes and
-the six attacks are all in the list. Arm a row, press the key you want, done.
+the eight attack keys, by where they sit, are all in the list. Arm a row, press
+the key you want, done.
 The result is a ``{slot: key name}`` map, or ``None`` if nothing changed.
 """
 
@@ -15,11 +16,13 @@ from textual.screen import ModalScreen
 from textual.widgets import Footer, Label, OptionList
 
 from motioninput_tui.controls.layouts import (
+    ATTACK_SLOTS,
     KEYBOARD_DEFAULT_BINDINGS,
     KEYBOARD_SLOTS,
     friendly_key,
     resolve_keyboard_bindings,
 )
+from motioninput_tui.games.rulesets import GAME_SPECS
 
 from .base import AppScreen
 
@@ -31,6 +34,28 @@ if TYPE_CHECKING:
 
 _SLOT_LABELS = {"left": "back", "down": "down", "right": "forward", "up": "up"}
 """The movement axes read as fighting-game directions in the list."""
+
+
+def _attack_labels() -> dict[str, str]:
+    """Each attack key's place, and what the games' panels put there, as ``top 1  LP/A``.
+
+    Read off every game's panel rather than written down, so a game on a new
+    panel labels the keys it uses with nothing else to change.
+    """
+    panels = dict.fromkeys(spec.buttons for spec in GAME_SPECS.values())
+    labels: dict[str, str] = {}
+    for row, slots in enumerate(ATTACK_SLOTS):
+        for column, slot in enumerate(slots):
+            meanings = dict.fromkeys(
+                panel.rows[row][column].value
+                for panel in panels
+                if row < len(panel.rows) and column < len(panel.rows[row])
+            )
+            labels[slot] = f"{slot[:-1]} {slot[-1]}  {'/'.join(meanings)}"
+    return labels
+
+
+_LABELS = {**_SLOT_LABELS, **_attack_labels()}
 
 
 class KeyboardBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[str, str] | None"]):
@@ -52,7 +77,7 @@ class KeyboardBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[s
     }
     KeyboardBindScreen Label { width: 100%; text-align: center; }
     KeyboardBindScreen #hint { color: $text-muted; margin-bottom: 1; }
-    KeyboardBindScreen OptionList { height: 11; border: none; background: $surface; }
+    KeyboardBindScreen OptionList { height: 13; border: none; background: $surface; }
     """
 
     def __init__(self, bindings: Mapping[str, str]) -> None:
@@ -65,7 +90,7 @@ class KeyboardBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[s
 
     @override
     def compose(self) -> ComposeResult:
-        """The ten slots in a list, with a status line above."""
+        """Every slot in a list, with a status line above."""
         with Vertical():
             yield Label("Rebind keyboard", id="title")
             yield Label(id="hint")
@@ -83,9 +108,8 @@ class KeyboardBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[s
         keep = binds.highlighted
         binds.clear_options()
         for slot in KEYBOARD_SLOTS:
-            label = _SLOT_LABELS.get(slot, slot)
             face = "press a key…" if slot == self._armed else friendly_key(self._keys[slot])
-            binds.add_options([f"{label:<8} →  {face}"])
+            binds.add_options([f"{_LABELS[slot]:<14} →  {face}"])
         binds.highlighted = keep if keep is not None else 0
 
     def _current(self) -> str | None:
@@ -94,7 +118,7 @@ class KeyboardBindScreen(AppScreen["dict[str, str] | None"], ModalScreen["dict[s
 
     def _update_hint(self) -> None:
         if self._armed is not None:
-            text = Text(f"Press a key for {_SLOT_LABELS.get(self._armed, self._armed)}…", style="cyan")
+            text = Text(f"Press a key for {_LABELS[self._armed]}…", style="cyan")
         else:
             text = Text("space to rebind · enter when done")
         self.query_one("#hint", Label).update(text)

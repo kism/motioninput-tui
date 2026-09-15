@@ -24,6 +24,9 @@ logger = logging.getLogger(__name__)
 APP_DIR_NAME = "motioninput-tui"
 CONFIG_FILENAME = "config.json"
 
+MOVELIST_MODES = ("beside", "hidden", "full")
+"""The trainer's views of the move list, in the order ctrl+l steps through them."""
+
 
 def config_dir() -> Path:
     """The directory holding the config file."""
@@ -66,8 +69,11 @@ class Config:
     the final say on which entries are usable."""
     keyboard_bindings: dict[str, str] = field(default_factory=dict)
     """The custom keyboard layout's rebinds, ``{slot: key name}`` over the four
-    movement axes and the six attacks. Empty means the built-in default;
+    movement axes and the eight attack keys. Empty means the built-in default;
     :func:`~.controls.layouts.keyboard_layout` has the final say."""
+    movelist: str = MOVELIST_MODES[0]
+    """Which view of the move list the trainer opens on, one for every game:
+    saved each time ctrl+l steps it, so the menus and a restart both keep it."""
     path: Path | None = None
     """Where this was loaded from, and where :meth:`save` writes back to."""
 
@@ -111,6 +117,7 @@ class Config:
             notation=_valid_notation(raw.get("notation")),
             gamepad_bindings=_valid_gamepad_bindings(raw.get("gamepad_bindings")),
             keyboard_bindings=_valid_keyboard_bindings(raw.get("keyboard_bindings")),
+            movelist=_valid_movelist(raw.get("movelist")),
             path=target,
         )
 
@@ -129,6 +136,7 @@ class Config:
             "notation": self.notation,
             "gamepad_bindings": self.gamepad_bindings,
             "keyboard_bindings": self.keyboard_bindings,
+            "movelist": self.movelist,
         }
         try:
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -171,6 +179,11 @@ _GAME_ALIASES = {"lb2": "lastbld2", "ssii": "samsho2", "ssvsp": "samsh5sp"}
 """Games renamed to their MAME set names, so a config from before comes back to
 the same game, and to the same character in it."""
 
+_KEYBOARD_SLOT_ALIASES = {"LP": "top1", "MP": "top2", "HP": "top3", "LK": "bottom1", "MK": "bottom2", "HK": "bottom3"}
+"""The custom keyboard's attack slots from when they were named for the Street
+Fighter six, mapped to the places those keys sat, so a saved rebind survives the
+layout growing to eight."""
+
 
 def _valid_game(value: object) -> str | None:
     game = _optional_str(value)
@@ -189,14 +202,19 @@ def _valid_layout(value: object) -> str:
     return DEFAULT_LAYOUT
 
 
+def _valid_movelist(value: object) -> str:
+    return value if isinstance(value, str) and value in MOVELIST_MODES else MOVELIST_MODES[0]
+
+
 def _valid_keyboard_bindings(value: object) -> dict[str, str]:
     # Best-effort like the rest of the loader; keyboard_layout is authoritative.
     if not isinstance(value, dict):
         return {}
+    migrated = {_KEYBOARD_SLOT_ALIASES.get(slot, slot): key for slot, key in value.items() if isinstance(slot, str)}
     return {
         slot: key
-        for slot, key in value.items()
-        if isinstance(slot, str) and slot in KEYBOARD_DEFAULT_BINDINGS and isinstance(key, str) and key
+        for slot, key in migrated.items()
+        if slot in KEYBOARD_DEFAULT_BINDINGS and isinstance(key, str) and key
     }
 
 
