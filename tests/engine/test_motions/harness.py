@@ -36,6 +36,15 @@ LK, MK, HK = "j", "k", "l"
 # are slashes, C is the kick and D the dodge, so calling C "HP" reads as a lie.
 NEO_A, NEO_B, NEO_C, NEO_D = "u", "i", "o", "p"
 
+# And under the SNES fighter's names, which has a weak and a strong of each: the
+# second key in a row is the strong button, not the medium one the Street
+# Fighter six put there, and the last two keys of each row bind to nothing at
+# all. That is why the shared scripts below, which all press `HP`, cannot be
+# used for that game - they would come back empty for want of a button rather
+# than for want of a motion.
+SNES_LP, SNES_HP = "u", "i"
+SNES_LK, SNES_HK = "j", "k"
+
 TICK_MS = 8
 """How finely time is advanced between events, so hold expiry runs as it does live."""
 

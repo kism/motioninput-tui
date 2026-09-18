@@ -13,8 +13,8 @@ See [Adding a game](adding-a-game.md) to add another title, or
 
 Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, Ultra Street
 Fighter IV, The King of Fighters '98 and 2001, Samurai Shodown II and V
-Special, and The Last Blade 2. The picker lists them with a note on what makes
-each one's input handling different.
+Special, The Last Blade 2, and Bishoujo Senshi Sailor Moon S. The picker lists
+them with a note on what makes each one's input handling different.
 
 Each has its own `Ruleset` describing how forgiving it is — motion windows,
 whether diagonals can be skipped, charge times, whether the dragon punch

@@ -7,7 +7,7 @@ Alpha 3 want a real f,d,df and will hand you a fireball if they do not get it.
 
 from dataclasses import dataclass
 
-from motioninput_tui.controls.buttons import NEO_GEO, STREET_FIGHTER, ButtonSet
+from motioninput_tui.controls.buttons import NEO_GEO, SNES_FIGHTER, STREET_FIGHTER, ButtonSet
 from motioninput_tui.engine.ruleset import Ruleset
 
 
@@ -267,6 +267,47 @@ LB2 = GameSpec(
     buttons=NEO_GEO,
 )
 
+SAILORMOONS = GameSpec(
+    key="sailormoons",
+    name="Bishoujo Senshi Sailor Moon S",
+    short_name="Sailor Moon S",
+    ruleset=Ruleset(
+        # A 1994 licensed SNES fighter, and nothing about it argues for tighter
+        # windows than the arcade games here: it is slower and its motions are
+        # plain. These are interpolated from Alpha 3's.
+        motion_window_ms=320,
+        activation_window_ms=170,
+        step_gap_ms=180,
+        max_intermediate=1,
+        tail_states=2,
+        # Left off deliberately. The guide spelling every diagonal out is a
+        # notation habit rather than evidence about the engine, and there is no
+        # decompilation to check, so this stays at the default a game only
+        # turns on with real figures behind it.
+        lenient_diagonals=False,
+        # The one figure here that is not reckoned: the guide's own key says to
+        # hold the direction for at least two seconds, which is far longer than
+        # anything else in the trainer asks for.
+        charge_ms=2000,
+        charge_release_ms=220,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=False,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+    ),
+    notes=(
+        "Four buttons: weak and strong punch, with the two kicks beneath them.",
+        "Charges are the longest in the trainer - the guide asks for a full two seconds.",
+        "No dragon punch shortcut: f,d,df means f,d,df.",
+        "The guide covers the SuperS sequel too; this roster is what the S game has.",
+        "Its longest desperation motions are not ones the trainer models, so they are struck through.",
+    ),
+    reference="references/sailormoons.txt",
+    buttons=SNES_FIGHTER,
+)
+
 SSII = GameSpec(
     key="samsho2",
     name="Samurai Shodown II",
@@ -379,7 +420,7 @@ USFIV = GameSpec(
 # Menu order: by series (alphabetically), then in each series' own numeric /
 # chronological order.
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (KOF98, KOF2001, LB2, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
+    spec.key: spec for spec in (KOF98, KOF2001, LB2, SAILORMOONS, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
 }
 DEFAULT_GAME = SFIII3.key
 

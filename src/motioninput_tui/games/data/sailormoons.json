@@ -1,0 +1,657 @@
+{
+ "key": "sailormoons",
+ "name": "Bishoujo Senshi Sailor Moon S",
+ "source": "references/sailormoons.txt",
+ "characters": [
+  {
+   "key": "sailor-moon",
+   "name": "Sailor Moon",
+   "title": "",
+   "moves": [
+    {
+     "name": "Moon Spiral Heart Attack",
+     "command": "D DB B + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D DB B + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Moon Tiara Action",
+     "command": "D DT T + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D DT T + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Sonic Scream",
+     "command": "Charge D then U + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge D then U + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Head Butts",
+     "command": "T + Strong Punch",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "T + Strong Punch"
+     }
+    },
+    {
+     "name": "Judo Toss",
+     "command": "T + Strong Kick",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "T + Strong Kick"
+     }
+    },
+    {
+     "name": "Ginguishou",
+     "command": "D DT T DT D DB B + Strong Kick",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_hcb",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "D DT T DT D DB B + Strong Kick"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sailor-mercury",
+   "name": "Sailor Mercury",
+   "title": "",
+   "moves": [
+    {
+     "name": "Shabon Spray",
+     "command": "Charge B then T + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge B then T + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Mercury Aqua Mirage",
+     "command": "D DT T UT + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "tk",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D DT T UT + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Reverse Break Step",
+     "command": "T D DT + Strong Kick or Kick",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "T D DT + Strong Kick or Kick"
+     }
+    },
+    {
+     "name": "DDT",
+     "command": "T + Strong Punch",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "T + Strong Punch"
+     }
+    },
+    {
+     "name": "Watery Bullet",
+     "command": "T DT D DB B T + Strong Kick",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "T DT D DB B T + Strong Kick"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sailor-mars",
+   "name": "Sailor Mars",
+   "title": "",
+   "moves": [
+    {
+     "name": "Fire Soul Bird",
+     "command": "B DB D DT T + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B DB D DT T + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Mars Snake Fire",
+     "command": "B DB D DT T + Strong Kick or Kick",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "B DB D DT T + Strong Kick or Kick"
+     }
+    },
+    {
+     "name": "Flame Heel Drop/Flaming Axe Kick",
+     "command": "D DB B + Strong Kick or Kick",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D DB B + Strong Kick or Kick"
+     }
+    },
+    {
+     "name": "Slap Throw",
+     "command": "R + Strong Punch",
+     "category": "other"
+    },
+    {
+     "name": "Frankensteiner",
+     "command": "R + Strong Kick",
+     "category": "other"
+    },
+    {
+     "name": "Mars Snake Flare",
+     "command": "T DT D DB B DB D + Strong Kick",
+     "category": "super"
+    }
+   ]
+  },
+  {
+   "key": "sailor-jupiter",
+   "name": "Sailor Jupiter",
+   "title": "",
+   "moves": [
+    {
+     "name": "Supreme Thunder Dragon",
+     "command": "Charge B then T + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge B then T + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Jupiter Coconut Cyclone",
+     "command": "T DT D + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "f_df_d",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "T DT D + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Jupiter Double Axle",
+     "command": "D DT T + Strong Kick or Kick",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "D DT T + Strong Kick or Kick"
+     }
+    },
+    {
+     "name": "Giant Swing",
+     "command": "T DT D DB B UB U UT + Strong Punch or Punch",
+     "category": "other"
+    },
+    {
+     "name": "Power Bomb",
+     "command": "T + Strong Punch",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "T + Strong Punch"
+     }
+    },
+    {
+     "name": "Lightning Strike",
+     "command": "D DB B DB D DT T + Strong Punch",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_hcf",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "D DB B DB D DT T + Strong Punch"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sailor-venus",
+   "name": "Sailor Venus",
+   "title": "",
+   "moves": [
+    {
+     "name": "Crescent Beam",
+     "command": "D DT T + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D DT T + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Venus Wink Sword",
+     "command": "Charge D then U + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Charge D then U + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Venus Love Me Chain",
+     "command": "T D DT + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "T D DT + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Coconut Crusher",
+     "command": "R + Strong Punch",
+     "category": "other"
+    },
+    {
+     "name": "Reverse Leg Toss",
+     "command": "R + Strong Kick",
+     "category": "other"
+    },
+    {
+     "name": "Venus Wink Flare",
+     "command": "B DB D DT T DT D + Strong Punch",
+     "category": "super"
+    }
+   ]
+  },
+  {
+   "key": "sailor-chibi-moon",
+   "name": "Sailor Chibi Moon",
+   "title": "",
+   "moves": [
+    {
+     "name": "Pink Sugar Heart Attack",
+     "command": "Charge A then T + Strong Punch or Punch",
+     "category": "other"
+    },
+    {
+     "name": "Swinging Marshmallow",
+     "command": "D + Strong Kick or Kick",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "D + Strong Kick or Kick"
+     }
+    },
+    {
+     "name": "Head Pummel",
+     "command": "R + Strong Punch",
+     "category": "other"
+    },
+    {
+     "name": "Luna-P Attack",
+     "command": "DT D DB B + Strong Punch or Punch",
+     "category": "super"
+    }
+   ]
+  },
+  {
+   "key": "sailor-uranus",
+   "name": "Sailor Uranus",
+   "title": "",
+   "moves": [
+    {
+     "name": "World Shaking",
+     "command": "T DT D + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "f_df_d",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "T DT D + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Diving Gaia Crash",
+     "command": "T DT D DB B UB U + Strong Kick or Kick",
+     "category": "other"
+    },
+    {
+     "name": "Shoulder Toss",
+     "command": "R + Strong Punch",
+     "category": "other"
+    },
+    {
+     "name": "Backflip",
+     "command": "R + Strong Kick",
+     "category": "other"
+    },
+    {
+     "name": "Destructive Carnival",
+     "command": "T DT D DB B DB D DT T + Strong Kick",
+     "category": "super"
+    }
+   ]
+  },
+  {
+   "key": "sailor-neptune",
+   "name": "Sailor Neptune",
+   "title": "",
+   "moves": [
+    {
+     "name": "Deep Submerge",
+     "command": "D DB B + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "D DB B + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Splash Edge",
+     "command": "T D DT + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "T D DT + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Shoulder Toss",
+     "command": "T + Strong Punch",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "T + Strong Punch"
+     }
+    },
+    {
+     "name": "Dragon Rise",
+     "command": "T D DT T D DT + Strong Punch",
+     "category": "super"
+    }
+   ]
+  },
+  {
+   "key": "sailor-pluto",
+   "name": "Sailor Pluto",
+   "title": "",
+   "moves": [
+    {
+     "name": "Dead Scream",
+     "command": "B DB D DT T + Strong Punch or Punch",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "B DB D DT T + Strong Punch or Punch"
+     }
+    },
+    {
+     "name": "Stork Sweep",
+     "command": "Charge B then T + Strong Kick or Kick",
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge B then T + Strong Kick or Kick"
+     }
+    },
+    {
+     "name": "Gut Knees",
+     "command": "R + Strong Kick",
+     "category": "other"
+    },
+    {
+     "name": "Dimension Dance",
+     "command": "T DT D DB B T + Strong Punch",
+     "category": "super",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "T DT D DB B T + Strong Punch"
+     }
+    }
+   ]
+  }
+ ]
+}
