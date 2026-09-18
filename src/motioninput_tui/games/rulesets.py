@@ -302,6 +302,7 @@ SAILORMOONS = GameSpec(
         "Charges are the longest in the trainer - the guide asks for a full two seconds.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The guide covers the SuperS sequel too; this roster is what the S game has.",
+        "It writes forward as T, for towards, so the move list here is the translation of it.",
         "Its longest desperation motions are not ones the trainer models, so they are struck through.",
     ),
     reference="references/sailormoons.txt",

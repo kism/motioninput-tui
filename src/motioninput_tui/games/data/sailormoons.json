@@ -27,7 +27,7 @@
     },
     {
      "name": "Moon Tiara Action",
-     "command": "D DT T + Strong Punch or Punch",
+     "command": "D DF F + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "qcf",
@@ -39,7 +39,7 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "D DT T + Strong Punch or Punch"
+      "notation": "D DF F + Strong Punch or Punch"
      }
     },
     {
@@ -61,7 +61,7 @@
     },
     {
      "name": "Head Butts",
-     "command": "T + Strong Punch",
+     "command": "F + Strong Punch",
      "category": "command",
      "motion": {
       "kind": "hold",
@@ -73,12 +73,12 @@
        "label": "HP"
       },
       "hold": 6,
-      "notation": "T + Strong Punch"
+      "notation": "F + Strong Punch"
      }
     },
     {
      "name": "Judo Toss",
-     "command": "T + Strong Kick",
+     "command": "F + Strong Kick",
      "category": "command",
      "motion": {
       "kind": "hold",
@@ -90,12 +90,12 @@
        "label": "HK"
       },
       "hold": 6,
-      "notation": "T + Strong Kick"
+      "notation": "F + Strong Kick"
      }
     },
     {
      "name": "Ginguishou",
-     "command": "D DT T DT D DB B + Strong Kick",
+     "command": "D DF F DF D DB B + Strong Kick",
      "category": "super",
      "motion": {
       "kind": "qcf_hcb",
@@ -106,7 +106,7 @@
        "count": 1,
        "label": "HK"
       },
-      "notation": "D DT T DT D DB B + Strong Kick"
+      "notation": "D DF F DF D DB B + Strong Kick"
      }
     }
    ]
@@ -118,7 +118,7 @@
    "moves": [
     {
      "name": "Shabon Spray",
-     "command": "Charge B then T + Strong Punch or Punch",
+     "command": "Charge B then F + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "charge_bf",
@@ -130,12 +130,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "Charge B then T + Strong Punch or Punch"
+      "notation": "Charge B then F + Strong Punch or Punch"
      }
     },
     {
      "name": "Mercury Aqua Mirage",
-     "command": "D DT T UT + Strong Punch or Punch",
+     "command": "D DF F UF + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "tk",
@@ -147,12 +147,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "D DT T UT + Strong Punch or Punch"
+      "notation": "D DF F UF + Strong Punch or Punch"
      }
     },
     {
      "name": "Reverse Break Step",
-     "command": "T D DT + Strong Kick or Kick",
+     "command": "F D DF + Strong Kick or Kick",
      "category": "special",
      "motion": {
       "kind": "dp",
@@ -164,12 +164,12 @@
        "count": 1,
        "label": "K"
       },
-      "notation": "T D DT + Strong Kick or Kick"
+      "notation": "F D DF + Strong Kick or Kick"
      }
     },
     {
      "name": "DDT",
-     "command": "T + Strong Punch",
+     "command": "F + Strong Punch",
      "category": "command",
      "motion": {
       "kind": "hold",
@@ -181,12 +181,12 @@
        "label": "HP"
       },
       "hold": 6,
-      "notation": "T + Strong Punch"
+      "notation": "F + Strong Punch"
      }
     },
     {
      "name": "Watery Bullet",
-     "command": "T DT D DB B T + Strong Kick",
+     "command": "F DF D DB B F + Strong Kick",
      "category": "super",
      "motion": {
       "kind": "hcb_f",
@@ -197,7 +197,7 @@
        "count": 1,
        "label": "HK"
       },
-      "notation": "T DT D DB B T + Strong Kick"
+      "notation": "F DF D DB B F + Strong Kick"
      }
     }
    ]
@@ -209,7 +209,7 @@
    "moves": [
     {
      "name": "Fire Soul Bird",
-     "command": "B DB D DT T + Strong Punch or Punch",
+     "command": "B DB D DF F + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "hcf",
@@ -221,12 +221,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "B DB D DT T + Strong Punch or Punch"
+      "notation": "B DB D DF F + Strong Punch or Punch"
      }
     },
     {
      "name": "Mars Snake Fire",
-     "command": "B DB D DT T + Strong Kick or Kick",
+     "command": "B DB D DF F + Strong Kick or Kick",
      "category": "special",
      "motion": {
       "kind": "hcf",
@@ -238,7 +238,7 @@
        "count": 1,
        "label": "K"
       },
-      "notation": "B DB D DT T + Strong Kick or Kick"
+      "notation": "B DB D DF F + Strong Kick or Kick"
      }
     },
     {
@@ -270,7 +270,7 @@
     },
     {
      "name": "Mars Snake Flare",
-     "command": "T DT D DB B DB D + Strong Kick",
+     "command": "F DF D DB B DB D + Strong Kick",
      "category": "super"
     }
    ]
@@ -282,7 +282,7 @@
    "moves": [
     {
      "name": "Supreme Thunder Dragon",
-     "command": "Charge B then T + Strong Punch or Punch",
+     "command": "Charge B then F + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "charge_bf",
@@ -294,12 +294,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "Charge B then T + Strong Punch or Punch"
+      "notation": "Charge B then F + Strong Punch or Punch"
      }
     },
     {
      "name": "Jupiter Coconut Cyclone",
-     "command": "T DT D + Strong Punch or Punch",
+     "command": "F DF D + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "f_df_d",
@@ -311,12 +311,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "T DT D + Strong Punch or Punch"
+      "notation": "F DF D + Strong Punch or Punch"
      }
     },
     {
      "name": "Jupiter Double Axle",
-     "command": "D DT T + Strong Kick or Kick",
+     "command": "D DF F + Strong Kick or Kick",
      "category": "special",
      "motion": {
       "kind": "qcf",
@@ -328,17 +328,17 @@
        "count": 1,
        "label": "K"
       },
-      "notation": "D DT T + Strong Kick or Kick"
+      "notation": "D DF F + Strong Kick or Kick"
      }
     },
     {
      "name": "Giant Swing",
-     "command": "T DT D DB B UB U UT + Strong Punch or Punch",
+     "command": "F DF D DB B UB U UF + Strong Punch or Punch",
      "category": "other"
     },
     {
      "name": "Power Bomb",
-     "command": "T + Strong Punch",
+     "command": "F + Strong Punch",
      "category": "command",
      "motion": {
       "kind": "hold",
@@ -350,12 +350,12 @@
        "label": "HP"
       },
       "hold": 6,
-      "notation": "T + Strong Punch"
+      "notation": "F + Strong Punch"
      }
     },
     {
      "name": "Lightning Strike",
-     "command": "D DB B DB D DT T + Strong Punch",
+     "command": "D DB B DB D DF F + Strong Punch",
      "category": "super",
      "motion": {
       "kind": "qcb_hcf",
@@ -366,7 +366,7 @@
        "count": 1,
        "label": "HP"
       },
-      "notation": "D DB B DB D DT T + Strong Punch"
+      "notation": "D DB B DB D DF F + Strong Punch"
      }
     }
    ]
@@ -378,7 +378,7 @@
    "moves": [
     {
      "name": "Crescent Beam",
-     "command": "D DT T + Strong Punch or Punch",
+     "command": "D DF F + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "qcf",
@@ -390,7 +390,7 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "D DT T + Strong Punch or Punch"
+      "notation": "D DF F + Strong Punch or Punch"
      }
     },
     {
@@ -412,7 +412,7 @@
     },
     {
      "name": "Venus Love Me Chain",
-     "command": "T D DT + Strong Punch or Punch",
+     "command": "F D DF + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "dp",
@@ -424,7 +424,7 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "T D DT + Strong Punch or Punch"
+      "notation": "F D DF + Strong Punch or Punch"
      }
     },
     {
@@ -439,7 +439,7 @@
     },
     {
      "name": "Venus Wink Flare",
-     "command": "B DB D DT T DT D + Strong Punch",
+     "command": "B DB D DF F DF D + Strong Punch",
      "category": "super"
     }
    ]
@@ -451,7 +451,7 @@
    "moves": [
     {
      "name": "Pink Sugar Heart Attack",
-     "command": "Charge A then T + Strong Punch or Punch",
+     "command": "Charge A then F + Strong Punch or Punch",
      "category": "other"
     },
     {
@@ -479,7 +479,7 @@
     },
     {
      "name": "Luna-P Attack",
-     "command": "DT D DB B + Strong Punch or Punch",
+     "command": "DF D DB B + Strong Punch or Punch",
      "category": "super"
     }
    ]
@@ -491,7 +491,7 @@
    "moves": [
     {
      "name": "World Shaking",
-     "command": "T DT D + Strong Punch or Punch",
+     "command": "F DF D + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "f_df_d",
@@ -503,12 +503,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "T DT D + Strong Punch or Punch"
+      "notation": "F DF D + Strong Punch or Punch"
      }
     },
     {
      "name": "Diving Gaia Crash",
-     "command": "T DT D DB B UB U + Strong Kick or Kick",
+     "command": "F DF D DB B UB U + Strong Kick or Kick",
      "category": "other"
     },
     {
@@ -523,7 +523,7 @@
     },
     {
      "name": "Destructive Carnival",
-     "command": "T DT D DB B DB D DT T + Strong Kick",
+     "command": "F DF D DB B DB D DF F + Strong Kick",
      "category": "super"
     }
    ]
@@ -552,7 +552,7 @@
     },
     {
      "name": "Splash Edge",
-     "command": "T D DT + Strong Punch or Punch",
+     "command": "F D DF + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "dp",
@@ -564,12 +564,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "T D DT + Strong Punch or Punch"
+      "notation": "F D DF + Strong Punch or Punch"
      }
     },
     {
      "name": "Shoulder Toss",
-     "command": "T + Strong Punch",
+     "command": "F + Strong Punch",
      "category": "command",
      "motion": {
       "kind": "hold",
@@ -581,12 +581,12 @@
        "label": "HP"
       },
       "hold": 6,
-      "notation": "T + Strong Punch"
+      "notation": "F + Strong Punch"
      }
     },
     {
      "name": "Dragon Rise",
-     "command": "T D DT T D DT + Strong Punch",
+     "command": "F D DF F D DF + Strong Punch",
      "category": "super"
     }
    ]
@@ -598,7 +598,7 @@
    "moves": [
     {
      "name": "Dead Scream",
-     "command": "B DB D DT T + Strong Punch or Punch",
+     "command": "B DB D DF F + Strong Punch or Punch",
      "category": "special",
      "motion": {
       "kind": "hcf",
@@ -610,12 +610,12 @@
        "count": 1,
        "label": "P"
       },
-      "notation": "B DB D DT T + Strong Punch or Punch"
+      "notation": "B DB D DF F + Strong Punch or Punch"
      }
     },
     {
      "name": "Stork Sweep",
-     "command": "Charge B then T + Strong Kick or Kick",
+     "command": "Charge B then F + Strong Kick or Kick",
      "category": "special",
      "motion": {
       "kind": "charge_bf",
@@ -627,7 +627,7 @@
        "count": 1,
        "label": "K"
       },
-      "notation": "Charge B then T + Strong Kick or Kick"
+      "notation": "Charge B then F + Strong Kick or Kick"
      }
     },
     {
@@ -637,7 +637,7 @@
     },
     {
      "name": "Dimension Dance",
-     "command": "T DT D DB B T + Strong Punch",
+     "command": "F DF D DB B F + Strong Punch",
      "category": "super",
      "motion": {
       "kind": "hcb_f",
@@ -648,7 +648,7 @@
        "count": 1,
        "label": "HP"
       },
-      "notation": "T DT D DB B T + Strong Punch"
+      "notation": "F DF D DB B F + Strong Punch"
      }
     }
    ]

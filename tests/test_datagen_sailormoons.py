@@ -54,4 +54,4 @@ def test_an_aside_does_not_leak_into_the_command() -> None:
     them off left the prose between the inner and outer closers in the command -
     where the move list would have shown it to the player."""
     move = next(m for m in load_game(GAME).character("sailor-jupiter").moves if m.name == "Jupiter Double Axle")
-    assert move.command == "D DT T + Strong Kick or Kick"
+    assert move.command == "D DF F + Strong Kick or Kick"

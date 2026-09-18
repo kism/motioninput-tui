@@ -5,11 +5,17 @@ leading ``(S Only)`` or ``(SS Only)`` marker, or neither when both games have
 the move. This is the S game, so the SuperS-only entries are dropped, and so is
 Sailor Saturn, whose heading marks her as being in the sequel alone.
 
-The guide writes directions as letters with ``T`` for "towards" where the rest
-of the repo writes forward, separated by spaces rather than commas, and names
-its four attack buttons in words. Both are translated into the dialect
-:mod:`normalise` reads, and the button requirement that comes back is narrowed
-to the four the panel actually has - "any punch" is two buttons here, not three.
+The guide writes forward as ``T``, for towards, which means nothing anywhere
+else in the trainer. It is rewritten to ``F`` before the command is stored, so
+the move list shows the translation rather than the guide's own letter - the
+same bargain the KoF 2001 roster makes with that guide's numpad notation, and
+the game's notes say so. That rewrite is also all the direction handling needed:
+once towards is forward, every letter this guide uses is already the token
+:mod:`normalise` reads, since it lowers the command anyway.
+
+Its four attack buttons are named in words, and are translated separately. The
+button requirement that comes back is then narrowed to the four the panel
+actually has - "any punch" is two buttons here, not three.
 
 An entry is a blank-line separated block rather than a line, because it wraps
 over as many lines as it needs and an aside in brackets follows it inside the
@@ -55,8 +61,11 @@ command - which is what the move list would then show the player."""
 _ATTACK = re.compile(r"\b(?:Punch|Kick)\b")
 """What tells a move apart from the notes and the dashes: it ends in a button."""
 
-_DIRECTIONS = {"UT": "uf", "UB": "ub", "DT": "df", "DB": "db", "T": "f", "B": "b", "D": "d", "U": "u"}
-_DIRECTION = re.compile(rf"\b({'|'.join(_DIRECTIONS)})\b")
+_FORWARD = {"UT": "UF", "DT": "DF", "T": "F"}
+_TOWARDS = re.compile(rf"\b({'|'.join(_FORWARD)})\b")
+"""The guide's towards, and the two diagonals built on it. Nothing else it
+writes needs touching: ``B``, ``D``, ``U`` and their diagonals already spell the
+tokens ``normalise`` reads."""
 
 _BUTTONS: list[tuple[re.Pattern[str], str]] = [
     # The strong one or the weak one, which is this guide's way of writing
@@ -164,6 +173,7 @@ def _entry(text: str) -> tuple[str, str, bool] | None:
     desperation = bool(_DESPERATION.match(name))
     name = _PARENTHETICAL.sub("", _DESPERATION.sub("", name)).strip()
     command = _ASIDE.sub("", command).strip().rstrip(".").strip()
+    command = _TOWARDS.sub(lambda match: _FORWARD[match.group()], command)
     if not name or not command:
         return None
     return name, command, desperation
@@ -184,7 +194,6 @@ def _to_shorthand(command: str) -> str:
     text = command
     for pattern, replacement in _BUTTONS:
         text = pattern.sub(replacement, text)
-    text = _DIRECTION.sub(lambda match: _DIRECTIONS[match.group()], text)
     return _THEN.sub(",", text)
 
 
