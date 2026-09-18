@@ -8,10 +8,12 @@ looked up in one table.
 """
 
 import re
+from itertools import pairwise
 
 from motioninput_tui.engine.motions import MotionKind, MotionSpec
 from motioninput_tui.engine.notation import (
     ALL_BUTTONS,
+    DIRECTION_RING,
     KICKS,
     PUNCHES,
     Button,
@@ -267,6 +269,8 @@ def _resolve_directions(
         return kind, None, ""
     if not charged and len(tokens) == 1 and tokens[0] in _HOLD_DIRECTIONS:
         return MotionKind.HOLD, _HOLD_DIRECTIONS[tokens[0]], ""
+    if not charged and _is_full_circle(tokens):
+        return MotionKind.ROTATE_360, None, ""
     return None, None, f"unrecognised motion {','.join(tokens)!r}"
 
 
@@ -307,6 +311,28 @@ def _parse_rotation(text: str) -> MotionKind | None:
     if "360" in text:
         return MotionKind.ROTATE_360
     return None
+
+
+_RING_POSITIONS = {direction.short: index for index, direction in enumerate(DIRECTION_RING)}
+FULL_CIRCLE = len(DIRECTION_RING)
+
+
+def _is_full_circle(tokens: list[str]) -> bool:
+    """Whether the tokens walk the eight directions right the way round.
+
+    Not every guide writes a 360 as "360": one that spells the circle out gets
+    one here, where :func:`_parse_rotation` only sees the ones that say so.
+
+    Every step has to be the next notch round, the same way throughout, which is
+    what keeps this off the long motions that merely have a lot of directions in
+    them. A half circle out and back again covers plenty of the ring but doubles
+    back, and is not a revolution.
+    """
+    if len(tokens) != FULL_CIRCLE or any(token not in _RING_POSITIONS for token in tokens):
+        return False
+    positions = [_RING_POSITIONS[token] for token in tokens]
+    steps = {(later - earlier) % FULL_CIRCLE for earlier, later in pairwise(positions)}
+    return steps in ({1}, {FULL_CIRCLE - 1})
 
 
 def _button_section(text: str) -> str:

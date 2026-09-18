@@ -334,7 +334,19 @@
     {
      "name": "Giant Swing",
      "command": "F DF D DB B UB U UF + Strong Punch or Punch",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "rotate_360",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "F DF D DB B UB U UF + Strong Punch or Punch"
+     }
     },
     {
      "name": "Power Bomb",

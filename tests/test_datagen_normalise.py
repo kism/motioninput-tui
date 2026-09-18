@@ -127,6 +127,40 @@ def test_shapes_the_guides_share(command: str, kind: MotionKind) -> None:
     assert motion.kind is kind
 
 
+@pytest.mark.parametrize(
+    "command",
+    [
+        # Jupiter's Giant Swing, walked round the gate rather than written "360".
+        "F DF D DB B UB U UF + any Punch",
+        # And the same circle taken the other way about.
+        "F UF U UB B DB D DF + any Punch",
+    ],
+)
+def test_a_circle_spelled_out_is_still_a_rotation(command: str) -> None:
+    """Not every guide writes a 360 as "360"; one that names all eight
+    directions in order means the same input."""
+    motion = parse_command(command).motion
+    assert motion is not None
+    assert motion.kind is MotionKind.ROTATE_360
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        # Uranus' Destructive Carnival: out to back and home again, which covers
+        # most of the ring twice over without ever going right round it.
+        "F DF D DB B DB D DF F + Strong Kick",
+        # And her Diving Gaia Crash, which stops one notch short of the turn.
+        "F DF D DB B UB U + Strong Kick",
+    ],
+)
+def test_a_long_motion_that_never_goes_right_round_is_not_a_rotation(command: str) -> None:
+    """The guard on the rule above: plenty of directions is not a circle, or
+    every rambling command throw in the rosters would become a 360."""
+    motion = parse_command(command).motion
+    assert motion is None or motion.kind is not MotionKind.ROTATE_360
+
+
 def test_a_neo_geo_mash_keeps_its_button() -> None:
     """Kuroko's ``C rapidly`` has no ``+`` for the button translation to find."""
     command = "C rapidly"
