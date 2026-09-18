@@ -511,7 +511,47 @@
     {
      "name": "Drunken Combo",
      "command": "HP, HP, HK, HP",
-     "category": "command"
+     "category": "command",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HK"
+         ],
+         "count": 1,
+         "label": "HK"
+        }
+       }
+      ],
+      "notation": "HP, HP, HK, HP"
+     }
     },
     {
      "name": "Shin Kick",

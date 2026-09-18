@@ -1,41 +1,40 @@
 # TODO
 
+The rosters sit at 89% trainable overall, 76% (Sailor Moon S) to 95% (KoF '98).
+`python -m motioninput_tui_datagen --show-skipped` lists what is left and why.
+
 ## Timings
 
 3S is accurate, getting real numbers for any other game would require either annotated disassembly or decompiled code that doesn't currently exist. Another method would be using mame lua and memory editing to figure it out.
 
-The same goes for `chain_window_ms`, which is reckoned at 700ms for every game that has chains wired. Nothing has been measured; it is long enough to roll a deliberate quarter circle out of the move before and short enough that a string doesn't outlive its animation, which is a guess dressed as a number.
+The same goes for `chain_window_ms` (700ms) and `sequence_window_ms` (1200ms), reckoned at one figure for every game that has them wired. Nothing has been measured. 3rd Strike carries both, which makes them the only two numbers in that game's ruleset not read off the decompilation — `docs/sfiii3-from-the-decomp.md` says so under "Still open".
 
 ## Tekken 3
 
-This will be difficult due to the combo structure instead of motion input, <https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979>
+No longer blocked. `MotionKind.SEQUENCE` handles a run of presses, each with whatever direction was held for it, so the combo structure this file used to call difficult is modelled: <https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979>. Its panel is defined already (`buttons.TEKKEN`, square and triangle over cross and circle) and reached by no game, which is what adding it would change.
+
+Two things a Tekken parser will want that the sequence model does not have yet. A step is a press, so a direction with no button attaches to the press after it — Tekken writes `f,f,N,2`, where the `N` is a deliberate neutral between two forwards and no press belongs to it. And Tekken tells a held press (`2*`) from a tapped one, which is the same gap `normalise` already notes for `+ hold P`.
 
 ## Chains in the remaining guides
 
-`Move.follows` is wired for every roster whose guide names the parent — 228 links across eight games, 200 of them runnable. Four shapes cover it: the SNK guides name the parent first (`neogeo.split_parent`); the Street Fighter ones name it last, spell its command out again, or trail off with `...` (all three in `common.split_follow_on`); and Martial Masters indents a link under its parent.
+`Move.follows` is wired for every roster whose guide names the parent — 228 links across eight games. Four shapes cover it: the SNK guides name the parent first (`neogeo.split_parent`); the Street Fighter ones name it last, spell its command out again, or trail off with `...` (all three in `common.split_follow_on`); and Martial Masters and SSV Special indent a link under its parent.
 
-What is left is 49 moves, and each needs something other than a better splitter:
+Of the links still struck through, three are guide typos where the command names a parent one letter off the move it means (Juzo Kanzaki's `Iwakudai` for `Iwakudaki`, Naoe Shigen's `Konogosai` for `Kongosai`), which want an override table or fuzzy matching — a third rung the current two-pass match deliberately stops short of. Seven name the parent by an abbreviation the roster does not carry (`after H.C.`, `during C. Shinwa`), which an alias table per guide would fix.
 
-Three are guide typos, where the command names a parent that is one letter off the move it means — Juzo Kanzaki's `Iwakudai` for `Iwakudaki`, Naoe Shigen's `Konogosai` for `Kongosai`. These want an override table keyed the way `commands.py` is, or fuzzy matching, which is a third rung the current two-pass match deliberately stops short of.
+Three of 3rd Strike's Akuma links are in the right section but still struck, because their own input reads `press P while in air` and `while` is one of the words `normalise` rejects outright. Here it describes the state the dive already put him in rather than a condition to meet, but teaching `_UNSUPPORTED` that difference affects every guide.
 
-Seven name the parent by an abbreviation the roster does not carry — Cammy's `after H.C.`, R. Mika's `after S.B.S.`, Dan's `during C. Shinwa`. An alias table per guide would do it.
+## Conditions the trainer has no model of
 
-The rest genuinely describe a condition rather than a parent: `While getting up`, `Jump against a wall`, `against a back-turned opponent`, `Hold and release PPP`, `when near a knife`. Those are mechanics the trainer has no model of and are right to stay struck through. Sailor Moon S, Samurai Shodown V Special and Hyper SF2 have no chains at all, which is correct for those three.
+The largest remaining block, 106 moves. `While getting up`, `Jump against a wall`, `against a back-turned opponent`, `when near a knife`, `while dashing`, `when hit`. These are game states rather than inputs, and they are right to stay struck through — but a few are close to reachable. Samurai Shodown V Special has twelve `Sankaku Tobi` (wall jump, `uf~df near a wall in air`) and six `while dashing` moves; a dash or a wall would each be a real engine concept, not a parsing fix.
 
-The `then` shape is handled: a command written as another move's command again with what to do next on the end (`qcf,uf + P, then press P`) is matched on the command text rather than a name. That turned out to be only four moves — Akuma's three off his Hyakki Shuu dive, and Bison's Somersault Skull Diver off his Head Press — not the 43 an earlier count suggested.
-
-The other 24 commands carrying `then` are not chains at all: they are one move plus an extra press the engine has no model for (Rufus's `qcf + K, then K`, Rolento's Mekong Deltas). The head is the move's own input, so parsing it and dropping the tail would make 11 of them trainable. That is a separate decision, because it means calling a move trainable on a deliberately partial reading of its command — the thing `commands.py`'s docstring warns about — and two of the 11 would then share an input with a move the character already has. The rest of the 24 open with `Hold P`, `Block b / db` or `Jump u or uf`, which the trainer cannot read either way.
-
-Three of 3rd Strike's Akuma links are in the right section now but still struck, because their own input reads `press P while in air` and `while` is one of the words `normalise` rejects outright. Here it describes the state the dive already put him in rather than a condition to meet, but teaching `_UNSUPPORTED` that difference affects every guide, so it is left alone.
-
-## Sequences of presses
-
-15 moves are struck through as "a chain of presses, which the trainer has no model for": Akuma's Raging Demon (`LP,LP,f,LK,HP`) in three games, Guy's Bushin strings, Drunk Master's target combo. These are a real input shape — buttons in order, sometimes with a direction between — and the engine has no `MotionKind` for one. Until it does they must not fall back to "press all of these at once", which is what they used to do and which is a move none of these games have.
+Related: 57 moves have no button requirement the parser can find, most of them movement (`_move b / f`, `_press in any dir.`, `Nidan Jump`), and Shizumaru Hisame's five charge-a-button moves (`Hold any for 1.5 sec.`) want a held button the engine treats as momentary.
 
 ## Motions not in the table
 
-Around 30 moves are skipped as an unrecognised motion, and what is left is nearly all one-offs. The ones worth an entry each need a real matcher rather than a table row: `d,d` and `d,d,d` are double and triple taps of one direction, `d,u` is a tap rather than a charge, `f,b,f,b,f,b,d` is Galford's and Hanzo's counter. `db,qcf` (`db,d,df,f`) looks like it could just map to a quarter circle, but it must not — Ukyo and Suija have a plain `qcf` move as well, and mapping it would hand out the wrong one of the pair.
+Around 90 moves, and nearly all one-offs. The ones worth an entry each need a real matcher rather than a table row: `d,d` (16 moves) and `d,d,d` are double and triple taps of one direction, `d,u` is a tap rather than a charge, `f,b,f,b,f,b,d` (7) is Galford's and Hanzo's counter, and every character in Samurai Shodown II has a different long `Nuigurumi` code.
+
+`db,qcf` (`db,d,df,f`) looks like it could just map to a quarter circle, but it must not — Ukyo and Suija have a plain `qcf` move as well, and mapping it would hand out the wrong one of the pair.
 
 ## Held buttons
 
-Two moves are struck through because the guide says to hold the button rather than tap it, and every press is momentary to the engine. Yuri's `d, df, f + hold P` is otherwise indistinguishable from the plain fireball listed above it.
+Two moves are struck through because the guide says to hold the button rather than tap it, and every press is momentary to the engine. Yuri's `d, df, f + hold P` is otherwise indistinguishable from the plain fireball listed above it. Shizumaru's five, above, are the same problem at a longer timescale.

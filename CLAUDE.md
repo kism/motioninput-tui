@@ -450,6 +450,32 @@ A chain link may be a bare button (`Final Kick: LK`), which `normalise` refuses
 everywhere else because a lone button is an ordinary normal. `parse_command`'s
 `chained` flag is what allows it, and it is set from `follows`.
 
+### Sequences: presses one after another
+
+`MotionKind.SEQUENCE` is a run of presses rather than a path round the gate:
+Akuma's `LP,LP,f,LK,HP`, Guy's Bushin strings, a target combo, and whatever a
+Tekken guide asks for. `MotionSpec.sequence` holds the presses that must come
+*before* the one that fires the move, so the final press is gated by
+`buttons` and whatever is held for it by `hold` - the same two fields every
+other kind uses. Only the run in front is new.
+
+The buffer already kept timestamped button presses for the mash matcher, which
+is why this needed no new history: `_match_sequence` folds simultaneous presses
+into one (a `PP` is one step, not two), takes the last few, and checks each
+against its step with the direction that was current at that moment.
+
+**The steps have to *be* the run, not merely end it.** A stray button in the
+middle is how the games drop a string, and letting it through would hand the
+move to someone who fumbled. `Ruleset.sequence_window_ms` bounds the whole run
+and, as with `chain_window_ms`, zero means the game has none wired up and any
+move written as one stays unmatched.
+
+One direction can be the entire difference between two moves - `LP,LP,f,LK,HP`
+and `LP,LP,b,LK,HP` are Akuma's two Raging Demons, and Guy's two Bushin strings
+differ only by a `d` on the last press. So `_priority` counts a held direction
+and the length of the run, or the recogniser would hand out whichever of a pair
+it happened to rank first.
+
 ### Throws are a motion kind
 
 Every guide here writes a throw as a choice of the two sides - `b or f + B`,

@@ -587,7 +587,48 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
+      "notation": "LP,LP,f,LK,HP"
+     }
     }
    ]
   },
@@ -3293,12 +3334,93 @@
     {
      "name": "Bushin Gokusa Ken",
      "command": "When close, tap LP,MP,HP,HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "MP"
+         ],
+         "count": 1,
+         "label": "MP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       }
+      ],
+      "notation": "When close, tap LP,MP,HP,HK"
+     }
     },
     {
      "name": "Bushin-ryuu Seoi Nage",
      "command": "When close, tap LP,MP,HP, d + HK",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "MP"
+         ],
+         "count": 1,
+         "label": "MP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       }
+      ],
+      "notation": "When close, tap LP,MP,HP, d + HK"
+     }
     },
     {
      "name": "Bushin-ryuu Seoi Nage",
@@ -6978,7 +7100,48 @@
     {
      "name": "Death Cross Dancing",
      "command": "LP,LP,f,LK,HP at Level 3",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
+      "notation": "LP,LP,f,LK,HP at Level 3"
+     }
     }
    ]
   },
@@ -7271,7 +7434,48 @@
     {
      "name": "Death Cross Dancing",
      "command": "LP,LP,f,LK,HP at Level 3",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
+      "notation": "LP,LP,f,LK,HP at Level 3"
+     }
     }
    ]
   }

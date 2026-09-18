@@ -616,12 +616,94 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
+      "notation": "LP,LP,f,LK,HP"
+     }
     },
     {
      "name": "Wrath of the Raging Demon",
      "command": "LP,LP,b,LK,HP",
      "category": "super",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 4
+       }
+      ],
+      "notation": "LP,LP,b,LK,HP"
+     },
      "super_art": "I"
     },
     {
@@ -4037,7 +4119,48 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
+      "notation": "LP,LP,f,LK,HP"
+     }
     },
     {
      "name": "Metsu Hadoken",
@@ -4492,7 +4615,29 @@
     {
      "name": "Shakudan",
      "command": "In air, HK,HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "HK"
+         ],
+         "count": 1,
+         "label": "HK"
+        }
+       }
+      ],
+      "notation": "In air, HK,HK"
+     }
     },
     {
      "name": "Jakouha",
@@ -5278,12 +5423,93 @@
     {
      "name": "Bushin Gokusa Ken",
      "command": "When close, tap LP,MP,HP,HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "MP"
+         ],
+         "count": 1,
+         "label": "MP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       }
+      ],
+      "notation": "When close, tap LP,MP,HP,HK"
+     }
     },
     {
      "name": "Bushin-ryuu Seoi Nage",
      "command": "When close, tap LP,MP,HP,d + HK",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "MP"
+         ],
+         "count": 1,
+         "label": "MP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       }
+      ],
+      "notation": "When close, tap LP,MP,HP,d + HK"
+     }
     },
     {
      "name": "Sankaku Tobi",
@@ -7275,7 +7501,48 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP (air)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
+      "notation": "LP,LP,f,LK,HP (air)"
+     }
     },
     {
      "name": "Meido Gohadou",
@@ -8541,7 +8808,29 @@
     {
      "name": "Fake Kick",
      "command": "HK,HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "HK"
+         ],
+         "count": 1,
+         "label": "HK"
+        }
+       }
+      ],
+      "notation": "HK,HK"
+     }
     },
     {
      "name": "Tiger Genocide",

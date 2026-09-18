@@ -73,6 +73,8 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
     MotionKind.B_DB_D: 55,
     MotionKind.QCF: 50,
     MotionKind.QCB: 50,
+    # A named run of presses beats anything its last press alone would give.
+    MotionKind.SEQUENCE: 95,
     MotionKind.MASH: 40,
     # A throw beats a plain held direction and a bare button: it asks for
     # more than either, and it is the move the guide named.
@@ -82,9 +84,10 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
 }
 
 
-NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH, MotionKind.THROW})
+NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH, MotionKind.SEQUENCE, MotionKind.THROW})
 """Kinds with no stick motion to watch: a bare button, a held direction, a
-mash, and a throw - which wants a direction held but travels nowhere."""
+mash, a throw - which wants a direction held but travels nowhere - and a
+sequence, which is made of presses rather than a path round the gate."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -225,7 +228,16 @@ def _priority(move: RecognisableMove) -> int:
     # A move needing two buttons beats the same motion with one (PP versions),
     # and one that also needs a mash beats the plain motion (Sean's three
     # identical qcf,qcf supers, only one of which wants you to tap after).
-    return base * 10 + move.motion.buttons.count + (1 if move.motion.mash else 0)
+    # Asking for a direction to be held, or for a longer run of presses in
+    # front, is more of a requirement again: Guy's two Bushin strings are the
+    # same four buttons and differ only by the down held for the last of them.
+    return (
+        base * 10
+        + move.motion.buttons.count
+        + (1 if move.motion.mash else 0)
+        + (1 if move.motion.hold is not None else 0)
+        + len(move.motion.sequence)
+    )
 
 
 class BufferPolicy(StrEnum):

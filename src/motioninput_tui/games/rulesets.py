@@ -76,6 +76,10 @@ SFA3 = GameSpec(
         rotation_slack=2,
         # Mika's rope running and Bison's Head Press, reckoned like the rest.
         chain_window_ms=700,
+        # Akuma's Raging Demon and Guy's Bushin strings. Reckoned: a run of
+        # presses is forgiving in these games, but not so forgiving that four
+        # idle taps over a couple of seconds should come out as one.
+        sequence_window_ms=1200,
     ),
     notes=(
         "A little more forgiving than SF2, but still wants the full f,d,df for a dragon punch.",
@@ -165,6 +169,9 @@ SFIII3 = GameSpec(
         # as the other games, and flagged in docs/sfiii3-from-the-decomp.md
         # so it is not mistaken for a measured one.
         chain_window_ms=700,
+        # Akuma's Raging Demon. Reckoned, like the chain window above: the
+        # decompilation carries no figure for a run of presses either.
+        sequence_window_ms=1200,
     ),
     notes=(
         "The lenient one. Hold down and double tap forward and you get a dragon punch.",
@@ -434,6 +441,8 @@ USFIV = GameSpec(
         rotation_slack=2,
         # Dudley's Ducking and Adon's Jaguar Assault, reckoned like the rest.
         chain_window_ms=700,
+        # Akuma's, Evil Ryu's and Oni's Raging Demon, and Guy's strings.
+        sequence_window_ms=1200,
     ),
     notes=(
         "The shortcut game: f,df on its own gives a dragon punch, which is why you eat one walking up to throw.",
@@ -476,6 +485,8 @@ MARTMAST = GameSpec(
         # it belongs to. Most of this roster is chains, so this is the field
         # that matters most here.
         chain_window_ms=700,
+        # Drunk Master's target combo, the one run of presses in this roster.
+        sequence_window_ms=1200,
     ),
     notes=(
         "Four buttons: light and heavy punch, with the two kicks beneath them.",

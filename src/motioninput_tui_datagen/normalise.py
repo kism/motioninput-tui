@@ -10,7 +10,7 @@ looked up in one table.
 import re
 from itertools import pairwise
 
-from motioninput_tui.engine.motions import MotionKind, MotionSpec
+from motioninput_tui.engine.motions import MotionKind, MotionSpec, SequenceStep
 from motioninput_tui.engine.notation import (
     ALL_BUTTONS,
     DIRECTION_RING,
@@ -200,8 +200,9 @@ def parse_command(command: str, *, chained: bool = False) -> ParsedCommand:
         return ParsedCommand(None, "conditional or follow-up move")
 
     text = _strip_noise(raw)
-    if _is_button_chain(text):
-        return ParsedCommand(None, "a chain of presses, which the trainer has no model for")
+    chain = _button_chain(text)
+    if chain is not None:
+        return _sequence_command(chain, command)
     buttons = _parse_buttons(text)
     if buttons is None:
         return ParsedCommand(None, "no button requirement found")
@@ -250,14 +251,33 @@ def _follow_through(raw: str, kind: MotionKind, buttons: ButtonRequirement) -> t
     return tail.group(2).count(",") + 1, True, "" if button == motion_label else button
 
 
-def _is_button_chain(text: str) -> bool:
-    """Whether a command is buttons pressed one after another, not together.
+def _sequence_command(parts: list[str], command: str) -> ParsedCommand:
+    """One run of presses as a :attr:`MotionKind.SEQUENCE`, or why it is not one."""
+    built = _sequence_spec(parts)
+    if built is None:
+        return ParsedCommand(None, "a run of presses the trainer cannot read")
+    steps, last = built
+    # The press that fires the move is the spec's own requirement, and what is
+    # held for it is the spec's `hold` - the same fields every other kind uses,
+    # so only the run in front of it is new.
+    return ParsedCommand(
+        MotionSpec(
+            MotionKind.SEQUENCE,
+            last.buttons,
+            hold=last.direction,
+            sequence=tuple(steps),
+            notation=command.strip(),
+        )
+    )
+
+
+def _button_chain(text: str) -> list[str] | None:
+    """A command's steps if it is buttons pressed one after another, else None.
 
     A target combo (``HP, HP, HK, HP``) and Akuma's Raging Demon
-    (``LP,LP,f,LK,HP``) are sequences of presses, which the engine has no model
-    for. Left alone they do not merely fail to match: the commas fall out with
-    the rest of the punctuation and what comes back is "press all of these at
-    once", a move the game does not have.
+    (``LP,LP,f,LK,HP``) are runs of presses rather than one input. Left as they
+    are the commas fall out with the rest of the punctuation and what comes
+    back is "press all of these at once", a move the game does not have.
 
     What marks one is a comma with a button on either side of it. Zangief's
     ``Press PPP, move b / f`` has a comma too, but what follows it is the
@@ -267,9 +287,46 @@ def _is_button_chain(text: str) -> bool:
     """
     section = _button_section(text)
     if not section or len(section) != len(text) or "," not in section:
-        return False
-    presses = [bool(_BUTTON_TOKEN.search(part)) for part in section.split(",")]
-    return any(earlier and later for earlier, later in pairwise(presses))
+        return None
+    parts = [part.strip() for part in section.split(",")]
+    presses = [bool(_BUTTON_TOKEN.search(part)) for part in parts]
+    if not any(earlier and later for earlier, later in pairwise(presses)):
+        return None
+    return parts
+
+
+def _sequence_spec(parts: list[str]) -> tuple[list[SequenceStep], SequenceStep] | None:
+    """The steps of a button run, and the requirement its last press carries.
+
+    A step is a press and whatever was held for it. The direction may be
+    written in front of the button (``d + HK``) or as a part of its own
+    (``LP,LP,f,LK,HP``), where it belongs to the press after it. Either way it
+    has to survive: it is the only thing telling Akuma's two Raging Demons
+    apart, and Guy's two Bushin strings differ by nothing else at all.
+    """
+    steps: list[SequenceStep] = []
+    carried: Direction | None = None
+    for part in parts:
+        buttons = _parse_buttons(part)
+        direction = _lone_direction(part)
+        if buttons is None:
+            if direction is None:
+                return None
+            carried = direction
+            continue
+        steps.append(SequenceStep(buttons=buttons, direction=direction or carried))
+        carried = None
+    if len(steps) < MULTI_BUTTON or carried is not None:
+        return None
+    return steps[:-1], steps[-1]
+
+
+def _lone_direction(part: str) -> Direction | None:
+    """The one direction a step holds, if it names exactly one."""
+    tokens = _tokens_in(_head_of(part))
+    if len(tokens) != 1 or tokens[0] not in _HOLD_DIRECTIONS:
+        return None
+    return _HOLD_DIRECTIONS[tokens[0]]
 
 
 def _classify(

@@ -130,6 +130,12 @@ class Ruleset:
             opponent cannot know. So the parent activating is taken as the hit
             landing, and this is the window that opens. Zero means the game has
             no chains wired up, and any move carrying a parent stays unmatched.
+        sequence_window_ms: How long the whole of a button sequence may take -
+            Akuma's ``LP,LP,f,LK,HP``, a target combo, a Tekken string. The run
+            is judged as one input rather than step by step, since what a game
+            checks is that the presses arrived in order and close enough
+            together. Zero means the game has no sequences wired up, and any
+            move written as one stays unmatched.
     """
 
     motion_window_ms: int = 300
@@ -158,3 +164,4 @@ class Ruleset:
     rotation_slack: int = 2
     jump_grace_ms: int = 0
     chain_window_ms: int = 0
+    sequence_window_ms: int = 0

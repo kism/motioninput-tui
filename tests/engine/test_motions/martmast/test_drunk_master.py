@@ -4,6 +4,7 @@ from tests.engine.test_motions.harness import (
     BACK,
     DOWN,
     FORWARD,
+    SNES_HK,
     SNES_HP,
     SNES_LK,
     SNES_LP,
@@ -67,9 +68,23 @@ def test_dragon_punch_is_the_gourd_swing(play) -> None:
     assert play(script).moves == ["Gourd Swing"]
 
 
-def test_the_target_combo_is_not_four_buttons_at_once(play) -> None:
-    """The guide writes Drunken Combo `HP, HP, HK, HP`, a chain of presses. The
-    trainer has no model for one, so it is struck through rather than reduced to
-    "press these together" - which is a move the game does not have."""
-    move = next(move for move in play([]).session.character.moves if move.name == "Drunken Combo")
-    assert move.motion is None
+def test_the_target_combo_is_a_run_of_presses_not_four_at_once(play) -> None:
+    """The guide writes Drunken Combo `HP, HP, HK, HP`, one press after another.
+    Read as four buttons together it would be a move the game does not have, so
+    it is a sequence: three presses and then the one that fires it."""
+    script = [
+        press(SNES_HP, 0),
+        release(SNES_HP, 40),
+        press(SNES_HP, 200),
+        release(SNES_HP, 240),
+        press(SNES_HK, 400),
+        release(SNES_HK, 440),
+        press(SNES_HP, 600),
+    ]
+    assert play(script).moves[-1] == "Drunken Combo"
+
+
+def test_the_last_press_of_the_combo_alone_is_nothing(play) -> None:
+    """Which is the point of a sequence: the run in front of the press is what
+    the move is, so the press on its own gives nothing."""
+    assert play([press(SNES_HP, 0)]).moves == []

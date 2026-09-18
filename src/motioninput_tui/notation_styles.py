@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from .engine.motions import MotionKind
+from .engine.motions import MotionKind, SequenceStep
 from .engine.notation import Direction
 
 if TYPE_CHECKING:
@@ -454,12 +454,25 @@ class Notation:
             return "" if spec.hold is None else self.directions((spec.hold,))
         if spec.kind is MotionKind.ANY:
             return ""
+        if spec.kind is MotionKind.SEQUENCE:
+            # Written out press by press, since that is all the move is. The
+            # buttons are added by the caller, so the last step is left off.
+            run = " ".join(self._sequence_step(step) for step in spec.sequence)
+            held = "" if spec.hold is None else f" {self.directions((spec.hold,))}"
+            return f"{run}{held}"
         if spec.kind is MotionKind.THROW:
             # Either way round, and the guide's own wording says which way does
             # what. Written as the pair rather than named, so it reads as an
             # input instead of as a word among the motions.
             return self.directions((Direction.BACK,)) + "/" + self.directions((Direction.FORWARD,))
         return self.write_kind(spec.kind)
+
+    def _sequence_step(self, step: SequenceStep) -> str:
+        """One press of a sequence: its buttons, and the direction held for it."""
+        written = step.buttons.label
+        if step.direction is None:
+            return written
+        return f"{self.directions((step.direction,))}{written}"
 
     def write_kind(self, kind: MotionKind) -> str:
         """A motion on its own, with no buttons, as the trainer's live readout names it."""

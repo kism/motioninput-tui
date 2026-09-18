@@ -39,6 +39,12 @@ class MotionKind(StrEnum):
 
     ANY = "any"
     HOLD = "hold"
+    SEQUENCE = "sequence"
+    """Buttons pressed one after another rather than together, each optionally
+    with a direction held for it: Akuma's ``LP,LP,f,LK,HP``, a target combo,
+    a Tekken string. :attr:`MotionSpec.sequence` carries the run that has to
+    come *before* the press that fires the move, so the final press is gated by
+    :attr:`MotionSpec.buttons` like every other kind's is."""
     THROW = "throw"
     """Back or forward and a button, which is how every guide here writes a
     throw on a single button. Which side you hold decides which side they land
@@ -92,6 +98,35 @@ CHARGE_KINDS = frozenset(
 
 
 @dataclass(frozen=True, slots=True)
+class SequenceStep:
+    """One press of a :attr:`MotionKind.SEQUENCE`, and what was held for it.
+
+    ``direction`` is the lever at the moment of the press, which is the only
+    thing telling Akuma's two Raging Demons apart - ``LP,LP,f,LK,HP`` and
+    ``LP,LP,b,LK,HP`` are otherwise the same four presses.
+    """
+
+    buttons: ButtonRequirement
+    direction: Direction | None = None
+
+    def to_dict(self) -> dict[str, object]:
+        """Serialise for the generated game data files."""
+        data: dict[str, object] = {"buttons": self.buttons.to_dict()}
+        if self.direction is not None:
+            data["direction"] = int(self.direction)
+        return data
+
+    @classmethod
+    def from_dict(cls, raw: dict[str, object]) -> SequenceStep:
+        """Rebuild from a generated game data file."""
+        direction = raw.get("direction")
+        return cls(
+            buttons=ButtonRequirement.from_dict(raw["buttons"]),  # ty: ignore[invalid-argument-type]
+            direction=Direction(direction) if direction is not None else None,
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class MotionSpec:
     """The full input requirement for a move.
 
@@ -107,6 +142,9 @@ class MotionSpec:
     kind: MotionKind
     buttons: ButtonRequirement
     hold: Direction | None = None
+    sequence: tuple[SequenceStep, ...] = ()
+    """The presses in front of the one that fires a :attr:`MotionKind.SEQUENCE`,
+    oldest first. Empty for every other kind."""
     air: bool = False
     mash: int = 0
     mash_rhythm: bool = False
@@ -132,6 +170,8 @@ class MotionSpec:
         data: dict[str, object] = {"kind": self.kind.value, "buttons": self.buttons.to_dict()}
         if self.hold is not None:
             data["hold"] = int(self.hold)
+        if self.sequence:
+            data["sequence"] = [step.to_dict() for step in self.sequence]
         if self.air:
             data["air"] = True
         if self.mash:
@@ -152,6 +192,7 @@ class MotionSpec:
             kind=MotionKind(raw["kind"]),
             buttons=ButtonRequirement.from_dict(raw["buttons"]),  # ty: ignore[invalid-argument-type]
             hold=Direction(hold) if hold is not None else None,
+            sequence=tuple(SequenceStep.from_dict(step) for step in raw.get("sequence", ())),  # ty: ignore[not-iterable]
             air=bool(raw.get("air")),
             mash=int(raw.get("mash", 0)),  # ty: ignore[invalid-argument-type]
             mash_rhythm=bool(raw.get("mash_rhythm")),
@@ -789,11 +830,66 @@ def _match_mash(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: 
     return _mash_hits(spec, buffer, ruleset, at_ms) >= ruleset.mash_count
 
 
+def _match_sequence(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> bool:
+    """Whether the run in front of this press is the one the move asks for.
+
+    The press that fires the move is already checked by :func:`matches`, so
+    what is left is the presses before it: the last few in the buffer have to
+    be exactly the steps, in order, each with its direction held at the time.
+    Exactly, not merely ending that way - a stray button in the middle is how
+    the games drop a string, and letting it through would give the move to
+    someone who fumbled it.
+    """
+    if ruleset.sequence_window_ms <= 0 or not _match_hold(spec.hold, buffer):
+        return False
+    presses = _distinct_presses(buffer, at_ms - ruleset.sequence_window_ms)
+    # The last of them is the press being judged; the steps come before it.
+    wanted = spec.sequence
+    if len(presses) <= len(wanted):
+        return False
+    run = presses[-len(wanted) - 1 : -1] if wanted else []
+    return all(_step_matches(step, at, held, buffer) for step, (at, held) in zip(wanted, run, strict=True))
+
+
+def _step_matches(step: SequenceStep, at_ms: int, held: frozenset[Button], buffer: InputBuffer) -> bool:
+    """Whether one press of a sequence is the step it is lined up against."""
+    if len(held & step.buttons.allowed) < step.buttons.count:
+        return False
+    if step.direction is None:
+        return True
+    return _direction_at(buffer, at_ms) in _hold_set(step.direction)
+
+
+def _distinct_presses(buffer: InputBuffer, since_ms: int) -> list[tuple[int, frozenset[Button]]]:
+    """The presses since ``since_ms``, with ones made together folded into one.
+
+    A ``PP`` is one press of the string, not two, the same way the buffer reads
+    it for everything else.
+    """
+    folded: list[tuple[int, frozenset[Button]]] = []
+    for press in buffer.buttons_since(since_ms):
+        if folded and press.at_ms - folded[-1][0] <= buffer.simultaneous_ms:
+            at, buttons = folded[-1]
+            folded[-1] = (at, buttons | {press.button})
+        else:
+            folded.append((press.at_ms, frozenset({press.button})))
+    return folded
+
+
+def _direction_at(buffer: InputBuffer, at_ms: int) -> Direction:
+    """The direction being held when a press landed."""
+    for state in reversed(buffer.directions):
+        if state.start_ms <= at_ms and (state.end_ms is None or at_ms <= state.end_ms):
+            return state.direction
+    return Direction.NEUTRAL
+
+
 _SIMPLE_MATCHERS: dict[MotionKind, Callable[[MotionSpec, InputBuffer, Ruleset, int], bool]] = {
     MotionKind.ANY: lambda *_: True,
     MotionKind.HOLD: lambda spec, buffer, _ruleset, _at: _match_hold(spec.hold, buffer),
     MotionKind.THROW: lambda _spec, buffer, _ruleset, _at: buffer.current_direction() in THROW_DIRECTIONS,
     MotionKind.MASH: _match_mash,
+    MotionKind.SEQUENCE: _match_sequence,
     MotionKind.ROTATE_360: lambda _spec, buffer, ruleset, at: _match_rotation(1, buffer, ruleset, at),
     MotionKind.ROTATE_720: lambda _spec, buffer, ruleset, at: _match_rotation(2, buffer, ruleset, at),
 }

@@ -1777,7 +1777,48 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP         x(max stocks)",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
+      "notation": "LP,LP,f,LK,HP         x(max stocks)"
+     }
     },
     {
      "name": "Kongou Kokuretsu Zan",
