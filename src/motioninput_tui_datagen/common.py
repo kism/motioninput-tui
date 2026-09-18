@@ -2,7 +2,7 @@
 
 import re
 import unicodedata
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.motions import MotionKind
@@ -113,11 +113,35 @@ def _dedupe(moves: list[Move]) -> list[Move]:
     return unique
 
 
+def _inherit_chain_categories(moves: list[Move]) -> list[Move]:
+    """Put a chain link in the same section of the move list as its parent.
+
+    A link's own input is usually a bare button, which :func:`categorise` can
+    only call ``other``, so a guide that does not say outright which section a
+    move belongs to leaves Akuma's three Hyakki Gou moves filed away from the
+    Hyakki Shuu they come out of. Taking the parent's section is the answer:
+    a link in a special's string is part of that special.
+
+    Only a move the parser had nothing better for is changed, so a guide that
+    does say - Martial Masters by its headings, KoF by its boxes - keeps what
+    it said. Parents come before their links, so one pass carries a category
+    the length of a string.
+    """
+    known: dict[str, str] = {}
+    inherited: list[Move] = []
+    for move in moves:
+        parent = known.get(move.follows) if move.follows and move.category == Category.OTHER else None
+        resolved = replace(move, category=parent) if parent else move
+        known[resolved.name] = resolved.category
+        inherited.append(resolved)
+    return inherited
+
+
 def finish_character(name: str, title: str, moves: list[Move], report: ParseReport) -> Character | None:
     """Wrap up a parsed character, dropping ones with nothing usable."""
     if not moves:
         return None
-    moves = _dedupe(moves)
+    moves = _inherit_chain_categories(_dedupe(moves))
     report.characters += 1
     report.moves += len(moves)
     report.trainable += sum(1 for move in moves if move.trainable)
@@ -182,6 +206,9 @@ def split_follow_on(command: str, so_far: Sequence[Move]) -> tuple[str, str]:
     MK`` - leaves the move struck through as it was rather than linked to
     nothing.
 
+    A third way is punctuation alone: a command opening with ``...`` continues
+    the move above it, which is how 3rd Strike's guide writes Akuma's dive.
+
     The ``then`` shape needs the head to be *exactly* another move's command,
     which is what tells Akuma's three Hyakki Gou moves (his Hyakki Shuu dive
     really is a move of its own) from Rufus's Messiah Kick, whose ``qcf + K,
@@ -191,7 +218,12 @@ def split_follow_on(command: str, so_far: Sequence[Move]) -> tuple[str, str]:
     untrainable, since ``normalise._UNSUPPORTED`` rejects all three, so nothing
     that currently comes out can be changed by this.
     """
-    return _named_parent(command, so_far) or _command_parent(command, so_far) or ("", "")
+    return (
+        _named_parent(command, so_far)
+        or _command_parent(command, so_far)
+        or _previous_parent(command, so_far)
+        or ("", "")
+    )
 
 
 def _named_parent(command: str, so_far: Sequence[Move]) -> tuple[str, str] | None:
@@ -231,6 +263,30 @@ def _command_parent(command: str, so_far: Sequence[Move]) -> tuple[str, str] | N
         return None
     parent = next((move.name for move in so_far if move.name and _squash(move.command) == head), "")
     if not parent:
+        return None
+    return own, parent
+
+
+_ELLIPSIS = "..."
+
+
+def _previous_parent(command: str, so_far: Sequence[Move]) -> tuple[str, str] | None:
+    """``...press P``, which continues whatever was listed last.
+
+    The parent is the most recent move that does not itself open with the
+    ellipsis, because a run of them all come out of the one move above the run
+    rather than each out of the one before it: Akuma's Gou Shou and Gou Jin are
+    both things to do out of the Hyakki Shuu, not out of each other.
+    """
+    stripped = command.strip()
+    if not stripped.startswith(_ELLIPSIS):
+        return None
+    own = stripped.removeprefix(_ELLIPSIS).strip()
+    parent = next(
+        (move.name for move in reversed(so_far) if move.name and not move.command.strip().startswith(_ELLIPSIS)),
+        "",
+    )
+    if not own or not parent:
         return None
     return own, parent
 

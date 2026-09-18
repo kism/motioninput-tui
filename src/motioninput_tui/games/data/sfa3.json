@@ -195,7 +195,7 @@
     {
      "name": "Jaguar Thousand",
      "command": "Tap P during Jaguar Varied Assault",
-     "category": "other",
+     "category": "super",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -214,7 +214,7 @@
     {
      "name": "Jaguar Assassin",
      "command": "Tap K during Jaguar Varied Assault",
-     "category": "other",
+     "category": "super",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -439,13 +439,13 @@
     {
      "name": "Hyakki Gou Zan",
      "command": "qcf,uf + P, then do nothing",
-     "category": "other",
+     "category": "special",
      "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Gou Shou",
      "command": "qcf,uf + P, then press P",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -464,7 +464,7 @@
     {
      "name": "Hyakki Gou Sen",
      "command": "qcf,uf + P, then press K",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -3488,7 +3488,7 @@
     {
      "name": "Ressen Chuu",
      "command": "Press P during Ressen Chou",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -3974,7 +3974,7 @@
     {
      "name": "Somersault Skull Diver",
      "command": "b / f + P after Head Press",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {

@@ -12,7 +12,7 @@ This will be difficult due to the combo structure instead of motion input, <http
 
 ## Chains in the remaining guides
 
-`Move.follows` is wired for every roster whose guide names the parent — 221 links across eight games, 194 of them runnable. Two shapes cover it: the SNK guides name the parent first (`neogeo.split_parent`), the Street Fighter ones put it last (`common.split_trailing_parent`), and Martial Masters indents a link under its parent.
+`Move.follows` is wired for every roster whose guide names the parent — 228 links across eight games, 200 of them runnable. Four shapes cover it: the SNK guides name the parent first (`neogeo.split_parent`); the Street Fighter ones name it last, spell its command out again, or trail off with `...` (all three in `common.split_follow_on`); and Martial Masters indents a link under its parent.
 
 What is left is 49 moves, and each needs something other than a better splitter:
 
@@ -25,6 +25,8 @@ The rest genuinely describe a condition rather than a parent: `While getting up`
 The `then` shape is handled: a command written as another move's command again with what to do next on the end (`qcf,uf + P, then press P`) is matched on the command text rather than a name. That turned out to be only four moves — Akuma's three off his Hyakki Shuu dive, and Bison's Somersault Skull Diver off his Head Press — not the 43 an earlier count suggested.
 
 The other 24 commands carrying `then` are not chains at all: they are one move plus an extra press the engine has no model for (Rufus's `qcf + K, then K`, Rolento's Mekong Deltas). The head is the move's own input, so parsing it and dropping the tail would make 11 of them trainable. That is a separate decision, because it means calling a move trainable on a deliberately partial reading of its command — the thing `commands.py`'s docstring warns about — and two of the 11 would then share an input with a move the character already has. The rest of the 24 open with `Hold P`, `Block b / db` or `Jump u or uf`, which the trainer cannot read either way.
+
+Three of 3rd Strike's Akuma links are in the right section now but still struck, because their own input reads `press P while in air` and `while` is one of the words `normalise` rejects outright. Here it describes the state the dive already put him in rather than a condition to meet, but teaching `_UNSUPPORTED` that difference affects every guide, so it is left alone.
 
 ## Sequences of presses
 

@@ -420,12 +420,25 @@ one place the trainer models something it cannot observe.
 The guides write a link two ways round, so there are two splitters. The SNK
 ones name the parent first (`114 Shiki Aragami, d, df, f + P`), which is
 `neogeo.split_parent`, used by KoF '98 and 2001, The Last Blade 2 and Samurai
-Shodown II; the Street Fighter ones put it last (`Press P during Ducking`) or
-spell the parent's own command out again (`qcf,uf + P, then press P`, Akuma's
-dive), which is `common.split_follow_on`, used by Alpha 3, 3rd Strike and
-USFIV. That last shape is matched on the command rather than a name, and only
+Shodown II; the Street Fighter ones have three ways of their own, all in
+`common.split_follow_on` (Alpha 3, 3rd Strike, USFIV): the parent named last
+(`Press P during Ducking`), the parent's own command spelled out again
+(`qcf,uf + P, then press P`), or nothing but punctuation - a row opening `...`
+continues the one above it, and a run of them all continue the move above the
+run. The command shape is matched on the command rather than a name, and only
 when the head is *exactly* another move's command: Rufus's `qcf + K, then K` is
 one move and an extra press, not a link.
+
+A link takes its parent's `category` when the parser had nothing better
+(`common._inherit_chain_categories`), so it sits in the same section of the
+move list as the move it comes out of. Without it a link whose input is a bare
+button lands in "other", away from its own string. A guide that says outright
+which section a move belongs to still wins, which is what keeps Akuma's Gou Sai
+a throw.
+
+`then...` with nothing after it is punctuation, not an input: it points at the
+rows underneath. `normalise._OPTIONAL_TAIL` drops it, which is what makes
+Cammy's Hooligan Combination the plain `hcf,uf + P` it really is.
 Martial Masters needs neither: its guide indents a link under its parent.
 Either way the parser has to **accumulate its moves in a loop rather than a
 comprehension**, since a parent must already be in the list to be found. A parent is only

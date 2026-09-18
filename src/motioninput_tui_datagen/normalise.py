@@ -41,7 +41,12 @@ _MASHING = re.compile(r"rapid|repeatedly")
 # Healing is a plain qcf,qcf + P and the PP only stops it early. "to cancel" and
 # its friends are already noise to _QUALIFIERS; it is the "then" in front of
 # them that would otherwise read as a follow-up condition and drop the move.
-_OPTIONAL_TAIL = re.compile(r",?\s*then\s+[a-z+]+\s+to\s+(?:cancel|delay|fake)\b")
+#
+# `then...` with nothing after it is the same idea written as punctuation: the
+# ellipsis points at the moves listed underneath, so the input is the head on
+# its own. Cammy's Hooligan Combination really is `hcf,uf + P`, and what she
+# does out of it is the next few rows of the guide.
+_OPTIONAL_TAIL = re.compile(r",?\s*then(?:\s+[a-z+]+\s+to\s+(?:cancel|delay|fake)\b|\s*\.\.\.\s*$)")
 
 _PARENTHETICAL = re.compile(r"\([^)]*\)")
 _STOCKS = re.compile(r"\bx\s*\(?\s*(max\s+stocks?|\d+)\s*\)?\s*(/\s*\d+)?\s*$")

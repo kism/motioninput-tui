@@ -44,9 +44,11 @@ opponent, so it takes the parent coming out as the hit landing, and opens the
 window from there.
 
 Every roster but Sailor Moon S, Samurai Shodown V Special and Hyper SF2 has
-chains now — 221 links. The guides write them two ways round: the SNK ones name
-the parent first (`Ittou Shingetsu, f, d, df + B`), the Street Fighter ones put
-it last (`Press P during Ducking`). What is left struck through is the links
+chains now — 228 links. The guides write them several ways round: the SNK ones
+name the parent first (`Ittou Shingetsu, f, d, df + B`), the Street Fighter ones
+put it last (`Press P during Ducking`) or just indent and trail off (`...press
+P`). A link sits in the same section of the move list as the move it comes out
+of, so a string reads top to bottom. What is left struck through is the links
 whose parent is named only in prose, or as an abbreviation the roster does not
 carry.
 

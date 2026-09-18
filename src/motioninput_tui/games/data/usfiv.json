@@ -47,7 +47,20 @@
     {
      "name": "Change of Direction",
      "command": "qcf + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P, then..."
+     }
     },
     {
      "name": "Wheel Kick",
@@ -334,7 +347,7 @@
     {
      "name": "Thousand Jaguars",
      "command": "Tap P rapidly during Jaguar Varied Assault",
-     "category": "other",
+     "category": "super",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -354,7 +367,7 @@
     {
      "name": "Jaguar Assassin",
      "command": "Tap K during Jaguar Varied Assault",
-     "category": "other",
+     "category": "super",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -545,7 +558,20 @@
     {
      "name": "Hyakkishu",
      "command": "f,d,df + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, then..."
+     }
     },
     {
      "name": "Ashura Senkuu",
@@ -1356,7 +1382,20 @@
     {
      "name": "Hooligan Combination",
      "command": "hcf,uf + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf,uf + P, then..."
+     }
     },
     {
      "name": "Cannon Strike",
@@ -2279,7 +2318,20 @@
     {
      "name": "Scramble",
      "command": "Charge b,f + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K, then..."
+     }
     },
     {
      "name": "Fox Tail",
@@ -2926,7 +2978,7 @@
     {
      "name": "Ducking Straight",
      "command": "Press P during Ducking [AB]",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -2945,7 +2997,7 @@
     {
      "name": "Ducking Upper",
      "command": "Press K during Ducking",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -3390,12 +3442,38 @@
     {
      "name": "Habanero Dash",
      "command": "qcf + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P, then..."
+     }
     },
     {
      "name": "Habanero Back Dash",
      "command": "qcb + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P, then..."
+     }
     },
     {
      "name": "Quesadilla Bomb",
@@ -4385,7 +4463,20 @@
     {
      "name": "Ouga",
      "command": "Charge d,u + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K, then..."
+     }
     },
     {
      "name": "Shakudan",
@@ -4568,7 +4659,20 @@
     {
      "name": "Hyakkishu",
      "command": "f,d,df + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, then..."
+     }
     },
     {
      "name": "Kongoushin",
@@ -5041,7 +5145,20 @@
     {
      "name": "Hayagake",
      "command": "qcf + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K, then..."
+     }
     },
     {
      "name": "Kaiten Izuna Otoshi",
@@ -6601,7 +6718,7 @@
     {
      "name": "Somersault Skull Diver",
      "command": "Charge d,u + K, then P",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -6854,7 +6971,7 @@
     {
      "name": "Fumikomi Seiken Sanren Tsuki \"Yamase\"",
      "command": "Press HP during \"Shimaki\"",
-     "category": "other",
+     "category": "command",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -9223,7 +9340,20 @@
     {
      "name": "Wall Leap",
      "command": "Charge d,u + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K, then..."
+     }
     },
     {
      "name": "Backslash",
@@ -9339,7 +9469,20 @@
     {
      "name": "Super Wall Leap",
      "command": "Charge db,df,db,uf + K, then...",
-     "category": "other"
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,df,db,uf + K, then..."
+     }
     },
     {
      "name": "Bloody High Claw",

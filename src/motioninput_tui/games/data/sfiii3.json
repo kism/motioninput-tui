@@ -722,7 +722,7 @@
     {
      "name": "Ducking Straight",
      "command": "Press P during Ducking",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -741,7 +741,7 @@
     {
      "name": "Ducking Upper",
      "command": "Press K during Ducking",
-     "category": "other",
+     "category": "special",
      "motion": {
       "kind": "any",
       "buttons": {
@@ -1604,23 +1604,38 @@
     {
      "name": "Hyakki Shuu",
      "command": "f,d,df + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, then..."
+     }
     },
     {
      "name": "Hyakki Gouzan",
      "command": "...do nothing after Hyakki Shuu",
-     "category": "other",
+     "category": "special",
      "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Goushou",
      "command": "...press P while in air",
-     "category": "other"
+     "category": "special",
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Goujin",
      "command": "...press K while in air",
-     "category": "other"
+     "category": "special",
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Gousai",
@@ -1636,8 +1651,9 @@
        "count": 2,
        "label": "LP+LK"
       },
-      "notation": "...press LP + LK when close and in air"
-     }
+      "notation": "press LP + LK when close and in air"
+     },
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Tenma Kuujin Kyaku",
@@ -2822,7 +2838,7 @@
     {
      "name": "Fumikomi Seiken Sanren Tsuki \"Yamase\"",
      "command": "Press HP during \"Shimaki\"",
-     "category": "other",
+     "category": "command",
      "motion": {
       "kind": "any",
       "buttons": {
