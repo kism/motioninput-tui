@@ -978,7 +978,18 @@
     {
      "name": "Rock Crush",
      "command": "Close, b/f + MP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "notation": "Close, b/f + MP"
+     }
     },
     {
      "name": "Amazon River Run",
@@ -4924,17 +4935,50 @@
     {
      "name": "Knee Bazooka",
      "command": "b / f + LK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "b / f + LK"
+     }
     },
     {
      "name": "Rolling Sobat",
      "command": "b / f + MK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "notation": "b / f + MK"
+     }
     },
     {
      "name": "Reverse Spin Kick",
      "command": "Close, b / f + HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "Close, b / f + HK"
+     }
     },
     {
      "name": "Guile High Kick",
@@ -9094,6 +9138,25 @@
        "label": "PPP"
       },
       "notation": "Jump u or uf, press PPP [AB]"
+     }
+    },
+    {
+     "name": "Condor Dive",
+     "command": "In air, press KKK [AB]",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "air": true,
+      "notation": "In air, press KKK [AB]"
      }
     },
     {

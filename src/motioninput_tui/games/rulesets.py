@@ -388,6 +388,8 @@ SSVSP = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # Enja's Rikudou Rekka and the other strings, reckoned as the rest.
+        chain_window_ms=700,
     ),
     notes=(
         (
@@ -397,6 +399,7 @@ SSVSP = GameSpec(
         "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The supers need a full Rage gauge, which the trainer does not model - only the input.",
+        "The guide underlines a follow-up: land the move above it and it opens for a moment.",
     ),
     reference="references/samsh5sp.txt",
     buttons=NEO_GEO,

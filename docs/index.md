@@ -23,10 +23,15 @@ shortcut exists. 3rd Strike's figures come from a decompilation of the game
 rather than from feel; see [Third Strike, from the decompiled
 game](sfiii3-from-the-decomp.md).
 
-Not every listed move is trainable. The rosters run 52-89%; Samurai Shodown II
-is the low one, because that guide leans on command throws written "b or f +
-button", which say nothing about which way to hold. The rest still appear in the
-move list, struck through. The five SNK games are on the Neo Geo's four-button
+Not every listed move is trainable — the rosters run 76-95%. What is left is
+mostly moves with a condition the trainer has no model of: done while getting
+up, against a wall, against a back-turned opponent. Those still appear in the
+move list, struck through.
+
+A throw is written as a choice of sides, "b or f + B", and the trainer asks for
+one of them to be held. It models no range, though, so it cannot know whether
+you were close enough — hold a direction and press the button and it will call
+it a throw. The five SNK games are on the Neo Geo's four-button
 panel, and each means something different by it, which the game's own note
 explains when you highlight it.
 

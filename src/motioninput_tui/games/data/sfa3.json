@@ -957,7 +957,18 @@
     {
      "name": "Rock Crush",
      "command": "When close, b / f + MP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "notation": "When close, b / f + MP"
+     }
     },
     {
      "name": "Rock Crush",
@@ -1415,17 +1426,50 @@
     {
      "name": "Knee Bazooka",
      "command": "b / f + LK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "b / f + LK"
+     }
     },
     {
      "name": "Jump Sobat",
      "command": "b / f + MK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "notation": "b / f + MK"
+     }
     },
     {
      "name": "Step Kick",
      "command": "b / f + HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "b / f + HK"
+     }
     },
     {
      "name": "Spin Back Knuckle",
@@ -3976,7 +4020,7 @@
      "command": "b / f + P after Head Press",
      "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "throw",
       "buttons": {
        "allowed": [
         "HP",
@@ -4502,9 +4546,9 @@
     {
      "name": "Paradise Hold",
      "command": "Press b / f + P after Dageki",
-     "category": "other",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "throw",
       "buttons": {
        "allowed": [
         "HP",
@@ -4527,9 +4571,9 @@
     {
      "name": "Wingless Airplane",
      "command": "Press b / f + K after Dageki",
-     "category": "other",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "throw",
       "buttons": {
        "allowed": [
         "HK",
@@ -4584,9 +4628,9 @@
     {
      "name": "Rainbow Suplex",
      "command": "Press b / f + P after Haigotori",
-     "category": "other",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "throw",
       "buttons": {
        "allowed": [
         "HP",
@@ -4603,9 +4647,9 @@
     {
      "name": "Daydream Headlock",
      "command": "Press b / f + K after Haigotori",
-     "category": "other",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "throw",
       "buttons": {
        "allowed": [
         "HK",
@@ -6058,7 +6102,20 @@
     {
      "name": "...(cont'd.)",
      "command": "Move b / f, press P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Move b / f, press P"
+     }
     },
     {
      "name": "Izuna Drop...",
@@ -6136,12 +6193,38 @@
     {
      "name": "...Barcelona Attack",
      "command": "Move b / f, press P when close",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Move b / f, press P when close"
+     }
     },
     {
      "name": "...Izuna Drop",
      "command": "Move b / f, any dir. + P when close",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Move b / f, any dir. + P when close"
+     }
     },
     {
      "name": "Hari Tsuki Rolling...",

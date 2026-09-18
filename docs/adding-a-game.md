@@ -207,11 +207,12 @@ python -m motioninput_tui_datagen --show-skipped
 
 This parses every game with a registered parser and writes
 `games/data/<key>.json`, which **is** committed. Compare the trainable rate to
-the brief's prediction. The Street Fighter games land around 80-90%; a game can
-be lower for structural reasons the brief should have called out — command
-throws the engine has no model for, compound super motions absent from
-`normalise`'s tables (KoF '98 is 75% for both reasons). The rest are follow-ups,
-stances and conditional moves the engine cannot model, shown struck through.
+the brief's prediction. Most rosters land in the 76-95% band; a game can be
+lower for structural reasons the brief should have called out — compound super
+motions absent from `normalise`'s tables, or a guide that describes a move's
+condition in prose (Sailor Moon S is the low one at 76%). The rest are
+follow-ups, stances and conditional moves the engine cannot model, shown struck
+through.
 `--show-skipped` lists what did not parse — scan it: a whole character missing
 is a parser gap, not an unmodellable move.
 

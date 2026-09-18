@@ -27,7 +27,7 @@ the two fields.
 """
 
 import re
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING
 
 from motioninput_tui.games.models import Category
@@ -58,6 +58,10 @@ in front of it."""
 
 _COLUMNS = re.compile(r"\s{2,}")
 
+_FOLLOW_ON = "_"
+"""Marks a line as continuing the move above it. The guide uses the indent to
+say which move that is, so a run of them nests."""
+
 _SET_MEMBER = re.compile(r"^\*\s+")
 """Marks a move as one of a numbered set -- Yoshitora's six Tachi, Rera's
 Shikite. It is a note about the name, not part of it. The same star inside a
@@ -66,7 +70,7 @@ command ("use all * moves") is prose and stays."""
 # A B AB are the slashes, C the kick, D the dodge. The mapping is arbitrary but
 # has to be one-to-one, so neogeo.to_neo_panel can put it back on A B C D.
 _BUTTONS = {"A": "LP", "B": "LK", "C": "HP", "D": "HK"}
-_BUTTON_TOKEN = re.compile(r"(?<![A-Za-z])(S|any|[ABCD]{1,2})(?![A-Za-z])")
+_BUTTON_TOKEN = re.compile(r"(?<![A-Za-z])(S|any|[ABCD]{1,4})(?![A-Za-z])")
 
 
 def parse(text: str) -> tuple[list[Character], ParseReport]:
@@ -77,6 +81,7 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
 
     name = ""
     moves: list[Move] = []
+    chain: list[_Row] = []
     collecting = False
 
     for index, line in enumerate(lines):
@@ -85,8 +90,7 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
             character = finish_character(name, "", moves, report)
             if character is not None:
                 characters.append(character)
-            name = header
-            moves = []
+            name, moves, chain = header, [], []
             collecting = True
             continue
 
@@ -99,8 +103,7 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
         entry = _split(line.rstrip())
         if entry is None:
             continue
-        command, move_name, rage = entry
-        moves.append(_slash_move(move_name, command, report, name, rage=rage))
+        moves.append(_slash_move(entry, report, name, _parent(chain, entry)))
 
     character = finish_character(name, "", moves, report)
     if character is not None:
@@ -108,42 +111,66 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
     return characters, report
 
 
-def _split(line: str) -> tuple[str, str, bool] | None:
+@dataclass(frozen=True, slots=True)
+class _Row:
+    """One move line, before its command is read."""
+
+    indent: int
+    """Where the line starts. A follow-up is written deeper than the move it
+    continues, and Enja's Rikudou Rekka runs 1, 2, 4, so only the order counts."""
+    command: str
+    name: str
+    rage: bool
+
+
+def _split(line: str) -> _Row | None:
     """Pull a move line apart into its command, its name, and whether it rages."""
     if not line.startswith(" ") or not line.strip():
         return None
     body = _WEAPON.sub("", line).rstrip()
+    indent = len(body) - len(body.lstrip())
 
     marker = _RAGE.search(body)
     if marker is not None:
         command, move_name = body[: marker.start()], body[marker.end() :]
-        return command.strip(), _SET_MEMBER.sub("", move_name.strip()), True
+        return _Row(indent, command.strip(), _SET_MEMBER.sub("", move_name.strip()), rage=True)
 
     parts = _COLUMNS.split(body.strip(), maxsplit=1)
     if len(parts) < 2:  # ruff: ignore[magic-value-comparison] - a command and a name
         return None
-    return parts[0].strip(), _SET_MEMBER.sub("", parts[1].strip()), False
+    return _Row(indent, parts[0].strip(), _SET_MEMBER.sub("", parts[1].strip()), rage=False)
 
 
-def _slash_move(move_name: str, command: str, report: ParseReport, character: str, *, rage: bool) -> Move:
+def _parent(chain: list[_Row], row: _Row) -> str:
+    """The move this row continues, and keep the stack of open ones current.
+
+    The underscore says a row is a follow-up and the indent says of what: the
+    nearest line above it that starts further left. A row without one closes
+    whatever was open, so a plain move never inherits the string before it.
+    """
+    while chain and chain[-1].indent >= row.indent:
+        chain.pop()
+    parent = chain[-1].name if chain and row.command.startswith(_FOLLOW_ON) else ""
+    chain.append(row)
+    return parent
+
+
+def _slash_move(row: _Row, report: ParseReport, character: str, parent: str) -> Move:
     """Build a move from a slash-panel command, keeping the guide's notation."""
-    category = Category.SUPER if rage else None
-    move = build_move(move_name, _to_shorthand(command), report, character, category)
+    category = Category.SUPER if row.rage else None
+    move = build_move(row.name, _to_shorthand(row.command), report, character, category, follows=parent)
     if move.motion is None:
-        return replace(move, command=command)
-    return replace(move, command=command, motion=to_neo_panel(move.motion, command))
+        return replace(move, command=row.command)
+    return replace(move, command=row.command, motion=to_neo_panel(move.motion, row.command))
 
 
 def _to_shorthand(command: str) -> str:
-    """Rewrite the buttons into the dialect normalise reads, directions as they are.
-
-    A follow-up keeps its leading underscore, so it fails to normalise and is
-    reported as skipped rather than read as a move in its own right.
-    """
-    if command.lstrip().startswith("_"):
-        return command
+    """Rewrite the buttons into the dialect normalise reads, directions as they are."""
+    # The underscore only marks the line as a follow-up; what is left of it is
+    # an ordinary command, and which move it follows is the indent's business.
+    text = command.lstrip().removeprefix(_FOLLOW_ON)
     # "when near" is this guide's spelling of the range qualifier normalise knows.
-    return _BUTTON_TOKEN.sub(_button, command).replace("when near", "when close")
+    return _BUTTON_TOKEN.sub(_button, text).replace("when near", "when close")
 
 
 def _button(match: re.Match[str]) -> str:

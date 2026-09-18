@@ -454,6 +454,11 @@ class Notation:
             return "" if spec.hold is None else self.directions((spec.hold,))
         if spec.kind is MotionKind.ANY:
             return ""
+        if spec.kind is MotionKind.THROW:
+            # Either way round, and the guide's own wording says which way does
+            # what. Written as the pair rather than named, so it reads as an
+            # input instead of as a word among the motions.
+            return self.directions((Direction.BACK,)) + "/" + self.directions((Direction.FORWARD,))
         return self.write_kind(spec.kind)
 
     def write_kind(self, kind: MotionKind) -> str:

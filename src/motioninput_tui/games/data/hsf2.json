@@ -310,7 +310,18 @@
     {
      "name": "Sweep",
      "command": "Back or Forward + HK (ST only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "Back or Forward + HK (ST only)"
+     }
     },
     {
      "name": "Ohicho Throw",
@@ -861,22 +872,66 @@
     {
      "name": "Knee",
      "command": "Back or Forward + MK (SF2 to SSF2)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "notation": "Back or Forward + MK (SF2 to SSF2)"
+     }
     },
     {
      "name": "Downward Spin Kick",
      "command": "close, Back or Forward + HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "close, Back or Forward + HK"
+     }
     },
     {
      "name": "Knee",
      "command": "Back or Forward + LK (ST only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "Back or Forward + LK (ST only)"
+     }
     },
     {
      "name": "Spin Kick",
      "command": "Back or Forward + MK (ST only)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "notation": "Back or Forward + MK (ST only)"
+     }
     },
     {
      "name": "Double Flash Kick",
@@ -1290,7 +1345,18 @@
     {
      "name": "Forward Hop",
      "command": "Back or Forward + MK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "notation": "Back or Forward + MK"
+     }
     },
     {
      "name": "Arc Kick",

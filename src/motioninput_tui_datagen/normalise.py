@@ -302,9 +302,7 @@ def _resolve_directions(
     tokens = _direction_tokens(text)
 
     if not tokens:
-        if buttons.count < MULTI_BUTTON and not chained:
-            return None, None, "no directional or multi-button requirement"
-        return MotionKind.ANY, None, ""
+        return _without_directions(text, buttons, chained=chained)
 
     kind = (_CHARGE_TABLE if charged else _MOTION_TABLE).get(tuple(tokens))
     if kind is not None:
@@ -314,6 +312,24 @@ def _resolve_directions(
     if not charged and _is_full_circle(tokens):
         return MotionKind.ROTATE_360, None, ""
     return None, None, f"unrecognised motion {','.join(tokens)!r}"
+
+
+def _without_directions(
+    text: str, buttons: ButtonRequirement, *, chained: bool
+) -> tuple[MotionKind | None, Direction | None, str]:
+    """The kind of a command whose directions came to nothing.
+
+    ``b / f + B`` asked for a direction and then said either would do, which is
+    a different thing from a command that named none. On one button that
+    direction is the whole difference between the throw and the normal, so it
+    is kept; on two the buttons already say which move this is, and every
+    roster here has read them as :attr:`MotionKind.ANY` all along.
+    """
+    if _is_throw_choice(text):
+        return (MotionKind.ANY if buttons.count >= MULTI_BUTTON else MotionKind.THROW), None, ""
+    if buttons.count < MULTI_BUTTON and not chained:
+        return None, None, "no directional or multi-button requirement"
+    return MotionKind.ANY, None, ""
 
 
 _AIR_PREFIX = re.compile(r"^\s*in (?:the )?air\b")
@@ -449,6 +465,35 @@ def _family_alternatives(alternatives: list[str]) -> list[frozenset[Button]]:
 
 
 _REPEAT = re.compile(r"\bx\s*2\b")
+
+
+_THROW_CHOICE = frozenset({"b", "f"})
+"""Back or forward, and nothing else. Every guide here writes a throw that way:
+which side you hold decides which side they land on, so the direction is not
+part of what the move *is*. Other pairs are not the same thing at all - Martial
+Masters' floor pursuit is ``d/u + LP/LK/HP/HK``, and it genuinely wants one of
+those two."""
+
+
+def _is_throw_choice(text: str) -> bool:
+    """Whether the directions are the back-or-forward a throw is written with.
+
+    :func:`_direction_tokens` drops the pair, having nothing to hold; this is
+    what is left to tell "either way round" apart from a command that named no
+    direction at all. The difference is the only thing standing between a
+    Samurai Shodown throw and an ordinary button press.
+    """
+    head = _head_of(text).replace("+", " ")
+    alternatives = [tokens for tokens in (_tokens_in(part) for part in head.split(" / ")) if tokens]
+    if len(alternatives) < MULTI_BUTTON or not all(len(option) == 1 for option in alternatives):
+        return False
+    return {option[0] for option in alternatives} == _THROW_CHOICE
+
+
+def _head_of(text: str) -> str:
+    """The part of a command in front of its button requirement."""
+    section = _button_section(text)
+    return text[: len(text) - len(section)] if section else text
 
 
 def _direction_tokens(text: str) -> list[str]:

@@ -1971,7 +1971,18 @@
     {
      "name": "Drop Kick",
      "command": "b / f + HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "b / f + HK"
+     }
     },
     {
      "name": "Elbow",

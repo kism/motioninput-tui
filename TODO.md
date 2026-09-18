@@ -34,7 +34,7 @@ Three of 3rd Strike's Akuma links are in the right section now but still struck,
 
 ## Motions not in the table
 
-121 moves are skipped as an unrecognised motion. Some are genuine one-offs not worth an entry; a few are real shapes the table just lacks, such as `b,d,df` (Monkey Boy's Monkey Stomp, two moves). Each needs a `MotionKind` and a matcher, so they are worth adding only where more than one character wants one.
+Around 30 moves are skipped as an unrecognised motion, and what is left is nearly all one-offs. The ones worth an entry each need a real matcher rather than a table row: `d,d` and `d,d,d` are double and triple taps of one direction, `d,u` is a tap rather than a charge, `f,b,f,b,f,b,d` is Galford's and Hanzo's counter. `db,qcf` (`db,d,df,f`) looks like it could just map to a quarter circle, but it must not — Ukyo and Suija have a plain `qcf` move as well, and mapping it would hand out the wrong one of the pair.
 
 ## Held buttons
 

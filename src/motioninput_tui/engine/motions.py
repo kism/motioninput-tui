@@ -39,6 +39,13 @@ class MotionKind(StrEnum):
 
     ANY = "any"
     HOLD = "hold"
+    THROW = "throw"
+    """Back or forward and a button, which is how every guide here writes a
+    throw on a single button. Which side you hold decides which side they land
+    on, so neither is required over the other - but one of them is, and that is
+    the whole difference between the throw and the normal on the same button.
+    A throw written on *two* buttons is :attr:`ANY` instead: nothing else in a
+    move list wants that pair, so there the direction really is decoration."""
     QCF = "qcf"
     QCB = "qcb"
     HCF = "hcf"
@@ -706,6 +713,11 @@ def _match_rotation(turns: int, buffer: InputBuffer, ruleset: Ruleset, at_ms: in
     return False
 
 
+THROW_DIRECTIONS = frozenset({Direction.BACK, Direction.FORWARD})
+"""What :attr:`MotionKind.THROW` wants held. The cardinals only, as
+:func:`_hold_set` gives for either of them on its own."""
+
+
 def _match_hold(hold: Direction | None, buffer: InputBuffer) -> bool:
     if hold is None:
         return True
@@ -780,6 +792,7 @@ def _match_mash(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: 
 _SIMPLE_MATCHERS: dict[MotionKind, Callable[[MotionSpec, InputBuffer, Ruleset, int], bool]] = {
     MotionKind.ANY: lambda *_: True,
     MotionKind.HOLD: lambda spec, buffer, _ruleset, _at: _match_hold(spec.hold, buffer),
+    MotionKind.THROW: lambda _spec, buffer, _ruleset, _at: buffer.current_direction() in THROW_DIRECTIONS,
     MotionKind.MASH: _match_mash,
     MotionKind.ROTATE_360: lambda _spec, buffer, ruleset, at: _match_rotation(1, buffer, ruleset, at),
     MotionKind.ROTATE_720: lambda _spec, buffer, ruleset, at: _match_rotation(2, buffer, ruleset, at),

@@ -65,12 +65,19 @@ _REPEATED = re.compile(r"\(([^()]+)\)\s*x\s*2")
 """``(d, df, f)x2``, expanded here because ``normalise`` reads parentheses as
 asides and would drop the motion along with them."""
 
-_BUTTONS = re.compile(r"\+\s*([ABCDPK]{1,4}(?:\s+or\s+[ABCDPK]{1,4})*)(?![A-Za-z])")
+_CHOICE = r"\s*(?:,\s*or|,|or)\s*"
+"""How the options of one button clause are told apart. Samurai Shodown II
+writes the longer ones as a list rather than a string of ``or``s, ``+ B, D, AB,
+or CD``, so a comma separates two options and the ``, or`` that ends the list
+has to be read as one separator rather than two."""
+
+_BUTTONS = re.compile(rf"\+\s*([ABCDPK]{{1,4}}(?:{_CHOICE}[ABCDPK]{{1,4}})*)(?![A-Za-z])")
 """The buttons a command asks for: letters pressed together (``AB``), and the
-choices between them the guides write out (``+ A or B``). Both halves of a
-choice have to be translated here -- left to ``normalise``, an untranslated
-``B`` is not a button token at all and the move silently narrows to the first
-option."""
+choices between them the guides write out. Every part of a choice has to be
+translated here -- left to ``normalise``, an untranslated ``B`` is not a button
+token at all and the move silently narrows to the first option."""
+
+_SPLIT_CHOICE = re.compile(_CHOICE)
 
 _MASHED = re.compile(r"^\s*([ABCDPK]{1,4})(?=\s+(?:rapidly|repeatedly)\b)")
 """``C rapidly``: a mash, whose button has no ``+`` in front of it for
@@ -111,7 +118,7 @@ def to_shorthand(command: str) -> str:
 
 def _buttons(match: re.Match[str]) -> str:
     """One button clause, as the alternation ``normalise`` reads."""
-    options = re.split(r"\s+or\s+", match.group(1))
+    options = [option for option in _SPLIT_CHOICE.split(match.group(1)) if option]
     return "+ " + " / ".join(" + ".join(TO_SHORTHAND[letter] for letter in option) for option in options)
 
 

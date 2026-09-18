@@ -450,6 +450,30 @@ A chain link may be a bare button (`Final Kick: LK`), which `normalise` refuses
 everywhere else because a lone button is an ordinary normal. `parse_command`'s
 `chained` flag is what allows it, and it is set from `follows`.
 
+### Throws are a motion kind
+
+Every guide here writes a throw as a choice of the two sides - `b or f + B`,
+`b / f + PP`, `Back or Forward + HK`. `_direction_tokens` drops the pair,
+having nothing to hold, and that used to leave a one-button throw looking like
+a bare button press: 46 of Samurai Shodown II's moves, and most of KoF's.
+
+`_is_throw_choice` is what tells "either way round" from a command that named
+no direction at all, and the button count decides what it becomes. **Two
+buttons stay `MotionKind.ANY`**, because nothing else in a move list wants that
+pair so the direction really is decoration, and every roster has read them that
+way all along. **One button becomes `MotionKind.THROW`**, which asks for back
+or forward to be held: on one button that direction is the whole difference
+between the throw and the normal.
+
+It is deliberately only back-or-forward. Martial Masters' floor pursuit is
+`d/u + LP/LK/HP/HK`, and that one genuinely wants one of those two, so it stays
+struck through.
+
+The trainer models no range, so a `close,` in front of a throw is dropped like
+any other qualifier. Holding forward and pressing a button therefore gives the
+throw whether or not you would have been close enough, which is why a test that
+expects nothing from an idle button press has to press it at neutral.
+
 ### One Super Art at a time
 
 3rd Strike equips one Super Art of three, and 18 of its 20 characters have two
@@ -530,10 +554,8 @@ fresh clone has to run `python -m motioninput_tui_guides` first. After changing
 `motioninput_tui_datagen/normalise.py` or a parser in
 `motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
 (or `./scripts/4-run-datagen.sh`) and commit the JSON. Most rosters land in the
-75-90% band. Samurai Shodown II is the outlier at 54%, because that guide leans
-on command throws written `b or f + button`, which say nothing about which way
-to hold. The remainder are conditional moves that still appear in the move list,
-struck through. `--summary` prints the per-character breakdown, and how many of
+76-95% band. The remainder are conditional moves that still appear in the move
+list, struck through. `--summary` prints the per-character breakdown, and how many of
 each roster's trainable moves are chain links.
 
 The guides disagree about character names, so `motioninput_tui_datagen/names.py` maps the key a

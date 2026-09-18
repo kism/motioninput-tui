@@ -32,6 +32,11 @@ def test_charging_back_then_forward_is_the_baltic_launcher(play) -> None:
 
 
 def test_a_short_hold_is_not_a_charge(play) -> None:
-    """The direction has to be held, not passed through on the way to the button."""
+    """The direction has to be held, not passed through on the way to the button.
+
+    Forward and a punch is her Leona Crush, a throw, so the back-to-forward one
+    does not come back empty: it comes back with the move you get instead of
+    the Baltic Launcher you were after.
+    """
     assert play(_charge(DOWN, UP, SHORT_MS)).moves == []
-    assert play(_charge(BACK, FORWARD, SHORT_MS)).moves == []
+    assert play(_charge(BACK, FORWARD, SHORT_MS)).moves == ["Leona Crush"]

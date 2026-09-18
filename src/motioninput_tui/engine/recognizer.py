@@ -74,13 +74,17 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
     MotionKind.QCF: 50,
     MotionKind.QCB: 50,
     MotionKind.MASH: 40,
+    # A throw beats a plain held direction and a bare button: it asks for
+    # more than either, and it is the move the guide named.
+    MotionKind.THROW: 25,
     MotionKind.HOLD: 20,
     MotionKind.ANY: 10,
 }
 
 
-NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH})
-"""Kinds with no stick motion to watch: a bare button, a held direction, a mash."""
+NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH, MotionKind.THROW})
+"""Kinds with no stick motion to watch: a bare button, a held direction, a
+mash, and a throw - which wants a direction held but travels nowhere."""
 
 
 @dataclass(frozen=True, slots=True)

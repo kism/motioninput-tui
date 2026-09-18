@@ -100,12 +100,19 @@ def build_move(  # ruff: ignore[too-many-arguments] - the fields of one move row
 
 def _dedupe(moves: list[Move]) -> list[Move]:
     """Drop repeats. Alpha 3 lists per-ISM variants of the same move."""
-    seen: set[tuple[str, str, str]] = set()
+    seen: set[tuple[str, str, str, str]] = set()
     unique = []
     for move in moves:
         # The parent is part of the signature: a guide can hang the same
-        # follow-up off two different parents, and those are two moves.
-        signature = (move.name, move.motion.kind if move.motion else move.command, move.follows)
+        # follow-up off two different parents, and those are two moves. So is
+        # the button, or Guile's two Knees - one on MK and one on LK, the same
+        # move in different versions of SF2 - would come out as one.
+        signature = (
+            move.name,
+            move.motion.kind if move.motion else move.command,
+            move.motion.buttons.label if move.motion else "",
+            move.follows,
+        )
         if signature in seen:
             continue
         seen.add(signature)
