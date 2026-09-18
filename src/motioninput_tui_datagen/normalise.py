@@ -188,6 +188,8 @@ def parse_command(command: str) -> ParsedCommand:
         return ParsedCommand(None, "conditional or follow-up move")
 
     text = _strip_noise(raw)
+    if _is_button_chain(text):
+        return ParsedCommand(None, "a chain of presses, which the trainer has no model for")
     buttons = _parse_buttons(text)
     if buttons is None:
         return ParsedCommand(None, "no button requirement found")
@@ -234,6 +236,28 @@ def _follow_through(raw: str, kind: MotionKind, buttons: ButtonRequirement) -> t
     button = tail.group(1).upper()
     motion_label = "P" if buttons.label.startswith("P") else "K" if buttons.label.startswith("K") else ""
     return tail.group(2).count(",") + 1, True, "" if button == motion_label else button
+
+
+def _is_button_chain(text: str) -> bool:
+    """Whether a command is buttons pressed one after another, not together.
+
+    A target combo (``HP, HP, HK, HP``) and Akuma's Raging Demon
+    (``LP,LP,f,LK,HP``) are sequences of presses, which the engine has no model
+    for. Left alone they do not merely fail to match: the commas fall out with
+    the rest of the punctuation and what comes back is "press all of these at
+    once", a move the game does not have.
+
+    What marks one is a comma with a button on either side of it. Zangief's
+    ``Press PPP, move b / f`` has a comma too, but what follows it is the
+    direction to spin in, not a second press; and the section having to run
+    from the very front of the command is what keeps this off
+    ``qcf + P, tap P rapidly``, whose commas come after a real motion.
+    """
+    section = _button_section(text)
+    if not section or len(section) != len(text) or "," not in section:
+        return False
+    presses = [bool(_BUTTON_TOKEN.search(part)) for part in section.split(",")]
+    return any(earlier and later for earlier, later in pairwise(presses))
 
 
 def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKind | None, Direction | None, str]:
@@ -301,6 +325,10 @@ def _strip_noise(text: str) -> str:
     text = _QUALIFIERS.sub(" ", text)
     text = text.replace("rotate", " ")
     text = re.sub(r"\bor\b", "/", text)  # "Back or Forward", "MP or HP"
+    # A guide may write the same choice tight, "LP/LK/HP/HK". Without the
+    # spaces the alternatives below never split, and four buttons to choose
+    # from read as four buttons to press at once.
+    text = re.sub(r"(?<=[\w])/(?=[\w])", " / ", text)
     for word, short in _WORD_DIRECTIONS.items():
         text = re.sub(rf"\b{word}\b", short, text)
     text = _SHORTHAND_RUN.sub(_expand_shorthand, text)
@@ -361,10 +389,7 @@ def _parse_buttons(text: str) -> ButtonRequirement | None:
     ]
     named = [option for option in per_alternative if option]
     if named:
-        # "MP or HP" is a choice of one; "LP + LK" needs both at once.
-        if len(named) > 1 and all(len(option) == 1 for option in named):
-            return ButtonRequirement(frozenset().union(*named), 1)
-        return ButtonRequirement(frozenset(named[0]), len(named[0]))
+        return _named_requirement(named, alternatives)
 
     tokens = _BUTTON_TOKEN.findall(alternatives[0])
     if not tokens:
@@ -375,6 +400,38 @@ def _parse_buttons(text: str) -> ButtonRequirement | None:
     if token in {"p", "k"}:
         return ButtonRequirement(ALL_BUTTONS if "p+k" in alternatives[0] else family, 1)
     return ButtonRequirement(family, len(token))
+
+
+def _named_requirement(named: list[set[Button]], alternatives: list[str]) -> ButtonRequirement:
+    """The requirement of a command whose alternatives name specific buttons."""
+    # "MP or HP" is a choice of one; "LP + LK" needs both at once.
+    if len(named) > 1 and all(len(option) == 1 for option in named):
+        return ButtonRequirement(frozenset().union(*named), 1)
+    # A choice between a family and one button, "qcf + P/LK". The family
+    # alternative names no specific button, so it is not in `named` at all, and
+    # taking the first option alone would leave the move on the one button the
+    # guide offered as the alternative.
+    if len(alternatives) > 1 and len(named) == 1 and len(named[0]) == 1:
+        family = _family_alternatives(alternatives)
+        if family:
+            return ButtonRequirement(frozenset().union(*named, *family), 1)
+    return ButtonRequirement(frozenset(named[0]), len(named[0]))
+
+
+def _family_alternatives(alternatives: list[str]) -> list[frozenset[Button]]:
+    """The whole-family options of a choice: the ``P`` in ``qcf + P/LK``.
+
+    The family has to be the *whole* of its own alternative. A ``K`` sitting
+    inside one alongside another button is a follow-up press rather than a
+    choice - Guy's ``qcf + LK,K`` is his run and then a kick out of it, not a
+    move on any kick.
+    """
+    families = []
+    for option in alternatives:
+        tokens = _BUTTON_TOKEN.findall(option)
+        if len(tokens) == 1 and tokens[0] in {"p", "k"}:
+            families.append(PUNCHES if tokens[0] == "p" else KICKS)
+    return families
 
 
 _REPEAT = re.compile(r"\bx\s*2\b")

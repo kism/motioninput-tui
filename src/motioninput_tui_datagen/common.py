@@ -5,6 +5,7 @@ import unicodedata
 from dataclasses import dataclass, field
 
 from motioninput_tui.engine.motions import MotionKind
+from motioninput_tui.engine.notation import ALL_BUTTONS, KICKS, PUNCHES, Button, ButtonRequirement
 from motioninput_tui.games.models import Category, Character, Move
 
 from .normalise import parse_command
@@ -115,3 +116,24 @@ def split_name_command(text: str) -> tuple[str, str] | None:
     if not name or not command:
         return None
     return name, command
+
+
+def narrow_buttons(
+    requirement: ButtonRequirement, punches: frozenset[Button], kicks: frozenset[Button]
+) -> ButtonRequirement:
+    """A requirement with the strengths a four-button panel does not have dropped.
+
+    ``normalise`` reads one dialect, the Street Fighter six, so "any punch"
+    comes back as three buttons. On a panel with two of each it is reachable on
+    two, and a move asking for either family is reachable on four. The specific
+    buttons a command names are left alone: a guide written in ``LP``/``HK`` is
+    already naming buttons this panel has.
+    """
+    count = requirement.count
+    if requirement.allowed == PUNCHES:
+        return ButtonRequirement(punches, count, "P" * count)
+    if requirement.allowed == KICKS:
+        return ButtonRequirement(kicks, count, "K" * count)
+    if requirement.allowed == ALL_BUTTONS:
+        return ButtonRequirement(punches | kicks, count, "any button")
+    return requirement

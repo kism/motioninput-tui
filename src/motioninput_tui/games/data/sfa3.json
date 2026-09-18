@@ -530,20 +530,7 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,f,LK,HP"
-     }
+     "category": "other"
     }
    ]
   },
@@ -3191,40 +3178,12 @@
     {
      "name": "Bushin Gokusa Ken",
      "command": "When close, tap LP,MP,HP,HK",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HK",
-        "HP",
-        "LP",
-        "MP"
-       ],
-       "count": 4,
-       "label": "LP+MP+HP+HK"
-      },
-      "notation": "When close, tap LP,MP,HP,HK"
-     }
+     "category": "other"
     },
     {
      "name": "Bushin-ryuu Seoi Nage",
      "command": "When close, tap LP,MP,HP, d + HK",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HK",
-        "HP",
-        "LP",
-        "MP"
-       ],
-       "count": 4,
-       "label": "LP+MP+HP+HK"
-      },
-      "notation": "When close, tap LP,MP,HP, d + HK"
-     }
+     "category": "other"
     },
     {
      "name": "Bushin-ryuu Seoi Nage",
@@ -6658,20 +6617,7 @@
     {
      "name": "Death Cross Dancing",
      "command": "LP,LP,f,LK,HP at Level 3",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,f,LK,HP at Level 3"
-     }
+     "category": "other"
     }
    ]
   },
@@ -6964,20 +6910,7 @@
     {
      "name": "Death Cross Dancing",
      "command": "LP,LP,f,LK,HP at Level 3",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,f,LK,HP at Level 3"
-     }
+     "category": "other"
     }
    ]
   }

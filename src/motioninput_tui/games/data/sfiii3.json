@@ -1732,20 +1732,7 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP         x(max stocks)",
-     "category": "super",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,f,LK,HP         x(max stocks)"
-     }
+     "category": "super"
     },
     {
      "name": "Kongou Kokuretsu Zan",

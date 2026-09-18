@@ -13,8 +13,9 @@ See [Adding a game](adding-a-game.md) to add another title, or
 
 Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, Ultra Street
 Fighter IV, The King of Fighters '98 and 2001, Samurai Shodown II and V
-Special, The Last Blade 2, and Bishoujo Senshi Sailor Moon S. The picker lists
-them with a note on what makes each one's input handling different.
+Special, The Last Blade 2, Bishoujo Senshi Sailor Moon S, and Martial Masters.
+The picker lists them with a note on what makes each one's input handling
+different.
 
 Each has its own `Ruleset` describing how forgiving it is — motion windows,
 whether diagonals can be skipped, charge times, whether the dragon punch
@@ -25,10 +26,11 @@ game](sfiii3-from-the-decomp.md).
 Not every listed move is trainable. The Street Fighter rosters run 79-89%; the
 SNK ones are lower — 52% for Samurai Shodown II — because those guides lean on
 command throws written "b or f + button", which say nothing about which way to
-hold, and on long follow-up chains. The rest still appear in the move list,
-struck through. The five SNK games are on the Neo Geo's four-button panel, and
-each means something different by it, which the game's own note explains when
-you highlight it.
+hold, and on long follow-up chains. Martial Masters sits at 76% for a different
+reason: most of each move list is chains off a move that has to connect first.
+The rest still appear in the move list, struck through. The five SNK games are
+on the Neo Geo's four-button panel, and each means something different by it,
+which the game's own note explains when you highlight it.
 
 ## Run
 

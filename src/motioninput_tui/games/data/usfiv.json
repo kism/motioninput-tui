@@ -561,38 +561,12 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,f,LK,HP"
-     }
+     "category": "other"
     },
     {
      "name": "Wrath of the Raging Demon",
      "command": "LP,LP,b,LK,HP",
      "category": "super",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,b,LK,HP"
-     },
      "super_art": "I"
     },
     {
@@ -3917,20 +3891,7 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,f,LK,HP"
-     }
+     "category": "other"
     },
     {
      "name": "Metsu Hadoken",
@@ -5099,40 +5060,12 @@
     {
      "name": "Bushin Gokusa Ken",
      "command": "When close, tap LP,MP,HP,HK",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HK",
-        "HP",
-        "LP",
-        "MP"
-       ],
-       "count": 4,
-       "label": "LP+MP+HP+HK"
-      },
-      "notation": "When close, tap LP,MP,HP,HK"
-     }
+     "category": "other"
     },
     {
      "name": "Bushin-ryuu Seoi Nage",
      "command": "When close, tap LP,MP,HP,d + HK",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HK",
-        "HP",
-        "LP",
-        "MP"
-       ],
-       "count": 4,
-       "label": "LP+MP+HP+HK"
-      },
-      "notation": "When close, tap LP,MP,HP,d + HK"
-     }
+     "category": "other"
     },
     {
      "name": "Sankaku Tobi",
@@ -7086,20 +7019,7 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP (air)",
-     "category": "throw",
-     "motion": {
-      "kind": "any",
-      "buttons": {
-       "allowed": [
-        "HP",
-        "LK",
-        "LP"
-       ],
-       "count": 3,
-       "label": "LP+HP+LK"
-      },
-      "notation": "LP,LP,f,LK,HP (air)"
-     }
+     "category": "other"
     },
     {
      "name": "Meido Gohadou",

@@ -16,7 +16,7 @@ Turbo or Alpha 3 and you get nothing.
 
 Ships with Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, Ultra
 Street Fighter IV, The King of Fighters '98 and 2001, Samurai Shodown II and V
-Special, The Last Blade 2, and Bishoujo Senshi Sailor Moon S.
+Special, The Last Blade 2, Bishoujo Senshi Sailor Moon S, and Martial Masters.
 
 **Full documentation: <https://motioninput-tui.readthedocs.io/>**
 
@@ -70,3 +70,4 @@ Move list guides by:
 - x_MJ_x (Hyper Street Fighter II)
 - THEMCD / Damon M. McDaniel (Ultra Street Fighter IV)
 - Loopy (Bishoujo Senshi Sailor Moon S)
+- Goh_Billy (Martial Masters)

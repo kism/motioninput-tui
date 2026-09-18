@@ -27,9 +27,9 @@ import re
 from dataclasses import replace
 from typing import TYPE_CHECKING
 
-from motioninput_tui.engine.notation import ALL_BUTTONS, KICKS, PUNCHES, Button, ButtonRequirement
+from motioninput_tui.engine.notation import Button
 from motioninput_tui.games.models import Category
-from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character
+from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, narrow_buttons
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -185,7 +185,7 @@ def _move(name: str, command: str, desperation: bool, report: ParseReport, chara
     move = build_move(name, _to_shorthand(command), report, character, category)
     if move.motion is None:
         return replace(move, command=command)
-    buttons = _panel_buttons(move.motion.buttons)
+    buttons = narrow_buttons(move.motion.buttons, PANEL_PUNCHES, PANEL_KICKS)
     return replace(move, command=command, motion=replace(move.motion, buttons=buttons, notation=command))
 
 
@@ -195,19 +195,3 @@ def _to_shorthand(command: str) -> str:
     for pattern, replacement in _BUTTONS:
         text = pattern.sub(replacement, text)
     return _THEN.sub(",", text)
-
-
-def _panel_buttons(requirement: ButtonRequirement) -> ButtonRequirement:
-    """The same requirement with the strength this panel does not have dropped.
-
-    The four here are Street Fighter buttons already, so only the families need
-    narrowing: a move on "any punch" is reachable on two buttons, not three.
-    """
-    count = requirement.count
-    if requirement.allowed == PUNCHES:
-        return ButtonRequirement(PANEL_PUNCHES, count, "P" * count)
-    if requirement.allowed == KICKS:
-        return ButtonRequirement(PANEL_KICKS, count, "K" * count)
-    if requirement.allowed == ALL_BUTTONS:
-        return ButtonRequirement(PANEL_PUNCHES | PANEL_KICKS, count, "any button")
-    return requirement

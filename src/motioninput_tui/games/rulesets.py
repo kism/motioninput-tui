@@ -418,10 +418,48 @@ USFIV = GameSpec(
     reference="references/usfiv.txt",
 )
 
+MARTMAST = GameSpec(
+    key="martmast",
+    name="Martial Masters",
+    short_name="Martial Masters",
+    ruleset=Ruleset(
+        # IGS's 2001 PGM board, not a Neo Geo or a Capcom one, and there is no
+        # decompilation to read. Nothing is measured here, so every field that
+        # loosens the game stays off: the guide writes each motion out in full
+        # and never abbreviates one, which is an argument for nothing. The
+        # windows sit where Alpha 3's do, the nearest game whose dialect this
+        # guide shares.
+        motion_window_ms=300,
+        activation_window_ms=150,
+        step_gap_ms=170,
+        max_intermediate=1,
+        tail_states=2,
+        lenient_diagonals=False,
+        # Inert: nobody in this roster charges or turns a circle.
+        charge_ms=900,
+        charge_release_ms=200,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=False,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+    ),
+    notes=(
+        "Four buttons: light and heavy punch, with the two kicks beneath them.",
+        "No dragon punch shortcut: f,d,df means f,d,df.",
+        "Nobody in this roster charges or turns a circle, so every special is a plain motion.",
+        "The Shadow Moves cost a super stock, which the trainer does not model - only the input.",
+        "Much of each move list is follow-up chains off a move that connected, so those are struck through.",
+    ),
+    reference="references/martmast.txt",
+    buttons=SNES_FIGHTER,
+)
+
 # Menu order: by series (alphabetically), then in each series' own numeric /
 # chronological order.
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (KOF98, KOF2001, LB2, SAILORMOONS, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
+    spec.key: spec for spec in (KOF98, KOF2001, LB2, MARTMAST, SAILORMOONS, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
 }
 DEFAULT_GAME = SFIII3.key
 
