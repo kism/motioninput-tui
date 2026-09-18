@@ -20,10 +20,11 @@ dialect :mod:`normalise` reads, so no command translation is needed at all -
 only the button *families* narrow, since ``P`` here is a choice of two rather
 than the Street Fighter three.
 
-What this game mostly has is chains: a move that connects opens the next, which
-is written indented under its parent. Those keep their place in the move list
-but are marked as following on, because an indented ``qcf + K`` would otherwise
-come out a perfectly ordinary quarter circle that the game will not give you.
+What this game mostly has is chains: a move that connects opens the next, and
+the guide writes the next one indented under it. The indent is the whole
+signal, so a row's parent is whatever sits above it at a shallower depth - and
+that is what makes an indented ``qcf + K`` Master Huang's Heavy Axe rather than
+the perfectly ordinary Grasshopper the same motion gives when nothing is open.
 """
 
 import re
@@ -60,8 +61,6 @@ PANEL_PUNCHES = frozenset({Button.LP, Button.HP})
 PANEL_KICKS = frozenset({Button.LK, Button.HK})
 """The two of each this panel has, which is what ``P`` and ``K`` mean here."""
 
-_FOLLOWS_ON = "follows on from the move it is indented under"
-
 _BANNER = re.compile(r"^\*{5,}$")
 _TITLE = re.compile(r"^\*\s+\d+\.\d+\s+(.+?)\s+\*$")
 
@@ -89,8 +88,10 @@ class _Row:
 
     name: str
     command: str
-    indented: bool
-    """Whether the name is indented, which is how this guide writes a follow-up."""
+    indent: int
+    """How far the name is indented, which is how this guide writes a chain: a
+    link sits deeper than the move it continues. The depths are not a fixed
+    step - Master Huang's string runs 0, 2, 3, 5 - so only the order matters."""
 
 
 def parse(text: str) -> tuple[list[Character], ParseReport]:
@@ -101,6 +102,7 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
     name = ""
     category: Category | None = None
     moves: list[Move] = []
+    chain: list[_Row] = []
 
     def flush() -> None:
         character = finish_character(name, "", moves, report)
@@ -112,16 +114,30 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
         title = _TITLE.match(stripped)
         if title is not None:
             flush()
-            name, moves, category = title.group(1).strip(), [], None
+            name, moves, category, chain = title.group(1).strip(), [], None, []
         elif stripped in _HEADINGS or stripped == _SKIPPED_HEADING:
-            category = _HEADINGS.get(stripped)
+            category, chain = _HEADINGS.get(stripped), []
         elif category is not None:
             row = _row(line)
             if row is not None:
-                moves.append(_move(row, category, report, name))
+                moves.append(_move(row, category, report, name, _parent(chain, row)))
 
     flush()
     return characters, report
+
+
+def _parent(chain: list[_Row], row: _Row) -> str:
+    """The move this row continues, and keep the stack of open ones current.
+
+    A row indented past the one above it is its follow-up; one at the same
+    depth or shallower closes however many strings it has stepped back out of.
+    ``chain`` is edited in place, so the caller's stack carries to the next row.
+    """
+    while chain and chain[-1].indent >= row.indent:
+        chain.pop()
+    parent = chain[-1].name if chain else ""
+    chain.append(row)
+    return parent
 
 
 def _section(text: str) -> list[str]:
@@ -174,19 +190,13 @@ def _row(line: str) -> _Row | None:
     entry = split_name_command(line)
     if entry is None:
         return None
-    return _Row(name=entry[0], command=entry[1], indented=line.startswith(" "))
+    return _Row(name=entry[0], command=entry[1], indent=len(line) - len(line.lstrip()))
 
 
-def _move(row: _Row, category: Category, report: ParseReport, character: str) -> Move:
+def _move(row: _Row, category: Category, report: ParseReport, character: str, parent: str) -> Move:
     """One move row, parsed and put back onto this game's four buttons."""
     name, command = row.name, row.command
-    if row.indented:
-        # Kept in the move list, struck through, rather than reduced to the
-        # motion inside it - the chain's parent has to connect first.
-        report.note(character, name, _FOLLOWS_ON)
-        return Move(name=name, command=command, category=category)
-
-    move = build_move(name, _to_shorthand(command), report, character, category)
+    move = build_move(name, _to_shorthand(command), report, character, category, follows=parent)
     if move.motion is None:
         return replace(move, command=command)
     buttons = narrow_buttons(move.motion.buttons, PANEL_PUNCHES, PANEL_KICKS)

@@ -89,12 +89,38 @@
     {
      "name": "128 Shiki Kono Kizu",
      "command": "114 Shiki Aragami, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "114 Shiki Aragami, d, df, f + P"
+     },
+     "follows": "114 Shiki Aragami"
     },
     {
      "name": "127 Shiki Yano Sabi",
      "command": "114 Shiki Aragami, f, df, d, db, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "114 Shiki Aragami, f, df, d, db, b + P"
+     },
+     "follows": "114 Shiki Aragami"
     },
     {
      "name": "125 Shiki Nana Se",
@@ -104,7 +130,20 @@
     {
      "name": "Ge Shiki Migiri Ugachi",
      "command": "127 Shiki Yano Sabi, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "127 Shiki Yano Sabi, P"
+     },
+     "follows": "127 Shiki Yano Sabi"
     },
     {
      "name": "115 Shiki Doku Kami",
@@ -130,7 +169,21 @@
     {
      "name": "402 Shiki Batu Yomi",
      "command": "401 Shiki Tumi Yomi, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "401 Shiki Tumi Yomi, f + P"
+     },
+     "follows": "401 Shiki Tumi Yomi"
     },
     {
      "name": "100 Shiki Oniyaki",
@@ -1004,7 +1057,20 @@
     {
      "name": "Gadankou",
      "command": "Zaneiken, d, df, f+P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Zaneiken, d, df, f+P"
+     },
+     "follows": "Zaneiken"
     },
     {
      "name": "Hishouken",
@@ -1095,12 +1161,38 @@
     {
      "name": "Shimo Agito",
      "command": "Genei Shiranui, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Genei Shiranui, P"
+     },
+     "follows": "Genei Shiranui"
     },
     {
      "name": "Uwa Agito",
      "command": "Genei Shiranui, K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Genei Shiranui, K"
+     },
+     "follows": "Genei Shiranui"
     },
     {
      "name": "Chou Reppadan",
@@ -1224,7 +1316,20 @@
     {
      "name": "Finish",
      "command": "Bakuretsu, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Bakuretsu, d, df, f + P"
+     },
+     "follows": "Bakuretsu"
     },
     {
      "name": "Tiger Kick",
@@ -1779,7 +1884,20 @@
     {
      "name": "Double Chou Upper",
      "command": "Strong Chou Upper, f, d, df + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Strong Chou Upper, f, d, df + P"
+     },
+     "follows": "Chou Upper"
     },
     {
      "name": "Raiou Ken",
@@ -2642,7 +2760,20 @@
     {
      "name": "Crystal Shoot",
      "command": "either Shining Crystal Bit, d, db, b + P",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "either Shining Crystal Bit, d, db, b + P"
+     },
+     "follows": "Shining Crystal Bit"
     },
     {
      "name": "Phoenix Fang Arrow",
@@ -2972,7 +3103,21 @@
     {
      "name": "Chou Shuuriku Gyo",
      "command": "Suikan Kanou, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Suikan Kanou, f + P"
+     },
+     "follows": "Suikan Kanou"
     },
     {
      "name": "BogetsuSui",
@@ -2982,12 +3127,38 @@
     {
      "name": "RouJu Hanhou",
      "command": "BogetsuSui, u + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 8,
+      "notation": "BogetsuSui, u + B"
+     },
+     "follows": "BogetsuSui"
     },
     {
      "name": "Rigyu Hanhou",
      "command": "BogetsuSui, u + D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 8,
+      "notation": "BogetsuSui, u + D"
+     },
+     "follows": "BogetsuSui"
     },
     {
      "name": "Kisuishu",
@@ -3147,7 +3318,8 @@
     {
      "name": "Tenzui",
      "command": "212 Katsu Shinsoku no Norito, d, db, b + same button as earlier",
-     "category": "special"
+     "category": "special",
+     "follows": "212 Katsu Shinsoku no Norito"
     },
     {
      "name": "108 Katsu Tamayura no Shitsune",
@@ -3691,7 +3863,20 @@
     {
      "name": "Oiuchi",
      "command": "Strong Hien Zan, d + D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 2,
+      "notation": "Strong Hien Zan, d + D"
+     },
+     "follows": "Hien Zan"
     },
     {
      "name": "Hishou Kyaku",
@@ -4130,7 +4315,20 @@
     {
      "name": "Kishuu Hien Tsuki",
      "command": "Kaiten Hienzan, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Kaiten Hienzan, P"
+     },
+     "follows": "Kaiten Hienzan"
     },
     {
      "name": "Shin! Chouzetsu Tatsumaki Shinkuu Zan",
@@ -4271,7 +4469,20 @@
     {
      "name": "Still",
      "command": "Jet Counter, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Jet Counter, d, df, f + P"
+     },
+     "follows": "Jet Counter"
     },
     {
      "name": "Mighty Missile Bash",
@@ -5046,7 +5257,20 @@
     {
      "name": "Crab Clutch",
      "command": "Straight Slicer, d, df, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Straight Slicer, d, df, f + K"
+     },
+     "follows": "Straight Slicer"
     },
     {
      "name": "Vertical Arrow",
@@ -5275,7 +5499,20 @@
     {
      "name": "Kaen",
      "command": "Sansetsu Kon Chuudan Uchi, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Sansetsu Kon Chuudan Uchi, d, df, f + P"
+     },
+     "follows": "Sansetsu Kon Chuudan Uchi"
     },
     {
      "name": "Senpuu Kon",
@@ -5826,7 +6063,20 @@
     {
      "name": "Mithan's Robe",
      "command": "Mayhem or Blackend, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Mayhem or Blackend, d, df, f + P"
+     },
+     "follows": "Mayhem"
     },
     {
      "name": "Gore Fest",
@@ -6823,27 +7073,68 @@
     {
      "name": "Double Hammer",
      "command": "Brian Hammer, d, db, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Brian Hammer, d, db, b + P"
+     },
+     "follows": "Brian Hammer"
     },
     {
      "name": "DDT",
      "command": "Double Hammer, d, db, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Double Hammer, d, db, b + P"
+     },
+     "follows": "Double Hammer"
     },
     {
      "name": "Tiger Driver",
      "command": "Brian Hammer, b, db, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Brian Hammer, b, db, d, df, f + P"
+     },
+     "follows": "Brian Hammer"
     },
     {
      "name": "Samurai Bomb",
      "command": "Tiger Driver, d, d + P",
-     "category": "special"
+     "category": "special",
+     "follows": "Tiger Driver"
     },
     {
      "name": "Shoulder Backbreaker",
      "command": "Tiger Driver, d, d, d + P",
-     "category": "special"
+     "category": "special",
+     "follows": "Tiger Driver"
     },
     {
      "name": "Buster Bomb",

@@ -26,6 +26,10 @@ class Move:
     ``super_art`` is 3rd Strike's ``I`` / ``II`` / ``III``: you equip one Super
     Art before the match, so only the moves carrying the selected numeral are
     live. Empty everywhere else, where every super is always available.
+
+    ``follows`` names the move this one continues, for the chains a guide
+    writes as a string off a parent. It is the parent's ``name`` exactly, so a
+    character's moves are the whole chain graph on their own.
     """
 
     name: str
@@ -34,10 +38,15 @@ class Move:
     motion: MotionSpec | None = None
     super_art: str = ""
     notes: str = ""
+    follows: str = ""
 
     @property
     def trainable(self) -> bool:
-        """Whether the engine can recognise this move."""
+        """Whether the engine can recognise this move.
+
+        A chain move counts: doing its parent first is part of the input, not a
+        reason the trainer cannot read it.
+        """
         return self.motion is not None
 
     def to_dict(self) -> dict[str, object]:
@@ -47,6 +56,8 @@ class Move:
             data["motion"] = self.motion.to_dict()
         if self.super_art:
             data["super_art"] = self.super_art
+        if self.follows:
+            data["follows"] = self.follows
         if self.notes:
             data["notes"] = self.notes
         return data
@@ -62,6 +73,7 @@ class Move:
             motion=MotionSpec.from_dict(motion) if motion else None,  # ty: ignore[invalid-argument-type]
             super_art=str(raw.get("super_art", "")),
             notes=str(raw.get("notes", "")),
+            follows=str(raw.get("follows", "")),
         )
 
 

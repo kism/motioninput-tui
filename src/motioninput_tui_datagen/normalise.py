@@ -179,8 +179,15 @@ class ParsedCommand:
         self.reason = reason
 
 
-def parse_command(command: str) -> ParsedCommand:
-    """Normalise a move list command into a :class:`MotionSpec`."""
+def parse_command(command: str, *, chained: bool = False) -> ParsedCommand:
+    """Normalise a move list command into a :class:`MotionSpec`.
+
+    ``chained`` says the move follows on from another, which is what makes a
+    bare button an input worth recognising: a chain link is small precisely
+    because its parent did the work. Everywhere else a lone button with no
+    direction is an ordinary normal, and matching one would make every move
+    list a list of things you get by pressing a button.
+    """
     raw = _OPTIONAL_TAIL.sub("", command.strip().lower())
     if not raw:
         return ParsedCommand(None, "empty")
@@ -194,7 +201,7 @@ def parse_command(command: str) -> ParsedCommand:
     if buttons is None:
         return ParsedCommand(None, "no button requirement found")
 
-    kind, hold, reason = _classify(raw, text, buttons)
+    kind, hold, reason = _classify(raw, text, buttons, chained=chained)
     if kind is None:
         return ParsedCommand(None, reason)
     mash, rhythm, mash_button = _follow_through(raw, kind, buttons)
@@ -260,14 +267,16 @@ def _is_button_chain(text: str) -> bool:
     return any(earlier and later for earlier, later in pairwise(presses))
 
 
-def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKind | None, Direction | None, str]:
+def _classify(
+    raw: str, text: str, buttons: ButtonRequirement, *, chained: bool = False
+) -> tuple[MotionKind | None, Direction | None, str]:
     """Pick the motion kind for a command whose button requirement is already known."""
     # A 360 that ends in mashing is still a 360, so rotations are checked first.
     rotation = _parse_rotation(text)
     if rotation is not None:
         return rotation, None, ""
 
-    kind, hold, reason = _resolve_directions(raw, text, buttons)
+    kind, hold, reason = _resolve_directions(raw, text, buttons, chained=chained)
     if kind is not None:
         return kind, hold, ""
 
@@ -280,7 +289,7 @@ def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKi
 
 
 def _resolve_directions(
-    raw: str, text: str, buttons: ButtonRequirement
+    raw: str, text: str, buttons: ButtonRequirement, *, chained: bool = False
 ) -> tuple[MotionKind | None, Direction | None, str]:
     """Turn the direction tokens of a command into a motion kind."""
     # "Charge Back for 2 secs, Forward" never says the word charge in Hyper SF2.
@@ -288,7 +297,7 @@ def _resolve_directions(
     tokens = _direction_tokens(text)
 
     if not tokens:
-        if buttons.count < MULTI_BUTTON:
+        if buttons.count < MULTI_BUTTON and not chained:
             return None, None, "no directional or multi-button requirement"
         return MotionKind.ANY, None, ""
 

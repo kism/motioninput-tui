@@ -23,14 +23,27 @@ shortcut exists. 3rd Strike's figures come from a decompilation of the game
 rather than from feel; see [Third Strike, from the decompiled
 game](sfiii3-from-the-decomp.md).
 
-Not every listed move is trainable. The Street Fighter rosters run 79-89%; the
-SNK ones are lower — 52% for Samurai Shodown II — because those guides lean on
-command throws written "b or f + button", which say nothing about which way to
-hold, and on long follow-up chains. Martial Masters sits at 76% for a different
-reason: most of each move list is chains off a move that has to connect first.
-The rest still appear in the move list, struck through. The five SNK games are
-on the Neo Geo's four-button panel, and each means something different by it,
-which the game's own note explains when you highlight it.
+Not every listed move is trainable. The rosters run 52-89%; Samurai Shodown II
+is the low one, because that guide leans on command throws written "b or f +
+button", which say nothing about which way to hold. The rest still appear in the
+move list, struck through. The five SNK games are on the Neo Geo's four-button
+panel, and each means something different by it, which the game's own note
+explains when you highlight it.
+
+### Chains
+
+A guide often lists a move underneath the one it comes out of — Master Huang's
+Heavy Axe after his Whirlwind Kick, Kyo's Aragami string — and those links are
+marked ↳ in the move list. A link is only live for a moment after its parent
+comes out, which is what lets two of a character's moves share one motion: with
+nothing open, `qcf + K` is Master Huang's Grasshopper; straight out of his
+Whirlwind Kick, the same input is the Heavy Axe.
+
+The real games gate a link on the parent *connecting*. The trainer has no
+opponent, so it takes the parent coming out as the hit landing, and opens the
+window from there. King of Fighters '98 and 2001 and Martial Masters are wired
+up; elsewhere the guides describe the link in prose the parsers cannot follow,
+so those stay struck through.
 
 ## Run
 

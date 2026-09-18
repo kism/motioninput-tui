@@ -187,6 +187,9 @@ KOF98 = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # KoF's rekka strings: the next hit is buffered during the one before,
+        # so the window is generous. Reckoned, like the rest of this ruleset.
+        chain_window_ms=700,
     ),
     notes=(
         "Neo Geo four-button panel: A and B are the light punch and kick, C and D the heavy pair.",
@@ -194,6 +197,7 @@ KOF98 = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df, and holding down then tapping forward gives nothing.",
         "Negative edge exists, so releasing a button can complete a special.",
         "Charge moves want most of a second in the held direction.",
+        "The rekka strings chain: land the first and the next one opens for a moment.",
     ),
     reference="references/kof98.txt",
     buttons=NEO_GEO,
@@ -221,6 +225,9 @@ KOF2001 = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # KoF's rekka strings: the next hit is buffered during the one before,
+        # so the window is generous. Reckoned, like the rest of this ruleset.
+        chain_window_ms=700,
     ),
     notes=(
         "Neo Geo four-button panel: A and B are the light punch and kick, C and D the heavy pair.",
@@ -228,6 +235,7 @@ KOF2001 = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df, and holding down then tapping forward gives nothing.",
         "Charge moves want a little less than KoF '98 asks for.",
         "The guide is written in numpad notation, so the move list here is the translation of it.",
+        "The rekka strings chain: land the first and the next one opens for a moment.",
     ),
     reference="references/kof2001.txt",
     buttons=NEO_GEO,
@@ -444,13 +452,19 @@ MARTMAST = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # Long enough to roll a deliberate quarter circle out of the move
+        # before, short enough that the string does not outlive the animation
+        # it belongs to. Most of this roster is chains, so this is the field
+        # that matters most here.
+        chain_window_ms=700,
     ),
     notes=(
         "Four buttons: light and heavy punch, with the two kicks beneath them.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "Nobody in this roster charges or turns a circle, so every special is a plain motion.",
         "The Shadow Moves cost a super stock, which the trainer does not model - only the input.",
-        "Much of each move list is follow-up chains off a move that connected, so those are struck through.",
+        "Most of each move list is chains: land the move above and the next one opens for a moment.",
+        "The trainer has no opponent, so it takes the parent coming out as the hit landing.",
     ),
     reference="references/martmast.txt",
     buttons=SNES_FIGHTER,

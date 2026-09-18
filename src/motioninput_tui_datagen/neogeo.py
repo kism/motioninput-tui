@@ -19,7 +19,10 @@ from typing import TYPE_CHECKING
 from motioninput_tui.engine.notation import ALL_BUTTONS, KICKS, PUNCHES, Button, ButtonRequirement
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from motioninput_tui.engine.motions import MotionSpec
+    from motioninput_tui.games.models import Move as MoveName
 
 NEO_PUNCHES = frozenset({Button.A, Button.C})
 NEO_KICKS = frozenset({Button.B, Button.D})
@@ -110,6 +113,32 @@ def _buttons(match: re.Match[str]) -> str:
     """One button clause, as the alternation ``normalise`` reads."""
     options = re.split(r"\s+or\s+", match.group(1))
     return "+ " + " / ".join(" + ".join(TO_SHORTHAND[letter] for letter in option) for option in options)
+
+
+_EITHER = re.compile(r"^\s*(?:either|after)\s+", re.IGNORECASE)
+"""How the guides sometimes open a chain link: "either Shining Crystal Bit, ..."."""
+
+
+def split_parent(command: str, so_far: Sequence[MoveName]) -> tuple[str, str]:
+    """A chain link's parent and its own command, or ``("", "")``.
+
+    Both guides write a link as the move it continues, a comma, then the input
+    for this half: ``114 Shiki Aragami, d, df, f + P``. The head is only taken
+    as a parent when it names a move the character already has - otherwise it
+    is prose this cannot model, and the move stays struck through as before
+    rather than gaining a link to nothing.
+
+    The longest matching name wins, so ``Strong Hien Zan`` finds ``Hien Zan``
+    rather than stopping at a shorter move whose name is inside it.
+    """
+    head, comma, tail = command.partition(",")
+    if not comma or not tail.strip():
+        return "", ""
+    head = _EITHER.sub("", head).strip()
+    named = [move.name for move in so_far if move.name and move.name in head]
+    if not named:
+        return "", ""
+    return max(named, key=len), tail.strip()
 
 
 def unmodelled(command: str) -> str:

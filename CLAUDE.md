@@ -396,6 +396,38 @@ is played anyway and captioned with what the trainer gives instead. The
 session is built as a keyboard layout even on a pad, or it opens a second
 reader onto the real one.
 
+### Chains
+
+A move a guide lists *under* another comes out of it: Master Huang's Heavy Axe
+off his Whirlwind Kick, Kyo's Aragami string. `Move.follows` carries the
+parent's name, and that is the whole data model - a character's moves are their
+own chain graph.
+
+`Recognizer.__post_init__` keeps a move with a `follows` **out of `_ranked`**,
+so it is not matchable at all until its parent fires; `_open_chain` then puts
+its siblings in front of the ranking for `Ruleset.chain_window_ms`, and a move
+with nothing after it closes whatever was open. This ordering is the point: a
+link's motion is usually one the character already has, so `qcf + K` is
+Grasshopper normally and Heavy Axe out of a Whirlwind Kick. A game with no
+`chain_window_ms` builds no chains, and its links stay unreachable rather than
+falling back to matching on their own - that fallback would hand out a second
+move on one motion, which is the bug the whole mechanism exists to avoid.
+
+The games gate a link on the parent *connecting*. There is no opponent here, so
+the parent activating stands in for the hit. Say so when it matters; it is the
+one place the trainer models something it cannot observe.
+
+Only guides that name the parent are wired: Martial Masters by the indent under
+it, KoF '98 and 2001 by the name at the head of the command (`114 Shiki
+Aragami, d, df, f + P`, split by `neogeo.split_parent`). A parent is only
+accepted when it matches a move the character already has, so a guide's prose
+never invents a link to nothing - `tests/test_chains.py` holds that, along with
+"a link is never in `_ranked`" over every roster.
+
+A chain link may be a bare button (`Final Kick: LK`), which `normalise` refuses
+everywhere else because a lone button is an ordinary normal. `parse_command`'s
+`chained` flag is what allows it, and it is set from `follows`.
+
 ### One Super Art at a time
 
 3rd Strike equips one Super Art of three, and 18 of its 20 characters have two

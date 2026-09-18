@@ -44,6 +44,11 @@ def print_summary() -> int:
             moves - trainable,
         )
         logger.info("  by category: %s", ", ".join(f"{name} {count}" for name, count in categories.most_common()))
+        chained = sum(1 for character in characters for move in character.moves if move.follows)
+        if chained:
+            # Trainable, but only out of the move they follow, so worth saying
+            # apart from the ones a motion brings out on its own.
+            logger.info("  %d of them chain off another move", chained)
         for character in characters:
             count = len(character.moves)
             trained = len(character.trainable_moves)

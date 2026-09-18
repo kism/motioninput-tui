@@ -224,7 +224,21 @@
     {
      "name": "Air Axe Kick",
      "command": "d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d + K"
+     },
+     "follows": "Grasshopper"
     },
     {
      "name": "Drill Kick",
@@ -262,6 +276,25 @@
      }
     },
     {
+     "name": "Air Axe Kick",
+     "command": "d + K",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d + K"
+     },
+     "follows": "Nimble Knee"
+    },
+    {
      "name": "Whirlwind Kick",
      "command": "qcb + K",
      "category": "special",
@@ -281,17 +314,55 @@
     {
      "name": "Heavy Axe",
      "command": "qcf + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Whirlwind Kick"
     },
     {
      "name": "High Kicks",
      "command": "qcb + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     },
+     "follows": "Heavy Axe"
     },
     {
      "name": "Final Kick",
      "command": "LK",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "LK"
+     },
+     "follows": "High Kicks"
     },
     {
      "name": "Dragon Kick",
@@ -313,7 +384,20 @@
     {
      "name": "Drill Kick",
      "command": "hcf + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     },
+     "follows": "Dragon Kick"
     },
     {
      "name": "Nimble Whirlwind",
@@ -563,7 +647,20 @@
     {
      "name": "Drunken Smash",
      "command": "cancel into hcf + LP version or perform hcf + HP without canceling",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP/HP"
+      },
+      "notation": "cancel into hcf + LP version or perform hcf + HP without canceling"
+     },
+     "follows": "Stagger Top"
     },
     {
      "name": "Forward Roll",
@@ -585,7 +682,20 @@
     {
      "name": "Crushing Forearm",
      "command": "P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Forward Roll"
     },
     {
      "name": "Butterfly Strike",
@@ -624,7 +734,20 @@
     {
      "name": "Drunken Slide",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Rotating Kick"
     },
     {
      "name": "Sake Spit",
@@ -903,7 +1026,20 @@
     {
      "name": "Hang Kick",
      "command": "qcf + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Predator Crash"
     },
     {
      "name": "Predator Crash Fake",
@@ -942,7 +1078,20 @@
     {
      "name": "Trap Kick",
      "command": "qcf + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Desert Crawl"
     },
     {
      "name": "Death Roll",
@@ -964,7 +1113,21 @@
     {
      "name": "Venomous Kick",
      "command": "f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "f + K"
+     },
+     "follows": "Death Roll"
     },
     {
      "name": "Arc Dropkick",
@@ -986,7 +1149,19 @@
     {
      "name": "Captured Prey",
      "command": "qcf + LK",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "qcf + LK"
+     },
+     "follows": "Arc Dropkick"
     },
     {
      "name": "Ruthless Kicks",
@@ -1232,12 +1407,38 @@
     {
      "name": "Closing Wing",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Spread Wing"
     },
     {
      "name": "Final Wing",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Closing Wing"
     },
     {
      "name": "Majestic Flight",
@@ -1259,7 +1460,21 @@
     {
      "name": "Landing",
      "command": "d + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "d + P"
+     },
+     "follows": "Majestic Flight"
     },
     {
      "name": "Sneaky Dart",
@@ -1570,7 +1785,20 @@
     {
      "name": "Finish",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Ravenous Fang"
     },
     {
      "name": "Viper Blade",
@@ -1591,12 +1819,40 @@
     {
      "name": "Hopping Spike",
      "command": "u + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 8,
+      "notation": "u + P"
+     },
+     "follows": "Viper Blade"
     },
     {
      "name": "Sneaky Trip",
      "command": "d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d + K"
+     },
+     "follows": "Viper Blade"
     },
     {
      "name": "Viper Rush",
@@ -1634,7 +1890,20 @@
     {
      "name": "Final Strike",
      "command": "qcb + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Slither And Strike"
     },
     {
      "name": "Scissor Takedown",
@@ -1964,7 +2233,20 @@
     {
      "name": "Riot Flash",
      "command": "f, d, df + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     },
+     "follows": "Violent Kicks"
     },
     {
      "name": "Supreme Crash",
@@ -2341,7 +2623,20 @@
     {
      "name": "Low Slider",
      "command": "qcb + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Sneaky Strike"
     },
     {
      "name": "Tree Climb Kick",
@@ -2380,12 +2675,38 @@
     {
      "name": "Second Swing Kick",
      "command": "qcb + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     },
+     "follows": "Swing Kick"
     },
     {
      "name": "Side Kick",
      "command": "qcb + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     },
+     "follows": "Second Swing Kick"
     },
     {
      "name": "Monkey Stomp",
@@ -2697,17 +3018,57 @@
     {
      "name": "Second Elbow",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Roaring Elbow"
     },
     {
      "name": "Driving Fist",
      "command": "f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "f + P"
+     },
+     "follows": "Second Elbow"
     },
     {
      "name": "Claw Uppercut",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Second Elbow"
     },
     {
      "name": "Capture Claw",
@@ -2746,7 +3107,20 @@
     {
      "name": "Shoulder Launch",
      "command": "f + HP",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     },
+     "follows": "Hide Rush"
     },
     {
      "name": "Hide Launcher",
@@ -2768,7 +3142,20 @@
     {
      "name": "Driving Back",
      "command": "qcf + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Hide Launcher"
     },
     {
      "name": "Backflip",
@@ -2790,7 +3177,20 @@
     {
      "name": "Pounce",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Backflip"
     },
     {
      "name": "Pouncing Hide",
@@ -3057,17 +3457,57 @@
     {
      "name": "Spirit Strike",
      "command": "P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Spirit Charge"
     },
     {
      "name": "Spirit Chop",
      "command": "f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "f + P"
+     },
+     "follows": "Spirit Strike"
     },
     {
      "name": "Punt Kick",
      "command": "f, d, df + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     },
+     "follows": "Spirit Chop"
     },
     {
      "name": "Heart Punch",
@@ -3390,7 +3830,20 @@
     {
      "name": "Iron Palms",
      "command": "qcb + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Pressure Elbow"
     },
     {
      "name": "Opening Fan",
@@ -3725,17 +4178,56 @@
     {
      "name": "Reaping Claw",
      "command": "qcb + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Pouncing Claw"
     },
     {
      "name": "Sky Slash",
      "command": "qcf + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Reaping Claw"
     },
     {
      "name": "Air Double Claw",
      "command": "P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Sky Slash"
     },
     {
      "name": "Lotus Catch",

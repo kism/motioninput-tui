@@ -71,23 +71,37 @@ def categorise(move_name: str, kind: MotionKind | None, button_count: int) -> st
     return Category.THROW if named_throw else Category.SPECIAL
 
 
-def build_move(name: str, command: str, report: ParseReport, character: str, category: str | None = None) -> Move:
-    """Normalise one move list entry."""
-    parsed = parse_command(command)
+def build_move(  # ruff: ignore[too-many-arguments] - the fields of one move row, and folding them into a struct would touch every parser
+    name: str,
+    command: str,
+    report: ParseReport,
+    character: str,
+    category: str | None = None,
+    *,
+    follows: str = "",
+) -> Move:
+    """Normalise one move list entry.
+
+    ``follows`` names the move this one chains from, and is also what tells
+    :func:`parse_command` that a bare button is a real input here.
+    """
+    parsed = parse_command(command, chained=bool(follows))
     if parsed.motion is None:
         report.note(character, name, parsed.reason)
         resolved = category or Category.OTHER
     else:
         resolved = category or categorise(name, parsed.motion.kind, parsed.motion.buttons.count)
-    return Move(name=name, command=command, category=resolved, motion=parsed.motion)
+    return Move(name=name, command=command, category=resolved, motion=parsed.motion, follows=follows)
 
 
 def _dedupe(moves: list[Move]) -> list[Move]:
     """Drop repeats. Alpha 3 lists per-ISM variants of the same move."""
-    seen: set[tuple[str, str]] = set()
+    seen: set[tuple[str, str, str]] = set()
     unique = []
     for move in moves:
-        signature = (move.name, move.motion.kind if move.motion else move.command)
+        # The parent is part of the signature: a guide can hang the same
+        # follow-up off two different parents, and those are two moves.
+        signature = (move.name, move.motion.kind if move.motion else move.command, move.follows)
         if signature in seen:
             continue
         seen.add(signature)

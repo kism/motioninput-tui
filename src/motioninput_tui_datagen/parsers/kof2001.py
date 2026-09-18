@@ -42,7 +42,7 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.games.models import Category, Move
 from motioninput_tui_datagen.common import ParseReport, build_move, finish_character
-from motioninput_tui_datagen.neogeo import to_neo_panel, to_shorthand, unmodelled
+from motioninput_tui_datagen.neogeo import split_parent, to_neo_panel, to_shorthand, unmodelled
 
 if TYPE_CHECKING:
     from motioninput_tui.games.models import Character
@@ -154,13 +154,16 @@ class _Roster:
         name, command = name.strip(), command.strip()
         if not name or not command:
             return None
-        reason = unmodelled(command)
+        parent, own = split_parent(command, self.moves)
+        reason = unmodelled(own if parent else command)
         if reason:
             # Kept in the list under its own heading, struck through, rather
             # than reduced to whatever motion happens to be inside it.
             self.report.note(self.name, name, reason)
-            return Move(name=name, command=command, category=self.category)
-        move = build_move(name, to_shorthand(command), self.report, self.name, category=self.category)
+            return Move(name=name, command=command, category=self.category, follows=parent)
+        move = build_move(
+            name, to_shorthand(own or command), self.report, self.name, category=self.category, follows=parent
+        )
         if move.motion is None:
             return replace(move, command=command)
         return replace(move, command=command, motion=to_neo_panel(move.motion, command))

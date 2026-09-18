@@ -8,9 +8,15 @@ tap. SNK has never had that shortcut, so here it gives nothing at all.
 """
 
 from tests.engine.test_motions.harness import (
+    DOWN,
     DOWN_DOUBLE_TAP_FORWARD_HP,
+    FORWARD,
+    NEO_A,
+    NEO_B,
     QUARTER_BACK_INTO_HALF_FORWARD_HP,
     QUARTER_CIRCLE_FORWARD_HP,
+    press,
+    release,
 )
 
 
@@ -29,18 +35,51 @@ def test_a_quarter_circle_back_rolled_into_a_half_circle_forward_is_orochi_nagi(
     assert play(QUARTER_BACK_INTO_HALF_FORWARD_HP).moves == ["Ura 108 Shiki: Orochinagi(DM)"]
 
 
-def test_a_follow_up_is_listed_but_not_trainable(play) -> None:
+def test_a_rekka_link_knows_the_move_it_comes_out_of(play) -> None:
     """This guide writes a chain by naming the move it comes out of.
 
-    `128 Shiki Kono Kizu: 114 Shiki Aragami, d, df, f + P` still has a quarter
-    circle in it, so it has to be rejected on the prose rather than the motion,
-    or Kyo would have two fireballs on one input.
+    `128 Shiki Kono Kizu: 114 Shiki Aragami, d, df, f + P` is the head of the
+    string, a comma, then this link's own input. The name in front is what
+    makes it a chain rather than a second fireball on one motion.
     """
     moves = {move.name: move for move in play([]).session.character.moves}
 
-    assert not moves["128 Shiki Kono Kizu"].trainable, "a rekka link is not a motion of its own"
-    assert not moves["402 Shiki Batu Yomi"].trainable, "nor is the link after that one"
-    # The move the chain starts from, and the plain motions around it, are unaffected.
-    assert moves["114 Shiki Aragami"].trainable
+    assert moves["128 Shiki Kono Kizu"].follows == "114 Shiki Aragami"
+    # The move the chain starts from, and the plain motions around it, stand alone.
+    assert not moves["114 Shiki Aragami"].follows
     assert moves["115 Shiki Domu Kami"].trainable
     assert moves["R.E.D. Kick"].trainable
+
+
+def test_the_rekka_link_only_comes_out_after_its_parent(play) -> None:
+    """The link is a quarter circle and so is the fireball above it. Which one
+    you get is decided by whether the string is open."""
+    assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["115 Shiki Domu Kami"]
+
+    assert play([*_qcf(0, NEO_A), *_clear(200), *_qcf(260, NEO_A)]).moves == [
+        "114 Shiki Aragami",
+        "128 Shiki Kono Kizu",
+    ]
+
+
+def test_the_string_runs_two_links_deep(play) -> None:
+    """Kyo's rekka is a tree: Aragami into Kono Kizu, and out of that either a
+    kick or a punch. The last link is a bare button, which is an input only
+    because two moves have already opened the way to it."""
+    script = [*_qcf(0, NEO_A), *_clear(200), *_qcf(260, NEO_A), *_clear(460), press(NEO_B, 520)]
+    assert play(script).moves == ["114 Shiki Aragami", "128 Shiki Kono Kizu", "125 Shiki Nana Se"]
+
+
+def test_the_bare_button_link_is_nothing_on_its_own(play) -> None:
+    """The same press with no string open. A lone kick is a normal, and the
+    trainer does not read those."""
+    assert play([press(NEO_B, 0)]).moves == []
+
+
+def _qcf(at_ms: int, key: str) -> list:
+    return [press(DOWN, at_ms), press(FORWARD, at_ms + 60), release(DOWN, at_ms + 100), press(key, at_ms + 140)]
+
+
+def _clear(at_ms: int) -> list:
+    """Let go of everything, so the next motion starts from neutral."""
+    return [release(FORWARD, at_ms), release(NEO_A, at_ms), release(NEO_B, at_ms)]
