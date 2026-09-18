@@ -424,6 +424,11 @@ class Notation:
         buttons = spec.buttons.label
         if spec.kind is MotionKind.MASH:
             return f"mash {buttons}"
+        if spec.kind is MotionKind.SEQUENCE:
+            # Joined by commas, not a plus: the whole point of a run is that the
+            # presses come one after another rather than together.
+            text = ", ".join([*(self._sequence_step(step) for step in spec.sequence), self._held(spec) + buttons])
+            return f"{text} (air)" if spec.air else text
         motion = self._motion(spec)
         text = f"{motion} + {buttons}" if motion else buttons
         if spec.air:
@@ -454,6 +459,9 @@ class Notation:
             return "" if spec.hold is None else self.directions((spec.hold,))
         if spec.kind is MotionKind.ANY:
             return ""
+        if spec.kind is MotionKind.DOUBLE_TAP:
+            written = "" if spec.hold is None else self.directions((spec.hold,))
+            return f"{written} {written}"
         if spec.kind is MotionKind.SEQUENCE:
             # Written out press by press, since that is all the move is. The
             # buttons are added by the caller, so the last step is left off.
@@ -469,10 +477,13 @@ class Notation:
 
     def _sequence_step(self, step: SequenceStep) -> str:
         """One press of a sequence: its buttons, and the direction held for it."""
-        written = step.buttons.label
         if step.direction is None:
-            return written
-        return f"{self.directions((step.direction,))}{written}"
+            return step.buttons.label
+        return f"{self.directions((step.direction,))}+{step.buttons.label}"
+
+    def _held(self, spec: MotionSpec) -> str:
+        """The direction held for a sequence's last press, ready to prefix it."""
+        return "" if spec.hold is None else f"{self.directions((spec.hold,))}+"
 
     def write_kind(self, kind: MotionKind) -> str:
         """A motion on its own, with no buttons, as the trainer's live readout names it."""

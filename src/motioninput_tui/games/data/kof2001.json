@@ -4919,18 +4919,55 @@
      "name": "Rolling Cradle",
      "command": "Mount Tackle, d, d + K",
      "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Mount Tackle, d, d + K"
+     },
      "follows": "Mount Tackle"
     },
     {
      "name": "Clark Lift",
      "command": "Mount Tackle, d, d + A",
      "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 2,
+      "notation": "Mount Tackle, d, d + A"
+     },
      "follows": "Mount Tackle"
     },
     {
      "name": "Super Lift*",
      "command": "Mount Tackle, d, d + C",
      "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "Mount Tackle, d, d + C"
+     },
      "follows": "Mount Tackle"
     },
     {
@@ -5348,7 +5385,20 @@
     {
      "name": "Haki Kyaku",
      "command": "d, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d, d + K"
+     }
     },
     {
      "name": "Kuusajin",
@@ -7902,7 +7952,20 @@
     {
      "name": "Suikan Kanou",
      "command": "d, d + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "d, d + P"
+     }
     },
     {
      "name": "Chou Shuuriku Gyo",
@@ -7995,7 +8058,20 @@
     {
      "name": "BogetsuSui",
      "command": "d, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d, d + K"
+     }
     },
     {
      "name": "RouJu Hanhou",
@@ -10137,7 +10213,20 @@
     {
      "name": "Crown Under Sky",
      "command": "f, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "f, f + P"
+     }
     },
     {
      "name": "Fullmoon Evening",
@@ -10159,7 +10248,20 @@
     {
      "name": "State Of Heat Haze",
      "command": "f, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "f, f + K"
+     }
     },
     {
      "name": "Ride Your Cycle",

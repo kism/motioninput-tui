@@ -45,6 +45,12 @@ NEO_A, NEO_B, NEO_C, NEO_D = "u", "i", "o", "p"
 SNES_LP, SNES_HP = "u", "i"
 SNES_LK, SNES_HK = "j", "k"
 
+# And under Tekken's, one button per limb: left and right punch on the top row,
+# left and right kick beneath. The panel is two wide, so the third key of each
+# row binds to nothing, which is why none of the shared scripts below fit it.
+TEKKEN_LP, TEKKEN_RP = "u", "i"
+TEKKEN_LK, TEKKEN_RK = "j", "k"
+
 TICK_MS = 8
 """How finely time is advanced between events, so hold expiry runs as it does live."""
 

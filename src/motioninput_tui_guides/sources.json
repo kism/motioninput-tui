@@ -90,6 +90,13 @@
       "url": "https://gamefaqs.gamespot.com/arcade/568092-martial-masters/faqs/69254",
       "credit": "FAQ by Goh_Billy",
       "sha256": "785e49fd88cdaa18fd17f5e402ad9f66017dd5cddf5b6fc2243311444cf49d92"
+    },
+    {
+      "key": "tekken3",
+      "name": "Tekken 3",
+      "url": "https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979",
+      "credit": "FAQ in Letter Notation by SurfBard",
+      "sha256": "d6134b2cea5885d6f4d453fb0c1acf95f957ddbfa8479e16de0eee094ac928c3"
     }
   ]
 }

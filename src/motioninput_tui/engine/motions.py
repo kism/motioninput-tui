@@ -38,6 +38,11 @@ class MotionKind(StrEnum):
     """The directional part of a move's command."""
 
     ANY = "any"
+    DOUBLE_TAP = "double_tap"
+    """One direction tapped twice - Tekken's dash and backdash, and the ``d,d``
+    a few SNK moves want. Which direction is in :attr:`MotionSpec.hold`, the
+    same field :attr:`HOLD` uses, so this is one kind rather than one per
+    direction."""
     HOLD = "hold"
     SEQUENCE = "sequence"
     """Buttons pressed one after another rather than together, each optionally
@@ -754,6 +759,9 @@ def _match_rotation(turns: int, buffer: InputBuffer, ruleset: Ruleset, at_ms: in
     return False
 
 
+DOUBLE_TAP_STEPS = 2
+"""How many separate spans of one direction a :attr:`MotionKind.DOUBLE_TAP` is."""
+
 THROW_DIRECTIONS = frozenset({Direction.BACK, Direction.FORWARD})
 """What :attr:`MotionKind.THROW` wants held. The cardinals only, as
 :func:`_hold_set` gives for either of them on its own."""
@@ -830,6 +838,24 @@ def _match_mash(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: 
     return _mash_hits(spec, buffer, ruleset, at_ms) >= ruleset.mash_count
 
 
+def _match_double_tap(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> bool:
+    """Whether the direction was tapped, let go and tapped again, recently.
+
+    Two separate spans of it, not one long hold: the buffer starts a new state
+    every time the lever changes, so holding forward the whole time is a single
+    span and is not a dash. Anything at all may sit between the two, which is
+    what lets a keyboard's neutral show up mid-dash without breaking it.
+    """
+    if spec.hold is None:
+        return False
+    wanted = _hold_set(spec.hold)
+    window = ruleset.motion_window_ms + ruleset.activation_window_ms
+    spans = [state for state in buffer.directions_since(at_ms - window) if state.direction in wanted]
+    if len(spans) < DOUBLE_TAP_STEPS:
+        return False
+    return at_ms - spans[-DOUBLE_TAP_STEPS].start_ms <= window
+
+
 def _match_sequence(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> bool:
     """Whether the run in front of this press is the one the move asks for.
 
@@ -889,6 +915,7 @@ _SIMPLE_MATCHERS: dict[MotionKind, Callable[[MotionSpec, InputBuffer, Ruleset, i
     MotionKind.HOLD: lambda spec, buffer, _ruleset, _at: _match_hold(spec.hold, buffer),
     MotionKind.THROW: lambda _spec, buffer, _ruleset, _at: buffer.current_direction() in THROW_DIRECTIONS,
     MotionKind.MASH: _match_mash,
+    MotionKind.DOUBLE_TAP: _match_double_tap,
     MotionKind.SEQUENCE: _match_sequence,
     MotionKind.ROTATE_360: lambda _spec, buffer, ruleset, at: _match_rotation(1, buffer, ruleset, at),
     MotionKind.ROTATE_720: lambda _spec, buffer, ruleset, at: _match_rotation(2, buffer, ruleset, at),

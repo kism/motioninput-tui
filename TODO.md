@@ -9,11 +9,15 @@ The rosters sit at 89% trainable overall, 76% (Sailor Moon S) to 95% (KoF '98).
 
 The same goes for `chain_window_ms` (700ms) and `sequence_window_ms` (1200ms), reckoned at one figure for every game that has them wired. Nothing has been measured. 3rd Strike carries both, which makes them the only two numbers in that game's ruleset not read off the decompilation — `docs/sfiii3-from-the-decomp.md` says so under "Still open".
 
-## Tekken 3
+## Tekken 3 stances
 
-No longer blocked. `MotionKind.SEQUENCE` handles a run of presses, each with whatever direction was held for it, so the combo structure this file used to call difficult is modelled: <https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979>. Its panel is defined already (`buttons.TEKKEN`, square and triangle over cross and circle) and reached by no game, which is what adding it would change.
+Tekken is in, at 76%. Two things it needs that no other game here does.
 
-Two things a Tekken parser will want that the sequence model does not have yet. A step is a press, so a direction with no button attaches to the press after it — Tekken writes `f,f,N,2`, where the `N` is a deliberate neutral between two forwards and no press belongs to it. And Tekken tells a held press (`2*`) from a tapped one, which is the same gap `normalise` already notes for `+ hold P`.
+265 of its move rows sit under a bare `-Grounded Position-`, `-Back Turned-`, `-Left Leg Forward-` style label, meaning they are only available from that stance. They are listed and trainable as the guide writes them, so the trainer gives them without the stance — struck through would cost about 19% of the roster, and a stance is entered by a move, so linking them as chains off whichever move enters it is the real fix. The labels do not name that move, which is why this is not already done.
+
+`f,n,d,df` (the crouch dash, 22 moves), `f,f,n`, `f,n` and `d,df` are motions with a deliberate neutral in them. `MotionKind.SEQUENCE` attaches a direction to the press after it, so a neutral with no press belonging to it has nowhere to go; these want direction-only steps.
+
+The guide also tells a held press from a tapped one, which is the same gap `normalise` notes for `+ hold P`.
 
 ## Chains in the remaining guides
 

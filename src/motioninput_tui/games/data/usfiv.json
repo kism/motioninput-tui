@@ -710,6 +710,20 @@
      "name": "Demon Armaggedon",
      "command": "u,u + KKK [AB]",
      "category": "super",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "hold": 8,
+      "notation": "u,u + KKK [AB]"
+     },
      "super_art": "II"
     }
    ]
@@ -6058,7 +6072,19 @@
     {
      "name": "Leap Attack",
      "command": "d,d + MK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 2,
+      "notation": "d,d + MK"
+     }
     },
     {
      "name": "Hammer Mountain",
@@ -10505,7 +10531,20 @@
     {
      "name": "Kuuchuu Headbutt",
      "command": "Jump up, u + MP / HP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP/HP"
+      },
+      "hold": 8,
+      "notation": "Jump up, u + MP / HP"
+     }
     },
     {
      "name": "Long Kick",

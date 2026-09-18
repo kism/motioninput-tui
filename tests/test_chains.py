@@ -11,7 +11,18 @@ from motioninput_tui.engine.recognizer import Recognizer
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.rulesets import GAME_SPECS
 
-CHAINED_GAMES = ("kof98", "kof2001", "lastbld2", "martmast", "samsho2", "sfa3", "sfiii3", "usfiv")
+CHAINED_GAMES = (
+    "kof98",
+    "kof2001",
+    "lastbld2",
+    "martmast",
+    "samsh5sp",
+    "samsho2",
+    "sfa3",
+    "sfiii3",
+    "tekken3",
+    "usfiv",
+)
 """The rosters whose guides say which move a link comes out of. The rest write
 it in prose the parsers cannot follow, so their links stay struck through."""
 
@@ -68,7 +79,7 @@ def test_a_game_without_a_window_has_no_chains(key: str) -> None:
 
 def test_a_chain_does_not_loop() -> None:
     """A link that leads back to its own parent would keep itself open forever."""
-    for key in CHAINED_GAMES:
+    for key in GAME_SPECS:
         for character in load_game(key).characters:
             parents = {move.name: move.follows for move in character.moves if move.follows}
             for name, first in parents.items():

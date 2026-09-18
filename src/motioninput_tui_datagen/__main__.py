@@ -19,7 +19,20 @@ from motioninput_tui.utils.logger import setup_logger_cli
 
 from .commands import apply_command_overrides
 from .names import apply_overrides
-from .parsers import hsf2, kof98, kof2001, lastbld2, martmast, sailormoons, samsh5sp, samsho2, sfa3, sfiii3, usfiv
+from .parsers import (
+    hsf2,
+    kof98,
+    kof2001,
+    lastbld2,
+    martmast,
+    sailormoons,
+    samsh5sp,
+    samsho2,
+    sfa3,
+    sfiii3,
+    tekken3,
+    usfiv,
+)
 from .roster import write_game
 from .summary import print_summary
 
@@ -36,6 +49,7 @@ PARSERS = {
     "sailormoons": sailormoons.parse,
     "samsho2": samsho2.parse,
     "samsh5sp": samsh5sp.parse,
+    "tekken3": tekken3.parse,
     "usfiv": usfiv.parse,
 }
 

@@ -1054,7 +1054,19 @@
     {
      "name": "Shougi Doushi",
      "command": "df, df + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 3,
+      "notation": "df, df + C"
+     }
     },
     {
      "name": "Ibisha Anaguma",

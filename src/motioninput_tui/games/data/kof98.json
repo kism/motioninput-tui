@@ -3452,7 +3452,20 @@
     {
      "name": "Suikan Kanou",
      "command": "d, d + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "d, d + P"
+     }
     },
     {
      "name": "Chou Shuuriku Gyo",
@@ -3476,7 +3489,20 @@
     {
      "name": "BogetsuSui",
      "command": "d, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d, d + K"
+     }
     },
     {
      "name": "RouJu Hanhou",
@@ -3717,7 +3743,22 @@
     {
      "name": "202 Katsu Otsu Shiki Choumonnoisshin",
      "command": "d, d + A or B or C or D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "count": 1,
+       "label": "A/B/C/D"
+      },
+      "hold": 2,
+      "notation": "d, d + A or B or C or D"
+     }
     },
     {
      "name": "Ichimen Ikkatsu Sanrai no Fuijin",
@@ -4409,7 +4450,20 @@
     {
      "name": "Haki Kyaku",
      "command": "d, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d, d + K"
+     }
     },
     {
      "name": "Hou'ou Kyaku",
@@ -7551,7 +7605,20 @@
     {
      "name": "Shadow",
      "command": "d, d + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "d, d + P"
+     }
     },
     {
      "name": "D. Magnum",
@@ -7749,7 +7816,22 @@
     {
      "name": "Death Shoot",
      "command": "d, d + A or B or C or D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "count": 1,
+       "label": "A/B/C/D"
+      },
+      "hold": 2,
+      "notation": "d, d + A or B or C or D"
+     }
     },
     {
      "name": "Hell Bound",
@@ -7934,6 +8016,19 @@
      "name": "Samurai Bomb",
      "command": "Tiger Driver, d, d + P",
      "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "Tiger Driver, d, d + P"
+     },
      "follows": "Tiger Driver"
     },
     {

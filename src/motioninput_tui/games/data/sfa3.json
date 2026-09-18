@@ -2425,9 +2425,9 @@
     {
      "name": "Yoga Shock",
      "command": "b + LP, hold LP until you attack",
-     "category": "command",
+     "category": "special",
      "motion": {
-      "kind": "hold",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
         "LP"
@@ -2435,7 +2435,18 @@
        "count": 1,
        "label": "LP"
       },
-      "hold": 4,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        },
+        "direction": 4
+       }
+      ],
       "notation": "b + LP, hold LP until you attack"
      }
     },
@@ -6632,7 +6643,20 @@
     {
      "name": "Kuuchuu Headbutt",
      "command": "Jump up, u + MP / HP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP/HP"
+      },
+      "hold": 8,
+      "notation": "Jump up, u + MP / HP"
+     }
     },
     {
      "name": "Headbutt",

@@ -13,9 +13,9 @@ See [Adding a game](adding-a-game.md) to add another title, or
 
 Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, Ultra Street
 Fighter IV, The King of Fighters '98 and 2001, Samurai Shodown II and V
-Special, The Last Blade 2, Bishoujo Senshi Sailor Moon S, and Martial Masters.
-The picker lists them with a note on what makes each one's input handling
-different.
+Special, The Last Blade 2, Bishoujo Senshi Sailor Moon S, Martial Masters and
+Tekken 3. The picker lists them with a note on what makes each one's input
+handling different.
 
 Each has its own `Ruleset` describing how forgiving it is — motion windows,
 whether diagonals can be skipped, charge times, whether the dragon punch
@@ -34,6 +34,13 @@ you were close enough — hold a direction and press the button and it will call
 it a throw. The five SNK games are on the Neo Geo's four-button
 panel, and each means something different by it, which the game's own note
 explains when you highlight it.
+
+Tekken 3 is the odd one out: a 3D game whose move list is mostly *strings* of
+presses rather than motions, one button per limb. It comes with two caveats the
+trainer cannot avoid. A move needing a sidestep or a crouch is struck through,
+because those are states rather than inputs; and a move done from a stance is
+listed as the guide writes it, so it comes out here without the stance you would
+need in the game.
 
 ### Chains
 

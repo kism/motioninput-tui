@@ -64,6 +64,7 @@ def test_games_are_menu_ordered_by_series_then_number() -> None:
         "sfa3",
         "sfiii3",
         "usfiv",
+        "tekken3",
     ]
 
 

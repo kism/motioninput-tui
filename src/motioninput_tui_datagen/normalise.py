@@ -30,6 +30,7 @@ _UNSUPPORTED = re.compile(
 )
 
 MULTI_BUTTON = 2
+DOUBLE_TAP_TOKENS = 2
 
 # "tap P rapidly" after a motion never comes with a count, so assume three taps.
 _MASH_DEFAULT = 3
@@ -281,14 +282,23 @@ def _button_chain(text: str) -> list[str] | None:
 
     What marks one is a comma with a button on either side of it. Zangief's
     ``Press PPP, move b / f`` has a comma too, but what follows it is the
-    direction to spin in, not a second press; and the section having to run
-    from the very front of the command is what keeps this off
-    ``qcf + P, tap P rapidly``, whose commas come after a real motion.
+    direction to spin in, not a second press.
+
+    Anything in front of the first press has to be a single direction, held for
+    that press: Tekken's ``df+lp,rp`` is a string that starts crouching. A head
+    of more than one direction is a motion, which is what keeps this off
+    ``qcf + P, tap P rapidly`` - and the direction comes back as a part of its
+    own, since :func:`_sequence_spec` already reads one of those as belonging
+    to the press after it.
     """
     section = _button_section(text)
-    if not section or len(section) != len(text) or "," not in section:
+    if not section or "," not in section:
         return None
-    parts = [part.strip() for part in section.split(",")]
+    head = text[: len(text) - len(section)].replace("+", " ").strip()
+    lead = _tokens_in(head)
+    if head and (len(lead) != 1 or lead[0] not in _HOLD_DIRECTIONS):
+        return None
+    parts = [*lead, *(part.strip() for part in section.split(","))]
     presses = [bool(_BUTTON_TOKEN.search(part)) for part in parts]
     if not any(earlier and later for earlier, later in pairwise(presses)):
         return None
@@ -322,8 +332,12 @@ def _sequence_spec(parts: list[str]) -> tuple[list[SequenceStep], SequenceStep] 
 
 
 def _lone_direction(part: str) -> Direction | None:
-    """The one direction a step holds, if it names exactly one."""
-    tokens = _tokens_in(_head_of(part))
+    """The one direction a step holds, if it names exactly one.
+
+    The plus joining a direction to its button has to go first, or ``f+`` reads
+    as no direction at all and Tekken's two Sixstrings become one move.
+    """
+    tokens = _tokens_in(_head_of(part).replace("+", " "))
     if len(tokens) != 1 or tokens[0] not in _HOLD_DIRECTIONS:
         return None
     return _HOLD_DIRECTIONS[tokens[0]]
@@ -366,6 +380,10 @@ def _resolve_directions(
         return kind, None, ""
     if not charged and len(tokens) == 1 and tokens[0] in _HOLD_DIRECTIONS:
         return MotionKind.HOLD, _HOLD_DIRECTIONS[tokens[0]], ""
+    # "f,f" is a dash, "d,d" the tap-twice a few SNK moves want. One direction
+    # twice over, which is a different thing from holding it.
+    if not charged and len(tokens) == DOUBLE_TAP_TOKENS and len(set(tokens)) == 1 and tokens[0] in _HOLD_DIRECTIONS:
+        return MotionKind.DOUBLE_TAP, _HOLD_DIRECTIONS[tokens[0]], ""
     if not charged and _is_full_circle(tokens):
         return MotionKind.ROTATE_360, None, ""
     return None, None, f"unrecognised motion {','.join(tokens)!r}"

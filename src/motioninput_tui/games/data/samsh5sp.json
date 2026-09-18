@@ -517,17 +517,35 @@
     {
      "name": "Tsuika Kougeki",
      "command": "_b + any, f + any (xN)",
-     "category": "command",
+     "category": "special",
      "motion": {
-      "kind": "hold",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "A"
+        "A",
+        "B",
+        "C",
+        "D"
        ],
        "count": 1,
-       "label": "A"
+       "label": "A/B/C/D"
       },
-      "hold": 4,
+      "hold": 6,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "HK",
+          "HP",
+          "LK",
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP/HP/LK/HK"
+        },
+        "direction": 4
+       }
+      ],
       "notation": "_b + any, f + any (xN)"
      },
      "follows": "Guren Kyaku"
@@ -661,7 +679,21 @@
     {
      "name": "Jishin Gan",
      "command": "d,d + A / B / C",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C"
+       ],
+       "count": 1,
+       "label": "A/B/C"
+      },
+      "hold": 2,
+      "notation": "d,d + A / B / C"
+     }
     },
     {
      "name": "Enshin Satsu",
@@ -1273,7 +1305,20 @@
     {
      "name": "Ninpou Shizune",
      "command": "d,d + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 2,
+      "notation": "d,d + S"
+     }
     },
     {
      "name": "Ninpou Enbu",

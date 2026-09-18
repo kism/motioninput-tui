@@ -7,7 +7,7 @@ Alpha 3 want a real f,d,df and will hand you a fireball if they do not get it.
 
 from dataclasses import dataclass
 
-from motioninput_tui.controls.buttons import NEO_GEO, SNES_FIGHTER, STREET_FIGHTER, ButtonSet
+from motioninput_tui.controls.buttons import NEO_GEO, SNES_FIGHTER, STREET_FIGHTER, TEKKEN, ButtonSet
 from motioninput_tui.engine.ruleset import Ruleset
 
 
@@ -500,10 +500,56 @@ MARTMAST = GameSpec(
     buttons=SNES_FIGHTER,
 )
 
+TEKKEN3 = GameSpec(
+    key="tekken3",
+    name="Tekken 3",
+    short_name="Tekken 3",
+    ruleset=Ruleset(
+        # Not a 2D fighter at all, and the only game here whose move list is
+        # mostly strings of presses rather than motions. Namco's input reader
+        # is famously tight about the *order* and loose about everything else:
+        # a string drops if a press is late, and the few circular motions in
+        # the game are rare enough that nothing here rests on their leniency.
+        motion_window_ms=300,
+        activation_window_ms=150,
+        step_gap_ms=170,
+        max_intermediate=1,
+        tail_states=2,
+        lenient_diagonals=True,
+        # Inert: nothing in this roster charges.
+        charge_ms=900,
+        charge_release_ms=200,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=False,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+        # The strings are what this game is, so this is the field that matters
+        # most: long enough for a four press run at a human pace, short enough
+        # that idle taps do not add up to one. Reckoned, like every game here
+        # but 3rd Strike.
+        sequence_window_ms=1200,
+        # A string continues off the move above it, which the guide marks ^.
+        chain_window_ms=700,
+    ),
+    notes=(
+        "Four buttons, one per limb: left and right punch over left and right kick.",
+        "Most of the move list is strings of presses rather than motions - lp,rp,lk is three presses in order.",
+        "A dash is forward tapped twice, and it opens a good deal of the roster.",
+        "The guide marks a move that continues the one above it, and those open for a moment once it comes out.",
+        "Moves needing a sidestep or a crouch are struck through: the trainer reads inputs, not states.",
+        "A stance move is listed as the guide writes it, so it comes out here without the stance.",
+    ),
+    reference="references/tekken3.txt",
+    buttons=TEKKEN,
+)
+
 # Menu order: by series (alphabetically), then in each series' own numeric /
 # chronological order.
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (KOF98, KOF2001, LB2, MARTMAST, SAILORMOONS, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
+    spec.key: spec
+    for spec in (KOF98, KOF2001, LB2, MARTMAST, SAILORMOONS, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV, TEKKEN3)
 }
 DEFAULT_GAME = SFIII3.key
 

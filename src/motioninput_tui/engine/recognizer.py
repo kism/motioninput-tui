@@ -75,6 +75,8 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
     MotionKind.QCB: 50,
     # A named run of presses beats anything its last press alone would give.
     MotionKind.SEQUENCE: 95,
+    # More than a held direction, less than a circle round the gate.
+    MotionKind.DOUBLE_TAP: 45,
     MotionKind.MASH: 40,
     # A throw beats a plain held direction and a bare button: it asks for
     # more than either, and it is the move the guide named.
@@ -84,10 +86,21 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
 }
 
 
-NOT_MOTIONS = frozenset({MotionKind.ANY, MotionKind.HOLD, MotionKind.MASH, MotionKind.SEQUENCE, MotionKind.THROW})
+NOT_MOTIONS = frozenset(
+    {
+        MotionKind.ANY,
+        MotionKind.DOUBLE_TAP,
+        MotionKind.HOLD,
+        MotionKind.MASH,
+        MotionKind.SEQUENCE,
+        MotionKind.THROW,
+    }
+)
 """Kinds with no stick motion to watch: a bare button, a held direction, a
 mash, a throw - which wants a direction held but travels nowhere - and a
-sequence, which is made of presses rather than a path round the gate."""
+sequence, which is made of presses rather than a path round the gate. A double
+tap is left out for the same reason a hold is: which direction it wants lives
+in the spec, so there is no one motion to name."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -230,13 +243,15 @@ def _priority(move: RecognisableMove) -> int:
     # identical qcf,qcf supers, only one of which wants you to tap after).
     # Asking for a direction to be held, or for a longer run of presses in
     # front, is more of a requirement again: Guy's two Bushin strings are the
-    # same four buttons and differ only by the down held for the last of them.
+    # same four buttons and differ only by the down held for the last of them,
+    # and Bryan's Elbow Pistons is his One Two done crouching.
     return (
         base * 10
         + move.motion.buttons.count
         + (1 if move.motion.mash else 0)
         + (1 if move.motion.hold is not None else 0)
         + len(move.motion.sequence)
+        + sum(1 for step in move.motion.sequence if step.direction is not None)
     )
 
 
@@ -254,7 +269,12 @@ class BufferPolicy(StrEnum):
 
 # Contextual moves. A normal or a throw does not clear a game's command buffer,
 # so a quarter circle survives an intervening command normal.
-_NON_FLUSHING = frozenset({MotionKind.HOLD, MotionKind.ANY})
+#
+# A string does not flush either, and for a sharper reason: a longer one shares
+# its opening presses. Tekken's `lp,rp` comes out on the way to `lp,rp,lk`, and
+# spending the run on the shorter move would leave the third press with nothing
+# in front of it and the longer move unreachable.
+_NON_FLUSHING = frozenset({MotionKind.HOLD, MotionKind.ANY, MotionKind.SEQUENCE, MotionKind.THROW})
 
 
 @dataclass
