@@ -1115,12 +1115,14 @@
     {
      "name": "Yatoro Poku",
      "command": "Mamahaha Flight, any down position + any button",
-     "category": "special"
+     "category": "special",
+     "follows": "Mamahaha Flight"
     },
     {
      "name": "Kamui Mutsube",
      "command": "Mamahaha Flight, any direction but up + any button",
-     "category": "special"
+     "category": "special",
+     "follows": "Mamahaha Flight"
     },
     {
      "name": "Mamahaha Wo Yobu",
@@ -1632,12 +1634,38 @@
     {
      "name": "SanRenSatsu Tsuno",
      "command": "SanRenSatsu Kiba, d, df, f + Slash",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "SanRenSatsu Kiba, d, df, f + Slash"
+     },
+     "follows": "SanRenSatsu Kiba"
     },
     {
      "name": "SanRenSatu Rin",
      "command": "SanRenSatsu Tsuno, d, df, f + Slash",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "SanRenSatsu Tsuno, d, df, f + Slash"
+     },
+     "follows": "SanRenSatsu Tsuno"
     },
     {
      "name": "Touha Kouyoku Jin",
@@ -1763,7 +1791,20 @@
     {
      "name": "Vulcan Exploizon",
      "command": "Vulcan Dryukken, A rapidly",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "mash": 3,
+      "notation": "Vulcan Dryukken, A rapidly"
+     },
+     "follows": "Vulcan Dryukken"
     },
     {
      "name": "Blitz Jaeger",
@@ -1806,7 +1847,19 @@
     {
      "name": "Elefantglied",
      "command": "Falkennagel, f, df, d, db, b + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "Falkennagel, f, df, d, db, b + A"
+     },
+     "follows": "Falkennagel"
     },
     {
      "name": "Firestorm",

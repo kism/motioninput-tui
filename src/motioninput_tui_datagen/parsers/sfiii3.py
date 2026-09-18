@@ -9,8 +9,15 @@ Move lists look like::
 import re
 from dataclasses import replace
 
-from motioninput_tui.games.models import Category, Character
-from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
+from motioninput_tui.games.models import Category, Character, Move
+from motioninput_tui_datagen.common import (
+    DASHED,
+    ParseReport,
+    build_move,
+    finish_character,
+    split_follow_on,
+    split_name_command,
+)
 
 SECTION_START = "2.  CHARACTER MOVELISTS"
 SECTION_END = "3.  SECRETS AND TRICKS"
@@ -63,18 +70,30 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
         parts = split_name_command(f"{raw_name}  {command}")
         if parts is None:
             continue
-        category = Category.SUPER if flag in _SUPER_FLAGS else None
-        moves.append(
-            replace(
-                build_move(raw_name.strip(), command.strip(), report, name, category),
-                super_art=flag if flag in _SUPER_ARTS else "",
-            )
-        )
+        moves.append(_strike_move(flag, raw_name.strip(), command.strip(), report, name, moves))
 
     character = finish_character(name, title, moves, report)
     if character is not None:
         characters.append(character)
     return characters, report
+
+
+def _strike_move(  # ruff: ignore[too-many-arguments,too-many-positional-arguments] - one row, plus where it sits in the character
+    flag: str, name: str, command: str, report: ParseReport, character: str, so_far: list
+) -> Move:
+    """One move row, with its Super Art flag and any move it chains from.
+
+    A link names the move it comes out of on the end - Dudley's ``Press P
+    during Ducking``. Nothing that already parses can be touched by that,
+    since ``normalise`` rejects every command carrying ``during`` or ``after``.
+    """
+    own, parent = split_follow_on(command, so_far)
+    category = Category.SUPER if flag in _SUPER_FLAGS else None
+    return replace(
+        build_move(name, own or command, report, character, category, follows=parent),
+        command=command,
+        super_art=flag if flag in _SUPER_ARTS else "",
+    )
 
 
 def _section(text: str) -> list[str]:

@@ -334,12 +334,41 @@
     {
      "name": "Thousand Jaguars",
      "command": "Tap P rapidly during Jaguar Varied Assault",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "mash": 3,
+      "notation": "Tap P rapidly"
+     },
+     "follows": "Jaguar Varied Assault"
     },
     {
      "name": "Jaguar Assassin",
      "command": "Tap K during Jaguar Varied Assault",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Tap K"
+     },
+     "follows": "Jaguar Varied Assault"
     },
     {
      "name": "Jaguar Revolver",
@@ -2897,12 +2926,40 @@
     {
      "name": "Ducking Straight",
      "command": "Press P during Ducking [AB]",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press P"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Ducking Upper",
      "command": "Press K during Ducking",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Thunderbolt",
@@ -5907,7 +5964,19 @@
     {
      "name": "Oiura Ken",
      "command": "Press HP during Rasen Chuu",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Rasen Chuu"
     },
     {
      "name": "Ura Maki Geri",
@@ -6532,7 +6601,21 @@
     {
      "name": "Somersault Skull Diver",
      "command": "Charge d,u + K, then P",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Head Press"
     },
     {
      "name": "Devil Reverse",
@@ -6771,7 +6854,19 @@
     {
      "name": "Fumikomi Seiken Sanren Tsuki \"Yamase\"",
      "command": "Press HP during \"Shimaki\"",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Fumikomi Seiken-zuki \"Shimaki\""
     },
     {
      "name": "Tanden Renki: Seme no Kata",

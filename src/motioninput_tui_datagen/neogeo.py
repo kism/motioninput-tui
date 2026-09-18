@@ -122,23 +122,35 @@ _EITHER = re.compile(r"^\s*(?:either|after)\s+", re.IGNORECASE)
 def split_parent(command: str, so_far: Sequence[MoveName]) -> tuple[str, str]:
     """A chain link's parent and its own command, or ``("", "")``.
 
-    Both guides write a link as the move it continues, a comma, then the input
+    These guides write a link as the move it continues, a comma, then the input
     for this half: ``114 Shiki Aragami, d, df, f + P``. The head is only taken
     as a parent when it names a move the character already has - otherwise it
     is prose this cannot model, and the move stays struck through as before
     rather than gaining a link to nothing.
 
-    The longest matching name wins, so ``Strong Hien Zan`` finds ``Hien Zan``
-    rather than stopping at a shorter move whose name is inside it.
+    A move name inside the head is preferred, longest first, so ``Strong Hien
+    Zan`` finds ``Hien Zan``, and Naoe Shigen's ``Kai`` finds ``Kai`` rather
+    than the ``Akkai`` that also contains it. Only when nothing matches that way
+    is the head read as an abbreviation of a name - Setsuna's ``Go`` for ``Mumei
+    - Go``, and the heads that drop the ``(DM)`` the roster keeps. The shortest
+    candidate wins there, being the one the head accounts for most of.
     """
     head, comma, tail = command.partition(",")
     if not comma or not tail.strip():
         return "", ""
     head = _EITHER.sub("", head).strip()
-    named = [move.name for move in so_far if move.name and move.name in head]
-    if not named:
+    # An ordinary command is direction, comma, direction, and its head is an
+    # input rather than a name. Without this the abbreviation pass below would
+    # read the ``d`` of every ``d, df, f`` as any move with a d in its name.
+    if not head or _INPUT_HEAD.match(head):
         return "", ""
-    return max(named, key=len), tail.strip()
+    named = [move.name for move in so_far if move.name and move.name in head]
+    if named:
+        return max(named, key=len), tail.strip()
+    abbreviated = [move.name for move in so_far if move.name and head in move.name]
+    if abbreviated:
+        return min(abbreviated, key=len), tail.strip()
+    return "", ""
 
 
 def unmodelled(command: str) -> str:

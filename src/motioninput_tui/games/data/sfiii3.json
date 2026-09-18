@@ -722,12 +722,40 @@
     {
      "name": "Ducking Straight",
      "command": "Press P during Ducking",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press P"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Ducking Upper",
      "command": "Press K during Ducking",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Cross Counter",
@@ -1581,7 +1609,8 @@
     {
      "name": "Hyakki Gouzan",
      "command": "...do nothing after Hyakki Shuu",
-     "category": "other"
+     "category": "other",
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Goushou",
@@ -2188,7 +2217,19 @@
     {
      "name": "Oiura Ken",
      "command": "Press HP during Rasen Chuu",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Rasen Chuu"
     },
     {
      "name": "Maki Geri",
@@ -2781,7 +2822,19 @@
     {
      "name": "Fumikomi Seiken Sanren Tsuki \"Yamase\"",
      "command": "Press HP during \"Shimaki\"",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Fumikomi Seiken-zuki \"Shimaki\""
     },
     {
      "name": "Mae Geri \"Shibuki\"",
@@ -4615,7 +4668,8 @@
     {
      "name": "Kabe Haritsuki",
      "command": "Press f into a wall during Kokkuu",
-     "category": "other"
+     "category": "other",
+     "follows": "Kokkuu"
     },
     {
      "name": "B.M.K.",

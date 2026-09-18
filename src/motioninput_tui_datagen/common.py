@@ -3,12 +3,16 @@
 import re
 import unicodedata
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 from motioninput_tui.engine.motions import MotionKind
 from motioninput_tui.engine.notation import ALL_BUTTONS, KICKS, PUNCHES, Button, ButtonRequirement
 from motioninput_tui.games.models import Category, Character, Move
 
 from .normalise import parse_command
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 SUPER_KINDS = frozenset(
     {
@@ -151,3 +155,86 @@ def narrow_buttons(
     if requirement.allowed == ALL_BUTTONS:
         return ButtonRequirement(punches | kicks, count, "any button")
     return requirement
+
+
+_TRAILING_PARENT = re.compile(r"^(.*?)[,\s]+\b(?:during|after)\b\s+(.+?)\s*$", re.IGNORECASE)
+"""The Street Fighter guides' chain: this half's input, then the move it comes
+out of. ``Press P during Ducking``, ``b / f + P after Head Press``. The Neo Geo
+guides write the two the other way round, which is
+:func:`neogeo.split_parent`."""
+
+_THEN_PARENT = re.compile(r"^(.*?),\s*\bthen\b\s+(.+?)\s*$", re.IGNORECASE)
+"""The same guides' other way of writing one, where the parent is not named at
+all but spelled out as its own command again: Akuma's dive is ``qcf,uf + P``
+and each of the three moves off it is ``qcf,uf + P, then <something>``."""
+
+_PARENT_ASIDE = re.compile(r"\s*\([^)]*\)\s*$")
+
+
+def split_follow_on(command: str, so_far: Sequence[Move]) -> tuple[str, str]:
+    """A chain link's own input and the move it follows, or ``("", "")``.
+
+    Two shapes, because the Street Fighter guides use both. Either the parent
+    is named on the end (``Press P during Ducking``), or it is written out as
+    its own command again with this half after it (``qcf,uf + P, then press
+    P``). Both are only taken when they point at a move the character already
+    has, so prose the trainer cannot model - ``after H.C.``, ``during standing
+    MK`` - leaves the move struck through as it was rather than linked to
+    nothing.
+
+    The ``then`` shape needs the head to be *exactly* another move's command,
+    which is what tells Akuma's three Hyakki Gou moves (his Hyakki Shuu dive
+    really is a move of its own) from Rufus's Messiah Kick, whose ``qcf + K,
+    then K`` is one move and an extra press rather than a chain.
+
+    Every command carrying ``during``, ``after`` or ``then`` is already
+    untrainable, since ``normalise._UNSUPPORTED`` rejects all three, so nothing
+    that currently comes out can be changed by this.
+    """
+    return _named_parent(command, so_far) or _command_parent(command, so_far) or ("", "")
+
+
+def _named_parent(command: str, so_far: Sequence[Move]) -> tuple[str, str] | None:
+    """``<input> during <Parent>``, where the parent is named on the end.
+
+    The shortest candidate wins, being the one the trailing text accounts for
+    most of.
+    """
+    found = _TRAILING_PARENT.match(command.strip())
+    if found is None:
+        return None
+    own = found.group(1).strip().rstrip(",")
+    parent = _PARENT_ASIDE.sub("", found.group(2).strip()).rstrip(".").strip()
+    if not own or not parent:
+        return None
+    lowered = parent.lower()
+    named = [
+        move.name for move in so_far if move.name and (move.name.lower() in lowered or lowered in move.name.lower())
+    ]
+    if not named:
+        return None
+    return own, min(named, key=len)
+
+
+def _command_parent(command: str, so_far: Sequence[Move]) -> tuple[str, str] | None:
+    """``<parent's own command>, then <input>``.
+
+    Matched on the command rather than a name, and it has to be the whole of
+    one: a head that merely starts like another move's command is this move's
+    own input with a tail the engine has no model for, not a link.
+    """
+    found = _THEN_PARENT.match(command.strip())
+    if found is None:
+        return None
+    head, own = _squash(found.group(1)), found.group(2).strip()
+    if not head or not own:
+        return None
+    parent = next((move.name for move in so_far if move.name and _squash(move.command) == head), "")
+    if not parent:
+        return None
+    return own, parent
+
+
+def _squash(text: str) -> str:
+    """One command in the form two of them are compared in."""
+    return MULTI_SPACE.sub(" ", text.strip().lower())

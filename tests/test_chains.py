@@ -11,7 +11,7 @@ from motioninput_tui.engine.recognizer import Recognizer
 from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.rulesets import GAME_SPECS
 
-CHAINED_GAMES = ("kof98", "kof2001", "martmast")
+CHAINED_GAMES = ("kof98", "kof2001", "lastbld2", "martmast", "samsho2", "sfa3", "sfiii3", "usfiv")
 """The rosters whose guides say which move a link comes out of. The rest write
 it in prose the parsers cannot follow, so their links stay struck through."""
 

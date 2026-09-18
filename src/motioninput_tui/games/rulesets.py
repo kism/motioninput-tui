@@ -74,6 +74,8 @@ SFA3 = GameSpec(
         super_freeze_ms=833,  # ~50 frames at 60fps.
         rotation_window_ms=500,
         rotation_slack=2,
+        # Mika's rope running and Bison's Head Press, reckoned like the rest.
+        chain_window_ms=700,
     ),
     notes=(
         "A little more forgiving than SF2, but still wants the full f,d,df for a dragon punch.",
@@ -157,6 +159,12 @@ SFIII3 = GameSpec(
         # are unmeasured.
         jump_grace_ms=117,
         rotation_slack=2,  # Unread while the rule above is in force.
+        # The one figure in this ruleset that is NOT from the decompilation:
+        # a link's window lives in the same per-move script data the freeze
+        # does, which the decomp does not carry. Reckoned at the same 700ms
+        # as the other games, and flagged in docs/sfiii3-from-the-decomp.md
+        # so it is not mistaken for a measured one.
+        chain_window_ms=700,
     ),
     notes=(
         "The lenient one. Hold down and double tap forward and you get a dragon punch.",
@@ -263,12 +271,15 @@ LB2 = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # Its follow-ups are the same shape as KoF's and reckoned the same way.
+        chain_window_ms=700,
     ),
     notes=(
         "Neo Geo panel, weapon game: A and B are the weak and strong slash, C kicks and D repels.",
         "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "Only Washizuka and Lee Rekka charge; everyone else is motion-only.",
+        "Many specials chain: land the first and the move written after it opens for a moment.",
         "The DMs and SDMs want a full meter and the right mode, neither of which the trainer models.",
     ),
     reference="references/lastbld2.txt",
@@ -340,6 +351,8 @@ SSII = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # Genjuro's and Seiger's strings, reckoned as the rest of the SNK set.
+        chain_window_ms=700,
     ),
     notes=(
         "Neo Geo panel, weapon game: A and B are the light and medium slash, C and D the two kicks.",
@@ -347,6 +360,7 @@ SSII = GameSpec(
         "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The POW moves need a full meter, which the trainer does not model - only the input.",
+        "Genjuro's SanRenSatsu chains: land one and the next opens for a moment.",
     ),
     reference="references/samsho2.txt",
     buttons=NEO_GEO,
@@ -415,6 +429,8 @@ USFIV = GameSpec(
         super_freeze_ms=1000,  # ~60 frames at 60fps.
         rotation_window_ms=550,
         rotation_slack=2,
+        # Dudley's Ducking and Adon's Jaguar Assault, reckoned like the rest.
+        chain_window_ms=700,
     ),
     notes=(
         "The shortcut game: f,df on its own gives a dragon punch, which is why you eat one walking up to throw.",

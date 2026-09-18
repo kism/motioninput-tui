@@ -41,9 +41,14 @@ Whirlwind Kick, the same input is the Heavy Axe.
 
 The real games gate a link on the parent *connecting*. The trainer has no
 opponent, so it takes the parent coming out as the hit landing, and opens the
-window from there. King of Fighters '98 and 2001 and Martial Masters are wired
-up; elsewhere the guides describe the link in prose the parsers cannot follow,
-so those stay struck through.
+window from there.
+
+Every roster but Sailor Moon S, Samurai Shodown V Special and Hyper SF2 has
+chains now — 221 links. The guides write them two ways round: the SNK ones name
+the parent first (`Ittou Shingetsu, f, d, df + B`), the Street Fighter ones put
+it last (`Press P during Ducking`). What is left struck through is the links
+whose parent is named only in prose, or as an abbreviation the roster does not
+carry.
 
 ## Run
 

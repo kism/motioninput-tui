@@ -7,9 +7,17 @@ Move lists carry an ISM column in the first five characters::
 """
 
 import re
+from dataclasses import replace
 from typing import TYPE_CHECKING
 
-from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
+from motioninput_tui_datagen.common import (
+    DASHED,
+    ParseReport,
+    build_move,
+    finish_character,
+    split_follow_on,
+    split_name_command,
+)
 
 if TYPE_CHECKING:
     from motioninput_tui.games.models import Character
@@ -52,7 +60,14 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
         entry = _match_move(line.rstrip())
         if entry is None:
             continue
-        moves.append(build_move(entry[0], entry[1], report, name))
+        # A chain link names the move it comes out of on the end: "Press K
+        # during Dash". Nothing that already parses can be touched, since
+        # `normalise` rejects every command carrying during or after.
+        own, parent = split_follow_on(entry[1], moves)
+        move = build_move(entry[0], own or entry[1], report, name, follows=parent)
+        # The guide's own wording is what the move list shows, even where only
+        # the half in front of "during" was parsed.
+        moves.append(replace(move, command=entry[1]) if parent else move)
 
     character = finish_character(name, "", moves, report)
     if character is not None:

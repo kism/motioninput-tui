@@ -683,7 +683,8 @@
     {
      "name": "Strength Shot D \"Rain\"",
      "command": "Strength Shot, D",
-     "category": "special"
+     "category": "special",
+     "follows": "Strength Shot C \"Victory\""
     },
     {
      "name": "Desert Eagle",
@@ -892,12 +893,39 @@
     {
      "name": "Tetsuzan-bu Nagi",
      "command": "Rasatsu, f, df, d, db, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rasatsu, f, df, d, db, b + P"
+     },
+     "follows": "Tetsuzan-bu Rasatsu"
     },
     {
      "name": "Tetsuzan-bu Hakei",
      "command": "Rasatsu, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Rasatsu, f + P"
+     },
+     "follows": "Tetsuzan-bu Rasatsu"
     },
     {
      "name": "Hizoku Ougi Yougou (DM)",
@@ -6823,7 +6851,20 @@
     {
      "name": "Crystal Shoot",
      "command": "Shining Crystal Bit, d, db, b + P (hold and release)",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Shining Crystal Bit, d, db, b + P (hold and release)"
+     },
+     "follows": "Shining Crystal Bit(DM)"
     },
     {
      "name": "Phoenix Fang Arrow (DM)",
@@ -8052,7 +8093,20 @@
     {
      "name": "Uppercut",
      "command": "Puncher Vision, f + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "Puncher Vision, f + A"
+     },
+     "follows": "Puncher Vision(forward)"
     },
     {
      "name": "Straight Puncher Vision, Punch",
@@ -8074,7 +8128,21 @@
     {
      "name": "Weaving",
      "command": "Puncher Vision, b + P (delayable)",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 4,
+      "notation": "Puncher Vision, b + P (delayable)"
+     },
+     "follows": "Puncher Vision(forward)"
     },
     {
      "name": "Dash Puncher",
@@ -9597,12 +9665,40 @@
     {
      "name": "Silver of the Moon",
      "command": "Poetry of Cygnus, f + P",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Poetry of Cygnus, f + P"
+     },
+     "follows": "Poetry of Cygnus (DM)"
     },
     {
      "name": "Wood of Knowledge",
      "command": "Poetry of Cygnus, d + K",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Poetry of Cygnus, d + K"
+     },
+     "follows": "Poetry of Cygnus (DM)"
     },
     {
      "name": "Prayer of the Planet (DM)",

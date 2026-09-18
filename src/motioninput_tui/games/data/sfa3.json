@@ -195,12 +195,40 @@
     {
      "name": "Jaguar Thousand",
      "command": "Tap P during Jaguar Varied Assault",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P"
+     },
+     "follows": "Jaguar Varied Assault"
     },
     {
      "name": "Jaguar Assassin",
      "command": "Tap K during Jaguar Varied Assault",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Tap K"
+     },
+     "follows": "Jaguar Varied Assault"
     }
    ]
   },
@@ -411,17 +439,46 @@
     {
      "name": "Hyakki Gou Zan",
      "command": "qcf,uf + P, then do nothing",
-     "category": "other"
+     "category": "other",
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Gou Shou",
      "command": "qcf,uf + P, then press P",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "press P"
+     },
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Gou Sen",
      "command": "qcf,uf + P, then press K",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "press K"
+     },
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Gou Sai",
@@ -1339,7 +1396,21 @@
     {
      "name": "Knee Bazooka",
      "command": "Press K during Dash",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Dash"
     },
     {
      "name": "Knee Bazooka",
@@ -3188,7 +3259,21 @@
     {
      "name": "Bushin-ryuu Seoi Nage",
      "command": "f + MP / HP during Tsukami Nage",
-     "category": "other"
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP/HP"
+      },
+      "hold": 6,
+      "notation": "f + MP / HP"
+     },
+     "follows": "Tsukami Nage"
     },
     {
      "name": "Sankaku Tobi",
@@ -3403,7 +3488,21 @@
     {
      "name": "Ressen Chuu",
      "command": "Press P during Ressen Chou",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press P"
+     },
+     "follows": "Ressen Chou"
     },
     {
      "name": "Ressen Ha",
@@ -3875,7 +3974,21 @@
     {
      "name": "Somersault Skull Diver",
      "command": "b / f + P after Head Press",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "b / f + P"
+     },
+     "follows": "Head Press"
     },
     {
      "name": "Somersault Skull Diver",
@@ -4269,77 +4382,242 @@
     {
      "name": "Dageki: J. Ocean Drop Kick",
      "command": "Press LP during Hashiru",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "notation": "Press LP"
+     },
+     "follows": "Hashiru"
     },
     {
      "name": "Dageki: Mika Sliding",
      "command": "Press MP during Hashiru",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "notation": "Press MP"
+     },
+     "follows": "Hashiru"
     },
     {
      "name": "Dageki: Mika Lariat",
      "command": "Press HP during Hashiru",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Hashiru"
     },
     {
      "name": "Tobikoshi",
      "command": "Press K during Hashiru",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Hashiru"
     },
     {
      "name": "Tobikoshi",
      "command": "Run into your enemy during Hashiru",
-     "category": "other"
+     "category": "other",
+     "follows": "Hashiru"
     },
     {
      "name": "Haigotori",
      "command": "Tap P / K during Tobikoshi, then...",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tap P / K"
+     },
+     "follows": "Tobikoshi"
     },
     {
      "name": "Moonsault Press",
      "command": "Press P or do nothing after Dageki",
-     "category": "other"
+     "category": "other",
+     "follows": "Dageki: Mika Lariat"
     },
     {
      "name": "Missile Kick",
      "command": "Press K after Dageki",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Dageki: Mika Lariat"
     },
     {
      "name": "Paradise Hold",
      "command": "Press b / f + P after Dageki",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press b / f + P"
+     },
+     "follows": "Dageki: Mika Lariat"
     },
     {
      "name": "Paradise Hold",
      "command": "Hold b / f after Dageki",
-     "category": "other"
+     "category": "other",
+     "follows": "Dageki: Mika Lariat"
     },
     {
      "name": "Wingless Airplane",
      "command": "Press b / f + K after Dageki",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press b / f + K"
+     },
+     "follows": "Dageki: Mika Lariat"
     },
     {
      "name": "Enzui Lariat",
      "command": "Press P after Haigotori",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press P"
+     },
+     "follows": "Haigotori"
     },
     {
      "name": "Enzui Drop Kick",
      "command": "Press K after Haigotori",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Haigotori"
     },
     {
      "name": "Rainbow Suplex",
      "command": "Press b / f + P after Haigotori",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press b / f + P"
+     },
+     "follows": "Haigotori"
     },
     {
      "name": "Daydream Headlock",
      "command": "Press b / f + K after Haigotori",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press b / f + K"
+     },
+     "follows": "Haigotori"
     }
    ]
   },

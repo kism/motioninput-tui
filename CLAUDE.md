@@ -417,9 +417,18 @@ The games gate a link on the parent *connecting*. There is no opponent here, so
 the parent activating stands in for the hit. Say so when it matters; it is the
 one place the trainer models something it cannot observe.
 
-Only guides that name the parent are wired: Martial Masters by the indent under
-it, KoF '98 and 2001 by the name at the head of the command (`114 Shiki
-Aragami, d, df, f + P`, split by `neogeo.split_parent`). A parent is only
+The guides write a link two ways round, so there are two splitters. The SNK
+ones name the parent first (`114 Shiki Aragami, d, df, f + P`), which is
+`neogeo.split_parent`, used by KoF '98 and 2001, The Last Blade 2 and Samurai
+Shodown II; the Street Fighter ones put it last (`Press P during Ducking`) or
+spell the parent's own command out again (`qcf,uf + P, then press P`, Akuma's
+dive), which is `common.split_follow_on`, used by Alpha 3, 3rd Strike and
+USFIV. That last shape is matched on the command rather than a name, and only
+when the head is *exactly* another move's command: Rufus's `qcf + K, then K` is
+one move and an extra press, not a link.
+Martial Masters needs neither: its guide indents a link under its parent.
+Either way the parser has to **accumulate its moves in a loop rather than a
+comprehension**, since a parent must already be in the list to be found. A parent is only
 accepted when it matches a move the character already has, so a guide's prose
 never invents a link to nothing - `tests/test_chains.py` holds that, along with
 "a link is never in `_ranked`" over every roster.
@@ -507,12 +516,12 @@ rather than tidied to match Third Strike.
 fresh clone has to run `python -m motioninput_tui_guides` first. After changing
 `motioninput_tui_datagen/normalise.py` or a parser in
 `motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
-(or `./scripts/4-run-datagen.sh`) and commit the JSON. The Street Fighter
-rosters land around 80-90% trainable; the SNK ones are lower (52% for Samurai
-Shodown II, 68-75% for the rest) because those guides lean on command throws
-written `b or f + button` and on long follow-up chains. The remainder are
-follow-ups and conditional moves that still appear in the move list, struck
-through. `--summary` prints the per-character breakdown.
+(or `./scripts/4-run-datagen.sh`) and commit the JSON. Most rosters land in the
+75-90% band. Samurai Shodown II is the outlier at 54%, because that guide leans
+on command throws written `b or f + button`, which say nothing about which way
+to hold. The remainder are conditional moves that still appear in the move list,
+struck through. `--summary` prints the per-character breakdown, and how many of
+each roster's trainable moves are chain links.
 
 The guides disagree about character names, so `motioninput_tui_datagen/names.py` maps the key a
 guide produced to the name to use instead, per game (`ken-masters` → `Ken`).

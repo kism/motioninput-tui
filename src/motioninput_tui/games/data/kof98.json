@@ -6093,7 +6093,8 @@
        "label": "P"
       },
       "notation": "close, f, df, d, db, b, f + P"
-     }
+     },
+     "follows": "Blackend: close"
     },
     {
      "name": "Outrage",
