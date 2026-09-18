@@ -463,7 +463,18 @@
     {
      "name": "Venus Wink Flare",
      "command": "B DB D DF F DF D + Strong Punch",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcf_df_d",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "B DB D DF F DF D + Strong Punch"
+     }
     }
    ]
   },
@@ -547,7 +558,18 @@
     {
      "name": "Destructive Carnival",
      "command": "F DF D DB B DB D DF F + Strong Kick",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcb_hcf",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "F DF D DB B DB D DF F + Strong Kick"
+     }
     }
    ]
   },

@@ -55,8 +55,10 @@ class MotionKind(StrEnum):
     QCB_RDP = "qcb_rdp"
     QCF_HCB = "qcf_hcb"
     QCB_HCF = "qcb_hcf"
+    HCB_HCF = "hcb_hcf"
     HCB_F = "hcb_f"
     HCB_DB_D = "hcb_db_d"
+    HCF_DF_D = "hcf_df_d"
     QCB_DB_F = "qcb_db_f"
     F_HCF = "f_hcf"
     F_DF_D = "f_df_d"
@@ -313,12 +315,19 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     # neutral mid-motion, so the second motion's opening step is dropped.
     MotionKind.QCF_HCB: lambda rules: [[*_quarter_forward(rules), *_half_back(rules)[1:]]],
     MotionKind.QCB_HCF: lambda rules: [[*_quarter_back(rules), *_half_forward(rules)[1:]]],
+    # Sailor Uranus' Destructive Carnival rolls out to back and all the way
+    # home again: f,df,d,db,b,db,d,df,f, the two half circles sharing the back.
+    MotionKind.HCB_HCF: lambda rules: [[*_half_back(rules), *_half_forward(rules)[1:]]],
     MotionKind.HCB_F: lambda rules: [[*_half_back(rules), Step(_ONLY_F)]],
     # A half circle back that carries on past back and down to down, which
     # is Sailor Mars' Snake Flare: f,df,d,db,b,db,d. The tail is the 412 that
     # `B_DB_D` is on its own, sharing the back the half circle ends on.
     MotionKind.HCB_DB_D: lambda rules: [
         [*_half_back(rules), Step(_ONLY_DB, rules.lenient_diagonals), Step(_ONLY_DOWN)]
+    ],
+    # And its mirror, Sailor Venus' Wink Flare: b,db,d,df,f,df,d.
+    MotionKind.HCF_DF_D: lambda rules: [
+        [*_half_forward(rules), Step(_ONLY_DF, rules.lenient_diagonals), Step(_ONLY_DOWN)]
     ],
     # The two SNK rolls. Neither is shorthand for anything shorter: the db of
     # `d,db,b,db,f` is where the roll turns back on itself and the leading f of
@@ -351,6 +360,7 @@ _DOUBLE_MOTIONS = frozenset(
         MotionKind.QCB_RDP,
         MotionKind.QCF_HCB,
         MotionKind.QCB_HCF,
+        MotionKind.HCB_HCF,
     }
 )
 
