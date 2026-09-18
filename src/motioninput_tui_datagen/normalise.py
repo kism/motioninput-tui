@@ -134,6 +134,7 @@ _MOTION_TABLE: dict[tuple[str, ...], MotionKind] = {
     ("d", "df", "f", "df", "d", "db", "b"): MotionKind.QCF_HCB,
     ("d", "db", "b", "db", "d", "df", "f"): MotionKind.QCB_HCF,
     ("f", "df", "d", "db", "b", "f"): MotionKind.HCB_F,
+    ("f", "df", "d", "db", "b", "db", "d"): MotionKind.HCB_DB_D,
     ("d", "db", "b", "db", "f"): MotionKind.QCB_DB_F,
     ("f", "b", "db", "d", "df", "f"): MotionKind.F_HCF,
     ("f", "df", "d"): MotionKind.F_DF_D,

@@ -271,7 +271,18 @@
     {
      "name": "Mars Snake Flare",
      "command": "F DF D DB B DB D + Strong Kick",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcb_db_d",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "F DF D DB B DB D + Strong Kick"
+     }
     }
    ]
   },
