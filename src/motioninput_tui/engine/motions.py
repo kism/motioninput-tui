@@ -50,6 +50,7 @@ class MotionKind(StrEnum):
     QCB_X2 = "qcb_x2"
     HCF_X2 = "hcf_x2"
     HCB_X2 = "hcb_x2"
+    DP_X2 = "dp_x2"
     QCF_DP = "qcf_dp"
     QCB_RDP = "qcb_rdp"
     QCF_HCB = "qcf_hcb"
@@ -301,6 +302,10 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     MotionKind.QCB_X2: lambda rules: [[*_quarter_back(rules), *_doubled_tail(_quarter_back(rules), rules)]],
     MotionKind.HCF_X2: lambda rules: [[*_half_forward(rules), *_doubled_tail(_half_forward(rules), rules)]],
     MotionKind.HCB_X2: lambda rules: [[*_half_back(rules), *_doubled_tail(_half_back(rules), rules)]],
+    # Sailor Neptune's Dragon Rise is the dragon punch twice over, f,d,df,f,d,df.
+    # The plain form only: doubling the double-tap shortcut as well would be
+    # inventing an input no guide here writes.
+    MotionKind.DP_X2: lambda rules: [[*_dragon_punch(rules), *_doubled_tail(_dragon_punch(rules), rules)]],
     MotionKind.QCF_DP: lambda rules: [[*_quarter_forward(rules), Step(_ONLY_DOWN), Step(_ONLY_DF)]],
     MotionKind.QCB_RDP: lambda rules: [[*_quarter_back(rules), Step(_ONLY_DOWN), Step(_ONLY_DB)]],
     # KoF's supers join the two halves on a shared direction: qcf~hcb is
@@ -341,6 +346,7 @@ _DOUBLE_MOTIONS = frozenset(
         MotionKind.QCB_X2,
         MotionKind.HCF_X2,
         MotionKind.HCB_X2,
+        MotionKind.DP_X2,
         MotionKind.QCF_DP,
         MotionKind.QCB_RDP,
         MotionKind.QCF_HCB,

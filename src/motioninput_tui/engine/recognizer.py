@@ -48,6 +48,7 @@ _KIND_PRIORITY: dict[MotionKind, int] = {
     MotionKind.QCB_X2: 85,
     MotionKind.HCF_X2: 85,
     MotionKind.HCB_X2: 85,
+    MotionKind.DP_X2: 85,
     MotionKind.QCF_DP: 84,
     MotionKind.QCB_RDP: 84,
     MotionKind.QCF_HCB: 84,

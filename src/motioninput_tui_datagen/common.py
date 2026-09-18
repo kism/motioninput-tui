@@ -15,6 +15,7 @@ SUPER_KINDS = frozenset(
         MotionKind.QCB_X2,
         MotionKind.HCF_X2,
         MotionKind.HCB_X2,
+        MotionKind.DP_X2,
         MotionKind.QCF_DP,
         MotionKind.QCB_RDP,
         MotionKind.CHARGE_BFBF,

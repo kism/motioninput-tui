@@ -610,7 +610,18 @@
     {
      "name": "Dragon Rise",
      "command": "F D DF F D DF + Strong Punch",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "dp_x2",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "F D DF F D DF + Strong Punch"
+     }
     }
    ]
   },
