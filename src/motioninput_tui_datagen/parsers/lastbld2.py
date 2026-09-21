@@ -19,7 +19,7 @@ from typing import TYPE_CHECKING
 from motioninput_tui.games.models import Category, Move
 from motioninput_tui_datagen.common import ParseReport, build_move, finish_character
 from motioninput_tui_datagen.icequeenzero import blocks
-from motioninput_tui_datagen.neogeo import to_neo_panel, to_shorthand, unmodelled
+from motioninput_tui_datagen.neogeo import split_parent, to_neo_panel, to_shorthand, unmodelled
 
 if TYPE_CHECKING:
     from motioninput_tui.games.models import Character
@@ -36,7 +36,11 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
     characters: list[Character] = []
 
     for name, rows in blocks(text, _HEADINGS):
-        moves = [_blade_move(line, category, report, name) for category, line in rows]
+        # Accumulated rather than built in one go: a chain link names the move
+        # it comes out of, and that has to already be in the list to be found.
+        moves: list[Move] = []
+        for category, line in rows:
+            moves.append(_blade_move(line, category, report, name, moves))
         character = finish_character(name, "", moves, report)
         if character is not None:
             characters.append(character)
@@ -44,19 +48,25 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
     return characters, report
 
 
-def _blade_move(line: str, category: Category, report: ParseReport, character: str) -> Move:
-    """One ``Name: command`` row, in the Neo Geo's own A B C D notation."""
+def _blade_move(line: str, category: Category, report: ParseReport, character: str, so_far: list[Move]) -> Move:
+    """One ``Name: command`` row, in the Neo Geo's own A B C D notation.
+
+    This guide writes a chain the way the KoF pair do, as the move it continues
+    then a comma then this half's own input (``Ittou Sogetsu: Ittou Shingetsu,
+    f, d, df + B``), so :func:`neogeo.split_parent` reads it.
+    """
     name, _, command = line.rpartition(":")
     name, command = name.strip(), command.strip()
 
-    reason = unmodelled(command)
+    parent, own = split_parent(command, so_far)
+    reason = unmodelled(own if parent else command)
     if reason:
         # Kept in the move list, struck through, rather than reduced to
         # whatever motion happens to be inside it.
         report.note(character, name, reason)
-        return Move(name=name, command=command, category=category)
+        return Move(name=name, command=command, category=category, follows=parent)
 
-    move = build_move(name, to_shorthand(command), report, character, category)
+    move = build_move(name, to_shorthand(own or command), report, character, category, follows=parent)
     if move.motion is None:
         return replace(move, command=command)
     return replace(move, command=command, motion=to_neo_panel(move.motion, command))

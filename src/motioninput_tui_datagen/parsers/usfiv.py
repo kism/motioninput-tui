@@ -17,7 +17,14 @@ import re
 from dataclasses import replace
 
 from motioninput_tui.games.models import Category, Character
-from motioninput_tui_datagen.common import DASHED, ParseReport, build_move, finish_character, split_name_command
+from motioninput_tui_datagen.common import (
+    DASHED,
+    ParseReport,
+    build_move,
+    finish_character,
+    split_follow_on,
+    split_name_command,
+)
 
 SECTION_START = "3.  CHARACTER MOVELISTS"
 SECTION_END = "3.  SECRETS AND TRICKS"
@@ -62,9 +69,11 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
             continue
         flag, raw_name, command = entry
         category = Category.SUPER if flag in _SUPER_FLAGS else None
+        own, parent = split_follow_on(command, moves)
         moves.append(
             replace(
-                build_move(raw_name, command, report, name, category),
+                build_move(raw_name, own or command, report, name, category, follows=parent),
+                command=command,
                 super_art=flag if flag in _SUPER_ARTS else "",
             )
         )

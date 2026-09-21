@@ -59,6 +59,18 @@ def _super_art_marker(super_art: str, *, equipped: bool) -> str:
     return f"{'▸' if equipped else ' '}{super_art:<3} "
 
 
+CHAIN_MARK = "↳ "
+"""What a move that follows on from another is written with. The guides list a
+link directly under the move it continues, so the mark plus that position is
+the whole explanation: it says "and then this", and the row above says from
+what."""
+
+
+def _move_name(move: Move) -> str:
+    """The name as the list writes it, marked if it follows on from another."""
+    return f"{CHAIN_MARK}{move.name}" if move.follows else move.name
+
+
 def _row_style(move: Move, *, equipped: bool, full: bool) -> str:
     """Struck through if untrainable (but never full screen), dim if its Super Art is not equipped."""
     if not move.trainable and not full:
@@ -133,7 +145,7 @@ class MoveList(VerticalScroll):
         by_category: dict[str, list[tuple[Move, str]]] = {}
         for move, written in rows:
             by_category.setdefault(move.category, []).append((move, written))
-        name_width = max((cell_len(move.name) for move, _ in rows), default=0) + 2
+        name_width = max((cell_len(_move_name(move)) for move, _ in rows), default=0) + 2
         command_width = max((cell_len(written) for move, written in rows if written != move.command), default=0) + 2
         # Beside the trainer every input shares the one column, the guide's own
         # words included where the trainer has nothing better to write.
@@ -156,12 +168,12 @@ class MoveList(VerticalScroll):
                 start = len(text)
                 text.append(_super_art_marker(move.super_art, equipped=equipped), style=style)
                 if full:
-                    text.append(_pad(move.name, name_width), style=style)
+                    text.append(_pad(_move_name(move), name_width), style=style)
                     text.append(_pad(written, command_width))
                     text.append(move.command if written != move.command else "", style="dim")
                 else:
                     # An input too long for the list is cut where the list ends.
-                    text.append(_pad(_clip(move.name, name_width - 1), name_width), style=style)
+                    text.append(_pad(_clip(_move_name(move), name_width - 1), name_width), style=style)
                     text.append(written, style="dim")
                 if move is self.cursor:
                     cursor_line = text.plain.count("\n")

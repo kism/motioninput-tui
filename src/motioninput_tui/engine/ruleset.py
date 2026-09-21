@@ -122,6 +122,20 @@ class Ruleset:
             360 is finished *with* the button rather than after it. Zero means
             the trainer has no figure for the game and lets every move stand on
             its own.
+        chain_window_ms: How long a move that follows on from another stays
+            available once its parent has come out. A chain move is written in
+            the guide under the move it continues (Master Huang's Heavy Axe
+            after his Whirlwind Kick, Kyo's Aragami string), and the real games
+            gate it on the parent *connecting*, which a trainer with no
+            opponent cannot know. So the parent activating is taken as the hit
+            landing, and this is the window that opens. Zero means the game has
+            no chains wired up, and any move carrying a parent stays unmatched.
+        sequence_window_ms: How long the whole of a button sequence may take -
+            Akuma's ``LP,LP,f,LK,HP``, a target combo, a Tekken string. The run
+            is judged as one input rather than step by step, since what a game
+            checks is that the presses arrived in order and close enough
+            together. Zero means the game has no sequences wired up, and any
+            move written as one stays unmatched.
     """
 
     motion_window_ms: int = 300
@@ -149,3 +163,5 @@ class Ruleset:
     rotation_cardinal_gap_ms: int = 0
     rotation_slack: int = 2
     jump_grace_ms: int = 0
+    chain_window_ms: int = 0
+    sequence_window_ms: int = 0

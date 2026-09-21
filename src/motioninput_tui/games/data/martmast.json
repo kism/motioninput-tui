@@ -1,0 +1,4754 @@
+{
+ "key": "martmast",
+ "name": "Martial Masters",
+ "source": "references/martmast.txt",
+ "characters": [
+  {
+   "key": "master-huang",
+   "name": "Master Huang",
+   "title": "",
+   "moves": [
+    {
+     "name": "Chest Crush",
+     "command": "LP+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK"
+     }
+    },
+    {
+     "name": "Redirect",
+     "command": "LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 2,
+       "label": "LK+HK"
+      },
+      "notation": "LK+HK"
+     }
+    },
+    {
+     "name": "Open Fan",
+     "command": "u, LP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 8,
+      "notation": "u, LP"
+     }
+    },
+    {
+     "name": "Rock Fist",
+     "command": "HP close",
+     "category": "command"
+    },
+    {
+     "name": "Shin Kick",
+     "command": "LK",
+     "category": "command"
+    },
+    {
+     "name": "Axe Kick",
+     "command": "HK close",
+     "category": "command"
+    },
+    {
+     "name": "Fan Wave",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Fist",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Step In Elbow",
+     "command": "f + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     }
+    },
+    {
+     "name": "Snap Kick",
+     "command": "b + LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 4,
+      "notation": "b + LK"
+     }
+    },
+    {
+     "name": "Leg Drop",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Surge Fist",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Swift Push",
+     "command": "hcb + LP after landing a close HP/HK that connects (not blocked)",
+     "category": "special"
+    },
+    {
+     "name": "Turnover",
+     "command": "hcb + HP",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "hcb + HP"
+     }
+    },
+    {
+     "name": "Grasshopper",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Air Axe Kick",
+     "command": "d + K",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d + K"
+     },
+     "follows": "Grasshopper"
+    },
+    {
+     "name": "Drill Kick",
+     "command": "hcf + K in air",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "air": true,
+      "notation": "hcf + K in air"
+     }
+    },
+    {
+     "name": "Nimble Knee",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Air Axe Kick",
+     "command": "d + K",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d + K"
+     },
+     "follows": "Nimble Knee"
+    },
+    {
+     "name": "Whirlwind Kick",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Heavy Axe",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Whirlwind Kick"
+    },
+    {
+     "name": "High Kicks",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     },
+     "follows": "Heavy Axe"
+    },
+    {
+     "name": "Final Kick",
+     "command": "LK",
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "LK"
+     },
+     "follows": "High Kicks"
+    },
+    {
+     "name": "Dragon Kick",
+     "command": "b, d, db + K",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b, d, db + K"
+     }
+    },
+    {
+     "name": "Drill Kick",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     },
+     "follows": "Dragon Kick"
+    },
+    {
+     "name": "Nimble Whirlwind",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Double Drill Kick",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Awakening Spirit",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Dragon Rave",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "drunk-master",
+   "name": "Drunk Master",
+   "title": "",
+   "moves": [
+    {
+     "name": "Headbutt",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Drunken Combo",
+     "command": "HP, HP, HK, HP",
+     "category": "command",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HK"
+         ],
+         "count": 1,
+         "label": "HK"
+        }
+       }
+      ],
+      "notation": "HP, HP, HK, HP"
+     }
+    },
+    {
+     "name": "Shin Kick",
+     "command": "LK",
+     "category": "command"
+    },
+    {
+     "name": "Sake",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Palm",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backstep and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Drunken Claw",
+     "command": "f + LP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 6,
+      "notation": "f + LP"
+     }
+    },
+    {
+     "name": "Slide Kick",
+     "command": "d + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "notation": "d + HK"
+     }
+    },
+    {
+     "name": "Leg Drop",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Gourd Swing",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Stagger Top",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Drunken Smash",
+     "command": "cancel into hcf + LP version or perform hcf + HP without canceling",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP/HP"
+      },
+      "notation": "cancel into hcf + LP version or perform hcf + HP without canceling"
+     },
+     "follows": "Stagger Top"
+    },
+    {
+     "name": "Forward Roll",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Crushing Forearm",
+     "command": "P",
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Forward Roll"
+    },
+    {
+     "name": "Butterfly Strike",
+     "command": "hcb, f + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb, f + P"
+     }
+    },
+    {
+     "name": "Rotating Kick",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Drunken Slide",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Rotating Kick"
+    },
+    {
+     "name": "Sake Spit",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Drunken Dance",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Top Kick",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Gourd Frenzy",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Gourd Nunchaku",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Strong Sake",
+     "command": "qcb, qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb, qcb + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "scorpion",
+   "name": "Scorpion",
+   "title": "",
+   "moves": [
+    {
+     "name": "Lean Back Catapult",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Shin Kick",
+     "command": "LK",
+     "category": "command"
+    },
+    {
+     "name": "Come On",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Strike",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Snap Axe",
+     "command": "f + LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 6,
+      "notation": "f + LK"
+     }
+    },
+    {
+     "name": "Pincher Kick",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Double Sting",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Aculeus Sting",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Predator Crash",
+     "command": "b, d, db + P",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "b, d, db + P"
+     }
+    },
+    {
+     "name": "Hang Kick",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Predator Crash"
+    },
+    {
+     "name": "Predator Crash Fake",
+     "command": "b, d, db + K",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "b, d, db + K"
+     }
+    },
+    {
+     "name": "Desert Crawl",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Trap Kick",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Desert Crawl"
+    },
+    {
+     "name": "Death Roll",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Venomous Kick",
+     "command": "f + K",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "f + K"
+     },
+     "follows": "Death Roll"
+    },
+    {
+     "name": "Arc Dropkick",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Captured Prey",
+     "command": "qcf + LK",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "qcf + LK"
+     },
+     "follows": "Arc Dropkick"
+    },
+    {
+     "name": "Ruthless Kicks",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Shadow Arc Dropkick",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Merciless Feast",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Lethal Sting",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "crane",
+   "name": "Crane",
+   "title": "",
+   "moves": [
+    {
+     "name": "Throat Tear",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Heavy Chop",
+     "command": "HP",
+     "category": "command"
+    },
+    {
+     "name": "Hair Groom",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Bladed Hand",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Heavenly Spin",
+     "command": "d + HP in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "d + HP in air"
+     }
+    },
+    {
+     "name": "Crescent Swipe",
+     "command": "f + LP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 6,
+      "notation": "f + LP"
+     }
+    },
+    {
+     "name": "Double Uppercut",
+     "command": "d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "d + HP"
+     }
+    },
+    {
+     "name": "Double Stomp",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Spread Wing",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Closing Wing",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Spread Wing"
+    },
+    {
+     "name": "Final Wing",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Closing Wing"
+    },
+    {
+     "name": "Majestic Flight",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Landing",
+     "command": "d + P",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "d + P"
+     },
+     "follows": "Majestic Flight"
+    },
+    {
+     "name": "Sneaky Dart",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Air Sneaky Dart",
+     "command": "qcb + P/LK in air",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "LP/MP/HP/LK"
+      },
+      "air": true,
+      "notation": "qcb + P/LK in air"
+     }
+    },
+    {
+     "name": "Flapping Thrust",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Shouting Crane",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Majestic Thrust",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Dart Rain",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Take Flight",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Deadly Darts",
+     "command": "qcb, qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb, qcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "red-snake",
+   "name": "Red Snake",
+   "title": "",
+   "moves": [
+    {
+     "name": "Heavy Slaps",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Charmer",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Spike",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Single Fang",
+     "command": "f + LP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 6,
+      "notation": "f + LP"
+     }
+    },
+    {
+     "name": "Venom Stab",
+     "command": "df + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 3,
+      "notation": "df + HP"
+     }
+    },
+    {
+     "name": "Double Kick",
+     "command": "d + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "notation": "d + HK"
+     }
+    },
+    {
+     "name": "Bow Smash",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Ravenous Fang",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Finish",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Ravenous Fang"
+    },
+    {
+     "name": "Viper Blade",
+     "command": "f, d, df + LP",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "notation": "f, d, df + LP"
+     }
+    },
+    {
+     "name": "Hopping Spike",
+     "command": "u + P",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 8,
+      "notation": "u + P"
+     },
+     "follows": "Viper Blade"
+    },
+    {
+     "name": "Sneaky Trip",
+     "command": "d + K",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d + K"
+     },
+     "follows": "Viper Blade"
+    },
+    {
+     "name": "Viper Rush",
+     "command": "f, d, df + HP",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "f, d, df + HP"
+     }
+    },
+    {
+     "name": "Slither And Strike",
+     "command": "hcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Final Strike",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Slither And Strike"
+    },
+    {
+     "name": "Scissor Takedown",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Tail Whip Kick",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Snake Dance",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Shadow Ravenous Fang",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Snakebite",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Serpent Flurry",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ghost-kick",
+   "name": "Ghost Kick",
+   "title": "",
+   "moves": [
+    {
+     "name": "Bully Punch",
+     "command": "LP+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK"
+     }
+    },
+    {
+     "name": "Crushing Knees",
+     "command": "LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 2,
+       "label": "LK+HK"
+      },
+      "notation": "LK+HK"
+     }
+    },
+    {
+     "name": "Shin Kick",
+     "command": "LK",
+     "category": "command"
+    },
+    {
+     "name": "Aggressive Pride",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Knee",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Cartwheel and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Reaching Axe Kick",
+     "command": "f + LP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 6,
+      "notation": "f + LP"
+     }
+    },
+    {
+     "name": "Driving Headbutt",
+     "command": "f + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     }
+    },
+    {
+     "name": "Rolling Scissors",
+     "command": "d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "d + HP"
+     }
+    },
+    {
+     "name": "Flying Gut Kick",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Dirty Punt",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Rumble Takedown",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Violent Kicks",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Riot Flash",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     },
+     "follows": "Violent Kicks"
+    },
+    {
+     "name": "Supreme Crash",
+     "command": "b, d, db + P",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "b, d, db + P"
+     }
+    },
+    {
+     "name": "Handstand Wallop",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Corkscrew",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Leg Whip",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Shadow Riot Flash",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Gatling Kicks",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Horizontal Corkscrew",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    },
+    {
+     "name": "Tornado Corkscrew",
+     "command": "qcb, qcb + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb, qcb + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "monkey-boy",
+   "name": "Monkey Boy",
+   "title": "",
+   "moves": [
+    {
+     "name": "Blind Dropkick",
+     "command": "LP+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK"
+     }
+    },
+    {
+     "name": "Climbing Punt",
+     "command": "LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 2,
+       "label": "LK+HK"
+      },
+      "notation": "LK+HK"
+     }
+    },
+    {
+     "name": "Butt Pat",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Fist",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Backhand",
+     "command": "f + LP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "hold": 6,
+      "notation": "f + LP"
+     }
+    },
+    {
+     "name": "Skyward Uppercut",
+     "command": "df + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 3,
+      "notation": "df + HP"
+     }
+    },
+    {
+     "name": "High Snap Kick",
+     "command": "b + LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 4,
+      "notation": "b + LK"
+     }
+    },
+    {
+     "name": "Rolling Axe",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Monkey Drop",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Fruit Toss",
+     "command": "qcf + P/LK",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "LP/MP/HP/LK"
+      },
+      "notation": "qcf + P/LK"
+     }
+    },
+    {
+     "name": "Fruit Roll",
+     "command": "qcf + HK",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "qcf + HK"
+     }
+    },
+    {
+     "name": "Sneaky Strike",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Low Slider",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Sneaky Strike"
+    },
+    {
+     "name": "Tree Climb Kick",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Swing Kick",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     }
+    },
+    {
+     "name": "Second Swing Kick",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     },
+     "follows": "Swing Kick"
+    },
+    {
+     "name": "Side Kick",
+     "command": "qcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcb + K"
+     },
+     "follows": "Second Swing Kick"
+    },
+    {
+     "name": "Monkey Stomp",
+     "command": "b, d, df + K",
+     "category": "special"
+    },
+    {
+     "name": "Air Monkey Stomp",
+     "command": "b, d, df + K in air",
+     "category": "special"
+    },
+    {
+     "name": "Swing To High Snap",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Monkey Fruit Toss",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Fruit Frenzy",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Sneaky Slider",
+     "command": "qcb, qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb, qcb + P"
+     }
+    }
+   ]
+  },
+  {
+   "key": "tiger",
+   "name": "Tiger",
+   "title": "",
+   "moves": [
+    {
+     "name": "Swipe And Elbow",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Driving Punch",
+     "command": "HP far",
+     "category": "command"
+    },
+    {
+     "name": "Shin Kick",
+     "command": "LK",
+     "category": "command"
+    },
+    {
+     "name": "True Strength",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Palms",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Jumping Palms",
+     "command": "d + HP in air",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "air": true,
+      "notation": "d + HP in air"
+     }
+    },
+    {
+     "name": "Claw Uppercut",
+     "command": "d + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 2,
+      "notation": "d + HP"
+     }
+    },
+    {
+     "name": "Big Boot",
+     "command": "b + LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "hold": 4,
+      "notation": "b + LK"
+     }
+    },
+    {
+     "name": "Crescent Axe",
+     "command": "f + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 6,
+      "notation": "f + HK"
+     }
+    },
+    {
+     "name": "Straight Kick",
+     "command": "b + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 4,
+      "notation": "b + HK"
+     }
+    },
+    {
+     "name": "Crushing Stomp",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Hunting Fists",
+     "command": "hcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf + P"
+     }
+    },
+    {
+     "name": "Roaring Elbow",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Second Elbow",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Roaring Elbow"
+    },
+    {
+     "name": "Driving Fist",
+     "command": "f + P",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "f + P"
+     },
+     "follows": "Second Elbow"
+    },
+    {
+     "name": "Claw Uppercut",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Second Elbow"
+    },
+    {
+     "name": "Capture Claw",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Hide Rush",
+     "command": "hcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcf + K"
+     }
+    },
+    {
+     "name": "Shoulder Launch",
+     "command": "f + HP",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     },
+     "follows": "Hide Rush"
+    },
+    {
+     "name": "Hide Launcher",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Driving Back",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     },
+     "follows": "Hide Launcher"
+    },
+    {
+     "name": "Backflip",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Pounce",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Backflip"
+    },
+    {
+     "name": "Pouncing Hide",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Double Shoulder Charge",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Tiger Barrage",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Bursting Tiger",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "monk",
+   "name": "Monk",
+   "title": "",
+   "moves": [
+    {
+     "name": "Rough Toss",
+     "command": "LP+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK"
+     }
+    },
+    {
+     "name": "Headbutt",
+     "command": "LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 2,
+       "label": "LK+HK"
+      },
+      "notation": "LK+HK"
+     }
+    },
+    {
+     "name": "Double Stomach Punch",
+     "command": "HP close",
+     "category": "command"
+    },
+    {
+     "name": "Monster Stomp",
+     "command": "HK close",
+     "category": "command"
+    },
+    {
+     "name": "Yawn",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Knee",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Hammer Fist",
+     "command": "f + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     }
+    },
+    {
+     "name": "Crushing Foot",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Cauldron Drop",
+     "command": "qcf + P/K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P/K"
+     }
+    },
+    {
+     "name": "Tremor",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Spirit Charge",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Spirit Strike",
+     "command": "P",
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Spirit Charge"
+    },
+    {
+     "name": "Spirit Chop",
+     "command": "f + P",
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "f + P"
+     },
+     "follows": "Spirit Strike"
+    },
+    {
+     "name": "Punt Kick",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     },
+     "follows": "Spirit Chop"
+    },
+    {
+     "name": "Heart Punch",
+     "command": "hcb, f + P",
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb, f + P"
+     }
+    },
+    {
+     "name": "Punt Kick",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Ruthless Strangle",
+     "command": "hcb, f + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb_f",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb, f + K"
+     }
+    },
+    {
+     "name": "Charging Spirit",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Running Bull",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Flaming Cauldron",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Crushing Mountain",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "reika",
+   "name": "Reika",
+   "title": "",
+   "moves": [
+    {
+     "name": "Layback Toss",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Driving Short Uppercut",
+     "command": "HP close",
+     "category": "command"
+    },
+    {
+     "name": "Skyward Kick",
+     "command": "HK close",
+     "category": "command"
+    },
+    {
+     "name": "Back Heel",
+     "command": "HK far",
+     "category": "command"
+    },
+    {
+     "name": "Laugh And Point",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Jump Kick",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Side Stance Palm",
+     "command": "f + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     }
+    },
+    {
+     "name": "Double Sweep",
+     "command": "d + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "notation": "d + HK"
+     }
+    },
+    {
+     "name": "Double Foot Stomp",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Chi Blast",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Trap Uppercut",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Pressure Elbow",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Iron Palms",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Pressure Elbow"
+    },
+    {
+     "name": "Opening Fan",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Leaping Double Kick",
+     "command": "f, d, df + K",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f, d, df + K"
+     }
+    },
+    {
+     "name": "Leap Frog",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Pressure Leap Kicks",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Chi Storm",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Chi Bomb",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Swift Barrage",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "lotus-master",
+   "name": "Lotus Master",
+   "title": "",
+   "moves": [
+    {
+     "name": "Sling Toss",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Double Jump Kick",
+     "command": "HK in air",
+     "category": "command"
+    },
+    {
+     "name": "Slash Uppercut",
+     "command": "HP close",
+     "category": "command"
+    },
+    {
+     "name": "Flame Toss",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Double Slash",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Backroll and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Dead Claw",
+     "command": "f + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     }
+    },
+    {
+     "name": "Short Dual Slide Kick",
+     "command": "db + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 1,
+      "notation": "db + HK"
+     }
+    },
+    {
+     "name": "Medium Dual Slide Kick",
+     "command": "d + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 2,
+      "notation": "d + HK"
+     }
+    },
+    {
+     "name": "Far Dual Slide Kick",
+     "command": "df + HK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "hold": 3,
+      "notation": "df + HK"
+     }
+    },
+    {
+     "name": "Pouncing Claw",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Bloom",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     }
+    },
+    {
+     "name": "Pouncing Claw",
+     "command": "b, d, db + P",
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "b, d, db + P"
+     }
+    },
+    {
+     "name": "Reaping Claw",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     },
+     "follows": "Pouncing Claw"
+    },
+    {
+     "name": "Sky Slash",
+     "command": "qcf + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P"
+     },
+     "follows": "Reaping Claw"
+    },
+    {
+     "name": "Air Double Claw",
+     "command": "P",
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Sky Slash"
+    },
+    {
+     "name": "Lotus Catch",
+     "command": "hcf + P in air",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "air": true,
+      "notation": "hcf + P in air"
+     }
+    },
+    {
+     "name": "Raising Bloom",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Thunderous Strikes",
+     "command": "hcb + K",
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "hcb + K"
+     }
+    },
+    {
+     "name": "Lotus Rush",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Swallowing Lotus",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Death Touch",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Tower Of Flames",
+     "command": "hcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcb + P"
+     }
+    },
+    {
+     "name": "Giant Bloom",
+     "command": "qcf, qcf + K",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf, qcf + K"
+     }
+    }
+   ]
+  },
+  {
+   "key": "saojin",
+   "name": "Saojin",
+   "title": "",
+   "moves": [
+    {
+     "name": "Rolling Neck Snap",
+     "command": "LP+HK / LK+HK",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+HK"
+      },
+      "notation": "LP+HK / LK+HK"
+     }
+    },
+    {
+     "name": "Blind Air Punches",
+     "command": "ub/uf, HP",
+     "category": "command"
+    },
+    {
+     "name": "Blind Punches",
+     "command": "LP",
+     "category": "command"
+    },
+    {
+     "name": "Reading",
+     "command": "HP+HK",
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "HP"
+       ],
+       "count": 2,
+       "label": "HP+HK"
+      },
+      "notation": "HP+HK"
+     }
+    },
+    {
+     "name": "Hopping Double Knees",
+     "command": "d + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 2,
+      "notation": "d + LP+LK"
+     }
+    },
+    {
+     "name": "Retreat and Jump",
+     "command": "b + LP+LK",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "hold": 4,
+      "notation": "b + LP+LK"
+     }
+    },
+    {
+     "name": "Drilling Punch",
+     "command": "f + HP",
+     "category": "command",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "hold": 6,
+      "notation": "f + HP"
+     }
+    },
+    {
+     "name": "Double Bash",
+     "command": "d/u + LP/LK/HP/HK when opponent is on floor",
+     "category": "command"
+    },
+    {
+     "name": "Windmill Punch",
+     "command": "qcf + LP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "LP"
+       ],
+       "count": 1,
+       "label": "LP"
+      },
+      "notation": "qcf + LP"
+     }
+    },
+    {
+     "name": "Punch Flurry",
+     "command": "qcf + HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "qcf + HP"
+     }
+    },
+    {
+     "name": "Chaos Flurry",
+     "command": "f, d, df + P",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "f, d, df + P"
+     }
+    },
+    {
+     "name": "Piercing Umbrella",
+     "command": "qcb + P",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P"
+     }
+    },
+    {
+     "name": "Dust Slide",
+     "command": "qcf + K",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K"
+     }
+    },
+    {
+     "name": "Crafty Slide",
+     "command": "hcf + HK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "hcf + HK"
+     }
+    },
+    {
+     "name": "Blast Palm",
+     "command": "f, d, df + LK",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "f, d, df + LK"
+     }
+    },
+    {
+     "name": "Double Blast",
+     "command": "f, d, df + HK",
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "f, d, df + HK"
+     }
+    },
+    {
+     "name": "Blast Strikes",
+     "command": "qcf + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcf + LK+HP"
+     }
+    },
+    {
+     "name": "Curtain Call",
+     "command": "qcb + LK+HP",
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LK"
+       ],
+       "count": 2,
+       "label": "HP+LK"
+      },
+      "notation": "qcb + LK+HP"
+     }
+    },
+    {
+     "name": "Stagger Grab",
+     "command": "hcf + LP+LK",
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "LK",
+        "LP"
+       ],
+       "count": 2,
+       "label": "LP+LK"
+      },
+      "notation": "hcf + LP+LK"
+     }
+    },
+    {
+     "name": "Photo Op",
+     "command": "qcf, qcf + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf, qcf + P"
+     }
+    },
+    {
+     "name": "Umbrella Rush",
+     "command": "qcb, qcb + P",
+     "category": "super",
+     "motion": {
+      "kind": "qcb_x2",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb, qcb + P"
+     }
+    }
+   ]
+  }
+ ]
+}

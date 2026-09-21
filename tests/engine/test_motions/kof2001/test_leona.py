@@ -32,6 +32,11 @@ def test_charging_back_then_forward_is_the_baltic_launcher(play) -> None:
 
 
 def test_a_short_hold_is_not_a_charge(play) -> None:
-    """The direction has to be held, not passed through on the way to the button."""
+    """The direction has to be held, not passed through on the way to the button.
+
+    Forward and a punch is also her Leona Crush, a throw, but that wants forward
+    held for THROW_HOLD_MS, standing in for walking into range, so a short one
+    gives nothing either.
+    """
     assert play(_charge(DOWN, UP, SHORT_MS)).moves == []
     assert play(_charge(BACK, FORWARD, SHORT_MS)).moves == []

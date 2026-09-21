@@ -722,12 +722,40 @@
     {
      "name": "Ducking Straight",
      "command": "Press P during Ducking",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press P"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Ducking Upper",
      "command": "Press K during Ducking",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Cross Counter",
@@ -1576,22 +1604,38 @@
     {
      "name": "Hyakki Shuu",
      "command": "f,d,df + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, then..."
+     }
     },
     {
      "name": "Hyakki Gouzan",
      "command": "...do nothing after Hyakki Shuu",
-     "category": "other"
+     "category": "special",
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Goushou",
      "command": "...press P while in air",
-     "category": "other"
+     "category": "special",
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Goujin",
      "command": "...press K while in air",
-     "category": "other"
+     "category": "special",
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Hyakki Gousai",
@@ -1607,8 +1651,9 @@
        "count": 2,
        "label": "LP+LK"
       },
-      "notation": "...press LP + LK when close and in air"
-     }
+      "notation": "press LP + LK when close and in air"
+     },
+     "follows": "Hyakki Shuu"
     },
     {
      "name": "Tenma Kuujin Kyaku",
@@ -1734,16 +1779,44 @@
      "command": "LP,LP,f,LK,HP         x(max stocks)",
      "category": "super",
      "motion": {
-      "kind": "any",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "HP",
-        "LK",
-        "LP"
+        "HP"
        ],
-       "count": 3,
-       "label": "LP+HP+LK"
+       "count": 1,
+       "label": "HP"
       },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "LP,LP,f,LK,HP         x(max stocks)"
      }
     },
@@ -1939,7 +2012,18 @@
     {
      "name": "Drop Kick",
      "command": "b / f + HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "b / f + HK"
+     }
     },
     {
      "name": "Elbow",
@@ -2201,7 +2285,19 @@
     {
      "name": "Oiura Ken",
      "command": "Press HP during Rasen Chuu",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Rasen Chuu"
     },
     {
      "name": "Maki Geri",
@@ -2794,7 +2890,19 @@
     {
      "name": "Fumikomi Seiken Sanren Tsuki \"Yamase\"",
      "command": "Press HP during \"Shimaki\"",
-     "category": "other"
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Fumikomi Seiken-zuki \"Shimaki\""
     },
     {
      "name": "Mae Geri \"Shibuki\"",
@@ -4628,7 +4736,8 @@
     {
      "name": "Kabe Haritsuki",
      "command": "Press f into a wall during Kokkuu",
-     "category": "other"
+     "category": "other",
+     "follows": "Kokkuu"
     },
     {
      "name": "B.M.K.",

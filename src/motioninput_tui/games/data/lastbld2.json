@@ -254,7 +254,19 @@
     {
      "name": "Ittou Sogetsu",
      "command": "Ittou Shingetsu, f, d, df + B (in speed mode or EX only)",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Ittou Shingetsu, f, d, df + B (in speed mode or EX only)"
+     },
+     "follows": "Ittou Shingetsu"
     },
     {
      "name": "Ittou Shingetsu Ura",
@@ -530,12 +542,14 @@
     {
      "name": "Tenmon Kakageshi Tenshin",
      "command": "Tenmon Hoshi no Meguri, d, u + B",
-     "category": "special"
+     "category": "special",
+     "follows": "Tenmon Hoshi no Meguri"
     },
     {
      "name": "Tenmon Tenzuru Hokuto",
      "command": "Tenmon Hoshi no Meguri, d, u + C",
-     "category": "special"
+     "category": "special",
+     "follows": "Tenmon Hoshi no Meguri"
     },
     {
      "name": "Gaiki DorotaBou",
@@ -558,22 +572,62 @@
     {
      "name": "MeiRyu Mari Otoshi",
      "command": "Gaiki DorotaBou, d + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "Gaiki DorotaBou, d + C"
+     },
+     "follows": "Gaiki DorotaBou"
     },
     {
      "name": "MeiRyu Mari Houri",
      "command": "Gaiki DorotaBou, u + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 8,
+      "notation": "Gaiki DorotaBou, u + C"
+     },
+     "follows": "Gaiki DorotaBou"
     },
     {
      "name": "MeiRyu Houri",
      "command": "Gaiki DorotaBou, u + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 8,
+      "notation": "Gaiki DorotaBou, u + B"
+     },
+     "follows": "Gaiki DorotaBou"
     },
     {
      "name": "MeiRyu Mari Koroge",
      "command": "Gaiki DorotaBou, hold A or B",
-     "category": "special"
+     "category": "special",
+     "follows": "Gaiki DorotaBou"
     },
     {
      "name": "Koumyou Gojuugo",
@@ -781,12 +835,36 @@
     {
      "name": "Suritsubushi",
      "command": "Tatakitsuke, d, df, f + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Tatakitsuke, d, df, f + B"
+     },
+     "follows": "Tatakitsuke"
     },
     {
      "name": "Bokunaguri",
      "command": "Tatakitsuke, d, df, f + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "Tatakitsuke, d, df, f + A"
+     },
+     "follows": "Tatakitsuke"
     },
     {
      "name": "Bunnage",
@@ -796,7 +874,19 @@
     {
      "name": "Kattobashi",
      "command": "Bunnage, d, df, f + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Bunnage, d, df, f + B"
+     },
+     "follows": "Bunnage"
     },
     {
      "name": "Futtobashi: Kattobashi",
@@ -817,17 +907,55 @@
     {
      "name": "Ranmoku(DM)",
      "command": "Bokunaguri, (f, df, d, db, b)x2 + A+B",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "Bokunaguri, (f, df, d, db, b)x2 + A+B"
+     },
+     "follows": "Bokunaguri"
     },
     {
      "name": "Chougeki Dou Jai(SDM)",
      "command": "Ranmoku, (d, df, f)x2 + B",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Ranmoku, (d, df, f)x2 + B"
+     },
+     "follows": "Ranmoku(DM)"
     },
     {
      "name": "Houmuran (DM)",
      "command": "Bunnage, d, df, f + A + B",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "Bunnage, d, df, f + A + B"
+     },
+     "follows": "Bunnage"
     },
     {
      "name": "Daitan Muteki(DM)",
@@ -926,7 +1054,19 @@
     {
      "name": "Shougi Doushi",
      "command": "df, df + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 3,
+      "notation": "df, df + C"
+     }
     },
     {
      "name": "Ibisha Anaguma",
@@ -947,7 +1087,19 @@
     {
      "name": "Anaguma no Fudoshi Nugi",
      "command": "Ibisha Anaguma, d, df, f + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Ibisha Anaguma, d, df, f + B"
+     },
+     "follows": "Ibisha Anaguma"
     },
     {
      "name": "Chou Jou Hatsu",
@@ -1097,17 +1249,53 @@
     {
      "name": "Shashiki",
      "command": "Rouga, d, db, b + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Rouga, d, db, b + C"
+     },
+     "follows": "Rouga"
     },
     {
      "name": "Onshiki",
      "command": "Rouga, d, df, f + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Rouga, d, df, f + C"
+     },
+     "follows": "Rouga"
     },
     {
      "name": "Fukushiki",
      "command": "Rouga, d, db, b + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Rouga, d, db, b + B"
+     },
+     "follows": "Rouga"
     },
     {
      "name": "Shun Satsu",
@@ -1416,22 +1604,26 @@
     {
      "name": "Hokage",
      "command": "Kasumi, A",
-     "category": "special"
+     "category": "special",
+     "follows": "Kasumi"
     },
     {
      "name": "Homura",
      "command": "Kasumi, B",
-     "category": "special"
+     "category": "special",
+     "follows": "Kasumi"
     },
     {
      "name": "Senpuu",
      "command": "Kasumi, C",
-     "category": "special"
+     "category": "special",
+     "follows": "Kasumi"
     },
     {
      "name": "Hakkei",
      "command": "Kasumi, D",
-     "category": "special"
+     "category": "special",
+     "follows": "Kasumi"
     },
     {
      "name": "Enryu Haibi",
@@ -1621,7 +1813,20 @@
     {
      "name": "Tenein Jou Ou",
      "command": "Tenma Kyaku, d + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "Tenma Kyaku, d + C"
+     },
+     "follows": "Tenma Kyaku"
     },
     {
      "name": "Kagehoushi",
@@ -1631,12 +1836,36 @@
     {
      "name": "Tachi Koppa",
      "command": "Kagehoushi, d, db, b + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "Kagehoushi, d, db, b + A"
+     },
+     "follows": "Kagehoushi"
     },
     {
      "name": "Kasumigiri",
      "command": "Kagehoushi, d, db, b + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Kagehoushi, d, db, b + B"
+     },
+     "follows": "Kagehoushi"
     },
     {
      "name": "Oboro Giri",
@@ -1818,12 +2047,36 @@
     {
      "name": "Akkai",
      "command": "Kai, d, db, b + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "Kai, d, db, b + A"
+     },
+     "follows": "Kai"
     },
     {
      "name": "Retsu",
      "command": "Kai, d, db, b + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Kai, d, db, b + B"
+     },
+     "follows": "Kai"
     },
     {
      "name": "Aku",
@@ -1833,12 +2086,36 @@
     {
      "name": "Shou",
      "command": "Aku, d, db, b + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "Aku, d, db, b + A"
+     },
+     "follows": "Aku"
     },
     {
      "name": "Da",
      "command": "Aku, d, db, b + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Aku, d, db, b + C"
+     },
+     "follows": "Aku"
     },
     {
      "name": "Ruri Sai",
@@ -1865,12 +2142,36 @@
     {
      "name": "Kyouten Douji (DM)",
      "command": "Bouko Hyouga, (f, df, d, db, b)x2 + B",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Bouko Hyouga, (f, df, d, db, b)x2 + B"
+     },
+     "follows": "Bouko Hyouga (DM)"
     },
     {
      "name": "Yuuchuu Maisai (DM)",
      "command": "Bouko Hyouga, b, db, d, df, f + C",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Bouko Hyouga, b, db, d, df, f + C"
+     },
+     "follows": "Bouko Hyouga (DM)"
     },
     {
      "name": "Inga Ouhou (DM)",
@@ -1880,12 +2181,37 @@
     {
      "name": "Shinden Taichi (DM)",
      "command": "Kai, (f, df, d, db, b)X 2 + A + B",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "Kai, (f, df, d, db, b)X 2 + A + B"
+     },
+     "follows": "Kai"
     },
     {
      "name": "Dohatsu Taiten (SDM)",
      "command": "Aku, (f, df, d, db, b)x2 + C",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcb_x2",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Aku, (f, df, d, db, b)x2 + C"
+     },
+     "follows": "Aku"
     },
     {
      "name": "Fugu Taiten (SDM)",
@@ -2126,7 +2452,19 @@
     {
      "name": "Shiranui",
      "command": "Gouen Sou, d, df, f + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Gouen Sou, d, df, f + B"
+     },
+     "follows": "Gouen Sou"
     },
     {
      "name": "Sho Hoko",
@@ -2325,12 +2663,26 @@
     {
      "name": "Nukaba Kiru Nari",
      "command": "I o Awasu Nari, C",
-     "category": "special"
+     "category": "special",
+     "follows": "I o Awasu Nari"
     },
     {
      "name": "Nukazuba Kiranu Nari",
      "command": "I o Awasu Nari, B + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 4,
+      "notation": "I o Awasu Nari, B + C"
+     },
+     "follows": "I o Awasu Nari"
     },
     {
      "name": "Kami Hitoe ni te Kawasu Nari",
@@ -2340,12 +2692,38 @@
     {
      "name": "Ma o Tsumeru Koto Kanyou Nari",
      "command": "Kami Hitoe ni te Kawasu Nari, f + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 6,
+      "notation": "Kami Hitoe ni te Kawasu Nari, f + C"
+     },
+     "follows": "Kami Hitoe ni te Kawasu Nari"
     },
     {
      "name": "Ma o Oku Koto Kanyou Nari",
      "command": "Kami Hitoe ni te Kawasu Nari, b + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 4,
+      "notation": "Kami Hitoe ni te Kawasu Nari, b + C"
+     },
+     "follows": "Kami Hitoe ni te Kawasu Nari"
     },
     {
      "name": "Sanae o Okotaranu Kokoro Nari",
@@ -2460,7 +2838,8 @@
     {
      "name": "Tenchi",
      "command": "Shunjin, close, C",
-     "category": "special"
+     "category": "special",
+     "follows": "Shunjin"
     },
     {
      "name": "Koku Satsu",
@@ -2638,7 +3017,19 @@
     {
      "name": "Mumei - Go no Tsui",
      "command": "Go, b, db, d, df, f + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Go, b, db, d, df, f + C"
+     },
+     "follows": "Mumei - Go"
     },
     {
      "name": "Mumei - Zetsu(DM)",
@@ -2676,7 +3067,20 @@
     {
      "name": "Mumei - Kyoku no Tsui",
      "command": "Kyoku, b, db, d, df, f + A + B",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 2,
+       "label": "A+B"
+      },
+      "notation": "Kyoku, b, db, d, df, f + A + B"
+     },
+     "follows": "Mumei - Kyoku(SDM)"
     }
    ]
   },
@@ -2762,7 +3166,19 @@
     {
      "name": "Ittou Kabuto Wari",
      "command": "Ittou Kuga, f, d, df + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Ittou Kuga, f, d, df + B"
+     },
+     "follows": "Ittou Kuga"
     },
     {
      "name": "Ittou RenjinZan",

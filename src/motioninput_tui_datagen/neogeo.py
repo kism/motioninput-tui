@@ -19,7 +19,10 @@ from typing import TYPE_CHECKING
 from motioninput_tui.engine.notation import ALL_BUTTONS, KICKS, PUNCHES, Button, ButtonRequirement
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from motioninput_tui.engine.motions import MotionSpec
+    from motioninput_tui.games.models import Move as MoveName
 
 NEO_PUNCHES = frozenset({Button.A, Button.C})
 NEO_KICKS = frozenset({Button.B, Button.D})
@@ -40,8 +43,9 @@ light punch and kick, C and D the heavy pair."""
 
 
 def to_neo_panel(motion: MotionSpec, command: str) -> MotionSpec:
-    """Put a motion's button requirement back onto the Neo Geo's A B C D."""
-    return replace(motion, buttons=neo_buttons(motion.buttons), notation=command.strip())
+    """Put a motion's button requirements back onto the Neo Geo's A B C D, a sequence's steps included."""
+    sequence = tuple(replace(step, buttons=neo_buttons(step.buttons)) for step in motion.sequence)
+    return replace(motion, buttons=neo_buttons(motion.buttons), sequence=sequence, notation=command.strip())
 
 
 def neo_buttons(requirement: ButtonRequirement) -> ButtonRequirement:
@@ -62,12 +66,29 @@ _REPEATED = re.compile(r"\(([^()]+)\)\s*x\s*2")
 """``(d, df, f)x2``, expanded here because ``normalise`` reads parentheses as
 asides and would drop the motion along with them."""
 
-_BUTTONS = re.compile(r"\+\s*([ABCDPK]{1,4}(?:\s+or\s+[ABCDPK]{1,4})*)(?![A-Za-z])")
+_OPTION = r"[ABCDPK]{1,4}"
+
+_CHOICE = r"\s*(?:,\s*or|,|or)\s*"
+"""How the options of one button clause are told apart, once :data:`_BUTTONS`
+has found a choice. Samurai Shodown II writes the longer ones as a list rather
+than a string of ``or``s, ``+ B, D, AB, or CD``, so a comma separates two
+options and the ``, or`` that ends the list has to be read as one separator
+rather than two."""
+
+_BUTTONS = re.compile(
+    rf"\+\s*({_OPTION}(?:(?:\s*,\s*{_OPTION})*\s*,?\s*or\s+{_OPTION})*)((?:\s*,\s*{_OPTION})*)(?![A-Za-z])"
+)
 """The buttons a command asks for: letters pressed together (``AB``), and the
-choices between them the guides write out (``+ A or B``). Both halves of a
-choice have to be translated here -- left to ``normalise``, an untranslated
-``B`` is not a button token at all and the move silently narrows to the first
-option."""
+choices between them the guides write out. Every part of a choice has to be
+translated here -- left to ``normalise``, an untranslated ``B`` is not a button
+token at all and the move silently narrows to the first option.
+
+A comma is only a choice inside a list that an ``or`` closes. On its own it is
+one press after another -- Hinako's ``f + A, C`` is A then C, not either -- so
+those land in the second group and stay a run for ``normalise`` to read as a
+sequence."""
+
+_SPLIT_CHOICE = re.compile(_CHOICE)
 
 _MASHED = re.compile(r"^\s*([ABCDPK]{1,4})(?=\s+(?:rapidly|repeatedly)\b)")
 """``C rapidly``: a mash, whose button has no ``+`` in front of it for
@@ -108,8 +129,58 @@ def to_shorthand(command: str) -> str:
 
 def _buttons(match: re.Match[str]) -> str:
     """One button clause, as the alternation ``normalise`` reads."""
-    options = re.split(r"\s+or\s+", match.group(1))
-    return "+ " + " / ".join(" + ".join(TO_SHORTHAND[letter] for letter in option) for option in options)
+    options = [option for option in _SPLIT_CHOICE.split(match.group(1)) if option]
+    # :data:`_MASHED` shares this and has no second group.
+    run = match.group(2) if match.re.groups > 1 else ""
+    then = [press.strip() for press in run.split(",") if press.strip()]
+    return "+ " + ", ".join(
+        [
+            " / ".join(_pressed_together(option) for option in options),
+            *(_pressed_together(press) for press in then),
+        ]
+    )
+
+
+def _pressed_together(letters: str) -> str:
+    return " + ".join(TO_SHORTHAND[letter] for letter in letters)
+
+
+_EITHER = re.compile(r"^\s*(?:either|after)\s+", re.IGNORECASE)
+"""How the guides sometimes open a chain link: "either Shining Crystal Bit, ..."."""
+
+
+def split_parent(command: str, so_far: Sequence[MoveName]) -> tuple[str, str]:
+    """A chain link's parent and its own command, or ``("", "")``.
+
+    These guides write a link as the move it continues, a comma, then the input
+    for this half: ``114 Shiki Aragami, d, df, f + P``. The head is only taken
+    as a parent when it names a move the character already has - otherwise it
+    is prose this cannot model, and the move stays struck through as before
+    rather than gaining a link to nothing.
+
+    A move name inside the head is preferred, longest first, so ``Strong Hien
+    Zan`` finds ``Hien Zan``, and Naoe Shigen's ``Kai`` finds ``Kai`` rather
+    than the ``Akkai`` that also contains it. Only when nothing matches that way
+    is the head read as an abbreviation of a name - Setsuna's ``Go`` for ``Mumei
+    - Go``, and the heads that drop the ``(DM)`` the roster keeps. The shortest
+    candidate wins there, being the one the head accounts for most of.
+    """
+    head, comma, tail = command.partition(",")
+    if not comma or not tail.strip():
+        return "", ""
+    head = _EITHER.sub("", head).strip()
+    # An ordinary command is direction, comma, direction, and its head is an
+    # input rather than a name. Without this the abbreviation pass below would
+    # read the ``d`` of every ``d, df, f`` as any move with a d in its name.
+    if not head or _INPUT_HEAD.match(head):
+        return "", ""
+    named = [move.name for move in so_far if move.name and move.name in head]
+    if named:
+        return max(named, key=len), tail.strip()
+    abbreviated = [move.name for move in so_far if move.name and head in move.name]
+    if abbreviated:
+        return min(abbreviated, key=len), tail.strip()
+    return "", ""
 
 
 def unmodelled(command: str) -> str:

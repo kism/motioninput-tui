@@ -10,6 +10,7 @@ from tests.engine.test_motions.harness import (
     DOWN_DOUBLE_TAP_FORWARD_HP,
     FORWARD,
     HP,
+    NEO_D,
     QUARTER_CIRCLE_FORWARD_HP,
     press,
     release,
@@ -36,3 +37,13 @@ def test_hold_down_double_tap_forward_does_nothing(play) -> None:
 
 def test_the_full_dragon_punch_motion_is_oniyaki(play) -> None:
     assert play(DRAGON_PUNCH_HP).moves == ["100 Shiki Oniyaki"]
+
+
+def test_a_quick_forward_d_is_the_command_normal(play) -> None:
+    """The throw is the same input, so a quick press has to leave the normal reachable."""
+    assert play([press(FORWARD, 0), press(NEO_D, 100)]).moves == ["Ge Shiki: Goufu You"]
+
+
+def test_forward_held_for_a_second_then_d_is_the_throw(play) -> None:
+    """Holding the direction stands in for walking into range, which the trainer cannot see."""
+    assert play([press(FORWARD, 0), press(NEO_D, 1100)]).moves == ["Issetsu Seoi Nage"]

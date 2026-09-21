@@ -12,7 +12,7 @@ from .input_strip import CATEGORY_STYLES
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
-    from motioninput_tui.engine.recognizer import Activation, FollowUp
+    from motioninput_tui.engine.recognizer import Activation, FollowUp, LiveChain
     from motioninput_tui.notation_styles import Notation
 
 
@@ -46,6 +46,8 @@ class MoveFeed(Static):
             text.append(f"{notation.write_move(move):<28}", style="dim")
             if activation.follow_up is not None:
                 append_follow_up(text, activation.follow_up, newest=index == 0)
+            elif activation.chain is not None:
+                append_chain(text, activation.chain, newest=index == 0)
             elif activation.also_matched:
                 text.append(f"also: {', '.join(activation.also_matched)}", style="dim italic")
             text.append("\n")
@@ -76,3 +78,16 @@ def append_follow_up(text: Text, follow_up: FollowUp, *, newest: bool) -> None:
             text.append(f"  {verb} {follow_up.button_label}!", style="bold yellow")
     else:
         text.append("●" * done + "○" * (needed - done), style="dim yellow")
+
+
+def append_chain(text: Text, chain: LiveChain, *, newest: bool) -> None:
+    """What this move has just opened, for as long as it stays open.
+
+    Only the newest row is prompted: an older one is a string that has already
+    been and gone, and telling the player to continue it would be a lie.
+    """
+    opened = ", ".join(chain.moves)
+    if newest:
+        text.append(f"→ {opened}", style="bold yellow")
+    else:
+        text.append(f"→ {opened}", style="dim italic")

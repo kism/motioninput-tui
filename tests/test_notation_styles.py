@@ -13,9 +13,11 @@ from motioninput_tui.games.loader import load_game
 from motioninput_tui.games.models import Move
 from motioninput_tui.notation_styles import DEFAULT, MOTION_NAMES, MOTION_SHORTHANDS, STYLES, Family, Notation
 
-GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lastbld2")
+GAMES = ("hsf2", "sfa3", "sfiii3", "kof98", "lastbld2", "sailormoons")
 """Two SNK rosters as well, since the rolls their supers are written on do not
-appear in any Street Fighter move list."""
+appear in any Street Fighter move list, and Sailor Moon S, which is the only
+roster carrying a circle its guide spelled out and a half circle back that
+carries on past back."""
 
 
 def moves_by_kind() -> dict[MotionKind, Move]:

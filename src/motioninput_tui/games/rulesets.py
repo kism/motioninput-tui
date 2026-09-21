@@ -7,7 +7,7 @@ Alpha 3 want a real f,d,df and will hand you a fireball if they do not get it.
 
 from dataclasses import dataclass
 
-from motioninput_tui.controls.buttons import NEO_GEO, STREET_FIGHTER, ButtonSet
+from motioninput_tui.controls.buttons import NEO_GEO, SNES_FIGHTER, STREET_FIGHTER, TEKKEN, ButtonSet
 from motioninput_tui.engine.ruleset import Ruleset
 
 
@@ -74,6 +74,12 @@ SFA3 = GameSpec(
         super_freeze_ms=833,  # ~50 frames at 60fps.
         rotation_window_ms=500,
         rotation_slack=2,
+        # Mika's rope running and Bison's Head Press, reckoned like the rest.
+        chain_window_ms=700,
+        # Akuma's Raging Demon and Guy's Bushin strings. Reckoned: a run of
+        # presses is forgiving in these games, but not so forgiving that four
+        # idle taps over a couple of seconds should come out as one.
+        sequence_window_ms=1200,
     ),
     notes=(
         "A little more forgiving than SF2, but still wants the full f,d,df for a dragon punch.",
@@ -157,6 +163,15 @@ SFIII3 = GameSpec(
         # are unmeasured.
         jump_grace_ms=117,
         rotation_slack=2,  # Unread while the rule above is in force.
+        # The one figure in this ruleset that is NOT from the decompilation:
+        # a link's window lives in the same per-move script data the freeze
+        # does, which the decomp does not carry. Reckoned at the same 700ms
+        # as the other games, and flagged in docs/sfiii3-from-the-decomp.md
+        # so it is not mistaken for a measured one.
+        chain_window_ms=700,
+        # Akuma's Raging Demon. Reckoned, like the chain window above: the
+        # decompilation carries no figure for a run of presses either.
+        sequence_window_ms=1200,
     ),
     notes=(
         "The lenient one. Hold down and double tap forward and you get a dragon punch.",
@@ -187,6 +202,11 @@ KOF98 = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # KoF's rekka strings: the next hit is buffered during the one before,
+        # so the window is generous. Reckoned, like the rest of this ruleset.
+        chain_window_ms=700,
+        # Target combos such as Hinako's f + A, C. Reckoned, as Alpha 3's is.
+        sequence_window_ms=1200,
     ),
     notes=(
         "Neo Geo four-button panel: A and B are the light punch and kick, C and D the heavy pair.",
@@ -194,6 +214,7 @@ KOF98 = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df, and holding down then tapping forward gives nothing.",
         "Negative edge exists, so releasing a button can complete a special.",
         "Charge moves want most of a second in the held direction.",
+        "The rekka strings chain: land the first and the next one opens for a moment.",
     ),
     reference="references/kof98.txt",
     buttons=NEO_GEO,
@@ -221,6 +242,11 @@ KOF2001 = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # KoF's rekka strings: the next hit is buffered during the one before,
+        # so the window is generous. Reckoned, like the rest of this ruleset.
+        chain_window_ms=700,
+        # Target combos such as Hinako's f + A, C. Reckoned, as Alpha 3's is.
+        sequence_window_ms=1200,
     ),
     notes=(
         "Neo Geo four-button panel: A and B are the light punch and kick, C and D the heavy pair.",
@@ -228,6 +254,7 @@ KOF2001 = GameSpec(
         "No dragon punch shortcut: f,d,df means f,d,df, and holding down then tapping forward gives nothing.",
         "Charge moves want a little less than KoF '98 asks for.",
         "The guide is written in numpad notation, so the move list here is the translation of it.",
+        "The rekka strings chain: land the first and the next one opens for a moment.",
     ),
     reference="references/kof2001.txt",
     buttons=NEO_GEO,
@@ -255,16 +282,61 @@ LB2 = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # Its follow-ups are the same shape as KoF's and reckoned the same way.
+        chain_window_ms=700,
     ),
     notes=(
         "Neo Geo panel, weapon game: A and B are the weak and strong slash, C kicks and D repels.",
         "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "Only Washizuka and Lee Rekka charge; everyone else is motion-only.",
+        "Many specials chain: land the first and the move written after it opens for a moment.",
         "The DMs and SDMs want a full meter and the right mode, neither of which the trainer models.",
     ),
     reference="references/lastbld2.txt",
     buttons=NEO_GEO,
+)
+
+SAILORMOONS = GameSpec(
+    key="sailormoons",
+    name="Bishoujo Senshi Sailor Moon S",
+    short_name="Sailor Moon S",
+    ruleset=Ruleset(
+        # A 1994 licensed SNES fighter, and nothing about it argues for tighter
+        # windows than the arcade games here: it is slower and its motions are
+        # plain. These are interpolated from Alpha 3's.
+        motion_window_ms=320,
+        activation_window_ms=170,
+        step_gap_ms=180,
+        max_intermediate=1,
+        tail_states=2,
+        # Left off deliberately. The guide spelling every diagonal out is a
+        # notation habit rather than evidence about the engine, and there is no
+        # decompilation to check, so this stays at the default a game only
+        # turns on with real figures behind it.
+        lenient_diagonals=False,
+        # The one figure here that is not reckoned: the guide's own key says to
+        # hold the direction for at least two seconds, which is far longer than
+        # anything else in the trainer asks for.
+        charge_ms=2000,
+        charge_release_ms=220,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=False,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+    ),
+    notes=(
+        "Four buttons: weak and strong punch, with the two kicks beneath them.",
+        "Charges are the longest in the trainer - the guide asks for a full two seconds.",
+        "No dragon punch shortcut: f,d,df means f,d,df.",
+        "The guide covers the SuperS sequel too; this roster is what the S game has.",
+        "It writes forward as T, for towards, so the move list here is the translation of it.",
+        "Its longest desperation motions are not ones the trainer models, so they are struck through.",
+    ),
+    reference="references/sailormoons.txt",
+    buttons=SNES_FIGHTER,
 )
 
 SSII = GameSpec(
@@ -290,6 +362,8 @@ SSII = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # Genjuro's and Seiger's strings, reckoned as the rest of the SNK set.
+        chain_window_ms=700,
     ),
     notes=(
         "Neo Geo panel, weapon game: A and B are the light and medium slash, C and D the two kicks.",
@@ -297,6 +371,7 @@ SSII = GameSpec(
         "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The POW moves need a full meter, which the trainer does not model - only the input.",
+        "Genjuro's SanRenSatsu chains: land one and the next opens for a moment.",
     ),
     reference="references/samsho2.txt",
     buttons=NEO_GEO,
@@ -324,6 +399,8 @@ SSVSP = GameSpec(
         mash_count=5,
         rotation_window_ms=500,
         rotation_slack=2,
+        # Enja's Rikudou Rekka and the other strings, reckoned as the rest.
+        chain_window_ms=700,
     ),
     notes=(
         (
@@ -333,6 +410,7 @@ SSVSP = GameSpec(
         "SNK buffering is generous, so a quarter circle done as down, forward still comes out.",
         "No dragon punch shortcut: f,d,df means f,d,df.",
         "The supers need a full Rage gauge, which the trainer does not model - only the input.",
+        "The guide underlines a follow-up: land the move above it and it opens for a moment.",
     ),
     reference="references/samsh5sp.txt",
     buttons=NEO_GEO,
@@ -365,6 +443,10 @@ USFIV = GameSpec(
         super_freeze_ms=1000,  # ~60 frames at 60fps.
         rotation_window_ms=550,
         rotation_slack=2,
+        # Dudley's Ducking and Adon's Jaguar Assault, reckoned like the rest.
+        chain_window_ms=700,
+        # Akuma's, Evil Ryu's and Oni's Raging Demon, and Guy's strings.
+        sequence_window_ms=1200,
     ),
     notes=(
         "The shortcut game: f,df on its own gives a dragon punch, which is why you eat one walking up to throw.",
@@ -376,10 +458,102 @@ USFIV = GameSpec(
     reference="references/usfiv.txt",
 )
 
+MARTMAST = GameSpec(
+    key="martmast",
+    name="Martial Masters",
+    short_name="Martial Masters",
+    ruleset=Ruleset(
+        # IGS's 2001 PGM board, not a Neo Geo or a Capcom one, and there is no
+        # decompilation to read. Nothing is measured here, so every field that
+        # loosens the game stays off: the guide writes each motion out in full
+        # and never abbreviates one, which is an argument for nothing. The
+        # windows sit where Alpha 3's do, the nearest game whose dialect this
+        # guide shares.
+        motion_window_ms=300,
+        activation_window_ms=150,
+        step_gap_ms=170,
+        max_intermediate=1,
+        tail_states=2,
+        lenient_diagonals=False,
+        # Inert: nobody in this roster charges or turns a circle.
+        charge_ms=900,
+        charge_release_ms=200,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=False,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+        # Long enough to roll a deliberate quarter circle out of the move
+        # before, short enough that the string does not outlive the animation
+        # it belongs to. Most of this roster is chains, so this is the field
+        # that matters most here.
+        chain_window_ms=700,
+        # Drunk Master's target combo, the one run of presses in this roster.
+        sequence_window_ms=1200,
+    ),
+    notes=(
+        "Four buttons: light and heavy punch, with the two kicks beneath them.",
+        "No dragon punch shortcut: f,d,df means f,d,df.",
+        "Nobody in this roster charges or turns a circle, so every special is a plain motion.",
+        "The Shadow Moves cost a super stock, which the trainer does not model - only the input.",
+        "Most of each move list is chains: land the move above and the next one opens for a moment.",
+        "The trainer has no opponent, so it takes the parent coming out as the hit landing.",
+    ),
+    reference="references/martmast.txt",
+    buttons=SNES_FIGHTER,
+)
+
+TEKKEN3 = GameSpec(
+    key="tekken3",
+    name="Tekken 3",
+    short_name="Tekken 3",
+    ruleset=Ruleset(
+        # Not a 2D fighter at all, and the only game here whose move list is
+        # mostly strings of presses rather than motions. Namco's input reader
+        # is famously tight about the *order* and loose about everything else:
+        # a string drops if a press is late, and the few circular motions in
+        # the game are rare enough that nothing here rests on their leniency.
+        motion_window_ms=300,
+        activation_window_ms=150,
+        step_gap_ms=170,
+        max_intermediate=1,
+        tail_states=2,
+        lenient_diagonals=True,
+        # Inert: nothing in this roster charges.
+        charge_ms=900,
+        charge_release_ms=200,
+        dp_double_tap=False,
+        dp_skip_down=False,
+        negative_edge=False,
+        mash_count=5,
+        rotation_window_ms=500,
+        rotation_slack=2,
+        # The strings are what this game is, so this is the field that matters
+        # most: long enough for a four press run at a human pace, short enough
+        # that idle taps do not add up to one. Reckoned, like every game here
+        # but 3rd Strike.
+        sequence_window_ms=1200,
+        # A string continues off the move above it, which the guide marks ^.
+        chain_window_ms=700,
+    ),
+    notes=(
+        "Four buttons, one per limb: left and right punch over left and right kick.",
+        "Most of the move list is strings of presses rather than motions - lp,rp,lk is three presses in order.",
+        "A dash is forward tapped twice, and it opens a good deal of the roster.",
+        "The guide marks a move that continues the one above it, and those open for a moment once it comes out.",
+        "Moves needing a sidestep or a crouch are struck through: the trainer reads inputs, not states.",
+        "A stance move is listed as the guide writes it, so it comes out here without the stance.",
+    ),
+    reference="references/tekken3.txt",
+    buttons=TEKKEN,
+)
+
 # Menu order: by series (alphabetically), then in each series' own numeric /
 # chronological order.
 GAME_SPECS: dict[str, GameSpec] = {
-    spec.key: spec for spec in (KOF98, KOF2001, LB2, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV)
+    spec.key: spec
+    for spec in (KOF98, KOF2001, LB2, MARTMAST, SAILORMOONS, SSII, SSVSP, HSF2, SFA3, SFIII3, USFIV, TEKKEN3)
 }
 DEFAULT_GAME = SFIII3.key
 
