@@ -182,7 +182,7 @@ def test_the_stick_is_labelled_in_the_direction_style_letters_leaning_the_way_th
     """Letters are two wide in a box three wide, so each sits against the side it names; arrows stay centred."""
 
     async def session() -> tuple[list[str], list[str], list[str]]:
-        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        app = MotionInputApp(config, key_release=True, skip_setup=True)  # exact, so the holds cannot lapse
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             screen = app.screen
@@ -219,8 +219,10 @@ def test_ctrl_k_hides_the_stick_and_the_buttons_and_brings_them_back(config: Con
 
 
 def test_what_is_held_is_lit(config: Config) -> None:
+    """Exact input, so the holds cannot lapse on a slow runner before the panel is read."""
+
     async def session() -> tuple[list[str], list[str]]:
-        app = MotionInputApp(config, key_release=False, skip_setup=True)
+        app = MotionInputApp(config, key_release=True, skip_setup=True)
         async with app.run_test(size=(100, 26)) as pilot:
             await pilot.pause()
             screen = app.screen
