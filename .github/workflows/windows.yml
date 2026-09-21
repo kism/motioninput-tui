@@ -8,6 +8,14 @@ on:
       - test
     tags:
       - "v*"
+    # GitHub skips path filters on tag pushes, so a release always builds.
+    paths:
+      - "src/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".python-version"
+      - "scripts/nuitka_entry.py"
+      - ".github/workflows/windows.yml"
   workflow_dispatch:
 
 jobs:
