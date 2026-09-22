@@ -8,10 +8,12 @@ looked up in one table.
 """
 
 import re
+from itertools import pairwise
 
-from motioninput_tui.engine.motions import MotionKind, MotionSpec
+from motioninput_tui.engine.motions import MotionKind, MotionSpec, SequenceStep
 from motioninput_tui.engine.notation import (
     ALL_BUTTONS,
+    DIRECTION_RING,
     KICKS,
     PUNCHES,
     Button,
@@ -28,6 +30,7 @@ _UNSUPPORTED = re.compile(
 )
 
 MULTI_BUTTON = 2
+DOUBLE_TAP_TOKENS = 2
 
 # "tap P rapidly" after a motion never comes with a count, so assume three taps.
 _MASH_DEFAULT = 3
@@ -39,7 +42,12 @@ _MASHING = re.compile(r"rapid|repeatedly")
 # Healing is a plain qcf,qcf + P and the PP only stops it early. "to cancel" and
 # its friends are already noise to _QUALIFIERS; it is the "then" in front of
 # them that would otherwise read as a follow-up condition and drop the move.
-_OPTIONAL_TAIL = re.compile(r",?\s*then\s+[a-z+]+\s+to\s+(?:cancel|delay|fake)\b")
+#
+# `then...` with nothing after it is the same idea written as punctuation: the
+# ellipsis points at the moves listed underneath, so the input is the head on
+# its own. Cammy's Hooligan Combination really is `hcf,uf + P`, and what she
+# does out of it is the next few rows of the guide.
+_OPTIONAL_TAIL = re.compile(r",?\s*then(?:\s+[a-z+]+\s+to\s+(?:cancel|delay|fake)\b|\s*\.\.\.\s*$)")
 
 _PARENTHETICAL = re.compile(r"\([^)]*\)")
 _STOCKS = re.compile(r"\bx\s*\(?\s*(max\s+stocks?|\d+)\s*\)?\s*(/\s*\d+)?\s*$")
@@ -127,11 +135,15 @@ _MOTION_TABLE: dict[tuple[str, ...], MotionKind] = {
     ("d", "db", "b", "d", "db", "b"): MotionKind.QCB_X2,
     ("b", "db", "d", "df", "f", "b", "db", "d", "df", "f"): MotionKind.HCF_X2,
     ("f", "df", "d", "db", "b", "f", "df", "d", "db", "b"): MotionKind.HCB_X2,
+    ("f", "d", "df", "f", "d", "df"): MotionKind.DP_X2,
     ("d", "df", "f", "d", "df"): MotionKind.QCF_DP,
     ("d", "db", "b", "d", "db"): MotionKind.QCB_RDP,
     ("d", "df", "f", "df", "d", "db", "b"): MotionKind.QCF_HCB,
     ("d", "db", "b", "db", "d", "df", "f"): MotionKind.QCB_HCF,
+    ("f", "df", "d", "db", "b", "db", "d", "df", "f"): MotionKind.HCB_HCF,
     ("f", "df", "d", "db", "b", "f"): MotionKind.HCB_F,
+    ("f", "df", "d", "db", "b", "db", "d"): MotionKind.HCB_DB_D,
+    ("b", "db", "d", "df", "f", "df", "d"): MotionKind.HCF_DF_D,
     ("d", "db", "b", "db", "f"): MotionKind.QCB_DB_F,
     ("f", "b", "db", "d", "df", "f"): MotionKind.F_HCF,
     ("f", "df", "d"): MotionKind.F_DF_D,
@@ -173,8 +185,15 @@ class ParsedCommand:
         self.reason = reason
 
 
-def parse_command(command: str) -> ParsedCommand:
-    """Normalise a move list command into a :class:`MotionSpec`."""
+def parse_command(command: str, *, chained: bool = False) -> ParsedCommand:
+    """Normalise a move list command into a :class:`MotionSpec`.
+
+    ``chained`` says the move follows on from another, which is what makes a
+    bare button an input worth recognising: a chain link is small precisely
+    because its parent did the work. Everywhere else a lone button with no
+    direction is an ordinary normal, and matching one would make every move
+    list a list of things you get by pressing a button.
+    """
     raw = _OPTIONAL_TAIL.sub("", command.strip().lower())
     if not raw:
         return ParsedCommand(None, "empty")
@@ -182,11 +201,14 @@ def parse_command(command: str) -> ParsedCommand:
         return ParsedCommand(None, "conditional or follow-up move")
 
     text = _strip_noise(raw)
+    chain = _button_chain(text)
+    if chain is not None:
+        return _sequence_command(chain, command)
     buttons = _parse_buttons(text)
     if buttons is None:
         return ParsedCommand(None, "no button requirement found")
 
-    kind, hold, reason = _classify(raw, text, buttons)
+    kind, hold, reason = _classify(raw, text, buttons, chained=chained)
     if kind is None:
         return ParsedCommand(None, reason)
     mash, rhythm, mash_button = _follow_through(raw, kind, buttons)
@@ -230,14 +252,107 @@ def _follow_through(raw: str, kind: MotionKind, buttons: ButtonRequirement) -> t
     return tail.group(2).count(",") + 1, True, "" if button == motion_label else button
 
 
-def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKind | None, Direction | None, str]:
+def _sequence_command(parts: list[str], command: str) -> ParsedCommand:
+    """One run of presses as a :attr:`MotionKind.SEQUENCE`, or why it is not one."""
+    built = _sequence_spec(parts)
+    if built is None:
+        return ParsedCommand(None, "a run of presses the trainer cannot read")
+    steps, last = built
+    # The press that fires the move is the spec's own requirement, and what is
+    # held for it is the spec's `hold` - the same fields every other kind uses,
+    # so only the run in front of it is new.
+    return ParsedCommand(
+        MotionSpec(
+            MotionKind.SEQUENCE,
+            last.buttons,
+            hold=last.direction,
+            sequence=tuple(steps),
+            notation=command.strip(),
+        )
+    )
+
+
+def _button_chain(text: str) -> list[str] | None:
+    """A command's steps if it is buttons pressed one after another, else None.
+
+    A target combo (``HP, HP, HK, HP``) and Akuma's Raging Demon
+    (``LP,LP,f,LK,HP``) are runs of presses rather than one input. Left as they
+    are the commas fall out with the rest of the punctuation and what comes
+    back is "press all of these at once", a move the game does not have.
+
+    What marks one is a comma with a button on either side of it. Zangief's
+    ``Press PPP, move b / f`` has a comma too, but what follows it is the
+    direction to spin in, not a second press.
+
+    Anything in front of the first press has to be a single direction, held for
+    that press: Tekken's ``df+lp,rp`` is a string that starts crouching. A head
+    of more than one direction is a motion, which is what keeps this off
+    ``qcf + P, tap P rapidly`` - and the direction comes back as a part of its
+    own, since :func:`_sequence_spec` already reads one of those as belonging
+    to the press after it.
+    """
+    section = _button_section(text)
+    if not section or "," not in section:
+        return None
+    head = text[: len(text) - len(section)].replace("+", " ").strip()
+    lead = _tokens_in(head)
+    if head and (len(lead) != 1 or lead[0] not in _HOLD_DIRECTIONS):
+        return None
+    parts = [*lead, *(part.strip() for part in section.split(","))]
+    presses = [bool(_BUTTON_TOKEN.search(part)) for part in parts]
+    if not any(earlier and later for earlier, later in pairwise(presses)):
+        return None
+    return parts
+
+
+def _sequence_spec(parts: list[str]) -> tuple[list[SequenceStep], SequenceStep] | None:
+    """The steps of a button run, and the requirement its last press carries.
+
+    A step is a press and whatever was held for it. The direction may be
+    written in front of the button (``d + HK``) or as a part of its own
+    (``LP,LP,f,LK,HP``), where it belongs to the press after it. Either way it
+    has to survive: it is the only thing telling Akuma's two Raging Demons
+    apart, and Guy's two Bushin strings differ by nothing else at all.
+    """
+    steps: list[SequenceStep] = []
+    carried: Direction | None = None
+    for part in parts:
+        buttons = _parse_buttons(part)
+        direction = _lone_direction(part)
+        if buttons is None:
+            if direction is None:
+                return None
+            carried = direction
+            continue
+        steps.append(SequenceStep(buttons=buttons, direction=direction or carried))
+        carried = None
+    if len(steps) < MULTI_BUTTON or carried is not None:
+        return None
+    return steps[:-1], steps[-1]
+
+
+def _lone_direction(part: str) -> Direction | None:
+    """The one direction a step holds, if it names exactly one.
+
+    The plus joining a direction to its button has to go first, or ``f+`` reads
+    as no direction at all and Tekken's two Sixstrings become one move.
+    """
+    tokens = _tokens_in(_head_of(part).replace("+", " "))
+    if len(tokens) != 1 or tokens[0] not in _HOLD_DIRECTIONS:
+        return None
+    return _HOLD_DIRECTIONS[tokens[0]]
+
+
+def _classify(
+    raw: str, text: str, buttons: ButtonRequirement, *, chained: bool = False
+) -> tuple[MotionKind | None, Direction | None, str]:
     """Pick the motion kind for a command whose button requirement is already known."""
     # A 360 that ends in mashing is still a 360, so rotations are checked first.
     rotation = _parse_rotation(text)
     if rotation is not None:
         return rotation, None, ""
 
-    kind, hold, reason = _resolve_directions(raw, text, buttons)
+    kind, hold, reason = _resolve_directions(raw, text, buttons, chained=chained)
     if kind is not None:
         return kind, hold, ""
 
@@ -250,7 +365,7 @@ def _classify(raw: str, text: str, buttons: ButtonRequirement) -> tuple[MotionKi
 
 
 def _resolve_directions(
-    raw: str, text: str, buttons: ButtonRequirement
+    raw: str, text: str, buttons: ButtonRequirement, *, chained: bool = False
 ) -> tuple[MotionKind | None, Direction | None, str]:
     """Turn the direction tokens of a command into a motion kind."""
     # "Charge Back for 2 secs, Forward" never says the word charge in Hyper SF2.
@@ -258,16 +373,38 @@ def _resolve_directions(
     tokens = _direction_tokens(text)
 
     if not tokens:
-        if buttons.count < MULTI_BUTTON:
-            return None, None, "no directional or multi-button requirement"
-        return MotionKind.ANY, None, ""
+        return _without_directions(text, buttons, chained=chained)
 
     kind = (_CHARGE_TABLE if charged else _MOTION_TABLE).get(tuple(tokens))
     if kind is not None:
         return kind, None, ""
     if not charged and len(tokens) == 1 and tokens[0] in _HOLD_DIRECTIONS:
         return MotionKind.HOLD, _HOLD_DIRECTIONS[tokens[0]], ""
+    # "f,f" is a dash, "d,d" the tap-twice a few SNK moves want. One direction
+    # twice over, which is a different thing from holding it.
+    if not charged and len(tokens) == DOUBLE_TAP_TOKENS and len(set(tokens)) == 1 and tokens[0] in _HOLD_DIRECTIONS:
+        return MotionKind.DOUBLE_TAP, _HOLD_DIRECTIONS[tokens[0]], ""
+    if not charged and _is_full_circle(tokens):
+        return MotionKind.ROTATE_360, None, ""
     return None, None, f"unrecognised motion {','.join(tokens)!r}"
+
+
+def _without_directions(
+    text: str, buttons: ButtonRequirement, *, chained: bool
+) -> tuple[MotionKind | None, Direction | None, str]:
+    """The kind of a command whose directions came to nothing.
+
+    ``b / f + B`` asked for a direction and then said either would do, which is
+    a different thing from a command that named none. On one button that
+    direction is the whole difference between the throw and the normal, so it
+    is kept; on two the buttons already say which move this is, and every
+    roster here has read them as :attr:`MotionKind.ANY` all along.
+    """
+    if _is_throw_choice(text):
+        return (MotionKind.ANY if buttons.count >= MULTI_BUTTON else MotionKind.THROW), None, ""
+    if buttons.count < MULTI_BUTTON and not chained:
+        return None, None, "no directional or multi-button requirement"
+    return MotionKind.ANY, None, ""
 
 
 _AIR_PREFIX = re.compile(r"^\s*in (?:the )?air\b")
@@ -293,6 +430,10 @@ def _strip_noise(text: str) -> str:
     text = _QUALIFIERS.sub(" ", text)
     text = text.replace("rotate", " ")
     text = re.sub(r"\bor\b", "/", text)  # "Back or Forward", "MP or HP"
+    # A guide may write the same choice tight, "LP/LK/HP/HK". Without the
+    # spaces the alternatives below never split, and four buttons to choose
+    # from read as four buttons to press at once.
+    text = re.sub(r"(?<=[\w])/(?=[\w])", " / ", text)
     for word, short in _WORD_DIRECTIONS.items():
         text = re.sub(rf"\b{word}\b", short, text)
     text = _SHORTHAND_RUN.sub(_expand_shorthand, text)
@@ -307,6 +448,28 @@ def _parse_rotation(text: str) -> MotionKind | None:
     if "360" in text:
         return MotionKind.ROTATE_360
     return None
+
+
+_RING_POSITIONS = {direction.short: index for index, direction in enumerate(DIRECTION_RING)}
+FULL_CIRCLE = len(DIRECTION_RING)
+
+
+def _is_full_circle(tokens: list[str]) -> bool:
+    """Whether the tokens walk the eight directions right the way round.
+
+    Not every guide writes a 360 as "360": one that spells the circle out gets
+    one here, where :func:`_parse_rotation` only sees the ones that say so.
+
+    Every step has to be the next notch round, the same way throughout, which is
+    what keeps this off the long motions that merely have a lot of directions in
+    them. A half circle out and back again covers plenty of the ring but doubles
+    back, and is not a revolution.
+    """
+    if len(tokens) != FULL_CIRCLE or any(token not in _RING_POSITIONS for token in tokens):
+        return False
+    positions = [_RING_POSITIONS[token] for token in tokens]
+    steps = {(later - earlier) % FULL_CIRCLE for earlier, later in pairwise(positions)}
+    return steps in ({1}, {FULL_CIRCLE - 1})
 
 
 def _button_section(text: str) -> str:
@@ -331,10 +494,7 @@ def _parse_buttons(text: str) -> ButtonRequirement | None:
     ]
     named = [option for option in per_alternative if option]
     if named:
-        # "MP or HP" is a choice of one; "LP + LK" needs both at once.
-        if len(named) > 1 and all(len(option) == 1 for option in named):
-            return ButtonRequirement(frozenset().union(*named), 1)
-        return ButtonRequirement(frozenset(named[0]), len(named[0]))
+        return _named_requirement(named, alternatives)
 
     tokens = _BUTTON_TOKEN.findall(alternatives[0])
     if not tokens:
@@ -347,7 +507,68 @@ def _parse_buttons(text: str) -> ButtonRequirement | None:
     return ButtonRequirement(family, len(token))
 
 
+def _named_requirement(named: list[set[Button]], alternatives: list[str]) -> ButtonRequirement:
+    """The requirement of a command whose alternatives name specific buttons."""
+    # "MP or HP" is a choice of one; "LP + LK" needs both at once.
+    if len(named) > 1 and all(len(option) == 1 for option in named):
+        return ButtonRequirement(frozenset().union(*named), 1)
+    # A choice between a family and one button, "qcf + P/LK". The family
+    # alternative names no specific button, so it is not in `named` at all, and
+    # taking the first option alone would leave the move on the one button the
+    # guide offered as the alternative.
+    if len(alternatives) > 1 and len(named) == 1 and len(named[0]) == 1:
+        family = _family_alternatives(alternatives)
+        if family:
+            return ButtonRequirement(frozenset().union(*named, *family), 1)
+    return ButtonRequirement(frozenset(named[0]), len(named[0]))
+
+
+def _family_alternatives(alternatives: list[str]) -> list[frozenset[Button]]:
+    """The whole-family options of a choice: the ``P`` in ``qcf + P/LK``.
+
+    The family has to be the *whole* of its own alternative. A ``K`` sitting
+    inside one alongside another button is a follow-up press rather than a
+    choice - Guy's ``qcf + LK,K`` is his run and then a kick out of it, not a
+    move on any kick.
+    """
+    families = []
+    for option in alternatives:
+        tokens = _BUTTON_TOKEN.findall(option)
+        if len(tokens) == 1 and tokens[0] in {"p", "k"}:
+            families.append(PUNCHES if tokens[0] == "p" else KICKS)
+    return families
+
+
 _REPEAT = re.compile(r"\bx\s*2\b")
+
+
+_THROW_CHOICE = frozenset({"b", "f"})
+"""Back or forward, and nothing else. Every guide here writes a throw that way:
+which side you hold decides which side they land on, so the direction is not
+part of what the move *is*. Other pairs are not the same thing at all - Martial
+Masters' floor pursuit is ``d/u + LP/LK/HP/HK``, and it genuinely wants one of
+those two."""
+
+
+def _is_throw_choice(text: str) -> bool:
+    """Whether the directions are the back-or-forward a throw is written with.
+
+    :func:`_direction_tokens` drops the pair, having nothing to hold; this is
+    what is left to tell "either way round" apart from a command that named no
+    direction at all. The difference is the only thing standing between a
+    Samurai Shodown throw and an ordinary button press.
+    """
+    head = _head_of(text).replace("+", " ")
+    alternatives = [tokens for tokens in (_tokens_in(part) for part in head.split(" / ")) if tokens]
+    if len(alternatives) < MULTI_BUTTON or not all(len(option) == 1 for option in alternatives):
+        return False
+    return {option[0] for option in alternatives} == _THROW_CHOICE
+
+
+def _head_of(text: str) -> str:
+    """The part of a command in front of its button requirement."""
+    section = _button_section(text)
+    return text[: len(text) - len(section)] if section else text
 
 
 def _direction_tokens(text: str) -> list[str]:

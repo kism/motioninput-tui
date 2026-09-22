@@ -71,11 +71,32 @@
       "sha256": "381dc191c3cb6e3dd6c9ae0316d8fcb4396922521b8ef6c0420fb3f3a17715f1"
     },
     {
+      "key": "sailormoons",
+      "name": "Bishoujo Senshi Sailor Moon S: Juugai Rantou Shuyaku Soudatsusen",
+      "url": "https://gamefaqs.gamespot.com/snes/580007-bishoujo-senshi-sailor-moon-s-juugai-rantou-shuyaku/faqs/9466",
+      "credit": "Moves Quick Reference by Loopy",
+      "sha256": "bd53f9132857b05d27313dafc08887455fb6457576e588577f58dcd09bf8e193"
+    },
+    {
       "key": "usfiv",
       "name": "Ultra Street Fighter IV",
       "url": "https://gamefaqs.gamespot.com/pc/722790-ultra-street-fighter-iv/faqs/70060",
       "credit": "Move List and Guide (PS3) by THEMCD (Damon M. McDaniel)",
       "sha256": "a41d4a21d9828f996436181d7c6ddb790cda0bcdf96faa1e93af7b3615c7e927"
+    },
+    {
+      "key": "martmast",
+      "name": "Martial Masters",
+      "url": "https://gamefaqs.gamespot.com/arcade/568092-martial-masters/faqs/69254",
+      "credit": "FAQ by Goh_Billy",
+      "sha256": "785e49fd88cdaa18fd17f5e402ad9f66017dd5cddf5b6fc2243311444cf49d92"
+    },
+    {
+      "key": "tekken3",
+      "name": "Tekken 3",
+      "url": "https://gamefaqs.gamespot.com/arcade/563192-tekken-3/faqs/979",
+      "credit": "FAQ in Letter Notation by SurfBard",
+      "sha256": "d6134b2cea5885d6f4d453fb0c1acf95f957ddbfa8479e16de0eee094ac928c3"
     }
   ]
 }

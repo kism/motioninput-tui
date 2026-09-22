@@ -38,7 +38,25 @@ class MotionKind(StrEnum):
     """The directional part of a move's command."""
 
     ANY = "any"
+    DOUBLE_TAP = "double_tap"
+    """One direction tapped twice - Tekken's dash and backdash, and the ``d,d``
+    a few SNK moves want. Which direction is in :attr:`MotionSpec.hold`, the
+    same field :attr:`HOLD` uses, so this is one kind rather than one per
+    direction."""
     HOLD = "hold"
+    SEQUENCE = "sequence"
+    """Buttons pressed one after another rather than together, each optionally
+    with a direction held for it: Akuma's ``LP,LP,f,LK,HP``, a target combo,
+    a Tekken string. :attr:`MotionSpec.sequence` carries the run that has to
+    come *before* the press that fires the move, so the final press is gated by
+    :attr:`MotionSpec.buttons` like every other kind's is."""
+    THROW = "throw"
+    """Back or forward and a button, which is how every guide here writes a
+    throw on a single button. Which side you hold decides which side they land
+    on, so neither is required over the other - but one of them is, and that is
+    the whole difference between the throw and the normal on the same button.
+    A throw written on *two* buttons is :attr:`ANY` instead: nothing else in a
+    move list wants that pair, so there the direction really is decoration."""
     QCF = "qcf"
     QCB = "qcb"
     HCF = "hcf"
@@ -50,11 +68,15 @@ class MotionKind(StrEnum):
     QCB_X2 = "qcb_x2"
     HCF_X2 = "hcf_x2"
     HCB_X2 = "hcb_x2"
+    DP_X2 = "dp_x2"
     QCF_DP = "qcf_dp"
     QCB_RDP = "qcb_rdp"
     QCF_HCB = "qcf_hcb"
     QCB_HCF = "qcb_hcf"
+    HCB_HCF = "hcb_hcf"
     HCB_F = "hcb_f"
+    HCB_DB_D = "hcb_db_d"
+    HCF_DF_D = "hcf_df_d"
     QCB_DB_F = "qcb_db_f"
     F_HCF = "f_hcf"
     F_DF_D = "f_df_d"
@@ -81,6 +103,35 @@ CHARGE_KINDS = frozenset(
 
 
 @dataclass(frozen=True, slots=True)
+class SequenceStep:
+    """One press of a :attr:`MotionKind.SEQUENCE`, and what was held for it.
+
+    ``direction`` is the lever at the moment of the press, which is the only
+    thing telling Akuma's two Raging Demons apart - ``LP,LP,f,LK,HP`` and
+    ``LP,LP,b,LK,HP`` are otherwise the same four presses.
+    """
+
+    buttons: ButtonRequirement
+    direction: Direction | None = None
+
+    def to_dict(self) -> dict[str, object]:
+        """Serialise for the generated game data files."""
+        data: dict[str, object] = {"buttons": self.buttons.to_dict()}
+        if self.direction is not None:
+            data["direction"] = int(self.direction)
+        return data
+
+    @classmethod
+    def from_dict(cls, raw: dict[str, object]) -> SequenceStep:
+        """Rebuild from a generated game data file."""
+        direction = raw.get("direction")
+        return cls(
+            buttons=ButtonRequirement.from_dict(raw["buttons"]),  # ty: ignore[invalid-argument-type]
+            direction=Direction(direction) if direction is not None else None,
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class MotionSpec:
     """The full input requirement for a move.
 
@@ -96,6 +147,9 @@ class MotionSpec:
     kind: MotionKind
     buttons: ButtonRequirement
     hold: Direction | None = None
+    sequence: tuple[SequenceStep, ...] = ()
+    """The presses in front of the one that fires a :attr:`MotionKind.SEQUENCE`,
+    oldest first. Empty for every other kind."""
     air: bool = False
     mash: int = 0
     mash_rhythm: bool = False
@@ -121,6 +175,8 @@ class MotionSpec:
         data: dict[str, object] = {"kind": self.kind.value, "buttons": self.buttons.to_dict()}
         if self.hold is not None:
             data["hold"] = int(self.hold)
+        if self.sequence:
+            data["sequence"] = [step.to_dict() for step in self.sequence]
         if self.air:
             data["air"] = True
         if self.mash:
@@ -141,6 +197,7 @@ class MotionSpec:
             kind=MotionKind(raw["kind"]),
             buttons=ButtonRequirement.from_dict(raw["buttons"]),  # ty: ignore[invalid-argument-type]
             hold=Direction(hold) if hold is not None else None,
+            sequence=tuple(SequenceStep.from_dict(step) for step in raw.get("sequence", ())),  # ty: ignore[not-iterable]
             air=bool(raw.get("air")),
             mash=int(raw.get("mash", 0)),  # ty: ignore[invalid-argument-type]
             mash_rhythm=bool(raw.get("mash_rhythm")),
@@ -300,6 +357,10 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     MotionKind.QCB_X2: lambda rules: [[*_quarter_back(rules), *_doubled_tail(_quarter_back(rules), rules)]],
     MotionKind.HCF_X2: lambda rules: [[*_half_forward(rules), *_doubled_tail(_half_forward(rules), rules)]],
     MotionKind.HCB_X2: lambda rules: [[*_half_back(rules), *_doubled_tail(_half_back(rules), rules)]],
+    # Sailor Neptune's Dragon Rise is the dragon punch twice over, f,d,df,f,d,df.
+    # The plain form only: doubling the double-tap shortcut as well would be
+    # inventing an input no guide here writes.
+    MotionKind.DP_X2: lambda rules: [[*_dragon_punch(rules), *_doubled_tail(_dragon_punch(rules), rules)]],
     MotionKind.QCF_DP: lambda rules: [[*_quarter_forward(rules), Step(_ONLY_DOWN), Step(_ONLY_DF)]],
     MotionKind.QCB_RDP: lambda rules: [[*_quarter_back(rules), Step(_ONLY_DOWN), Step(_ONLY_DB)]],
     # KoF's supers join the two halves on a shared direction: qcf~hcb is
@@ -307,7 +368,20 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     # neutral mid-motion, so the second motion's opening step is dropped.
     MotionKind.QCF_HCB: lambda rules: [[*_quarter_forward(rules), *_half_back(rules)[1:]]],
     MotionKind.QCB_HCF: lambda rules: [[*_quarter_back(rules), *_half_forward(rules)[1:]]],
+    # Sailor Uranus' Destructive Carnival rolls out to back and all the way
+    # home again: f,df,d,db,b,db,d,df,f, the two half circles sharing the back.
+    MotionKind.HCB_HCF: lambda rules: [[*_half_back(rules), *_half_forward(rules)[1:]]],
     MotionKind.HCB_F: lambda rules: [[*_half_back(rules), Step(_ONLY_F)]],
+    # A half circle back that carries on past back and down to down, which
+    # is Sailor Mars' Snake Flare: f,df,d,db,b,db,d. The tail is the 412 that
+    # `B_DB_D` is on its own, sharing the back the half circle ends on.
+    MotionKind.HCB_DB_D: lambda rules: [
+        [*_half_back(rules), Step(_ONLY_DB, rules.lenient_diagonals), Step(_ONLY_DOWN)]
+    ],
+    # And its mirror, Sailor Venus' Wink Flare: b,db,d,df,f,df,d.
+    MotionKind.HCF_DF_D: lambda rules: [
+        [*_half_forward(rules), Step(_ONLY_DF, rules.lenient_diagonals), Step(_ONLY_DOWN)]
+    ],
     # The two SNK rolls. Neither is shorthand for anything shorter: the db of
     # `d,db,b,db,f` is where the roll turns back on itself and the leading f of
     # `f,b,db,d,df,f` is a real tap before the half circle, so both are
@@ -334,10 +408,12 @@ _DOUBLE_MOTIONS = frozenset(
         MotionKind.QCB_X2,
         MotionKind.HCF_X2,
         MotionKind.HCB_X2,
+        MotionKind.DP_X2,
         MotionKind.QCF_DP,
         MotionKind.QCB_RDP,
         MotionKind.QCF_HCB,
         MotionKind.QCB_HCF,
+        MotionKind.HCB_HCF,
     }
 )
 
@@ -683,6 +759,32 @@ def _match_rotation(turns: int, buffer: InputBuffer, ruleset: Ruleset, at_ms: in
     return False
 
 
+DOUBLE_TAP_STEPS = 2
+"""How many separate spans of one direction a :attr:`MotionKind.DOUBLE_TAP` is."""
+
+THROW_DIRECTIONS = frozenset({Direction.BACK, Direction.FORWARD})
+"""What :attr:`MotionKind.THROW` wants held. The cardinals only, as
+:func:`_hold_set` gives for either of them on its own."""
+
+THROW_HOLD_MS = 1000
+"""How long :attr:`MotionKind.THROW` wants its direction held before the press.
+
+The trainer models no range, and a throw is the same input as the command
+normal on that direction and button (KoF's ``f + D``). Holding the direction
+for a second stands in for walking into range: a quick ``f + D`` is the normal,
+a long walk forward then ``D`` is the throw."""
+
+
+def _match_throw(buffer: InputBuffer, at_ms: int) -> bool:
+    current = buffer.directions[-1] if buffer.directions else None
+    return (
+        current is not None
+        and current.is_current
+        and current.direction in THROW_DIRECTIONS
+        and current.duration_ms(at_ms) >= THROW_HOLD_MS
+    )
+
+
 def _match_hold(hold: Direction | None, buffer: InputBuffer) -> bool:
     if hold is None:
         return True
@@ -754,10 +856,96 @@ def _match_mash(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: 
     return _mash_hits(spec, buffer, ruleset, at_ms) >= ruleset.mash_count
 
 
+def _match_double_tap(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> bool:
+    """Whether the direction was tapped, let go and tapped again, recently.
+
+    Two separate stays in it, not one long hold: holding forward the whole time
+    is a single stay and is not a dash. A stay is a run of states inside the
+    hold's set that reaches the direction itself, so rolling ``db`` to ``d``, or
+    ``d`` to ``df`` and back, is one tap of down rather than two, and a quarter
+    circle is none. Anything outside the set may sit between the two, which is
+    what lets a keyboard's neutral show up mid-dash without breaking it.
+    """
+    if spec.hold is None:
+        return False
+    wanted = _hold_set(spec.hold)
+    window = ruleset.motion_window_ms + ruleset.activation_window_ms
+    taps: list[int] = []
+    run_start: int | None = None
+    for state in buffer.directions_since(at_ms - window):
+        if state.direction not in wanted:
+            run_start = None
+            continue
+        if run_start is None:
+            run_start = state.start_ms
+        if state.direction == spec.hold and (not taps or taps[-1] != run_start):
+            taps.append(run_start)
+    if len(taps) < DOUBLE_TAP_STEPS:
+        return False
+    return at_ms - taps[-DOUBLE_TAP_STEPS] <= window
+
+
+def _match_sequence(spec: MotionSpec, buffer: InputBuffer, ruleset: Ruleset, at_ms: int) -> bool:
+    """Whether the run in front of this press is the one the move asks for.
+
+    The press that fires the move is already checked by :func:`matches`, so
+    what is left is the presses before it: the last few in the buffer have to
+    be exactly the steps, in order, each with its direction held at the time.
+    Exactly, not merely ending that way - a stray button in the middle is how
+    the games drop a string, and letting it through would give the move to
+    someone who fumbled it.
+    """
+    if ruleset.sequence_window_ms <= 0 or not _match_hold(spec.hold, buffer):
+        return False
+    presses = _distinct_presses(buffer, at_ms - ruleset.sequence_window_ms)
+    # The last of them is the press being judged; the steps come before it.
+    wanted = spec.sequence
+    if len(presses) <= len(wanted):
+        return False
+    run = presses[-len(wanted) - 1 : -1] if wanted else []
+    return all(_step_matches(step, at, held, buffer) for step, (at, held) in zip(wanted, run, strict=True))
+
+
+def _step_matches(step: SequenceStep, at_ms: int, held: frozenset[Button], buffer: InputBuffer) -> bool:
+    """Whether one press of a sequence is the step it is lined up against."""
+    if len(held & step.buttons.allowed) < step.buttons.count:
+        return False
+    if step.direction is None:
+        return True
+    return _direction_at(buffer, at_ms) in _hold_set(step.direction)
+
+
+def _distinct_presses(buffer: InputBuffer, since_ms: int) -> list[tuple[int, frozenset[Button]]]:
+    """The presses since ``since_ms``, with ones made together folded into one.
+
+    A ``PP`` is one press of the string, not two, the same way the buffer reads
+    it for everything else.
+    """
+    folded: list[tuple[int, frozenset[Button]]] = []
+    for press in buffer.buttons_since(since_ms):
+        if folded and press.at_ms - folded[-1][0] <= buffer.simultaneous_ms:
+            at, buttons = folded[-1]
+            folded[-1] = (at, buttons | {press.button})
+        else:
+            folded.append((press.at_ms, frozenset({press.button})))
+    return folded
+
+
+def _direction_at(buffer: InputBuffer, at_ms: int) -> Direction:
+    """The direction being held when a press landed."""
+    for state in reversed(buffer.directions):
+        if state.start_ms <= at_ms and (state.end_ms is None or at_ms <= state.end_ms):
+            return state.direction
+    return Direction.NEUTRAL
+
+
 _SIMPLE_MATCHERS: dict[MotionKind, Callable[[MotionSpec, InputBuffer, Ruleset, int], bool]] = {
     MotionKind.ANY: lambda *_: True,
     MotionKind.HOLD: lambda spec, buffer, _ruleset, _at: _match_hold(spec.hold, buffer),
+    MotionKind.THROW: lambda _spec, buffer, _ruleset, at: _match_throw(buffer, at),
     MotionKind.MASH: _match_mash,
+    MotionKind.DOUBLE_TAP: _match_double_tap,
+    MotionKind.SEQUENCE: _match_sequence,
     MotionKind.ROTATE_360: lambda _spec, buffer, ruleset, at: _match_rotation(1, buffer, ruleset, at),
     MotionKind.ROTATE_720: lambda _spec, buffer, ruleset, at: _match_rotation(2, buffer, ruleset, at),
 }

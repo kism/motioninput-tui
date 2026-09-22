@@ -214,6 +214,13 @@ from and pressing it again, which recreates that step anyway, and the trainer
 has no notion of being airborne. The four rotation tables are not among the 92,
 which is why a circle's own up is handled by the jump instead.
 
+**The chain window.** `Ruleset.chain_window_ms` says how long a move that
+follows on from another stays available once its parent is out — Dudley's
+Ducking Straight after his Ducking. Like the super freeze below, a link's
+window is per-move script data the decompilation does not carry, so the 700ms
+here is reckoned at the same figure the other games use. It is the only number
+in this game's ruleset that is not read off the game.
+
 **Super freeze.** `comm_stop` takes its duration from per-move script data,
 which the decomp does not carry - it lives in the disc's character files. It
 confirms the trainer's model, though: `sa_stop_lvdir` snapshots the lever only

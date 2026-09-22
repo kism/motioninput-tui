@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from .engine.motions import MotionKind
+from .engine.motions import MotionKind, SequenceStep
 from .engine.notation import Direction
 
 if TYPE_CHECKING:
@@ -238,12 +238,16 @@ _PARTS: dict[MotionKind, tuple[MotionKind | Direction, ...]] = {
     _K.QCB_X2: (_K.QCB, _K.QCB),
     _K.HCF_X2: (_K.HCF, _K.HCF),
     _K.HCB_X2: (_K.HCB, _K.HCB),
+    _K.DP_X2: (_K.DP, _K.DP),
     _K.QCF_DP: (_K.QCF, _K.DP),
     _K.QCB_RDP: (_K.QCB, _K.RDP),
     _K.QCF_HCB: (_K.QCF, _K.HCB),
     _K.QCB_HCF: (_K.QCB, _K.HCF),
+    _K.HCB_HCF: (_K.HCB, _K.HCF),
     _K.HCB_F: (_K.HCB, _D.FORWARD),
     _K.QCB_DB_F: (_K.QCB, _D.DOWN_BACK, _D.FORWARD),
+    _K.HCB_DB_D: (_K.HCB, _D.DOWN_BACK, _D.DOWN),
+    _K.HCF_DF_D: (_K.HCF, _D.DOWN_FORWARD, _D.DOWN),
     _K.F_HCF: (_D.FORWARD, _K.HCF),
 }
 
@@ -259,12 +263,16 @@ MOTION_NAMES: dict[MotionKind, str] = {
     _K.QCB_X2: "Double quarter circle back",
     _K.HCF_X2: "Double half circle forward",
     _K.HCB_X2: "Double half circle back",
+    _K.DP_X2: "Double dragon punch",
     _K.QCF_DP: "Quarter circle forward, dragon punch",
     _K.QCB_RDP: "Quarter circle back, reverse dragon punch",
     _K.QCF_HCB: "Quarter circle forward, half circle back",
     _K.QCB_HCF: "Quarter circle back, half circle forward",
+    _K.HCB_HCF: "Half circle back, half circle forward",
     _K.HCB_F: "Half circle back, forward",
     _K.QCB_DB_F: "Quarter circle back, down-back, forward",
+    _K.HCB_DB_D: "Half circle back, down-back, down",
+    _K.HCF_DF_D: "Half circle forward, down-forward, down",
     _K.F_HCF: "Forward, half circle forward",
     _K.F_DF_D: "Forward, down-forward, down",
     _K.B_DB_D: "Back, down-back, down",
@@ -290,12 +298,16 @@ MOTION_SHORTHANDS: dict[MotionKind, str] = {
     _K.QCB_X2: "QCB, QCB",
     _K.HCF_X2: "HCF, HCF",
     _K.HCB_X2: "HCB, HCB",
+    _K.DP_X2: "DP, DP",
     _K.QCF_DP: "QCF, DP",
     _K.QCB_RDP: "QCB, RDP",
     _K.QCF_HCB: "QCF, HCB",
     _K.QCB_HCF: "QCB, HCF",
+    _K.HCB_HCF: "HCB, HCF",
     _K.HCB_F: "HCB, F",
     _K.QCB_DB_F: "QCB, DB, F",
+    _K.HCB_DB_D: "HCB, DB, D",
+    _K.HCF_DF_D: "HCF, DF, D",
     _K.F_HCF: "F, HCF",
     _K.F_DF_D: "632",  # This doesn't have a better name
     _K.B_DB_D: "412",  # This doesn't have a better name
@@ -412,6 +424,11 @@ class Notation:
         buttons = spec.buttons.label
         if spec.kind is MotionKind.MASH:
             return f"mash {buttons}"
+        if spec.kind is MotionKind.SEQUENCE:
+            # Joined by commas, not a plus: the whole point of a run is that the
+            # presses come one after another rather than together.
+            text = ", ".join([*(self._sequence_step(step) for step in spec.sequence), self._held(spec) + buttons])
+            return f"{text} (air)" if spec.air else text
         motion = self._motion(spec)
         text = f"{motion} + {buttons}" if motion else buttons
         if spec.air:
@@ -442,7 +459,31 @@ class Notation:
             return "" if spec.hold is None else self.directions((spec.hold,))
         if spec.kind is MotionKind.ANY:
             return ""
+        if spec.kind is MotionKind.DOUBLE_TAP:
+            written = "" if spec.hold is None else self.directions((spec.hold,))
+            return f"{written} {written}"
+        if spec.kind is MotionKind.SEQUENCE:
+            # Written out press by press, since that is all the move is. The
+            # buttons are added by the caller, so the last step is left off.
+            run = " ".join(self._sequence_step(step) for step in spec.sequence)
+            held = "" if spec.hold is None else f" {self.directions((spec.hold,))}"
+            return f"{run}{held}"
+        if spec.kind is MotionKind.THROW:
+            # Either way round, and the guide's own wording says which way does
+            # what. Written as the pair rather than named, so it reads as an
+            # input instead of as a word among the motions.
+            return self.directions((Direction.BACK,)) + "/" + self.directions((Direction.FORWARD,))
         return self.write_kind(spec.kind)
+
+    def _sequence_step(self, step: SequenceStep) -> str:
+        """One press of a sequence: its buttons, and the direction held for it."""
+        if step.direction is None:
+            return step.buttons.label
+        return f"{self.directions((step.direction,))}+{step.buttons.label}"
+
+    def _held(self, spec: MotionSpec) -> str:
+        """The direction held for a sequence's last press, ready to prefix it."""
+        return "" if spec.hold is None else f"{self.directions((spec.hold,))}+"
 
     def write_kind(self, kind: MotionKind) -> str:
         """A motion on its own, with no buttons, as the trainer's live readout names it."""

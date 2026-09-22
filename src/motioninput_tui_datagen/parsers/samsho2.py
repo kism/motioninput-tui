@@ -24,7 +24,7 @@ from typing import TYPE_CHECKING
 from motioninput_tui.games.models import Category, Move
 from motioninput_tui_datagen.common import ParseReport, build_move, finish_character
 from motioninput_tui_datagen.icequeenzero import blocks
-from motioninput_tui_datagen.neogeo import to_neo_panel, to_shorthand, unmodelled
+from motioninput_tui_datagen.neogeo import split_parent, to_neo_panel, to_shorthand, unmodelled
 
 if TYPE_CHECKING:
     from motioninput_tui.games.models import Character
@@ -54,7 +54,11 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
     characters: list[Character] = []
 
     for name, rows in blocks(text, _HEADINGS):
-        moves = [_slash_move(line, category, report, name) for category, line in rows]
+        # Accumulated rather than built in one go: a chain link names the move
+        # it comes out of, and that has to already be in the list to be found.
+        moves: list[Move] = []
+        for category, line in rows:
+            moves.append(_slash_move(line, category, report, name, moves))
         character = finish_character(name, "", moves, report)
         if character is not None:
             characters.append(character)
@@ -62,8 +66,13 @@ def parse(text: str) -> tuple[list[Character], ParseReport]:
     return characters, report
 
 
-def _slash_move(line: str, category: Category, report: ParseReport, character: str) -> Move:
-    """One ``Name: command`` row, in the Neo Geo's own A B C D notation."""
+def _slash_move(line: str, category: Category, report: ParseReport, character: str, so_far: list[Move]) -> Move:
+    """One ``Name: command`` row, in the Neo Geo's own A B C D notation.
+
+    A chain link names the move it continues then its own input, the way the
+    KoF and Last Blade guides do: Genjuro's SanRenSatsu is three of them in a
+    row, each a quarter circle off the one before.
+    """
     # The first colon: Hanzo's Kubinage has a stray second one after its condition.
     name, _, command = line.partition(":")
     name, command = name.strip(), command.strip()
@@ -71,16 +80,19 @@ def _slash_move(line: str, category: Category, report: ParseReport, character: s
         category = Category.SUPER
     name = _MARKERS.sub("", name).strip()
 
+    parent, own = split_parent(command, so_far)
     # A command opening with Slash or Kick opens with a button, which is all
     # `unmodelled` reads of the head; the letter it stands in for is arbitrary.
-    reason = unmodelled(_PAIRS.sub("A", command))
+    reason = unmodelled(_PAIRS.sub("A", own if parent else command))
     if reason:
         # Kept in the move list, struck through, rather than reduced to
         # whatever motion happens to be inside it.
         report.note(character, name, reason)
-        return Move(name=name, command=command, category=category)
+        return Move(name=name, command=command, category=category, follows=parent)
 
-    move = build_move(name, to_shorthand(_PAIRS.sub(_pair, command)), report, character, category)
+    move = build_move(
+        name, to_shorthand(_PAIRS.sub(_pair, own or command)), report, character, category, follows=parent
+    )
     if move.motion is None:
         return replace(move, command=command)
     return replace(move, command=command, motion=to_neo_panel(move.motion, command))

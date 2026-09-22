@@ -23,7 +23,7 @@ from typing import TYPE_CHECKING
 from motioninput_tui.controls.buttons import NEO_GEO
 
 from .common import categorise
-from .neogeo import neo_buttons
+from .neogeo import to_neo_panel
 from .normalise import parse_command
 
 if TYPE_CHECKING:
@@ -70,7 +70,7 @@ def apply_command_overrides(game_key: str, characters: list[Character], buttons:
         if buttons is NEO_GEO:
             # The engine matches buttons by identity, so a Neo Geo roster needs
             # the requirement put back onto A B C D as its own parser would.
-            motion = replace(motion, buttons=neo_buttons(motion.buttons))
+            motion = to_neo_panel(motion, command)
         logger.debug("Correcting %s / %s in %s to %r", character_key, move.name, game_key, command)
         return replace(
             move,

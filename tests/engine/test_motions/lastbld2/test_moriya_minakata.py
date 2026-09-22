@@ -51,3 +51,20 @@ def test_hold_down_double_tap_forward_gives_nothing(play) -> None:
 
 def test_quarter_circle_back_with_the_strong_slash(play) -> None:
     assert play(QUARTER_CIRCLE_BACK_STRONG).moves == ["Ittou Oboro Chuudan"]
+
+
+def test_the_strong_dragon_punch_out_of_the_weak_one_is_the_sogetsu(play) -> None:
+    """The clearest case the mechanism has. `f,d,df + B` on its own is the
+    Shingetsu Ura, asserted above; done straight out of the Shingetsu it is the
+    Ittou Sogetsu instead, because the guide writes that one as a chain off it.
+    """
+    second = [
+        release(FORWARD, 300),
+        press(FORWARD, 340),
+        release(FORWARD, 390),
+        press(DOWN, 430),
+        press(FORWARD, 490),
+        release(DOWN, 530),
+        press(NEO_B, 540),
+    ]
+    assert play([*DRAGON_PUNCH_WEAK, *second]).moves == ["Ittou Shingetsu", "Ittou Sogetsu"]

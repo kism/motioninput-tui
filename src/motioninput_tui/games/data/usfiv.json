@@ -47,7 +47,20 @@
     {
      "name": "Change of Direction",
      "command": "qcf + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P, then..."
+     }
     },
     {
      "name": "Wheel Kick",
@@ -334,12 +347,41 @@
     {
      "name": "Thousand Jaguars",
      "command": "Tap P rapidly during Jaguar Varied Assault",
-     "category": "other"
+     "category": "super",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "mash": 3,
+      "notation": "Tap P rapidly"
+     },
+     "follows": "Jaguar Varied Assault"
     },
     {
      "name": "Jaguar Assassin",
      "command": "Tap K during Jaguar Varied Assault",
-     "category": "other"
+     "category": "super",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Tap K"
+     },
+     "follows": "Jaguar Varied Assault"
     },
     {
      "name": "Jaguar Revolver",
@@ -516,7 +558,20 @@
     {
      "name": "Hyakkishu",
      "command": "f,d,df + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, then..."
+     }
     },
     {
      "name": "Ashura Senkuu",
@@ -561,18 +616,46 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "throw",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "HP",
-        "LK",
-        "LP"
+        "HP"
        ],
-       "count": 3,
-       "label": "LP+HP+LK"
+       "count": 1,
+       "label": "HP"
       },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "LP,LP,f,LK,HP"
      }
     },
@@ -581,16 +664,44 @@
      "command": "LP,LP,b,LK,HP",
      "category": "super",
      "motion": {
-      "kind": "any",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "HP",
-        "LK",
-        "LP"
+        "HP"
        ],
-       "count": 3,
-       "label": "LP+HP+LK"
+       "count": 1,
+       "label": "HP"
       },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 4
+       }
+      ],
       "notation": "LP,LP,b,LK,HP"
      },
      "super_art": "I"
@@ -599,6 +710,20 @@
      "name": "Demon Armaggedon",
      "command": "u,u + KKK [AB]",
      "category": "super",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "hold": 8,
+      "notation": "u,u + KKK [AB]"
+     },
      "super_art": "II"
     }
    ]
@@ -949,7 +1074,18 @@
     {
      "name": "Rock Crush",
      "command": "Close, b/f + MP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP"
+      },
+      "notation": "Close, b/f + MP"
+     }
     },
     {
      "name": "Amazon River Run",
@@ -1353,7 +1489,20 @@
     {
      "name": "Hooligan Combination",
      "command": "hcf,uf + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "hcf,uf + P, then..."
+     }
     },
     {
      "name": "Cannon Strike",
@@ -2276,7 +2425,20 @@
     {
      "name": "Scramble",
      "command": "Charge b,f + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_bf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge b,f + K, then..."
+     }
     },
     {
      "name": "Fox Tail",
@@ -2923,12 +3085,40 @@
     {
      "name": "Ducking Straight",
      "command": "Press P during Ducking [AB]",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Press P"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Ducking Upper",
      "command": "Press K during Ducking",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Press K"
+     },
+     "follows": "Ducking"
     },
     {
      "name": "Thunderbolt",
@@ -3359,12 +3549,38 @@
     {
      "name": "Habanero Dash",
      "command": "qcf + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcf + P, then..."
+     }
     },
     {
      "name": "Habanero Back Dash",
      "command": "qcb + P, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "qcb + P, then..."
+     }
     },
     {
      "name": "Quesadilla Bomb",
@@ -3917,18 +4133,46 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP",
-     "category": "throw",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "HP",
-        "LK",
-        "LP"
+        "HP"
        ],
-       "count": 3,
-       "label": "LP+HP+LK"
+       "count": 1,
+       "label": "HP"
       },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "LP,LP,f,LK,HP"
      }
     },
@@ -4367,12 +4611,47 @@
     {
      "name": "Ouga",
      "command": "Charge d,u + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K, then..."
+     }
     },
     {
      "name": "Shakudan",
      "command": "In air, HK,HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "HK"
+         ],
+         "count": 1,
+         "label": "HK"
+        }
+       }
+      ],
+      "notation": "In air, HK,HK"
+     }
     },
     {
      "name": "Jakouha",
@@ -4550,7 +4829,20 @@
     {
      "name": "Hyakkishu",
      "command": "f,d,df + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "f,d,df + K, then..."
+     }
     },
     {
      "name": "Kongoushin",
@@ -4802,17 +5094,50 @@
     {
      "name": "Knee Bazooka",
      "command": "b / f + LK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "LK"
+       ],
+       "count": 1,
+       "label": "LK"
+      },
+      "notation": "b / f + LK"
+     }
     },
     {
      "name": "Rolling Sobat",
      "command": "b / f + MK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "notation": "b / f + MK"
+     }
     },
     {
      "name": "Reverse Spin Kick",
      "command": "Close, b / f + HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "notation": "Close, b / f + HK"
+     }
     },
     {
      "name": "Guile High Kick",
@@ -5023,7 +5348,20 @@
     {
      "name": "Hayagake",
      "command": "qcf + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "qcf + K, then..."
+     }
     },
     {
      "name": "Kaiten Izuna Otoshi",
@@ -5099,19 +5437,45 @@
     {
      "name": "Bushin Gokusa Ken",
      "command": "When close, tap LP,MP,HP,HK",
-     "category": "throw",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "HK",
-        "HP",
-        "LP",
-        "MP"
+        "HK"
        ],
-       "count": 4,
-       "label": "LP+MP+HP+HK"
+       "count": 1,
+       "label": "HK"
       },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "MP"
+         ],
+         "count": 1,
+         "label": "MP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       }
+      ],
       "notation": "When close, tap LP,MP,HP,HK"
      }
     },
@@ -5120,17 +5484,44 @@
      "command": "When close, tap LP,MP,HP,d + HK",
      "category": "throw",
      "motion": {
-      "kind": "any",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "HK",
-        "HP",
-        "LP",
-        "MP"
+        "HK"
        ],
-       "count": 4,
-       "label": "LP+MP+HP+HK"
+       "count": 1,
+       "label": "HK"
       },
+      "hold": 2,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "MP"
+         ],
+         "count": 1,
+         "label": "MP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "HP"
+         ],
+         "count": 1,
+         "label": "HP"
+        }
+       }
+      ],
       "notation": "When close, tap LP,MP,HP,d + HK"
      }
     },
@@ -5681,7 +6072,19 @@
     {
      "name": "Leap Attack",
      "command": "d,d + MK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "MK"
+       ],
+       "count": 1,
+       "label": "MK"
+      },
+      "hold": 2,
+      "notation": "d,d + MK"
+     }
     },
     {
      "name": "Hammer Mountain",
@@ -5974,7 +6377,19 @@
     {
      "name": "Oiura Ken",
      "command": "Press HP during Rasen Chuu",
-     "category": "other"
+     "category": "other",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Rasen Chuu"
     },
     {
      "name": "Ura Maki Geri",
@@ -6599,7 +7014,21 @@
     {
      "name": "Somersault Skull Diver",
      "command": "Charge d,u + K, then P",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "LP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "P"
+     },
+     "follows": "Head Press"
     },
     {
      "name": "Devil Reverse",
@@ -6838,7 +7267,19 @@
     {
      "name": "Fumikomi Seiken Sanren Tsuki \"Yamase\"",
      "command": "Press HP during \"Shimaki\"",
-     "category": "other"
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HP"
+       ],
+       "count": 1,
+       "label": "HP"
+      },
+      "notation": "Press HP"
+     },
+     "follows": "Fumikomi Seiken-zuki \"Shimaki\""
     },
     {
      "name": "Tanden Renki: Seme no Kata",
@@ -7086,18 +7527,46 @@
     {
      "name": "Shun Goku Satsu",
      "command": "LP,LP,f,LK,HP (air)",
-     "category": "throw",
+     "category": "special",
      "motion": {
-      "kind": "any",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "HP",
-        "LK",
-        "LP"
+        "HP"
        ],
-       "count": 3,
-       "label": "LP+HP+LK"
+       "count": 1,
+       "label": "HP"
       },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LP"
+         ],
+         "count": 1,
+         "label": "LP"
+        }
+       },
+       {
+        "buttons": {
+         "allowed": [
+          "LK"
+         ],
+         "count": 1,
+         "label": "LK"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "LP,LP,f,LK,HP (air)"
      }
     },
@@ -8365,7 +8834,29 @@
     {
      "name": "Fake Kick",
      "command": "HK,HK",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "HK"
+       ],
+       "count": 1,
+       "label": "HK"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "HK"
+         ],
+         "count": 1,
+         "label": "HK"
+        }
+       }
+      ],
+      "notation": "HK,HK"
+     }
     },
     {
      "name": "Tiger Genocide",
@@ -8965,6 +9456,25 @@
      }
     },
     {
+     "name": "Condor Dive",
+     "command": "In air, press KKK [AB]",
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 3,
+       "label": "KKK"
+      },
+      "air": true,
+      "notation": "In air, press KKK [AB]"
+     }
+    },
+    {
      "name": "Condor Spire",
      "command": "f,d,df + K",
      "category": "special",
@@ -9208,7 +9718,20 @@
     {
      "name": "Wall Leap",
      "command": "Charge d,u + K, then...",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "charge_du",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge d,u + K, then..."
+     }
     },
     {
      "name": "Backslash",
@@ -9324,7 +9847,20 @@
     {
      "name": "Super Wall Leap",
      "command": "Charge db,df,db,uf + K, then...",
-     "category": "other"
+     "category": "super",
+     "motion": {
+      "kind": "charge_db_uf",
+      "buttons": {
+       "allowed": [
+        "HK",
+        "LK",
+        "MK"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Charge db,df,db,uf + K, then..."
+     }
     },
     {
      "name": "Bloody High Claw",
@@ -9995,7 +10531,20 @@
     {
      "name": "Kuuchuu Headbutt",
      "command": "Jump up, u + MP / HP",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "HP",
+        "MP"
+       ],
+       "count": 1,
+       "label": "MP/HP"
+      },
+      "hold": 8,
+      "notation": "Jump up, u + MP / HP"
+     }
     },
     {
      "name": "Long Kick",

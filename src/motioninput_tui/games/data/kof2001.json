@@ -11,12 +11,34 @@
     {
      "name": "Spot Pile",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Knee Strike",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "One Inch",
@@ -72,17 +94,57 @@
     {
      "name": "Second Shoot",
      "command": "Iron Trigger, f + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 6,
+      "notation": "Iron Trigger, f + B"
+     },
+     "follows": "Iron Trigger"
     },
     {
      "name": "Second Shell",
      "command": "Iron Trigger, f + D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 6,
+      "notation": "Iron Trigger, f + D"
+     },
+     "follows": "Iron Trigger"
     },
     {
      "name": "Blackout",
      "command": "Iron Trigger, b + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 4,
+      "notation": "Iron Trigger, b + K"
+     },
+     "follows": "Iron Trigger"
     },
     {
      "name": "Crow Bites",
@@ -104,12 +166,39 @@
     {
      "name": "Secondary Bites",
      "command": "Crow Bites (C), f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "Crow Bites (C), f + K"
+     },
+     "follows": "Crow Bites"
     },
     {
      "name": "Minute Spike",
      "command": "Secondary Bites, d, db, b + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Secondary Bites, d, db, b + K"
+     },
+     "follows": "Secondary Bites"
     },
     {
      "name": "Minute Spike",
@@ -131,7 +220,20 @@
     {
      "name": "Narrow Spike",
      "command": "Minute Spike, d, db, b + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Minute Spike, d, db, b + K"
+     },
+     "follows": "Minute Spike"
     },
     {
      "name": "Blackout",
@@ -216,12 +318,34 @@
     {
      "name": "Dynamite Drop",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Chocking Vice",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Mongolian",
@@ -293,12 +417,36 @@
     {
      "name": "Double Bomber",
      "command": "System 1 Maxima Scramble, d, df, f + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "System 1 Maxima Scramble, d, df, f + A"
+     },
+     "follows": "System 1 Maxima Scramble"
     },
     {
      "name": "Bulldog Press",
      "command": "Double Bomber, d, df, f + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "Double Bomber, d, df, f + A"
+     },
+     "follows": "Double Bomber"
     },
     {
      "name": "System 2 Maxima Scramble",
@@ -319,12 +467,38 @@
     {
      "name": "Skull Crush",
      "command": "System 2 Maxima Scramble, d, df, f + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "System 2 Maxima Scramble, d, df, f + C"
+     },
+     "follows": "System 2 Maxima Scramble"
     },
     {
      "name": "Centoun Press",
      "command": "Skull Crush, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "Skull Crush, f + K"
+     },
+     "follows": "Skull Crush"
     },
     {
      "name": "System 3 Maxima Lift",
@@ -346,7 +520,20 @@
     {
      "name": "Centoun Press",
      "command": "System 3 Maxima Lift, d, df, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "System 3 Maxima Lift, d, df, f + K"
+     },
+     "follows": "System 3 Maxima Lift"
     },
     {
      "name": "M11 Kata Dangerous Arch",
@@ -443,12 +630,34 @@
     {
      "name": "Alpha",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Zed",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Whip Shot",
@@ -540,7 +749,8 @@
     {
      "name": "Strength Shot D \"Rain\"",
      "command": "Strength Shot, D",
-     "category": "special"
+     "category": "special",
+     "follows": "Strength Shot C \"Victory\""
     },
     {
      "name": "Desert Eagle",
@@ -620,12 +830,34 @@
     {
      "name": "Akuzan",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Akuzan Ki",
      "command": "b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "b or f + D"
+     }
     },
     {
      "name": "Benpatsuken",
@@ -749,12 +981,39 @@
     {
      "name": "Tetsuzan-bu Nagi",
      "command": "Rasatsu, f, df, d, db, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Rasatsu, f, df, d, db, b + P"
+     },
+     "follows": "Tetsuzan-bu Rasatsu"
     },
     {
      "name": "Tetsuzan-bu Hakei",
      "command": "Rasatsu, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Rasatsu, f + P"
+     },
+     "follows": "Tetsuzan-bu Rasatsu"
     },
     {
      "name": "Hizoku Ougi Yougou (DM)",
@@ -822,12 +1081,34 @@
     {
      "name": "Hatsu Gane",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Issetsu Seoi Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Ge Shiki Naraku Otoshi",
@@ -900,17 +1181,56 @@
     {
      "name": "128 Shiki Kono Kizu",
      "command": "114 Shiki Aragami, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "114 Shiki Aragami, d, df, f + P"
+     },
+     "follows": "114 Shiki Aragami"
     },
     {
      "name": "125 Shiki Nana Se",
      "command": "128 Shiki Kono Kizu, K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "128 Shiki Kono Kizu, K"
+     },
+     "follows": "128 Shiki Kono Kizu"
     },
     {
      "name": "Ge Shii Migiri Ugachi",
      "command": "128 Shiki Kono Kizu, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "128 Shiki Kono Kizu, P"
+     },
+     "follows": "128 Shiki Kono Kizu"
     },
     {
      "name": "127 Shiki Yano Sabi",
@@ -932,17 +1252,56 @@
     {
      "name": "202 Shiki Kototsuki You",
      "command": "127 Shiki Yano Sabi, f, df, d, db, b + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "127 Shiki Yano Sabi, f, df, d, db, b + K"
+     },
+     "follows": "127 Shiki Yano Sabi"
     },
     {
      "name": "125 Shiki Nana Se",
      "command": "127 Shiki Yano Sabi, K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "127 Shiki Yano Sabi, K"
+     },
+     "follows": "127 Shiki Yano Sabi"
     },
     {
      "name": "Ge Shii Migiri Ugachi",
      "command": "127 Shiki Yano Sabi, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "127 Shiki Yano Sabi, P"
+     },
+     "follows": "127 Shiki Yano Sabi"
     },
     {
      "name": "115 Shiki Domu Kami",
@@ -963,12 +1322,39 @@
     {
      "name": "401 Shiki Tumi Yomi",
      "command": "115 Shiki Domu Kami, f, df, d, db, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "115 Shiki Domu Kami, f, df, d, db, b + P"
+     },
+     "follows": "115 Shiki Domu Kami"
     },
     {
      "name": "402 Shiki Batu Yomi",
      "command": "401 Shiki Tumi Yomi, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "401 Shiki Tumi Yomi, f + P"
+     },
+     "follows": "401 Shiki Tumi Yomi"
     },
     {
      "name": "100 Shiki: Oniyaki",
@@ -1099,12 +1485,34 @@
     {
      "name": "Catch and Shoot",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Front Suplex",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Spinning Knee Drop",
@@ -1166,7 +1574,8 @@
     {
      "name": "Handou Sandan Geri",
      "command": "IaiGeri, d, u + K",
-     "category": "special"
+     "category": "special",
+     "follows": "IaiGeri"
     },
     {
      "name": "Shinkuu Katategoma",
@@ -1252,6 +1661,23 @@
       },
       "notation": "(d, df, f)x2 + K"
      }
+    },
+    {
+     "name": "Raikou Ken(DM)",
+     "command": "(d, df, f)x2 + AC",
+     "category": "super",
+     "motion": {
+      "kind": "qcf_x2",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 2,
+       "label": "A+C"
+      },
+      "notation": "(d, df, f)x2 + AC"
+     }
     }
    ]
   },
@@ -1263,12 +1689,34 @@
     {
      "name": "Hatsugane",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Issetsu Seoi Nage Fukanzen",
      "command": "b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "b or f + D"
+     }
     },
     {
      "name": "Ge Shiki Goufu \"Kakkodake\"",
@@ -1482,12 +1930,34 @@
     {
      "name": "Juuji Shine",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Okuri Ashi Barai",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Takara Tsubushi",
@@ -1693,7 +2163,20 @@
     {
      "name": "Zoku Kirikabu Gaeshi",
      "command": "Nekko Meki, b, db, d, df, f + K",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Nekko Meki, b, db, d, df, f + K"
+     },
+     "follows": "Nekko Meki"
     },
     {
      "name": "Bukko Meki Uranage",
@@ -1732,12 +2215,34 @@
     {
      "name": "Grasping Upper",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Buster Throw",
      "command": "close, b or f+ D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f+ D"
+     }
     },
     {
      "name": "Back Knuckle",
@@ -1934,12 +2439,34 @@
     {
      "name": "Gourin Kai",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Kakaekomi Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Uwa Agito",
@@ -2062,12 +2589,38 @@
     {
      "name": "Shimo Agito",
      "command": "Genei Shiranui, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Genei Shiranui, P"
+     },
+     "follows": "Genei Shiranui"
     },
     {
      "name": "Uwa Agito",
      "command": "Genei Shiranui, K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Genei Shiranui, K"
+     },
+     "follows": "Genei Shiranui"
     },
     {
      "name": "Zaneiken",
@@ -2089,7 +2642,20 @@
     {
      "name": "Gadankou",
      "command": "Zaneiken, d, df, f+P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Zaneiken, d, df, f+P"
+     },
+     "follows": "Zaneiken"
     },
     {
      "name": "Geki Kabehaisui Sho",
@@ -2169,12 +2735,34 @@
     {
      "name": "Hiza Jigoku",
      "command": "close, b or f+HP",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f+HP"
+     }
     },
     {
      "name": "Leg Throw",
      "command": "close, b or f+ D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f+ D"
+     }
     },
     {
      "name": "Sliding Kick",
@@ -2281,7 +2869,20 @@
     {
      "name": "Bakuretsu Finisher",
      "command": "Bakuretsu, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Bakuretsu, d, df, f + P"
+     },
+     "follows": "Bakuretsu"
     },
     {
      "name": "Ougon no Kakato",
@@ -2395,22 +2996,66 @@
     {
      "name": "Victory Throw",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Head Throw",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Hammer Arch",
      "command": "b or f + A",
-     "category": "command"
+     "category": "command",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "b or f + A"
+     }
     },
     {
      "name": "Double Rolling",
      "command": "b or f + B",
-     "category": "command"
+     "category": "command",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "b or f + B"
+     }
     },
     {
      "name": "Climbing Arrow",
@@ -2449,7 +3094,20 @@
     {
      "name": "M. Spider",
      "command": "Spin Fall, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Spin Fall, d, df, f + P"
+     },
+     "follows": "Spin Fall"
     },
     {
      "name": "Straight Slicer",
@@ -2471,7 +3129,20 @@
     {
      "name": "M. crab Clutch",
      "command": "Straight Slicer, d, df, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Straight Slicer, d, df, f + K"
+     },
+     "follows": "Straight Slicer"
     },
     {
      "name": "Real Counter",
@@ -2493,12 +3164,38 @@
     {
      "name": "Backdrop",
      "command": "Real Counter, b, db, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Real Counter, b, db, d, df, f + P"
+     },
+     "follows": "Real Counter"
     },
     {
      "name": "Head Crush",
      "command": "Real Counter, b, db, d, df, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hcf",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Real Counter, b, db, d, df, f + K"
+     },
+     "follows": "Real Counter"
     },
     {
      "name": "Vertical Arrow",
@@ -2520,7 +3217,20 @@
     {
      "name": "M. Snatcher",
      "command": "Vertical Arrow, f, d, df + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Vertical Arrow, f, d, df + K"
+     },
+     "follows": "Vertical Arrow"
     },
     {
      "name": "M. Reverse Face Lock",
@@ -2603,12 +3313,34 @@
     {
      "name": "Tani Otoshi",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Tomoe Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Hyouchuu Wari",
@@ -2845,12 +3577,34 @@
     {
      "name": "Ryuuchou Kyaku",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Kubikiri Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Nidan Sokutou Geri",
@@ -2872,7 +3626,18 @@
     {
      "name": "Ryuu Han Shuu",
      "command": "b or f + B",
-     "category": "command"
+     "category": "command",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "b or f + B"
+     }
     },
     {
      "name": "Kou Ryuu Gokyageri",
@@ -3078,12 +3843,34 @@
     {
      "name": "Oni Harite",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Silent Nage",
      "command": "close,b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close,b or f + D"
+     }
     },
     {
      "name": "Tsubame Otoshi",
@@ -3112,7 +3899,7 @@
      "command": "f + B, B",
      "category": "command",
      "motion": {
-      "kind": "hold",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
         "B"
@@ -3120,7 +3907,18 @@
        "count": 1,
        "label": "B"
       },
-      "hold": 6,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "B"
+         ],
+         "count": 1,
+         "label": "B"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "f + B, B"
      }
     },
@@ -3234,7 +4032,19 @@
     {
      "name": "Double Chou Upper",
      "command": "Chou Upper (C), f, d, df + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "Chou Upper (C), f, d, df + C"
+     },
+     "follows": "Chou Upper"
     },
     {
      "name": "Hien Rekkou (DM)",
@@ -3302,12 +4112,34 @@
     {
      "name": "Oosotogari",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Ippon Seoi Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Oniguruma",
@@ -3528,12 +4360,34 @@
     {
      "name": "Leona Crush",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Ordeal Buckler",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Heidern Inferno",
@@ -3543,7 +4397,18 @@
     {
      "name": "Srtike Arch",
      "command": "b or f + B",
-     "category": "command"
+     "category": "command",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "b or f + B"
+     }
     },
     {
      "name": "Moon Slasher",
@@ -3599,7 +4464,20 @@
     {
      "name": "Gliding Buster",
      "command": "Running Saber (D), f + D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 6,
+      "notation": "Running Saber (D), f + D"
+     },
+     "follows": "Running Saber"
     },
     {
      "name": "X-Caliber",
@@ -3656,7 +4534,20 @@
     {
      "name": "Manual Explosion",
      "command": "Earring Bomb 2, b, d, db + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Earring Bomb 2, b, d, db + K"
+     },
+     "follows": "Earring Bomb 2"
     },
     {
      "name": "V-Slasher (DM)",
@@ -3717,7 +4608,18 @@
     {
      "name": "Northern Light Bomb",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Gatling Attack",
@@ -3888,12 +4790,34 @@
     {
      "name": "German Suplex",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Fisherman Buster",
      "command": "close, b or f+ D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f+ D"
+     }
     },
     {
      "name": "Death Lake Drive",
@@ -4005,17 +4929,57 @@
     {
      "name": "Rolling Cradle",
      "command": "Mount Tackle, d, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Mount Tackle, d, d + K"
+     },
+     "follows": "Mount Tackle"
     },
     {
      "name": "Clark Lift",
      "command": "Mount Tackle, d, d + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 2,
+      "notation": "Mount Tackle, d, d + A"
+     },
+     "follows": "Mount Tackle"
     },
     {
      "name": "Super Lift*",
      "command": "Mount Tackle, d, d + C",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "hold": 2,
+      "notation": "Mount Tackle, d, d + C"
+     },
+     "follows": "Mount Tackle"
     },
     {
      "name": "Flash Elbow",
@@ -4083,12 +5047,34 @@
     {
      "name": "Lead Belcher",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Backstabbing",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Critical Drive",
@@ -4275,12 +5261,34 @@
     {
      "name": "Kubikime Otoshi",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Sakkyaku Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Neri Chagi",
@@ -4336,7 +5344,20 @@
     {
      "name": "Tensouzan",
      "command": "Hien Zan(D), d + D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 2,
+      "notation": "Hien Zan(D), d + D"
+     },
+     "follows": "Hien Zan"
     },
     {
      "name": "Hishou Kyaku",
@@ -4375,12 +5396,38 @@
     {
      "name": "Haki Kyaku",
      "command": "d, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d, d + K"
+     }
     },
     {
      "name": "Kuusajin",
      "command": "Haki Kyaku, f, d, df + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Haki Kyaku, f, d, df + K"
+     },
+     "follows": "Haki Kyaku"
     },
     {
      "name": "Hou'ou Kyaku (DM)",
@@ -4461,12 +5508,34 @@
     {
      "name": "Hagan Geki",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Kusari Jime",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Hiki Nige",
@@ -4629,22 +5698,66 @@
     {
      "name": "Zujou Sashi",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Geketsu Zuki",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Toorima Geri",
      "command": "b or f + B",
-     "category": "command"
+     "category": "command",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "b or f + B"
+     }
     },
     {
      "name": "Mukuro Tsuki",
      "command": "b or f + A",
-     "category": "command"
+     "category": "command",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "notation": "b or f + A"
+     }
     },
     {
      "name": "Sankaku Tobi",
@@ -4740,7 +5853,20 @@
     {
      "name": "Kishuu Hien Tsuki",
      "command": "Kaiten Hienzan, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Kaiten Hienzan, P"
+     },
+     "follows": "Kaiten Hienzan"
     },
     {
      "name": "Shin! Chouzetsu Tatsumaki Shinkuu Zan(DM)",
@@ -4821,12 +5947,34 @@
     {
      "name": "Crow's Wing",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Swan Circle",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Switch to Hero mode",
@@ -4870,42 +6018,152 @@
     {
      "name": "Spinning Edge",
      "command": "Lightning Needle, K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Lightning Needle, K"
+     },
+     "follows": "Lightning Needle"
     },
     {
      "name": "Approching Beetle",
      "command": "Spinning Edge, K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Spinning Edge, K"
+     },
+     "follows": "Spinning Edge"
     },
     {
      "name": "Into Sky",
      "command": "Lightning Needle or Spinning Edge, u + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 8,
+      "notation": "Lightning Needle or Spinning Edge, u + K"
+     },
+     "follows": "Lightning Needle"
     },
     {
      "name": "Dinosaur's Footprint",
      "command": "Lightning Needle or Spinning Edge, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Lightning Needle or Spinning Edge, d + K"
+     },
+     "follows": "Lightning Needle"
     },
     {
      "name": "Blazing Intercept",
      "command": "Lightning Needle or Spinning Edge, b + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 4,
+      "notation": "Lightning Needle or Spinning Edge, b + K"
+     },
+     "follows": "Lightning Needle"
     },
     {
      "name": "Leaping Swordfish",
      "command": "Lightning Needle or Spinning Edge, df + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 3,
+      "notation": "Lightning Needle or Spinning Edge, df + K"
+     },
+     "follows": "Lightning Needle"
     },
     {
      "name": "Surprise Air",
      "command": "Lightning Needle or Spinning Edge, uf + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 9,
+      "notation": "Lightning Needle or Spinning Edge, uf + K"
+     },
+     "follows": "Lightning Needle"
     },
     {
      "name": "Finish",
      "command": "Surprise Air, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Surprise Air, d + K"
+     },
+     "follows": "Surprise Air"
     },
     {
      "name": "Gauze Tail Tinkerbell(DM)",
@@ -4939,12 +6197,34 @@
     {
      "name": "Shiranui Gourin",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Fuusha Kuzushi",
      "command": "close, b or f+ D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f+ D"
+     }
     },
     {
      "name": "Yume-zakura",
@@ -5133,17 +6413,59 @@
     {
      "name": "Ukihane",
      "command": "Musasabi no Mai(ground), d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Musasabi no Mai(ground), d + K"
+     },
+     "follows": "Musasabi no Mai(ground)"
     },
     {
      "name": "Yusura Ume",
      "command": "Musasabi no Mai(ground), d + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "Musasabi no Mai(ground), d + P"
+     },
+     "follows": "Musasabi no Mai(ground)"
     },
     {
      "name": "Toki Tsubute",
      "command": "Musasabi no Mai(ground), close, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Musasabi no Mai(ground), close, d + K"
+     },
+     "follows": "Musasabi no Mai(ground)"
     },
     {
      "name": "Chou Hissatsu Shinobi Bachi(DM)",
@@ -5223,12 +6545,34 @@
     {
      "name": "Hold Rush",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Hook Buster",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Slide Kick",
@@ -5430,12 +6774,34 @@
     {
      "name": "Kadoma",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Ryokuchi Kouen",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Sou Shouda",
@@ -5541,12 +6907,36 @@
     {
      "name": "Kanku",
      "command": "Zen Chuoh, d, df, f + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Zen Chuoh, d, df, f + B"
+     },
+     "follows": "Zen Chuoh"
     },
     {
      "name": "Zen Chuoh Kanku",
      "command": "Zen Chuoh, d, df, f + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "Zen Chuoh, d, df, f + B"
+     },
+     "follows": "Zen Chuoh"
     },
     {
      "name": "Zen Chuoh Shin Saiha",
@@ -5584,7 +6974,20 @@
     {
      "name": "Ekisupo",
      "command": "Banhaku Ato Unage, d, db, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Banhaku Ato Unage, d, db, b + P"
+     },
+     "follows": "Banhaku Ato Unage"
     },
     {
      "name": "Ei Sake (Tai Kuuchuu Kogeki)",
@@ -5684,19 +7087,9 @@
     {
      "name": "Tasuki Nage",
      "command": "close, b or f+ A",
-     "category": "throw"
-    },
-    {
-     "name": "Uwate Nage",
-     "command": "close, b or f + B",
-     "category": "throw"
-    },
-    {
-     "name": "Harite Sendai",
-     "command": "f + A, A",
-     "category": "command",
+     "category": "throw",
      "motion": {
-      "kind": "hold",
+      "kind": "throw",
       "buttons": {
        "allowed": [
         "A"
@@ -5704,7 +7097,50 @@
        "count": 1,
        "label": "A"
       },
-      "hold": 6,
+      "notation": "close, b or f+ A"
+     }
+    },
+    {
+     "name": "Uwate Nage",
+     "command": "close, b or f + B",
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "close, b or f + B"
+     }
+    },
+    {
+     "name": "Harite Sendai",
+     "command": "f + A, A",
+     "category": "command",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "A"
+         ],
+         "count": 1,
+         "label": "A"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "f + A, A"
      }
     },
@@ -5713,15 +7149,26 @@
      "command": "f + A, C",
      "category": "command",
      "motion": {
-      "kind": "hold",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "A"
+        "C"
        ],
        "count": 1,
-       "label": "A"
+       "label": "C"
       },
-      "hold": 6,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "A"
+         ],
+         "count": 1,
+         "label": "A"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "f + A, C"
      }
     },
@@ -5730,7 +7177,7 @@
      "command": "f + B, B",
      "category": "command",
      "motion": {
-      "kind": "hold",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
         "B"
@@ -5738,7 +7185,18 @@
        "count": 1,
        "label": "B"
       },
-      "hold": 6,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "B"
+         ],
+         "count": 1,
+         "label": "B"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "f + B, B"
      }
     },
@@ -5747,15 +7205,26 @@
      "command": "df + C, D",
      "category": "command",
      "motion": {
-      "kind": "hold",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
-        "C"
+        "D"
        ],
        "count": 1,
-       "label": "C"
+       "label": "D"
       },
-      "hold": 3,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "C"
+         ],
+         "count": 1,
+         "label": "C"
+        },
+        "direction": 3
+       }
+      ],
       "notation": "df + C, D"
      }
     },
@@ -5881,12 +7350,26 @@
     {
      "name": "Kataguri",
      "command": "Gaburi Takayori, b, db, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Gaburi Takayori, b, db, d + K"
+     },
+     "follows": "Gaburi Takayori"
     },
     {
      "name": "Hatakikomi",
      "command": "Gaburi Takayori, f, db, d + P",
-     "category": "special"
+     "category": "special",
+     "follows": "Gaburi Takayori"
     },
     {
      "name": "Yorigiri",
@@ -5983,12 +7466,34 @@
     {
      "name": "Psychic Throw",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Bit Throw",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Psychic Shoot",
@@ -6161,7 +7666,20 @@
     {
      "name": "Crystal Shoot",
      "command": "Shining Crystal Bit, d, db, b + P (hold and release)",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "qcb",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Shining Crystal Bit, d, db, b + P (hold and release)"
+     },
+     "follows": "Shining Crystal Bit(DM)"
     },
     {
      "name": "Phoenix Fang Arrow (DM)",
@@ -6195,12 +7713,34 @@
     {
      "name": "Hakkei",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Tomoe Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Kobokute",
@@ -6416,12 +7956,34 @@
     {
      "name": "Gou Inshu",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Gyaku Ashi Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Suiho Hyoutanshuu",
@@ -6443,17 +8005,58 @@
     {
      "name": "Suikan Kanou",
      "command": "d, d + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 2,
+      "notation": "d, d + P"
+     }
     },
     {
      "name": "Chou Shuuriku Gyo",
      "command": "Suikan Kanou, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Suikan Kanou, f + P"
+     },
+     "follows": "Suikan Kanou"
     },
     {
      "name": "Kaitenteki Kuutotsuken",
      "command": "Suikan Kanou or Bogetsui, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "Suikan Kanou or Bogetsui, f + K"
+     },
+     "follows": "Suikan Kanou"
     },
     {
      "name": "Ryuurinhourai",
@@ -6508,17 +8111,56 @@
     {
      "name": "BogetsuSui",
      "command": "d, d + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "d, d + K"
+     }
     },
     {
      "name": "RouJu Hanhou",
      "command": "BogetsuSui, u + B",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "hold": 8,
+      "notation": "BogetsuSui, u + B"
+     },
+     "follows": "BogetsuSui"
     },
     {
      "name": "Rigyu Hanhou",
      "command": "BogetsuSui, u + D",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "hold": 8,
+      "notation": "BogetsuSui, u + D"
+     },
+     "follows": "BogetsuSui"
     },
     {
      "name": "Suihai Kou",
@@ -6540,12 +8182,38 @@
     {
      "name": "Funen Kou",
      "command": "Suihai Kou, d, df, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Suihai Kou, d, df, f + P"
+     },
+     "follows": "Suihai Kou"
     },
     {
      "name": "Gouen Shourai Kai",
      "command": "Suihai Kou, f, d, df + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Suihai Kou, f, d, df + P"
+     },
+     "follows": "Suihai Kou"
     },
     {
      "name": "Gouran Enpou(DM)",
@@ -6608,12 +8276,34 @@
     {
      "name": "Genei Tougi",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Critical Throw",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Kakugi",
@@ -6993,19 +8683,41 @@
     {
      "name": "Sakahagi",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Saka Sakahagi",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Ge Shiki Yumebiki",
      "command": "f + A, A",
      "category": "command",
      "motion": {
-      "kind": "hold",
+      "kind": "sequence",
       "buttons": {
        "allowed": [
         "A"
@@ -7013,7 +8725,18 @@
        "count": 1,
        "label": "A"
       },
-      "hold": 6,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "A"
+         ],
+         "count": 1,
+         "label": "A"
+        },
+        "direction": 6
+       }
+      ],
       "notation": "f + A, A"
      }
     },
@@ -7198,12 +8921,34 @@
     {
      "name": "Dynamite Puncher",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Clinch Puncher",
      "command": "close, b or f+ D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f+ D"
+     }
     },
     {
      "name": "One-Two Puncher",
@@ -7310,7 +9055,20 @@
     {
      "name": "Uppercut",
      "command": "Puncher Vision, f + A",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A"
+       ],
+       "count": 1,
+       "label": "A"
+      },
+      "hold": 6,
+      "notation": "Puncher Vision, f + A"
+     },
+     "follows": "Puncher Vision(forward)"
     },
     {
      "name": "Straight Puncher Vision, Punch",
@@ -7332,7 +9090,21 @@
     {
      "name": "Weaving",
      "command": "Puncher Vision, b + P (delayable)",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 4,
+      "notation": "Puncher Vision, b + P (delayable)"
+     },
+     "follows": "Puncher Vision(forward)"
     },
     {
      "name": "Dash Puncher",
@@ -7371,22 +9143,78 @@
     {
      "name": "Dash Puncher",
      "command": "Puncher Weaving, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Puncher Weaving, f + P"
+     },
+     "follows": "Puncher Weaving"
     },
     {
      "name": "Parrying Puncher",
      "command": "Puncher Weaving, b + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 4,
+      "notation": "Puncher Weaving, b + P"
+     },
+     "follows": "Puncher Weaving"
     },
     {
      "name": "Puncher Vision (forward)",
      "command": "Puncher Weaving, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "Puncher Weaving, f + K"
+     },
+     "follows": "Puncher Weaving"
     },
     {
      "name": "Puncher Vision (backward)",
      "command": "Puncher Weaving, b + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 4,
+      "notation": "Puncher Weaving, b + K"
+     },
+     "follows": "Puncher Weaving"
     },
     {
      "name": "Champion Puncher(DM)",
@@ -7449,12 +9277,34 @@
     {
      "name": "Arm Whip",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Flying Mayor",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Low Drop Kick",
@@ -7619,12 +9469,34 @@
     {
      "name": "S.S.F.E.S.",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Tomoe Nage",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Sliding",
@@ -7890,12 +9762,34 @@
     {
      "name": "Ice Coffin",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Behind Slash",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "One Inch",
@@ -8111,12 +10005,34 @@
     {
      "name": "Go Go For Ten Girl",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Starlit Field",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Senseless Chatter",
@@ -8207,12 +10123,14 @@
     {
      "name": "Welcome to Rouge",
      "command": "Formalists' Blue, A",
-     "category": "special"
+     "category": "special",
+     "follows": "Formalists' Blue"
     },
     {
      "name": "Citizens of the World",
      "command": "Formalists' Blue, B",
-     "category": "special"
+     "category": "special",
+     "follows": "Formalists' Blue"
     },
     {
      "name": "Repun Kamui",
@@ -8359,7 +10277,20 @@
     {
      "name": "Crown Under Sky",
      "command": "f, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "f, f + P"
+     }
     },
     {
      "name": "Fullmoon Evening",
@@ -8381,7 +10312,20 @@
     {
      "name": "State Of Heat Haze",
      "command": "f, f + K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 6,
+      "notation": "f, f + K"
+     }
     },
     {
      "name": "Ride Your Cycle",
@@ -8425,12 +10369,34 @@
     {
      "name": "Get Lost!",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Quit Playing!",
      "command": "b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "b or f + D"
+     }
     },
     {
      "name": "Shut Up!",
@@ -8562,12 +10528,34 @@
     {
      "name": "The Third Key",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "The Twelfth Key",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "The Seven Medals",
@@ -8708,12 +10696,38 @@
     {
      "name": "Memory of Noa",
      "command": "Tree of Beginning, P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "notation": "Tree of Beginning, P"
+     },
+     "follows": "Tree of Beginning"
     },
     {
      "name": "The Seven Stars",
      "command": "Tree of Beginning, K",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "notation": "Tree of Beginning, K"
+     },
+     "follows": "Tree of Beginning"
     },
     {
      "name": "Tree of Wisdom",
@@ -8735,7 +10749,21 @@
     {
      "name": "The Silver Moon",
      "command": "Tree of Wisdom, f + P",
-     "category": "special"
+     "category": "special",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Tree of Wisdom, f + P"
+     },
+     "follows": "Tree of Wisdom"
     },
     {
      "name": "Poetry of Cygnus (DM)",
@@ -8757,12 +10785,40 @@
     {
      "name": "Silver of the Moon",
      "command": "Poetry of Cygnus, f + P",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "A",
+        "C"
+       ],
+       "count": 1,
+       "label": "P"
+      },
+      "hold": 6,
+      "notation": "Poetry of Cygnus, f + P"
+     },
+     "follows": "Poetry of Cygnus (DM)"
     },
     {
      "name": "Wood of Knowledge",
      "command": "Poetry of Cygnus, d + K",
-     "category": "super"
+     "category": "super",
+     "motion": {
+      "kind": "hold",
+      "buttons": {
+       "allowed": [
+        "B",
+        "D"
+       ],
+       "count": 1,
+       "label": "K"
+      },
+      "hold": 2,
+      "notation": "Poetry of Cygnus, d + K"
+     },
+     "follows": "Poetry of Cygnus (DM)"
     },
     {
      "name": "Prayer of the Planet (DM)",
@@ -8809,7 +10865,19 @@
     {
      "name": "Yokoshima Karatabe Satsu",
      "command": "close, b or f + C or D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C",
+        "D"
+       ],
+       "count": 1,
+       "label": "C/D"
+      },
+      "notation": "close, b or f + C or D"
+     }
     },
     {
      "name": "Genma Kizashou",
@@ -8960,12 +11028,34 @@
     {
      "name": "Blue Noah",
      "command": "close, b or f + C",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "close, b or f + C"
+     }
     },
     {
      "name": "Red Noah",
      "command": "close, b or f + D",
-     "category": "throw"
+     "category": "throw",
+     "motion": {
+      "kind": "throw",
+      "buttons": {
+       "allowed": [
+        "D"
+       ],
+       "count": 1,
+       "label": "D"
+      },
+      "notation": "close, b or f + D"
+     }
     },
     {
      "name": "Transaxle Slice",

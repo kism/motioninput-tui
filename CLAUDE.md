@@ -396,6 +396,111 @@ is played anyway and captioned with what the trainer gives instead. The
 session is built as a keyboard layout even on a pad, or it opens a second
 reader onto the real one.
 
+### Chains
+
+A move a guide lists *under* another comes out of it: Master Huang's Heavy Axe
+off his Whirlwind Kick, Kyo's Aragami string. `Move.follows` carries the
+parent's name, and that is the whole data model - a character's moves are their
+own chain graph.
+
+`Recognizer.__post_init__` keeps a move with a `follows` **out of `_ranked`**,
+so it is not matchable at all until its parent fires; `_open_chain` then puts
+its siblings in front of the ranking for `Ruleset.chain_window_ms`, and a move
+with nothing after it closes whatever was open. This ordering is the point: a
+link's motion is usually one the character already has, so `qcf + K` is
+Grasshopper normally and Heavy Axe out of a Whirlwind Kick. A game with no
+`chain_window_ms` builds no chains, and its links stay unreachable rather than
+falling back to matching on their own - that fallback would hand out a second
+move on one motion, which is the bug the whole mechanism exists to avoid.
+
+The games gate a link on the parent *connecting*. There is no opponent here, so
+the parent activating stands in for the hit. Say so when it matters; it is the
+one place the trainer models something it cannot observe.
+
+The guides write a link two ways round, so there are two splitters. The SNK
+ones name the parent first (`114 Shiki Aragami, d, df, f + P`), which is
+`neogeo.split_parent`, used by KoF '98 and 2001, The Last Blade 2 and Samurai
+Shodown II; the Street Fighter ones have three ways of their own, all in
+`common.split_follow_on` (Alpha 3, 3rd Strike, USFIV): the parent named last
+(`Press P during Ducking`), the parent's own command spelled out again
+(`qcf,uf + P, then press P`), or nothing but punctuation - a row opening `...`
+continues the one above it, and a run of them all continue the move above the
+run. The command shape is matched on the command rather than a name, and only
+when the head is *exactly* another move's command: Rufus's `qcf + K, then K` is
+one move and an extra press, not a link.
+
+A link takes its parent's `category` when the parser had nothing better
+(`common._inherit_chain_categories`), so it sits in the same section of the
+move list as the move it comes out of. Without it a link whose input is a bare
+button lands in "other", away from its own string. A guide that says outright
+which section a move belongs to still wins, which is what keeps Akuma's Gou Sai
+a throw.
+
+`then...` with nothing after it is punctuation, not an input: it points at the
+rows underneath. `normalise._OPTIONAL_TAIL` drops it, which is what makes
+Cammy's Hooligan Combination the plain `hcf,uf + P` it really is.
+Martial Masters needs neither: its guide indents a link under its parent.
+Either way the parser has to **accumulate its moves in a loop rather than a
+comprehension**, since a parent must already be in the list to be found. A parent is only
+accepted when it matches a move the character already has, so a guide's prose
+never invents a link to nothing - `tests/test_chains.py` holds that, along with
+"a link is never in `_ranked`" over every roster.
+
+A chain link may be a bare button (`Final Kick: LK`), which `normalise` refuses
+everywhere else because a lone button is an ordinary normal. `parse_command`'s
+`chained` flag is what allows it, and it is set from `follows`.
+
+### Sequences: presses one after another
+
+`MotionKind.SEQUENCE` is a run of presses rather than a path round the gate:
+Akuma's `LP,LP,f,LK,HP`, Guy's Bushin strings, a target combo, and whatever a
+Tekken guide asks for. `MotionSpec.sequence` holds the presses that must come
+*before* the one that fires the move, so the final press is gated by
+`buttons` and whatever is held for it by `hold` - the same two fields every
+other kind uses. Only the run in front is new.
+
+The buffer already kept timestamped button presses for the mash matcher, which
+is why this needed no new history: `_match_sequence` folds simultaneous presses
+into one (a `PP` is one step, not two), takes the last few, and checks each
+against its step with the direction that was current at that moment.
+
+**The steps have to *be* the run, not merely end it.** A stray button in the
+middle is how the games drop a string, and letting it through would hand the
+move to someone who fumbled. `Ruleset.sequence_window_ms` bounds the whole run
+and, as with `chain_window_ms`, zero means the game has none wired up and any
+move written as one stays unmatched.
+
+One direction can be the entire difference between two moves - `LP,LP,f,LK,HP`
+and `LP,LP,b,LK,HP` are Akuma's two Raging Demons, and Guy's two Bushin strings
+differ only by a `d` on the last press. So `_priority` counts a held direction
+and the length of the run, or the recogniser would hand out whichever of a pair
+it happened to rank first.
+
+### Throws are a motion kind
+
+Every guide here writes a throw as a choice of the two sides - `b or f + B`,
+`b / f + PP`, `Back or Forward + HK`. `_direction_tokens` drops the pair,
+having nothing to hold, and that used to leave a one-button throw looking like
+a bare button press: 46 of Samurai Shodown II's moves, and most of KoF's.
+
+`_is_throw_choice` is what tells "either way round" from a command that named
+no direction at all, and the button count decides what it becomes. **Two
+buttons stay `MotionKind.ANY`**, because nothing else in a move list wants that
+pair so the direction really is decoration, and every roster has read them that
+way all along. **One button becomes `MotionKind.THROW`**, which asks for back
+or forward to be held: on one button that direction is the whole difference
+between the throw and the normal.
+
+It is deliberately only back-or-forward. Martial Masters' floor pursuit is
+`d/u + LP/LK/HP/HK`, and that one genuinely wants one of those two, so it stays
+struck through.
+
+The trainer models no range, so a `close,` in front of a throw is dropped like
+any other qualifier. Holding the direction for `THROW_HOLD_MS` (a second)
+stands in for walking into range instead: without it, a throw on one button
+would bury the command normal on the same input (KoF's `f + D`), so a quick
+press is the normal and a long hold is the throw.
+
 ### One Super Art at a time
 
 3rd Strike equips one Super Art of three, and 18 of its 20 characters have two
@@ -475,12 +580,10 @@ rather than tidied to match Third Strike.
 fresh clone has to run `python -m motioninput_tui_guides` first. After changing
 `motioninput_tui_datagen/normalise.py` or a parser in
 `motioninput_tui_datagen/parsers/`, rerun `python -m motioninput_tui_datagen`
-(or `./scripts/4-run-datagen.sh`) and commit the JSON. The Street Fighter
-rosters land around 80-90% trainable; the SNK ones are lower (52% for Samurai
-Shodown II, 68-75% for the rest) because those guides lean on command throws
-written `b or f + button` and on long follow-up chains. The remainder are
-follow-ups and conditional moves that still appear in the move list, struck
-through. `--summary` prints the per-character breakdown.
+(or `./scripts/4-run-datagen.sh`) and commit the JSON. Most rosters land in the
+76-95% band. The remainder are conditional moves that still appear in the move
+list, struck through. `--summary` prints the per-character breakdown, and how many of
+each roster's trainable moves are chain links.
 
 The guides disagree about character names, so `motioninput_tui_datagen/names.py` maps the key a
 guide produced to the name to use instead, per game (`ken-masters` → `Ken`).

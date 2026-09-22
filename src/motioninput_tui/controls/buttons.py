@@ -85,6 +85,13 @@ NEO_GEO_SLANT = ButtonSet(
     note="A B on the bottom row with C D above, as the arcade panel slants them.",
 )
 
+SNES_FIGHTER = ButtonSet(
+    key="snes-four",
+    name="SNES, 4 button",
+    rows=((_B.LP, _B.HP), (_B.LK, _B.HK)),
+    note="Weak and strong punch, with the two kicks beneath.",
+)
+
 TEKKEN = ButtonSet(
     key="tekken",
     name="Tekken, 4 button",
@@ -103,6 +110,7 @@ BUTTON_SETS: tuple[ButtonSet, ...] = (
     STREET_FIGHTER,
     MORTAL_KOMBAT,
     NEO_GEO,
+    SNES_FIGHTER,
     TEKKEN,
     EIGHT_BUTTON,
 )

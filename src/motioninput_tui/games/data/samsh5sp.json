@@ -82,7 +82,8 @@
     {
      "name": "Zengo Idou",
      "command": "_move b / f",
-     "category": "other"
+     "category": "special",
+     "follows": "Kage Sui"
     },
     {
      "name": "Kage Ide",
@@ -447,12 +448,36 @@
     {
      "name": "Rikudou Rekka: Gakidou",
      "command": "_qcf + B",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "_qcf + B"
+     },
+     "follows": "Rikudou Rekka: Jigoku-dou"
     },
     {
      "name": "Rikudou Rekka: Tendou",
      "command": "_qcf + C",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "_qcf + C"
+     },
+     "follows": "Rikudou Rekka: Gakidou"
     },
     {
      "name": "Enmetsu",
@@ -492,7 +517,38 @@
     {
      "name": "Tsuika Kougeki",
      "command": "_b + any, f + any (xN)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "sequence",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "count": 1,
+       "label": "A/B/C/D"
+      },
+      "hold": 6,
+      "sequence": [
+       {
+        "buttons": {
+         "allowed": [
+          "A",
+          "B",
+          "C",
+          "D"
+         ],
+         "count": 1,
+         "label": "A/B/C/D"
+        },
+        "direction": 4
+       }
+      ],
+      "notation": "_b + any, f + any (xN)"
+     },
+     "follows": "Guren Kyaku"
     },
     {
      "name": "Enja Bakunetsu",
@@ -514,7 +570,22 @@
     {
      "name": "Kakusei Chuushi",
      "command": "_press ABCD",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "count": 4,
+       "label": "A+B+C+D"
+      },
+      "notation": "_press ABCD"
+     },
+     "follows": "Enja Bakunetsu"
     },
     {
      "name": "Sanzendaisen-sekai Zen Shoudo",
@@ -608,7 +679,21 @@
     {
      "name": "Jishin Gan",
      "command": "d,d + A / B / C",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C"
+       ],
+       "count": 1,
+       "label": "A/B/C"
+      },
+      "hold": 2,
+      "notation": "d,d + A / B / C"
+     }
     },
     {
      "name": "Enshin Satsu",
@@ -618,7 +703,8 @@
     {
      "name": "Damage Zouka",
      "command": "_spin 360 rapidly xN",
-     "category": "other"
+     "category": "other",
+     "follows": "Enshin Satsu"
     },
     {
      "name": "Hyakkan Otoshi",
@@ -1036,12 +1122,38 @@
     {
      "name": "Sanren Satsu: Tsuno",
      "command": "_qcf / qcb + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_qcf / qcb + S"
+     },
+     "follows": "Sanren Satsu: Kiba"
     },
     {
      "name": "Sanren Stasu: Rin",
      "command": "_qcf / qcb + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_qcf / qcb + S"
+     },
+     "follows": "Sanren Satsu: Tsuno"
     },
     {
      "name": "Ura Ouka: Ayame",
@@ -1193,7 +1305,20 @@
     {
      "name": "Ninpou Shizune",
      "command": "d,d + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "double_tap",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "hold": 2,
+      "notation": "d,d + S"
+     }
     },
     {
      "name": "Ninpou Enbu",
@@ -1803,7 +1928,8 @@
     {
      "name": "Homura Gaeshi",
      "command": "_press AC when knocked down",
-     "category": "other"
+     "category": "special",
+     "follows": "Saien"
     },
     {
      "name": "Boubaku: Kaen Geki",
@@ -2294,7 +2420,8 @@
     {
      "name": "Tensatsu Daisai",
      "command": "_qcf + AB anytime afterward",
-     "category": "other"
+     "category": "special",
+     "follows": "Tenkoku Houra"
     },
     {
      "name": "Tensui Choukan",
@@ -2416,7 +2543,19 @@
     {
      "name": "Sungan no Mukae",
      "command": "_b,d,db + B (x3)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "rdp",
+      "buttons": {
+       "allowed": [
+        "B"
+       ],
+       "count": 1,
+       "label": "B"
+      },
+      "notation": "_b,d,db + B (x3)"
+     },
+     "follows": "Sungan no Sasoi"
     },
     {
      "name": "Chanpuru, kocchi-oide",
@@ -2762,22 +2901,73 @@
     {
      "name": "Taka tsukamari kougeki",
      "command": "_press S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_press S"
+     },
+     "follows": "Taka ni tsukamaru"
     },
     {
      "name": "Taka ni oriru",
      "command": "_press C or dir. + C",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "_press C or dir. + C"
+     },
+     "follows": "Taka ni tsukamaru"
     },
     {
      "name": "Kamui Mutsube",
      "command": "_press BC",
-     "category": "other"
+     "category": "throw",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "B",
+        "C"
+       ],
+       "count": 2,
+       "label": "B+C"
+      },
+      "notation": "_press BC"
+     },
+     "follows": "Taka ni tsukamaru"
     },
     {
      "name": "Yatoro Pok",
      "command": "_qcf + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_qcf + S"
+     },
+     "follows": "Taka ni tsukamaru"
     },
     {
      "name": "Rera Kishima Tek",
@@ -2994,27 +3184,91 @@
     {
      "name": "Ookami nori kougeki",
      "command": "_press S (air)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_press S (air)"
+     },
+     "follows": "Ookami ni noru"
     },
     {
      "name": "Ookami ni oriru",
      "command": "_press C or dir. + C (air)",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "_press C or dir. + C (air)"
+     },
+     "follows": "Ookami ni noru"
     },
     {
      "name": "Mer Shikite",
      "command": "_b,db,d + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "b_db_d",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_b,db,d + S"
+     },
+     "follows": "Ookami ni noru"
     },
     {
      "name": "Kanto Shikite",
      "command": "_f,d,df + S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "dp",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_f,d,df + S"
+     },
+     "follows": "Ookami ni noru"
     },
     {
      "name": "Imer Shikite",
      "command": "_qcf + S in air",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "qcf",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_qcf + S in air"
+     },
+     "follows": "Ookami ni noru"
     },
     {
      "name": "Bunshin Kougeki",
@@ -3214,7 +3468,8 @@
     {
      "name": "Nidan Jump",
      "command": "_press ub~uf",
-     "category": "other"
+     "category": "command",
+     "follows": "Konru Shirar"
     },
     {
      "name": "Rupush Kamui Waysan-Pekoru (Atama)",
@@ -3387,12 +3642,26 @@
     {
      "name": "Hitou-ryuu: Raiu",
      "command": "_press A / B",
-     "category": "other"
+     "category": "command",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_press A / B"
+     },
+     "follows": "Hitou-ryuu: Kosame"
     },
     {
      "name": "Zengo Idou / Chakuchi",
      "command": "_move b / f / d",
-     "category": "other"
+     "category": "command",
+     "follows": "Hitou-ryuu: Kosame"
     },
     {
      "name": "Ichidan: Kyouraku Zan",
@@ -3486,7 +3755,8 @@
     {
      "name": "Fuzuki Sousui",
      "command": "_hold button, press dir.",
-     "category": "other"
+     "category": "special",
+     "follows": "Fuzuki"
     },
     {
      "name": "Gekkou",
@@ -3593,7 +3863,22 @@
     {
      "name": "Kuuchuu Idou",
      "command": "_press in any dir.",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B",
+        "C",
+        "D"
+       ],
+       "count": 1,
+       "label": "A/B/C/D"
+      },
+      "notation": "_press in any dir."
+     },
+     "follows": "Engetsu"
     },
     {
      "name": "Getsurin Ha",
@@ -3904,12 +4189,37 @@
     {
      "name": "Ankoku Otoshi",
      "command": "_press S",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "A",
+        "B"
+       ],
+       "count": 1,
+       "label": "A/B"
+      },
+      "notation": "_press S"
+     },
+     "follows": "Nanji, anten nyuumetsu seyo"
     },
     {
      "name": "Chuushi",
      "command": "_press C",
-     "category": "other"
+     "category": "special",
+     "motion": {
+      "kind": "any",
+      "buttons": {
+       "allowed": [
+        "C"
+       ],
+       "count": 1,
+       "label": "C"
+      },
+      "notation": "_press C"
+     },
+     "follows": "Nanji, anten nyuumetsu seyo"
     },
     {
      "name": "Kyoumei Jussatsu Jin",
@@ -4276,7 +4586,8 @@
     {
      "name": "Mugen-ryuu Tenchuu",
      "command": "_if it reverses an attack",
-     "category": "other"
+     "category": "special",
+     "follows": "Mugen-ryuu Fudou"
     },
     {
      "name": "Mugen-ryuu Mugen Hou",

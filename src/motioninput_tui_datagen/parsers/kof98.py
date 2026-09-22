@@ -29,7 +29,7 @@ from typing import TYPE_CHECKING
 
 from motioninput_tui.games.models import Category, Move
 from motioninput_tui_datagen.common import ParseReport, build_move, finish_character
-from motioninput_tui_datagen.neogeo import to_neo_panel, to_shorthand, unmodelled
+from motioninput_tui_datagen.neogeo import split_parent, to_neo_panel, to_shorthand, unmodelled
 
 if TYPE_CHECKING:
     from motioninput_tui.games.models import Character
@@ -119,14 +119,15 @@ def _move(line: str, category: Category, so_far: list[Move], report: ParseReport
     name, _, command = line.rpartition(":")
     name, command = name.strip(), command.strip()
 
-    reason = _FOLLOWS_ON if _follows_on(name, so_far) else unmodelled(command)
+    parent, own = split_parent(command, so_far)
+    reason = _FOLLOWS_ON if _follows_on(name, so_far) else unmodelled(command if not parent else own)
     if reason:
         # Kept in the move list, struck through, rather than reduced to
         # whatever motion happens to be inside it.
         report.note(character, name, reason)
-        return Move(name=name, command=command, category=category)
+        return Move(name=name, command=command, category=category, follows=parent)
 
-    move = build_move(name, to_shorthand(command), report, character, category)
+    move = build_move(name, to_shorthand(own or command), report, character, category, follows=parent)
     if move.motion is None:
         return replace(move, command=command)
     return replace(move, command=command, motion=to_neo_panel(move.motion, command))

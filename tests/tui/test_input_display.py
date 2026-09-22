@@ -56,12 +56,15 @@ def test_games_are_menu_ordered_by_series_then_number() -> None:
         "kof98",
         "kof2001",
         "lastbld2",
+        "martmast",
+        "sailormoons",
         "samsho2",
         "samsh5sp",
         "hsf2",
         "sfa3",
         "sfiii3",
         "usfiv",
+        "tekken3",
     ]
 
 

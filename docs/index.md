@@ -13,8 +13,9 @@ See [Adding a game](adding-a-game.md) to add another title, or
 
 Hyper Street Fighter II, Street Fighter Alpha 3, 3rd Strike, Ultra Street
 Fighter IV, The King of Fighters '98 and 2001, Samurai Shodown II and V
-Special, and The Last Blade 2. The picker lists them with a note on what makes
-each one's input handling different.
+Special, The Last Blade 2, Bishoujo Senshi Sailor Moon S, Martial Masters and
+Tekken 3. The picker lists them with a note on what makes each one's input
+handling different.
 
 Each has its own `Ruleset` describing how forgiving it is — motion windows,
 whether diagonals can be skipped, charge times, whether the dragon punch
@@ -22,13 +23,46 @@ shortcut exists. 3rd Strike's figures come from a decompilation of the game
 rather than from feel; see [Third Strike, from the decompiled
 game](sfiii3-from-the-decomp.md).
 
-Not every listed move is trainable. The Street Fighter rosters run 79-89%; the
-SNK ones are lower — 52% for Samurai Shodown II — because those guides lean on
-command throws written "b or f + button", which say nothing about which way to
-hold, and on long follow-up chains. The rest still appear in the move list,
-struck through. The five SNK games are on the Neo Geo's four-button panel, and
-each means something different by it, which the game's own note explains when
-you highlight it.
+Not every listed move is trainable — the rosters run 76-95%. What is left is
+mostly moves with a condition the trainer has no model of: done while getting
+up, against a wall, against a back-turned opponent. Those still appear in the
+move list, struck through.
+
+A throw is written as a choice of sides, "b or f + B", and the trainer asks for
+one of them to be held. It models no range, though, so it cannot know whether
+you were close enough — hold a direction and press the button and it will call
+it a throw. The five SNK games are on the Neo Geo's four-button
+panel, and each means something different by it, which the game's own note
+explains when you highlight it.
+
+Tekken 3 is the odd one out: a 3D game whose move list is mostly *strings* of
+presses rather than motions, one button per limb. It comes with two caveats the
+trainer cannot avoid. A move needing a sidestep or a crouch is struck through,
+because those are states rather than inputs; and a move done from a stance is
+listed as the guide writes it, so it comes out here without the stance you would
+need in the game.
+
+### Chains
+
+A guide often lists a move underneath the one it comes out of — Master Huang's
+Heavy Axe after his Whirlwind Kick, Kyo's Aragami string — and those links are
+marked ↳ in the move list. A link is only live for a moment after its parent
+comes out, which is what lets two of a character's moves share one motion: with
+nothing open, `qcf + K` is Master Huang's Grasshopper; straight out of his
+Whirlwind Kick, the same input is the Heavy Axe.
+
+The real games gate a link on the parent *connecting*. The trainer has no
+opponent, so it takes the parent coming out as the hit landing, and opens the
+window from there.
+
+Every roster but Sailor Moon S, Samurai Shodown V Special and Hyper SF2 has
+chains now — 228 links. The guides write them several ways round: the SNK ones
+name the parent first (`Ittou Shingetsu, f, d, df + B`), the Street Fighter ones
+put it last (`Press P during Ducking`) or just indent and trail off (`...press
+P`). A link sits in the same section of the move list as the move it comes out
+of, so a string reads top to bottom. What is left struck through is the links
+whose parent is named only in prose, or as an abbreviation the roster does not
+carry.
 
 ## Run
 
