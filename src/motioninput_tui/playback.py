@@ -132,6 +132,10 @@ def _path(spec: MotionSpec) -> tuple[Direction, ...]:
         return () if spec.hold is None else (spec.hold,)
     if spec.kind in CHARGE_KINDS:
         return CHARGES[spec.kind][1]
+    if spec.kind is MotionKind.DOUBLE_TAP:  # tapped, let go, tapped again
+        return () if spec.hold is None else (spec.hold, _D.NEUTRAL, spec.hold)
+    if spec.kind is MotionKind.SEQUENCE:  # the lever is set press by press instead
+        return ()
     return _ROTATIONS.get(spec.kind) or motion_path(spec.kind)
 
 
@@ -151,6 +155,16 @@ def _script(move: Move, ruleset: Ruleset, layout: ControlLayout, keys: tuple[str
         script.at += step_ms if index else 0
         script.stick(direction)
     script.at += step_ms // 2 if path else 0
+    if spec.kind is MotionKind.SEQUENCE:
+        # Never quicker than a mash, or two presses of the string fold into one.
+        gap = max(step_ms, MASH_GAP_MS)
+        panel = _panel(layout)
+        for step in spec.sequence:
+            script.stick(step.direction or _D.NEUTRAL)
+            step_keys = [key for button, key in panel.items() if button in step.buttons.allowed]
+            script.press(tuple(step_keys[: step.buttons.count]), gap // 2)
+            script.at += gap
+        script.stick(spec.hold or _D.NEUTRAL)
     if spec.kind is MotionKind.MASH:
         gap = min(MASH_GAP_MS, ruleset.mash_window_ms // ruleset.mash_count)
         for _ in range(ruleset.mash_count):

@@ -44,6 +44,9 @@ def _played(game: Game, character: Character, move: Move, timing: Timing) -> Run
         ("sfa3", "sakura", "Sakura Otoshi"),  # a special's deliberate taps
         ("sfiii3", "sean", "Shouryuu Cannon"),  # a super's mash, after its cinematic
         ("hsf2", "guile", "Double Flash Kick"),  # a charge with three steps after it
+        ("tekken3", "bryan-fury", "Straight Fist"),  # a double tap, forward held for the press
+        ("tekken3", "bryan-fury", "One Two"),  # a string, one press after another
+        ("tekken3", "bryan-fury", "Quick Kicks"),  # a string on one button, let go between
     ],
 )
 def test_a_playback_brings_its_move_out(game_key: str, character_key: str, name: str) -> None:
