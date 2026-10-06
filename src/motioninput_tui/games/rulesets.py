@@ -84,7 +84,7 @@ SFA3 = GameSpec(
     notes=(
         "A little more forgiving than SF2, but still wants the full f,d,df for a dragon punch.",
         "Negative edge exists, so a released button can complete a special.",
-        "Diagonals still matter: d,f is a fireball, not a shortcut to anything else.",
+        "Diagonals still matter: d,f with no down-forward between them is not a fireball.",
     ),
     reference="references/sfa3.txt",
 )
