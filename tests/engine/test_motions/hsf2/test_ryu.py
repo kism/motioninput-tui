@@ -1,6 +1,10 @@
 """Super Turbo, Ryu. Same inputs as `sfiii3/test_ryu.py`, stricter game."""
 
-from tests.engine.test_motions.harness import DOWN_DOUBLE_TAP_FORWARD_HP, QUARTER_CIRCLE_FORWARD_HP
+from tests.engine.test_motions.harness import (
+    DOWN_DOUBLE_TAP_FORWARD_HP,
+    NEGATIVE_EDGE_QUARTER_CIRCLE_FORWARD_HP,
+    QUARTER_CIRCLE_FORWARD_HP,
+)
 
 
 def test_quarter_circle_forward_is_a_fireball(play) -> None:
@@ -10,3 +14,8 @@ def test_quarter_circle_forward_is_a_fireball(play) -> None:
 def test_hold_down_double_tap_forward_does_nothing(play) -> None:
     """Super Turbo wants the down-forward, so the 3rd Strike shortcut gives nothing."""
     assert play(DOWN_DOUBLE_TAP_FORWARD_HP).moves == []
+
+
+def test_releasing_the_button_does_nothing(play) -> None:
+    """No negative edge here: a button let go after the motion is only a release."""
+    assert play(NEGATIVE_EDGE_QUARTER_CIRCLE_FORWARD_HP).moves == []

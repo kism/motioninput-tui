@@ -259,25 +259,37 @@ _BACK_OR_DB = frozenset({_D.BACK, _D.DOWN_BACK})
 
 
 def _quarter_forward(ruleset: Ruleset) -> list[Step]:
-    return [Step(_DOWNISH_BACK), Step(_ONLY_DF, ruleset.lenient_diagonals), Step(_ONLY_F)]
+    return [Step(_DOWNISH_BACK), Step(_ONLY_DF, skippable=ruleset.lenient_diagonals), Step(_ONLY_F)]
 
 
 def _quarter_back(ruleset: Ruleset) -> list[Step]:
-    return [Step(_DOWNISH_FWD), Step(_ONLY_DB, ruleset.lenient_diagonals), Step(_ONLY_B)]
+    return [Step(_DOWNISH_FWD), Step(_ONLY_DB, skippable=ruleset.lenient_diagonals), Step(_ONLY_B)]
 
 
 def _half_forward(ruleset: Ruleset) -> list[Step]:
     if ruleset.half_circle_three_points:
         return [Step(_ONLY_B), Step(DOWN_DIRECTIONS, pace=Pace.WIDE), Step(_ONLY_F, pace=Pace.WIDE)]
     lenient = ruleset.lenient_diagonals
-    return [Step(_ONLY_B), Step(_ONLY_DB, lenient), Step(_ONLY_DOWN), Step(_ONLY_DF, lenient), Step(_ONLY_F)]
+    return [
+        Step(_ONLY_B),
+        Step(_ONLY_DB, skippable=lenient),
+        Step(_ONLY_DOWN),
+        Step(_ONLY_DF, skippable=lenient),
+        Step(_ONLY_F),
+    ]
 
 
 def _half_back(ruleset: Ruleset) -> list[Step]:
     if ruleset.half_circle_three_points:
         return [Step(_ONLY_F), Step(DOWN_DIRECTIONS, pace=Pace.WIDE), Step(_ONLY_B, pace=Pace.WIDE)]
     lenient = ruleset.lenient_diagonals
-    return [Step(_ONLY_F), Step(_ONLY_DF, lenient), Step(_ONLY_DOWN), Step(_ONLY_DB, lenient), Step(_ONLY_B)]
+    return [
+        Step(_ONLY_F),
+        Step(_ONLY_DF, skippable=lenient),
+        Step(_ONLY_DOWN),
+        Step(_ONLY_DB, skippable=lenient),
+        Step(_ONLY_B),
+    ]
 
 
 def _dragon_punch(ruleset: Ruleset) -> list[Step]:
@@ -376,11 +388,11 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     # is Sailor Mars' Snake Flare: f,df,d,db,b,db,d. The tail is the 412 that
     # `B_DB_D` is on its own, sharing the back the half circle ends on.
     MotionKind.HCB_DB_D: lambda rules: [
-        [*_half_back(rules), Step(_ONLY_DB, rules.lenient_diagonals), Step(_ONLY_DOWN)]
+        [*_half_back(rules), Step(_ONLY_DB, skippable=rules.lenient_diagonals), Step(_ONLY_DOWN)]
     ],
     # And its mirror, Sailor Venus' Wink Flare: b,db,d,df,f,df,d.
     MotionKind.HCF_DF_D: lambda rules: [
-        [*_half_forward(rules), Step(_ONLY_DF, rules.lenient_diagonals), Step(_ONLY_DOWN)]
+        [*_half_forward(rules), Step(_ONLY_DF, skippable=rules.lenient_diagonals), Step(_ONLY_DOWN)]
     ],
     # The two SNK rolls. Neither is shorthand for anything shorter: the db of
     # `d,db,b,db,f` is where the roll turns back on itself and the leading f of
@@ -391,8 +403,12 @@ _SEQUENCE_BUILDERS: dict[MotionKind, Callable[[Ruleset], list[list[Step]]]] = {
     MotionKind.F_HCF: lambda rules: [[Step(_ONLY_F), *_half_forward(rules)]],
     # A quarter circle run the other way, ending on down rather than leaving it:
     # Zangief's Banishing Flat is f,df,d.
-    MotionKind.F_DF_D: lambda rules: [[Step(_ONLY_F), Step(_ONLY_DF, rules.lenient_diagonals), Step(_ONLY_DOWN)]],
-    MotionKind.B_DB_D: lambda rules: [[Step(_ONLY_B), Step(_ONLY_DB, rules.lenient_diagonals), Step(_ONLY_DOWN)]],
+    MotionKind.F_DF_D: lambda rules: [
+        [Step(_ONLY_F), Step(_ONLY_DF, skippable=rules.lenient_diagonals), Step(_ONLY_DOWN)]
+    ],
+    MotionKind.B_DB_D: lambda rules: [
+        [Step(_ONLY_B), Step(_ONLY_DB, skippable=rules.lenient_diagonals), Step(_ONLY_DOWN)]
+    ],
 }
 
 
@@ -505,7 +521,7 @@ def _find_steps(states: list[DirectionState], steps: list[Step], limits: _Limits
         key = (si, pi, successor)
         if key in cache:
             return cache[key]
-        best: int | None = search(si, pi - 1, successor) if steps[pi][1] else None
+        best: int | None = search(si, pi - 1, successor) if steps[pi].skippable else None
         for j in candidates(si, pi, successor):
             deeper = search(j - 1, pi - 1, j)
             if deeper is not None:

@@ -391,6 +391,31 @@ class Recognizer:
             self._deferred = _Deferred(since_ms=since, pressed=pressed)
             return None
         self._deferred = None
+        return self._fire(buffer, hits, pressed, at_ms)
+
+    def release(self, buffer: InputBuffer, at_ms: int, button: Button) -> Activation | None:
+        """Return the special a button's release completes, if the game has negative edge.
+
+        Only a stick motion counts, as in the games: a throw, a command normal or
+        a mash is never let go into. A follow-through in progress keeps its
+        release too, so letting go of the button that started it neither counts
+        as one of its taps nor fires anything over it.
+        """
+        if not self.ruleset.negative_edge or self._pending_follow_up is not None:
+            return None
+        pressed = frozenset({button})
+        context = MatchContext(self.ruleset, at_ms, pressed, self.decay_ms, loose=self.policy is BufferPolicy.LOOSE)
+        hits = [
+            move
+            for move in self._candidates(at_ms)
+            if move.motion is not None and move.motion.kind not in NOT_MOTIONS and matches(move.motion, buffer, context)
+        ]
+        return self._fire(buffer, hits, pressed, at_ms)
+
+    def _fire(
+        self, buffer: InputBuffer, hits: list[RecognisableMove], pressed: frozenset[Button], at_ms: int
+    ) -> Activation | None:
+        """Activate the strongest of ``hits``, spending the inputs behind it."""
         if not hits:
             return None
 

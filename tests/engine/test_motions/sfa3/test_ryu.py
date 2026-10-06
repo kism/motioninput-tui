@@ -5,7 +5,9 @@ from tests.engine.test_motions.harness import (
     DOWN,
     DOWN_DOUBLE_TAP_FORWARD_HP,
     FORWARD_INTO_HALF_CIRCLE_FORWARD_HP,
+    HP,
     LK,
+    NEGATIVE_EDGE_QUARTER_CIRCLE_FORWARD_HP,
     QUARTER_CIRCLE_FORWARD_HP,
     press,
     release,
@@ -14,6 +16,16 @@ from tests.engine.test_motions.harness import (
 
 def test_quarter_circle_forward_is_a_fireball(play) -> None:
     assert play(QUARTER_CIRCLE_FORWARD_HP).moves == ["Hadou Ken"]
+
+
+def test_releasing_the_button_completes_a_fireball(play) -> None:
+    """Alpha 3 has negative edge: the button held through the motion counts when let go."""
+    assert play(NEGATIVE_EDGE_QUARTER_CIRCLE_FORWARD_HP).moves == ["Hadou Ken"]
+
+
+def test_pressing_and_releasing_fires_once(play) -> None:
+    """The press spends the motion, so the release has nothing left to complete."""
+    assert play([*QUARTER_CIRCLE_FORWARD_HP, release(HP, 190)]).moves == ["Hadou Ken"]
 
 
 def test_hold_down_double_tap_forward_does_nothing(play) -> None:
