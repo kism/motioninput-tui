@@ -69,7 +69,8 @@ class Ruleset:
             require a genuine f,d,df.
         dp_skip_down: Whether f,df alone can register a dragon punch.
         negative_edge: Whether releasing a button can trigger a special move.
-            Recorded for display; the terminal cannot see key releases reliably.
+            Only where releases are reported (a pad, or a terminal speaking the
+            kitty protocol): an inferred hold has no moment of release to judge.
         mash_count: Presses needed within ``mash_window_ms`` to start a mash
             move.
         mash_window_ms: How long those presses may be spread over. This is the
