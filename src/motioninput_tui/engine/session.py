@@ -246,6 +246,12 @@ class TrainingSession:
         button = self.layout.attacks.get(key)
         let_go = button is not None and self.held.pop(button, None) is not None
         update = self.source.release(key, now)
+        if let_go and button is not None:
+            # Negative edge: only a real release gets here, since a hold that
+            # lapsed because the terminal cannot report one has left ``held``.
+            self.recognizer.decay_ms = self.source.decay_ms
+            self._follow_motions(now)
+            self._apply_activation(self.recognizer.release(self.buffer, now, button))
         if update is None or not update.direction_changed:
             return let_go
         self.buffer.set_direction(update.direction, now)

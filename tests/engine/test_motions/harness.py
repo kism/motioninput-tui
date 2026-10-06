@@ -179,6 +179,16 @@ QUARTER_CIRCLE_FORWARD_HP: Script = [
     press(HP, 150),
 ]
 
+# Negative edge: the button goes down before the motion and is let go after it,
+# so only the release can complete the fireball.
+NEGATIVE_EDGE_QUARTER_CIRCLE_FORWARD_HP: Script = [
+    press(HP, 0),
+    press(DOWN, 40),
+    press(FORWARD, 110),
+    release(DOWN, 150),
+    release(HP, 190),
+]
+
 # Back, then add down, then swap back for forward in one go, so down-forward
 # follows down-back and a plain down never appears. (Adding forward with back
 # still held would give down: a keyboard's SOCD is neutral.) 3rd Strike reads a
