@@ -60,7 +60,7 @@ class ReleaseAwareParser(XTermParser):
     # Textual caches this method with lru_cache. The override is deliberately
     # uncached so that every release builds a fresh event rather than handing
     # the same Message object out twice.
-    def _parse_extended_key(self, sequence: str) -> list[events.Key] | None:  # ty: ignore[invalid-method-override]
+    def _parse_extended_key(self, sequence: str) -> list[events.Key] | None:  # ty: ignore[invalid-attribute-override]
         split = split_event_type(sequence)
         if split is None:
             return super()._parse_extended_key(sequence)
