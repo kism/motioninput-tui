@@ -3,19 +3,8 @@ name: Windows exe
 
 on:
   push:
-    branches:
-      - main
-      - test
     tags:
       - "v*"
-    # GitHub skips path filters on tag pushes, so a release always builds.
-    paths:
-      - "src/**"
-      - "pyproject.toml"
-      - "uv.lock"
-      - ".python-version"
-      - "scripts/nuitka_entry.py"
-      - ".github/workflows/windows.yml"
   workflow_dispatch:
 
 jobs:
@@ -60,7 +49,7 @@ jobs:
         with:
           name: motioninput-tui-windows
           path: build/motioninput-tui.exe
-          # Only for trying a branch build; a tag's exe lives on the release.
+          # Only for a manual run; a tag's exe lives on the release.
           retention-days: 3
 
       - name: Release
