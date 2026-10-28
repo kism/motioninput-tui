@@ -20,12 +20,6 @@ jobs:
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v7
-        with:
-          version: "latest"
-
-      # Faster than using uv to install python
-      - name: Set up Python
-        uses: actions/setup-python@v7
 
       - name: Build
         run: uv build
